@@ -1,0 +1,85 @@
+{
+    "name": "cortex/fort",
+    "type": "cortex-module",
+    "description": "Cortex Fort is a frontend layer for the powerful authentication, authorization and verification package rinvex/fort on top of Laravel. It has all required controllers, views, routes, and other required assets to run a fully functional user management system with complete dashboard out of the box.",
+    "keywords": [
+        "authentication",
+        "authorization",
+        "verification",
+        "activation",
+        "abilities",
+        "cortex",
+        "phone",
+        "sms",
+        "call",
+        "users",
+        "module",
+        "security",
+        "twofactor",
+        "laravel",
+        "rinvex",
+        "rbac",
+        "totp",
+        "acl",
+        "roles"
+    ],
+    "license": "MIT",
+    "homepage": "https://rinvex.com",
+    "support": {
+        "email": "help@rinvex.com",
+        "issues": "https://github.com/rinvex/cortex-fort/issues",
+        "source": "https://github.com/rinvex/cortex-fort",
+        "docs": "https://github.com/rinvex/cortex-fort/README.md"
+    },
+    "authors": [
+        {
+            "name": "Rinvex LLC",
+            "homepage": "https://rinvex.com",
+            "email": "help@rinvex.com"
+        },
+        {
+            "name": "Abdelrahman Omran",
+            "homepage": "https://omranic.com",
+            "email": "me@omranic.com",
+            "role": "Project Lead"
+        },
+        {
+            "name": "The Generous Laravel Community",
+            "homepage": "https://github.com/rinvex/cortex-fort/contributors"
+        }
+    ],
+    "require": {
+        "php": "^7.0.0",
+        "rinvex/fort": "dev-develop",
+        "laravel/framework": "~5.4.0",
+        "rinvex/module": "dev-develop",
+        "rinvex/composer": "dev-develop",
+        "rinvex/cacheable": "dev-develop"
+    },
+    "autoload": {
+        "psr-4": {
+            "Cortex\\Fort\\": "src/"
+        }
+    },
+    "config": {
+        "preferred-install": "dist"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        },
+        "cortex-module": {
+            "autoinstall": false,
+            "icon": {
+                "color": "#2196f3",
+                "name": "heartbeat",
+                "background-size": "cover",
+                "background-color": "#e3f2fd",
+                "background-position": "center",
+                "background-repeat": "no-repeat"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
