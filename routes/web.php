@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 /*
  * NOTICE OF LICENSE
  *
@@ -169,7 +170,6 @@ Route::namespace('Frontend')->name('frontend.')->middleware('web')->group(functi
         });
     });
 });
-
 
 Route::namespace('Backend')->name('backend.')->prefix('backend')->middleware(['web', 'can:access-dashboard'])->group(function () {
     Route::get('/')->name('dashboard.home')->uses('DashboardController@home');

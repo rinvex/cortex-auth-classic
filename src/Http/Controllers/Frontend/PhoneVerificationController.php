@@ -173,8 +173,6 @@ class PhoneVerificationController extends AbstractController
         if (! $user && $attemptUser && ! $attemptUser->country && ! isset(session('rinvex.fort.twofactor.methods')['totp'])) {
             return 'home';
         }
-
-        return null;
     }
 
     /**

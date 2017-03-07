@@ -18,9 +18,9 @@ declare(strict_types=1);
 namespace Cortex\Fort\Http\Controllers\Frontend;
 
 use Exception;
+use Illuminate\Http\Request;
 use Rinvex\Fort\Models\Role;
 use Rinvex\Fort\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 

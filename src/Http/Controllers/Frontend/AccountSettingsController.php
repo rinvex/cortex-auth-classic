@@ -52,7 +52,7 @@ class AccountSettingsController extends AuthenticatedController
         $currentUser = $request->user($this->getGuard());
         $twoFactor = $currentUser->getTwoFactor();
 
-        if ($input['password'] && $input['password'] != $input['password_confirmation']) {
+        if ($input['password'] && $input['password'] !== $input['password_confirmation']) {
             return intend([
                 'back' => true,
                 'withInput' => $request->all(),
@@ -60,7 +60,7 @@ class AccountSettingsController extends AuthenticatedController
             ]);
         }
 
-        if ($input['password'] && strlen($input['password']) < config('rinvex.fort.password_min_chars')) {
+        if ($input['password'] && mb_strlen($input['password']) < config('rinvex.fort.password_min_chars')) {
             return intend([
                 'back' => true,
                 'withInput' => $request->all(),
@@ -72,12 +72,12 @@ class AccountSettingsController extends AuthenticatedController
             unset($input['password'], $input['password_confirmation']);
         }
 
-        $emailVerification = array_get($input, 'email') != $currentUser->email ? [
+        $emailVerification = array_get($input, 'email') !== $currentUser->email ? [
             'email_verified' => false,
             'email_verified_at' => null,
         ] : [];
 
-        $phoneVerification = array_get($input, 'phone') != $currentUser->phone ? [
+        $phoneVerification = array_get($input, 'phone') !== $currentUser->phone ? [
             'phone_verified' => false,
             'phone_verified_at' => null,
         ] : [];
