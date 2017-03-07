@@ -20,8 +20,8 @@ namespace Cortex\Fort\Http\Controllers\Frontend;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Rinvex\Fort\Models\User;
-use Rinvex\Fort\Contracts\EmailVerificationBrokerContract;
 use Cortex\Foundation\Http\Controllers\AbstractController;
+use Rinvex\Fort\Contracts\EmailVerificationBrokerContract;
 use Cortex\Fort\Http\Requests\Frontend\EmailVerificationRequest;
 
 class EmailVerificationController extends AbstractController
