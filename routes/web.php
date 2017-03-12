@@ -24,7 +24,7 @@ declare(strict_types=1);
 |
 */
 
-Route::namespace('Frontend')->name('frontend.')->middleware('web')->group(function () {
+Route::namespace('Frontend')->name('frontend.')->middleware(['web', 'nohttpcache'])->group(function () {
 
     /*
     |--------------------------------------------------------------------------
@@ -171,7 +171,7 @@ Route::namespace('Frontend')->name('frontend.')->middleware('web')->group(functi
     });
 });
 
-Route::namespace('Backend')->name('backend.')->prefix('backend')->middleware(['web', 'can:access-dashboard'])->group(function () {
+Route::namespace('Backend')->name('backend.')->prefix('backend')->middleware(['web', 'nohttpcache', 'can:access-dashboard'])->group(function () {
     Route::get('/')->name('dashboard.home')->uses('DashboardController@home');
 
     /*
