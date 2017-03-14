@@ -24,12 +24,15 @@ declare(strict_types=1);
 |
 */
 
-// Temporary homepage route, remove whenever needed
-Route::get('/', function () {
-    return view('cortex/fort::frontend.common.welcome');
-})->name('home');
-
 Route::namespace('Frontend')->name('frontend.')->middleware(['web', 'nohttpcache'])->group(function () {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Homepage Routes
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get('/')->name('home')->uses('HomeController@index');
 
     /*
     |--------------------------------------------------------------------------
