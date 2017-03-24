@@ -32,8 +32,16 @@ class FortServiceProvider extends ServiceProvider
         // Load routes
         $this->loadRoutes($router);
 
+        if ($this->app->runningInConsole()) {
+            // Publish Resources
+            $this->publishResources();
+        }
+
         // Register a view file namespace
         $this->loadViewsFrom(__DIR__.'/../../resources/views', 'cortex/fort');
+
+        // Load language phrases
+        $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'cortex/fort');
     }
 
     /**
@@ -75,5 +83,23 @@ class FortServiceProvider extends ServiceProvider
                 $router->getRoutes()->refreshNameLookups();
             });
         }
+    }
+
+    /**
+     * Publish resources.
+     *
+     * @return void
+     */
+    protected function publishResources()
+    {
+        // Publish views
+        $this->publishes([
+            realpath(__DIR__.'/../../resources/views') => resource_path('views/vendor/cortex/fort'),
+        ], 'views');
+
+        // Publish language phrases
+        $this->publishes([
+            realpath(__DIR__.'/../../resources/lang') => resource_path('lang/vendor/cortex/fort'),
+        ], 'lang');
     }
 }

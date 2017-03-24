@@ -102,7 +102,7 @@ class UsersController extends AuthorizedController
 
         return intend([
             'route' => 'backend.users.index',
-            'with' => ['warning' => trans('messages.user.deleted', ['userId' => $user->id])],
+            'with' => ['warning' => trans('cortex/fort::messages.user.deleted', ['userId' => $user->id])],
         ]);
     }
 
@@ -165,7 +165,7 @@ class UsersController extends AuthorizedController
 
         return intend([
             'route' => 'backend.users.index',
-            'with' => ['success' => trans('messages.user.saved', ['userId' => $user->id])],
+            'with' => ['success' => trans('cortex/fort::messages.user.saved', ['userId' => $user->id])],
         ]);
     }
 }

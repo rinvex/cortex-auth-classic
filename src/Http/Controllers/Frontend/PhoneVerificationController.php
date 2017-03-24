@@ -68,7 +68,7 @@ class PhoneVerificationController extends AbstractController
 
         return intend([
             'route' => 'frontend.verification.phone.verify',
-            'with' => ['success' => trans('messages.verification.phone.sent')],
+            'with' => ['success' => trans('cortex/fort::messages.verification.phone.sent')],
         ]);
     }
 
@@ -192,7 +192,7 @@ class PhoneVerificationController extends AbstractController
             case 'country':
                 return intend([
                     'route' => 'frontend.account.settings',
-                    'withErrors' => ['country' => trans('messages.account.country_required')],
+                    'withErrors' => ['country' => trans('cortex/fort::messages.account.country_required')],
                 ]);
                 break;
 
@@ -200,7 +200,7 @@ class PhoneVerificationController extends AbstractController
             case 'disabled':
                 return intend([
                     'route' => 'frontend.account.settings',
-                    'withErrors' => ['rinvex.fort.auth.twofactor.phone.disabled' => trans('messages.verification.twofactor.phone.disabled')],
+                    'withErrors' => ['rinvex.fort.auth.twofactor.phone.disabled' => trans('cortex/fort::messages.verification.twofactor.phone.disabled')],
                 ]);
                 break;
 
@@ -208,7 +208,7 @@ class PhoneVerificationController extends AbstractController
             case 'phone':
                 return intend([
                     'route' => 'frontend.account.settings',
-                    'withErrors' => ['phone' => trans('messages.account.phone_required')],
+                    'withErrors' => ['phone' => trans('cortex/fort::messages.account.phone_required')],
                 ]);
                 break;
 
@@ -216,7 +216,7 @@ class PhoneVerificationController extends AbstractController
             case 'session':
                 return intend([
                     'route' => 'frontend.auth.login',
-                    'withErrors' => ['rinvex.fort.auth.required' => trans('messages.auth.session.required')],
+                    'withErrors' => ['rinvex.fort.auth.required' => trans('cortex/fort::messages.auth.session.required')],
                 ]);
                 break;
 
@@ -225,7 +225,7 @@ class PhoneVerificationController extends AbstractController
             default:
                 return intend([
                     'url' => '/',
-                    'withErrors' => ['rinvex.fort.auth.country' => trans('messages.verification.twofactor.phone.country_required')],
+                    'withErrors' => ['rinvex.fort.auth.country' => trans('cortex/fort::messages.verification.twofactor.phone.country_required')],
                 ]);
                 break;
         }

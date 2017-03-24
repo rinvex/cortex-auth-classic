@@ -44,7 +44,7 @@ class TwoFactorSettingsController extends AuthenticatedController
         $settings = $currentUser->getTwoFactor();
 
         if (array_get($settings, 'totp.enabled') && ! session()->get('success') && ! session()->get('errors')) {
-            $messageBag = new MessageBag([trans('messages.verification.twofactor.totp.already')]);
+            $messageBag = new MessageBag([trans('cortex/fort::messages.verification.twofactor.totp.already')]);
             $errors = (new ViewErrorBag())->put('default', $messageBag);
         }
 
@@ -95,13 +95,13 @@ class TwoFactorSettingsController extends AuthenticatedController
 
             return intend([
                 'back' => true,
-                'with' => ['success' => trans('messages.verification.twofactor.totp.enabled')],
+                'with' => ['success' => trans('cortex/fort::messages.verification.twofactor.totp.enabled')],
             ]);
         }
 
         return intend([
             'back' => true,
-            'withErrors' => ['token' => trans('messages.verification.twofactor.totp.invalid_token')],
+            'withErrors' => ['token' => trans('cortex/fort::messages.verification.twofactor.totp.invalid_token')],
         ]);
     }
 
@@ -129,7 +129,7 @@ class TwoFactorSettingsController extends AuthenticatedController
 
         return intend([
             'route' => 'frontend.account.settings',
-            'with' => ['success' => trans('messages.verification.twofactor.totp.disabled')],
+            'with' => ['success' => trans('cortex/fort::messages.verification.twofactor.totp.disabled')],
         ]);
     }
 
@@ -151,7 +151,7 @@ class TwoFactorSettingsController extends AuthenticatedController
         if (! $currentUser->phone || ! $currentUser->phone_verified) {
             return intend([
                 'route' => 'frontend.account.settings',
-                'withErrors' => ['phone' => trans('messages.account.phone_verification_required')],
+                'withErrors' => ['phone' => trans('cortex/fort::messages.account.phone_verification_required')],
             ]);
         }
 
@@ -165,7 +165,7 @@ class TwoFactorSettingsController extends AuthenticatedController
 
         return intend([
             'route' => 'frontend.account.settings',
-            'with' => ['success' => trans('messages.verification.twofactor.phone.enabled')],
+            'with' => ['success' => trans('cortex/fort::messages.verification.twofactor.phone.enabled')],
         ]);
     }
 
@@ -193,7 +193,7 @@ class TwoFactorSettingsController extends AuthenticatedController
 
         return intend([
             'route' => 'frontend.account.settings',
-            'with' => ['success' => trans('messages.verification.twofactor.phone.disabled')],
+            'with' => ['success' => trans('cortex/fort::messages.verification.twofactor.phone.disabled')],
         ]);
     }
 
@@ -216,7 +216,7 @@ class TwoFactorSettingsController extends AuthenticatedController
         if (! array_get($settings, 'totp.enabled')) {
             return intend([
                 'route' => 'frontend.account.settings',
-                'withErrors' => ['rinvex.fort.verification.twofactor.totp.cant_backup' => trans('messages.verification.twofactor.totp.cant_backup')],
+                'withErrors' => ['rinvex.fort.verification.twofactor.totp.cant_backup' => trans('cortex/fort::messages.verification.twofactor.totp.cant_backup')],
             ]);
         }
 
@@ -229,7 +229,7 @@ class TwoFactorSettingsController extends AuthenticatedController
 
         return intend([
             'back' => true,
-            'with' => ['success' => trans('messages.verification.twofactor.totp.rebackup')],
+            'with' => ['success' => trans('cortex/fort::messages.verification.twofactor.totp.rebackup')],
         ]);
     }
 

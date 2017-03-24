@@ -105,7 +105,7 @@ class AbilitiesController extends AuthorizedController
 
         return intend([
             'route' => 'backend.abilities.index',
-            'with' => ['warning' => trans('messages.ability.deleted', ['abilityId' => $ability->id])],
+            'with' => ['warning' => trans('cortex/fort::messages.ability.deleted', ['abilityId' => $ability->id])],
         ]);
     }
 
@@ -141,7 +141,7 @@ class AbilitiesController extends AuthorizedController
             return intend([
                 'back' => true,
                 'withInput' => $request->all(),
-                'withErrors' => ['policy' => trans('messages.ability.invalid_policy')],
+                'withErrors' => ['policy' => trans('cortex/fort::messages.ability.invalid_policy')],
             ]);
         }
 
@@ -150,7 +150,7 @@ class AbilitiesController extends AuthorizedController
 
         return intend([
             'route' => 'backend.abilities.index',
-            'with' => ['success' => trans('messages.ability.saved', ['abilityId' => $ability->id])],
+            'with' => ['success' => trans('cortex/fort::messages.ability.saved', ['abilityId' => $ability->id])],
         ]);
     }
 }

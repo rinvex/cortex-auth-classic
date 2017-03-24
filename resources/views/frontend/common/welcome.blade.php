@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('common.password_reset') }}
+    {{ config('app.name') }} » {{ trans('cortex/fort::common.password_reset') }}
 @stop
 
 {{-- Main Content --}}
@@ -13,10 +13,10 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <section class="panel panel-default">
-                    <header class="panel-heading">{{ trans('common.welcome') }}</header>
+                    <header class="panel-heading">{{ trans('cortex/fort::common.welcome') }}</header>
 
                     <div class="panel-body">
-                        {!! trans('common.welcome_body') !!}
+                        {!! trans('cortex/fort::common.welcome_body') !!}
                     </div>
                 </section>
             </div>

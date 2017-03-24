@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('common.verify_phone') }}
+    {{ config('app.name') }} » {{ trans('cortex/fort::common.verify_phone') }}
 @stop
 
 {{-- Main Content --}}
@@ -16,7 +16,7 @@
                 <section class="panel panel-default">
 
                     <header class="panel-heading">
-                        {{ trans('common.verify_phone') }}
+                        {{ trans('cortex/fort::common.verify_phone') }}
                     </header>
 
                     <div class="panel-body">
@@ -27,10 +27,10 @@
                             @include('cortex/fort::frontend.alerts.error')
 
                             <div class="form-group{{ $errors->has('token') ? ' has-error' : '' }}">
-                                {{ Form::label('token', trans('common.authentication_code'), ['class' => 'col-md-4 control-label']) }}
+                                {{ Form::label('token', trans('cortex/fort::common.authentication_code'), ['class' => 'col-md-4 control-label']) }}
 
                                 <div class="col-md-6">
-                                    {{ Form::text('token', null, ['class' => 'form-control', 'placeholder' => trans('common.authentication_code'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
+                                    {{ Form::text('token', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.authentication_code'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
 
                                     @if ($errors->has('token'))
                                         <span class="help-block">
@@ -38,20 +38,20 @@
                                         </span>
                                     @endif
 
-                                    {{ trans('twofactor.backup_notice') }}<br />
+                                    {{ trans('cortex/fort::twofactor.backup_notice') }}<br />
 
                                     @if ($methods['phone'])
-                                        <strong>{!! trans('twofactor.backup_sms', ['href' => route('frontend.verification.phone.request')]) !!}</strong>
+                                        <strong>{!! trans('cortex/fort::twofactor.backup_sms', ['href' => route('frontend.verification.phone.request')]) !!}</strong>
                                     @else
-                                        <strong>{{ trans('twofactor.backup_code') }}</strong>
+                                        <strong>{{ trans('cortex/fort::twofactor.backup_code') }}</strong>
                                     @endif
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-12 col-sm-12 col-xs-12 text-center">
-                                    {{ Form::button(trans('common.reset'), ['class' => 'btn btn-default', 'type' => 'reset']) }}
-                                    {{ Form::button('<i class="fa fa-check"></i> '.trans('common.verify_phone'), ['class' => 'btn btn-primary', 'type' => 'submit']) }}
+                                    {{ Form::button(trans('cortex/fort::common.reset'), ['class' => 'btn btn-default', 'type' => 'reset']) }}
+                                    {{ Form::button('<i class="fa fa-check"></i> '.trans('cortex/fort::common.verify_phone'), ['class' => 'btn btn-primary', 'type' => 'submit']) }}
                                 </div>
                             </div>
 

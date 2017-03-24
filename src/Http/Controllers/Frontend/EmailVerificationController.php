@@ -134,7 +134,7 @@ class EmailVerificationController extends AbstractController
     {
         return intend([
             'route' => 'frontend.account.settings',
-            'with' => ['warning' => trans('messages.verification.email.already')],
+            'with' => ['warning' => trans('cortex/fort::messages.verification.email.already')],
         ]);
     }
 }

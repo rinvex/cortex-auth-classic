@@ -2,7 +2,7 @@
 
     <div class="alert alert-danger">
         @if ($errors->count() > 1)
-            {!! trans('messages.error') !!}<br><br>
+            {!! trans('cortex/fort::messages.error') !!}<br><br>
             <ul>
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>

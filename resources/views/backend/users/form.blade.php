@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('common.users') }} » {{ trans('common.'.$mode) }} @if($user->exists) {{ $user->username }} @endif
+    {{ config('app.name') }} » {{ trans('cortex/fort::common.users') }} » {{ trans('cortex/fort::common.'.$mode) }} @if($user->exists) {{ $user->username }} @endif
 @stop
 
 {{-- Main Content --}}
@@ -35,7 +35,7 @@
                 {{-- Heading --}}
                 <header class="panel-heading">
                     <h4>
-                        <a href="{{ route('backend.users.index') }}">{{ trans('common.users') }}</a> » {{ trans('common.'.$mode) }} @if($user->exists) <strong>{{ $user->username }}</strong> @endif
+                        <a href="{{ route('backend.users.index') }}">{{ trans('cortex/fort::common.users') }}</a> » {{ trans('cortex/fort::common.'.$mode) }} @if($user->exists) <strong>{{ $user->username }}</strong> @endif
                         @if($user->exists)
                             <span class="pull-right" style="margin-top: -7px">
                                 @can('delete-users', $user) <a href="#" class="btn btn-default" data-toggle="modal" data-target="#delete-confirmation" data-item-href="{{ route('backend.users.delete', ['user' => $user]) }}" data-item-name="{{ $user->username }}"><i class="fa fa-trash-o text-danger"></i></a> @endcan
@@ -53,8 +53,8 @@
 
                             {{-- First Name --}}
                             <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
-                                {{ Form::label('first_name', trans('common.first_name'), ['class' => 'control-label']) }}
-                                {{ Form::text('first_name', null, ['class' => 'form-control', 'placeholder' => trans('common.first_name'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
+                                {{ Form::label('first_name', trans('cortex/fort::common.first_name'), ['class' => 'control-label']) }}
+                                {{ Form::text('first_name', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.first_name'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
 
                                 @if ($errors->has('first_name'))
                                     <span class="help-block">
@@ -68,8 +68,8 @@
 
                             {{-- Middle Name --}}
                             <div class="form-group{{ $errors->has('middle_name') ? ' has-error' : '' }}">
-                                {{ Form::label('middle_name', trans('common.middle_name'), ['class' => 'control-label']) }}
-                                {{ Form::text('middle_name', null, ['class' => 'form-control', 'placeholder' => trans('common.middle_name')]) }}
+                                {{ Form::label('middle_name', trans('cortex/fort::common.middle_name'), ['class' => 'control-label']) }}
+                                {{ Form::text('middle_name', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.middle_name')]) }}
 
                                 @if ($errors->has('middle_name'))
                                     <span class="help-block">
@@ -83,8 +83,8 @@
 
                             {{-- Last Name --}}
                             <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
-                                {{ Form::label('last_name', trans('common.last_name'), ['class' => 'control-label']) }}
-                                {{ Form::text('last_name', null, ['class' => 'form-control', 'placeholder' => trans('common.last_name')]) }}
+                                {{ Form::label('last_name', trans('cortex/fort::common.last_name'), ['class' => 'control-label']) }}
+                                {{ Form::text('last_name', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.last_name')]) }}
 
                                 @if ($errors->has('last_name'))
                                     <span class="help-block">
@@ -98,8 +98,8 @@
 
                             {{-- Username --}}
                             <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
-                                {{ Form::label('username', trans('common.username'), ['class' => 'control-label']) }}
-                                {{ Form::text('username', null, ['class' => 'form-control', 'placeholder' => trans('common.username'), 'required' => 'required']) }}
+                                {{ Form::label('username', trans('cortex/fort::common.username'), ['class' => 'control-label']) }}
+                                {{ Form::text('username', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.username'), 'required' => 'required']) }}
 
                                 @if ($errors->has('username'))
                                     <span class="help-block">
@@ -113,8 +113,8 @@
 
                             {{-- Job Title --}}
                             <div class="form-group{{ $errors->has('job_title') ? ' has-error' : '' }}">
-                                {{ Form::label('job_title', trans('common.job_title'), ['class' => 'control-label']) }}
-                                {{ Form::text('job_title', null, ['class' => 'form-control', 'placeholder' => trans('common.job_title')]) }}
+                                {{ Form::label('job_title', trans('cortex/fort::common.job_title'), ['class' => 'control-label']) }}
+                                {{ Form::text('job_title', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.job_title')]) }}
 
                                 @if ($errors->has('job_title'))
                                     <span class="help-block">
@@ -128,8 +128,8 @@
 
                             {{-- Prefix --}}
                             <div class="form-group{{ $errors->has('prefix') ? ' has-error' : '' }}">
-                                {{ Form::label('prefix', trans('common.prefix'), ['class' => 'control-label']) }}
-                                {{ Form::text('prefix', null, ['class' => 'form-control', 'placeholder' => trans('common.prefix')]) }}
+                                {{ Form::label('prefix', trans('cortex/fort::common.prefix'), ['class' => 'control-label']) }}
+                                {{ Form::text('prefix', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.prefix')]) }}
 
                                 @if ($errors->has('prefix'))
                                     <span class="help-block">
@@ -143,8 +143,8 @@
 
                             {{-- email --}}
                             <div class="form-group{{ $errors->has('suffix') ? ' has-error' : '' }}">
-                                {{ Form::label('suffix', trans('common.suffix'), ['class' => 'control-label']) }}
-                                {{ Form::text('suffix', null, ['class' => 'form-control', 'placeholder' => trans('common.suffix')]) }}
+                                {{ Form::label('suffix', trans('cortex/fort::common.suffix'), ['class' => 'control-label']) }}
+                                {{ Form::text('suffix', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.suffix')]) }}
 
                                 @if ($errors->has('suffix'))
                                     <span class="help-block">
@@ -158,11 +158,11 @@
 
                             {{-- Email --}}
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                {{ Form::label('email', trans('common.email'), ['class' => 'control-label']) }}
-                                {{ Form::label('email_verified', trans('common.verified'), ['class' => 'control-label pull-right']) }}
+                                {{ Form::label('email', trans('cortex/fort::common.email'), ['class' => 'control-label']) }}
+                                {{ Form::label('email_verified', trans('cortex/fort::common.verified'), ['class' => 'control-label pull-right']) }}
 
                                 <div class="input-group">
-                                    {{ Form::email('email', null, ['class' => 'form-control', 'placeholder' => trans('common.email'), 'required' => 'required']) }}
+                                    {{ Form::email('email', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.email'), 'required' => 'required']) }}
                                     <span class="input-group-addon">
                                         {{ Form::checkbox('email_verified') }}
                                     </span>
@@ -180,8 +180,8 @@
 
                             {{-- Country --}}
                             <div class="form-group{{ $errors->has('country') ? ' has-error' : '' }}">
-                                {{ Form::label('country', trans('common.country'), ['class' => 'control-label']) }}
-                                {{ Form::select('country', $countries, null, ['class' => 'form-control', 'placeholder' => trans('common.select')]) }}
+                                {{ Form::label('country', trans('cortex/fort::common.country'), ['class' => 'control-label']) }}
+                                {{ Form::select('country', $countries, null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.select')]) }}
 
                                 @if ($errors->has('country'))
                                     <span class="help-block">
@@ -195,11 +195,11 @@
 
                             {{-- Phone --}}
                             <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-                                {{ Form::label('phone', trans('common.phone'), ['class' => 'control-label']) }}
-                                {{ Form::label('phone_verified', trans('common.verified'), ['class' => 'control-label pull-right']) }}
+                                {{ Form::label('phone', trans('cortex/fort::common.phone'), ['class' => 'control-label']) }}
+                                {{ Form::label('phone_verified', trans('cortex/fort::common.verified'), ['class' => 'control-label pull-right']) }}
 
                                 <div class="input-group">
-                                    {{ Form::number('phone', null, ['class' => 'form-control', 'placeholder' => trans('common.phone')]) }}
+                                    {{ Form::number('phone', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.phone')]) }}
                                     <span class="input-group-addon">
                                         {{ Form::checkbox('phone_verified') }}
                                     </span>
@@ -217,8 +217,8 @@
 
                             {{-- Gender --}}
                             <div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
-                                {{ Form::label('gender', trans('common.gender'), ['class' => 'control-label']) }}
-                                {{ Form::select('gender', ['male' => trans('common.male'), 'female' => trans('common.female'), 'undisclosed' => trans('common.undisclosed')], $action !== 'update' ? 'undisclosed' : null, ['class' => 'form-control']) }}
+                                {{ Form::label('gender', trans('cortex/fort::common.gender'), ['class' => 'control-label']) }}
+                                {{ Form::select('gender', ['male' => trans('cortex/fort::common.male'), 'female' => trans('cortex/fort::common.female'), 'undisclosed' => trans('cortex/fort::common.undisclosed')], $action !== 'update' ? 'undisclosed' : null, ['class' => 'form-control']) }}
 
                                 @if ($errors->has('gender'))
                                     <span class="help-block">
@@ -232,8 +232,8 @@
 
                             {{-- Active --}}
                             <div class="form-group{{ $errors->has('active') ? ' has-error' : '' }}">
-                                {{ Form::label('active', trans('common.active'), ['class' => 'control-label']) }}
-                                {{ Form::select('active', [1 => trans('common.yes'), 0 => trans('common.no')], null, ['class' => 'form-control']) }}
+                                {{ Form::label('active', trans('cortex/fort::common.active'), ['class' => 'control-label']) }}
+                                {{ Form::select('active', [1 => trans('cortex/fort::common.yes'), 0 => trans('cortex/fort::common.no')], null, ['class' => 'form-control']) }}
 
                                 @if ($errors->has('active'))
                                     <span class="help-block">
@@ -247,11 +247,11 @@
 
                             {{-- Password --}}
                             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                {{ Form::label('password', trans('common.password'), ['class' => 'control-label']) }}
+                                {{ Form::label('password', trans('cortex/fort::common.password'), ['class' => 'control-label']) }}
                                 @if ($action === 'update')
-                                    {{ Form::password('password', ['class' => 'form-control', 'placeholder' => trans('common.password')]) }}
+                                    {{ Form::password('password', ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.password')]) }}
                                 @else
-                                    {{ Form::password('password', ['class' => 'form-control', 'placeholder' => trans('common.password'), 'required' => 'required']) }}
+                                    {{ Form::password('password', ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.password'), 'required' => 'required']) }}
                                 @endif
 
                                 @if ($errors->has('password'))
@@ -267,8 +267,8 @@
 
                             {{-- Roles --}}
                             <div class="form-group{{ $errors->has('roles') ? ' has-error' : '' }}">
-                                {{ Form::label('roleList[]', trans('common.roles'), ['class' => 'control-label']) }}
-                                {{ Form::select('roleList[]', $roleList, null, ['class' => 'form-control', 'placeholder' => trans('common.select'), 'multiple' => 'multiple', 'size' => 4]) }}
+                                {{ Form::label('roleList[]', trans('cortex/fort::common.roles'), ['class' => 'control-label']) }}
+                                {{ Form::select('roleList[]', $roleList, null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.select'), 'multiple' => 'multiple', 'size' => 4]) }}
 
                                 @if ($errors->has('roles'))
                                     <span class="help-block">
@@ -284,7 +284,7 @@
 
                             {{-- Birthdate --}}
                             <div class="form-group{{ $errors->has('birthdate') ? ' has-error' : '' }}">
-                                {{ Form::label('birthdate', trans('common.birthdate'), ['class' => 'control-label']) }}
+                                {{ Form::label('birthdate', trans('cortex/fort::common.birthdate'), ['class' => 'control-label']) }}
                                 <div class="input-group date">
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
@@ -307,8 +307,8 @@
 
                             {{-- Abilities --}}
                             <div class="form-group{{ $errors->has('abilityList[]') ? ' has-error' : '' }}">
-                                {{ Form::label('abilityList[]', trans('common.abilities'), ['class' => 'control-label']) }}
-                                {{ Form::select('abilityList[]', $abilityList, null, ['class' => 'form-control', 'placeholder' => trans('common.select'), 'multiple' => 'multiple', 'size' => 4]) }}
+                                {{ Form::label('abilityList[]', trans('cortex/fort::common.abilities'), ['class' => 'control-label']) }}
+                                {{ Form::select('abilityList[]', $abilityList, null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.select'), 'multiple' => 'multiple', 'size' => 4]) }}
 
                                 @if ($errors->has('abilities'))
                                     <span class="help-block">
@@ -329,7 +329,7 @@
 
                             @if($user->exists)
                                 @if($user->created_at)
-                                    <small><strong>{{ trans('common.created_at') }}:</strong>
+                                    <small><strong>{{ trans('cortex/fort::common.created_at') }}:</strong>
                                         <time datetime="{{ $user->created_at }}">{{ $user->created_at->format('Y-m-d') }}</time>
                                     </small>
                                 @endif
@@ -337,15 +337,15 @@
                                 @if($user->created_at && $user->updated_at) | @endif
 
                                 @if($user->updated_at)
-                                    <small><strong>{{ trans('common.updated_at') }}:</strong>
+                                    <small><strong>{{ trans('cortex/fort::common.updated_at') }}:</strong>
                                         <time datetime="{{ $user->updated_at }}">{{ $user->updated_at->format('Y-m-d') }}</time>
                                     </small>
                                 @endif
                             @endif
 
                             <div class="pull-right">
-                                {{ Form::button(trans('common.reset'), ['class' => 'btn btn-default', 'type' => 'reset']) }}
-                                {{ Form::button(trans('common.submit'), ['class' => 'btn btn-primary', 'type' => 'submit']) }}
+                                {{ Form::button(trans('cortex/fort::common.reset'), ['class' => 'btn btn-default', 'type' => 'reset']) }}
+                                {{ Form::button(trans('cortex/fort::common.submit'), ['class' => 'btn btn-primary', 'type' => 'submit']) }}
                             </div>
 
                         </div>

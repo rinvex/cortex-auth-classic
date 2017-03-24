@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    » {{ trans('common.users') }}
+    » {{ trans('cortex/fort::common.users') }}
 @stop
 
 {{-- Main Content --}}
@@ -27,7 +27,7 @@
             {{-- Heading --}}
             <header class="panel-heading">
                 <h4>
-                    {{ trans('common.users') }}
+                    {{ trans('cortex/fort::common.users') }}
                     @can('create-users')
                         <span class="pull-right" style="margin-top: -7px">
                             <a href="{{ route('backend.users.create') }}" class="btn btn-default"><i class="fa fa-plus"></i></a>
@@ -45,12 +45,12 @@
 
                         <thead>
                             <tr>
-                                <th style="width: 20%">{{ trans('common.name') }}</th>
-                                <th style="width: 20%">{{ trans('common.contact') }}</th>
-                                <th style="width: 20%">{{ trans('common.roles') }}</th>
-                                <th style="width: 10%">{{ trans('common.status') }}</th>
-                                <th style="width: 15%">{{ trans('common.created_at') }}</th>
-                                <th style="width: 15%">{{ trans('common.updated_at') }}</th>
+                                <th style="width: 20%">{{ trans('cortex/fort::common.name') }}</th>
+                                <th style="width: 20%">{{ trans('cortex/fort::common.contact') }}</th>
+                                <th style="width: 20%">{{ trans('cortex/fort::common.roles') }}</th>
+                                <th style="width: 10%">{{ trans('cortex/fort::common.status') }}</th>
+                                <th style="width: 15%">{{ trans('cortex/fort::common.created_at') }}</th>
+                                <th style="width: 15%">{{ trans('cortex/fort::common.updated_at') }}</th>
                             </tr>
                         </thead>
 
@@ -89,21 +89,21 @@
 
                                     <td>
                                         @if($user->active)
-                                            <span class="label label-success">{{ trans('common.active') }}</span>
+                                            <span class="label label-success">{{ trans('cortex/fort::common.active') }}</span>
                                         @else
-                                            <span class="label label-warning">{{ trans('common.inactive') }}</span>
+                                            <span class="label label-warning">{{ trans('cortex/fort::common.inactive') }}</span>
                                         @endif
                                     </td>
 
                                     <td class="small">
                                         @if($user->created_at)
                                             <div>
-                                                {{ trans('common.created_at') }}: <time datetime="{{ $user->created_at }}">{{ $user->created_at->format('Y-m-d') }}</time>
+                                                {{ trans('cortex/fort::common.created_at') }}: <time datetime="{{ $user->created_at }}">{{ $user->created_at->format('Y-m-d') }}</time>
                                             </div>
                                         @endif
                                         @if($user->updated_at)
                                             <div>
-                                                {{ trans('common.updated_at') }}: <time datetime="{{ $user->updated_at }}">{{ $user->updated_at->format('Y-m-d') }}</time>
+                                                {{ trans('cortex/fort::common.updated_at') }}: <time datetime="{{ $user->updated_at }}">{{ $user->updated_at->format('Y-m-d') }}</time>
                                             </div>
                                         @endif
                                     </td>

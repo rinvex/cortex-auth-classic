@@ -88,14 +88,14 @@ class RegistrationController extends AbstractController
             // Registration completed, verification required
             return intend([
                 'intended' => url('/'),
-                'with' => ['success' => trans('messages.register.success_verify')],
+                'with' => ['success' => trans('cortex/fort::messages.register.success_verify')],
             ]);
         }
 
         // Registration completed successfully
         return intend([
             'route' => 'frontend.auth.login',
-            'with' => ['success' => trans('messages.register.success')],
+            'with' => ['success' => trans('cortex/fort::messages.register.success')],
         ]);
     }
 
@@ -108,7 +108,7 @@ class RegistrationController extends AbstractController
     {
         return intend([
             'back' => true,
-            'withErrors' => ['rinvex.fort.registration.disabled' => trans('messages.register.disabled')],
+            'withErrors' => ['rinvex.fort.registration.disabled' => trans('cortex/fort::messages.register.disabled')],
         ]);
     }
 }
