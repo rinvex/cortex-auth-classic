@@ -68,8 +68,6 @@ return [
         'logout' => 'You have successfully logged out!',
         'already' => 'You are already authenticated!',
         'session' => [
-            'required' => 'You must login first!',
-            'expired' => 'Session expired, please login again!',
             'flushed' => 'Your selected session has been successfully flushed!',
             'flushedall' => 'All your active sessions has been successfully flushed!',
         ],
