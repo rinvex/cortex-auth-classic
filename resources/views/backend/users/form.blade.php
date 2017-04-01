@@ -193,6 +193,21 @@
                         </div>
                         <div class="col-md-4">
 
+                            {{-- Language --}}
+                            <div class="form-group{{ $errors->has('language') ? ' has-error' : '' }}">
+                                {{ Form::label('language', trans('cortex/fort::common.language'), ['class' => 'control-label']) }}
+                                {{ Form::select('language', $languages, null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.select')]) }}
+
+                                @if ($errors->has('language'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('language') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+
                             {{-- Phone --}}
                             <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
                                 {{ Form::label('phone', trans('cortex/fort::common.phone'), ['class' => 'control-label']) }}

@@ -34,9 +34,14 @@ class AccountSettingsController extends AuthenticatedController
         $countries = array_map(function ($country) {
             return $country['name'];
         }, countries());
+
+        $languages = array_map(function ($language) {
+            return $language['name'];
+        }, languages());
+
         $twoFactor = $request->user($this->getGuard())->getTwoFactor();
 
-        return view('cortex/fort::frontend.account.settings', compact('twoFactor', 'countries'));
+        return view('cortex/fort::frontend.account.settings', compact('twoFactor', 'countries', 'languages'));
     }
 
     /**
