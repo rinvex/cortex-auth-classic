@@ -39,9 +39,11 @@ class AccountSettingsController extends AuthenticatedController
             return $language['name'];
         }, languages());
 
+        $timezones = timezones();
+
         $twoFactor = $request->user($this->getGuard())->getTwoFactor();
 
-        return view('cortex/fort::frontend.account.settings', compact('twoFactor', 'countries', 'languages'));
+        return view('cortex/fort::frontend.account.settings', compact('twoFactor', 'countries', 'languages', 'timezones'));
     }
 
     /**
