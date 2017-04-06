@@ -206,23 +206,6 @@
                             </div>
 
                         </div>
-
-                        <div class="col-md-4">
-
-                            {{-- Timezone --}}
-                            <div class="form-group{{ $errors->has('timezone') ? ' has-error' : '' }}">
-                                {{ Form::label('timezone', trans('common.timezone'), ['class' => 'control-label']) }}
-                                {{ Form::select('timezone', $timezones, null, ['class' => 'form-control', 'placeholder' => trans('common.select')]) }}
-
-                                @if ($errors->has('timezone'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('timezone') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-
-                        </div>
-
                         <div class="col-md-4">
 
                             {{-- Phone --}}
