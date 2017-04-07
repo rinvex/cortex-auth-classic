@@ -16,7 +16,7 @@
                     <header class="panel-heading">{{ trans('cortex/fort::common.verification_email_request') }}</header>
 
                     <div class="panel-body">
-                        {{ Form::open(['route' => 'frontend.verification.email.send', 'class' => 'form-horizontal']) }}
+                        {{ Form::open(['url' => route('frontend.verification.email.send'), 'class' => 'form-horizontal']) }}
 
                             @include('cortex/fort::frontend.alerts.success')
                             @include('cortex/fort::frontend.alerts.warning')

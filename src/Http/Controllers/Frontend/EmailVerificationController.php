@@ -98,7 +98,7 @@ class EmailVerificationController extends AbstractController
         switch ($result) {
             case EmailVerificationBrokerContract::EMAIL_VERIFIED:
                 return intend([
-                    'route' => $request->user($this->getGuard()) ? 'frontend.account.settings' : 'frontend.auth.login',
+                    'url' => $request->user($this->getGuard()) ? route('frontend.account.settings') : route('frontend.auth.login'),
                     'with' => ['success' => trans($result)],
                 ]);
 
@@ -106,7 +106,7 @@ class EmailVerificationController extends AbstractController
             case EmailVerificationBrokerContract::INVALID_TOKEN:
             default:
                 return intend([
-                    'route' => 'frontend.verification.email.request',
+                    'url' => route('frontend.verification.email.request'),
                     'withInput' => $request->only(['email']),
                     'withErrors' => ['email' => trans($result)],
                 ]);
@@ -133,7 +133,7 @@ class EmailVerificationController extends AbstractController
     protected function redirect()
     {
         return intend([
-            'route' => 'frontend.account.settings',
+            'url' => route('frontend.account.settings'),
             'with' => ['warning' => trans('cortex/fort::messages.verification.email.already')],
         ]);
     }

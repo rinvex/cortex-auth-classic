@@ -20,7 +20,7 @@
                     </header>
 
                     <div class="panel-body">
-                        {{ Form::open(['route' => 'frontend.verification.phone.process', 'class' => 'form-horizontal']) }}
+                        {{ Form::open(['url' => route('frontend.verification.phone.process'), 'class' => 'form-horizontal']) }}
 
                             @include('cortex/fort::frontend.alerts.success')
                             @include('cortex/fort::frontend.alerts.warning')

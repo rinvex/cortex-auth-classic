@@ -15,7 +15,7 @@
                 <section class="panel panel-default">
                     <header class="panel-heading">{{ trans('cortex/fort::common.register') }}</header>
                     <div class="panel-body">
-                        {{ Form::open(['route' => 'frontend.auth.register.process', 'class' => 'form-horizontal']) }}
+                        {{ Form::open(['url' => route('frontend.auth.register.process'), 'class' => 'form-horizontal']) }}
 
                             @include('cortex/fort::frontend.alerts.success')
                             @include('cortex/fort::frontend.alerts.warning')
