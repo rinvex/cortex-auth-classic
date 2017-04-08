@@ -52,8 +52,8 @@
         "php": "^7.0.0",
         "rinvex/fort": "dev-develop",
         "laravel/framework": "~5.4.0",
-        "rinvex/module": "dev-develop",
-        "rinvex/composer": "dev-develop",
+        "rinvex/modulable": "dev-develop",
+        "rinvex/composable": "dev-develop",
         "rinvex/cacheable": "dev-develop"
     },
     "autoload": {
