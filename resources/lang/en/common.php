@@ -110,6 +110,6 @@ return [
     'phone_unverified' => 'Phone not yet verified! <a href=":href">Verify Phone</a>',
     'forgot_password' => 'I forgot my password',
     'welcome' => 'Welcome',
-    'welcome_body' => 'Welcome to your new project based on <strong>Rivnex Cortex</strong>. Enjoy building something awesome! 🎉',
+    'welcome_body' => 'Welcome to your new project based on <strong>Rinvex Cortex</strong>. Enjoy building something awesome! 🎉',
 
 ];
