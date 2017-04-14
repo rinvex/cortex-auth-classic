@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/fort::common.abilities') }}
+    {{ config('app.name') }} » {{ trans('cortex/fort::common.abilities.label') }}
 @stop
 
 {{-- Main Content --}}
@@ -27,7 +27,7 @@
             {{-- Heading --}}
             <header class="panel-heading">
                 <h4>
-                    {{ trans('cortex/fort::common.abilities') }}
+                    {{ trans('cortex/fort::common.abilities.label') }}
                     @can('create-abilities')
                         <span class="pull-right" style="margin-top: -7px">
                             <a href="{{ route('backend.abilities.create') }}" class="btn btn-default"><i class="fa fa-plus"></i></a>

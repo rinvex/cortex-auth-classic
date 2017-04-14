@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/fort::common.roles') }} » {{ trans('cortex/fort::common.'.$mode) }} @if($role->exists) {{ $role->slug }} @endif
+    {{ config('app.name') }} » {{ trans('cortex/fort::common.roles.label') }} » {{ $role->exists ? $role->slug : trans('cortex/fort::common.roles.create') }}
 @stop
 
 {{-- Main Content --}}
@@ -24,7 +24,7 @@
             @include('cortex/fort::backend.common.confirm-modal', ['type' => 'role'])
         @endif
 
-        @if ($action === 'update')
+        @if ($role->exists)
             {{ Form::model($role, ['url' => route('backend.roles.update', ['role' => $role]), 'method' => 'put']) }}
         @else
             {{ Form::model($role, ['url' => route('backend.roles.store')]) }}
@@ -35,7 +35,7 @@
                 {{-- Heading --}}
                 <header class="panel-heading">
                     <h4>
-                        <a href="{{ route('backend.roles.index') }}">{{ trans('cortex/fort::common.roles') }}</a> » {{ trans('cortex/fort::common.'.$mode) }} @if($role->exists) <strong>{{ $role->slug }}</strong> @endif
+                        <a href="{{ route('backend.roles.index') }}">{{ trans('cortex/fort::common.roles.label') }}</a> » {{ $role->exists ? $role->slug : trans('cortex/fort::common.roles.create') }}
                         @if($role->exists)
                             <span class="pull-right" style="margin-top: -7px">
                                 @can('delete-roles', $role) <a href="#" class="btn btn-default" data-toggle="modal" data-target="#delete-confirmation" data-item-href="{{ route('backend.roles.delete', ['role' => $role]) }}" data-item-name="{{ $role->slug }}"><i class="fa fa-trash-o text-danger"></i></a> @endcan
@@ -102,7 +102,7 @@
 
                             {{-- Abilities --}}
                             <div class="form-group{{ $errors->has('abilities') ? ' has-error' : '' }}">
-                                {{ Form::label('abilityList[]', trans('cortex/fort::common.abilities'), ['class' => 'control-label']) }}
+                                {{ Form::label('abilityList[]', trans('cortex/fort::common.abilities.label'), ['class' => 'control-label']) }}
                                 {{ Form::select('abilityList[]', $abilityList, null, ['class' => 'form-control', 'multiple' => 'multiple', 'size' => 4]) }}
 
                                 @if ($errors->has('abilities'))

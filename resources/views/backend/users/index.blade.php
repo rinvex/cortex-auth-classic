@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    » {{ trans('cortex/fort::common.users') }}
+    » {{ trans('cortex/fort::common.users.label') }}
 @stop
 
 {{-- Main Content --}}
@@ -27,7 +27,7 @@
             {{-- Heading --}}
             <header class="panel-heading">
                 <h4>
-                    {{ trans('cortex/fort::common.users') }}
+                    {{ trans('cortex/fort::common.users.label') }}
                     @can('create-users')
                         <span class="pull-right" style="margin-top: -7px">
                             <a href="{{ route('backend.users.create') }}" class="btn btn-default"><i class="fa fa-plus"></i></a>
@@ -47,7 +47,7 @@
                             <tr>
                                 <th style="width: 20%">{{ trans('cortex/fort::common.name') }}</th>
                                 <th style="width: 20%">{{ trans('cortex/fort::common.contact') }}</th>
-                                <th style="width: 20%">{{ trans('cortex/fort::common.roles') }}</th>
+                                <th style="width: 20%">{{ trans('cortex/fort::common.roles.label') }}</th>
                                 <th style="width: 10%">{{ trans('cortex/fort::common.status') }}</th>
                                 <th style="width: 15%">{{ trans('cortex/fort::common.created_at') }}</th>
                                 <th style="width: 15%">{{ trans('cortex/fort::common.updated_at') }}</th>

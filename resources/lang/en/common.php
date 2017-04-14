@@ -84,9 +84,6 @@ return [
     'verification_phone_request' => 'Request Phone Verification',
     'verify_phone' => 'Verify Phone',
     'dashboard' => 'Dashboard',
-    'abilities' => 'Abilities',
-    'users' => 'Users',
-    'roles' => 'Roles',
     'account' => 'Account',
     'settings' => 'Settings',
     'sessions' => 'Sessions',
@@ -111,5 +108,23 @@ return [
     'forgot_password' => 'I forgot my password',
     'welcome' => 'Welcome',
     'welcome_body' => 'Welcome to your new project based on <strong>Rinvex Cortex</strong>. Enjoy building something awesome! 🎉',
+
+    // Abilities Phrases
+    'abilities' => [
+        'label' => 'Abilities',
+        'create' => 'Create New Ability',
+    ],
+
+    // Users Phrases
+    'users' => [
+        'label' => 'Users',
+        'create' => 'Create New User',
+    ],
+
+    // Roles Phrases
+    'roles' => [
+        'label' => 'Roles',
+        'create' => 'Create New Role',
+    ],
 
 ];

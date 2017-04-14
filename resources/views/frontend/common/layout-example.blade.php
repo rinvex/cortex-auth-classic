@@ -74,9 +74,9 @@
                                     <li><a href="{{ route('frontend.account.sessions') }}"><i class="fa fa-check-square-o"></i> {{ trans('cortex/fort::common.sessions') }}</a></li>
                                     <li role="separator" class="divider"></li>
                                     @can('access-dashboard') <li class="disabled"><a href="{{ route('backend.dashboard.home') }}"><i class="fa fa-dashboard"></i> {{ trans('cortex/fort::common.dashboard') }}</a></li> @endcan
-                                    @can('list-abilities') <li><a href="{{ route('backend.abilities.index') }}"><i class="fa fa-arrow-right"></i> {{ trans('cortex/fort::common.abilities') }}</a></li> @endcan
-                                    @can('list-roles') <li><a href="{{ route('backend.roles.index') }}"><i class="fa fa-arrow-right"></i> {{ trans('cortex/fort::common.roles') }}</a></li> @endcan
-                                    @can('list-users') <li><a href="{{ route('backend.users.index') }}"><i class="fa fa-arrow-right"></i> {{ trans('cortex/fort::common.users') }}</a></li> @endcan
+                                    @can('list-abilities') <li><a href="{{ route('backend.abilities.index') }}"><i class="fa fa-arrow-right"></i> {{ trans('cortex/fort::common.abilities.label') }}</a></li> @endcan
+                                    @can('list-roles') <li><a href="{{ route('backend.roles.index') }}"><i class="fa fa-arrow-right"></i> {{ trans('cortex/fort::common.roles.label') }}</a></li> @endcan
+                                    @can('list-users') <li><a href="{{ route('backend.users.index') }}"><i class="fa fa-arrow-right"></i> {{ trans('cortex/fort::common.users.label') }}</a></li> @endcan
                                     @if(Auth::user()->can('access-dashboard') || Auth::user()->can('list-abilities') || Auth::user()->can('list-roles') || Auth::user()->can('list-users'))
                                         <li role="separator" class="divider"></li>
                                     @endif

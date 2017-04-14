@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/fort::common.users') }} » {{ trans('cortex/fort::common.'.$mode) }} @if($user->exists) {{ $user->username }} @endif
+    {{ config('app.name') }} » {{ trans('cortex/fort::common.users.label') }} » {{ $user->exists ? $user->slug : trans('cortex/fort::common.users.create') }}
 @stop
 
 {{-- Main Content --}}
@@ -24,7 +24,7 @@
             @include('cortex/fort::backend.common.confirm-modal', ['type' => 'user'])
         @endif
 
-        @if ($action === 'update')
+        @if ($user->exists)
             {{ Form::model($user, ['url' => route('backend.users.update', ['user' => $user]), 'method' => 'put']) }}
         @else
             {{ Form::model($user, ['url' => route('backend.users.store')]) }}
@@ -35,7 +35,7 @@
                 {{-- Heading --}}
                 <header class="panel-heading">
                     <h4>
-                        <a href="{{ route('backend.users.index') }}">{{ trans('cortex/fort::common.users') }}</a> » {{ trans('cortex/fort::common.'.$mode) }} @if($user->exists) <strong>{{ $user->username }}</strong> @endif
+                        <a href="{{ route('backend.users.index') }}">{{ trans('cortex/fort::common.users.label') }}</a> » {{ $user->exists ? $user->slug : trans('cortex/fort::common.users.create') }}
                         @if($user->exists)
                             <span class="pull-right" style="margin-top: -7px">
                                 @can('delete-users', $user) <a href="#" class="btn btn-default" data-toggle="modal" data-target="#delete-confirmation" data-item-href="{{ route('backend.users.delete', ['user' => $user]) }}" data-item-name="{{ $user->username }}"><i class="fa fa-trash-o text-danger"></i></a> @endcan
@@ -233,7 +233,7 @@
                             {{-- Gender --}}
                             <div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
                                 {{ Form::label('gender', trans('cortex/fort::common.gender'), ['class' => 'control-label']) }}
-                                {{ Form::select('gender', ['male' => trans('cortex/fort::common.male'), 'female' => trans('cortex/fort::common.female'), 'undisclosed' => trans('cortex/fort::common.undisclosed')], $action !== 'update' ? 'undisclosed' : null, ['class' => 'form-control']) }}
+                                {{ Form::select('gender', ['male' => trans('cortex/fort::common.male'), 'female' => trans('cortex/fort::common.female'), 'undisclosed' => trans('cortex/fort::common.undisclosed')], old('gender', $user->gender ?? 'undisclosed'), ['class' => 'form-control']) }}
 
                                 @if ($errors->has('gender'))
                                     <span class="help-block">
@@ -263,7 +263,7 @@
                             {{-- Password --}}
                             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                                 {{ Form::label('password', trans('cortex/fort::common.password'), ['class' => 'control-label']) }}
-                                @if ($action === 'update')
+                                @if ($user->exists)
                                     {{ Form::password('password', ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.password')]) }}
                                 @else
                                     {{ Form::password('password', ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.password'), 'required' => 'required']) }}
@@ -282,7 +282,7 @@
 
                             {{-- Roles --}}
                             <div class="form-group{{ $errors->has('roles') ? ' has-error' : '' }}">
-                                {{ Form::label('roleList[]', trans('cortex/fort::common.roles'), ['class' => 'control-label']) }}
+                                {{ Form::label('roleList[]', trans('cortex/fort::common.roles.label'), ['class' => 'control-label']) }}
                                 {{ Form::select('roleList[]', $roleList, null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.select'), 'multiple' => 'multiple', 'size' => 4]) }}
 
                                 @if ($errors->has('roles'))
@@ -322,7 +322,7 @@
 
                             {{-- Abilities --}}
                             <div class="form-group{{ $errors->has('abilityList[]') ? ' has-error' : '' }}">
-                                {{ Form::label('abilityList[]', trans('cortex/fort::common.abilities'), ['class' => 'control-label']) }}
+                                {{ Form::label('abilityList[]', trans('cortex/fort::common.abilities.label'), ['class' => 'control-label']) }}
                                 {{ Form::select('abilityList[]', $abilityList, null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.select'), 'multiple' => 'multiple', 'size' => 4]) }}
 
                                 @if ($errors->has('abilities'))
