@@ -57,6 +57,9 @@
         "rinvex/cacheable": "dev-develop"
     },
     "autoload": {
+        "classmap": [
+            "database"
+        ],
         "psr-4": {
             "Cortex\\Fort\\": "src/"
         }
