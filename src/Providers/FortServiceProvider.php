@@ -52,7 +52,7 @@ class FortServiceProvider extends ServiceProvider
         });
 
         // Register menu items
-        $this->app['view']->composer('cortex/foundation::backend.partials.header', function ($view) {
+        $this->app['view']->composer('*.partials.header', function ($view) {
             app('menus.topbar')->put('user', view('cortex/fort::frontend.partials.topbar-user-menu')->render());
         });
     }
