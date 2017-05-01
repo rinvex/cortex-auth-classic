@@ -224,7 +224,7 @@
                                                 <i class="fa fa-twitter"></i>
                                             </div>
 
-                                            {{ Form::text('twitter', null, ['class' => 'form-control datepicker']) }}
+                                            {{ Form::text('twitter', null, ['class' => 'form-control']) }}
                                         </div>
 
                                         @if ($errors->has('twitter'))
@@ -244,7 +244,7 @@
                                                 <i class="fa fa-facebook"></i>
                                             </div>
 
-                                            {{ Form::text('facebook', null, ['class' => 'form-control datepicker']) }}
+                                            {{ Form::text('facebook', null, ['class' => 'form-control']) }}
                                         </div>
 
                                         @if ($errors->has('facebook'))
@@ -264,7 +264,7 @@
                                                 <i class="fa fa-linkedin"></i>
                                             </div>
 
-                                            {{ Form::text('linkedin', null, ['class' => 'form-control datepicker']) }}
+                                            {{ Form::text('linkedin', null, ['class' => 'form-control']) }}
                                         </div>
 
                                         @if ($errors->has('linkedin'))
@@ -284,7 +284,7 @@
                                                 <i class="fa fa-google-plus"></i>
                                             </div>
 
-                                            {{ Form::text('google_plus', null, ['class' => 'form-control datepicker']) }}
+                                            {{ Form::text('google_plus', null, ['class' => 'form-control']) }}
                                         </div>
 
                                         @if ($errors->has('google_plus'))
@@ -304,7 +304,7 @@
                                                 <i class="fa fa-skype"></i>
                                             </div>
 
-                                            {{ Form::text('skype', null, ['class' => 'form-control datepicker']) }}
+                                            {{ Form::text('skype', null, ['class' => 'form-control']) }}
                                         </div>
 
                                         @if ($errors->has('skype'))
@@ -321,10 +321,10 @@
                                     <div class="col-md-10">
                                         <div class="input-group">
                                             <div class="input-group-addon">
-                                                <i class="fa fa-website"></i>
+                                                <i class="fa fa-globe"></i>
                                             </div>
 
-                                            {{ Form::text('website', null, ['class' => 'form-control datepicker']) }}
+                                            {{ Form::text('website', null, ['class' => 'form-control']) }}
                                         </div>
 
                                         @if ($errors->has('website'))
