@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Controllers\Backend;
 
-use Illuminate\Http\Request;
 use Cortex\Fort\Models\Role;
+use Illuminate\Http\Request;
 use Cortex\Fort\Models\Ability;
 use Cortex\Fort\DataTables\Backend\RolesDataTable;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;

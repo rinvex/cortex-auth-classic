@@ -8,7 +8,7 @@ use Rinvex\Fort\Models\Role as BaseRole;
 use Rinvex\Attributable\Traits\Attributable;
 
 /**
- * Cortex\Fort\Models\Role
+ * Cortex\Fort\Models\Role.
  *
  * @property int                                                                         $id
  * @property string                                                                      $slug
@@ -21,6 +21,7 @@ use Rinvex\Attributable\Traits\Attributable;
  * @property-read array                                                                  $ability_list
  * @property mixed                                                                       $entity
  * @property-read \Illuminate\Database\Eloquent\Collection|\Cortex\Fort\Models\User[]    $users
+ *
  * @method static \Illuminate\Database\Query\Builder|\Cortex\Fort\Models\Role hasAttribute($key, $value)
  * @method static \Illuminate\Database\Query\Builder|\Cortex\Fort\Models\Role whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Cortex\Fort\Models\Role whereDeletedAt($value)

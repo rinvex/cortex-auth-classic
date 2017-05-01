@@ -8,7 +8,7 @@ use Rinvex\Fort\Models\User as BaseUser;
 use Rinvex\Attributable\Traits\Attributable;
 
 /**
- * Cortex\Fort\Models\User
+ * Cortex\Fort\Models\User.
  *
  * @property int                                                                                                            $id
  * @property string                                                                                                         $username
@@ -48,6 +48,7 @@ use Rinvex\Attributable\Traits\Attributable;
  * @property-read \Illuminate\Database\Eloquent\Collection|\Rinvex\Fort\Models\Persistence[]                                $persistences
  * @property-read \Illuminate\Database\Eloquent\Collection|\Cortex\Fort\Models\Role[]                                       $roles
  * @property-read \Illuminate\Database\Eloquent\Collection|\Rinvex\Fort\Models\Socialite[]                                  $socialites
+ *
  * @method static \Illuminate\Database\Query\Builder|\Cortex\Fort\Models\User hasAttribute($key, $value)
  * @method static \Illuminate\Database\Query\Builder|\Cortex\Fort\Models\User role($roles)
  * @method static \Illuminate\Database\Query\Builder|\Cortex\Fort\Models\User whereActive($value)

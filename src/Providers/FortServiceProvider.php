@@ -46,9 +46,9 @@ class FortServiceProvider extends ServiceProvider
         // Register menu items
         $this->app['view']->composer('cortex/foundation::backend.partials.sidebar', function ($view) {
             app('menus.sidebar')->put('access', '<li class="header">'.trans('cortex/fort::navigation.headers.access').'</li>');
-            app('menus.sidebar')->put('access.abilities', '<li '.(strpos(request()->route()->getName(), 'backend.abilities.') === 0 ? 'class="active"' : '').'><a href="'.route('backend.abilities.index').'"><i class="fa fa-sliders"></i> <span>'.trans('cortex/fort::navigation.menus.abilities').'</span></a></li>');
-            app('menus.sidebar')->put('access.roles', '<li '.(strpos(request()->route()->getName(), 'backend.roles.') === 0 ? 'class="active"' : '').'><a href="'.route('backend.roles.index').'"><i class="fa fa-users"></i> <span>'.trans('cortex/fort::navigation.menus.roles').'</span></a></li>');
-            app('menus.sidebar')->put('access.users', '<li '.(strpos(request()->route()->getName(), 'backend.users.') === 0 ? 'class="active"' : '').'><a href="'.route('backend.users.index').'"><i class="fa fa-user"></i> <span>'.trans('cortex/fort::navigation.menus.users').'</span></a></li>');
+            app('menus.sidebar')->put('access.abilities', '<li '.(mb_strpos(request()->route()->getName(), 'backend.abilities.') === 0 ? 'class="active"' : '').'><a href="'.route('backend.abilities.index').'"><i class="fa fa-sliders"></i> <span>'.trans('cortex/fort::navigation.menus.abilities').'</span></a></li>');
+            app('menus.sidebar')->put('access.roles', '<li '.(mb_strpos(request()->route()->getName(), 'backend.roles.') === 0 ? 'class="active"' : '').'><a href="'.route('backend.roles.index').'"><i class="fa fa-users"></i> <span>'.trans('cortex/fort::navigation.menus.roles').'</span></a></li>');
+            app('menus.sidebar')->put('access.users', '<li '.(mb_strpos(request()->route()->getName(), 'backend.users.') === 0 ? 'class="active"' : '').'><a href="'.route('backend.users.index').'"><i class="fa fa-user"></i> <span>'.trans('cortex/fort::navigation.menus.users').'</span></a></li>');
         });
 
         // Register menu items

@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 Route::name('backend.')
      ->namespace('Cortex\Fort\Http\Controllers\Backend')
      ->middleware(['web', 'nohttpcache', 'can:access-dashboard'])
@@ -43,4 +42,4 @@ Route::name('backend.')
         Route::get('{user}/logs')->name('logs')->uses('UsersController@logs')->where('user', '[0-9]+');
         Route::delete('{user}')->name('delete')->uses('UsersController@delete')->where('user', '[0-9]+');
     });
-});
+     });
