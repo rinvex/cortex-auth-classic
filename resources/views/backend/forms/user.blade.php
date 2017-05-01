@@ -62,21 +62,24 @@
         <!-- Main content -->
         <section class="content">
 
-            <div class="nav-tabs-custom">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#details" data-toggle="tab">{{ trans('cortex/fort::common.details') }}</a></li>
-                    @if($user->exists) <li><a href="{{ route('backend.users.logs', ['user' => $user]) }}">{{ trans('cortex/fort::common.logs') }}</a></li> @endif
-                    @if($user->exists && $currentUser->can('delete-users', $user)) <li class="pull-right"><a href="#" data-toggle="modal" data-target="#delete-confirmation" data-item-href="{{ route('backend.users.delete', ['user' => $user]) }}" data-item-name="{{ $user->slug }}"><i class="fa fa-trash text-danger"></i></a></li> @endif
-                </ul>
+            @if ($user->exists)
+                {{ Form::model($user, ['url' => route('backend.users.update', ['user' => $user]), 'method' => 'put']) }}
+            @else
+                {{ Form::model($user, ['url' => route('backend.users.store')]) }}
+            @endif
 
-                <div class="tab-content">
-                    <div class="active tab-pane" id="details">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#details" data-toggle="tab">{{ trans('cortex/fort::common.details') }}</a></li>
+                        <li><a href="#social" data-toggle="tab">{{ trans('cortex/fort::common.social') }}</a></li>
+                        <li><a href="#security" data-toggle="tab">{{ trans('cortex/fort::common.security') }}</a></li>
+                        @if($user->exists) <li><a href="{{ route('backend.users.logs', ['user' => $user]) }}">{{ trans('cortex/fort::common.logs') }}</a></li> @endif
+                        @if($user->exists && $currentUser->can('delete-users', $user)) <li class="pull-right"><a href="#" data-toggle="modal" data-target="#delete-confirmation" data-item-href="{{ route('backend.users.delete', ['user' => $user]) }}" data-item-name="{{ $user->slug }}"><i class="fa fa-trash text-danger"></i></a></li> @endif
+                    </ul>
 
-                        @if ($user->exists)
-                            {{ Form::model($user, ['url' => route('backend.users.update', ['user' => $user]), 'method' => 'put']) }}
-                        @else
-                            {{ Form::model($user, ['url' => route('backend.users.store')]) }}
-                        @endif
+                    <div class="tab-content">
+
+                        <div class="tab-pane active" id="details">
 
                             <div class="row">
                                 <div class="col-md-4">
@@ -331,6 +334,14 @@
 
                                 </div>
 
+                            </div>
+
+                        </div>
+
+                        <div class="tab-pane" id="social">
+
+                            <div class="row">
+
                                 <div class="col-md-4">
 
                                     {{-- Twitter --}}
@@ -375,10 +386,6 @@
 
                                 </div>
 
-                            </div>
-
-                            <div class="row">
-
                                 <div class="col-md-4">
 
                                     {{-- Linkedin --}}
@@ -400,6 +407,10 @@
                                     </div>
 
                                 </div>
+
+                            </div>
+
+                            <div class="row">
 
                                 <div class="col-md-4">
 
@@ -445,9 +456,6 @@
 
                                 </div>
 
-                            </div>
-
-                            <div class="row">
 
                                 <div class="col-md-4">
 
@@ -471,6 +479,54 @@
 
                                 </div>
 
+                            </div>
+
+                        </div>
+
+                        <div class="tab-pane" id="security">
+
+                            <div class="row">
+
+                                @can('assign-roles')
+
+                                    <div class="col-md-4">
+
+                                        {{-- Roles --}}
+                                        <div class="form-group{{ $errors->has('roles') ? ' has-error' : '' }}">
+                                            {{ Form::label('roleList[]', trans('cortex/fort::common.roles'), ['class' => 'control-label']) }}
+                                            {{ Form::select('roleList[]', $roleList, null, ['class' => 'form-control', 'multiple' => 'multiple', 'size' => 4]) }}
+
+                                            @if ($errors->has('roles'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('roles') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+
+                                    </div>
+
+                                @endcan
+
+                                @can('grant-abilities')
+
+                                    <div class="col-md-4">
+
+                                        {{-- Abilities --}}
+                                        <div class="form-group{{ $errors->has('abilityList[]') ? ' has-error' : '' }}">
+                                            {{ Form::label('abilityList[]', trans('cortex/fort::common.abilities'), ['class' => 'control-label']) }}
+                                            {{ Form::select('abilityList[]', $abilityList, null, ['class' => 'form-control', 'multiple' => 'multiple', 'size' => 4]) }}
+
+                                            @if ($errors->has('abilities'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('abilityList[]') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+
+                                    </div>
+
+                                @endcan
+
                                 <div class="col-md-4">
 
                                     {{-- Password --}}
@@ -484,8 +540,8 @@
 
                                         @if ($errors->has('password'))
                                             <span class="help-block">
-                                                <strong>{{ $errors->first('password') }}</strong>
-                                            </span>
+                                            <strong>{{ $errors->first('password') }}</strong>
+                                        </span>
                                         @endif
                                     </div>
 
@@ -493,25 +549,28 @@
 
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-12">
+                        </div>
 
-                                    <div class="pull-right">
-                                        {{ Form::button(trans('cortex/fort::common.reset'), ['class' => 'btn btn-default btn-flat', 'type' => 'reset']) }}
-                                        {{ Form::button(trans('cortex/fort::common.submit'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}
-                                    </div>
+                        <div class="row">
+                            <div class="col-md-12">
 
-                                    @include('cortex/foundation::backend.partials.timestamps', ['model' => $user])
-
+                                <div class="pull-right">
+                                    {{ Form::button(trans('cortex/fort::common.reset'), ['class' => 'btn btn-default btn-flat', 'type' => 'reset']) }}
+                                    {{ Form::button(trans('cortex/fort::common.submit'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}
                                 </div>
+
+                                @include('cortex/foundation::backend.partials.timestamps', ['model' => $user])
+
                             </div>
+                        </div>
 
-                            <div class="clearfix"></div>
+                        {{--<div class="clearfix"></div>--}}
 
-                        {{ Form::close() }}
                     </div>
+
                 </div>
-            </div>
+
+            {{ Form::close() }}
 
         </section>
 
