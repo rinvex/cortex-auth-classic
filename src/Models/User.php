@@ -36,7 +36,7 @@ use Rinvex\Attributable\Traits\Attributable;
  * @property \Carbon\Carbon                                                                                                 $created_at
  * @property \Carbon\Carbon                                                                                                 $updated_at
  * @property \Carbon\Carbon                                                                                                 $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\Rinvex\Fort\Models\Ability[]                                    $abilities
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Cortex\Fort\Models\Ability[]                                    $abilities
  * @property-read array                                                                                                     $ability_list
  * @property-read \Illuminate\Support\Collection                                                                            $all_abilities
  * @property-read \Rinvex\Country\Country                                                                                   $country

@@ -53,7 +53,6 @@ return [
         'lockout' => 'Too many login attempts. Please try again in :seconds seconds.',
         'login' => 'You have successfully logged in!',
         'logout' => 'You have successfully logged out!',
-        'already' => 'You are already authenticated!',
         'session' => [
             'flushed' => 'Your selected session has been successfully flushed!',
             'flushedall' => 'All your active sessions has been successfully flushed!',

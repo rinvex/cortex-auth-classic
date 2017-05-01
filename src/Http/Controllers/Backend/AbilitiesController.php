@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Fort\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
-use Rinvex\Fort\Models\Ability;
+use Cortex\Fort\Models\Ability;
 use Cortex\Fort\DataTables\Backend\AbilitiesDataTable;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
 

@@ -7,7 +7,7 @@ namespace Cortex\Fort\Http\Controllers\Backend;
 use Carbon\Carbon;
 use Cortex\Fort\Models\Role;
 use Cortex\Fort\Models\User;
-use Rinvex\Fort\Models\Ability;
+use Cortex\Fort\Models\Ability;
 use Illuminate\Support\Facades\DB;
 use Rinvex\Fort\Models\Persistence;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;

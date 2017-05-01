@@ -94,8 +94,6 @@ return [
     'pages' => 'Showing :count out of :total items',
     'online_users' => 'Online Users (last :mins mins)',
     'recent_registered' => 'Recently Registered Users',
-    'delete_confirmation' => 'Delete Confirmation',
-    'delete_confirmation_body' => 'Are you sure you want to delete <strong class="item-name"></strong> :type?',
     'email_verified' => 'Email verified at <date>:date</date>.',
     'email_unverified' => 'Email not yet verified! <a href=":href">Verify Email</a>',
     'phone_verified' => 'Phone verified at <date>:date</date>.',
