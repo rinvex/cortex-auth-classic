@@ -60,11 +60,9 @@ class FortServiceProvider extends ServiceProvider
                 require $this->app->getCachedRoutesPath();
             });
         } else {
-            // Load the application routes
-            $router->namespace('Cortex\Fort\Http\Controllers')
-                   ->prefix($this->app['config']['rinvex.cortex.route.locale_prefix'] ? '{locale}' : '')
-                   ->middleware('web')
-                   ->group(__DIR__.'/../../routes/web.php');
+            // Load Routes
+            require __DIR__.'/../../routes/frontend.php';
+            require __DIR__.'/../../routes/backend.php';
 
             $this->app->booted(function () use ($router) {
                 $router->getRoutes()->refreshNameLookups();
