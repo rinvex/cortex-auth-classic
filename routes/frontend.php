@@ -83,4 +83,4 @@ Route::name('frontend.')
             Route::get('verify')->name('verify')->uses('EmailVerificationController@verify');
         });
     });
-});
+     });

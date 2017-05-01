@@ -7,7 +7,7 @@ namespace Cortex\Fort\Models;
 use Rinvex\Fort\Models\Ability as BaseAbility;
 
 /**
- * Cortex\Fort\Models\Ability
+ * Cortex\Fort\Models\Ability.
  *
  * @property int                                                                      $id
  * @property string                                                                   $action
@@ -21,6 +21,7 @@ use Rinvex\Fort\Models\Ability as BaseAbility;
  * @property-read string                                                              $slug
  * @property-read \Illuminate\Database\Eloquent\Collection|\Cortex\Fort\Models\Role[] $roles
  * @property-read \Illuminate\Database\Eloquent\Collection|\Cortex\Fort\Models\User[] $users
+ *
  * @method static \Illuminate\Database\Query\Builder|\Cortex\Fort\Models\Ability whereAction($value)
  * @method static \Illuminate\Database\Query\Builder|\Cortex\Fort\Models\Ability whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Cortex\Fort\Models\Ability whereDeletedAt($value)
