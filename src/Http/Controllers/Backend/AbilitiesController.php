@@ -28,7 +28,7 @@ class AbilitiesController extends AuthorizedController
      */
     public function index()
     {
-        return app(AbilitiesDataTable::class)->render('cortex/foundation::pages.datatable', ['resource' => 'cortex/fort::common.abilities']);
+        return app(AbilitiesDataTable::class)->render('cortex/foundation::backend.pages.datatable', ['resource' => 'cortex/fort::common.abilities']);
     }
 
     /**

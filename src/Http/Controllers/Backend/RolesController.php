@@ -29,7 +29,7 @@ class RolesController extends AuthorizedController
      */
     public function index()
     {
-        return app(RolesDataTable::class)->render('cortex/foundation::pages.datatable', ['resource' => 'cortex/fort::common.roles']);
+        return app(RolesDataTable::class)->render('cortex/foundation::backend.pages.datatable', ['resource' => 'cortex/fort::common.roles']);
     }
 
     /**

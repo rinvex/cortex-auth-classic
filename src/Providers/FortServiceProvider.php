@@ -44,7 +44,7 @@ class FortServiceProvider extends ServiceProvider
         $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'cortex/fort');
 
         // Register menu items
-        $this->app['view']->composer('cortex/foundation::partials.sidebar', function ($view) {
+        $this->app['view']->composer('cortex/foundation::backend.partials.sidebar', function ($view) {
             app('menus.sidebar')->put('access', '<li class="header">'.trans('cortex/fort::navigation.headers.access').'</li>');
             app('menus.sidebar')->put('access.abilities', '<li '.(strpos(request()->route()->getName(), 'backend.abilities.') === 0 ? 'class="active"' : '').'><a href="'.route('backend.abilities.index').'"><i class="fa fa-sliders"></i> <span>'.trans('cortex/fort::navigation.menus.abilities').'</span></a></li>');
             app('menus.sidebar')->put('access.roles', '<li '.(strpos(request()->route()->getName(), 'backend.roles.') === 0 ? 'class="active"' : '').'><a href="'.route('backend.roles.index').'"><i class="fa fa-users"></i> <span>'.trans('cortex/fort::navigation.menus.roles').'</span></a></li>');
@@ -52,8 +52,8 @@ class FortServiceProvider extends ServiceProvider
         });
 
         // Register menu items
-        $this->app['view']->composer('cortex/foundation::partials.header', function ($view) {
-            app('menus.topbar')->put('user', view('cortex/fort::frontend.common.user')->render());
+        $this->app['view']->composer('cortex/foundation::backend.partials.header', function ($view) {
+            app('menus.topbar')->put('user', view('cortex/fort::frontend.partials.topbar-user-menu')->render());
         });
     }
 

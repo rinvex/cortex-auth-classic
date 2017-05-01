@@ -1,5 +1,5 @@
 {{-- Master Layout --}}
-@extends('cortex/foundation::layouts.default')
+@extends('cortex/foundation::backend.layouts.default')
 
 {{-- Page Title --}}
 @section('title')
@@ -10,7 +10,7 @@
 @section('content')
 
     @if($role->exists)
-        @include('cortex/foundation::partials.confirm-deletion', ['type' => 'role'])
+        @include('cortex/foundation::backend.partials.confirm-deletion', ['type' => 'role'])
     @endif
 
     <div class="content-wrapper">
@@ -119,7 +119,7 @@
                                         {{ Form::button(trans('cortex/fort::common.submit'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}
                                     </div>
 
-                                    @include('cortex/foundation::partials.timestamps', ['model' => $role])
+                                    @include('cortex/foundation::backend.partials.timestamps', ['model' => $role])
 
                                 </div>
                             </div>

@@ -26,7 +26,7 @@ class UsersController extends AuthorizedController
      */
     public function index()
     {
-        return app(UsersDataTable::class)->render('cortex/foundation::pages.datatable', ['resource' => 'cortex/fort::common.users']);
+        return app(UsersDataTable::class)->render('cortex/foundation::backend.pages.datatable', ['resource' => 'cortex/fort::common.users']);
     }
 
     /**
