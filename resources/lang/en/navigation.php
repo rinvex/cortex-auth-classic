@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 return [
 
-    'headers'     => [
+    'headers' => [
         'access' => 'Access Control',
     ],
 
-    'menus'     => [
+    'menus' => [
         'abilities' => 'Abilities',
         'roles' => 'Roles',
         'users' => 'Users',

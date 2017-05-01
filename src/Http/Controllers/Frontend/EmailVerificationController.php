@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Cortex\Fort\Http\Controllers\Frontend;
 
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Cortex\Fort\Models\User;
+use Illuminate\Http\Request;
 use Cortex\Foundation\Http\Controllers\AbstractController;
 use Rinvex\Fort\Contracts\EmailVerificationBrokerContract;
 use Cortex\Fort\Http\Requests\Frontend\EmailVerificationRequest;
