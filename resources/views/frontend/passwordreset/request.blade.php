@@ -1,5 +1,5 @@
 {{-- Master Layout --}}
-@extends('cortex/fort::frontend.layouts.auth')
+@extends('cortex/foundation::frontend.layouts.auth')
 
 {{-- Page Title --}}
 @section('title')
