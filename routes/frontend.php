@@ -31,7 +31,7 @@ Route::name('frontend.')
     Route::name('account.')->prefix('account')->group(function () {
 
         // Account Page Routes
-        Route::get('settings')->name('settings')->uses('AccountSettingsController@form');
+        Route::get('settings')->name('settings')->uses('AccountSettingsController@edit');
         Route::post('settings')->name('settings.update')->uses('AccountSettingsController@update');
 
         // Sessions Manipulation Routes
