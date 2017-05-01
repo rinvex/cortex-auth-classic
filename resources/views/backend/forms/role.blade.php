@@ -124,9 +124,8 @@
                                 </div>
                             </div>
 
-                            <div class="clearfix"></div>
-
                         {{ Form::close() }}
+
                     </div>
                 </div>
             </div>
