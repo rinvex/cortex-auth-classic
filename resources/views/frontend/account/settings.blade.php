@@ -55,6 +55,7 @@
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#settings" data-toggle="tab">{{ trans('cortex/fort::common.settings') }}</a></li>
+                            <li><a href="{{ route('frontend.account.sessions') }}">{{ trans('cortex/fort::common.sessions') }}</a></li>
                         </ul>
                         <div class="tab-content">
 
