@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Cortex\Fort\Transformers\Backend;
 
 use Cortex\Fort\Models\Ability;
@@ -8,7 +10,7 @@ use League\Fractal\TransformerAbstract;
 class AbilityTransformer extends TransformerAbstract
 {
     /**
-     * @return  array
+     * @return array
      */
     public function transform(Ability $ability)
     {

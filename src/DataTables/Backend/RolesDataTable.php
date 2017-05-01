@@ -29,7 +29,7 @@ class RolesDataTable extends AbstractDataTable
     {
         return $this->datatables
             ->eloquent($this->query())
-            ->setTransformer(new $this->transformer)
+            ->setTransformer(new $this->transformer())
             ->orderColumn('name', 'name->"$.'.app()->getLocale().'" $1')
             ->make(true);
     }

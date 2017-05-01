@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Cortex\Fort\Http\Controllers\Backend;
 
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Cortex\Fort\Models\Role;
 use Cortex\Fort\Models\User;
+use Illuminate\Http\Request;
 use Cortex\Fort\Models\Ability;
 use Cortex\Fort\DataTables\Backend\UsersDataTable;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
