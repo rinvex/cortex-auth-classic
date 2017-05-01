@@ -59,7 +59,7 @@
                         </ul>
                         <div class="tab-content">
 
-                            <div class="active tab-pane" id="settings">
+                            <div class="tab-pane active" id="settings">
 
                                 {{ Form::model($currentUser, ['url' => route('frontend.account.settings.update'), 'class' => 'form-horizontal']) }}
 
@@ -71,7 +71,7 @@
 
                                         @if ($currentUser->email_verified)
                                             <small class="text-success">{!! trans('cortex/fort::common.email_verified', ['date' => $currentUser->email_verified_at]) !!}</small>
-                                        @else
+                                        @elseif($currentUser->email)
                                             <small class="text-danger">{!! trans('cortex/fort::common.email_unverified', ['href' => route('frontend.verification.email.request')]) !!}</small>
                                         @endif
 
@@ -101,6 +101,20 @@
                                 <hr />
 
 
+                                <div class="form-group{{ $errors->has('name_prefix') ? ' has-error' : '' }}">
+                                    {{ Form::label('name_prefix', trans('cortex/fort::common.name_prefix'), ['class' => 'col-md-2 control-label']) }}
+
+                                    <div class="col-md-10">
+                                        {{ Form::text('name_prefix', null, ['class' => 'form-control', 'placeholder' => $currentUser->name_prefix ?: trans('cortex/fort::common.name_prefix')]) }}
+
+                                        @if ($errors->has('name_prefix'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('name_prefix') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
                                 <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
                                     {{ Form::label('first_name', trans('cortex/fort::common.first_name'), ['class' => 'col-md-2 control-label']) }}
 
@@ -115,6 +129,20 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group{{ $errors->has('middle_name') ? ' has-error' : '' }}">
+                                    {{ Form::label('middle_name', trans('cortex/fort::common.middle_name'), ['class' => 'col-md-2 control-label']) }}
+
+                                    <div class="col-md-10">
+                                        {{ Form::text('middle_name', null, ['class' => 'form-control', 'placeholder' => $currentUser->middle_name ?: trans('cortex/fort::common.middle_name')]) }}
+
+                                        @if ($errors->has('middle_name'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('middle_name') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
                                 <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
                                     {{ Form::label('last_name', trans('cortex/fort::common.last_name'), ['class' => 'col-md-2 control-label']) }}
 
@@ -124,6 +152,20 @@
                                         @if ($errors->has('last_name'))
                                             <span class="help-block">
                                                 <strong>{{ $errors->first('last_name') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="form-group{{ $errors->has('name_suffix') ? ' has-error' : '' }}">
+                                    {{ Form::label('name_suffix', trans('cortex/fort::common.name_suffix'), ['class' => 'col-md-2 control-label']) }}
+
+                                    <div class="col-md-10">
+                                        {{ Form::text('name_suffix', null, ['class' => 'form-control', 'placeholder' => $currentUser->name_suffix ?: trans('cortex/fort::common.name_suffix')]) }}
+
+                                        @if ($errors->has('name_suffix'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('name_suffix') }}</strong>
                                             </span>
                                         @endif
                                     </div>
@@ -155,7 +197,7 @@
                                                 <i class="fa fa-calendar"></i>
                                             </div>
 
-                                            {{ Form::text('birthday', null, ['class' => 'form-control datepicker']) }}
+                                            {{ Form::text('birthday', null, ['class' => 'form-control datepicker', 'data-auto-update-input' => 'false']) }}
                                         </div>
 
                                         @if ($errors->has('birthday'))
@@ -202,7 +244,7 @@
 
                                         @if ($currentUser->phone_verified)
                                             <small class="text-success">{!! trans('cortex/fort::common.phone_verified', ['date' => $currentUser->phone_verified_at]) !!}</small>
-                                        @else
+                                        @elseif($currentUser->phone)
                                             <small class="text-danger">{!! trans('cortex/fort::common.phone_unverified', ['href' => route('frontend.verification.phone.request')]) !!}</small>
                                         @endif
 

@@ -23,7 +23,7 @@
                         </ul>
                         <div class="tab-content">
 
-                            <div class="active tab-pane" id="twofactor">
+                            <div class="tab-pane active" id="twofactor">
 
                                 {{ Form::open(['url' => route('frontend.account.twofactor.totp.update'), 'class' => 'form-horizontal']) }}
 

@@ -87,6 +87,8 @@ return [
     'yes' => 'Yes',
     'you' => 'You',
     'details' => 'Details',
+    'social' => 'Social',
+    'security' => 'Security',
     'logs' => 'Logs',
     'sms' => 'SMS',
     'call' => 'Call',

@@ -35,7 +35,8 @@
                 </ul>
 
                 <div class="tab-content">
-                    <div class="active tab-pane" id="details">
+
+                    <div class="tab-pane active" id="details">
 
                         @if ($ability->exists)
                             {{ Form::model($ability, ['url' => route('backend.abilities.update', ['ability' => $ability]), 'method' => 'put']) }}
@@ -144,7 +145,9 @@
 
                         {{ Form::close() }}
                     </div>
+
                 </div>
+
             </div>
 
         </section>

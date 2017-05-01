@@ -35,7 +35,7 @@
                 </ul>
 
                 <div class="tab-content">
-                    <div class="active tab-pane" id="details">
+                    <div class="tab-pane active" id="details">
 
                         @if ($role->exists)
                             {{ Form::model($role, ['url' => route('backend.roles.update', ['role' => $role]), 'method' => 'put']) }}
