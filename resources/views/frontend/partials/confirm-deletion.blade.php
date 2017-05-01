@@ -19,7 +19,7 @@
     </div>
 </div>
 
-@section('scripts')
+@push('scripts')
     <script>
         $('#delete-confirmation').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget); // Button that triggered the modal
@@ -41,4 +41,4 @@
             modal.find('#delete-item-form').attr('action', href);
         });
     </script>
-@endsection
+@endpush

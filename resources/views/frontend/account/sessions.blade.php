@@ -21,10 +21,7 @@
 
                     <div class="panel-body">
 
-                        @include('cortex/fort::frontend.alerts.success')
-                        @include('cortex/fort::frontend.alerts.warning')
-                        @include('cortex/fort::frontend.alerts.error')
-                        @include('cortex/fort::frontend.common.confirm-modal')
+                        @include('cortex/fort::frontend.partials.confirm-deletion')
 
                         <div class="row">
 
