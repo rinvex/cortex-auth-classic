@@ -203,7 +203,7 @@ class PhoneVerificationController extends AbstractController
             case 'session':
                 return intend([
                     'url' => route('frontend.auth.login'),
-                    'withErrors' => ['rinvex.fort.auth.required' => trans('auth.session.required')],
+                    'withErrors' => ['rinvex.fort.auth.required' => trans('cortex/foundation::messages.session_required')],
                 ]);
                 break;
 
