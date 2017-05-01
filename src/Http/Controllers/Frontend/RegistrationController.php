@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Cortex\Fort\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
-use Rinvex\Fort\Models\Role;
-use Rinvex\Fort\Models\User;
+use Cortex\Fort\Models\Role;
+use Cortex\Fort\Models\User;
 use Cortex\Foundation\Http\Controllers\AbstractController;
 
 class RegistrationController extends AbstractController
@@ -39,7 +39,7 @@ class RegistrationController extends AbstractController
      * Process the registration form.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Rinvex\Fort\Models\User $user
+     * @param \Cortex\Fort\Models\User $user
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Controllers\Backend;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Rinvex\Fort\Models\Role;
-use Rinvex\Fort\Models\User;
-use Rinvex\Fort\Models\Ability;
+use Cortex\Fort\Models\Role;
+use Cortex\Fort\Models\User;
+use Cortex\Fort\Models\Ability;
+use Cortex\Fort\DataTables\Backend\UsersDataTable;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
 
 class UsersController extends AuthorizedController
@@ -24,9 +26,7 @@ class UsersController extends AuthorizedController
      */
     public function index()
     {
-        $users = User::paginate(config('rinvex.fort.backend.items_per_page'));
-
-        return view('cortex/fort::backend.users.index', compact('users'));
+        return app(UsersDataTable::class)->render('cortex/foundation::pages.datatable', ['resource' => 'cortex/fort::common.users']);
     }
 
     /**
@@ -45,7 +45,7 @@ class UsersController extends AuthorizedController
      * Update the given resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Rinvex\Fort\Models\User $user
+     * @param \Cortex\Fort\Models\User $user
      *
      * @return \Illuminate\Http\Response
      */
@@ -57,7 +57,7 @@ class UsersController extends AuthorizedController
     /**
      * Delete the given resource from storage.
      *
-     * @param \Rinvex\Fort\Models\User $user
+     * @param \Cortex\Fort\Models\User $user
      *
      * @return \Illuminate\Http\Response
      */
@@ -74,34 +74,27 @@ class UsersController extends AuthorizedController
     /**
      * Show the form for create/update of the given resource.
      *
-     * @param \Rinvex\Fort\Models\User $user
+     * @param \Cortex\Fort\Models\User $user
      *
      * @return \Illuminate\Http\Response
      */
     public function form(User $user)
     {
-        $countries = array_map(function ($country) {
-            return $country['name'];
-        }, countries());
-
-        $languages = array_map(function ($language) {
-            return $language['name'];
-        }, languages());
-
+        $countries = countries();
+        $roleList = Role::all()->pluck('name', 'id')->toArray();
+        $languages = collect(languages())->pluck('name', 'iso_639_1');
         $abilityList = Ability::all()->groupBy('resource')->map(function ($item) {
             return $item->pluck('name', 'id');
         })->toArray();
 
-        $roleList = Role::all()->pluck('name', 'id')->toArray();
-
-        return view('cortex/fort::backend.users.form', compact('user', 'abilityList', 'roleList', 'countries', 'languages'));
+        return view('cortex/fort::backend.forms.user', compact('user', 'abilityList', 'roleList', 'countries', 'languages'));
     }
 
     /**
      * Process the form for store/update of the given resource.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Rinvex\Fort\Models\User $user
+     * @param \Cortex\Fort\Models\User $user
      *
      * @return \Illuminate\Http\Response
      */
@@ -115,6 +108,16 @@ class UsersController extends AuthorizedController
         // Remove empty password fields
         if (! $input['password']) {
             unset($input['password']);
+        }
+
+        // Update email verification date
+        if ($user->email_verified && ! $user->email_verified_at) {
+            $input['email_verified_at'] = Carbon::now();
+        }
+
+        // Update phone verification date
+        if ($user->phone_verified && ! $user->phone_verified_at) {
+            $input['phone_verified_at'] = Carbon::now();
         }
 
         // Save user

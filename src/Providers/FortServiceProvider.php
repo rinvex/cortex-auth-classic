@@ -30,15 +30,31 @@ class FortServiceProvider extends ServiceProvider
         $this->loadRoutes($router);
 
         if ($this->app->runningInConsole()) {
+            // Load migrations
+            $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
+
             // Publish Resources
             $this->publishResources();
         }
 
-        // Register a view file namespace
+        // Load views
         $this->loadViewsFrom(__DIR__.'/../../resources/views', 'cortex/fort');
 
         // Load language phrases
         $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'cortex/fort');
+
+        // Register menu items
+        $this->app['view']->composer('cortex/foundation::partials.sidebar', function ($view) {
+            app('menus.sidebar')->put('access', '<li class="header">'.trans('cortex/fort::navigation.headers.access').'</li>');
+            app('menus.sidebar')->put('access.abilities', '<li '.(strpos(request()->route()->getName(), 'backend.abilities.') === 0 ? 'class="active"' : '').'><a href="'.route('backend.abilities.index').'"><i class="fa fa-sliders"></i> <span>'.trans('cortex/fort::navigation.menus.abilities').'</span></a></li>');
+            app('menus.sidebar')->put('access.roles', '<li '.(strpos(request()->route()->getName(), 'backend.roles.') === 0 ? 'class="active"' : '').'><a href="'.route('backend.roles.index').'"><i class="fa fa-users"></i> <span>'.trans('cortex/fort::navigation.menus.roles').'</span></a></li>');
+            app('menus.sidebar')->put('access.users', '<li '.(strpos(request()->route()->getName(), 'backend.users.') === 0 ? 'class="active"' : '').'><a href="'.route('backend.users.index').'"><i class="fa fa-user"></i> <span>'.trans('cortex/fort::navigation.menus.users').'</span></a></li>');
+        });
+
+        // Register menu items
+        $this->app['view']->composer('cortex/foundation::partials.header', function ($view) {
+            app('menus.topbar')->put('user', view('cortex/fort::frontend.common.user')->render());
+        });
     }
 
     /**
@@ -106,6 +122,11 @@ class FortServiceProvider extends ServiceProvider
      */
     protected function publishResources()
     {
+        // Publish migrations
+        $this->publishes([
+            realpath(__DIR__.'/../../database/migrations') => database_path('migrations'),
+        ], 'migrations');
+
         // Publish views
         $this->publishes([
             realpath(__DIR__.'/../../resources/views') => resource_path('views/vendor/cortex/fort'),

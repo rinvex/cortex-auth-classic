@@ -6,6 +6,7 @@ namespace Cortex\Fort\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use Rinvex\Fort\Models\Ability;
+use Cortex\Fort\DataTables\Backend\AbilitiesDataTable;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
 
 class AbilitiesController extends AuthorizedController
@@ -27,9 +28,7 @@ class AbilitiesController extends AuthorizedController
      */
     public function index()
     {
-        $abilities = Ability::paginate(config('rinvex.fort.backend.items_per_page'));
-
-        return view('cortex/fort::backend.abilities.index', compact('abilities'));
+        return app(AbilitiesDataTable::class)->render('cortex/foundation::pages.datatable', ['resource' => 'cortex/fort::common.abilities']);
     }
 
     /**
@@ -48,7 +47,7 @@ class AbilitiesController extends AuthorizedController
      * Update the given resource in storage.
      *
      * @param \Illuminate\Http\Request    $request
-     * @param \Rinvex\Fort\Models\Ability $ability
+     * @param \Cortex\Fort\Models\Ability $ability
      *
      * @return \Illuminate\Http\Response
      */
@@ -60,7 +59,7 @@ class AbilitiesController extends AuthorizedController
     /**
      * Delete the given resource from storage.
      *
-     * @param \Rinvex\Fort\Models\Ability $ability
+     * @param \Cortex\Fort\Models\Ability $ability
      *
      * @return \Illuminate\Http\Response
      */
@@ -77,20 +76,20 @@ class AbilitiesController extends AuthorizedController
     /**
      * Show the form for create/update of the given resource.
      *
-     * @param \Rinvex\Fort\Models\Ability $ability
+     * @param \Cortex\Fort\Models\Ability $ability
      *
      * @return \Illuminate\Http\Response
      */
     public function form(Ability $ability)
     {
-        return view('cortex/fort::backend.abilities.form', compact('ability', 'resources'));
+        return view('cortex/fort::backend.forms.ability', compact('ability', 'resources'));
     }
 
     /**
      * Process the form for store/update of the given resource.
      *
      * @param \Illuminate\Http\Request    $request
-     * @param \Rinvex\Fort\Models\Ability $ability
+     * @param \Cortex\Fort\Models\Ability $ability
      *
      * @return \Illuminate\Http\Response
      */

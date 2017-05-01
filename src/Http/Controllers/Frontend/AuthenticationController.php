@@ -71,7 +71,7 @@ class AuthenticationController extends AbstractController
 
         return intend([
             'url' => '/',
-            'with' => ['warning' => trans($result)],
+            'with' => ['warning' => trans('cortex/fort::'.$result)],
         ]);
     }
 
@@ -93,14 +93,14 @@ class AuthenticationController extends AbstractController
                 return intend([
                     'url' => '/',
                     'withInput' => $request->only(['loginfield', 'remember']),
-                    'withErrors' => ['loginfield' => trans($result, ['seconds' => $seconds])],
+                    'withErrors' => ['loginfield' => trans('cortex/fort::'.$result, ['seconds' => $seconds])],
                 ]);
 
             // Valid credentials, but user is unverified; Can NOT login!
             case SessionGuard::AUTH_UNVERIFIED:
                 return intend([
                     'url' => route('frontend.verification.email.request'),
-                    'withErrors' => ['email' => trans($result)],
+                    'withErrors' => ['email' => trans('cortex/fort::'.$result)],
                 ]);
 
             // Wrong credentials, failed login
@@ -108,7 +108,7 @@ class AuthenticationController extends AbstractController
                 return intend([
                     'back' => true,
                     'withInput' => $request->only(['loginfield', 'remember']),
-                    'withErrors' => ['loginfield' => trans($result)],
+                    'withErrors' => ['loginfield' => trans('cortex/fort::'.$result)],
                 ]);
 
             // Two-Factor authentication required
@@ -117,7 +117,7 @@ class AuthenticationController extends AbstractController
 
                 return intend([
                     'url' => $route,
-                    'with' => ['warning' => trans($result)],
+                    'with' => ['warning' => trans('cortex/fort::'.$result)],
                 ]);
 
             // Login successful and everything is fine!
@@ -125,7 +125,7 @@ class AuthenticationController extends AbstractController
             default:
                 return intend([
                     'intended' => url('/'),
-                    'with' => ['success' => trans($result)],
+                    'with' => ['success' => trans('cortex/fort::'.$result)],
                 ]);
         }
     }

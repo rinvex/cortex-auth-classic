@@ -108,7 +108,7 @@ class PhoneVerificationController extends AbstractController
 
                 return intend([
                     'url' => route('frontend.account.settings'),
-                    'with' => ['success' => trans($result)],
+                    'with' => ['success' => trans('cortex/fort::'.$result)],
                 ]);
 
             case SessionGuard::AUTH_LOGIN:
@@ -116,7 +116,7 @@ class PhoneVerificationController extends AbstractController
 
                 return intend([
                     'url' => route('frontend.account.settings'),
-                    'with' => ['success' => trans($result)],
+                    'with' => ['success' => trans('cortex/fort::'.$result)],
                 ]);
 
             case SessionGuard::AUTH_TWOFACTOR_FAILED:
@@ -126,7 +126,7 @@ class PhoneVerificationController extends AbstractController
 
                 return intend([
                     'back' => true,
-                    'withErrors' => ['token' => trans($result)],
+                    'withErrors' => ['token' => trans('cortex/fort::'.$result)],
                 ]);
         }
     }

@@ -42,8 +42,8 @@ return [
     'country' => 'Country',
     'language' => 'Language',
     'job_title' => 'Job Title',
-    'prefix' => 'Prefix',
-    'suffix' => 'Suffix',
+    'name_prefix' => 'Name Prefix',
+    'name_suffix' => 'Name Suffix',
     'password' => 'Password',
     'password_confirmation' => 'Password Confirmation',
     'new_password' => 'New Password',
@@ -52,7 +52,13 @@ return [
     'phone' => 'Phone',
     'status' => 'Status',
     'contact' => 'Contact',
-    'birthdate' => 'Birthdate',
+    'birthday' => 'Birthday',
+    'website' => 'Website',
+    'twitter' => 'Twitter',
+    'facebook' => 'Facebook',
+    'linkedin' => 'LinkedIn',
+    'google_plus' => 'Google Plus',
+    'skype' => 'Skype',
     'gender' => 'Gender',
     'male' => 'Male',
     'female' => 'Female',
@@ -80,6 +86,8 @@ return [
     'no' => 'No',
     'yes' => 'Yes',
     'you' => 'You',
+    'details' => 'Details',
+    'logs' => 'Logs',
     'sms' => 'SMS',
     'call' => 'Call',
     'statistics' => 'Statistics',
@@ -92,26 +100,20 @@ return [
     'email_unverified' => 'Email not yet verified! <a href=":href">Verify Email</a>',
     'phone_verified' => 'Phone verified at <date>:date</date>.',
     'phone_unverified' => 'Phone not yet verified! <a href=":href">Verify Phone</a>',
-    'forgot_password' => 'I forgot my password',
+    'forgot_password' => 'Forgot Password',
     'welcome' => 'Welcome',
     'welcome_body' => 'Welcome to your new project based on <strong>Rinvex Cortex</strong>. Enjoy building something awesome! 🎉',
 
     // Abilities Phrases
-    'abilities' => [
-        'label' => 'Abilities',
-        'create' => 'Create New Ability',
-    ],
-
-    // Users Phrases
-    'users' => [
-        'label' => 'Users',
-        'create' => 'Create New User',
-    ],
+    'abilities' => 'Abilities',
+    'create_ability' => 'Create New Ability',
 
     // Roles Phrases
-    'roles' => [
-        'label' => 'Roles',
-        'create' => 'Create New Role',
-    ],
+    'roles' => 'Roles',
+    'create_role' => 'Create New Role',
+
+    // Users Phrases
+    'users' => 'Users',
+    'create_user' => 'Create New User',
 
 ];

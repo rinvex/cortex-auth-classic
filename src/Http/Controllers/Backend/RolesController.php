@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Cortex\Fort\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
-use Rinvex\Fort\Models\Role;
-use Rinvex\Fort\Models\Ability;
+use Cortex\Fort\Models\Role;
+use Cortex\Fort\Models\Ability;
+use Cortex\Fort\DataTables\Backend\RolesDataTable;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
 
 class RolesController extends AuthorizedController
@@ -28,9 +29,7 @@ class RolesController extends AuthorizedController
      */
     public function index()
     {
-        $roles = Role::paginate(config('rinvex.fort.backend.items_per_page'));
-
-        return view('cortex/fort::backend.roles.index', compact('roles'));
+        return app(RolesDataTable::class)->render('cortex/foundation::pages.datatable', ['resource' => 'cortex/fort::common.roles']);
     }
 
     /**
@@ -49,7 +48,7 @@ class RolesController extends AuthorizedController
      * Update the given resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Rinvex\Fort\Models\Role $role
+     * @param \Cortex\Fort\Models\Role $role
      *
      * @return \Illuminate\Http\Response
      */
@@ -61,7 +60,7 @@ class RolesController extends AuthorizedController
     /**
      * Delete the given resource from storage.
      *
-     * @param \Rinvex\Fort\Models\Role $role
+     * @param \Cortex\Fort\Models\Role $role
      *
      * @return \Illuminate\Http\Response
      */
@@ -78,7 +77,7 @@ class RolesController extends AuthorizedController
     /**
      * Show the form for create/update of the given resource.
      *
-     * @param \Rinvex\Fort\Models\Role $role
+     * @param \Cortex\Fort\Models\Role $role
      *
      * @return \Illuminate\Http\Response
      */
@@ -88,14 +87,14 @@ class RolesController extends AuthorizedController
             return $ability->pluck('name', 'id');
         })->toArray();
 
-        return view('cortex/fort::backend.roles.form', compact('role', 'abilityList'));
+        return view('cortex/fort::backend.forms.role', compact('role', 'abilityList'));
     }
 
     /**
      * Process the form for store/update of the given resource.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Rinvex\Fort\Models\Role $role
+     * @param \Cortex\Fort\Models\Role $role
      *
      * @return \Illuminate\Http\Response
      */
