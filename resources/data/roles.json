@@ -1,0 +1,11 @@
+[
+    {
+        "slug": "operator",
+        "name": {
+            "en": "Operator"
+        },
+        "description": {
+            "en": "Default role for operators."
+        }
+    }
+]

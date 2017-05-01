@@ -6,9 +6,19 @@ namespace Cortex\Fort\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
+use Cortex\Fort\Console\Commands\SeedCommand;
 
 class FortServiceProvider extends ServiceProvider
 {
+    /**
+     * The commands to be registered.
+     *
+     * @var array
+     */
+    protected $commands = [
+        'SeedCommand' => 'command.rinvex.coworkit.seed',
+    ];
+
     /**
      * Bootstrap any application services.
      *
@@ -42,7 +52,26 @@ class FortServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        if ($this->app->runningInConsole()) {
+            // Register artisan commands
+            foreach (array_keys($this->commands) as $command) {
+                call_user_func_array([$this, "register{$command}Command"], []);
+            }
+
+            $this->commands(array_values($this->commands));
+        }
+    }
+
+    /**
+     * Register make auth command.
+     *
+     * @return void
+     */
+    protected function registerSeedCommandCommand()
+    {
+        $this->app->singleton('command.rinvex.coworkit.seed', function ($app) {
+            return new SeedCommand();
+        });
     }
 
     /**
