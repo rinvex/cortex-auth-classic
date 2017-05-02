@@ -31,7 +31,6 @@ class AbilitiesDataTable extends AbstractDataTable
             ->eloquent($this->query())
             ->setTransformer(new $this->transformer())
             ->orderColumn('name', 'name->"$.'.app()->getLocale().'" $1')
-            ->orderColumn('slug', 'action $1')
             ->make(true);
     }
 
@@ -44,7 +43,8 @@ class AbilitiesDataTable extends AbstractDataTable
     {
         return [
             'name' => ['title' => trans('cortex/fort::common.name'), 'render' => '"<a href=\""+routes.route(\'backend.abilities.edit\', {ability: full.id})+"\">"+data+"</a>"', 'responsivePriority' => 0],
-            'slug' => ['title' => trans('cortex/fort::common.slug')],
+            'action' => ['title' => trans('cortex/fort::common.action')],
+            'resource' => ['title' => trans('cortex/fort::common.resource')],
             'policy' => ['title' => trans('cortex/fort::common.policy')],
             'created_at' => ['title' => trans('cortex/fort::common.created_at'), 'width' => '15%', 'render' => "moment(data).format('MMM Do, YYYY')"],
             'updated_at' => ['title' => trans('cortex/fort::common.updated_at'), 'width' => '15%', 'render' => "moment(data).format('MMM Do, YYYY')"],

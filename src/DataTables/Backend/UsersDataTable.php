@@ -21,20 +21,6 @@ class UsersDataTable extends AbstractDataTable
     protected $transformer = UserTransformer::class;
 
     /**
-     * Display ajax response.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function ajax()
-    {
-        return $this->datatables
-            ->eloquent($this->query())
-            ->setTransformer(new $this->transformer())
-            ->orderColumn('name', 'first_name $1')
-            ->make(true);
-    }
-
-    /**
      * Get columns.
      *
      * @return array
@@ -47,7 +33,7 @@ class UsersDataTable extends AbstractDataTable
             'last_name' => ['title' => trans('cortex/fort::common.last_name')],
             'email' => ['title' => trans('cortex/fort::common.email'), 'render' => 'data+(data ? "&nbsp;&nbsp;"+(full.email_verified ? "<i class=\"text-success fa fa-check\" title=\""+full.email_verified_at+"\"></i>" : "<i class=\"text-danger fa fa-close\"></i>") : "")'],
             'phone' => ['title' => trans('cortex/fort::common.phone'), 'render' => 'data+(data ? "&nbsp;&nbsp;"+(full.phone_verified ? "<i class=\"text-success fa fa-check\" title=\""+full.phone_verified_at+"\"></i>" : "<i class=\"text-danger fa fa-close\"></i>") : "")'],
-            'country' => ['title' => trans('cortex/fort::common.country')],
+            'country' => ['title' => trans('cortex/fort::common.country'), 'orderable' => false, 'searchable' => false],
             'created_at' => ['title' => trans('cortex/fort::common.created_at'), 'width' => '15%', 'render' => "moment(data).format('MMM Do, YYYY')"],
             'updated_at' => ['title' => trans('cortex/fort::common.updated_at'), 'width' => '15%', 'render' => "moment(data).format('MMM Do, YYYY')"],
         ];

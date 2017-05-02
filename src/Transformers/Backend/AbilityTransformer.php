@@ -16,7 +16,8 @@ class AbilityTransformer extends TransformerAbstract
     {
         return [
             'id' => (int) $ability->id,
-            'slug' => (string) $ability->slug,
+            'action' => (string) $ability->action,
+            'resource' => (string) $ability->resource,
             'name' => (string) $ability->name,
             'policy' => (string) $ability->policy,
             'created_at' => (string) $ability->created_at,

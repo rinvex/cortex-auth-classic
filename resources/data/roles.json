@@ -7,5 +7,14 @@
         "description": {
             "en": "Default role for operators."
         }
+    },
+    {
+        "slug": "member",
+        "name": {
+            "en": "Member"
+        },
+        "description": {
+            "en": "Default role for members."
+        }
     }
 ]
