@@ -53,8 +53,7 @@
         "rinvex/fort": "dev-develop",
         "laravel/framework": "~5.4.0",
         "rinvex/modulable": "dev-develop",
-        "rinvex/composable": "dev-develop",
-        "rinvex/cacheable": "dev-develop"
+        "rinvex/composable": "dev-develop"
     },
     "autoload": {
         "classmap": [
