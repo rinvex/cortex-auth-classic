@@ -5,7 +5,8 @@ declare(strict_types=1);
 Route::name('backend.')
      ->namespace('Cortex\Fort\Http\Controllers\Backend')
      ->middleware(['web', 'nohttpcache', 'can:access-dashboard'])
-     ->prefix(config('rinvex.cortex.route.locale_prefix') ? '{locale}/backend' : 'backend')->group(function () {
+     ->prefix(config('rinvex.cortex.route.locale_prefix') ? '{locale}/backend' : 'backend')
+     ->group(['domain' => domain()], function () {
 
      // Dashboard route
     Route::get('/')->name('home')->uses('DashboardController@home');
@@ -42,4 +43,5 @@ Route::name('backend.')
         Route::get('{user}/logs')->name('logs')->uses('UsersController@logs')->where('user', '[0-9]+');
         Route::delete('{user}')->name('delete')->uses('UsersController@delete')->where('user', '[0-9]+');
     });
-     });
+
+});

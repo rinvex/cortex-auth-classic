@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
+
 Route::name('frontend.')
      ->middleware(['web', 'nohttpcache'])
      ->namespace('Cortex\Fort\Http\Controllers\Frontend')
-     ->prefix(config('rinvex.cortex.route.locale_prefix') ? '{locale}' : '')->group(function () {
+     ->prefix(config('rinvex.cortex.route.locale_prefix') ? '{locale}' : '')
+     ->group(['domain' => domain()], function () {
 
     // Homepage Routes
     Route::get('/')->name('home')->uses('HomeController@index');
@@ -83,4 +85,5 @@ Route::name('frontend.')
             Route::get('verify')->name('verify')->uses('EmailVerificationController@verify');
         });
     });
-     });
+
+});
