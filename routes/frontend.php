@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 Route::name('frontend.')
      ->middleware(['web', 'nohttpcache'])
      ->namespace('Cortex\Fort\Http\Controllers\Frontend')
@@ -85,5 +84,4 @@ Route::name('frontend.')
             Route::get('verify')->name('verify')->uses('EmailVerificationController@verify');
         });
     });
-
-});
+     });
