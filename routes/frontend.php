@@ -90,7 +90,3 @@ Route::group(['domain' => domain()], function () {
 
 });
 
-
-
-
-});
