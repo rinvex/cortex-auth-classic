@@ -133,21 +133,16 @@ class FortServiceProvider extends ServiceProvider
      */
     protected function publishResources()
     {
-        // Publish migrations
-        $this->publishes([
-            realpath(__DIR__.'/../../database/migrations') => database_path('migrations'),
-        ], 'migrations');
         // Publish config
         $this->publishes([realpath(__DIR__.'/../../config/config.php') => config_path('cortex.fort.php')], 'config');
 
-        // Publish views
-        $this->publishes([
-            realpath(__DIR__.'/../../resources/views') => resource_path('views/vendor/cortex/fort'),
-        ], 'views');
+        // Publish migrations
+        $this->publishes([realpath(__DIR__.'/../../database/migrations') => database_path('migrations')], 'migrations');
 
         // Publish language phrases
-        $this->publishes([
-            realpath(__DIR__.'/../../resources/lang') => resource_path('lang/vendor/cortex/fort'),
-        ], 'lang');
+        $this->publishes([realpath(__DIR__.'/../../resources/lang') => resource_path('lang/vendor/cortex/fort')], 'lang');
+
+        // Publish views
+        $this->publishes([realpath(__DIR__.'/../../resources/views') => resource_path('views/vendor/cortex/fort')], 'views');
     }
 }
