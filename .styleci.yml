@@ -18,3 +18,8 @@ enabled:
 disabled:
   - align_double_arrow
   - alpha_ordered_imports
+
+finder:
+  not-name:
+    - "routes/backend.php"
+    - "routes/frontend.php"
