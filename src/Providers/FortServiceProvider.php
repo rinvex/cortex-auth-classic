@@ -27,7 +27,9 @@ class FortServiceProvider extends ServiceProvider
     public function boot(Router $router)
     {
         // Load routes
-        $this->loadRoutes($router);
+        if (config('cortex.fort.load_routes')) {
+            $this->loadRoutes($router);
+        }
 
         if ($this->app->runningInConsole()) {
             // Load migrations
@@ -74,6 +76,9 @@ class FortServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // Merge config
+        $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'cortex.fort');
+
         if ($this->app->runningInConsole()) {
             // Register artisan commands
             foreach (array_keys($this->commands) as $command) {
@@ -132,6 +137,8 @@ class FortServiceProvider extends ServiceProvider
         $this->publishes([
             realpath(__DIR__.'/../../database/migrations') => database_path('migrations'),
         ], 'migrations');
+        // Publish config
+        $this->publishes([realpath(__DIR__.'/../../config/config.php') => config_path('cortex.fort.php')], 'config');
 
         // Publish views
         $this->publishes([
