@@ -16,7 +16,7 @@ class FortServiceProvider extends ServiceProvider
      * @var array
      */
     protected $commands = [
-        'SeedCommand' => 'command.rinvex.coworkit.seed',
+        'SeedCommand' => 'command.rinvex.cortex.seed',
     ];
 
     /**
@@ -96,7 +96,7 @@ class FortServiceProvider extends ServiceProvider
      */
     protected function registerSeedCommandCommand()
     {
-        $this->app->singleton('command.rinvex.coworkit.seed', function ($app) {
+        $this->app->singleton('command.rinvex.cortex.seed', function ($app) {
             return new SeedCommand();
         });
     }

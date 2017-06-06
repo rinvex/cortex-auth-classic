@@ -6,6 +6,7 @@ return [
 
     'headers' => [
         'access' => 'Access Control',
+        'management' => 'Management',
     ],
 
     'menus' => [
