@@ -46,8 +46,8 @@ class AbilitiesDataTable extends AbstractDataTable
             'action' => ['title' => trans('cortex/fort::common.action')],
             'resource' => ['title' => trans('cortex/fort::common.resource')],
             'policy' => ['title' => trans('cortex/fort::common.policy')],
-            'created_at' => ['title' => trans('cortex/fort::common.created_at'), 'width' => '15%', 'render' => "moment(data).format('MMM Do, YYYY')"],
-            'updated_at' => ['title' => trans('cortex/fort::common.updated_at'), 'width' => '15%', 'render' => "moment(data).format('MMM Do, YYYY')"],
+            'created_at' => ['title' => trans('cortex/fort::common.created_at'), 'render' => "moment(data).format('MMM Do, YYYY')"],
+            'updated_at' => ['title' => trans('cortex/fort::common.updated_at'), 'render' => "moment(data).format('MMM Do, YYYY')"],
         ];
     }
 }

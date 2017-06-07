@@ -25,7 +25,7 @@ class UserTransformer extends TransformerAbstract
             'phone' => (string) $user->phone,
             'phone_verified' => (bool) $user->phone_verified,
             'phone_verified_at' => (string) $user->phone_verified_at,
-            'country' => (string) $user->country_code ? $user->country->getEmoji().'&nbsp;&nbsp;'.$user->country->getName() : '',
+            'country_code' => (string) $user->country_code ? $user->country->getEmoji().'&nbsp;&nbsp;'.$user->country->getName() : '',
             'created_at' => (string) $user->created_at,
             'updated_at' => (string) $user->updated_at,
         ];
