@@ -111,6 +111,28 @@
                             </div>
 
                             <div class="row">
+
+                                @can('grant-abilities')
+                                    <div class="col-md-12">
+
+                                        {{-- Roles --}}
+                                        <div class="form-group{{ $errors->has('roles') ? ' has-error' : '' }}">
+                                            {{ Form::label('roleList[]', trans('cortex/fort::common.roles'), ['class' => 'control-label']) }}
+                                            {{ Form::select('roleList[]', $roleList, null, ['class' => 'form-control select2', 'multiple' => 'multiple', 'size' => 4, 'data-close-on-select' => true]) }}
+
+                                            @if ($errors->has('roles'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('roles') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+
+                                    </div>
+                                @endcan
+
+                            </div>
+
+                            <div class="row">
                                 <div class="col-md-12">
 
                                     {{-- Description --}}

@@ -77,7 +77,29 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-8">
+
+                                @can('grant-abilities')
+                                    <div class="col-md-12">
+
+                                        {{-- Abilities --}}
+                                        <div class="form-group{{ $errors->has('abilities') ? ' has-error' : '' }}">
+                                            {{ Form::label('abilityList[]', trans('cortex/fort::common.abilities'), ['class' => 'control-label']) }}
+                                            {{ Form::select('abilityList[]', $abilityList, null, ['class' => 'form-control select2', 'multiple' => 'multiple', 'size' => 4, 'data-close-on-select' => true]) }}
+
+                                            @if ($errors->has('abilities'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('abilities') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+
+                                    </div>
+                                @endcan
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
 
                                     {{-- Description --}}
                                     <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
@@ -92,23 +114,6 @@
                                     </div>
 
                                 </div>
-                                @can('grant-abilities')
-                                    <div class="col-md-4">
-
-                                        {{-- Abilities --}}
-                                        <div class="form-group{{ $errors->has('abilities') ? ' has-error' : '' }}">
-                                            {{ Form::label('abilityList[]', trans('cortex/fort::common.abilities'), ['class' => 'control-label']) }}
-                                            {{ Form::select('abilityList[]', $abilityList, null, ['class' => 'form-control select2', 'multiple' => 'multiple', 'size' => 4]) }}
-
-                                            @if ($errors->has('abilities'))
-                                                <span class="help-block">
-                                                    <strong>{{ $errors->first('abilities') }}</strong>
-                                                </span>
-                                            @endif
-                                        </div>
-
-                                    </div>
-                                @endcan
                             </div>
 
                             <div class="row">

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Controllers\Backend;
 
+use Cortex\Fort\Models\Role;
 use Illuminate\Http\Request;
 use Cortex\Fort\Models\Ability;
 use Cortex\Fort\DataTables\Backend\AbilitiesDataTable;
@@ -82,7 +83,9 @@ class AbilitiesController extends AuthorizedController
      */
     public function form(Ability $ability)
     {
-        return view('cortex/fort::backend.forms.ability', compact('ability', 'resources'));
+        $roleList = Role::all()->pluck('name', 'id');
+
+        return view('cortex/fort::backend.forms.ability', compact('ability', 'roleList'));
     }
 
     /**
