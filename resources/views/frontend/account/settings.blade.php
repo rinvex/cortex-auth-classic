@@ -228,7 +228,7 @@
                                         {{ Form::label('language_code', trans('cortex/fort::common.language'), ['class' => 'col-md-2 control-label']) }}
 
                                         <div class="col-md-10">
-                                            {{ Form::select('language_code', $languages, null, ['class' => 'form-control ', 'data-allow-clear' => true, 'placeholder' => trans('cortex/fort::common.select')]) }}
+                                            {{ Form::select('language_code', $languages, null, ['class' => 'form-control select2', 'data-allow-clear' => true, 'placeholder' => trans('cortex/fort::common.select')]) }}
 
                                             @if ($errors->has('language_code'))
                                                 <span class="help-block">
