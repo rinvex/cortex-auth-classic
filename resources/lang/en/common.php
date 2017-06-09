@@ -103,6 +103,7 @@ return [
     'forgot_password' => 'Forgot Password',
     'welcome' => 'Welcome',
     'welcome_body' => 'Welcome to your new project based on <strong>Rinvex Cortex</strong>. Enjoy building something awesome! 🎉',
+    'basic_info' => 'Basic Info',
 
     // Abilities Phrases
     'abilities' => 'Abilities',

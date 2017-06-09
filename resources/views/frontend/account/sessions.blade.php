@@ -19,7 +19,6 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
-                            <li><a href="{{ route('frontend.account.settings') }}">{{ trans('cortex/fort::common.settings') }}</a></li>
                             <li class="active"><a href="#sessions" data-toggle="tab">{{ trans('cortex/fort::common.sessions') }}</a></li>
                         </ul>
                         <div class="tab-content">
