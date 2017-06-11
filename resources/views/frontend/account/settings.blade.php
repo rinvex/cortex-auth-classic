@@ -7,38 +7,38 @@
 @stop
 
 @push('scripts')
-<script>
-    (function($) {
-        $(function() {
-            var countries = [
-                @foreach($countries as $code => $country)
-                    { id: '{{ $code }}', text: '{{ $country['name'] }}', emoji: '{{ $country['emoji'] }}' },
-                @endforeach
-            ];
+    <script>
+        (function($) {
+            $(function() {
+                var countries = [
+                    @foreach($countries as $code => $country)
+                        { id: '{{ $code }}', text: '{{ $country['name'] }}', emoji: '{{ $country['emoji'] }}' },
+                    @endforeach
+                ];
 
-            function formatCountry (country) {
-                if (! country.id) {
-                    return country.text;
-                }
+                function formatCountry (country) {
+                    if (! country.id) {
+                        return country.text;
+                    }
 
-                var $country = $(
-                    '<span style="padding-right: 10px">' + country.emoji + '</span>' +
-                    '<span>' + country.text + '</span>'
-                );
+                    var $country = $(
+                        '<span style="padding-right: 10px">' + country.emoji + '</span>' +
+                        '<span>' + country.text + '</span>'
+                    );
 
-                return $country;
-            };
+                    return $country;
+                };
 
-            $("[name='country_code']").select2({
-                placeholder: "Select a country",
-                templateSelection: formatCountry,
-                templateResult: formatCountry,
-                data: countries
-            }).val('{{ $currentUser->country_code }}').trigger('change');
+                $("[name='country_code']").select2({
+                    placeholder: "Select a country",
+                    templateSelection: formatCountry,
+                    templateResult: formatCountry,
+                    data: countries
+                }).val('{{ $currentUser->country_code }}').trigger('change');
 
-        });
-    })(jQuery);
-</script>
+            });
+        })(jQuery);
+    </script>
 @endpush
 
 {{-- Main Content --}}
