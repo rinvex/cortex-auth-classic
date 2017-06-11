@@ -8,15 +8,17 @@
 
 {{-- Scripts --}}
 @push('scripts')
-<script>
-    $(function () {
-        $('input').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            radioClass: 'iradio_square-blue',
-            increaseArea: '20%' // optional
+    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Frontend\RegistrationProcessRequest::class) !!}
+
+    <script>
+        $(function () {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' // optional
+            });
         });
-    });
-</script>
+    </script>
 @endpush
 
 {{-- Main Content --}}
