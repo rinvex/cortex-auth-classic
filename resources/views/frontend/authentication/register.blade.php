@@ -8,7 +8,7 @@
 
 {{-- Scripts --}}
 @push('scripts')
-    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Frontend\RegistrationProcessRequest::class) !!}
+    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Frontend\RegistrationProcessRequest::class)->selector('#frontend-auth-register-process') !!}
 
     <script>
         $(function () {
@@ -32,7 +32,7 @@
         <div class="register-box-body">
             <p class="register-box-msg">{{ trans('cortex/fort::common.register_new_account') }}</p>
 
-            {{ Form::open(['url' => route('frontend.auth.register.process')]) }}
+            {{ Form::open(['url' => route('frontend.auth.register.process'), 'id' => 'frontend-auth-register-process']) }}
 
                 <div class="form-group has-feedback{{ $errors->has('username') ? ' has-error' : '' }}">
                     {{ Form::text('username', old('username'), ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.username'), 'required' => 'required', 'autofocus' => 'autofocus']) }}

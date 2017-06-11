@@ -7,6 +7,8 @@
 @stop
 
 @push('scripts')
+    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Frontend\AccountSettingsRequest::class)->selector('#frontend-account-settings-update') !!}
+
     <script>
         (function($) {
             $(function() {
@@ -49,7 +51,7 @@
         <!-- Main content -->
         <section class="content">
 
-            {{ Form::model($currentUser, ['url' => route('frontend.account.settings.update'), 'class' => 'form-horizontal']) }}
+            {{ Form::model($currentUser, ['url' => route('frontend.account.settings.update'), 'class' => 'form-horizontal', 'id' => 'frontend-account-settings-update']) }}
 
                 <div class="row">
 
