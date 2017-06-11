@@ -262,7 +262,7 @@
                                         {{ Form::label('twitter', trans('cortex/fort::common.twitter'), ['class' => 'col-md-2 control-label']) }}
 
                                         <div class="col-md-10">
-                                            {{ Form::text('twitter', null, ['class' => 'form-control']) }}
+                                            {{ Form::text('twitter', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.twitter')]) }}
                                             <span class="fa fa-twitter form-control-feedback"></span>
 
                                             @if ($errors->has('twitter'))
@@ -277,7 +277,7 @@
                                         {{ Form::label('facebook', trans('cortex/fort::common.facebook'), ['class' => 'col-md-2 control-label']) }}
 
                                         <div class="col-md-10">
-                                            {{ Form::text('facebook', null, ['class' => 'form-control']) }}
+                                            {{ Form::text('facebook', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.facebook')]) }}
                                             <span class="fa fa-facebook form-control-feedback"></span>
 
                                             @if ($errors->has('facebook'))
@@ -292,7 +292,7 @@
                                         {{ Form::label('linkedin', trans('cortex/fort::common.linkedin'), ['class' => 'col-md-2 control-label']) }}
 
                                         <div class="col-md-10">
-                                            {{ Form::text('linkedin', null, ['class' => 'form-control']) }}
+                                            {{ Form::text('linkedin', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.linkedin')]) }}
                                             <span class="fa fa-linkedin form-control-feedback"></span>
 
                                             @if ($errors->has('linkedin'))
@@ -307,7 +307,7 @@
                                         {{ Form::label('google_plus', trans('cortex/fort::common.google_plus'), ['class' => 'col-md-2 control-label']) }}
 
                                         <div class="col-md-10">
-                                            {{ Form::text('google_plus', null, ['class' => 'form-control']) }}
+                                            {{ Form::text('google_plus', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.google_plus')]) }}
                                             <span class="fa fa-google-plus form-control-feedback"></span>
 
                                             @if ($errors->has('google_plus'))
@@ -322,7 +322,7 @@
                                         {{ Form::label('skype', trans('cortex/fort::common.skype'), ['class' => 'col-md-2 control-label']) }}
 
                                         <div class="col-md-10">
-                                            {{ Form::text('skype', null, ['class' => 'form-control']) }}
+                                            {{ Form::text('skype', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.skype')]) }}
                                             <span class="fa fa-skype form-control-feedback"></span>
 
                                             @if ($errors->has('skype'))
@@ -337,7 +337,7 @@
                                         {{ Form::label('website', trans('cortex/fort::common.website'), ['class' => 'col-md-2 control-label']) }}
 
                                         <div class="col-md-10">
-                                            {{ Form::text('website', null, ['class' => 'form-control']) }}
+                                            {{ Form::text('website', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.website')]) }}
                                             <span class="fa fa-globe form-control-feedback"></span>
 
                                             @if ($errors->has('website'))
