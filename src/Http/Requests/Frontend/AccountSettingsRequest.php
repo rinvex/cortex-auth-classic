@@ -72,10 +72,6 @@ class AccountSettingsRequest extends FormRequest
             if ($password && $password !== $data['password_confirmation']) {
                 $validator->errors()->add('password', trans('validation.confirmed', ['attribute' => 'password']));
             }
-
-            if ($password && mb_strlen($password) < config('rinvex.fort.password_min_chars')) {
-                $validator->errors()->add('password', trans('validation.min.string', ['attribute' => 'password', 'min' => config('rinvex.fort.password_min_chars')]));
-            }
         });
     }
 
