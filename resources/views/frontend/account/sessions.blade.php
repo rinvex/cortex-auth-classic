@@ -16,7 +16,7 @@
 
             <div class="row">
 
-                <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="col-md-6 col-md-offset-3">
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#sessions" data-toggle="tab">{{ trans('cortex/fort::common.sessions') }}</a></li>
@@ -83,7 +83,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                                    <div class="col-md-12 text-center">
 
                                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-confirmation" data-item-href="{{ route('frontend.account.sessions.flush') }}" data-item-type="all">
                                             <i class="fa fa-remove"></i> {{ trans('cortex/fort::messages.sessions.flush_all_heading') }}

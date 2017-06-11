@@ -16,7 +16,7 @@
 
             <div class="row">
 
-                <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="col-md-6 col-md-offset-3">
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#twofactor" data-toggle="tab">{{ trans('cortex/fort::twofactor.configure') }}</a></li>
@@ -155,7 +155,7 @@
                                 @endif
 
                                 <div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                                    <div class="col-md-12 text-center">
                                         {{ Form::button(trans('cortex/fort::common.reset'), ['class' => 'btn btn-default btn-flat', 'type' => 'reset']) }}
                                         {{ Form::button('<i class="fa fa-cog"></i> '.trans('cortex/fort::twofactor.configure'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}
                                     </div>

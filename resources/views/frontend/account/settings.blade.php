@@ -53,7 +53,7 @@
 
                 <div class="row">
 
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-6 col-md-offset-3">
                         <div class="nav-tabs-custom">
                             <ul class="nav nav-tabs">
                                 <li class="active"><a href="#settings" data-toggle="tab">{{ trans('cortex/fort::common.basic_info') }}</a></li>

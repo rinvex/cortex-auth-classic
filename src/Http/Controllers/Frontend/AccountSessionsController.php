@@ -34,7 +34,7 @@ class AccountSessionsController extends AuthenticatedController
         if ($token) {
             Persistence::find($token)->delete();
             $status = trans('cortex/fort::messages.auth.session.flushed');
-        } elseif (request()->get('confirm')) {
+        } elseif ($request->get('confirm')) {
             Persistence::where('user_id', $request->user($this->getGuard())->id)->delete();
             $status = trans('cortex/fort::messages.auth.session.flushedall');
         }
