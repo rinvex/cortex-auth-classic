@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Controllers\Frontend;
 
-use Cortex\Fort\Models\Role;
 use Cortex\Fort\Models\User;
-use Illuminate\Http\Request;
 use Cortex\Foundation\Http\Controllers\AbstractController;
+use Cortex\Fort\Http\Requests\Frontend\RegistrationRequest;
+use Cortex\Fort\Http\Requests\Frontend\RegistrationProcessRequest;
 
 class RegistrationController extends AbstractController
 {
@@ -24,59 +24,43 @@ class RegistrationController extends AbstractController
     /**
      * Show the registration form.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Cortex\Fort\Http\Requests\Frontend\RegistrationRequest $request
      *
      * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function form(Request $request)
+    public function form(RegistrationRequest $request)
     {
-        if (! config('rinvex.fort.registration.enabled')) {
-            return $this->redirect();
-        }
-
         return view('cortex/fort::frontend.authentication.register');
     }
 
     /**
      * Process the registration form.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Cortex\Fort\Models\User $user
+     * @param \Cortex\Fort\Http\Requests\Frontend\RegistrationProcessRequest $request
+     * @param \Cortex\Fort\Models\User                                       $user
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function register(Request $request, User $user)
+    public function register(RegistrationProcessRequest $request, User $user)
     {
-        if (! config('rinvex.fort.registration.enabled')) {
-            return $this->redirect();
-        }
-
         // Prepare registration data
-        $input = $request->only(['username', 'email', 'password', 'password_confirmation']);
-        $active = ['active' => ! config('rinvex.fort.registration.moderated')];
+        $data = $request->all();
 
         // Fire the register start event
-        event('rinvex.fort.register.start', [$input + $active]);
+        event('rinvex.fort.register.start', [$data]);
 
-        $user->fill($input + $active)->save();
-
-        // Attach default role to the registered user
-        if ($defaultRole = config('rinvex.fort.registration.default_role')) {
-            if ($defaultRole = Role::where('slug', $defaultRole)->first()) {
-                $user->roles()->attach($defaultRole);
-            }
-        }
+        $user->fill($data)->save();
 
         // Fire the register success event
         event('rinvex.fort.register.success', [$user]);
 
         // Send verification if required
         if (config('rinvex.fort.emailverification.required')) {
-            app('rinvex.fort.emailverification')->broker()->sendVerificationLink(['email' => $input['email']]);
+            app('rinvex.fort.emailverification')->broker()->sendVerificationLink(['email' => $data['email']]);
 
             // Registration completed, verification required
             return intend([
-                'intended' => url('/'),
+                'intended' => route('frontend.home'),
                 'with' => ['success' => trans('cortex/fort::messages.register.success_verify')],
             ]);
         }
@@ -85,19 +69,6 @@ class RegistrationController extends AbstractController
         return intend([
             'url' => route('frontend.auth.login'),
             'with' => ['success' => trans('cortex/fort::messages.register.success')],
-        ]);
-    }
-
-    /**
-     * Return redirect response.
-     *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
-     */
-    protected function redirect()
-    {
-        return intend([
-            'back' => true,
-            'withErrors' => ['rinvex.fort.registration.disabled' => trans('cortex/fort::messages.register.disabled')],
         ]);
     }
 }
