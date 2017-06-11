@@ -24,9 +24,7 @@
                 <span class="fa fa-phone form-control-feedback"></span>
 
                 @if ($errors->has('token'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('token') }}</strong>
-                    </span>
+                    <span class="help-block">{{ $errors->first('token') }}</span>
                 @endif
 
                 {{ trans('cortex/fort::twofactor.backup_notice') }}<br />

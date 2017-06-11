@@ -53,9 +53,7 @@
                                         {{ Form::text('name', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.name'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
 
                                         @if ($errors->has('name'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('name') }}</strong>
-                                            </span>
+                                            <span class="help-block">{{ $errors->first('name') }}</span>
                                         @endif
                                     </div>
 
@@ -68,9 +66,7 @@
                                         {{ Form::text('policy', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.policy')]) }}
 
                                         @if ($errors->has('policy'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('policy') }}</strong>
-                                            </span>
+                                            <span class="help-block">{{ $errors->first('policy') }}</span>
                                         @endif
                                     </div>
 
@@ -86,9 +82,7 @@
                                         {{ Form::text('action', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.action'), 'required' => 'required']) }}
 
                                         @if ($errors->has('action'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('action') }}</strong>
-                                            </span>
+                                            <span class="help-block">{{ $errors->first('action') }}</span>
                                         @endif
                                     </div>
 
@@ -101,9 +95,7 @@
                                         {{ Form::text('resource', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.resource'), 'required' => 'required']) }}
 
                                         @if ($errors->has('resource'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('resource') }}</strong>
-                                            </span>
+                                            <span class="help-block">{{ $errors->first('resource') }}</span>
                                         @endif
                                     </div>
 
@@ -121,9 +113,7 @@
                                             {{ Form::select('roleList[]', $roleList, null, ['class' => 'form-control select2', 'multiple' => 'multiple', 'size' => 4, 'data-close-on-select' => true]) }}
 
                                             @if ($errors->has('roles'))
-                                                <span class="help-block">
-                                                    <strong>{{ $errors->first('roles') }}</strong>
-                                                </span>
+                                                <span class="help-block">{{ $errors->first('roles') }}</span>
                                             @endif
                                         </div>
 
@@ -141,9 +131,7 @@
                                         {{ Form::textarea('description', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.description'), 'rows' => 3]) }}
 
                                         @if ($errors->has('description'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('description') }}</strong>
-                                            </span>
+                                            <span class="help-block">{{ $errors->first('description') }}</span>
                                         @endif
                                     </div>
 

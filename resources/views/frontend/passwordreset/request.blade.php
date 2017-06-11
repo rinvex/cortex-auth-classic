@@ -24,9 +24,7 @@
                 <span class="fa fa-envelope form-control-feedback"></span>
 
                 @if ($errors->has('email'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('email') }}</strong>
-                    </span>
+                    <span class="help-block">{{ $errors->first('email') }}</span>
                 @endif
             </div>
 

@@ -37,9 +37,7 @@
                 <span class="fa fa-envelope form-control-feedback"></span>
 
                 @if ($errors->has('loginfield'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('loginfield') }}</strong>
-                    </span>
+                    <span class="help-block">{{ $errors->first('loginfield') }}</span>
                 @endif
             </div>
             <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
@@ -47,9 +45,7 @@
                 <span class="fa fa-lock form-control-feedback"></span>
 
                 @if ($errors->has('password'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('password') }}</strong>
-                    </span>
+                    <span class="help-block">{{ $errors->first('password') }}</span>
                 @endif
             </div>
             <div class="row">

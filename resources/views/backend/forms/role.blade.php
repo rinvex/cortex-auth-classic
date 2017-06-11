@@ -52,9 +52,7 @@
                                         {{ Form::text('name', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.name'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
 
                                         @if ($errors->has('name'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('name') }}</strong>
-                                            </span>
+                                            <span class="help-block">{{ $errors->first('name') }}</span>
                                         @endif
                                     </div>
 
@@ -67,9 +65,7 @@
                                         {{ Form::text('slug', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.slug'), 'required' => 'required']) }}
 
                                         @if ($errors->has('slug'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('slug') }}</strong>
-                                            </span>
+                                            <span class="help-block">{{ $errors->first('slug') }}</span>
                                         @endif
                                     </div>
 
@@ -87,9 +83,7 @@
                                             {{ Form::select('abilityList[]', $abilityList, null, ['class' => 'form-control select2', 'multiple' => 'multiple', 'size' => 4, 'data-close-on-select' => true]) }}
 
                                             @if ($errors->has('abilities'))
-                                                <span class="help-block">
-                                                    <strong>{{ $errors->first('abilities') }}</strong>
-                                                </span>
+                                                <span class="help-block">{{ $errors->first('abilities') }}</span>
                                             @endif
                                         </div>
 
@@ -107,9 +101,7 @@
                                         {{ Form::textarea('description', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.description'), 'rows' => 3]) }}
 
                                         @if ($errors->has('description'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('description') }}</strong>
-                                            </span>
+                                            <span class="help-block">{{ $errors->first('description') }}</span>
                                         @endif
                                     </div>
 

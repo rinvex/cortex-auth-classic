@@ -91,9 +91,7 @@
                                             {{ Form::text('token', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.authentication_code'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
 
                                             @if ($errors->has('token'))
-                                                <span class="help-block">
-                                                    <strong>{{ $errors->first('token') }}</strong>
-                                                </span>
+                                                <span class="help-block">{{ $errors->first('token') }}</span>
                                             @endif
                                         </div>
 

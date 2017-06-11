@@ -24,9 +24,7 @@
                 {{ Form::email('email', old('email', $email), ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.email'), 'required' => 'required', 'readonly' => 'readonly']) }}
 
                 @if ($errors->has('email'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('email') }}</strong>
-                    </span>
+                    <span class="help-block">{{ $errors->first('email') }}</span>
                 @endif
             </div>
 
@@ -34,9 +32,7 @@
                 {{ Form::password('password', ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.new_password'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
 
                 @if ($errors->has('password'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('password') }}</strong>
-                    </span>
+                    <span class="help-block">{{ $errors->first('password') }}</span>
                 @endif
             </div>
 
@@ -44,9 +40,7 @@
                 {{ Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.new_password_confirmation'), 'required' => 'required']) }}
 
                 @if ($errors->has('password_confirmation'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('password_confirmation') }}</strong>
-                    </span>
+                    <span class="help-block">{{ $errors->first('password_confirmation') }}</span>
                 @endif
             </div>
 

@@ -39,9 +39,7 @@
                 </div>
 
                 @if ($errors->has('phone'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('phone') }}</strong>
-                    </span>
+                    <span class="help-block">{{ $errors->first('phone') }}</span>
                 @endif
             </div>
 

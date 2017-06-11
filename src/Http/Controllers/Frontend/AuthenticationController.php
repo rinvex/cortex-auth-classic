@@ -126,7 +126,7 @@ class AuthenticationController extends AbstractController
             case SessionGuard::AUTH_LOGIN:
             default:
                 return intend([
-                    'intended' => url('/'),
+                    'intended' => route('frontend.home'),
                     'with' => ['success' => trans('cortex/fort::'.$result)],
                 ]);
         }

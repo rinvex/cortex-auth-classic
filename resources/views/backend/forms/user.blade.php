@@ -90,9 +90,7 @@
                                         {{ Form::text('first_name', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.first_name'), 'autofocus' => 'autofocus']) }}
 
                                         @if ($errors->has('first_name'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('first_name') }}</strong>
-                                            </span>
+                                            <span class="help-block">{{ $errors->first('first_name') }}</span>
                                         @endif
                                     </div>
 
@@ -105,9 +103,7 @@
                                         {{ Form::text('middle_name', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.middle_name')]) }}
 
                                         @if ($errors->has('middle_name'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('middle_name') }}</strong>
-                                            </span>
+                                            <span class="help-block">{{ $errors->first('middle_name') }}</span>
                                         @endif
                                     </div>
 
@@ -120,9 +116,7 @@
                                         {{ Form::text('last_name', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.last_name')]) }}
 
                                         @if ($errors->has('last_name'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('last_name') }}</strong>
-                                            </span>
+                                            <span class="help-block">{{ $errors->first('last_name') }}</span>
                                         @endif
                                     </div>
 
@@ -138,9 +132,7 @@
                                         {{ Form::text('username', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.username'), 'required' => 'required']) }}
 
                                         @if ($errors->has('username'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('username') }}</strong>
-                                            </span>
+                                            <span class="help-block">{{ $errors->first('username') }}</span>
                                         @endif
                                     </div>
 
@@ -153,9 +145,7 @@
                                         {{ Form::text('job_title', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.job_title')]) }}
 
                                         @if ($errors->has('job_title'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('job_title') }}</strong>
-                                            </span>
+                                            <span class="help-block">{{ $errors->first('job_title') }}</span>
                                         @endif
                                     </div>
 
@@ -168,9 +158,7 @@
                                         {{ Form::text('name_prefix', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.name_prefix')]) }}
 
                                         @if ($errors->has('name_prefix'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('name_prefix') }}</strong>
-                                            </span>
+                                            <span class="help-block">{{ $errors->first('name_prefix') }}</span>
                                         @endif
                                     </div>
 
@@ -183,9 +171,7 @@
                                         {{ Form::text('name_suffix', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.name_suffix')]) }}
 
                                         @if ($errors->has('name_suffix'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('name_suffix') }}</strong>
-                                            </span>
+                                            <span class="help-block">{{ $errors->first('name_suffix') }}</span>
                                         @endif
                                     </div>
 
@@ -209,9 +195,7 @@
                                         </div>
 
                                         @if ($errors->has('email'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('email') }}</strong>
-                                            </span>
+                                            <span class="help-block">{{ $errors->first('email') }}</span>
                                         @endif
                                     </div>
 
@@ -225,9 +209,7 @@
                                         {{ Form::select('country_code', [], null, ['class' => 'form-control select2', 'data-allow-clear' => true, 'placeholder' => trans('cortex/fort::common.select')]) }}
 
                                         @if ($errors->has('country_code'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('country_code') }}</strong>
-                                            </span>
+                                            <span class="help-block">{{ $errors->first('country_code') }}</span>
                                         @endif
                                     </div>
 
@@ -241,9 +223,7 @@
                                         {{ Form::select('language_code', $languages, null, ['class' => 'form-control select2', 'data-allow-clear' => true, 'placeholder' => trans('cortex/fort::common.select')]) }}
 
                                         @if ($errors->has('language_code'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('language_code') }}</strong>
-                                            </span>
+                                            <span class="help-block">{{ $errors->first('language_code') }}</span>
                                         @endif
                                     </div>
 
@@ -268,9 +248,7 @@
                                         </div>
 
                                         @if ($errors->has('phone'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('phone') }}</strong>
-                                            </span>
+                                            <span class="help-block">{{ $errors->first('phone') }}</span>
                                         @endif
                                     </div>
 
@@ -284,9 +262,7 @@
                                         {{ Form::select('gender', ['male' => trans('cortex/fort::common.male'), 'female' => trans('cortex/fort::common.female')], null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/fort::common.select'), 'data-allow-clear' => true, 'data-minimum-results-for-search' => 'Infinity']) }}
 
                                         @if ($errors->has('gender'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('gender') }}</strong>
-                                            </span>
+                                            <span class="help-block">{{ $errors->first('gender') }}</span>
                                         @endif
                                     </div>
 
@@ -300,9 +276,7 @@
                                         {{ Form::select('active', [1 => trans('cortex/fort::common.yes'), 0 => trans('cortex/fort::common.no')], null, ['class' => 'form-control select2', 'data-minimum-results-for-search' => 'Infinity']) }}
 
                                         @if ($errors->has('active'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('active') }}</strong>
-                                            </span>
+                                            <span class="help-block">{{ $errors->first('active') }}</span>
                                         @endif
                                     </div>
 
@@ -326,9 +300,7 @@
                                         </div>
 
                                         @if ($errors->has('birthday'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('birthday') }}</strong>
-                                            </span>
+                                            <span class="help-block">{{ $errors->first('birthday') }}</span>
                                         @endif
                                     </div>
 
@@ -356,9 +328,7 @@
                                         </div>
 
                                         @if ($errors->has('twitter'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('twitter') }}</strong>
-                                            </span>
+                                            <span class="help-block">{{ $errors->first('twitter') }}</span>
                                         @endif
                                     </div>
 
@@ -378,9 +348,7 @@
                                         </div>
 
                                         @if ($errors->has('facebook'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('facebook') }}</strong>
-                                            </span>
+                                            <span class="help-block">{{ $errors->first('facebook') }}</span>
                                         @endif
                                     </div>
 
@@ -400,9 +368,7 @@
                                         </div>
 
                                         @if ($errors->has('linkedin'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('linkedin') }}</strong>
-                                            </span>
+                                            <span class="help-block">{{ $errors->first('linkedin') }}</span>
                                         @endif
                                     </div>
 
@@ -426,9 +392,7 @@
                                         </div>
 
                                         @if ($errors->has('google_plus'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('google_plus') }}</strong>
-                                            </span>
+                                            <span class="help-block">{{ $errors->first('google_plus') }}</span>
                                         @endif
                                     </div>
 
@@ -448,9 +412,7 @@
                                         </div>
 
                                         @if ($errors->has('skype'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('skype') }}</strong>
-                                            </span>
+                                            <span class="help-block">{{ $errors->first('skype') }}</span>
                                         @endif
                                     </div>
 
@@ -471,9 +433,7 @@
                                         </div>
 
                                         @if ($errors->has('wesbite'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('wesbite') }}</strong>
-                                            </span>
+                                            <span class="help-block">{{ $errors->first('wesbite') }}</span>
                                         @endif
                                     </div>
 
@@ -497,9 +457,7 @@
                                             {{ Form::select('roleList[]', $roleList, null, ['class' => 'form-control', 'multiple' => 'multiple', 'size' => 4]) }}
 
                                             @if ($errors->has('roles'))
-                                                <span class="help-block">
-                                                    <strong>{{ $errors->first('roles') }}</strong>
-                                                </span>
+                                                <span class="help-block">{{ $errors->first('roles') }}</span>
                                             @endif
                                         </div>
 
@@ -517,9 +475,7 @@
                                             {{ Form::select('abilityList[]', $abilityList, null, ['class' => 'form-control', 'multiple' => 'multiple', 'size' => 4]) }}
 
                                             @if ($errors->has('abilities'))
-                                                <span class="help-block">
-                                                    <strong>{{ $errors->first('abilityList[]') }}</strong>
-                                                </span>
+                                                <span class="help-block">{{ $errors->first('abilityList[]') }}</span>
                                             @endif
                                         </div>
 
@@ -539,9 +495,7 @@
                                         @endif
 
                                         @if ($errors->has('password'))
-                                            <span class="help-block">
-                                            <strong>{{ $errors->first('password') }}</strong>
-                                        </span>
+                                            <span class="help-block">{{ $errors->first('password') }}</span>
                                         @endif
                                     </div>
 

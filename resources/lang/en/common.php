@@ -19,6 +19,7 @@ return [
     'logout' => 'Logout',
     'warning' => 'Warning',
     'register' => 'Register',
+    'register_new_account' => 'Register a new Account',
     'register_via_facebook' => 'Register via Facebook',
     'register_via_gplus' => 'Register via Google+',
     'login' => 'Login',
@@ -103,6 +104,7 @@ return [
     'forgot_password' => 'Forgot Password',
     'welcome' => 'Welcome',
     'welcome_body' => 'Welcome to your new project based on <strong>Rinvex Cortex</strong>. Enjoy building something awesome! 🎉',
+    'registered_already' => 'I already have registered account',
     'basic_info' => 'Basic Info',
 
     // Abilities Phrases
