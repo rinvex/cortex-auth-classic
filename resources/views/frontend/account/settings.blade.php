@@ -190,17 +190,12 @@
                                     </div>
 
                                     {{-- Birthday --}}
-                                    <div class="form-group{{ $errors->has('birthday') ? ' has-error' : '' }}">
+                                    <div class="form-group has-feedback{{ $errors->has('birthday') ? ' has-error' : '' }}">
                                         {{ Form::label('birthday', trans('cortex/fort::common.birthday'), ['class' => 'col-md-2 control-label']) }}
 
                                         <div class="col-md-10">
-                                            <div class="input-group">
-                                                <div class="input-group-addon">
-                                                    <i class="fa fa-calendar"></i>
-                                                </div>
-
-                                                {{ Form::text('birthday', null, ['class' => 'form-control datepicker', 'data-auto-update-input' => 'false']) }}
-                                            </div>
+                                            {{ Form::text('birthday', null, ['class' => 'form-control datepicker', 'data-auto-update-input' => 'false']) }}
+                                            <span class="fa fa-calendar form-control-feedback"></span>
 
                                             @if ($errors->has('birthday'))
                                                 <span class="help-block">
@@ -238,11 +233,12 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+                                    <div class="form-group has-feedback{{ $errors->has('phone') ? ' has-error' : '' }}">
                                         {{ Form::label('phone', trans('cortex/fort::common.phone'), ['class' => 'col-md-2 control-label']) }}
 
                                         <div class="col-md-10">
                                             {{ Form::number('phone', null, ['class' => 'form-control', 'placeholder' => $currentUser->phone ?: trans('cortex/fort::common.phone')]) }}
+                                            <span class="fa fa-phone form-control-feedback"></span>
 
                                             @if ($currentUser->phone_verified)
                                                 <small class="text-success">{!! trans('cortex/fort::common.phone_verified', ['date' => $currentUser->phone_verified_at]) !!}</small>
@@ -262,17 +258,12 @@
 
                                 <div class="tab-pane" id="social">
 
-                                    <div class="form-group{{ $errors->has('twitter') ? ' has-error' : '' }}">
+                                    <div class="form-group has-feedback{{ $errors->has('twitter') ? ' has-error' : '' }}">
                                         {{ Form::label('twitter', trans('cortex/fort::common.twitter'), ['class' => 'col-md-2 control-label']) }}
 
                                         <div class="col-md-10">
-                                            <div class="input-group">
-                                                <div class="input-group-addon">
-                                                    <i class="fa fa-twitter"></i>
-                                                </div>
-
-                                                {{ Form::text('twitter', null, ['class' => 'form-control']) }}
-                                            </div>
+                                            {{ Form::text('twitter', null, ['class' => 'form-control']) }}
+                                            <span class="fa fa-twitter form-control-feedback"></span>
 
                                             @if ($errors->has('twitter'))
                                                 <span class="help-block">
@@ -282,17 +273,12 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group{{ $errors->has('facebook') ? ' has-error' : '' }}">
+                                    <div class="form-group has-feedback{{ $errors->has('facebook') ? ' has-error' : '' }}">
                                         {{ Form::label('facebook', trans('cortex/fort::common.facebook'), ['class' => 'col-md-2 control-label']) }}
 
                                         <div class="col-md-10">
-                                            <div class="input-group">
-                                                <div class="input-group-addon">
-                                                    <i class="fa fa-facebook"></i>
-                                                </div>
-
-                                                {{ Form::text('facebook', null, ['class' => 'form-control']) }}
-                                            </div>
+                                            {{ Form::text('facebook', null, ['class' => 'form-control']) }}
+                                            <span class="fa fa-facebook form-control-feedback"></span>
 
                                             @if ($errors->has('facebook'))
                                                 <span class="help-block">
@@ -302,17 +288,12 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group{{ $errors->has('linkedin') ? ' has-error' : '' }}">
+                                    <div class="form-group has-feedback{{ $errors->has('linkedin') ? ' has-error' : '' }}">
                                         {{ Form::label('linkedin', trans('cortex/fort::common.linkedin'), ['class' => 'col-md-2 control-label']) }}
 
                                         <div class="col-md-10">
-                                            <div class="input-group">
-                                                <div class="input-group-addon">
-                                                    <i class="fa fa-linkedin"></i>
-                                                </div>
-
-                                                {{ Form::text('linkedin', null, ['class' => 'form-control']) }}
-                                            </div>
+                                            {{ Form::text('linkedin', null, ['class' => 'form-control']) }}
+                                            <span class="fa fa-linkedin form-control-feedback"></span>
 
                                             @if ($errors->has('linkedin'))
                                                 <span class="help-block">
@@ -322,17 +303,12 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group{{ $errors->has('google_plus') ? ' has-error' : '' }}">
+                                    <div class="form-group has-feedback{{ $errors->has('google_plus') ? ' has-error' : '' }}">
                                         {{ Form::label('google_plus', trans('cortex/fort::common.google_plus'), ['class' => 'col-md-2 control-label']) }}
 
                                         <div class="col-md-10">
-                                            <div class="input-group">
-                                                <div class="input-group-addon">
-                                                    <i class="fa fa-google-plus"></i>
-                                                </div>
-
-                                                {{ Form::text('google_plus', null, ['class' => 'form-control']) }}
-                                            </div>
+                                            {{ Form::text('google_plus', null, ['class' => 'form-control']) }}
+                                            <span class="fa fa-google-plus form-control-feedback"></span>
 
                                             @if ($errors->has('google_plus'))
                                                 <span class="help-block">
@@ -342,17 +318,12 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group{{ $errors->has('skype') ? ' has-error' : '' }}">
+                                    <div class="form-group has-feedback{{ $errors->has('skype') ? ' has-error' : '' }}">
                                         {{ Form::label('skype', trans('cortex/fort::common.skype'), ['class' => 'col-md-2 control-label']) }}
 
                                         <div class="col-md-10">
-                                            <div class="input-group">
-                                                <div class="input-group-addon">
-                                                    <i class="fa fa-skype"></i>
-                                                </div>
-
-                                                {{ Form::text('skype', null, ['class' => 'form-control']) }}
-                                            </div>
+                                            {{ Form::text('skype', null, ['class' => 'form-control']) }}
+                                            <span class="fa fa-skype form-control-feedback"></span>
 
                                             @if ($errors->has('skype'))
                                                 <span class="help-block">
@@ -362,17 +333,12 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group{{ $errors->has('website') ? ' has-error' : '' }}">
+                                    <div class="form-group has-feedback{{ $errors->has('website') ? ' has-error' : '' }}">
                                         {{ Form::label('website', trans('cortex/fort::common.website'), ['class' => 'col-md-2 control-label']) }}
 
                                         <div class="col-md-10">
-                                            <div class="input-group">
-                                                <div class="input-group-addon">
-                                                    <i class="fa fa-globe"></i>
-                                                </div>
-
-                                                {{ Form::text('website', null, ['class' => 'form-control']) }}
-                                            </div>
+                                            {{ Form::text('website', null, ['class' => 'form-control']) }}
+                                            <span class="fa fa-globe form-control-feedback"></span>
 
                                             @if ($errors->has('website'))
                                                 <span class="help-block">
@@ -386,11 +352,12 @@
 
                                 <div class="tab-pane" id="security">
 
-                                    <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                                    <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
                                         {{ Form::label('password', trans('cortex/fort::common.password'), ['class' => 'col-md-2 control-label']) }}
 
                                         <div class="col-md-10">
                                             {{ Form::password('password', ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.password')]) }}
+                                            <span class="fa fa-key form-control-feedback"></span>
 
                                             @if ($errors->has('password'))
                                                 <span class="help-block">
@@ -400,11 +367,12 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+                                    <div class="form-group has-feedback{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
                                         {{ Form::label('password_confirmation', trans('cortex/fort::common.password_confirmation'), ['class' => 'col-md-2 control-label']) }}
 
                                         <div class="col-md-10">
                                             {{ Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.password_confirmation')]) }}
+                                            <span class="fa fa-key form-control-feedback"></span>
 
                                             @if ($errors->has('password_confirmation'))
                                                 <span class="help-block">
