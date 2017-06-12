@@ -5,16 +5,23 @@ declare(strict_types=1);
 namespace Cortex\Fort\Http\Requests\Frontend;
 
 use Rinvex\Support\Http\Requests\FormRequest;
+use Cortex\Foundation\Exceptions\GenericException;
 
 class EmailVerificationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
+     * @throws \Cortex\Foundation\Exceptions\GenericException
+     *
      * @return bool
      */
     public function authorize()
     {
+        if ($this->user() && $this->user()->email_verified) {
+            throw new GenericException(trans('cortex/fort::messages.verification.email.already'), route('frontend.account.settings'));
+        }
+
         return true;
     }
 
@@ -25,28 +32,6 @@ class EmailVerificationRequest extends FormRequest
      */
     public function rules()
     {
-        // Skip validation rules for request validation form
-        if ($this->route()->getName() === 'frontend.verification.email.request') {
-            return [];
-        }
-
-        return $this->isMethod('post') ? [
-            'email' => 'required|email|max:255|exists:'.config('rinvex.fort.tables.users').',email',
-        ] : [
-            'token' => 'required|regex:/^[0-9a-zA-Z]+$/',
-            'email' => 'required|email|max:255|exists:'.config('rinvex.fort.tables.users').',email',
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getRedirectUrl()
-    {
-        if ($this->isMethod('post')) {
-            return parent::getRedirectUrl();
-        }
-
-        return $this->redirector->getUrlGenerator()->route('frontend.verification.email.request');
+        return [];
     }
 }
