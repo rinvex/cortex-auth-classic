@@ -47,7 +47,7 @@ class PasswordResetController extends AbstractController
             case PasswordBroker::RESET_LINK_SENT:
                 return intend([
                     'url' => '/',
-                    'with' => ['success' => trans($result)],
+                    'with' => ['success' => trans('cortex/fort::'.$result)],
                 ]);
 
             case PasswordBroker::INVALID_USER:
@@ -55,7 +55,7 @@ class PasswordResetController extends AbstractController
                 return intend([
                     'back' => true,
                     'withInput' => $request->only(['email']),
-                    'withErrors' => ['email' => trans($result)],
+                    'withErrors' => ['email' => trans('cortex/fort::'.$result)],
                 ]);
         }
     }
@@ -113,7 +113,7 @@ class PasswordResetController extends AbstractController
             case PasswordBroker::PASSWORD_RESET:
                 return intend([
                     'url' => route('frontend.auth.login'),
-                    'with' => ['success' => trans($result)],
+                    'with' => ['success' => trans('cortex/fort::'.$result)],
                 ]);
 
             case PasswordBroker::INVALID_USER:
@@ -123,7 +123,7 @@ class PasswordResetController extends AbstractController
                 return intend([
                     'back' => true,
                     'withInput' => $request->only(['email']),
-                    'withErrors' => ['email' => trans($result)],
+                    'withErrors' => ['email' => trans('cortex/fort::'.$result)],
                 ]);
         }
     }
