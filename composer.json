@@ -70,6 +70,11 @@
         "branch-alias": {
             "dev-master": "1.0-dev"
         },
+        "laravel": {
+            "providers": [
+                "Cortex\\Fort\\Providers\\FortServiceProvider"
+            ]
+        },
         "cortex-module": {
             "autoinstall": false,
             "icon": {
