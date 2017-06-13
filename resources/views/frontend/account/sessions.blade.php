@@ -19,11 +19,11 @@
                 <div class="col-md-6 col-md-offset-3">
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="#sessions" data-toggle="tab">{{ trans('cortex/fort::common.sessions') }}</a></li>
+                            <li class="active"><a href="#sessions-tab" data-toggle="tab">{{ trans('cortex/fort::common.sessions') }}</a></li>
                         </ul>
                         <div class="tab-content">
 
-                            <div class="tab-pane active" id="sessions">
+                            <div class="tab-pane active" id="sessions-tab">
 
                                 @include('cortex/fort::frontend.partials.confirm-deletion')
 

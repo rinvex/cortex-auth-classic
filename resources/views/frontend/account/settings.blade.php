@@ -58,14 +58,14 @@
                     <div class="col-md-6 col-md-offset-3">
                         <div class="nav-tabs-custom">
                             <ul class="nav nav-tabs">
-                                <li class="active"><a href="#settings" data-toggle="tab">{{ trans('cortex/fort::common.basic_info') }}</a></li>
-                                <li><a href="#social" data-toggle="tab">{{ trans('cortex/fort::common.social') }}</a></li>
-                                <li><a href="#security" data-toggle="tab">{{ trans('cortex/fort::common.security') }}</a></li>
+                                <li class="active"><a href="#basic-tab" data-toggle="tab">{{ trans('cortex/fort::common.basic_info') }}</a></li>
+                                <li><a href="#social-tab" data-toggle="tab">{{ trans('cortex/fort::common.social') }}</a></li>
+                                <li><a href="#security-tab" data-toggle="tab">{{ trans('cortex/fort::common.security') }}</a></li>
                             </ul>
 
                             <div class="tab-content">
 
-                                <div class="tab-pane active" id="settings">
+                                <div class="tab-pane active" id="basic-tab">
 
                                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                         {{ Form::label('email', trans('cortex/fort::common.email'), ['class' => 'col-md-2 control-label']) }}
@@ -234,7 +234,7 @@
 
                                 </div>
 
-                                <div class="tab-pane" id="social">
+                                <div class="tab-pane" id="social-tab">
 
                                     <div class="form-group has-feedback{{ $errors->has('twitter') ? ' has-error' : '' }}">
                                         {{ Form::label('twitter', trans('cortex/fort::common.twitter'), ['class' => 'col-md-2 control-label']) }}
@@ -316,7 +316,7 @@
 
                                 </div>
 
-                                <div class="tab-pane" id="security">
+                                <div class="tab-pane" id="security-tab">
 
                                     <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
                                         {{ Form::label('password', trans('cortex/fort::common.password'), ['class' => 'col-md-2 control-label']) }}

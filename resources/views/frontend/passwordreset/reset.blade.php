@@ -18,39 +18,41 @@
             <p class="login-box-msg">{{ trans('cortex/fort::common.password_reset') }}</p>
 
             {{ Form::open(['url' => route('frontend.passwordreset.process')]) }}
-            {{ Form::hidden('token', old('token', $token)) }}
 
-            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                {{ Form::email('email', old('email', $email), ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.email'), 'required' => 'required', 'readonly' => 'readonly']) }}
+                {{ Form::hidden('token', old('token', $token)) }}
 
-                @if ($errors->has('email'))
-                    <span class="help-block">{{ $errors->first('email') }}</span>
-                @endif
-            </div>
+                <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                    {{ Form::email('email', old('email', $email), ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.email'), 'required' => 'required', 'readonly' => 'readonly']) }}
 
-            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                {{ Form::password('password', ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.new_password'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
-
-                @if ($errors->has('password'))
-                    <span class="help-block">{{ $errors->first('password') }}</span>
-                @endif
-            </div>
-
-            <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                {{ Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.new_password_confirmation'), 'required' => 'required']) }}
-
-                @if ($errors->has('password_confirmation'))
-                    <span class="help-block">{{ $errors->first('password_confirmation') }}</span>
-                @endif
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    {{ Form::button(trans('cortex/fort::common.reset'), ['class' => 'btn btn-default btn-flat', 'type' => 'reset']) }}
-                    {{ Form::button('<i class="fa fa-envelope"></i> '.trans('cortex/fort::common.password_reset'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}
+                    @if ($errors->has('email'))
+                        <span class="help-block">{{ $errors->first('email') }}</span>
+                    @endif
                 </div>
-                <!-- /.col -->
-            </div>
+
+                <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                    {{ Form::password('password', ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.new_password'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
+
+                    @if ($errors->has('password'))
+                        <span class="help-block">{{ $errors->first('password') }}</span>
+                    @endif
+                </div>
+
+                <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+                    {{ Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.new_password_confirmation'), 'required' => 'required']) }}
+
+                    @if ($errors->has('password_confirmation'))
+                        <span class="help-block">{{ $errors->first('password_confirmation') }}</span>
+                    @endif
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ Form::button(trans('cortex/fort::common.reset'), ['class' => 'btn btn-default btn-flat', 'type' => 'reset']) }}
+                        {{ Form::button('<i class="fa fa-envelope"></i> '.trans('cortex/fort::common.password_reset'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}
+                    </div>
+                    <!-- /.col -->
+                </div>
+
             {{ Form::close() }}
 
             {{ Html::link(route('frontend.auth.login'), trans('cortex/fort::common.login')) }}

@@ -70,16 +70,16 @@
 
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#details" data-toggle="tab">{{ trans('cortex/fort::common.details') }}</a></li>
-                        <li><a href="#social" data-toggle="tab">{{ trans('cortex/fort::common.social') }}</a></li>
-                        <li><a href="#security" data-toggle="tab">{{ trans('cortex/fort::common.security') }}</a></li>
+                        <li class="active"><a href="#details-tab" data-toggle="tab">{{ trans('cortex/fort::common.details') }}</a></li>
+                        <li><a href="#social-tab" data-toggle="tab">{{ trans('cortex/fort::common.social') }}</a></li>
+                        <li><a href="#security-tab" data-toggle="tab">{{ trans('cortex/fort::common.security') }}</a></li>
                         @if($user->exists) <li><a href="{{ route('backend.users.logs', ['user' => $user]) }}">{{ trans('cortex/fort::common.logs') }}</a></li> @endif
                         @if($user->exists && $currentUser->can('delete-users', $user)) <li class="pull-right"><a href="#" data-toggle="modal" data-target="#delete-confirmation" data-item-href="{{ route('backend.users.delete', ['user' => $user]) }}" data-item-name="{{ $user->slug }}"><i class="fa fa-trash text-danger"></i></a></li> @endif
                     </ul>
 
                     <div class="tab-content">
 
-                        <div class="tab-pane active" id="details">
+                        <div class="tab-pane active" id="details-tab">
 
                             <div class="row">
                                 <div class="col-md-4">
@@ -310,7 +310,7 @@
 
                         </div>
 
-                        <div class="tab-pane" id="social">
+                        <div class="tab-pane" id="social-tab">
 
                             <div class="row">
 
@@ -443,7 +443,7 @@
 
                         </div>
 
-                        <div class="tab-pane" id="security">
+                        <div class="tab-pane" id="security-tab">
 
                             <div class="row">
 

@@ -29,13 +29,13 @@
 
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#details" data-toggle="tab">{{ trans('cortex/fort::common.details') }}</a></li>
+                    <li class="active"><a href="#details-tab" data-toggle="tab">{{ trans('cortex/fort::common.details') }}</a></li>
                     @if($role->exists) <li><a href="{{ route('backend.roles.logs', ['role' => $role]) }}">{{ trans('cortex/fort::common.logs') }}</a></li> @endif
                     @if($role->exists && $currentUser->can('delete-roles', $role)) <li class="pull-right"><a href="#" data-toggle="modal" data-target="#delete-confirmation" data-item-href="{{ route('backend.roles.delete', ['role' => $role]) }}" data-item-name="{{ $role->slug }}"><i class="fa fa-trash text-danger"></i></a></li> @endif
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane active" id="details">
+                    <div class="tab-pane active" id="details-tab">
 
                         @if ($role->exists)
                             {{ Form::model($role, ['url' => route('backend.roles.update', ['role' => $role]), 'method' => 'put']) }}

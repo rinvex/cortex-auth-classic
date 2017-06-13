@@ -90,13 +90,6 @@
 
             {{ Form::close() }}
 
-        {{--<div class="social-auth-links text-center">--}}
-        {{--<p>- {{ trans('cortex/fort::common.or') }} -</p>--}}
-        {{--<a href="#" class="btn btn-block btn-social btn-facebook btn-flat disabled"><i class="fa fa-facebook"></i> {{ trans('cortex/fort::common.register_via_facebook') }}</a>--}}
-        {{--<a href="#" class="btn btn-block btn-social btn-google btn-flat disabled"><i class="fa fa-google-plus"></i> {{ trans('cortex/fort::common.register_via_gplus') }}</a>--}}
-        {{--</div>--}}
-        <!-- /.social-auth-links -->
-
         </div>
         <!-- /.register-box-body -->
     </div>

@@ -19,25 +19,24 @@
 
             {{ Form::open(['url' => route('frontend.passwordreset.send')]) }}
 
-            <div class="form-group has-feedback{{ $errors->has('email') ? ' has-error' : '' }}">
-                {{ Form::email('email', old('email'), ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.email'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
-                <span class="fa fa-envelope form-control-feedback"></span>
+                <div class="form-group has-feedback{{ $errors->has('email') ? ' has-error' : '' }}">
+                    {{ Form::email('email', old('email'), ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.email'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
+                    <span class="fa fa-envelope form-control-feedback"></span>
 
-                @if ($errors->has('email'))
-                    <span class="help-block">{{ $errors->first('email') }}</span>
-                @endif
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    {{ Form::button(trans('cortex/fort::common.reset'), ['class' => 'btn btn-default btn-flat', 'type' => 'reset']) }}
-                    {{ Form::button('<i class="fa fa-envelope"></i> '.trans('cortex/fort::common.password_reset_request'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}
+                    @if ($errors->has('email'))
+                        <span class="help-block">{{ $errors->first('email') }}</span>
+                    @endif
                 </div>
-                <!-- /.col -->
-            </div>
-            {{ Form::close() }}
 
-            {{ Html::link(route('frontend.auth.login'), trans('cortex/fort::common.login')) }}
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ Form::button(trans('cortex/fort::common.reset'), ['class' => 'btn btn-default btn-flat', 'type' => 'reset']) }}
+                        {{ Form::button('<i class="fa fa-envelope"></i> '.trans('cortex/fort::common.password_reset_request'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}
+                    </div>
+                    <!-- /.col -->
+                </div>
+
+            {{ Form::close() }}
 
         </div>
         <!-- /.login-box-body -->

@@ -29,14 +29,14 @@
 
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#details" data-toggle="tab">{{ trans('cortex/fort::common.details') }}</a></li>
+                    <li class="active"><a href="#details-tab" data-toggle="tab">{{ trans('cortex/fort::common.details') }}</a></li>
                     @if($ability->exists) <li><a href="{{ route('backend.abilities.logs', ['ability' => $ability]) }}">{{ trans('cortex/fort::common.logs') }}</a></li> @endif
                     @if($ability->exists && $currentUser->can('delete-abilities', $ability)) <li class="pull-right"><a href="#" data-toggle="modal" data-target="#delete-confirmation" data-item-href="{{ route('backend.abilities.delete', ['ability' => $ability]) }}" data-item-name="{{ $ability->slug }}"><i class="fa fa-trash text-danger"></i></a></li> @endif
                 </ul>
 
                 <div class="tab-content">
 
-                    <div class="tab-pane active" id="details">
+                    <div class="tab-pane active" id="details-tab">
 
                         @if ($ability->exists)
                             {{ Form::model($ability, ['url' => route('backend.abilities.update', ['ability' => $ability]), 'method' => 'put']) }}
