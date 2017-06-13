@@ -94,9 +94,4 @@ use Rinvex\Attributable\Traits\Attributable;
 class User extends BaseUser
 {
     use Attributable;
-
-    /**
-     * {@inheritdoc}
-     */
-    protected $with = ['eav'];
 }
