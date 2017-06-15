@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Controllers\Backend;
 
-use Carbon\Carbon;
 use Cortex\Fort\Models\Role;
 use Cortex\Fort\Models\User;
 use Illuminate\Http\Request;
@@ -46,7 +45,7 @@ class UsersController extends AuthorizedController
      * Update the given resource in storage.
      *
      * @param \Cortex\Fort\Http\Requests\Backend\UserFormRequest $request
-     * @param \Cortex\Fort\Models\User $user
+     * @param \Cortex\Fort\Models\User                           $user
      *
      * @return \Illuminate\Http\Response
      */
