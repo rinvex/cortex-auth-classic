@@ -6,6 +6,11 @@
     {{ config('app.name') }} » {{ trans('cortex/fort::common.password_reset') }}
 @stop
 
+{{-- Scripts --}}
+@push('scripts')
+    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Frontend\PasswordResetPostProcessRequest::class)->selector('#frontend-passwordreset-process') !!}
+@endpush
+
 {{-- Main Content --}}
 @section('content')
 
@@ -17,7 +22,7 @@
         <div class="login-box-body">
             <p class="login-box-msg">{{ trans('cortex/fort::common.password_reset') }}</p>
 
-            {{ Form::open(['url' => route('frontend.passwordreset.process')]) }}
+            {{ Form::open(['url' => route('frontend.passwordreset.process'), 'id' => 'frontend-passwordreset-process']) }}
 
                 {{ Form::hidden('token', old('token', $token)) }}
 

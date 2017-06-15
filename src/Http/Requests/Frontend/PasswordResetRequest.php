@@ -5,16 +5,23 @@ declare(strict_types=1);
 namespace Cortex\Fort\Http\Requests\Frontend;
 
 use Rinvex\Support\Http\Requests\FormRequest;
+use Cortex\Foundation\Exceptions\GenericException;
 
 class PasswordResetRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
+     * @throws \Cortex\Foundation\Exceptions\GenericException
+     *
      * @return bool
      */
     public function authorize()
     {
+        if ($this->user()) {
+            throw new GenericException(trans('cortex/fort::messages.passwordreset.already_logged'), route('frontend.account.settings').'#security-tab');
+        }
+
         return true;
     }
 
@@ -25,25 +32,6 @@ class PasswordResetRequest extends FormRequest
      */
     public function rules()
     {
-        return $this->isMethod('post') ? [
-            'token' => 'required|regex:/^[0-9a-zA-Z]+$/',
-            'email' => 'required|email|max:250|exists:'.config('rinvex.fort.tables.users').',email',
-            'password' => 'required|confirmed|min:'.config('rinvex.fort.password_min_chars'),
-        ] : [
-            'token' => 'required|regex:/^[0-9a-zA-Z]+$/',
-            'email' => 'required|email|max:250|exists:'.config('rinvex.fort.tables.users').',email',
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getRedirectUrl()
-    {
-        if ($this->isMethod('post')) {
-            return parent::getRedirectUrl();
-        }
-
-        return $this->redirector->getUrlGenerator()->route('frontend.passwordreset.request');
+        return [];
     }
 }

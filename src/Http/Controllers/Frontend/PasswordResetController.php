@@ -8,26 +8,19 @@ use Illuminate\Support\Str;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use Cortex\Foundation\Http\Controllers\AbstractController;
 use Cortex\Fort\Http\Requests\Frontend\PasswordResetRequest;
-use Cortex\Fort\Http\Requests\Frontend\PasswordResetSendRequest;
+use Cortex\Fort\Http\Requests\Frontend\PasswordResetProcessRequest;
+use Cortex\Fort\Http\Requests\Frontend\PasswordResetPostProcessRequest;
 
 class PasswordResetController extends AbstractController
 {
     /**
-     * Create a new password reset controller instance.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->middleware($this->getGuestMiddleware(), ['except' => $this->middlewareWhitelist]);
-    }
-
-    /**
      * Show the password reset request form.
+     *
+     * @param Cortex\Fort\Http\Requests\Frontend\PasswordResetRequest
      *
      * @return \Illuminate\Http\Response
      */
-    public function request()
+    public function request(PasswordResetRequest $request)
     {
         return view('cortex/fort::frontend.passwordreset.request');
     }
@@ -35,13 +28,15 @@ class PasswordResetController extends AbstractController
     /**
      * Process the password reset request form.
      *
-     * @param \Cortex\Fort\Http\Requests\Frontend\PasswordResetSendRequest $request
+     * @param \Cortex\Fort\Http\Requests\Frontend\PasswordResetProcessRequest $request
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function send(PasswordResetSendRequest $request)
+    public function send(PasswordResetProcessRequest $request)
     {
-        $result = app('auth.password')->broker($this->getBroker())->sendResetLink($request->only(['email']));
+        $result = app('auth.password')
+            ->broker($this->getBroker())
+            ->sendResetLink($request->only(['email']));
 
         switch ($result) {
             case PasswordBroker::RESET_LINK_SENT:
@@ -63,28 +58,24 @@ class PasswordResetController extends AbstractController
     /**
      * Show the password reset form.
      *
-     * @param \Cortex\Fort\Http\Requests\Frontend\PasswordResetRequest $request
+     * @param \Cortex\Fort\Http\Requests\Frontend\PasswordResetProcessRequest $request
      *
      * @return \Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function reset(PasswordResetRequest $request)
+    public function reset(PasswordResetProcessRequest $request)
     {
         $token = $request->get('token');
         $email = $request->get('email');
 
-        if (is_null($user = app('auth.password')->broker($this->getBroker())->getUser($request->only(['email'])))) {
-            return intend([
-                'url' => route('frontend.passwordreset.request'),
-                'withInput' => $request->only(['email']),
-                'withErrors' => ['email' => trans(PasswordBroker::INVALID_USER)],
-            ]);
-        }
+        $broker = app('auth.password')->broker($this->getBroker());
+        $user = $broker->getUser($request->only(['email']));
+        $tokenExists = $broker->tokenExists($user, $token);
 
-        if (! app('auth.password')->broker($this->getBroker())->tokenExists($user, $token)) {
+        if (! $user || ! $tokenExists) {
             return intend([
                 'url' => route('frontend.passwordreset.request'),
                 'withInput' => $request->only(['email']),
-                'withErrors' => ['email' => trans(PasswordBroker::INVALID_TOKEN)],
+                'withErrors' => ['email' => ! $user ? trans(PasswordBroker::INVALID_USER) : trans(PasswordBroker::INVALID_TOKEN)],
             ]);
         }
 
@@ -94,11 +85,11 @@ class PasswordResetController extends AbstractController
     /**
      * Process the password reset form.
      *
-     * @param \Cortex\Fort\Http\Requests\Frontend\PasswordResetRequest $request
+     * @param \Cortex\Fort\Http\Requests\Frontend\PasswordResetPostProcessRequest $request
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function process(PasswordResetRequest $request)
+    public function process(PasswordResetPostProcessRequest $request)
     {
         $result = app('auth.password')
             ->broker($this->getBroker())
