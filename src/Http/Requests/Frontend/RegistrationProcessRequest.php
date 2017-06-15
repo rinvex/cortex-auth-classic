@@ -5,27 +5,9 @@ declare(strict_types=1);
 namespace Cortex\Fort\Http\Requests\Frontend;
 
 use Cortex\Fort\Models\User;
-use Rinvex\Support\Http\Requests\FormRequest;
-use Cortex\Foundation\Exceptions\GenericException;
 
-class RegistrationProcessRequest extends FormRequest
+class RegistrationProcessRequest extends RegistrationRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @throws \Cortex\Foundation\Exceptions\GenericException
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        if (! config('rinvex.fort.registration.enabled')) {
-            throw new GenericException(trans('cortex/fort::messages.register.disabled'));
-        }
-
-        return true;
-    }
-
     /**
      * Process given request data before validation.
      *
@@ -42,31 +24,15 @@ class RegistrationProcessRequest extends FormRequest
     }
 
     /**
-     * Configure the validator instance.
-     *
-     * @param \Illuminate\Validation\Validator $validator
-     *
-     * @return void
-     */
-    public function withValidator($validator)
-    {
-        $validator->after(function ($validator) {
-            $data = $this->all();
-            $password = $data['password'] ?? null;
-
-            if ($password && $password !== $data['password_confirmation']) {
-                $validator->errors()->add('password', trans('validation.confirmed', ['attribute' => 'password']));
-            }
-        });
-    }
-
-    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
      */
     public function rules()
     {
-        return (new User())->getRules();
+        $rules = (new User())->getRules();
+        $rules['password'] = 'required|confirmed|min:'.config('rinvex.fort.password_min_chars');
+
+        return $rules;
     }
 }

@@ -57,25 +57,6 @@ class AccountSettingsRequest extends FormRequest
     }
 
     /**
-     * Configure the validator instance.
-     *
-     * @param \Illuminate\Validation\Validator $validator
-     *
-     * @return void
-     */
-    public function withValidator($validator)
-    {
-        $validator->after(function ($validator) {
-            $data = $this->all();
-            $password = $data['password'] ?? null;
-
-            if ($password && $password !== $data['password_confirmation']) {
-                $validator->errors()->add('password', trans('validation.confirmed', ['attribute' => 'password']));
-            }
-        });
-    }
-
-    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -84,7 +65,9 @@ class AccountSettingsRequest extends FormRequest
     {
         $user = $this->user();
         $user->updateRulesUniques();
+        $rules = $user->getRules();
+        $rules['password'] = 'sometimes|required|confirmed|min:'.config('rinvex.fort.password_min_chars');
 
-        return $user->getRules();
+        return $rules;
     }
 }
