@@ -179,7 +179,7 @@
                                         {{ Form::label('gender', trans('cortex/fort::common.gender'), ['class' => 'col-md-2 control-label']) }}
 
                                         <div class="col-md-10">
-                                            {{ Form::select('gender', ['male' => trans('cortex/fort::common.male'), 'female' => trans('cortex/fort::common.female')], null, ['class' => 'form-control select2', 'placeholder' => trans('common.select'), 'data-allow-clear' => true, 'data-minimum-results-for-search' => 'Infinity']) }}
+                                            {{ Form::select('gender', ['male' => trans('cortex/fort::common.male'), 'female' => trans('cortex/fort::common.female')], null, ['class' => 'form-control select2', 'placeholder' => trans('common.select'), 'data-allow-clear' => 'true', 'data-minimum-results-for-search' => 'Infinity', 'data-width' => '100%']) }}
 
                                             @if ($errors->has('gender'))
                                                 <span class="help-block">{{ $errors->first('gender') }}</span>
@@ -205,7 +205,7 @@
                                         {{ Form::label('country_code', trans('cortex/fort::common.country'), ['class' => 'col-md-2 control-label']) }}
 
                                         <div class="col-md-10">
-                                            {{ Form::select('country_code', [], null, ['class' => 'form-control ', 'data-allow-clear' => true, 'placeholder' => trans('cortex/fort::common.select')]) }}
+                                            {{ Form::select('country_code', [], null, ['class' => 'form-control ', 'data-allow-clear' => 'true', 'placeholder' => trans('cortex/fort::common.select')]) }}
 
                                             @if ($errors->has('country_code'))
                                                 <span class="help-block">{{ $errors->first('country_code') }}</span>
@@ -217,7 +217,7 @@
                                         {{ Form::label('language_code', trans('cortex/fort::common.language'), ['class' => 'col-md-2 control-label']) }}
 
                                         <div class="col-md-10">
-                                            {{ Form::select('language_code', $languages, null, ['class' => 'form-control select2', 'data-allow-clear' => true, 'placeholder' => trans('cortex/fort::common.select')]) }}
+                                            {{ Form::select('language_code', $languages, null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/fort::common.select'), 'data-allow-clear' => 'true', 'data-width' => '100%']) }}
 
                                             @if ($errors->has('language_code'))
                                                 <span class="help-block">{{ $errors->first('language_code') }}</span>

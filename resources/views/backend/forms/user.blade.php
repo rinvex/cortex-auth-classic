@@ -208,7 +208,7 @@
                                     {{-- Country Code --}}
                                     <div class="form-group{{ $errors->has('country_code') ? ' has-error' : '' }}">
                                         {{ Form::label('country_code', trans('cortex/fort::common.country'), ['class' => 'control-label']) }}
-                                        {{ Form::select('country_code', [], null, ['class' => 'form-control select2', 'data-allow-clear' => true, 'placeholder' => trans('cortex/fort::common.select')]) }}
+                                        {{ Form::select('country_code', [], null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/fort::common.select'), 'data-allow-clear' => 'true', 'data-width' => '100%']) }}
 
                                         @if ($errors->has('country_code'))
                                             <span class="help-block">{{ $errors->first('country_code') }}</span>
@@ -222,7 +222,7 @@
                                     {{-- Language Code --}}
                                     <div class="form-group{{ $errors->has('language_code') ? ' has-error' : '' }}">
                                         {{ Form::label('language_code', trans('cortex/fort::common.language'), ['class' => 'control-label']) }}
-                                        {{ Form::select('language_code', $languages, null, ['class' => 'form-control select2', 'data-allow-clear' => true, 'placeholder' => trans('cortex/fort::common.select')]) }}
+                                        {{ Form::select('language_code', $languages, null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/fort::common.select'), 'data-allow-clear' => 'true', 'data-width' => '100%']) }}
 
                                         @if ($errors->has('language_code'))
                                             <span class="help-block">{{ $errors->first('language_code') }}</span>
@@ -261,7 +261,7 @@
                                     {{-- Gender --}}
                                     <div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
                                         {{ Form::label('gender', trans('cortex/fort::common.gender'), ['class' => 'control-label']) }}
-                                        {{ Form::select('gender', ['male' => trans('cortex/fort::common.male'), 'female' => trans('cortex/fort::common.female')], null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/fort::common.select'), 'data-allow-clear' => true, 'data-minimum-results-for-search' => 'Infinity']) }}
+                                        {{ Form::select('gender', ['male' => trans('cortex/fort::common.male'), 'female' => trans('cortex/fort::common.female')], null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/fort::common.select'), 'data-allow-clear' => 'true', 'data-minimum-results-for-search' => 'Infinity', 'data-width' => '100%']) }}
 
                                         @if ($errors->has('gender'))
                                             <span class="help-block">{{ $errors->first('gender') }}</span>
@@ -275,7 +275,7 @@
                                     {{-- Active --}}
                                     <div class="form-group{{ $errors->has('active') ? ' has-error' : '' }}">
                                         {{ Form::label('active', trans('cortex/fort::common.active'), ['class' => 'control-label']) }}
-                                        {{ Form::select('active', [1 => trans('cortex/fort::common.yes'), 0 => trans('cortex/fort::common.no')], null, ['class' => 'form-control select2', 'data-minimum-results-for-search' => 'Infinity']) }}
+                                        {{ Form::select('active', [1 => trans('cortex/fort::common.yes'), 0 => trans('cortex/fort::common.no')], null, ['class' => 'form-control select2', 'data-minimum-results-for-search' => 'Infinity', 'data-width' => '100%']) }}
 
                                         @if ($errors->has('active'))
                                             <span class="help-block">{{ $errors->first('active') }}</span>
@@ -458,7 +458,7 @@
                                             {{-- Roles --}}
                                             <div class="form-group{{ $errors->has('roles') ? ' has-error' : '' }}">
                                                 {{ Form::label('roleList[]', trans('cortex/fort::common.roles'), ['class' => 'control-label']) }}
-                                                {{ Form::select('roleList[]', $roleList, null, ['class' => 'form-control select2', 'multiple' => 'multiple', 'data-close-on-select' => 'false']) }}
+                                                {{ Form::select('roleList[]', $roleList, null, ['class' => 'form-control select2', 'multiple' => 'multiple', 'data-close-on-select' => 'false', 'data-width' => '100%']) }}
 
                                                 @if ($errors->has('roles'))
                                                     <span class="help-block">{{ $errors->first('roles') }}</span>
@@ -476,7 +476,7 @@
                                             {{-- Abilities --}}
                                             <div class="form-group{{ $errors->has('abilityList[]') ? ' has-error' : '' }}">
                                                 {{ Form::label('abilityList[]', trans('cortex/fort::common.abilities'), ['class' => 'control-label']) }}
-                                                {{ Form::select('abilityList[]', $abilityList, null, ['class' => 'form-control select2', 'multiple' => 'multiple', 'data-close-on-select' => 'false']) }}
+                                                {{ Form::select('abilityList[]', $abilityList, null, ['class' => 'form-control select2', 'multiple' => 'multiple', 'data-close-on-select' => 'false', 'data-width' => '100%']) }}
 
                                                 @if ($errors->has('abilities'))
                                                     <span class="help-block">{{ $errors->first('abilityList[]') }}</span>
