@@ -509,6 +509,24 @@
 
                                 </div>
 
+                                <div class="col-md-4">
+
+                                    {{-- Password Confirmation --}}
+                                    <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+                                        {{ Form::label('password_confirmation', trans('cortex/fort::common.password_confirmation'), ['class' => 'control-label']) }}
+                                        @if ($user->exists)
+                                            {{ Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.password_confirmation')]) }}
+                                        @else
+                                            {{ Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.password_confirmation'), 'required' => 'required']) }}
+                                        @endif
+
+                                        @if ($errors->has('password_confirmation'))
+                                            <span class="help-block">{{ $errors->first('password_confirmation') }}</span>
+                                        @endif
+                                    </div>
+
+                                </div>
+
                             </div>
 
                         </div>
