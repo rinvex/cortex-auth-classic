@@ -33,13 +33,12 @@ class UserFormRequest extends FormRequest
     {
         $user = $this->route('user') ?? new User();
         $country = $data['country_code'] ?? null;
-        $password = $data['password'] ?? null;
         $twoFactor = $user->getTwoFactor();
 
         $data['email_verified'] = $this->get('email_verified', false);
         $data['phone_verified'] = $this->get('phone_verified', false);
 
-        if (! $password && $user->exists) {
+        if ($user->exists && empty($data['password'])) {
             unset($data['password'], $data['password_confirmation']);
         }
 
