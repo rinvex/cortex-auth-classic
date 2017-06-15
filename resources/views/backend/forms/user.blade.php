@@ -34,7 +34,7 @@
                     templateSelection: formatCountry,
                     templateResult: formatCountry,
                     data: countries
-                }).val('{{ $user->country_code }}').trigger('change');
+                }).val('{{ old('country_code', $user->country_code) }}').trigger('change');
 
             });
         })(jQuery);
@@ -445,43 +445,51 @@
 
                         <div class="tab-pane" id="security-tab">
 
+                            @if($currentUser->can('assign-roles') || $currentUser->can('grant-abilities'))
+
+                                <div class="row">
+
+                                    @can('assign-roles')
+
+                                        <div class="col-md-4">
+
+                                            {{-- Roles --}}
+                                            <div class="form-group{{ $errors->has('roles') ? ' has-error' : '' }}">
+                                                {{ Form::label('roleList[]', trans('cortex/fort::common.roles'), ['class' => 'control-label']) }}
+                                                {{ Form::select('roleList[]', $roleList, null, ['class' => 'form-control select2', 'multiple' => 'multiple', 'data-close-on-select' => 'false']) }}
+
+                                                @if ($errors->has('roles'))
+                                                    <span class="help-block">{{ $errors->first('roles') }}</span>
+                                                @endif
+                                            </div>
+
+                                        </div>
+
+                                    @endcan
+
+                                    @can('grant-abilities')
+
+                                        <div class="col-md-4">
+
+                                            {{-- Abilities --}}
+                                            <div class="form-group{{ $errors->has('abilityList[]') ? ' has-error' : '' }}">
+                                                {{ Form::label('abilityList[]', trans('cortex/fort::common.abilities'), ['class' => 'control-label']) }}
+                                                {{ Form::select('abilityList[]', $abilityList, null, ['class' => 'form-control select2', 'multiple' => 'multiple', 'data-close-on-select' => 'false']) }}
+
+                                                @if ($errors->has('abilities'))
+                                                    <span class="help-block">{{ $errors->first('abilityList[]') }}</span>
+                                                @endif
+                                            </div>
+
+                                        </div>
+
+                                    @endcan
+
+                                </div>
+
+                            @endif
+
                             <div class="row">
-
-                                @can('assign-roles')
-
-                                    <div class="col-md-4">
-
-                                        {{-- Roles --}}
-                                        <div class="form-group{{ $errors->has('roles') ? ' has-error' : '' }}">
-                                            {{ Form::label('roleList[]', trans('cortex/fort::common.roles'), ['class' => 'control-label']) }}
-                                            {{ Form::select('roleList[]', $roleList, null, ['class' => 'form-control', 'multiple' => 'multiple', 'size' => 4]) }}
-
-                                            @if ($errors->has('roles'))
-                                                <span class="help-block">{{ $errors->first('roles') }}</span>
-                                            @endif
-                                        </div>
-
-                                    </div>
-
-                                @endcan
-
-                                @can('grant-abilities')
-
-                                    <div class="col-md-4">
-
-                                        {{-- Abilities --}}
-                                        <div class="form-group{{ $errors->has('abilityList[]') ? ' has-error' : '' }}">
-                                            {{ Form::label('abilityList[]', trans('cortex/fort::common.abilities'), ['class' => 'control-label']) }}
-                                            {{ Form::select('abilityList[]', $abilityList, null, ['class' => 'form-control', 'multiple' => 'multiple', 'size' => 4]) }}
-
-                                            @if ($errors->has('abilities'))
-                                                <span class="help-block">{{ $errors->first('abilityList[]') }}</span>
-                                            @endif
-                                        </div>
-
-                                    </div>
-
-                                @endcan
 
                                 <div class="col-md-4">
 
