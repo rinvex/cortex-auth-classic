@@ -7,6 +7,8 @@
 @stop
 
 @push('scripts')
+    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Backend\UserFormRequest::class)->selector('#backend-users-save') !!}
+
     <script>
         (function($) {
             $(function() {
@@ -63,9 +65,9 @@
         <section class="content">
 
             @if ($user->exists)
-                {{ Form::model($user, ['url' => route('backend.users.update', ['user' => $user]), 'method' => 'put']) }}
+                {{ Form::model($user, ['url' => route('backend.users.update', ['user' => $user]), 'id' => 'backend-users-save', 'method' => 'put']) }}
             @else
-                {{ Form::model($user, ['url' => route('backend.users.store')]) }}
+                {{ Form::model($user, ['url' => route('backend.users.store'), 'id' => 'backend-users-save']) }}
             @endif
 
                 <div class="nav-tabs-custom">
