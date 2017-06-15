@@ -161,6 +161,18 @@
                                         </div>
                                     </div>
 
+                                    <div class="form-group{{ $errors->has('job_title') ? ' has-error' : '' }}">
+                                        {{ Form::label('job_title', trans('cortex/fort::common.job_title'), ['class' => 'col-md-2 control-label']) }}
+
+                                        <div class="col-md-10">
+                                            {{ Form::text('job_title', null, ['class' => 'form-control', 'placeholder' => $currentUser->job_title ?: trans('cortex/fort::common.job_title')]) }}
+
+                                            @if ($errors->has('job_title'))
+                                                <span class="help-block">{{ $errors->first('job_title') }}</span>
+                                            @endif
+                                        </div>
+                                    </div>
+
                                     <hr />
 
                                     <div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
