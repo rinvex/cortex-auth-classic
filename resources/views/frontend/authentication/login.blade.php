@@ -8,6 +8,8 @@
 
 {{-- Scripts --}}
 @push('scripts')
+{!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Frontend\AuthenticationRequest::class)->selector('#frontend-auth-login-process') !!}
+
 <script>
     $(function () {
         $('input').iCheck({
@@ -30,7 +32,7 @@
         <div class="login-box-body">
             <p class="login-box-msg">{{ trans('cortex/fort::common.login') }}</p>
 
-            {{ Form::open(['url' => route('frontend.auth.login.process')]) }}
+            {{ Form::open(['url' => route('frontend.auth.login.process'), 'id' => 'frontend-auth-login-process']) }}
 
                 <div class="form-group has-feedback{{ $errors->has('loginfield') ? ' has-error' : '' }}">
                     {{ Form::text('loginfield', old('loginfield'), ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.loginfield'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
@@ -42,7 +44,7 @@
                 </div>
                 <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
                     {{ Form::password('password', ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.password'), 'required' => 'required']) }}
-                    <span class="fa fa-lock form-control-feedback"></span>
+                    <span class="fa fa-key form-control-feedback"></span>
 
                     @if ($errors->has('password'))
                         <span class="help-block">{{ $errors->first('password') }}</span>

@@ -6,7 +6,7 @@ namespace Cortex\Fort\Http\Requests\Frontend;
 
 use Rinvex\Support\Http\Requests\FormRequest;
 
-class UserAuthenticationRequest extends FormRequest
+class AuthenticationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +26,8 @@ class UserAuthenticationRequest extends FormRequest
     public function rules()
     {
         return [
-            'loginfield' => 'required',
-            'password' => 'required',
+            'loginfield' => 'required|min:3|max:250',
+            'password' => 'required|min:'.config('rinvex.fort.password_min_chars'),
         ];
     }
 }
