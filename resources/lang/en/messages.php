@@ -56,6 +56,10 @@ return [
         ],
     ],
 
+    'passwordreset' => [
+        'already_logged' => 'You are logged in, so you can change password from your account settings.',
+    ],
+
     'verification' => [
 
         'email' => [

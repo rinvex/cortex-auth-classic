@@ -60,8 +60,6 @@
 
             {{ Form::close() }}
 
-            {{ Html::link(route('frontend.auth.login'), trans('cortex/fort::common.login')) }}
-
         </div>
         <!-- /.login-box-body -->
     </div>

@@ -8,17 +8,17 @@
 
 {{-- Scripts --}}
 @push('scripts')
-{!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Frontend\AuthenticationRequest::class)->selector('#frontend-auth-login-process') !!}
+    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Frontend\AuthenticationRequest::class)->selector('#frontend-auth-login-process') !!}
 
-<script>
-    $(function () {
-        $('input').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            radioClass: 'iradio_square-blue',
-            increaseArea: '20%' // optional
+    <script>
+        $(function () {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' // optional
+            });
         });
-    });
-</script>
+    </script>
 @endpush
 
 {{-- Main Content --}}
