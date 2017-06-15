@@ -15,7 +15,7 @@ class PasswordResetPostProcessRequest extends PasswordResetRequest
     {
         return [
             'email' => 'required|email|min:3|max:250|exists:'.config('rinvex.fort.tables.users').',email',
-            'password' => 'required|confirmed|min:'.config('rinvex.fort.password_min_chars')
+            'password' => 'required|confirmed|min:'.config('rinvex.fort.password_min_chars'),
         ];
     }
 }
