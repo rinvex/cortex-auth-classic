@@ -107,11 +107,6 @@ class RolesController extends AuthorizedController
         // Save role
         $role->fill($data)->save();
 
-        // Sync abilities
-        if ($request->user($this->getGuard())->can('grant-abilities')) {
-            $role->abilities()->sync((array) array_pull($data, 'abilityList'));
-        }
-
         return intend([
             'url' => route('backend.roles.index'),
             'with' => ['success' => trans('cortex/fort::messages.role.saved', ['roleId' => $role->id])],
