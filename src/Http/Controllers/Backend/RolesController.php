@@ -49,7 +49,7 @@ class RolesController extends AuthorizedController
      * Update the given resource in storage.
      *
      * @param \Cortex\Fort\Http\Requests\Backend\RoleFormRequest $request
-     * @param \Cortex\Fort\Models\Role $role
+     * @param \Cortex\Fort\Models\Role                           $role
      *
      * @return \Illuminate\Http\Response
      */
