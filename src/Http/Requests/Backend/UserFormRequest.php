@@ -80,7 +80,9 @@ class UserFormRequest extends FormRequest
         $user = $this->route('user') ?? new User();
         $user->updateRulesUniques();
         $rules = $user->getRules();
-        $rules['password'] = 'sometimes|required|confirmed|min:'.config('rinvex.fort.password_min_chars');
+        $rules['password'] = $user->exists
+            ? 'confirmed|min:'.config('rinvex.fort.password_min_chars')
+            : 'required|confirmed|min:'.config('rinvex.fort.password_min_chars');
 
         return $rules;
     }
