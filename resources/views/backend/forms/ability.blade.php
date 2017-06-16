@@ -6,6 +6,10 @@
     {{ config('app.name') }} » {{ trans('cortex/foundation::common.backend') }} » {{ trans('cortex/fort::common.abilities') }} » {{ $ability->exists ? $ability->slug : trans('cortex/fort::common.create_ability') }}
 @stop
 
+@push('scripts')
+    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Backend\AbilityFormRequest::class)->selector('#backend-abilities-save') !!}
+@endpush
+
 {{-- Main Content --}}
 @section('content')
 
@@ -39,9 +43,9 @@
                     <div class="tab-pane active" id="details-tab">
 
                         @if ($ability->exists)
-                            {{ Form::model($ability, ['url' => route('backend.abilities.update', ['ability' => $ability]), 'method' => 'put']) }}
+                            {{ Form::model($ability, ['url' => route('backend.abilities.update', ['ability' => $ability]), 'method' => 'put', 'id' => 'backend-abilities-save']) }}
                         @else
-                            {{ Form::model($ability, ['url' => route('backend.abilities.store')]) }}
+                            {{ Form::model($ability, ['url' => route('backend.abilities.store'), 'id' => 'backend-abilities-save']) }}
                         @endif
 
                             <div class="row">

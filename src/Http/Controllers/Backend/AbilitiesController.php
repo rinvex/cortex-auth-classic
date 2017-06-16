@@ -8,6 +8,7 @@ use Cortex\Fort\Models\Role;
 use Illuminate\Http\Request;
 use Cortex\Fort\Models\Ability;
 use Cortex\Fort\DataTables\Backend\AbilitiesDataTable;
+use Cortex\Fort\Http\Requests\Backend\AbilityFormRequest;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
 
 class AbilitiesController extends AuthorizedController
@@ -35,11 +36,11 @@ class AbilitiesController extends AuthorizedController
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Cortex\Fort\Http\Requests\Backend\AbilityFormRequest $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AbilityFormRequest $request)
     {
         return $this->process($request, new Ability());
     }
@@ -47,12 +48,12 @@ class AbilitiesController extends AuthorizedController
     /**
      * Update the given resource in storage.
      *
-     * @param \Illuminate\Http\Request    $request
-     * @param \Cortex\Fort\Models\Ability $ability
+     * @param \Cortex\Fort\Http\Requests\Backend\AbilityFormRequest $request
+     * @param \Cortex\Fort\Models\Ability                           $ability
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ability $ability)
+    public function update(AbilityFormRequest $request, Ability $ability)
     {
         return $this->process($request, $ability);
     }
