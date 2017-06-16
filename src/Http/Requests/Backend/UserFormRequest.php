@@ -52,6 +52,16 @@ class UserFormRequest extends FormRequest
             $data['phone_verified_at'] = Carbon::now();
         }
 
+        // Sync abilities
+        if (! empty($data['abilityList']) && $this->user()->can('grant-abilities')) {
+            $data['abilities'] = $data['abilityList'];
+        }
+
+        // Sync roles
+        if (! empty($data['roleList']) && $this->user()->can('assign-roles')) {
+            $data['roles'] = $data['roleList'];
+        }
+
         if ($twoFactor && (isset($data['phone_verified_at']) || $country !== $user->country_code)) {
             array_set($twoFactor, 'phone.enabled', false);
             $data['two_factor'] = $twoFactor;

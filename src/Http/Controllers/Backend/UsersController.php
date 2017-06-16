@@ -106,16 +106,6 @@ class UsersController extends AuthorizedController
         // Save user
         $user->fill($data)->save();
 
-        // Sync abilities
-        if ($request->user($this->getGuard())->can('grant-abilities')) {
-            $user->abilities()->sync((array) array_pull($data, 'abilityList'));
-        }
-
-        // Sync roles
-        if ($request->user($this->getGuard())->can('assign-roles')) {
-            $user->roles()->sync((array) array_pull($data, 'roleList'));
-        }
-
         return intend([
             'url' => route('backend.users.index'),
             'with' => ['success' => trans('cortex/fort::messages.user.saved', ['userId' => $user->id])],
