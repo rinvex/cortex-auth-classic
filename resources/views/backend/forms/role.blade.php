@@ -6,6 +6,10 @@
     {{ config('app.name') }} » {{ trans('cortex/foundation::common.backend') }} » {{ trans('cortex/fort::common.roles') }} » {{ $role->exists ? $role->slug : trans('cortex/fort::common.create_role') }}
 @stop
 
+@push('scripts')
+    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Backend\RoleFormRequest::class)->selector('#backend-roles-save') !!}
+@endpush
+
 {{-- Main Content --}}
 @section('content')
 
@@ -38,9 +42,9 @@
                     <div class="tab-pane active" id="details-tab">
 
                         @if ($role->exists)
-                            {{ Form::model($role, ['url' => route('backend.roles.update', ['role' => $role]), 'method' => 'put']) }}
+                            {{ Form::model($role, ['url' => route('backend.roles.update', ['role' => $role]), 'method' => 'put', 'id' => 'backend-roles-save']) }}
                         @else
-                            {{ Form::model($role, ['url' => route('backend.roles.store')]) }}
+                            {{ Form::model($role, ['url' => route('backend.roles.store'), 'id' => 'backend-roles-save']) }}
                         @endif
 
                             <div class="row">

@@ -8,6 +8,7 @@ use Cortex\Fort\Models\Role;
 use Illuminate\Http\Request;
 use Cortex\Fort\Models\Ability;
 use Cortex\Fort\DataTables\Backend\RolesDataTable;
+use Cortex\Fort\Http\Requests\Backend\RoleFormRequest;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
 
 class RolesController extends AuthorizedController
@@ -35,11 +36,11 @@ class RolesController extends AuthorizedController
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Cortex\Fort\Http\Requests\Backend\RoleFormRequest $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RoleFormRequest $request)
     {
         return $this->process($request, new Role());
     }
@@ -47,12 +48,12 @@ class RolesController extends AuthorizedController
     /**
      * Update the given resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Cortex\Fort\Http\Requests\Backend\RoleFormRequest $request
      * @param \Cortex\Fort\Models\Role $role
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role)
+    public function update(RoleFormRequest $request, Role $role)
     {
         return $this->process($request, $role);
     }
