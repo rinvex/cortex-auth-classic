@@ -13,19 +13,19 @@
         (function($) {
             $(function() {
                 var countries = [
-                        @foreach($countries as $code => $country)
-                    { id: '{{ $code }}', text: '{{ $country['name'] }}', emoji: '{{ $country['emoji'] }}' },
+                    @foreach($countries as $code => $country)
+                        { id: '{{ $code }}', text: '{{ $country['name'] }}', emoji: '{{ $country['emoji'] }}' },
                     @endforeach
                 ];
 
-                function formatCountry (country) {
-                    if (! country.id) {
-                        return country.text;
+                function formatCountry (country_code) {
+                    if (! country_code.id) {
+                        return country_code.text;
                     }
 
                     var $country = $(
-                        '<span style="padding-right: 10px">' + country.emoji + '</span>' +
-                        '<span>' + country.text + '</span>'
+                        '<span style="padding-right: 10px">' + country_code.emoji + '</span>' +
+                        '<span>' + country_code.text + '</span>'
                     );
 
                     return $country;
