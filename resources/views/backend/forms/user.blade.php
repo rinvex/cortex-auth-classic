@@ -31,7 +31,7 @@
                     return $country;
                 };
 
-                $("[name='country_code']").select2({
+                $("select[name='country_code']").select2({
                     placeholder: "Select a country",
                     templateSelection: formatCountry,
                     templateResult: formatCountry,
@@ -208,6 +208,7 @@
                                     {{-- Country Code --}}
                                     <div class="form-group{{ $errors->has('country_code') ? ' has-error' : '' }}">
                                         {{ Form::label('country_code', trans('cortex/fort::common.country'), ['class' => 'control-label']) }}
+                                        {{ Form::hidden('country_code', '') }}
                                         {{ Form::select('country_code', [], null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/fort::common.select'), 'data-allow-clear' => 'true', 'data-width' => '100%']) }}
 
                                         @if ($errors->has('country_code'))
@@ -222,6 +223,7 @@
                                     {{-- Language Code --}}
                                     <div class="form-group{{ $errors->has('language_code') ? ' has-error' : '' }}">
                                         {{ Form::label('language_code', trans('cortex/fort::common.language'), ['class' => 'control-label']) }}
+                                        {{ Form::hidden('language_code', '') }}
                                         {{ Form::select('language_code', $languages, null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/fort::common.select'), 'data-allow-clear' => 'true', 'data-width' => '100%']) }}
 
                                         @if ($errors->has('language_code'))
@@ -261,6 +263,7 @@
                                     {{-- Gender --}}
                                     <div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
                                         {{ Form::label('gender', trans('cortex/fort::common.gender'), ['class' => 'control-label']) }}
+                                        {{ Form::hidden('gender', '') }}
                                         {{ Form::select('gender', ['male' => trans('cortex/fort::common.male'), 'female' => trans('cortex/fort::common.female')], null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/fort::common.select'), 'data-allow-clear' => 'true', 'data-minimum-results-for-search' => 'Infinity', 'data-width' => '100%']) }}
 
                                         @if ($errors->has('gender'))
