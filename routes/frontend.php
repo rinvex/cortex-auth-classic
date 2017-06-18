@@ -40,10 +40,10 @@ Route::group(['domain' => domain()], function () {
             Route::get('sessions')->name('sessions')->uses('AccountSessionsController@index');
             Route::delete('sessions/{token?}')->name('sessions.flush')->uses('AccountSessionsController@flush');
 
-            // Two-Factor Authentication Routes
+            // TwoFactor Authentication Routes
             Route::name('twofactor.')->prefix('twofactor')->group(function () {
 
-                // Two-Factor TOTP Routes
+                // TwoFactor TOTP Routes
                 Route::name('totp.')->prefix('totp')->group(function () {
                     Route::get('enable')->name('enable')->uses('TwoFactorSettingsController@enableTotp');
                     Route::post('update')->name('update')->uses('TwoFactorSettingsController@updateTotp');
@@ -51,7 +51,7 @@ Route::group(['domain' => domain()], function () {
                     Route::get('backup')->name('backup')->uses('TwoFactorSettingsController@backupTotp');
                 });
 
-                // Two-Factor Phone Routes
+                // TwoFactor Phone Routes
                 Route::name('phone.')->prefix('phone')->group(function () {
                     Route::get('enable')->name('enable')->uses('TwoFactorSettingsController@enablePhone');
                     Route::get('disable')->name('disable')->uses('TwoFactorSettingsController@disablePhone');

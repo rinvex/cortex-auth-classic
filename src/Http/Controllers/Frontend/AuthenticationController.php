@@ -113,7 +113,7 @@ class AuthenticationController extends AbstractController
                     'withErrors' => ['loginfield' => trans('cortex/fort::'.$result)],
                 ]);
 
-            // Two-Factor authentication required
+            // TwoFactor authentication required
             case SessionGuard::AUTH_TWOFACTOR_REQUIRED:
                 $route = ! isset(session('rinvex.fort.twofactor.methods')['totp']) ? route('frontend.verification.phone.request') : route('frontend.verification.phone.verify');
 

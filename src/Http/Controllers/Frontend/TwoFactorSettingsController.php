@@ -14,7 +14,7 @@ use Cortex\Foundation\Http\Controllers\AuthenticatedController;
 class TwoFactorSettingsController extends AuthenticatedController
 {
     /**
-     * Show the Two-Factor TOTP enable form.
+     * Show the TwoFactor TOTP enable form.
      *
      * @param \Illuminate\Http\Request                    $request
      * @param \Rinvex\Fort\Services\TwoFactorTotpProvider $totpProvider
@@ -50,7 +50,7 @@ class TwoFactorSettingsController extends AuthenticatedController
     }
 
     /**
-     * Process the Two-Factor TOTP enable form.
+     * Process the TwoFactor TOTP enable form.
      *
      * @param \Illuminate\Http\Request                    $request
      * @param \Rinvex\Fort\Services\TwoFactorTotpProvider $totpProvider
@@ -75,7 +75,7 @@ class TwoFactorSettingsController extends AuthenticatedController
             array_set($settings, 'totp.backup', $backup ?: $this->generateTotpBackups());
             array_set($settings, 'totp.backup_at', $backupAt ?: (new Carbon())->toDateTimeString());
 
-            // Update Two-Factor settings
+            // Update TwoFactor settings
             $currentUser->fill([
                 'two_factor' => $settings,
             ])->forceSave();
@@ -93,7 +93,7 @@ class TwoFactorSettingsController extends AuthenticatedController
     }
 
     /**
-     * Process the Two-Factor TOTP disable.
+     * Process the TwoFactor TOTP disable.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -121,7 +121,7 @@ class TwoFactorSettingsController extends AuthenticatedController
     }
 
     /**
-     * Process the Two-Factor Phone enable.
+     * Process the TwoFactor OTP backup.
      *
      * @param \Illuminate\Http\Request $request
      *
