@@ -24,7 +24,7 @@ class TwoFactorPhoneSettingsRequest extends FormRequest
             throw new GenericException(trans('cortex/fort::messages.verification.twofactor.phone.globaly_disabled'), route('frontend.account.settings'));
         }
 
-        if (strpos($this->route()->getName(), 'frontend.account.twofactor.phone') !== false && (! $user->phone || ! $user->phone_verified)) {
+        if (mb_strpos($this->route()->getName(), 'frontend.account.twofactor.phone') !== false && (! $user->phone || ! $user->phone_verified)) {
             throw new GenericException(trans('cortex/fort::messages.account.'.(! $user->phone ? 'phone_field_required' : 'phone_verification_required')), route('frontend.account.settings'));
         }
 
