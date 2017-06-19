@@ -39,8 +39,7 @@ class DashboardController extends AuthorizedController
         ];
 
         // Get online users
-        $onlineInterval = Carbon::now()->subMinutes(config('rinvex.fort.online_interval'));
-        $sessions = Session::users($onlineInterval)->groupBy(['user_id'])->with(['user'])->get(['user_id', DB::raw('MAX(last_activity) as last_activity')]);
+        $sessions = Session::users(config('rinvex.fort.online_interval'))->groupBy(['user_id'])->with(['user'])->get(['user_id', DB::raw('MAX(last_activity) as last_activity')]);
 
         return view('cortex/fort::backend.pages.home', compact('sessions', 'stats'));
     }
