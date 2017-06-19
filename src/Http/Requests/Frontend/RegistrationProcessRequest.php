@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Requests\Frontend;
 
+use Cortex\Fort\Models\Role;
 use Cortex\Fort\Models\User;
 
 class RegistrationProcessRequest extends RegistrationRequest
@@ -18,7 +19,7 @@ class RegistrationProcessRequest extends RegistrationRequest
     public function process($data)
     {
         $data['active'] = ! config('rinvex.fort.registration.moderated');
-        $data['roles'] = [config('rinvex.fort.registration.default_role')];
+        $data['roles'] = [Role::where('slug', config('rinvex.fort.registration.default_role'))->first()->id];
 
         return $data;
     }

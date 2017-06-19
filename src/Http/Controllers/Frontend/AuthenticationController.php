@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Cortex\Fort\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Rinvex\Fort\Guards\SessionGuard;
 use Cortex\Foundation\Http\Controllers\AbstractController;
 use Cortex\Fort\Http\Requests\Frontend\AuthenticationRequest;
@@ -53,11 +52,12 @@ class AuthenticationController extends AbstractController
         $remember = $request->has('remember');
         $loginField = get_login_field($request->get('loginfield'));
         $credentials = [
+            'active' => true,
             $loginField => $request->input('loginfield'),
             'password' => $request->input('password'),
         ];
 
-        $result = Auth::guard($this->getGuard())->attempt($credentials, $remember);
+        $result = auth()->guard($this->getGuard())->attempt($credentials, $remember);
 
         return $this->getLoginResponse($request, $result);
     }
@@ -69,7 +69,7 @@ class AuthenticationController extends AbstractController
      */
     public function logout()
     {
-        $result = Auth::guard($this->getGuard())->logout();
+        $result = auth()->guard($this->getGuard())->logout();
 
         return intend([
             'url' => '/',
@@ -90,7 +90,7 @@ class AuthenticationController extends AbstractController
         switch ($result) {
             // Too many failed logins, user locked out
             case SessionGuard::AUTH_LOCKED_OUT:
-                $seconds = Auth::guard($this->getGuard())->secondsRemainingOnLockout($request);
+                $seconds = auth()->guard($this->getGuard())->secondsRemainingOnLockout($request);
 
                 return intend([
                     'url' => '/',
@@ -115,7 +115,7 @@ class AuthenticationController extends AbstractController
 
             // TwoFactor authentication required
             case SessionGuard::AUTH_TWOFACTOR_REQUIRED:
-                $route = ! isset(session('rinvex.fort.twofactor.methods')['totp']) ? route('frontend.verification.phone.request') : route('frontend.verification.phone.verify');
+                $route = ! empty(session('_twofactor')['totp']['enabled']) ? route('frontend.verification.phone.request') : route('frontend.verification.phone.verify');
 
                 return intend([
                     'url' => $route,

@@ -1,8 +1,8 @@
-@if (Auth::user())
+@if (auth()->user())
     <!-- User Account: style can be found in dropdown.less -->
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            {{ Auth::user()->username }} <span class="caret"></span>
+            {{ auth()->user()->username }} <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
             <li><a href="{{ route('frontend.account.settings') }}"><i class="fa fa-user"></i> {{ trans('cortex/fort::common.settings') }}</a></li>

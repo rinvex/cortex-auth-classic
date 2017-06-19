@@ -36,6 +36,7 @@ return [
     ],
 
     'account' => [
+        'phone_field_required' => 'You must enter your phone first!',
         'phone_verification_required' => 'You must verify your phone first!',
         'country_required' => 'You must select your country first!',
         'phone_required' => 'You must update your phone first!',
@@ -79,13 +80,13 @@ return [
 
         'twofactor' => [
             'invalid_token' => 'This verification token is invalid.',
+            'globaly_disabled' => 'Sorry, TwoFactor authentication globally disabled!',
             'totp' => [
                 'required' => 'TwoFactor TOTP authentication enabled for your account, authentication code required to proceed.',
                 'enabled' => 'TwoFactor TOTP authentication has been enabled and backup codes generated for your account.',
                 'disabled' => 'TwoFactor TOTP authentication has been disabled for your account.',
                 'rebackup' => 'TwoFactor TOTP authentication backup codes re-generated for your account.',
                 'cant_backup' => 'TwoFactor TOTP authentication currently disabled for your account, thus backup codes can not be generated.',
-                'already' => 'You have already configured TwoFactor TOTP authentication. This page allows you to switch to a different authentication app. If this is not what you\'d like to do, you can go back to your account settings.',
                 'invalid_token' => 'Your passcode did not match, or expired after scanning. Remove the old barcode from your app, and try again. Since this process is time-sensitive, make sure your device\'s date and time is set to "automatic."',
                 'globaly_disabled' => 'Sorry, TwoFactor TOTP authentication globally disabled!',
             ],
@@ -93,7 +94,8 @@ return [
                 'enabled' => 'TwoFactor phone authentication has been enabled for your account.',
                 'disabled' => 'TwoFactor phone authentication has been disabled for your account.',
                 'auto_disabled' => 'TwoFactor phone authentication has been disabled for your account. Changing country or phone results in TwoFactor auto disable. You need to enable it again manually.',
-                'country_required' => 'Country field seems to be missing in your account, and since TwoFactor authentication already activated which require that field, you can NOT login. Please contact staff to solve this issue.',
+                'phone_required' => 'Phone field seems to be missing in your account, and since TwoFactor authentication already activated which require that field, you can NOT login unfortunately. Please contact staff to solve this issue.',
+                'country_required' => 'Country field seems to be missing in your account, and since TwoFactor authentication already activated which require that field, you can NOT login unfortunately. Please contact staff to solve this issue.',
                 'globaly_disabled' => 'Sorry, TwoFactor phone authentication globally disabled!',
             ],
         ],

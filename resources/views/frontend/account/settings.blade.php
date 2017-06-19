@@ -180,7 +180,7 @@
 
                                         <div class="col-md-10">
                                             {{ Form::hidden('gender', '') }}
-                                            {{ Form::select('gender', ['male' => trans('cortex/fort::common.male'), 'female' => trans('cortex/fort::common.female')], null, ['class' => 'form-control select2', 'placeholder' => trans('common.select'), 'data-allow-clear' => 'true', 'data-minimum-results-for-search' => 'Infinity', 'data-width' => '100%']) }}
+                                            {{ Form::select('gender', ['male' => trans('cortex/fort::common.male'), 'female' => trans('cortex/fort::common.female')], null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/fort::common.select'), 'data-allow-clear' => 'true', 'data-minimum-results-for-search' => 'Infinity', 'data-width' => '100%']) }}
 
                                             @if ($errors->has('gender'))
                                                 <span class="help-block">{{ $errors->first('gender') }}</span>
@@ -389,10 +389,13 @@
 
                                                             <div class="panel panel-primary">
                                                                 <header class="panel-heading">
-                                                                    <a class="btn btn-default btn-flat btn-xs pull-right" style="margin-left: 10px" href="{{ route('frontend.account.twofactor.totp.enable') }}">@if(array_get($twoFactor, 'totp.enabled')) {{ trans('cortex/fort::common.settings') }} @else {{ trans('cortex/fort::common.enable') }} @endif</a>
-                                                                    @if(array_get($twoFactor, 'totp.enabled'))
-                                                                        <a class="btn btn-default btn-flat btn-xs pull-right" href="{{ route('frontend.account.twofactor.totp.disable') }}">{{ trans('cortex/fort::common.disable') }}</a>
+                                                                    @if(! empty($twoFactor['totp']['enabled']))
+                                                                        <a class="btn btn-default btn-flat btn-xs pull-right" href="{{ route('frontend.account.twofactor.totp.disable') }}" onclick="event.preventDefault(); var form = document.getElementById('frontend-account-settings-update'); form.action = '{{ route('frontend.account.twofactor.totp.disable') }}'; form.submit();">{{ trans('cortex/fort::common.disable') }}</a>
+                                                                        <a class="btn btn-default btn-flat btn-xs pull-right" style="margin-right: 10px" href="{{ route('frontend.account.twofactor.totp.enable') }}">{{ trans('cortex/fort::common.settings') }}</a>
+                                                                    @else
+                                                                        <a class="btn btn-default btn-flat btn-xs pull-right" href="{{ route('frontend.account.twofactor.totp.enable') }}">{{ trans('cortex/fort::common.enable') }}</a>
                                                                     @endif
+
                                                                     <h3 class="panel-title">
                                                                         {{ trans('cortex/fort::twofactor.totp_head') }}
                                                                     </h3>
@@ -408,11 +411,8 @@
 
                                                             <div class="panel panel-primary">
                                                                 <header class="panel-heading">
-                                                                    @if(array_get($twoFactor, 'phone.enabled'))
-                                                                        <a class="btn btn-default btn-flat btn-xs pull-right" href="{{ route('frontend.account.twofactor.phone.disable') }}">{{ trans('cortex/fort::common.disable') }}</a>
-                                                                    @else
-                                                                        <a class="btn btn-default btn-flat btn-xs pull-right" href="{{ route('frontend.account.twofactor.phone.enable') }}">{{ trans('cortex/fort::common.enable') }}</a>
-                                                                    @endif
+                                                                    <a class="btn btn-default btn-flat btn-xs pull-right" href="{{ route('frontend.account.twofactor.phone.'.(! empty($twoFactor['phone']['enabled']) ? 'disable' : 'enable')) }}" onclick="event.preventDefault(); var form = document.getElementById('frontend-account-settings-update'); form.action = '{{ route('frontend.account.twofactor.phone.'.(! empty($twoFactor['phone']['enabled']) ? 'disable' : 'enable')) }}'; form.submit();">{{ trans('cortex/fort::common.'.(! empty($twoFactor['phone']['enabled']) ? 'disable' : 'enable')) }}</a>
+
                                                                     <h3 class="panel-title">
                                                                         {{ trans('cortex/fort::twofactor.phone_head') }}
                                                                     </h3>
