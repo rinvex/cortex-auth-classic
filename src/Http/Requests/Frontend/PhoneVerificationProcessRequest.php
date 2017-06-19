@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Requests\Frontend;
 
-
 class PhoneVerificationProcessRequest extends PhoneVerificationRequest
 {
     /**
