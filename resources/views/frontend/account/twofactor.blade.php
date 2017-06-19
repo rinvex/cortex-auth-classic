@@ -6,6 +6,10 @@
     {{ config('app.name') }} » {{ trans('cortex/fort::twofactor.configure') }}
 @stop
 
+@push('scripts')
+    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Frontend\TwoFactorTotpProcessSettingsRequest::class)->selector('#frontend-account-twofactor-totp-update') !!}
+@endpush
+
 {{-- Main Content --}}
 @section('content')
 
@@ -25,11 +29,12 @@
 
                             <div class="tab-pane active" id="twofactor-tab">
 
-                                {{ Form::open(['url' => route('frontend.account.twofactor.totp.update'), 'class' => 'form-horizontal']) }}
+                                {{ Form::open(['url' => route('frontend.account.twofactor.totp.update'), 'class' => 'form-horizontal', 'id' => 'frontend-account-twofactor-totp-update']) }}
 
                                     <p class="text-justify">
                                         {!! trans('cortex/fort::twofactor.totp_apps') !!}
                                     </p>
+
 
                                     <hr />
 
@@ -87,7 +92,7 @@
                                         <div class="col-md-8 col-sm-8 col-xs-8">
                                             {!! trans('cortex/fort::twofactor.totp_apps_step3') !!}
 
-                                            <div class="{{ $errors->has('token') ? ' has-error' : '' }}">
+                                            <div class="form-group{{ $errors->has('token') ? ' has-error' : '' }}" style="margin-left: 0; margin-right: 0">
                                                 {{ Form::text('token', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.authentication_code'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
 
                                                 @if ($errors->has('token'))
@@ -120,7 +125,7 @@
                                                         @if(array_get($settings, 'totp.backup'))
                                                             <div class="panel panel-primary">
                                                                 <header class="panel-heading">
-                                                                    <a class="btn btn-default btn-xs pull-right" style="margin-left: 10px" href="{{ route('frontend.account.twofactor.totp.backup') }}">{{ trans('cortex/fort::twofactor.totp_backup_generate') }}</a>
+                                                                    <a class="btn btn-default btn-flat btn-xs pull-right" href="{{ route('frontend.account.twofactor.totp.backup') }}" onclick="event.preventDefault(); var form = document.getElementById('frontend-account-twofactor-totp-update'); form.action = '{{ route('frontend.account.twofactor.totp.backup') }}'; form.submit();">{{ trans('cortex/fort::twofactor.totp_backup_generate') }}</a>
                                                                     <h3 class="panel-title">{{ trans('cortex/fort::twofactor.totp_backup_head') }}</h3>
                                                                 </header>
                                                                 <div class="panel-body">
