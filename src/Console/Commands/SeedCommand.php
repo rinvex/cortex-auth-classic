@@ -49,7 +49,6 @@ class SeedCommand extends Command
             DB::table(config('rinvex.fort.tables.ability_role'))->truncate();
             DB::table(config('rinvex.fort.tables.email_verifications'))->truncate();
             DB::table(config('auth.passwords.'.config('auth.defaults.passwords').'.table'))->truncate();
-            DB::table(config('rinvex.fort.tables.persistences'))->truncate();
             DB::table(config('rinvex.fort.tables.socialites'))->truncate();
             DB::table(config('session.table'))->truncate();
             Schema::enableForeignKeyConstraints();

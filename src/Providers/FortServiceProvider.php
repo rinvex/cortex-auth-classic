@@ -32,9 +32,6 @@ class FortServiceProvider extends ServiceProvider
         }
 
         if ($this->app->runningInConsole()) {
-            // Load migrations
-            $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
-
             // Publish Resources
             $this->publishResources();
         }
@@ -135,9 +132,6 @@ class FortServiceProvider extends ServiceProvider
     {
         // Publish config
         $this->publishes([realpath(__DIR__.'/../../config/config.php') => config_path('cortex.fort.php')], 'config');
-
-        // Publish migrations
-        $this->publishes([realpath(__DIR__.'/../../database/migrations') => database_path('migrations')], 'migrations');
 
         // Publish language phrases
         $this->publishes([realpath(__DIR__.'/../../resources/lang') => resource_path('lang/vendor/cortex/fort')], 'lang');

@@ -54,29 +54,29 @@
                             <div class="box box-success">
                                 <div class="box-header with-border">
                                     <h3 class="box-title">
-                                        {{ trans('cortex/fort::common.online_users', ['mins' => config('rinvex.fort.online.interval')]) }}
+                                        {{ trans('cortex/fort::common.online_users', ['mins' => config('rinvex.fort.online_interval')]) }}
                                     </h3>
                                     <div class="box-tools pull-right">
-                                        <span class="pull-right badge bg-green">{{ $persistences->count() }}</span>
+                                        <span class="pull-right badge bg-green">{{ $sessions->count() }}</span>
                                     </div>
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
                                     <ul class="nav nav-stacked">
-                                        @foreach($persistences as $persistence)
+                                        @foreach($sessions as $session)
                                             <li>
                                                 <strong>
-                                                    @if($persistence->user->first_name)
-                                                        {{ $persistence->user->first_name }} {{ $persistence->user->middle_name }} {{ $persistence->user->last_name }}
+                                                    @if($session->user->first_name)
+                                                        {{ $session->user->first_name }} {{ $session->user->middle_name }} {{ $session->user->last_name }}
                                                     @else
-                                                        {{ $persistence->user->username }}
+                                                        {{ $session->user->username }}
                                                     @endif
                                                 </strong>
-                                                <span class="small ">{{ $persistence->user->job_title }}</span>
+                                                <span class="small ">{{ $session->user->job_title }}</span>
                                                 <span class="pull-right">
-                                                @if($persistence->user_id == $currentUser->id)<span class="label label-info">{{ trans('cortex/fort::common.you') }}</span> @endif
-                                                    <span class="badge">{{ $persistence->updated_at->diffForHumans() }}</span>
-                                            </span>
+                                                    @if($session->user_id == $currentUser->id)<span class="label label-info">{{ trans('cortex/fort::common.you') }}</span>@endif
+                                                    <span class="badge">{{ $session->last_activity->diffForHumans() }}</span>
+                                                </span>
                                             </li>
                                         @endforeach
                                     </ul>

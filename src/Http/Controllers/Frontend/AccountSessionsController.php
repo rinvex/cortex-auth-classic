@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Fort\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
-use Rinvex\Fort\Models\Persistence;
+use Rinvex\Fort\Models\Session;
 use Cortex\Foundation\Http\Controllers\AuthenticatedController;
 
 class AccountSessionsController extends AuthenticatedController
@@ -23,20 +23,20 @@ class AccountSessionsController extends AuthenticatedController
     /**
      * Flush the given session.
      *
-     * @param string|null $token
+     * @param string|null $id
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function flush(Request $request, $token = null)
+    public function flush(Request $request, $id = null)
     {
         $status = '';
 
-        if ($token) {
-            Persistence::find($token)->delete();
-            $status = trans('cortex/fort::messages.auth.session.flushed');
+        if ($id) {
+            Session::find($id)->delete();
+            $status = trans('messages.auth.session.flushed');
         } elseif ($request->get('confirm')) {
-            Persistence::where('user_id', $request->user($this->getGuard())->id)->delete();
-            $status = trans('cortex/fort::messages.auth.session.flushedall');
+            Session::where('user_id', $request->user($this->getGuard())->id)->delete();
+            $status = trans('messages.auth.session.flushedall');
         }
 
         return intend([

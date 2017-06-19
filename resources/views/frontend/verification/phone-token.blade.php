@@ -34,7 +34,7 @@
 
                     {{ trans('cortex/fort::twofactor.backup_notice') }}<br />
 
-                    @if ($twoFactor['phone']['enabled'])
+                    @if ($phoneEnabled)
                         <strong>{!! trans('cortex/fort::twofactor.backup_sms', ['href' => route('frontend.verification.phone.request')]) !!}</strong>
                     @else
                         <strong>{{ trans('cortex/fort::twofactor.backup_code') }}</strong>

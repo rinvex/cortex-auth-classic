@@ -51,8 +51,8 @@ use Rinvex\Attributable\Traits\Attributable;
  * @property-read string                                                                                                    $name
  * @property-read array                                                                                                     $role_list
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
- * @property-read \Illuminate\Database\Eloquent\Collection|\Rinvex\Fort\Models\Persistence[]                                $persistences
  * @property-read \Illuminate\Database\Eloquent\Collection|\Cortex\Fort\Models\Role[]                                       $roles
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Rinvex\Fort\Models\Session[]                                    $sessions
  * @property-read \Illuminate\Database\Eloquent\Collection|\Rinvex\Fort\Models\Socialite[]                                  $socialites
  *
  * @method static \Illuminate\Database\Query\Builder|\Cortex\Fort\Models\User hasAttribute($key, $value)

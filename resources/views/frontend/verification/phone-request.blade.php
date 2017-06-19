@@ -24,7 +24,7 @@
 
             {{ Form::open(['url' => route('frontend.verification.phone.send'), 'id' => 'frontend-verification-phone-send']) }}
 
-                <div class="form-group has-feedback{{ $errors->has('phone') ? ' has-error' : '' }}">
+                <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
                     <div class="input-group">
                         @if (auth()->user())
                             {{ Form::number('phone', old('phone', $currentUser->phone), ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.phone'), 'required' => 'required', 'autofocus' => 'autofocus', 'disabled' => 'disabled']) }}
