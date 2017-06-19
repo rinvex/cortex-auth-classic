@@ -6,6 +6,11 @@
     {{ config('app.name') }} » {{ trans('cortex/fort::common.verification_phone_request') }}
 @stop
 
+{{-- Scripts --}}
+@push('scripts')
+    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Frontend\PhoneVerificationSendProcessRequest::class)->selector('#frontend-verification-phone-send') !!}
+@endpush
+
 {{-- Main Content --}}
 @section('content')
 
@@ -17,7 +22,7 @@
         <div class="login-box-body">
             <p class="login-box-msg">{{ trans('cortex/fort::common.verification_phone_request') }}</p>
 
-            {{ Form::open(['url' => route('frontend.verification.phone.send')]) }}
+            {{ Form::open(['url' => route('frontend.verification.phone.send'), 'id' => 'frontend-verification-phone-send']) }}
 
                 <div class="form-group has-feedback{{ $errors->has('phone') ? ' has-error' : '' }}">
                     <div class="input-group">

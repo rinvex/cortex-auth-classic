@@ -4,29 +4,33 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Requests\Frontend;
 
-use Illuminate\Support\Facades\Auth;
 use Rinvex\Support\Http\Requests\FormRequest;
+use Cortex\Foundation\Exceptions\GenericException;
 
 class PhoneVerificationRequest extends FormRequest
 {
     /**
-     * {@inheritdoc}
-     */
-    public function response(array $errors)
-    {
-        // If we've got errors, remember Two-Factor persistence
-        Auth::guard()->rememberTwoFactor();
-
-        return parent::response($errors);
-    }
-
-    /**
      * Determine if the user is authorized to make this request.
+     *
+     * @throws \Cortex\Foundation\Exceptions\GenericException
      *
      * @return bool
      */
     public function authorize()
     {
+        $user = $this->user();
+        $attemptUser = auth()->attemptUser();
+
+        if (empty(config('rinvex.fort.twofactor.providers'))) {
+            // At least one TwoFactor provider required for phone verification
+            throw new GenericException(trans('cortex/fort::messages.verification.twofactor.globaly_disabled'), ! $user ? route('frontend.auth.login') : route('frontend.account.settings'));
+        }
+
+        if (! $user && ! $attemptUser) {
+            // User instance required to detect active TwoFactor methods
+            throw new GenericException(trans('cortex/foundation::messages.session_required'), route('frontend.auth.login'));
+        }
+
         return true;
     }
 
@@ -37,8 +41,6 @@ class PhoneVerificationRequest extends FormRequest
      */
     public function rules()
     {
-        return ! $this->isMethod('post') ? [] : [
-            'token' => 'required|numeric',
-        ];
+        return [];
     }
 }

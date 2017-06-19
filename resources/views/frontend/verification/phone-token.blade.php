@@ -6,6 +6,11 @@
     {{ config('app.name') }} » {{ trans('cortex/fort::common.verify_phone') }}
 @stop
 
+{{-- Scripts --}}
+@push('scripts')
+    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Frontend\PhoneVerificationProcessRequest::class)->selector('#frontend-verification-phone-process') !!}
+@endpush
+
 {{-- Main Content --}}
 @section('content')
 
@@ -17,7 +22,7 @@
         <div class="login-box-body">
             <p class="login-box-msg">{{ trans('cortex/fort::common.verify_phone') }}</p>
 
-            {{ Form::open(['url' => route('frontend.verification.phone.process')]) }}
+            {{ Form::open(['url' => route('frontend.verification.phone.process'), 'id' => 'frontend-verification-phone-process']) }}
 
                 <div class="form-group has-feedback{{ $errors->has('token') ? ' has-error' : '' }}">
                     {{ Form::text('token', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.authentication_code'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
@@ -29,7 +34,7 @@
 
                     {{ trans('cortex/fort::twofactor.backup_notice') }}<br />
 
-                    @if ($methods['phone'])
+                    @if ($twoFactor['phone']['enabled'])
                         <strong>{!! trans('cortex/fort::twofactor.backup_sms', ['href' => route('frontend.verification.phone.request')]) !!}</strong>
                     @else
                         <strong>{{ trans('cortex/fort::twofactor.backup_code') }}</strong>
