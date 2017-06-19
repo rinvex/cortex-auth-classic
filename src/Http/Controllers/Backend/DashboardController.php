@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Controllers\Backend;
 
-use Carbon\Carbon;
 use Cortex\Fort\Models\Role;
 use Cortex\Fort\Models\User;
 use Cortex\Fort\Models\Ability;
