@@ -13,6 +13,8 @@ class PhoneVerificationSendProcessRequest extends PhoneVerificationSendRequest
      */
     public function rules()
     {
-        return ['phone' => 'required|numeric|exists:'.config('rinvex.fort.tables.users').',phone'];
+        return [
+            'phone' => 'required|numeric|min:4|exists:'.config('rinvex.fort.tables.users').',phone',
+        ];
     }
 }
