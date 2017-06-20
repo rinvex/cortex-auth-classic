@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Cortex\Foundation\Http\Controllers\AbstractController;
 use Rinvex\Fort\Contracts\EmailVerificationBrokerContract;
 use Cortex\Fort\Http\Requests\Frontend\EmailVerificationRequest;
+use Cortex\Fort\Http\Requests\Frontend\EmailVerificationSendRequest;
 use Cortex\Fort\Http\Requests\Frontend\EmailVerificationProcessRequest;
 
 class EmailVerificationController extends AbstractController
@@ -27,11 +28,11 @@ class EmailVerificationController extends AbstractController
     /**
      * Process the email verification request form.
      *
-     * @param \Cortex\Fort\Http\Requests\Frontend\EmailVerificationProcessRequest $request
+     * @param \Cortex\Fort\Http\Requests\Frontend\EmailVerificationSendRequest $request
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function send(EmailVerificationProcessRequest $request)
+    public function send(EmailVerificationSendRequest $request)
     {
         $result = app('rinvex.fort.emailverification')
             ->broker($this->getBroker())
@@ -40,10 +41,11 @@ class EmailVerificationController extends AbstractController
         switch ($result) {
             case EmailVerificationBrokerContract::LINK_SENT:
                 return intend([
-                    'url' => '/',
+                    'url' => route('frontend.home'),
                     'with' => ['success' => trans('cortex/fort::'.$result)],
                 ]);
 
+            case EmailVerificationBrokerContract::INVALID_USER:
             default:
                 return intend([
                     'back' => true,
@@ -64,7 +66,7 @@ class EmailVerificationController extends AbstractController
     {
         $result = app('rinvex.fort.emailverification')
             ->broker($this->getBroker())
-            ->verify($request->only(['email', 'token']), function ($user) {
+            ->verify($request->only(['email', 'expiration', 'token']), function ($user) {
                 $user->fill([
                     'email_verified' => true,
                     'email_verified_at' => new Carbon(),
@@ -80,6 +82,7 @@ class EmailVerificationController extends AbstractController
 
             case EmailVerificationBrokerContract::INVALID_USER:
             case EmailVerificationBrokerContract::INVALID_TOKEN:
+            case EmailVerificationBrokerContract::EXPIRED_TOKEN:
             default:
                 return intend([
                     'url' => route('frontend.verification.email.request'),
