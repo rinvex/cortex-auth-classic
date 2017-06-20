@@ -72,7 +72,7 @@ class AuthenticationController extends AbstractController
         $result = auth()->guard($this->getGuard())->logout();
 
         return intend([
-            'url' => '/',
+            'url' => route('frontend.home'),
             'with' => ['warning' => trans('cortex/fort::'.$result)],
         ]);
     }
@@ -93,7 +93,7 @@ class AuthenticationController extends AbstractController
                 $seconds = auth()->guard($this->getGuard())->secondsRemainingOnLockout($request);
 
                 return intend([
-                    'url' => '/',
+                    'url' => route('frontend.home'),
                     'withInput' => $request->only(['loginfield', 'remember']),
                     'withErrors' => ['loginfield' => trans('cortex/fort::'.$result, ['seconds' => $seconds])],
                 ]);
