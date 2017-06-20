@@ -18,7 +18,6 @@ use Rinvex\Fort\Models\Ability as BaseAbility;
  * @property \Carbon\Carbon|null                                                      $created_at
  * @property \Carbon\Carbon|null                                                      $updated_at
  * @property \Carbon\Carbon|null                                                      $deleted_at
- * @property-read array                                                               $role_list
  * @property-read string                                                              $slug
  * @property \Illuminate\Database\Eloquent\Collection|\Rinvex\Fort\Models\Role[]      $roles
  * @property-read \Illuminate\Database\Eloquent\Collection|\Cortex\Fort\Models\User[] $users

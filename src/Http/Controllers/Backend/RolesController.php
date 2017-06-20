@@ -84,11 +84,11 @@ class RolesController extends AuthorizedController
      */
     public function form(Role $role)
     {
-        $abilityList = Ability::all()->groupBy('resource')->map(function ($ability) {
+        $abilities = Ability::all()->groupBy('resource')->map(function ($ability) {
             return $ability->pluck('name', 'id');
         })->toArray();
 
-        return view('cortex/fort::backend.forms.role', compact('role', 'abilityList'));
+        return view('cortex/fort::backend.forms.role', compact('role', 'abilities'));
     }
 
     /**

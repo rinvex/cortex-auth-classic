@@ -84,9 +84,9 @@ class AbilitiesController extends AuthorizedController
      */
     public function form(Ability $ability)
     {
-        $roleList = Role::all()->pluck('name', 'id');
+        $roles = Role::all()->pluck('name', 'id');
 
-        return view('cortex/fort::backend.forms.ability', compact('ability', 'roleList'));
+        return view('cortex/fort::backend.forms.ability', compact('ability', 'roles'));
     }
 
     /**

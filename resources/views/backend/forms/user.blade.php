@@ -425,8 +425,8 @@
 
                                             {{-- Roles --}}
                                             <div class="form-group{{ $errors->has('roles') ? ' has-error' : '' }}">
-                                                {{ Form::label('roleList[]', trans('cortex/fort::common.roles'), ['class' => 'control-label']) }}
-                                                {{ Form::select('roleList[]', $roleList, null, ['class' => 'form-control select2', 'multiple' => 'multiple', 'data-close-on-select' => 'false', 'data-width' => '100%']) }}
+                                                {{ Form::label('roles[]', trans('cortex/fort::common.roles'), ['class' => 'control-label']) }}
+                                                {{ Form::select('roles[]', $roles, null, ['class' => 'form-control select2', 'multiple' => 'multiple', 'data-close-on-select' => 'false', 'data-width' => '100%']) }}
 
                                                 @if ($errors->has('roles'))
                                                     <span class="help-block">{{ $errors->first('roles') }}</span>
@@ -442,12 +442,12 @@
                                         <div class="col-md-4">
 
                                             {{-- Abilities --}}
-                                            <div class="form-group{{ $errors->has('abilityList[]') ? ' has-error' : '' }}">
-                                                {{ Form::label('abilityList[]', trans('cortex/fort::common.abilities'), ['class' => 'control-label']) }}
-                                                {{ Form::select('abilityList[]', $abilityList, null, ['class' => 'form-control select2', 'multiple' => 'multiple', 'data-close-on-select' => 'false', 'data-width' => '100%']) }}
+                                            <div class="form-group{{ $errors->has('abilities') ? ' has-error' : '' }}">
+                                                {{ Form::label('abilities[]', trans('cortex/fort::common.abilities'), ['class' => 'control-label']) }}
+                                                {{ Form::select('abilities[]', $abilities, null, ['class' => 'form-control select2', 'multiple' => 'multiple', 'data-close-on-select' => 'false', 'data-width' => '100%']) }}
 
                                                 @if ($errors->has('abilities'))
-                                                    <span class="help-block">{{ $errors->first('abilityList[]') }}</span>
+                                                    <span class="help-block">{{ $errors->first('abilities') }}</span>
                                                 @endif
                                             </div>
 

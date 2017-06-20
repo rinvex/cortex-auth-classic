@@ -43,13 +43,11 @@ use Rinvex\Attributable\Traits\Attributable;
  * @property \Carbon\Carbon|null                                                                                            $updated_at
  * @property \Carbon\Carbon|null                                                                                            $deleted_at
  * @property \Illuminate\Database\Eloquent\Collection|\Rinvex\Fort\Models\Ability[]                                         $abilities
- * @property-read array                                                                                                     $ability_list
  * @property-read \Illuminate\Support\Collection                                                                            $all_abilities
  * @property-read \Rinvex\Country\Country                                                                                   $country
  * @property mixed                                                                                                          $entity
  * @property-read \Rinvex\Language\Language                                                                                 $language
  * @property-read string                                                                                                    $name
- * @property-read array                                                                                                     $role_list
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property \Illuminate\Database\Eloquent\Collection|\Rinvex\Fort\Models\Role[]                                            $roles
  * @property-read \Illuminate\Database\Eloquent\Collection|\Rinvex\Fort\Models\Session[]                                    $sessions

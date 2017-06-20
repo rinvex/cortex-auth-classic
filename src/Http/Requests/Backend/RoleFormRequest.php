@@ -28,9 +28,9 @@ class RoleFormRequest extends FormRequest
      */
     public function process($data)
     {
-        // Sync abilities
-        if (! empty($data['abilityList']) && $this->user()->can('grant-abilities')) {
-            $data['abilities'] = $data['abilityList'];
+        // Set abilities
+        if ($this->user()->can('grant-abilities')) {
+            $data['abilities'] = $data['abilities'] ?? null;
         }
 
         return $data;

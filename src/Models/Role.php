@@ -18,7 +18,6 @@ use Rinvex\Attributable\Traits\Attributable;
  * @property \Carbon\Carbon|null                                                      $updated_at
  * @property \Carbon\Carbon|null                                                      $deleted_at
  * @property \Illuminate\Database\Eloquent\Collection|\Rinvex\Fort\Models\Ability[]   $abilities
- * @property-read array                                                               $ability_list
  * @property mixed                                                                    $entity
  * @property-read \Illuminate\Database\Eloquent\Collection|\Cortex\Fort\Models\User[] $users
  *
