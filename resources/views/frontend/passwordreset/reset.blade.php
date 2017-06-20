@@ -24,6 +24,7 @@
 
             {{ Form::open(['url' => route('frontend.passwordreset.process'), 'id' => 'frontend-passwordreset-process']) }}
 
+                {{ Form::hidden('expiration', old('expiration', $expiration)) }}
                 {{ Form::hidden('token', old('token', $token)) }}
 
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">

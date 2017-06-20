@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Cortex\Fort\Http\Controllers\Frontend;
 
 use Illuminate\Support\Str;
-use Illuminate\Contracts\Auth\PasswordBroker;
+use Rinvex\Fort\Contracts\PasswordResetBrokerContract;
 use Cortex\Foundation\Http\Controllers\AbstractController;
 use Cortex\Fort\Http\Requests\Frontend\PasswordResetRequest;
+use Cortex\Fort\Http\Requests\Frontend\PasswordResetSendRequest;
 use Cortex\Fort\Http\Requests\Frontend\PasswordResetProcessRequest;
 use Cortex\Fort\Http\Requests\Frontend\PasswordResetPostProcessRequest;
 
@@ -28,24 +29,24 @@ class PasswordResetController extends AbstractController
     /**
      * Process the password reset request form.
      *
-     * @param \Cortex\Fort\Http\Requests\Frontend\PasswordResetProcessRequest $request
+     * @param \Cortex\Fort\Http\Requests\Frontend\PasswordResetSendRequest $request
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function send(PasswordResetProcessRequest $request)
+    public function send(PasswordResetSendRequest $request)
     {
         $result = app('auth.password')
             ->broker($this->getBroker())
             ->sendResetLink($request->only(['email']));
 
         switch ($result) {
-            case PasswordBroker::RESET_LINK_SENT:
+            case PasswordResetBrokerContract::RESET_LINK_SENT:
                 return intend([
-                    'url' => '/',
+                    'url' => route('frontend.home'),
                     'with' => ['success' => trans($result)],
                 ]);
 
-            case PasswordBroker::INVALID_USER:
+            case PasswordResetBrokerContract::INVALID_USER:
             default:
                 return intend([
                     'back' => true,
@@ -64,22 +65,9 @@ class PasswordResetController extends AbstractController
      */
     public function reset(PasswordResetProcessRequest $request)
     {
-        $token = $request->get('token');
-        $email = $request->get('email');
+        $credentials = $request->only('email', 'expiration', 'token');
 
-        $broker = app('auth.password')->broker($this->getBroker());
-        $user = $broker->getUser($request->only(['email']));
-        $tokenExists = $broker->tokenExists($user, $token);
-
-        if (! $user || ! $tokenExists) {
-            return intend([
-                'url' => route('frontend.passwordreset.request'),
-                'withInput' => $request->only(['email']),
-                'withErrors' => ['email' => ! $user ? trans(PasswordBroker::INVALID_USER) : trans(PasswordBroker::INVALID_TOKEN)],
-            ]);
-        }
-
-        return view('cortex/fort::frontend.passwordreset.reset')->with(compact('token', 'email'));
+        return view('cortex/fort::frontend.passwordreset.reset')->with($credentials);
     }
 
     /**
@@ -93,7 +81,7 @@ class PasswordResetController extends AbstractController
     {
         $result = app('auth.password')
             ->broker($this->getBroker())
-            ->reset($request->only(['email', 'token', 'password', 'password_confirmation']), function ($user, $password) {
+            ->reset($request->only(['email', 'expiration', 'token', 'password', 'password_confirmation']), function ($user, $password) {
                 $user->fill([
                     'password' => $password,
                     'remember_token' => Str::random(60),
@@ -101,15 +89,16 @@ class PasswordResetController extends AbstractController
             });
 
         switch ($result) {
-            case PasswordBroker::PASSWORD_RESET:
+            case PasswordResetBrokerContract::PASSWORD_RESET:
                 return intend([
                     'url' => route('frontend.auth.login'),
                     'with' => ['success' => trans($result)],
                 ]);
 
-            case PasswordBroker::INVALID_USER:
-            case PasswordBroker::INVALID_TOKEN:
-            case PasswordBroker::INVALID_PASSWORD:
+            case PasswordResetBrokerContract::INVALID_USER:
+            case PasswordResetBrokerContract::INVALID_TOKEN:
+            case PasswordResetBrokerContract::EXPIRED_TOKEN:
+            case PasswordResetBrokerContract::INVALID_PASSWORD:
             default:
                 return intend([
                     'back' => true,
