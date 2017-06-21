@@ -32,7 +32,7 @@ use Rinvex\Attributable\Traits\Attributable;
  * @property \Carbon\Carbon|null                                                                                            $birthday
  * @property string|null                                                                                                    $gender
  * @property int                                                                                                            $active
- * @property \Carbon\Carbon|null                                                                                            $login_at
+ * @property \Carbon\Carbon|null                                                                                            $last_activity
  * @property \Carbon\Carbon|null                                                                                            $created_at
  * @property \Carbon\Carbon|null                                                                                            $updated_at
  * @property \Carbon\Carbon|null                                                                                            $deleted_at
@@ -62,8 +62,8 @@ use Rinvex\Attributable\Traits\Attributable;
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User whereJobTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User whereLanguageCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User whereLastActivity($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User whereLastName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User whereLoginAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User whereMiddleName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User whereNamePrefix($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User whereNameSuffix($value)
