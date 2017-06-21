@@ -262,7 +262,7 @@
                                     <div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
                                         {{ Form::label('gender', trans('cortex/fort::common.gender'), ['class' => 'control-label']) }}
                                         {{ Form::hidden('gender', '') }}
-                                        {{ Form::select('gender', ['male' => trans('cortex/fort::common.male'), 'female' => trans('cortex/fort::common.female')], null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/fort::common.select'), 'data-allow-clear' => 'true', 'data-minimum-results-for-search' => 'Infinity', 'data-width' => '100%']) }}
+                                        {{ Form::select('gender', $genders, null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/fort::common.select'), 'data-allow-clear' => 'true', 'data-minimum-results-for-search' => 'Infinity', 'data-width' => '100%']) }}
 
                                         @if ($errors->has('gender'))
                                             <span class="help-block">{{ $errors->first('gender') }}</span>

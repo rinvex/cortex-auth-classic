@@ -22,8 +22,9 @@ class AccountSettingsController extends AuthenticatedController
         $countries = countries();
         $languages = collect(languages())->pluck('name', 'iso_639_1');
         $twoFactor = $request->user($this->getGuard())->getTwoFactor();
+        $genders = ['m' => trans('common.male'), 'f' => trans('common.female')];
 
-        return view('cortex/fort::frontend.account.settings', compact('twoFactor', 'countries', 'languages'));
+        return view('cortex/fort::frontend.account.settings', compact('twoFactor', 'countries', 'languages', 'genders'));
     }
 
     /**
