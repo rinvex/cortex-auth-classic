@@ -31,7 +31,7 @@ use Rinvex\Attributable\Traits\Attributable;
  * @property string|null                                                                                                    $language_code
  * @property \Carbon\Carbon|null                                                                                            $birthday
  * @property string|null                                                                                                    $gender
- * @property int                                                                                                            $active
+ * @property int                                                                                                            $is_active
  * @property \Carbon\Carbon|null                                                                                            $last_activity
  * @property \Carbon\Carbon|null                                                                                            $created_at
  * @property \Carbon\Carbon|null                                                                                            $updated_at
@@ -49,7 +49,6 @@ use Rinvex\Attributable\Traits\Attributable;
  *
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User hasAttribute($key, $value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Fort\Models\User role($roles)
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User whereActive($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User whereBirthday($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User whereCountryCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User whereCreatedAt($value)
@@ -60,6 +59,7 @@ use Rinvex\Attributable\Traits\Attributable;
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User whereFirstName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User whereGender($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User whereIsActive($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User whereJobTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User whereLanguageCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User whereLastActivity($value)

@@ -274,12 +274,12 @@
                                 <div class="col-md-4">
 
                                     {{-- Active --}}
-                                    <div class="form-group{{ $errors->has('active') ? ' has-error' : '' }}">
-                                        {{ Form::label('active', trans('cortex/fort::common.active'), ['class' => 'control-label']) }}
-                                        {{ Form::select('active', [1 => trans('cortex/fort::common.yes'), 0 => trans('cortex/fort::common.no')], null, ['class' => 'form-control select2', 'data-minimum-results-for-search' => 'Infinity', 'data-width' => '100%']) }}
+                                    <div class="form-group{{ $errors->has('is_active') ? ' has-error' : '' }}">
+                                        {{ Form::label('is_active', trans('cortex/fort::common.active'), ['class' => 'control-label']) }}
+                                        {{ Form::select('is_active', [1 => trans('cortex/fort::common.yes'), 0 => trans('cortex/fort::common.no')], null, ['class' => 'form-control select2', 'data-minimum-results-for-search' => 'Infinity', 'data-width' => '100%']) }}
 
-                                        @if ($errors->has('active'))
-                                            <span class="help-block">{{ $errors->first('active') }}</span>
+                                        @if ($errors->has('is_active'))
+                                            <span class="help-block">{{ $errors->first('is_active') }}</span>
                                         @endif
                                     </div>
 
