@@ -96,6 +96,7 @@ return [
     'welcome_body' => 'Welcome to your new project based on <strong>Rinvex Cortex</strong>. Enjoy building something awesome! 🎉',
     'registered_already' => 'I already have registered account',
     'basic_info' => 'Basic Info',
+    'update_basic_info' => 'Update Basic Info',
 
     // Abilities Phrases
     'abilities' => 'Abilities',

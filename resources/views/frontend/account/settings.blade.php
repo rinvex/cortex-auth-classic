@@ -51,19 +51,19 @@
         <!-- Main content -->
         <section class="content">
 
-            {{ Form::model($currentUser, ['url' => route('frontend.account.settings.update'), 'class' => 'form-horizontal', 'id' => 'frontend-account-settings-update']) }}
+            <div class="row">
 
-                <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#basic-tab" data-toggle="tab">{{ trans('cortex/fort::common.basic_info') }}</a></li>
+                        </ul>
 
-                    <div class="col-md-6 col-md-offset-3">
-                        <div class="nav-tabs-custom">
-                            <ul class="nav nav-tabs">
-                                <li class="active"><a href="#basic-tab" data-toggle="tab">{{ trans('cortex/fort::common.basic_info') }}</a></li>
-                            </ul>
+                        <div class="tab-content">
 
-                            <div class="tab-content">
+                            <div class="tab-pane active" id="basic-tab">
 
-                                <div class="tab-pane active" id="basic-tab">
+                                {{ Form::model($currentUser, ['url' => route('frontend.account.settings.update'), 'class' => 'form-horizontal', 'id' => 'frontend-account-settings-update']) }}
 
                                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                         {{ Form::label('email', trans('cortex/fort::common.email'), ['class' => 'col-md-2 control-label']) }}
@@ -347,27 +347,25 @@
 
                                     @endif
 
-                                </div>
-
-                                <!-- /.tab-pane -->
-
-                                <div class="row">
-                                    <div class="col-md-12 text-center">
-                                        {{ Form::button(trans('cortex/fort::common.reset'), ['class' => 'btn btn-default btn-flat', 'type' => 'reset']) }}
-                                        {{ Form::button('<i class="fa fa-user"></i> '.trans('cortex/fort::common.update'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}
+                                    <div class="row">
+                                        <div class="col-md-12 text-center">
+                                            {{ Form::button(trans('cortex/fort::common.reset'), ['class' => 'btn btn-default btn-flat', 'type' => 'reset']) }}
+                                            {{ Form::button('<i class="fa fa-user"></i> '.trans('cortex/fort::common.update_basic_info'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}
+                                        </div>
                                     </div>
-                                </div>
+
+                                {{ Form::close() }}
 
                             </div>
-                            <!-- /.tab-content -->
 
                         </div>
-                        <!-- /.nav-tabs-custom -->
-                    </div>
+                        <!-- /.tab-content -->
 
+                    </div>
+                    <!-- /.nav-tabs-custom -->
                 </div>
 
-            {{ Form::close() }}
+            </div>
 
         </section>
 

@@ -64,22 +64,22 @@
         <!-- Main content -->
         <section class="content">
 
-            @if ($user->exists)
-                {{ Form::model($user, ['url' => route('backend.users.update', ['user' => $user]), 'id' => 'backend-users-save', 'method' => 'put']) }}
-            @else
-                {{ Form::model($user, ['url' => route('backend.users.store'), 'id' => 'backend-users-save']) }}
-            @endif
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#details-tab" data-toggle="tab">{{ trans('cortex/fort::common.details') }}</a></li>
+                    @if($user->exists) <li><a href="{{ route('backend.users.logs', ['user' => $user]) }}">{{ trans('cortex/fort::common.logs') }}</a></li> @endif
+                    @if($user->exists && $currentUser->can('delete-users', $user)) <li class="pull-right"><a href="#" data-toggle="modal" data-target="#delete-confirmation" data-item-href="{{ route('backend.users.delete', ['user' => $user]) }}" data-item-name="{{ $user->slug }}"><i class="fa fa-trash text-danger"></i></a></li> @endif
+                </ul>
 
-                <div class="nav-tabs-custom">
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a href="#details-tab" data-toggle="tab">{{ trans('cortex/fort::common.details') }}</a></li>
-                        @if($user->exists) <li><a href="{{ route('backend.users.logs', ['user' => $user]) }}">{{ trans('cortex/fort::common.logs') }}</a></li> @endif
-                        @if($user->exists && $currentUser->can('delete-users', $user)) <li class="pull-right"><a href="#" data-toggle="modal" data-target="#delete-confirmation" data-item-href="{{ route('backend.users.delete', ['user' => $user]) }}" data-item-name="{{ $user->slug }}"><i class="fa fa-trash text-danger"></i></a></li> @endif
-                    </ul>
+                <div class="tab-content">
 
-                    <div class="tab-content">
+                    <div class="tab-pane active" id="details-tab">
 
-                        <div class="tab-pane active" id="details-tab">
+                        @if ($user->exists)
+                            {{ Form::model($user, ['url' => route('backend.users.update', ['user' => $user]), 'id' => 'backend-users-save', 'method' => 'put']) }}
+                        @else
+                            {{ Form::model($user, ['url' => route('backend.users.store'), 'id' => 'backend-users-save']) }}
+                        @endif
 
                             <div class="row">
                                 <div class="col-md-4">
@@ -384,26 +384,26 @@
 
                             </div>
 
-                        </div>
+                            <div class="row">
+                                <div class="col-md-12">
 
-                        <div class="row">
-                            <div class="col-md-12">
+                                    <div class="pull-right">
+                                        {{ Form::button(trans('cortex/fort::common.reset'), ['class' => 'btn btn-default btn-flat', 'type' => 'reset']) }}
+                                        {{ Form::button(trans('cortex/fort::common.submit'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}
+                                    </div>
 
-                                <div class="pull-right">
-                                    {{ Form::button(trans('cortex/fort::common.reset'), ['class' => 'btn btn-default btn-flat', 'type' => 'reset']) }}
-                                    {{ Form::button(trans('cortex/fort::common.submit'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}
+                                    @include('cortex/foundation::backend.partials.timestamps', ['model' => $user])
+
                                 </div>
-
-                                @include('cortex/foundation::backend.partials.timestamps', ['model' => $user])
-
                             </div>
-                        </div>
+
+                        {{ Form::close() }}
 
                     </div>
 
                 </div>
 
-            {{ Form::close() }}
+            </div>
 
         </section>
 
