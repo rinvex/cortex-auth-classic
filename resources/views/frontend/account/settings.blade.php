@@ -59,8 +59,6 @@
                         <div class="nav-tabs-custom">
                             <ul class="nav nav-tabs">
                                 <li class="active"><a href="#basic-tab" data-toggle="tab">{{ trans('cortex/fort::common.basic_info') }}</a></li>
-                                <li><a href="#social-tab" data-toggle="tab">{{ trans('cortex/fort::common.social') }}</a></li>
-                                <li><a href="#security-tab" data-toggle="tab">{{ trans('cortex/fort::common.security') }}</a></li>
                             </ul>
 
                             <div class="tab-content">
@@ -247,91 +245,9 @@
                                         </div>
                                     </div>
 
-                                </div>
 
-                                <div class="tab-pane" id="social-tab">
+                                    <hr />
 
-                                    <div class="form-group has-feedback{{ $errors->has('twitter') ? ' has-error' : '' }}">
-                                        {{ Form::label('twitter', trans('cortex/fort::common.twitter'), ['class' => 'col-md-2 control-label']) }}
-
-                                        <div class="col-md-10">
-                                            {{ Form::text('twitter', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.twitter')]) }}
-                                            <span class="fa fa-twitter form-control-feedback"></span>
-
-                                            @if ($errors->has('twitter'))
-                                                <span class="help-block">{{ $errors->first('twitter') }}</span>
-                                            @endif
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group has-feedback{{ $errors->has('facebook') ? ' has-error' : '' }}">
-                                        {{ Form::label('facebook', trans('cortex/fort::common.facebook'), ['class' => 'col-md-2 control-label']) }}
-
-                                        <div class="col-md-10">
-                                            {{ Form::text('facebook', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.facebook')]) }}
-                                            <span class="fa fa-facebook form-control-feedback"></span>
-
-                                            @if ($errors->has('facebook'))
-                                                <span class="help-block">{{ $errors->first('facebook') }}</span>
-                                            @endif
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group has-feedback{{ $errors->has('linkedin') ? ' has-error' : '' }}">
-                                        {{ Form::label('linkedin', trans('cortex/fort::common.linkedin'), ['class' => 'col-md-2 control-label']) }}
-
-                                        <div class="col-md-10">
-                                            {{ Form::text('linkedin', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.linkedin')]) }}
-                                            <span class="fa fa-linkedin form-control-feedback"></span>
-
-                                            @if ($errors->has('linkedin'))
-                                                <span class="help-block">{{ $errors->first('linkedin') }}</span>
-                                            @endif
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group has-feedback{{ $errors->has('google_plus') ? ' has-error' : '' }}">
-                                        {{ Form::label('google_plus', trans('cortex/fort::common.google_plus'), ['class' => 'col-md-2 control-label']) }}
-
-                                        <div class="col-md-10">
-                                            {{ Form::text('google_plus', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.google_plus')]) }}
-                                            <span class="fa fa-google-plus form-control-feedback"></span>
-
-                                            @if ($errors->has('google_plus'))
-                                                <span class="help-block">{{ $errors->first('google_plus') }}</span>
-                                            @endif
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group has-feedback{{ $errors->has('skype') ? ' has-error' : '' }}">
-                                        {{ Form::label('skype', trans('cortex/fort::common.skype'), ['class' => 'col-md-2 control-label']) }}
-
-                                        <div class="col-md-10">
-                                            {{ Form::text('skype', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.skype')]) }}
-                                            <span class="fa fa-skype form-control-feedback"></span>
-
-                                            @if ($errors->has('skype'))
-                                                <span class="help-block">{{ $errors->first('skype') }}</span>
-                                            @endif
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group has-feedback{{ $errors->has('website') ? ' has-error' : '' }}">
-                                        {{ Form::label('website', trans('cortex/fort::common.website'), ['class' => 'col-md-2 control-label']) }}
-
-                                        <div class="col-md-10">
-                                            {{ Form::text('website', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.website')]) }}
-                                            <span class="fa fa-globe form-control-feedback"></span>
-
-                                            @if ($errors->has('website'))
-                                                <span class="help-block">{{ $errors->first('website') }}</span>
-                                            @endif
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="tab-pane" id="security-tab">
 
                                     <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
                                         {{ Form::label('password', trans('cortex/fort::common.password'), ['class' => 'col-md-2 control-label']) }}

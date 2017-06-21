@@ -73,8 +73,6 @@
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#details-tab" data-toggle="tab">{{ trans('cortex/fort::common.details') }}</a></li>
-                        <li><a href="#social-tab" data-toggle="tab">{{ trans('cortex/fort::common.social') }}</a></li>
-                        <li><a href="#security-tab" data-toggle="tab">{{ trans('cortex/fort::common.security') }}</a></li>
                         @if($user->exists) <li><a href="{{ route('backend.users.logs', ['user' => $user]) }}">{{ trans('cortex/fort::common.logs') }}</a></li> @endif
                         @if($user->exists && $currentUser->can('delete-users', $user)) <li class="pull-right"><a href="#" data-toggle="modal" data-target="#delete-confirmation" data-item-href="{{ route('backend.users.delete', ['user' => $user]) }}" data-item-name="{{ $user->slug }}"><i class="fa fa-trash text-danger"></i></a></li> @endif
                     </ul>
@@ -306,158 +304,43 @@
 
                                 </div>
 
-                            </div>
+                                @can('assign-roles')
 
-                        </div>
+                                    <div class="col-md-4">
 
-                        <div class="tab-pane" id="social-tab">
+                                        {{-- Roles --}}
+                                        <div class="form-group{{ $errors->has('roles') ? ' has-error' : '' }}">
+                                            {{ Form::label('roles[]', trans('cortex/fort::common.roles'), ['class' => 'control-label']) }}
+                                            {{ Form::select('roles[]', $roles, null, ['class' => 'form-control select2', 'multiple' => 'multiple', 'data-close-on-select' => 'false', 'data-width' => '100%']) }}
 
-                            <div class="row">
-
-                                <div class="col-md-4">
-
-                                    {{-- Twitter --}}
-                                    <div class="form-group has-feedback{{ $errors->has('twitter') ? ' has-error' : '' }}">
-                                        {{ Form::label('twitter', trans('cortex/fort::common.twitter'), ['class' => 'control-label']) }}
-                                        {{ Form::text('twitter', null, ['class' => 'form-control']) }}
-                                        <span class="fa fa-twitter form-control-feedback"></span>
-
-                                        @if ($errors->has('twitter'))
-                                            <span class="help-block">{{ $errors->first('twitter') }}</span>
-                                        @endif
-                                    </div>
-
-                                </div>
-
-                                <div class="col-md-4">
-
-                                    {{-- Facebook --}}
-                                    <div class="form-group has-feedback{{ $errors->has('facebook') ? ' has-error' : '' }}">
-                                        {{ Form::label('facebook', trans('cortex/fort::common.facebook'), ['class' => 'control-label']) }}
-                                        {{ Form::text('facebook', null, ['class' => 'form-control']) }}
-                                        <span class="fa fa-facebook form-control-feedback"></span>
-
-                                        @if ($errors->has('facebook'))
-                                            <span class="help-block">{{ $errors->first('facebook') }}</span>
-                                        @endif
-                                    </div>
-
-                                </div>
-
-                                <div class="col-md-4">
-
-                                    {{-- Linkedin --}}
-                                    <div class="form-group has-feedback{{ $errors->has('linkedin') ? ' has-error' : '' }}">
-                                        {{ Form::label('linkedin', trans('cortex/fort::common.linkedin'), ['class' => 'control-label']) }}
-                                        {{ Form::text('linkedin', null, ['class' => 'form-control']) }}
-                                        <span class="fa fa-linkedin form-control-feedback"></span>
-
-                                        @if ($errors->has('linkedin'))
-                                            <span class="help-block">{{ $errors->first('linkedin') }}</span>
-                                        @endif
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div class="row">
-
-                                <div class="col-md-4">
-
-                                    {{-- Google Plus --}}
-                                    <div class="form-group has-feedback{{ $errors->has('google_plus') ? ' has-error' : '' }}">
-                                        {{ Form::label('google_plus', trans('cortex/fort::common.google_plus'), ['class' => 'control-label']) }}
-                                        {{ Form::text('google_plus', null, ['class' => 'form-control']) }}
-                                        <span class="fa fa-google-plus form-control-feedback"></span>
-
-                                        @if ($errors->has('google_plus'))
-                                            <span class="help-block">{{ $errors->first('google_plus') }}</span>
-                                        @endif
-                                    </div>
-
-                                </div>
-
-                                <div class="col-md-4">
-
-                                    {{-- Skype --}}
-                                    <div class="form-group has-feedback{{ $errors->has('skype') ? ' has-error' : '' }}">
-                                        {{ Form::label('skype', trans('cortex/fort::common.skype'), ['class' => 'control-label']) }}
-                                        {{ Form::text('skype', null, ['class' => 'form-control']) }}
-                                        <span class="fa fa-skype form-control-feedback"></span>
-
-                                        @if ($errors->has('skype'))
-                                            <span class="help-block">{{ $errors->first('skype') }}</span>
-                                        @endif
-                                    </div>
-
-                                </div>
-
-
-                                <div class="col-md-4">
-
-                                    {{-- Wesbite --}}
-                                    <div class="form-group has-feedback{{ $errors->has('wesbite') ? ' has-error' : '' }}">
-                                        {{ Form::label('wesbite', trans('cortex/fort::common.website'), ['class' => 'control-label']) }}
-                                        {{ Form::text('wesbite', null, ['class' => 'form-control']) }}
-                                        <span class="fa fa-globe form-control-feedback"></span>
-
-                                        @if ($errors->has('wesbite'))
-                                            <span class="help-block">{{ $errors->first('wesbite') }}</span>
-                                        @endif
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="tab-pane" id="security-tab">
-
-                            @if($currentUser->can('assign-roles') || $currentUser->can('grant-abilities'))
-
-                                <div class="row">
-
-                                    @can('assign-roles')
-
-                                        <div class="col-md-4">
-
-                                            {{-- Roles --}}
-                                            <div class="form-group{{ $errors->has('roles') ? ' has-error' : '' }}">
-                                                {{ Form::label('roles[]', trans('cortex/fort::common.roles'), ['class' => 'control-label']) }}
-                                                {{ Form::select('roles[]', $roles, null, ['class' => 'form-control select2', 'multiple' => 'multiple', 'data-close-on-select' => 'false', 'data-width' => '100%']) }}
-
-                                                @if ($errors->has('roles'))
-                                                    <span class="help-block">{{ $errors->first('roles') }}</span>
-                                                @endif
-                                            </div>
-
+                                            @if ($errors->has('roles'))
+                                                <span class="help-block">{{ $errors->first('roles') }}</span>
+                                            @endif
                                         </div>
 
-                                    @endcan
+                                    </div>
 
-                                    @can('grant-abilities')
+                                @endcan
 
-                                        <div class="col-md-4">
+                                @can('grant-abilities')
 
-                                            {{-- Abilities --}}
-                                            <div class="form-group{{ $errors->has('abilities') ? ' has-error' : '' }}">
-                                                {{ Form::label('abilities[]', trans('cortex/fort::common.abilities'), ['class' => 'control-label']) }}
-                                                {{ Form::select('abilities[]', $abilities, null, ['class' => 'form-control select2', 'multiple' => 'multiple', 'data-close-on-select' => 'false', 'data-width' => '100%']) }}
+                                    <div class="col-md-4">
 
-                                                @if ($errors->has('abilities'))
-                                                    <span class="help-block">{{ $errors->first('abilities') }}</span>
-                                                @endif
-                                            </div>
+                                        {{-- Abilities --}}
+                                        <div class="form-group{{ $errors->has('abilities') ? ' has-error' : '' }}">
+                                            {{ Form::label('abilities[]', trans('cortex/fort::common.abilities'), ['class' => 'control-label']) }}
+                                            {{ Form::select('abilities[]', $abilities, null, ['class' => 'form-control select2', 'multiple' => 'multiple', 'data-close-on-select' => 'false', 'data-width' => '100%']) }}
 
+                                            @if ($errors->has('abilities'))
+                                                <span class="help-block">{{ $errors->first('abilities') }}</span>
+                                            @endif
                                         </div>
 
-                                    @endcan
+                                    </div>
 
-                                </div>
+                                @endcan
 
-                            @endif
+                            </div>
 
                             <div class="row">
 
