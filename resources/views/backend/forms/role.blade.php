@@ -84,7 +84,7 @@
                                         {{-- Abilities --}}
                                         <div class="form-group{{ $errors->has('abilities') ? ' has-error' : '' }}">
                                             {{ Form::label('abilities[]', trans('cortex/fort::common.abilities'), ['class' => 'control-label']) }}
-                                            {{ Form::select('abilities[]', $abilities, null, ['class' => 'form-control select2', 'multiple' => 'multiple', 'data-close-on-select' => 'false', 'data-width' => '100%']) }}
+                                            {{ Form::select('abilities[]', $abilities, null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/fort::common.select_abilities'), 'multiple' => 'multiple', 'data-close-on-select' => 'false', 'data-width' => '100%']) }}
 
                                             @if ($errors->has('abilities'))
                                                 <span class="help-block">{{ $errors->first('abilities') }}</span>

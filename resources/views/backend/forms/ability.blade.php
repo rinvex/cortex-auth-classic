@@ -114,7 +114,7 @@
                                         {{-- Roles --}}
                                         <div class="form-group{{ $errors->has('roles') ? ' has-error' : '' }}">
                                             {{ Form::label('role[]', trans('cortex/fort::common.roles'), ['class' => 'control-label']) }}
-                                            {{ Form::select('role[]', $role, null, ['class' => 'form-control select2', 'multiple' => 'multiple', 'data-close-on-select' => 'false', 'data-width' => '100%']) }}
+                                            {{ Form::select('role[]', $role, null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/fort::common.select_roles'), 'multiple' => 'multiple', 'data-close-on-select' => 'false', 'data-width' => '100%']) }}
 
                                             @if ($errors->has('roles'))
                                                 <span class="help-block">{{ $errors->first('roles') }}</span>
