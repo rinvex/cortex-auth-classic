@@ -11,16 +11,17 @@ use Rinvex\Attributable\Traits\Attributable;
 /**
  * Cortex\Fort\Models\Role.
  *
- * @property int                                                                      $id
- * @property string                                                                   $slug
- * @property array                                                                    $name
- * @property array                                                                    $description
- * @property \Carbon\Carbon|null                                                      $created_at
- * @property \Carbon\Carbon|null                                                      $updated_at
- * @property \Carbon\Carbon|null                                                      $deleted_at
- * @property \Illuminate\Database\Eloquent\Collection|\Rinvex\Fort\Models\Ability[]   $abilities
- * @property mixed                                                                    $entity
- * @property-read \Illuminate\Database\Eloquent\Collection|\Cortex\Fort\Models\User[] $users
+ * @property int                                                                                 $id
+ * @property string                                                                              $slug
+ * @property array                                                                               $name
+ * @property array                                                                               $description
+ * @property \Carbon\Carbon|null                                                                 $created_at
+ * @property \Carbon\Carbon|null                                                                 $updated_at
+ * @property \Carbon\Carbon|null                                                                 $deleted_at
+ * @property \Illuminate\Database\Eloquent\Collection|\Rinvex\Fort\Models\Ability[]              $abilities
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Activitylog\Models\Activity[] $activity
+ * @property mixed                                                                               $entity
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Cortex\Fort\Models\User[]            $users
  *
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Role hasAttribute($key, $value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Role whereCreatedAt($value)
