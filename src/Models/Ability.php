@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Models;
 
+use Spatie\Activitylog\Traits\LogsActivity;
 use Rinvex\Fort\Models\Ability as BaseAbility;
 
 /**
@@ -35,5 +36,37 @@ use Rinvex\Fort\Models\Ability as BaseAbility;
  */
 class Ability extends BaseAbility
 {
-    //
+    use LogsActivity;
+
+    /**
+     * Indicates whether to log only dirty attributes or all.
+     *
+     * @var bool
+     */
+    protected static $logOnlyDirty = true;
+
+    /**
+     * The attributes that are logged on change.
+     *
+     * @var array
+     */
+    protected static $logAttributes = [
+        'action',
+        'resource',
+        'policy',
+        'name',
+        'description',
+        'roles',
+    ];
+
+    /**
+     * The attributes that are ignored on change.
+     *
+     * @var array
+     */
+    protected static $ignoreChangedAttributes = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
 }

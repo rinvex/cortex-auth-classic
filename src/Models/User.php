@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Fort\Models;
 
 use Rinvex\Fort\Models\User as BaseUser;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Rinvex\Attributable\Traits\Attributable;
 
 /**
@@ -80,4 +81,54 @@ use Rinvex\Attributable\Traits\Attributable;
 class User extends BaseUser
 {
     use Attributable;
+    use LogsActivity;
+
+    /**
+     * Indicates whether to log only dirty attributes or all.
+     *
+     * @var bool
+     */
+    protected static $logOnlyDirty = true;
+
+    /**
+     * The attributes that are logged on change.
+     *
+     * @var array
+     */
+    protected static $logAttributes = [
+        'username',
+        'email',
+        'email_verified',
+        'phone',
+        'phone_verified',
+        'name_prefix',
+        'first_name',
+        'middle_name',
+        'last_name',
+        'name_suffix',
+        'job_title',
+        'country_code',
+        'language_code',
+        'birthday',
+        'gender',
+        'is_active',
+        'abilities',
+        'roles',
+    ];
+
+    /**
+     * The attributes that are ignored on change.
+     *
+     * @var array
+     */
+    protected static $ignoreChangedAttributes = [
+        'password',
+        'two_factor',
+        'email_verified_at',
+        'phone_verified_at',
+        'last_activity',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
 }
