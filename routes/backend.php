@@ -42,6 +42,7 @@ Route::group(['domain' => domain()], function () {
             Route::get('{user}')->name('edit')->uses('UsersController@form')->where('user', '[0-9]+');
             Route::put('{user}')->name('update')->uses('UsersController@update')->where('user', '[0-9]+');
             Route::get('{user}/logs')->name('logs')->uses('UsersController@logs')->where('user', '[0-9]+');
+            Route::get('{user}/activities')->name('activities')->uses('UsersController@activities')->where('user', '[0-9]+');
             Route::delete('{user}')->name('delete')->uses('UsersController@delete')->where('user', '[0-9]+');
         });
 

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Cortex\Fort\Models\Ability;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Fort\DataTables\Backend\UsersDataTable;
+use Cortex\Foundation\DataTables\ActivitiesDataTable;
 use Cortex\Fort\Http\Requests\Backend\UserFormRequest;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
 
@@ -43,6 +44,21 @@ class UsersController extends AuthorizedController
             'id' => 'cortex-fort-users-logs',
             'phrase' => trans('cortex/fort::common.users')
         ])->render('cortex/foundation::backend.partials.datatable-logs');
+    }
+
+    /**
+     * Display a listing of the resource activities.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function activities(User $user)
+    {
+        return app(ActivitiesDataTable::class)->with([
+            'type' => 'users',
+            'resource' => $user,
+            'id' => 'cortex-fort-users-activities',
+            'phrase' => trans('cortex/fort::common.users')
+        ])->render('cortex/foundation::backend.partials.datatable-activities');
     }
 
     /**
