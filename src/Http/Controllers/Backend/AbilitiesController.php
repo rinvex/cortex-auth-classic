@@ -7,6 +7,7 @@ namespace Cortex\Fort\Http\Controllers\Backend;
 use Cortex\Fort\Models\Role;
 use Illuminate\Http\Request;
 use Cortex\Fort\Models\Ability;
+use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Fort\DataTables\Backend\AbilitiesDataTable;
 use Cortex\Fort\Http\Requests\Backend\AbilityFormRequest;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
@@ -31,6 +32,21 @@ class AbilitiesController extends AuthorizedController
     public function index()
     {
         return app(AbilitiesDataTable::class)->render('cortex/foundation::backend.partials.datatable', ['id' => 'cortex-fort-abilities', 'phrase' => trans('cortex/fort::common.abilities')]);
+    }
+
+    /**
+     * Display a listing of the resource logs.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function logs(Ability $ability)
+    {
+        return app(LogsDataTable::class)->with([
+            'type' => 'abilities',
+            'resource' => $ability,
+            'id' => 'cortex-fort-abilities-logs',
+            'phrase' => trans('cortex/fort::common.abilities')
+        ])->render('cortex/foundation::backend.partials.datatable-logs');
     }
 
     /**

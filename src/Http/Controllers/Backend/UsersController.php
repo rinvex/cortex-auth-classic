@@ -8,6 +8,7 @@ use Cortex\Fort\Models\Role;
 use Cortex\Fort\Models\User;
 use Illuminate\Http\Request;
 use Cortex\Fort\Models\Ability;
+use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Fort\DataTables\Backend\UsersDataTable;
 use Cortex\Fort\Http\Requests\Backend\UserFormRequest;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
@@ -27,6 +28,21 @@ class UsersController extends AuthorizedController
     public function index()
     {
         return app(UsersDataTable::class)->render('cortex/foundation::backend.partials.datatable', ['id' => 'cortex-fort-users', 'phrase' => trans('cortex/fort::common.users')]);
+    }
+
+    /**
+     * Display a listing of the resource logs.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function logs(User $user)
+    {
+        return app(LogsDataTable::class)->with([
+            'type' => 'users',
+            'resource' => $user,
+            'id' => 'cortex-fort-users-logs',
+            'phrase' => trans('cortex/fort::common.users')
+        ])->render('cortex/foundation::backend.partials.datatable-logs');
     }
 
     /**
