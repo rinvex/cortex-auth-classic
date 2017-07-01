@@ -7,6 +7,8 @@ namespace Cortex\Fort\Models;
 use Rinvex\Fort\Models\User as BaseUser;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Rinvex\Attributable\Traits\Attributable;
+use Spatie\Activitylog\ActivitylogServiceProvider;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 /**
  * Cortex\Fort\Models\User.
@@ -132,4 +134,14 @@ class User extends BaseUser
         'updated_at',
         'deleted_at',
     ];
+
+    /**
+     * Get the caused activity relations for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function causedActivity(): MorphMany
+    {
+        return $this->morphMany(ActivitylogServiceProvider::determineActivityModel(), 'causer');
+    }
 }

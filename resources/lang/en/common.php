@@ -86,6 +86,7 @@ return [
     'social' => 'Social',
     'security' => 'Security',
     'logs' => 'Logs',
+    'activities' => 'Activities',
     'sms' => 'SMS',
     'call' => 'Call',
     'statistics' => 'Statistics',
