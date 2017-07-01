@@ -33,7 +33,7 @@ class AbilitiesController extends AuthorizedController
     {
         return app(AbilitiesDataTable::class)->with([
             'id' => 'cortex-fort-abilities',
-            'phrase' => trans('cortex/fort::common.abilities')
+            'phrase' => trans('cortex/fort::common.abilities'),
         ])->render('cortex/foundation::backend.partials.datatable');
     }
 
@@ -48,7 +48,7 @@ class AbilitiesController extends AuthorizedController
             'type' => 'abilities',
             'resource' => $ability,
             'id' => 'cortex-fort-abilities-logs',
-            'phrase' => trans('cortex/fort::common.abilities')
+            'phrase' => trans('cortex/fort::common.abilities'),
         ])->render('cortex/foundation::backend.partials.datatable-logs');
     }
 
