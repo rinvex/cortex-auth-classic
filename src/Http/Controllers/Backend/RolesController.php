@@ -33,7 +33,7 @@ class RolesController extends AuthorizedController
     {
         return app(RolesDataTable::class)->with([
             'id' => 'cortex-fort-roles',
-            'phrase' => trans('cortex/fort::common.roles')
+            'phrase' => trans('cortex/fort::common.roles'),
         ])->render('cortex/foundation::backend.partials.datatable');
     }
 
@@ -48,7 +48,7 @@ class RolesController extends AuthorizedController
             'type' => 'roles',
             'resource' => $role,
             'id' => 'cortex-fort-roles-logs',
-            'phrase' => trans('cortex/fort::common.roles')
+            'phrase' => trans('cortex/fort::common.roles'),
         ])->render('cortex/foundation::backend.partials.datatable-logs');
     }
 
