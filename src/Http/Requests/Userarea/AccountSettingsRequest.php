@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Requests\Frontend;
+namespace Cortex\Fort\Http\Requests\Userarea;
 
 use Rinvex\Support\Http\Requests\FormRequest;
 

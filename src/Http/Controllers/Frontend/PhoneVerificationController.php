@@ -80,7 +80,7 @@ class PhoneVerificationController extends AbstractController
                 ])->forceSave();
 
                 return intend([
-                    'url' => route('frontend.account.settings'),
+                    'url' => route('userarea.account.settings'),
                     'with' => ['success' => trans('cortex/fort::'.$result)],
                 ]);
 
@@ -88,7 +88,7 @@ class PhoneVerificationController extends AbstractController
                 auth()->guard($this->getGuard())->login($user, session('_twofactor.remember'));
 
                 return intend([
-                    'url' => route('frontend.account.settings'),
+                    'url' => route('userarea.account.settings'),
                     'with' => ['success' => trans('cortex/fort::'.$result)],
                 ]);
 

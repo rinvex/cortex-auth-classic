@@ -24,7 +24,7 @@ class EmailVerificationRequest extends FormRequest
 
         if ($userVerified || $guestVerified) {
             // Redirect users if their email already verified, no need to process their request
-            throw new GenericException(trans('cortex/fort::messages.verification.email.already_verified'), $userVerified ? route('frontend.account.settings') : route('frontend.auth.login'));
+            throw new GenericException(trans('cortex/fort::messages.verification.email.already_verified'), $userVerified ? route('userarea.account.settings') : route('frontend.auth.login'));
         }
 
         return true;

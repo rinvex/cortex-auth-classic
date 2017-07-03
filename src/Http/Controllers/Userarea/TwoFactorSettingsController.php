@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Controllers\Frontend;
+namespace Cortex\Fort\Http\Controllers\Userarea;
 
 use Carbon\Carbon;
 use Rinvex\Fort\Services\TwoFactorTotpProvider;
 use Cortex\Foundation\Http\Controllers\AuthenticatedController;
-use Cortex\Fort\Http\Requests\Frontend\TwoFactorTotpSettingsRequest;
-use Cortex\Fort\Http\Requests\Frontend\TwoFactorPhoneSettingsRequest;
-use Cortex\Fort\Http\Requests\Frontend\TwoFactorTotpBackupSettingsRequest;
-use Cortex\Fort\Http\Requests\Frontend\TwoFactorTotpProcessSettingsRequest;
+use Cortex\Fort\Http\Requests\Userarea\TwoFactorTotpSettingsRequest;
+use Cortex\Fort\Http\Requests\Userarea\TwoFactorPhoneSettingsRequest;
+use Cortex\Fort\Http\Requests\Userarea\TwoFactorTotpBackupSettingsRequest;
+use Cortex\Fort\Http\Requests\Userarea\TwoFactorTotpProcessSettingsRequest;
 
 class TwoFactorSettingsController extends AuthenticatedController
 {
     /**
      * Enable TwoFactor TOTP authentication.
      *
-     * @param \Cortex\Fort\Http\Requests\Frontend\TwoFactorTotpSettingsRequest $request
+     * @param \Cortex\Fort\Http\Requests\Userarea\TwoFactorTotpSettingsRequest $request
      * @param \Rinvex\Fort\Services\TwoFactorTotpProvider                      $totpProvider
      *
      * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
@@ -38,13 +38,13 @@ class TwoFactorSettingsController extends AuthenticatedController
 
         $qrCode = $totpProvider->getQRCodeInline(config('app.name'), $currentUser->email, $secret);
 
-        return view('cortex/fort::frontend.account.twofactor', compact('secret', 'qrCode', 'twoFactor'));
+        return view('cortex/fort::userarea.account.twofactor', compact('secret', 'qrCode', 'twoFactor'));
     }
 
     /**
      * Disable TwoFactor TOTP authentication.
      *
-     * @param \Cortex\Fort\Http\Requests\Frontend\TwoFactorTotpSettingsRequest $request
+     * @param \Cortex\Fort\Http\Requests\Userarea\TwoFactorTotpSettingsRequest $request
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -57,7 +57,7 @@ class TwoFactorSettingsController extends AuthenticatedController
         $currentUser->fill(['two_factor' => $twoFactor])->forceSave();
 
         return intend([
-            'url' => route('frontend.account.settings'),
+            'url' => route('userarea.account.settings'),
             'with' => ['success' => trans('cortex/fort::messages.verification.twofactor.totp.disabled')],
         ]);
     }
@@ -65,7 +65,7 @@ class TwoFactorSettingsController extends AuthenticatedController
     /**
      * Process the TwoFactor TOTP enable form.
      *
-     * @param \Cortex\Fort\Http\Requests\Frontend\TwoFactorTotpProcessSettingsRequest $request
+     * @param \Cortex\Fort\Http\Requests\Userarea\TwoFactorTotpProcessSettingsRequest $request
      * @param \Rinvex\Fort\Services\TwoFactorTotpProvider                             $totpProvider
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
@@ -104,7 +104,7 @@ class TwoFactorSettingsController extends AuthenticatedController
     /**
      * Process the TwoFactor OTP backup.
      *
-     * @param \Cortex\Fort\Http\Requests\Frontend\TwoFactorTotpBackupSettingsRequest $request
+     * @param \Cortex\Fort\Http\Requests\Userarea\TwoFactorTotpBackupSettingsRequest $request
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -126,7 +126,7 @@ class TwoFactorSettingsController extends AuthenticatedController
     /**
      * Enable TwoFactor Phone authentication.
      *
-     * @param \Cortex\Fort\Http\Requests\Frontend\TwoFactorPhoneSettingsRequest $request
+     * @param \Cortex\Fort\Http\Requests\Userarea\TwoFactorPhoneSettingsRequest $request
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -140,7 +140,7 @@ class TwoFactorSettingsController extends AuthenticatedController
         $currentUser->fill(['two_factor' => $twoFactor])->forceSave();
 
         return intend([
-            'url' => route('frontend.account.settings'),
+            'url' => route('userarea.account.settings'),
             'with' => ['success' => trans('cortex/fort::messages.verification.twofactor.phone.enabled')],
         ]);
     }
@@ -148,7 +148,7 @@ class TwoFactorSettingsController extends AuthenticatedController
     /**
      * Disable TwoFactor Phone authentication.
      *
-     * @param \Cortex\Fort\Http\Requests\Frontend\TwoFactorPhoneSettingsRequest $request
+     * @param \Cortex\Fort\Http\Requests\Userarea\TwoFactorPhoneSettingsRequest $request
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -161,7 +161,7 @@ class TwoFactorSettingsController extends AuthenticatedController
         $currentUser->fill(['two_factor' => $twoFactor])->forceSave();
 
         return intend([
-            'url' => route('frontend.account.settings'),
+            'url' => route('userarea.account.settings'),
             'with' => ['success' => trans('cortex/fort::messages.verification.twofactor.phone.disabled')],
         ]);
     }

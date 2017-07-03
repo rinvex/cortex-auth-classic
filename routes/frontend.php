@@ -14,7 +14,6 @@ Route::group(['domain' => domain()], function () {
 
         // Authentication Routes
         Route::name('auth.')->prefix('auth')->group(function () {
-
             // Login Routes
             Route::get('login')->name('login')->uses('AuthenticationController@form');
             Route::post('login')->name('login.process')->uses('AuthenticationController@login');
@@ -29,36 +28,6 @@ Route::group(['domain' => domain()], function () {
             Route::get('github/callback')->name('social.github.callback')->uses('SocialAuthenticationController@handleGithubCallback');
         });
 
-        // User Account Routes
-        Route::name('account.')->prefix('account')->group(function () {
-
-            // Account Page Routes
-            Route::get('settings')->name('settings')->uses('AccountSettingsController@edit');
-            Route::post('settings')->name('settings.update')->uses('AccountSettingsController@update');
-
-            // Sessions Manipulation Routes
-            Route::get('sessions')->name('sessions')->uses('AccountSessionsController@index');
-            Route::delete('sessions/{token?}')->name('sessions.flush')->uses('AccountSessionsController@flush');
-
-            // TwoFactor Authentication Routes
-            Route::name('twofactor.')->prefix('twofactor')->group(function () {
-
-                // TwoFactor TOTP Routes
-                Route::name('totp.')->prefix('totp')->group(function () {
-                    Route::get('enable')->name('enable')->uses('TwoFactorSettingsController@enableTotp');
-                    Route::post('update')->name('update')->uses('TwoFactorSettingsController@updateTotp');
-                    Route::post('disable')->name('disable')->uses('TwoFactorSettingsController@disableTotp');
-                    Route::post('backup')->name('backup')->uses('TwoFactorSettingsController@backupTotp');
-                });
-
-                // TwoFactor Phone Routes
-                Route::name('phone.')->prefix('phone')->group(function () {
-                    Route::post('enable')->name('enable')->uses('TwoFactorSettingsController@enablePhone');
-                    Route::post('disable')->name('disable')->uses('TwoFactorSettingsController@disablePhone');
-                });
-            });
-        });
-
         // Password Reset Routes
         Route::name('passwordreset.')->prefix('passwordreset')->group(function () {
             Route::get('request')->name('request')->uses('PasswordResetController@request');
@@ -69,7 +38,6 @@ Route::group(['domain' => domain()], function () {
 
         // Verification Routes
         Route::name('verification.')->prefix('verification')->group(function () {
-
             // Phone Verification Routes
             Route::name('phone.')->prefix('phone')->group(function () {
                 Route::get('request')->name('request')->uses('PhoneVerificationController@request');

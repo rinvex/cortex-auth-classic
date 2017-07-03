@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Controllers\Frontend;
+namespace Cortex\Fort\Http\Controllers\Userarea;
 
 use Illuminate\Http\Request;
-use Cortex\Fort\Http\Requests\Frontend\AccountSettingsRequest;
+use Cortex\Fort\Http\Requests\Userarea\AccountSettingsRequest;
 use Cortex\Foundation\Http\Controllers\AuthenticatedController;
 
 class AccountSettingsController extends AuthenticatedController
@@ -24,13 +24,13 @@ class AccountSettingsController extends AuthenticatedController
         $twoFactor = $request->user($this->getGuard())->getTwoFactor();
         $genders = ['m' => trans('common.male'), 'f' => trans('common.female')];
 
-        return view('cortex/fort::frontend.account.settings', compact('twoFactor', 'countries', 'languages', 'genders'));
+        return view('cortex/fort::userarea.account.settings', compact('twoFactor', 'countries', 'languages', 'genders'));
     }
 
     /**
      * Process the account update form.
      *
-     * @param \Cortex\Fort\Http\Requests\Frontend\AccountSettingsRequest $request
+     * @param \Cortex\Fort\Http\Requests\Userarea\AccountSettingsRequest $request
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

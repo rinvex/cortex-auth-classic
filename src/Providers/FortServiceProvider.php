@@ -26,15 +26,13 @@ class FortServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-        // Load routes
-        if (config('cortex.fort.load_routes')) {
-            $this->loadRoutes($router);
-        }
-
         if ($this->app->runningInConsole()) {
             // Publish Resources
             $this->publishResources();
         }
+
+        // Load routes
+        $this->loadRoutes($router);
 
         // Load views
         $this->loadViewsFrom(__DIR__.'/../../resources/views', 'cortex/fort');
@@ -73,9 +71,6 @@ class FortServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // Merge config
-        $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'cortex.fort');
-
         if ($this->app->runningInConsole()) {
             // Register artisan commands
             foreach (array_keys($this->commands) as $command) {
@@ -115,6 +110,7 @@ class FortServiceProvider extends ServiceProvider
         } else {
             // Load Routes
             require __DIR__.'/../../routes/frontend.php';
+            require __DIR__.'/../../routes/userarea.php';
             require __DIR__.'/../../routes/backend.php';
 
             $this->app->booted(function () use ($router) {
@@ -130,9 +126,6 @@ class FortServiceProvider extends ServiceProvider
      */
     protected function publishResources()
     {
-        // Publish config
-        $this->publishes([realpath(__DIR__.'/../../config/config.php') => config_path('cortex.fort.php')], 'config');
-
         // Publish language phrases
         $this->publishes([realpath(__DIR__.'/../../resources/lang') => resource_path('lang/vendor/cortex/fort')], 'lang');
 

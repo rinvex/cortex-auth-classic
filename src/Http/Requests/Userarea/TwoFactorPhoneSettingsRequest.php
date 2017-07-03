@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Requests\Frontend;
+namespace Cortex\Fort\Http\Requests\Userarea;
 
 use Rinvex\Support\Http\Requests\FormRequest;
 use Cortex\Foundation\Exceptions\GenericException;
@@ -21,11 +21,11 @@ class TwoFactorPhoneSettingsRequest extends FormRequest
         $user = $this->user();
 
         if (! in_array('phone', config('rinvex.fort.twofactor.providers'))) {
-            throw new GenericException(trans('cortex/fort::messages.verification.twofactor.phone.globaly_disabled'), route('frontend.account.settings'));
+            throw new GenericException(trans('cortex/fort::messages.verification.twofactor.phone.globaly_disabled'), route('userarea.account.settings'));
         }
 
-        if (mb_strpos($this->route()->getName(), 'frontend.account.twofactor.phone') !== false && (! $user->phone || ! $user->phone_verified)) {
-            throw new GenericException(trans('cortex/fort::messages.account.'.(! $user->phone ? 'phone_field_required' : 'phone_verification_required')), route('frontend.account.settings'));
+        if (mb_strpos($this->route()->getName(), 'userarea.account.twofactor.phone') !== false && (! $user->phone || ! $user->phone_verified)) {
+            throw new GenericException(trans('cortex/fort::messages.account.'.(! $user->phone ? 'phone_field_required' : 'phone_verification_required')), route('userarea.account.settings'));
         }
 
         return true;

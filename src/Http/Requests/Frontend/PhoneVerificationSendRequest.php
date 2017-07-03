@@ -24,12 +24,12 @@ class PhoneVerificationSendRequest extends PhoneVerificationRequest
 
         if ($user && ! $user->country_code) {
             // Country field required for phone verification
-            throw new GenericException(trans('cortex/fort::messages.account.country_required'), route('frontend.account.settings'));
+            throw new GenericException(trans('cortex/fort::messages.account.country_required'), route('userarea.account.settings'));
         }
 
         if ($user && ! $user->phone) {
             // Phone field required before verification
-            throw new GenericException(trans('cortex/fort::messages.account.phone_required'), route('frontend.account.settings'));
+            throw new GenericException(trans('cortex/fort::messages.account.phone_required'), route('userarea.account.settings'));
         }
 
         if ($attemptUser && ! $attemptUser->country_code) {
@@ -44,7 +44,7 @@ class PhoneVerificationSendRequest extends PhoneVerificationRequest
 
         if (! in_array('phone', config('rinvex.fort.twofactor.providers'))) {
             // Country required for phone verification
-            throw new GenericException(trans('cortex/fort::messages.verification.twofactor.phone.disabled'), route('frontend.account.settings'));
+            throw new GenericException(trans('cortex/fort::messages.verification.twofactor.phone.disabled'), route('userarea.account.settings'));
         }
 
         return true;

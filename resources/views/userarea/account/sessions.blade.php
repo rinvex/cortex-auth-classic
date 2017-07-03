@@ -1,5 +1,5 @@
 {{-- Master Layout --}}
-@extends('cortex/foundation::frontend.layouts.default')
+@extends('cortex/foundation::userarea.layouts.default')
 
 {{-- Page Title --}}
 @section('title')
@@ -25,7 +25,7 @@
 
                             <div class="tab-pane active" id="sessions-tab">
 
-                                @include('cortex/fort::frontend.partials.confirm-deletion')
+                                @include('cortex/fort::userarea.partials.confirm-deletion')
 
                                 <div class="row">
 
@@ -54,7 +54,7 @@
                                                             </a>
 
                                                             <div class="col-md-1 col-sm-1 col-xs-1">
-                                                                <a href="#" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete-confirmation" data-item-href="{{ route('frontend.account.sessions.flush', ['id' => $session->id]) }}" data-item-type="single"><i class="fa fa-remove"></i></a>
+                                                                <a href="#" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete-confirmation" data-item-href="{{ route('userarea.account.sessions.flush', ['id' => $session->id]) }}" data-item-type="single"><i class="fa fa-remove"></i></a>
                                                             </div>
 
                                                         </div>
@@ -83,7 +83,7 @@
                                 <div class="row">
                                     <div class="col-md-12 text-center">
 
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-confirmation" data-item-href="{{ route('frontend.account.sessions.flush') }}" data-item-type="all">
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-confirmation" data-item-href="{{ route('userarea.account.sessions.flush') }}" data-item-type="all">
                                             <i class="fa fa-remove"></i> {{ trans('cortex/fort::messages.sessions.flush_all_heading') }}
                                         </button>
 

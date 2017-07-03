@@ -19,7 +19,7 @@ class PasswordResetRequest extends FormRequest
     public function authorize()
     {
         if ($this->user()) {
-            throw new GenericException(trans('cortex/fort::messages.passwordreset.already_logged'), route('frontend.account.settings').'#security-tab');
+            throw new GenericException(trans('cortex/fort::messages.passwordreset.already_logged'), route('userarea.account.settings').'#security-tab');
         }
 
         return true;
