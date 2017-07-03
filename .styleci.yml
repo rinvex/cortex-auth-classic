@@ -22,4 +22,5 @@ disabled:
 finder:
   not-name:
     - "backend.php"
+    - "userarea.php"
     - "frontend.php"
