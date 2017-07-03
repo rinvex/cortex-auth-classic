@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 Route::group(['domain' => domain()], function () {
-
     Route::name('userarea.')
          ->middleware(['web', 'nohttpcache'])
          ->namespace('Cortex\Fort\Http\Controllers\Userarea')
@@ -39,7 +38,5 @@ Route::group(['domain' => domain()], function () {
                 });
             });
         });
-
-    });
-
+         });
 });
