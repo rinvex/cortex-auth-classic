@@ -60,7 +60,7 @@ class RegistrationController extends AbstractController
 
             // Registration completed, verification required
             return intend([
-                'intended' => route('frontend.home'),
+                'url' => route('frontend.verification.email.request'),
                 'with' => ['success' => trans('cortex/fort::messages.register.success_verify')],
             ]);
         }
