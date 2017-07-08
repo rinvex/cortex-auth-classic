@@ -119,9 +119,7 @@ class UsersController extends AuthorizedController
         $roles = Role::all()->pluck('name', 'id')->toArray();
         $languages = collect(languages())->pluck('name', 'iso_639_1');
         $genders = ['m' => trans('cortex/fort::common.male'), 'f' => trans('cortex/fort::common.female')];
-        $abilities = Ability::all()->groupBy('resource')->map(function ($item) {
-            return $item->pluck('name', 'id');
-        })->toArray();
+        $abilities = Ability::all()->groupBy('resource')->map->pluck('name', 'id')->toArray();
 
         return view('cortex/fort::backend.forms.user', compact('user', 'abilities', 'roles', 'countries', 'languages', 'genders'));
     }
