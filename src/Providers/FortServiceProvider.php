@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Providers;
 
+use Cortex\Fort\Models\Role;
+use Cortex\Fort\Models\User;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Cortex\Fort\Console\Commands\SeedCommand;
@@ -53,6 +55,10 @@ class FortServiceProvider extends ServiceProvider
             app('menus.sidebar.access')->put('roles', '<li '.(mb_strpos(request()->route()->getName(), 'backend.roles.') === 0 ? 'class="active"' : '').'><a href="'.route('backend.roles.index').'"><i class="fa fa-users"></i> <span>'.trans('cortex/fort::navigation.menus.roles').'</span></a></li>');
             app('menus.sidebar.access')->put('users', '<li '.(mb_strpos(request()->route()->getName(), 'backend.users.') === 0 ? 'class="active"' : '').'><a href="'.route('backend.users.index').'"><i class="fa fa-user"></i> <span>'.trans('cortex/fort::navigation.menus.users').'</span></a></li>');
         });
+
+        // Register attributable entities
+        app('rinvex.attributable.entities')->push(Role::class);
+        app('rinvex.attributable.entities')->push(User::class);
 
         // Register menu items
         $this->app['view']->composer('*.partials.header', function ($view) {
