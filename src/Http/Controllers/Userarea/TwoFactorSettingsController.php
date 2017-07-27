@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Fort\Http\Controllers\Userarea;
 
 use Carbon\Carbon;
-use Rinvex\Fort\Services\TwoFactorTotpProvider;
+use PragmaRX\Google2FA\Google2FA;
 use Cortex\Foundation\Http\Controllers\AuthenticatedController;
 use Cortex\Fort\Http\Requests\Userarea\TwoFactorTotpSettingsRequest;
 use Cortex\Fort\Http\Requests\Userarea\TwoFactorPhoneSettingsRequest;
@@ -18,11 +18,11 @@ class TwoFactorSettingsController extends AuthenticatedController
      * Enable TwoFactor TOTP authentication.
      *
      * @param \Cortex\Fort\Http\Requests\Userarea\TwoFactorTotpSettingsRequest $request
-     * @param \Rinvex\Fort\Services\TwoFactorTotpProvider                      $totpProvider
+     * @param \PragmaRX\Google2FA\Google2FA                                    $totpProvider
      *
      * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function enableTotp(TwoFactorTotpSettingsRequest $request, TwoFactorTotpProvider $totpProvider)
+    public function enableTotp(TwoFactorTotpSettingsRequest $request, Google2FA $totpProvider)
     {
         $currentUser = $request->user($this->getGuard());
         $twoFactor = $currentUser->getTwoFactor();
@@ -66,11 +66,11 @@ class TwoFactorSettingsController extends AuthenticatedController
      * Process the TwoFactor TOTP enable form.
      *
      * @param \Cortex\Fort\Http\Requests\Userarea\TwoFactorTotpProcessSettingsRequest $request
-     * @param \Rinvex\Fort\Services\TwoFactorTotpProvider                             $totpProvider
+     * @param \PragmaRX\Google2FA\Google2FA                                           $totpProvider
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function updateTotp(TwoFactorTotpProcessSettingsRequest $request, TwoFactorTotpProvider $totpProvider)
+    public function updateTotp(TwoFactorTotpProcessSettingsRequest $request, Google2FA $totpProvider)
     {
         $currentUser = $request->user($this->getGuard());
         $twoFactor = $currentUser->getTwoFactor();
