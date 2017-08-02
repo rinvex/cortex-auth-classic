@@ -26,21 +26,17 @@ class FortServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(Router $router)
+    public function boot()
     {
-        if ($this->app->runningInConsole()) {
-            // Publish Resources
-            $this->publishResources();
-        }
-
-        // Load routes
-        $this->loadRoutes($router);
-
-        // Load views
+        // Load resources
+        $this->loadRoutesFrom(__DIR__.'/../../routes/frontend.php');
+        $this->loadRoutesFrom(__DIR__.'/../../routes/userarea.php');
+        $this->loadRoutesFrom(__DIR__.'/../../routes/backend.php');
         $this->loadViewsFrom(__DIR__.'/../../resources/views', 'cortex/fort');
-
-        // Load language phrases
         $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'cortex/fort');
+
+        // Publish Resources
+        ! $this->app->runningInConsole() || $this->publishResources();
 
         // Register sidebar menus
         $this->app->singleton('menus.sidebar.access', function ($app) {
@@ -100,43 +96,13 @@ class FortServiceProvider extends ServiceProvider
     }
 
     /**
-     * Load the module routes.
-     *
-     * @param \Illuminate\Routing\Router $router
-     *
-     * @return void
-     */
-    public function loadRoutes(Router $router)
-    {
-        // Load routes
-        if ($this->app->routesAreCached()) {
-            $this->app->booted(function () {
-                require $this->app->getCachedRoutesPath();
-            });
-        } else {
-            // Load Routes
-            require __DIR__.'/../../routes/frontend.php';
-            require __DIR__.'/../../routes/userarea.php';
-            require __DIR__.'/../../routes/backend.php';
-
-            $this->app->booted(function () use ($router) {
-                $router->getRoutes()->refreshNameLookups();
-                $router->getRoutes()->refreshActionLookups();
-            });
-        }
-    }
-
-    /**
      * Publish resources.
      *
      * @return void
      */
     protected function publishResources()
     {
-        // Publish language phrases
         $this->publishes([realpath(__DIR__.'/../../resources/lang') => resource_path('lang/vendor/cortex/fort')], 'lang');
-
-        // Publish views
         $this->publishes([realpath(__DIR__.'/../../resources/views') => resource_path('views/vendor/cortex/fort')], 'views');
     }
 }
