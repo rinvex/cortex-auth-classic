@@ -14,8 +14,8 @@ use Rinvex\Fort\Models\Ability as BaseAbility;
  * @property string                                                                              $action
  * @property string                                                                              $resource
  * @property string|null                                                                         $policy
- * @property array                                                                               $name
- * @property array                                                                               $description
+ * @property string                                                                              $name
+ * @property string                                                                              $description
  * @property \Carbon\Carbon|null                                                                 $created_at
  * @property \Carbon\Carbon|null                                                                 $updated_at
  * @property \Carbon\Carbon|null                                                                 $deleted_at

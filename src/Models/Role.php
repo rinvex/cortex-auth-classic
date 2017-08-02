@@ -13,8 +13,8 @@ use Rinvex\Attributable\Traits\Attributable;
  *
  * @property int                                                                                 $id
  * @property string                                                                              $slug
- * @property array                                                                               $name
- * @property array                                                                               $description
+ * @property string                                                                              $name
+ * @property string                                                                              $description
  * @property \Carbon\Carbon|null                                                                 $created_at
  * @property \Carbon\Carbon|null                                                                 $updated_at
  * @property \Carbon\Carbon|null                                                                 $deleted_at
