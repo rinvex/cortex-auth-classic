@@ -51,14 +51,10 @@
     @endif
 
     <div class="content-wrapper">
-        <!-- Breadcrumbs -->
         <section class="content-header">
             <h1>{{ $user->exists ? $user->username : trans('cortex/fort::common.create_user') }}</h1>
-            <ol class="breadcrumb">
-                <li><a href="{{ route('backend.home') }}"><i class="fa fa-dashboard"></i> {{ trans('cortex/foundation::common.backend') }}</a></li>
-                <li><a href="{{ route('backend.users.index') }}">{{ trans('cortex/fort::common.users') }}</a></li>
-                <li class="active">{{ $user->exists ? $user->username : trans('cortex/fort::common.create_user') }}</li>
-            </ol>
+            <!-- Breadcrumbs -->
+            {{ Breadcrumbs::render() }}
         </section>
 
         <!-- Main content -->

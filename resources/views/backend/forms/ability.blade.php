@@ -18,14 +18,10 @@
     @endif
 
     <div class="content-wrapper">
-        <!-- Breadcrumbs -->
         <section class="content-header">
             <h1>{{ $ability->exists ? $ability->name : trans('cortex/fort::common.create_ability') }}</h1>
-            <ol class="breadcrumb">
-                <li><a href="{{ route('backend.home') }}"><i class="fa fa-dashboard"></i> {{ trans('cortex/foundation::common.backend') }}</a></li>
-                <li><a href="{{ route('backend.abilities.index') }}">{{ trans('cortex/fort::common.abilities') }}</a></li>
-                <li class="active">{{ $ability->exists ? $ability->name : trans('cortex/fort::common.create_ability') }}</li>
-            </ol>
+            <!-- Breadcrumbs -->
+            {{ Breadcrumbs::render() }}
         </section>
 
         <!-- Main content -->

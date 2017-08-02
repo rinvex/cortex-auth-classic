@@ -18,14 +18,10 @@
     @endif
 
     <div class="content-wrapper">
-        <!-- Breadcrumbs -->
         <section class="content-header">
             <h1>{{ $role->exists ? $role->name : trans('cortex/fort::common.create_role') }}</h1>
-            <ol class="breadcrumb">
-                <li><a href="{{ route('backend.home') }}"><i class="fa fa-dashboard"></i> {{ trans('cortex/foundation::common.backend') }}</a></li>
-                <li><a href="{{ route('backend.roles.index') }}">{{ trans('cortex/fort::common.roles') }}</a></li>
-                <li class="active">{{ $role->exists ? $role->name : trans('cortex/fort::common.create_role') }}</li>
-            </ol>
+            <!-- Breadcrumbs -->
+            {{ Breadcrumbs::render() }}
         </section>
 
         <!-- Main content -->
