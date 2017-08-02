@@ -52,7 +52,8 @@
         "php": "^7.0.0",
         "rinvex/fort": "dev-develop",
         "laravel/framework": "~5.5.0",
-        "rinvex/composable": "dev-develop"
+        "rinvex/composable": "dev-develop",
+        "cortex/foundation": "dev-develop"
     },
     "autoload": {
         "psr-4": {
