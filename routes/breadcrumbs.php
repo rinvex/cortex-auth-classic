@@ -75,4 +75,3 @@ Breadcrumbs::register('backend.abilities.logs', function (BreadcrumbsGenerator $
     $breadcrumbs->push($ability->name, route('backend.abilities.edit', ['ability' => $ability]));
     $breadcrumbs->push(trans('cortex/fort::common.logs'), route('backend.abilities.logs', ['ability' => $ability]));
 });
-
