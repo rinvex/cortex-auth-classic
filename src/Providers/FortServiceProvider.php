@@ -6,7 +6,6 @@ namespace Cortex\Fort\Providers;
 
 use Cortex\Fort\Models\Role;
 use Cortex\Fort\Models\User;
-use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Cortex\Fort\Console\Commands\SeedCommand;
 
