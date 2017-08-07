@@ -20,14 +20,14 @@ class SeedCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'cortex:seed';
+    protected $signature = 'cortex:seed:fort';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Seed default Cortex data.';
+    protected $description = 'Seed default Cortex Fort data.';
 
     /**
      * Execute the console command.
