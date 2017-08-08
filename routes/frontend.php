@@ -9,9 +9,6 @@ Route::group(['domain' => domain()], function () {
          ->namespace('Cortex\Fort\Http\Controllers\Frontend')
          ->prefix(config('rinvex.cortex.route.locale_prefix') ? '{locale}' : '')->group(function () {
 
-        // Homepage Routes
-        Route::get('/')->name('home')->uses('HomeController@index');
-
         // Authentication Routes
         Route::name('auth.')->prefix('auth')->group(function () {
             // Login Routes
