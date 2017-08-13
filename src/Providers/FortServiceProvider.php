@@ -6,7 +6,9 @@ namespace Cortex\Fort\Providers;
 
 use Cortex\Fort\Models\Role;
 use Cortex\Fort\Models\User;
+use Cortex\Fort\Models\Ability;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\View\Compilers\BladeCompiler;
 
 class FortServiceProvider extends ServiceProvider
 {
@@ -27,28 +29,9 @@ class FortServiceProvider extends ServiceProvider
         // Publish Resources
         ! $this->app->runningInConsole() || $this->publishResources();
 
-        // Register sidebar menus
-        $this->app->singleton('menus.sidebar.access', function ($app) {
-            return collect();
-        });
-
-        // Register menu items
-        $this->app['view']->composer('cortex/foundation::backend.partials.sidebar', function ($view) {
-            app('menus.sidebar')->put('access', app('menus.sidebar.access'));
-            app('menus.sidebar.access')->put('header', '<li class="header">'.trans('cortex/fort::navigation.headers.access').'</li>');
-            app('menus.sidebar.access')->put('abilities', '<li '.(mb_strpos(request()->route()->getName(), 'backend.abilities.') === 0 ? 'class="active"' : '').'><a href="'.route('backend.abilities.index').'"><i class="fa fa-sliders"></i> <span>'.trans('cortex/fort::navigation.menus.abilities').'</span></a></li>');
-            app('menus.sidebar.access')->put('roles', '<li '.(mb_strpos(request()->route()->getName(), 'backend.roles.') === 0 ? 'class="active"' : '').'><a href="'.route('backend.roles.index').'"><i class="fa fa-users"></i> <span>'.trans('cortex/fort::navigation.menus.roles').'</span></a></li>');
-            app('menus.sidebar.access')->put('users', '<li '.(mb_strpos(request()->route()->getName(), 'backend.users.') === 0 ? 'class="active"' : '').'><a href="'.route('backend.users.index').'"><i class="fa fa-user"></i> <span>'.trans('cortex/fort::navigation.menus.users').'</span></a></li>');
-        });
-
         // Register attributable entities
         app('rinvex.attributable.entities')->push(Role::class);
         app('rinvex.attributable.entities')->push(User::class);
-
-        // Register menu items
-        $this->app['view']->composer('*.partials.header', function ($view) {
-            app('menus.topbar')->put('user', view('cortex/fort::frontend.partials.topbar-user-menu')->render());
-        });
     }
 
     /**
