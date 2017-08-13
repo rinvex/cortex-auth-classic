@@ -6,9 +6,7 @@ namespace Cortex\Fort\Providers;
 
 use Cortex\Fort\Models\Role;
 use Cortex\Fort\Models\User;
-use Cortex\Fort\Models\Ability;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\View\Compilers\BladeCompiler;
 
 class FortServiceProvider extends ServiceProvider
 {
