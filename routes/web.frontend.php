@@ -8,7 +8,7 @@ Route::group(['domain' => domain()], function () {
          ->namespace('Cortex\Fort\Http\Controllers\Frontend')
          ->prefix(config('rinvex.cortex.route.locale_prefix') ? '{locale}' : '')->group(function () {
 
-        // Authentication Routes
+            // Authentication Routes
              Route::name('auth.')->prefix('auth')->group(function () {
                  // Login Routes
                  Route::get('login')->name('login')->uses('AuthenticationController@form');

@@ -8,7 +8,7 @@ Route::group(['domain' => domain()], function () {
          ->namespace('Cortex\Fort\Http\Controllers\Userarea')
          ->prefix(config('rinvex.cortex.route.locale_prefix') ? '{locale}/userarea' : 'userarea')->group(function () {
 
-        // Homepage Routes
+            // Homepage Routes
              Route::get('/')->name('home')->uses('HomeController@index');
 
              // User Account Routes

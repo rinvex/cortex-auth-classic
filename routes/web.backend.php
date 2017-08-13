@@ -8,7 +8,7 @@ Route::group(['domain' => domain()], function () {
          ->middleware(['web', 'nohttpcache', 'can:access-dashboard'])
          ->prefix(config('rinvex.cortex.route.locale_prefix') ? '{locale}/backend' : 'backend')->group(function () {
 
-        // Abilities Routes
+            // Abilities Routes
              Route::name('abilities.')->prefix('abilities')->group(function () {
                  Route::get('/')->name('index')->uses('AbilitiesController@index');
                  Route::get('create')->name('create')->uses('AbilitiesController@form');
