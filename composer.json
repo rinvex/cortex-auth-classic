@@ -50,10 +50,24 @@
     ],
     "require": {
         "php": "^7.0.0",
-        "rinvex/fort": "dev-develop",
-        "laravel/framework": "~5.5.0",
+        "cortex/foundation": "dev-develop",
+        "cortex/fort": "dev-develop",
+        "davejamesmiller/laravel-breadcrumbs": "4.x-dev",
+        "Illuminate/auth": "~5.5.0",
+        "Illuminate/console": "~5.5.0",
+        "Illuminate/database": "~5.5.0",
+        "Illuminate/http": "~5.5.0",
+        "Illuminate/routing": "~5.5.0",
+        "Illuminate/support": "~5.5.0",
+        "laravel/socialite": "^3.0.0",
+        "league/fractal": "^0.16.0",
+        "nesbot/carbon": "^1.22.0",
+        "pragmarx/google2fa": "^2.0.0",
         "rinvex/composable": "dev-develop",
-        "cortex/foundation": "dev-develop"
+        "rinvex/fort": "dev-develop",
+        "rinvex/support": "dev-develop",
+        "spatie/laravel-activitylog": "^1.15.0",
+        "spatie/laravel-menu": "^2.1.0"
     },
     "autoload": {
         "psr-4": {
