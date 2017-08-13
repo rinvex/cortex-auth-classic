@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Spatie\Menu\Laravel\Link;
 use Spatie\Menu\Laravel\Html;
+use Spatie\Menu\Laravel\Link;
 use Cortex\Foundation\Models\Menu as MenuModel;
 
 Menu::backendSidebar('resources')->routeIfCan('list-abilities', 'backend.abilities.index', '<i class="fa fa-sliders"></i> <span>'.trans('cortex/fort::common.abilities').'</span>');

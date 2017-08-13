@@ -9,8 +9,8 @@ use Carbon\Carbon;
 use Cortex\Fort\Models\Role;
 use Cortex\Fort\Models\User;
 use Illuminate\Console\Command;
-use Cortex\Fort\Traits\BaseFortSeeder;
 use Cortex\Fort\Traits\AbilitySeeder;
+use Cortex\Fort\Traits\BaseFortSeeder;
 
 class SeedCommand extends Command
 {
