@@ -4,17 +4,19 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Console\Commands;
 
+use Exception;
 use Carbon\Carbon;
 use Cortex\Fort\Models\Role;
 use Cortex\Fort\Models\User;
-use Cortex\Fort\Models\Ability;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Eloquent\Model;
+use Cortex\Fort\Traits\BaseFortSeeder;
+use Cortex\Fort\Traits\AbilitySeeder;
 
 class SeedCommand extends Command
 {
+    use AbilitySeeder;
+    use BaseFortSeeder;
+
     /**
      * The name and signature of the console command.
      *
@@ -27,7 +29,7 @@ class SeedCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Seed default Cortex Fort data.';
+    protected $description = 'Seed Default Cortex Fort data.';
 
     /**
      * Execute the console command.
@@ -36,81 +38,38 @@ class SeedCommand extends Command
      */
     public function handle()
     {
-        Model::unguard();
-
-        // WARNING: This action will delete all users/roles/abilities data (Can NOT be UNDONE!)
-        if ($this->isFirstRun() || $this->confirm('WARNING! Your database already have data, this action will delete all users/roles/abilities (Can NOT be UNDONE!). Are you sure you want to continue?')) {
-            Schema::disableForeignKeyConstraints();
-            DB::table(config('rinvex.fort.tables.abilities'))->truncate();
-            DB::table(config('rinvex.fort.tables.roles'))->truncate();
-            DB::table(config('rinvex.fort.tables.users'))->truncate();
-            DB::table(config('rinvex.fort.tables.ability_user'))->truncate();
-            DB::table(config('rinvex.fort.tables.role_user'))->truncate();
-            DB::table(config('rinvex.fort.tables.ability_role'))->truncate();
-            DB::table(config('rinvex.fort.tables.socialites'))->truncate();
-            DB::table(config('session.table'))->truncate();
-            Schema::enableForeignKeyConstraints();
-
-            // Seed data
-            $this->seedAbilities();
+        if ($this->ensureExistingFortTables()) {
+            $this->seedAbilities(realpath(__DIR__.'/../../../resources/data/abilities.json'));
             $this->seedRoles();
             $this->seedUsers();
         }
-
-        Model::reguard();
-    }
-
-    /**
-     * Check if this is first seed run.
-     *
-     * @return bool
-     */
-    protected function isFirstRun()
-    {
-        $userCount = User::count();
-        $roleCount = Role::count();
-        $abilityCount = Ability::count();
-
-        return ! $userCount && ! $roleCount && ! $abilityCount;
-    }
-
-    /**
-     * Seed default abilities.
-     *
-     * @return void
-     */
-    protected function seedAbilities()
-    {
-        // Get abilities data
-        $abilities = json_decode(file_get_contents(__DIR__.'/../../../resources/data/abilities.json'), true);
-
-        // Create new abilities
-        foreach ($abilities as $ability) {
-            Ability::create($ability);
-        }
-
-        $this->info('Default abilities seeded successfully!');
     }
 
     /**
      * Seed default roles.
      *
+     * @throws \Exception
+     *
      * @return void
      */
     protected function seedRoles()
     {
+        if (! file_exists($seeder = realpath(__DIR__.'/../../../resources/data/roles.json'))) {
+            throw new Exception("Abilities seeder file '{$seeder}' does NOT exist!");
+        }
+
         // Get roles data
-        $roles = json_decode(file_get_contents(__DIR__.'/../../../resources/data/roles.json'), true);
+        $roles = json_decode(file_get_contents($seeder), true);
 
         // Create new roles
         foreach ($roles as $role) {
-            Role::create($role);
+            Role::firstOrCreate(array_except($role, ['name', 'description']), array_only($role, ['name', 'description']));
         }
 
         // Grant abilities to roles
         Role::where('slug', 'operator')->first()->grantAbilities('superadmin', 'global');
 
-        $this->info('Default roles seeded successfully!');
+        $this->info("Roles seeder file '{$seeder}' seeded successfully!");
     }
 
     /**
@@ -130,7 +89,7 @@ class SeedCommand extends Command
             'is_active' => true,
         ];
 
-        $user = User::create($user);
+        $user = User::firstOrCreate(array_except($user, ['email_verified_at', 'remember_token', 'password']), array_only($user, ['email_verified_at', 'remember_token', 'password']));
 
         // Assign roles to users
         $user->assignRoles('operator');
