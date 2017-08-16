@@ -7,6 +7,8 @@ namespace Cortex\Fort\Providers;
 use Cortex\Fort\Models\Role;
 use Cortex\Fort\Models\User;
 use Illuminate\Support\ServiceProvider;
+use Cortex\Fort\Console\Commands\SeedCommand;
+use Cortex\Fort\Console\Commands\MigrateCommand;
 
 class FortServiceProvider extends ServiceProvider
 {
@@ -24,6 +26,7 @@ class FortServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__.'/../../routes/web.backend.php');
         $this->loadViewsFrom(__DIR__.'/../../resources/views', 'cortex/fort');
         $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'cortex/fort');
+        $this->commands([SeedCommand::class, MigrateCommand::class]);
         $this->app->afterResolving('blade.compiler', function () {
             require __DIR__.'/../../routes/menus.php';
         });
