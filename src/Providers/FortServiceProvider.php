@@ -18,6 +18,7 @@ class FortServiceProvider extends ServiceProvider
     public function boot()
     {
         // Load resources
+        require __DIR__.'/../../routes/breadcrumbs.php';
         $this->loadRoutesFrom(__DIR__.'/../../routes/web.frontend.php');
         $this->loadRoutesFrom(__DIR__.'/../../routes/web.userarea.php');
         $this->loadRoutesFrom(__DIR__.'/../../routes/web.backend.php');
