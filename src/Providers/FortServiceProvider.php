@@ -23,6 +23,9 @@ class FortServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__.'/../../routes/web.backend.php');
         $this->loadViewsFrom(__DIR__.'/../../resources/views', 'cortex/fort');
         $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'cortex/fort');
+        $this->app->afterResolving('blade.compiler', function () {
+            require __DIR__.'/../../routes/menus.php';
+        });
 
         // Publish Resources
         ! $this->app->runningInConsole() || $this->publishResources();
