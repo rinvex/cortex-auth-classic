@@ -83,13 +83,16 @@ class SeedCommand extends Command
             'username' => 'Cortex',
             'email' => 'help@rinvex.com',
             'email_verified' => true,
-            'email_verified_at' => Carbon::now(),
-            'remember_token' => str_random(10),
-            'password' => $password = str_random(),
             'is_active' => true,
         ];
 
-        $user = User::firstOrCreate(array_except($user, ['email_verified_at', 'remember_token', 'password']), array_only($user, ['email_verified_at', 'remember_token', 'password']));
+        $user = tap(User::firstOrNew($user)->fill([
+            'email_verified_at' => Carbon::now(),
+            'remember_token' => str_random(10),
+            'password' => $password = str_random(),
+        ]), function ($instance) {
+            $instance->save();
+        });
 
         // Assign roles to users
         $user->assignRoles('operator');
