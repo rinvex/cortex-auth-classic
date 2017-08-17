@@ -5,12 +5,6 @@
         "name": "Super Administrator"
     },
     {
-        "action": "access",
-        "resource": "dashboard",
-        "policy": "Rinvex\\Fort\\Policies\\DashboardPolicy@access",
-        "name": "Access Dashboard"
-    },
-    {
         "action": "list",
         "resource": "abilities",
         "policy": "Rinvex\\Fort\\Policies\\AbilityPolicy@list",
