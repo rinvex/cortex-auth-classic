@@ -9,13 +9,13 @@ use Carbon\Carbon;
 use Cortex\Fort\Models\Role;
 use Cortex\Fort\Models\User;
 use Illuminate\Console\Command;
-use Cortex\Fort\Traits\AbilitySeeder;
-use Cortex\Fort\Traits\BaseFortSeeder;
+use Rinvex\Fort\Traits\AbilitySeeder;
+use Rinvex\Fort\Traits\ArtisanHelper;
 
 class SeedCommand extends Command
 {
     use AbilitySeeder;
-    use BaseFortSeeder;
+    use ArtisanHelper;
 
     /**
      * The name and signature of the console command.
