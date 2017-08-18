@@ -38,6 +38,8 @@ class SeedCommand extends Command
      */
     public function handle()
     {
+        $this->warn('Seed cortex/fort:');
+
         if ($this->ensureExistingFortTables()) {
             $this->seedAbilities(realpath(__DIR__.'/../../../resources/data/abilities.json'));
             $this->seedRoles();
@@ -61,15 +63,17 @@ class SeedCommand extends Command
         // Get roles data
         $roles = json_decode(file_get_contents($seeder), true);
 
+        $this->warn('Seeding: '.str_after($seeder, $this->laravel->basePath().'/'));
+
         // Create new roles
         foreach ($roles as $role) {
             Role::firstOrCreate(array_except($role, ['name', 'description']), array_only($role, ['name', 'description']));
         }
 
+        $this->info('Seeded: '.str_after($seeder, $this->laravel->basePath().'/'));
+
         // Grant abilities to roles
         Role::where('slug', 'operator')->first()->grantAbilities('superadmin', 'global');
-
-        $this->info("Roles seeder file '{$seeder}' seeded successfully!");
     }
 
     /**
@@ -79,6 +83,8 @@ class SeedCommand extends Command
      */
     protected function seedUsers()
     {
+        $this->warn('Seeding Users:');
+
         $user = [
             'username' => 'Cortex',
             'email' => 'help@rinvex.com',
@@ -97,7 +103,6 @@ class SeedCommand extends Command
         // Assign roles to users
         $user->assignRoles('operator');
 
-        $this->info('Default users seeded successfully!');
-        $this->getOutput()->writeln("<comment>Username</comment>: {$user['username']} / <comment>Password</comment>: {$password}");
+        $this->table(['Username', 'Password'], [['username' => $user['username'], 'password' => $password]]);
     }
 }
