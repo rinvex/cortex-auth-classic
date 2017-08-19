@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\DataTables\Backend;
 
-use Cortex\Fort\Models\Role;
 use Cortex\Foundation\DataTables\AbstractDataTable;
 use Cortex\Fort\Transformers\Backend\RoleTransformer;
 
@@ -13,7 +12,7 @@ class RolesDataTable extends AbstractDataTable
     /**
      * {@inheritdoc}
      */
-    protected $model = Role::class;
+    protected $model = 'rinvex.fort.role';
 
     /**
      * {@inheritdoc}

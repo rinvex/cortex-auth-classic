@@ -6,8 +6,6 @@ namespace Cortex\Fort\Console\Commands;
 
 use Exception;
 use Carbon\Carbon;
-use Cortex\Fort\Models\Role;
-use Cortex\Fort\Models\User;
 use Illuminate\Console\Command;
 use Rinvex\Fort\Traits\AbilitySeeder;
 use Rinvex\Fort\Traits\ArtisanHelper;
@@ -67,13 +65,13 @@ class SeedCommand extends Command
 
         // Create new roles
         foreach ($roles as $role) {
-            Role::firstOrCreate(array_except($role, ['name', 'description']), array_only($role, ['name', 'description']));
+            app('rinvex.fort.role')->firstOrCreate(array_except($role, ['name', 'description']), array_only($role, ['name', 'description']));
         }
 
         $this->info('Seeded: '.str_after($seeder, $this->laravel->basePath().'/'));
 
         // Grant abilities to roles
-        Role::where('slug', 'operator')->first()->grantAbilities('superadmin', 'global');
+        app('rinvex.fort.role')->where('slug', 'operator')->first()->grantAbilities('superadmin', 'global');
     }
 
     /**
@@ -92,7 +90,7 @@ class SeedCommand extends Command
             'is_active' => true,
         ];
 
-        $user = tap(User::firstOrNew($user)->fill([
+        $user = tap(app('rinvex.fort.user')->firstOrNew($user)->fill([
             'email_verified_at' => Carbon::now(),
             'remember_token' => str_random(10),
             'password' => $password = str_random(),

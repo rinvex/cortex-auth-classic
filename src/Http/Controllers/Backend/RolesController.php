@@ -6,7 +6,6 @@ namespace Cortex\Fort\Http\Controllers\Backend;
 
 use Cortex\Fort\Models\Role;
 use Illuminate\Http\Request;
-use Cortex\Fort\Models\Ability;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Fort\DataTables\Backend\RolesDataTable;
 use Cortex\Fort\Http\Requests\Backend\RoleFormRequest;
@@ -103,7 +102,7 @@ class RolesController extends AuthorizedController
      */
     public function form(Role $role)
     {
-        $abilities = Ability::all()->groupBy('resource')->map->pluck('name', 'id')->toArray();
+        $abilities = app('rinvex.fort.ability')->all()->groupBy('resource')->map->pluck('name', 'id')->toArray();
 
         return view('cortex/fort::backend.forms.role', compact('role', 'abilities'));
     }

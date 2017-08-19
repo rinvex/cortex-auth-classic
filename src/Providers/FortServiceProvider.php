@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Providers;
 
-use Cortex\Fort\Models\Role;
-use Cortex\Fort\Models\User;
 use Illuminate\Support\ServiceProvider;
 use Cortex\Fort\Console\Commands\SeedCommand;
 use Cortex\Fort\Console\Commands\MigrateCommand;
@@ -65,8 +63,8 @@ class FortServiceProvider extends ServiceProvider
         ! $this->app->runningInConsole() || $this->publishResources();
 
         // Register attributable entities
-        app('rinvex.attributable.entities')->push(Role::class);
-        app('rinvex.attributable.entities')->push(User::class);
+        app('rinvex.attributable.entities')->push(app('rinvex.fort.role')->class);
+        app('rinvex.attributable.entities')->push(app('rinvex.fort.user')->class);
     }
 
     /**

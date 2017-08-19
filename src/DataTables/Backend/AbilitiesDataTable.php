@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\DataTables\Backend;
 
-use Cortex\Fort\Models\Ability;
 use Cortex\Foundation\DataTables\AbstractDataTable;
 use Cortex\Fort\Transformers\Backend\AbilityTransformer;
 
@@ -13,7 +12,7 @@ class AbilitiesDataTable extends AbstractDataTable
     /**
      * {@inheritdoc}
      */
-    protected $model = Ability::class;
+    protected $model = 'rinvex.fort.ability';
 
     /**
      * {@inheritdoc}

@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Controllers\Backend;
 
-use Cortex\Fort\Models\Role;
 use Cortex\Fort\Models\User;
 use Illuminate\Http\Request;
-use Cortex\Fort\Models\Ability;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Fort\DataTables\Backend\UsersDataTable;
 use Cortex\Foundation\DataTables\ActivitiesDataTable;
@@ -73,7 +71,7 @@ class UsersController extends AuthorizedController
      */
     public function store(UserFormRequest $request)
     {
-        return $this->process($request, new User());
+        return $this->process($request, app('rinvex.fort.user'));
     }
 
     /**
@@ -116,10 +114,10 @@ class UsersController extends AuthorizedController
     public function form(User $user)
     {
         $countries = countries();
-        $roles = Role::all()->pluck('name', 'id')->toArray();
+        $roles = app('rinvex.fort.role')->all()->pluck('name', 'id')->toArray();
         $languages = collect(languages())->pluck('name', 'iso_639_1');
         $genders = ['m' => trans('cortex/fort::common.male'), 'f' => trans('cortex/fort::common.female')];
-        $abilities = Ability::all()->groupBy('resource')->map->pluck('name', 'id')->toArray();
+        $abilities = app('rinvex.fort.ability')->all()->groupBy('resource')->map->pluck('name', 'id')->toArray();
 
         return view('cortex/fort::backend.forms.user', compact('user', 'abilities', 'roles', 'countries', 'languages', 'genders'));
     }
