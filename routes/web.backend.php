@@ -6,7 +6,7 @@ Route::group(['domain' => domain()], function () {
     Route::name('backend.')
          ->namespace('Cortex\Fort\Http\Controllers\Backend')
          ->middleware(['web', 'nohttpcache', 'can:access-dashboard'])
-         ->prefix(config('rinvex.cortex.route.locale_prefix') ? '{locale}/backend' : 'backend')->group(function () {
+         ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/backend' : 'backend')->group(function () {
 
             // Abilities Routes
              Route::name('abilities.')->prefix('abilities')->group(function () {

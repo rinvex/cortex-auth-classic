@@ -6,7 +6,7 @@ Route::group(['domain' => domain()], function () {
     Route::name('frontend.')
          ->middleware(['web', 'nohttpcache'])
          ->namespace('Cortex\Fort\Http\Controllers\Frontend')
-         ->prefix(config('rinvex.cortex.route.locale_prefix') ? '{locale}' : '')->group(function () {
+         ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}' : '')->group(function () {
 
             // Authentication Routes
              Route::name('auth.')->prefix('auth')->group(function () {
