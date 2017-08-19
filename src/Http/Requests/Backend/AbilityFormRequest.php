@@ -27,7 +27,7 @@ class AbilityFormRequest extends FormRequest
      */
     public function process($data)
     {
-        if ($this->user()->can('assign-roles')) {
+        if ($this->user()->can('grant-abilities')) {
             $data['roles'] = $data['roles'] ?? null;
         }
 
