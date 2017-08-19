@@ -60,7 +60,7 @@ class AbilitiesController extends AuthorizedController
      */
     public function store(AbilityFormRequest $request)
     {
-        return $this->process($request, new Ability());
+        return $this->process($request, app('rinvex.fort.ability'));
     }
 
     /**

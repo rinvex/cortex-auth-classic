@@ -60,7 +60,7 @@ class RolesController extends AuthorizedController
      */
     public function store(RoleFormRequest $request)
     {
-        return $this->process($request, new Role());
+        return $this->process($request, app('rinvex.fort.role'));
     }
 
     /**

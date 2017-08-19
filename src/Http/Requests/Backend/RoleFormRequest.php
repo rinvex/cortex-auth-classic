@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Requests\Backend;
 
-use Rinvex\Fort\Models\Role;
 use Rinvex\Support\Http\Requests\FormRequest;
 
 class RoleFormRequest extends FormRequest
@@ -43,7 +42,7 @@ class RoleFormRequest extends FormRequest
      */
     public function rules()
     {
-        $user = $this->route('role') ?? new Role();
+        $user = $this->route('role') ?? app('rinvex.fort.role');
         $user->updateRulesUniques();
 
         return $user->getRules();
