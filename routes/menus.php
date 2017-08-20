@@ -6,9 +6,9 @@ use Spatie\Menu\Laravel\Html;
 use Spatie\Menu\Laravel\Link;
 use Cortex\Foundation\Models\Menu as MenuModel;
 
-Menu::backendSidebar('resources')->routeIfCan('list-abilities', 'backend.abilities.index', '<i class="fa fa-sliders"></i> <span>'.trans('cortex/fort::common.abilities').'</span>');
-Menu::backendSidebar('resources')->routeIfCan('list-roles', 'backend.roles.index', '<i class="fa fa-users"></i> <span>'.trans('cortex/fort::common.roles').'</span>');
-Menu::backendSidebar('resources')->routeIfCan('list-users', 'backend.users.index', '<i class="fa fa-user"></i> <span>'.trans('cortex/fort::common.users').'</span>');
+Menu::backendSidebar('access')->routeIfCan('list-abilities', 'backend.abilities.index', '<i class="fa fa-sliders"></i> <span>'.trans('cortex/fort::common.abilities').'</span>');
+Menu::backendSidebar('access')->routeIfCan('list-roles', 'backend.roles.index', '<i class="fa fa-users"></i> <span>'.trans('cortex/fort::common.roles').'</span>');
+Menu::backendSidebar('users')->routeIfCan('list-users', 'backend.users.index', '<i class="fa fa-user"></i> <span>'.trans('cortex/fort::common.users').'</span>');
 
 if ($user = auth()->user()) {
     $userMenuHeader = Link::to('#', $user->username.' <span class="caret"></span>')->addClass('dropdown-toggle')->setAttribute('data-toggle', 'dropdown');
