@@ -4,16 +4,13 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Console\Commands;
 
-use Exception;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Rinvex\Fort\Traits\AbilitySeeder;
-use Rinvex\Fort\Traits\ArtisanHelper;
+use Rinvex\Support\Traits\SeederHelper;
 
 class SeedCommand extends Command
 {
-    use AbilitySeeder;
-    use ArtisanHelper;
+    use SeederHelper;
 
     /**
      * The name and signature of the console command.
@@ -38,40 +35,14 @@ class SeedCommand extends Command
     {
         $this->warn('Seed cortex/fort:');
 
-        if ($this->ensureExistingFortTables()) {
-            $this->seedAbilities(realpath(__DIR__.'/../../../resources/data/abilities.json'));
-            $this->seedRoles();
+        if ($this->ensureExistingDatabaseTables('rinvex/fort')) {
+            $this->seedResources(app('rinvex.fort.ability'), realpath(__DIR__.'/../../../resources/data/abilities.json'), ['name', 'description']);
+            $this->seedResources(app('rinvex.fort.role'), realpath(__DIR__.'/../../../resources/data/roles.json'), ['name', 'description'], function () {
+                // Grant abilities to roles
+                app('rinvex.fort.role')->where('slug', 'operator')->first()->grantAbilities('superadmin', 'global');
+            });
             $this->seedUsers();
         }
-    }
-
-    /**
-     * Seed default roles.
-     *
-     * @throws \Exception
-     *
-     * @return void
-     */
-    protected function seedRoles()
-    {
-        if (! file_exists($seeder = realpath(__DIR__.'/../../../resources/data/roles.json'))) {
-            throw new Exception("Abilities seeder file '{$seeder}' does NOT exist!");
-        }
-
-        // Get roles data
-        $roles = json_decode(file_get_contents($seeder), true);
-
-        $this->warn('Seeding: '.str_after($seeder, $this->laravel->basePath().'/'));
-
-        // Create new roles
-        foreach ($roles as $role) {
-            app('rinvex.fort.role')->firstOrCreate(array_except($role, ['name', 'description']), array_only($role, ['name', 'description']));
-        }
-
-        $this->info('Seeded: '.str_after($seeder, $this->laravel->basePath().'/'));
-
-        // Grant abilities to roles
-        app('rinvex.fort.role')->where('slug', 'operator')->first()->grantAbilities('superadmin', 'global');
     }
 
     /**
