@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/foundation::common.backend') }} » {{ trans('cortex/fort::common.abilities') }} » {{ $ability->exists ? $ability->slug : trans('cortex/fort::common.create_ability') }}
+    {{ config('app.name') }} » {{ trans('cortex/foundation::common.backend') }} » {{ trans('cortex/fort::common.abilities') }} » {{ $ability->exists ? $ability->name : trans('cortex/fort::common.create_ability') }}
 @stop
 
 @push('scripts')

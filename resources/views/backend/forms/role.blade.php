@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/foundation::common.backend') }} » {{ trans('cortex/fort::common.roles') }} » {{ $role->exists ? $role->slug : trans('cortex/fort::common.create_role') }}
+    {{ config('app.name') }} » {{ trans('cortex/foundation::common.backend') }} » {{ trans('cortex/fort::common.roles') }} » {{ $role->exists ? $role->name : trans('cortex/fort::common.create_role') }}
 @stop
 
 @push('scripts')
