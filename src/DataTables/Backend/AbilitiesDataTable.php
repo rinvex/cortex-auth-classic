@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\DataTables\Backend;
 
+use Cortex\Fort\Models\Ability;
 use Cortex\Foundation\DataTables\AbstractDataTable;
 use Cortex\Fort\Transformers\Backend\AbilityTransformer;
 
@@ -12,7 +13,7 @@ class AbilitiesDataTable extends AbstractDataTable
     /**
      * {@inheritdoc}
      */
-    protected $model = 'rinvex.fort.ability';
+    protected $model = Ability::class;
 
     /**
      * {@inheritdoc}
@@ -26,9 +27,11 @@ class AbilitiesDataTable extends AbstractDataTable
      */
     public function ajax()
     {
+        $transformer = app($this->transformer);
+
         return $this->datatables
             ->eloquent($this->query())
-            ->setTransformer(new $this->transformer())
+            ->setTransformer($transformer)
             ->orderColumn('name', 'name->"$.'.app()->getLocale().'" $1')
             ->make(true);
     }

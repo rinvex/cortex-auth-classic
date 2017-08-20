@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\DataTables\Backend;
 
+use Cortex\Fort\Models\Role;
 use Cortex\Foundation\DataTables\AbstractDataTable;
 use Cortex\Fort\Transformers\Backend\RoleTransformer;
 
@@ -12,7 +13,7 @@ class RolesDataTable extends AbstractDataTable
     /**
      * {@inheritdoc}
      */
-    protected $model = 'rinvex.fort.role';
+    protected $model = Role::class;
 
     /**
      * {@inheritdoc}
@@ -26,9 +27,11 @@ class RolesDataTable extends AbstractDataTable
      */
     public function ajax()
     {
+        $transformer = app($this->transformer);
+
         return $this->datatables
             ->eloquent($this->query())
-            ->setTransformer(new $this->transformer())
+            ->setTransformer($transformer)
             ->orderColumn('name', 'name->"$.'.app()->getLocale().'" $1')
             ->make(true);
     }

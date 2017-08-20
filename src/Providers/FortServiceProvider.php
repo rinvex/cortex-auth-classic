@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Providers;
 
+use Cortex\Fort\Models\Role;
+use Cortex\Fort\Models\User;
+use Cortex\Fort\Models\Ability;
 use Illuminate\Support\ServiceProvider;
 use Cortex\Fort\Console\Commands\SeedCommand;
 use Cortex\Fort\Console\Commands\MigrateCommand;
@@ -31,6 +34,11 @@ class FortServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // Bind eloquent models to IoC container
+        $this->app->alias('rinvex.fort.ability', Ability::class);
+        $this->app->alias('rinvex.fort.role', Role::class);
+        $this->app->alias('rinvex.fort.user', User::class);
+
         // Register artisan commands
         foreach ($this->commands as $key => $value) {
             $this->app->singleton($value, function ($app) use ($key) {
