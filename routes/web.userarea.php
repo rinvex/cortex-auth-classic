@@ -8,9 +8,6 @@ Route::group(['domain' => domain()], function () {
          ->namespace('Cortex\Fort\Http\Controllers\Userarea')
          ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/userarea' : 'userarea')->group(function () {
 
-            // Homepage Routes
-             Route::get('/')->name('home')->uses('HomeController@index');
-
              // User Account Routes
              Route::name('account.')->prefix('account')->group(function () {
                  // Account Page Routes
