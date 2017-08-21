@@ -34,7 +34,7 @@ class AuthenticationController extends AbstractController
         // Remember previous URL for later redirect back
         session()->put('url.intended', url()->previous());
 
-        return view('cortex/fort::frontend.authentication.login');
+        return view('cortex/fort::frontend.forms.auth-login');
     }
 
     /**

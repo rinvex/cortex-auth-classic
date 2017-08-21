@@ -38,7 +38,7 @@ class TwoFactorSettingsController extends AuthenticatedController
 
         $qrCode = $totpProvider->getQRCodeInline(config('app.name'), $currentUser->email, $secret);
 
-        return view('cortex/fort::userarea.account.twofactor', compact('secret', 'qrCode', 'twoFactor'));
+        return view('cortex/fort::userarea.forms.twofactor', compact('secret', 'qrCode', 'twoFactor'));
     }
 
     /**

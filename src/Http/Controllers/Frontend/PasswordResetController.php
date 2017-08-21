@@ -23,7 +23,7 @@ class PasswordResetController extends AbstractController
      */
     public function request(PasswordResetRequest $request)
     {
-        return view('cortex/fort::frontend.passwordreset.request');
+        return view('cortex/fort::frontend.forms.passwordreset-request');
     }
 
     /**
@@ -67,7 +67,7 @@ class PasswordResetController extends AbstractController
     {
         $credentials = $request->only('email', 'expiration', 'token');
 
-        return view('cortex/fort::frontend.passwordreset.reset')->with($credentials);
+        return view('cortex/fort::frontend.forms.passwordreset')->with($credentials);
     }
 
     /**

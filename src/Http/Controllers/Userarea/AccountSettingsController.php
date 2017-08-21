@@ -24,7 +24,7 @@ class AccountSettingsController extends AuthenticatedController
         $twoFactor = $request->user($this->getGuard())->getTwoFactor();
         $genders = ['m' => trans('common.male'), 'f' => trans('common.female')];
 
-        return view('cortex/fort::userarea.account.settings', compact('twoFactor', 'countries', 'languages', 'genders'));
+        return view('cortex/fort::userarea.forms.settings', compact('twoFactor', 'countries', 'languages', 'genders'));
     }
 
     /**

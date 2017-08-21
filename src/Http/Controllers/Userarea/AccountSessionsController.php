@@ -16,7 +16,7 @@ class AccountSessionsController extends AuthenticatedController
      */
     public function index()
     {
-        return view('cortex/fort::userarea.account.sessions');
+        return view('cortex/fort::userarea.forms.sessions');
     }
 
     /**

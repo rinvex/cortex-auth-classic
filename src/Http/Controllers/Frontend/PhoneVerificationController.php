@@ -23,7 +23,7 @@ class PhoneVerificationController extends AbstractController
      */
     public function request(PhoneVerificationSendRequest $request)
     {
-        return view('cortex/fort::frontend.verification.phone-request');
+        return view('cortex/fort::frontend.forms.verification-phone-request');
     }
 
     /**
@@ -56,7 +56,7 @@ class PhoneVerificationController extends AbstractController
     {
         $phoneEnabled = session('_twofactor.phone');
 
-        return view('cortex/fort::frontend.verification.phone-token', compact('phoneEnabled'));
+        return view('cortex/fort::frontend.forms.verification-phone-token', compact('phoneEnabled'));
     }
 
     /**
