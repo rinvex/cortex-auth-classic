@@ -10,8 +10,8 @@ use Cortex\Fort\Models\Ability;
 use Illuminate\Support\ServiceProvider;
 use Cortex\Fort\Console\Commands\SeedCommand;
 use Cortex\Fort\Console\Commands\InstallCommand;
-use Cortex\Fort\Console\Commands\PublishCommand;
 use Cortex\Fort\Console\Commands\MigrateCommand;
+use Cortex\Fort\Console\Commands\PublishCommand;
 
 class FortServiceProvider extends ServiceProvider
 {
