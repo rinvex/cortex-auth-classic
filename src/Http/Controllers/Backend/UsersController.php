@@ -29,7 +29,7 @@ class UsersController extends AuthorizedController
         return app(UsersDataTable::class)->with([
             'id' => 'cortex-fort-users',
             'phrase' => trans('cortex/fort::common.users'),
-        ])->render('cortex/foundation::backend.partials.datatable');
+        ])->render('cortex/foundation::backend.pages.datatable');
     }
 
     /**
@@ -44,7 +44,7 @@ class UsersController extends AuthorizedController
             'resource' => $user,
             'id' => 'cortex-fort-users-logs',
             'phrase' => trans('cortex/fort::common.users'),
-        ])->render('cortex/foundation::backend.partials.datatable-logs');
+        ])->render('cortex/foundation::backend.pages.datatable-logs');
     }
 
     /**
@@ -59,7 +59,7 @@ class UsersController extends AuthorizedController
             'resource' => $user,
             'id' => 'cortex-fort-users-activities',
             'phrase' => trans('cortex/fort::common.users'),
-        ])->render('cortex/foundation::backend.partials.datatable-activities');
+        ])->render('cortex/foundation::backend.pages.datatable-activities');
     }
 
     /**

@@ -14,7 +14,7 @@
 @section('content')
 
     @if($role->exists)
-        @include('cortex/foundation::backend.partials.confirm-deletion', ['type' => 'role'])
+        @include('cortex/foundation::common.partials.confirm-deletion', ['type' => 'role'])
     @endif
 
     <div class="content-wrapper">

@@ -47,7 +47,7 @@
 @section('content')
 
     @if($user->exists)
-        @include('cortex/foundation::backend.partials.confirm-deletion', ['type' => 'user'])
+        @include('cortex/foundation::common.partials.confirm-deletion', ['type' => 'user'])
     @endif
 
     <div class="content-wrapper">
