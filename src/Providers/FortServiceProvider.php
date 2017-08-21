@@ -9,6 +9,8 @@ use Cortex\Fort\Models\User;
 use Cortex\Fort\Models\Ability;
 use Illuminate\Support\ServiceProvider;
 use Cortex\Fort\Console\Commands\SeedCommand;
+use Cortex\Fort\Console\Commands\InstallCommand;
+use Cortex\Fort\Console\Commands\PublishCommand;
 use Cortex\Fort\Console\Commands\MigrateCommand;
 
 class FortServiceProvider extends ServiceProvider
@@ -20,6 +22,8 @@ class FortServiceProvider extends ServiceProvider
      */
     protected $commands = [
         MigrateCommand::class => 'command.cortex.fort.migrate',
+        PublishCommand::class => 'command.cortex.fort.publish',
+        InstallCommand::class => 'command.cortex.fort.install',
         SeedCommand::class => 'command.cortex.fort.seed',
     ];
 
