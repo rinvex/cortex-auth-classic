@@ -15,43 +15,46 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  *
  * @property int                                                                                                            $id
  * @property string                                                                                                         $username
- * @property array                                                                                                          $two_factor
  * @property string                                                                                                         $password
  * @property string|null                                                                                                    $remember_token
  * @property string                                                                                                         $email
- * @property int                                                                                                            $email_verified
- * @property \Carbon\Carbon|null                                                                                            $email_verified_at
- * @property string|null                                                                                                    $phone
- * @property int                                                                                                            $phone_verified
- * @property \Carbon\Carbon|null                                                                                            $phone_verified_at
- * @property string|null                                                                                                    $name_prefix
- * @property string|null                                                                                                    $first_name
- * @property string|null                                                                                                    $middle_name
- * @property string|null                                                                                                    $last_name
- * @property string|null                                                                                                    $name_suffix
- * @property string|null                                                                                                    $job_title
- * @property string|null                                                                                                    $country_code
- * @property string|null                                                                                                    $language_code
- * @property \Carbon\Carbon|null                                                                                            $birthday
- * @property string|null                                                                                                    $gender
- * @property int                                                                                                            $is_active
- * @property \Carbon\Carbon|null                                                                                            $last_activity
- * @property \Carbon\Carbon|null                                                                                            $created_at
- * @property \Carbon\Carbon|null                                                                                            $updated_at
- * @property \Carbon\Carbon|null                                                                                            $deleted_at
- * @property \Illuminate\Database\Eloquent\Collection|\Rinvex\Fort\Models\Ability[]                                         $abilities
- * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Activitylog\Models\Activity[]                            $activity
+ * @property bool                                                                                                           $email_verified
+ * @property \Carbon\Carbon                                                                                                 $email_verified_at
+ * @property string                                                                                                         $phone
+ * @property bool                                                                                                           $phone_verified
+ * @property \Carbon\Carbon                                                                                                 $phone_verified_at
+ * @property string                                                                                                         $name_prefix
+ * @property string                                                                                                         $first_name
+ * @property string                                                                                                         $middle_name
+ * @property string                                                                                                         $last_name
+ * @property string                                                                                                         $name_suffix
+ * @property string                                                                                                         $job_title
+ * @property string                                                                                                         $country_code
+ * @property string                                                                                                         $language_code
+ * @property array                                                                                                          $two_factor
+ * @property string                                                                                                         $birthday
+ * @property string                                                                                                         $gender
+ * @property bool                                                                                                           $is_active
+ * @property \Carbon\Carbon                                                                                                 $last_activity
+ * @property \Carbon\Carbon                                                                                                 $created_at
+ * @property \Carbon\Carbon                                                                                                 $updated_at
+ * @property \Carbon\Carbon                                                                                                 $deleted_at
+ * @property \Illuminate\Database\Eloquent\Collection|\Cortex\Fort\Models\Ability[]                                         $abilities
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Cortex\Foundation\Models\Log[]                                  $activity
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Cortex\Foundation\Models\Log[]                                  $causedActivity
  * @property-read \Illuminate\Support\Collection                                                                            $all_abilities
  * @property-read \Rinvex\Country\Country                                                                                   $country
  * @property mixed                                                                                                          $entity
  * @property-read \Rinvex\Language\Language                                                                                 $language
  * @property-read string                                                                                                    $name
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
- * @property \Illuminate\Database\Eloquent\Collection|\Rinvex\Fort\Models\Role[]                                            $roles
+ * @property \Illuminate\Database\Eloquent\Collection|\Cortex\Fort\Models\Role[]                                            $roles
  * @property-read \Illuminate\Database\Eloquent\Collection|\Rinvex\Fort\Models\Session[]                                    $sessions
  * @property-read \Illuminate\Database\Eloquent\Collection|\Rinvex\Fort\Models\Socialite[]                                  $socialites
  *
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Fort\Models\User active()
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User hasAttribute($key, $value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Fort\Models\User inactive()
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Fort\Models\User role($roles)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User whereBirthday($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User whereCountryCode($value)

@@ -10,19 +10,19 @@ use Rinvex\Fort\Models\Ability as BaseAbility;
 /**
  * Cortex\Fort\Models\Ability.
  *
- * @property int                                                                                 $id
- * @property string                                                                              $action
- * @property string                                                                              $resource
- * @property string|null                                                                         $policy
- * @property string                                                                              $name
- * @property string                                                                              $description
- * @property \Carbon\Carbon|null                                                                 $created_at
- * @property \Carbon\Carbon|null                                                                 $updated_at
- * @property \Carbon\Carbon|null                                                                 $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Activitylog\Models\Activity[] $activity
- * @property-read string                                                                         $slug
- * @property \Illuminate\Database\Eloquent\Collection|\Rinvex\Fort\Models\Role[]                 $roles
- * @property-read \Illuminate\Database\Eloquent\Collection|\Cortex\Fort\Models\User[]            $users
+ * @property int                                                                           $id
+ * @property string                                                                        $action
+ * @property string                                                                        $resource
+ * @property string                                                                        $policy
+ * @property array                                                                         $name
+ * @property array                                                                         $description
+ * @property \Carbon\Carbon                                                                $created_at
+ * @property \Carbon\Carbon                                                                $updated_at
+ * @property \Carbon\Carbon                                                                $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Cortex\Foundation\Models\Log[] $activity
+ * @property-read string                                                                   $slug
+ * @property \Illuminate\Database\Eloquent\Collection|\Cortex\Fort\Models\Role[]           $roles
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Cortex\Fort\Models\User[]      $users
  *
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Ability whereAction($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Ability whereCreatedAt($value)
