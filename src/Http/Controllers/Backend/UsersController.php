@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Controllers\Backend;
 
-use Rinvex\Fort\Contracts\UserContract;
 use Illuminate\Http\Request;
+use Rinvex\Fort\Contracts\UserContract;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Fort\DataTables\Backend\UsersDataTable;
 use Cortex\Foundation\DataTables\ActivitiesDataTable;
@@ -78,7 +78,7 @@ class UsersController extends AuthorizedController
      * Update the given resource in storage.
      *
      * @param \Cortex\Fort\Http\Requests\Backend\UserFormRequest $request
-     * @param \Rinvex\Fort\Contracts\UserContract                           $user
+     * @param \Rinvex\Fort\Contracts\UserContract                $user
      *
      * @return \Illuminate\Http\Response
      */
@@ -125,7 +125,7 @@ class UsersController extends AuthorizedController
     /**
      * Process the form for store/update of the given resource.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request            $request
      * @param \Rinvex\Fort\Contracts\UserContract $user
      *
      * @return \Illuminate\Http\Response

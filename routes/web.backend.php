@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use Rinvex\Fort\Contracts\AbilityContract;
 use Rinvex\Fort\Contracts\RoleContract;
 use Rinvex\Fort\Contracts\UserContract;
+use Rinvex\Fort\Contracts\AbilityContract;
 
 Route::model('ability', AbilityContract::class);
 Route::model('role', RoleContract::class);

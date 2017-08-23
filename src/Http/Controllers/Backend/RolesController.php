@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Controllers\Backend;
 
-use Rinvex\Fort\Contracts\RoleContract;
 use Illuminate\Http\Request;
+use Rinvex\Fort\Contracts\RoleContract;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Fort\DataTables\Backend\RolesDataTable;
 use Cortex\Fort\Http\Requests\Backend\RoleFormRequest;
@@ -67,7 +67,7 @@ class RolesController extends AuthorizedController
      * Update the given resource in storage.
      *
      * @param \Cortex\Fort\Http\Requests\Backend\RoleFormRequest $request
-     * @param \Rinvex\Fort\Contracts\RoleContract                           $role
+     * @param \Rinvex\Fort\Contracts\RoleContract                $role
      *
      * @return \Illuminate\Http\Response
      */
@@ -110,7 +110,7 @@ class RolesController extends AuthorizedController
     /**
      * Process the form for store/update of the given resource.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request            $request
      * @param \Rinvex\Fort\Contracts\RoleContract $role
      *
      * @return \Illuminate\Http\Response

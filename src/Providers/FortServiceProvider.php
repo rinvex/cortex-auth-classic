@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Providers;
 
+use Illuminate\Support\ServiceProvider;
 use Rinvex\Fort\Contracts\RoleContract;
 use Rinvex\Fort\Contracts\UserContract;
-use Illuminate\Support\ServiceProvider;
 use Cortex\Fort\Console\Commands\SeedCommand;
 use Cortex\Fort\Console\Commands\InstallCommand;
 use Cortex\Fort\Console\Commands\MigrateCommand;
