@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Cortex\Fort\Http\Controllers\Frontend;
 
 use Exception;
-use Rinvex\Fort\Contracts\UserContract;
 use Illuminate\Http\Request;
+use Rinvex\Fort\Contracts\UserContract;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -25,7 +25,7 @@ class SocialAuthenticationController extends AuthenticationController
     /**
      * Handle Github authentication callback.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request            $request
      * @param \Rinvex\Fort\Contracts\UserContract $user
      *
      * @return \Illuminate\Http\Response
