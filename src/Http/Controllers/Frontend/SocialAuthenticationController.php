@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Fort\Http\Controllers\Frontend;
 
 use Exception;
-use Cortex\Fort\Models\User;
+use Rinvex\Fort\Contracts\UserContract;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Database\Eloquent\Builder;
@@ -26,11 +26,11 @@ class SocialAuthenticationController extends AuthenticationController
      * Handle Github authentication callback.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Cortex\Fort\Models\User $user
+     * @param \Rinvex\Fort\Contracts\UserContract $user
      *
      * @return \Illuminate\Http\Response
      */
-    public function handleGithubCallback(Request $request, User $user)
+    public function handleGithubCallback(Request $request, UserContract $user)
     {
         try {
             $githubUser = Socialite::driver('github')->user();

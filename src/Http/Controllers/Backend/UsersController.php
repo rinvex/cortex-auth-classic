@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Controllers\Backend;
 
-use Cortex\Fort\Models\User;
+use Rinvex\Fort\Contracts\UserContract;
 use Illuminate\Http\Request;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Fort\DataTables\Backend\UsersDataTable;
@@ -37,7 +37,7 @@ class UsersController extends AuthorizedController
      *
      * @return \Illuminate\Http\Response
      */
-    public function logs(User $user)
+    public function logs(UserContract $user)
     {
         return app(LogsDataTable::class)->with([
             'type' => 'users',
@@ -52,7 +52,7 @@ class UsersController extends AuthorizedController
      *
      * @return \Illuminate\Http\Response
      */
-    public function activities(User $user)
+    public function activities(UserContract $user)
     {
         return app(ActivitiesDataTable::class)->with([
             'type' => 'users',
@@ -78,11 +78,11 @@ class UsersController extends AuthorizedController
      * Update the given resource in storage.
      *
      * @param \Cortex\Fort\Http\Requests\Backend\UserFormRequest $request
-     * @param \Cortex\Fort\Models\User                           $user
+     * @param \Rinvex\Fort\Contracts\UserContract                           $user
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(UserFormRequest $request, User $user)
+    public function update(UserFormRequest $request, UserContract $user)
     {
         return $this->process($request, $user);
     }
@@ -90,11 +90,11 @@ class UsersController extends AuthorizedController
     /**
      * Delete the given resource from storage.
      *
-     * @param \Cortex\Fort\Models\User $user
+     * @param \Rinvex\Fort\Contracts\UserContract $user
      *
      * @return \Illuminate\Http\Response
      */
-    public function delete(User $user)
+    public function delete(UserContract $user)
     {
         $user->delete();
 
@@ -107,11 +107,11 @@ class UsersController extends AuthorizedController
     /**
      * Show the form for create/update of the given resource.
      *
-     * @param \Cortex\Fort\Models\User $user
+     * @param \Rinvex\Fort\Contracts\UserContract $user
      *
      * @return \Illuminate\Http\Response
      */
-    public function form(User $user)
+    public function form(UserContract $user)
     {
         $countries = countries();
         $roles = app('rinvex.fort.role')->all()->pluck('name', 'id')->toArray();
@@ -126,11 +126,11 @@ class UsersController extends AuthorizedController
      * Process the form for store/update of the given resource.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Cortex\Fort\Models\User $user
+     * @param \Rinvex\Fort\Contracts\UserContract $user
      *
      * @return \Illuminate\Http\Response
      */
-    protected function process(Request $request, User $user)
+    protected function process(Request $request, UserContract $user)
     {
         // Prepare required input fields
         $data = $request->all();

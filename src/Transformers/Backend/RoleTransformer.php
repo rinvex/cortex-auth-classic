@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Transformers\Backend;
 
-use Cortex\Fort\Models\Role;
+use Rinvex\Fort\Contracts\RoleContract;
 use League\Fractal\TransformerAbstract;
 
 class RoleTransformer extends TransformerAbstract
@@ -12,7 +12,7 @@ class RoleTransformer extends TransformerAbstract
     /**
      * @return array
      */
-    public function transform(Role $role)
+    public function transform(RoleContract $role)
     {
         return [
             'id' => (int) $role->id,

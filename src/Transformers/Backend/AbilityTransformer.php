@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Transformers\Backend;
 
-use Cortex\Fort\Models\Ability;
+use Rinvex\Fort\Contracts\AbilityContract;
 use League\Fractal\TransformerAbstract;
 
 class AbilityTransformer extends TransformerAbstract
@@ -12,7 +12,7 @@ class AbilityTransformer extends TransformerAbstract
     /**
      * @return array
      */
-    public function transform(Ability $ability)
+    public function transform(AbilityContract $ability)
     {
         return [
             'id' => (int) $ability->id,

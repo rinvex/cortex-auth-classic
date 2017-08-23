@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Controllers\Backend;
 
-use Cortex\Fort\Models\Role;
+use Rinvex\Fort\Contracts\RoleContract;
 use Illuminate\Http\Request;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Fort\DataTables\Backend\RolesDataTable;
@@ -41,7 +41,7 @@ class RolesController extends AuthorizedController
      *
      * @return \Illuminate\Http\Response
      */
-    public function logs(Role $role)
+    public function logs(RoleContract $role)
     {
         return app(LogsDataTable::class)->with([
             'type' => 'roles',
@@ -67,11 +67,11 @@ class RolesController extends AuthorizedController
      * Update the given resource in storage.
      *
      * @param \Cortex\Fort\Http\Requests\Backend\RoleFormRequest $request
-     * @param \Cortex\Fort\Models\Role                           $role
+     * @param \Rinvex\Fort\Contracts\RoleContract                           $role
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(RoleFormRequest $request, Role $role)
+    public function update(RoleFormRequest $request, RoleContract $role)
     {
         return $this->process($request, $role);
     }
@@ -79,11 +79,11 @@ class RolesController extends AuthorizedController
     /**
      * Delete the given resource from storage.
      *
-     * @param \Cortex\Fort\Models\Role $role
+     * @param \Rinvex\Fort\Contracts\RoleContract $role
      *
      * @return \Illuminate\Http\Response
      */
-    public function delete(Role $role)
+    public function delete(RoleContract $role)
     {
         $role->delete();
 
@@ -96,11 +96,11 @@ class RolesController extends AuthorizedController
     /**
      * Show the form for create/update of the given resource.
      *
-     * @param \Cortex\Fort\Models\Role $role
+     * @param \Rinvex\Fort\Contracts\RoleContract $role
      *
      * @return \Illuminate\Http\Response
      */
-    public function form(Role $role)
+    public function form(RoleContract $role)
     {
         $abilities = app('rinvex.fort.ability')->all()->groupBy('resource')->map->pluck('name', 'id')->toArray();
 
@@ -111,11 +111,11 @@ class RolesController extends AuthorizedController
      * Process the form for store/update of the given resource.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Cortex\Fort\Models\Role $role
+     * @param \Rinvex\Fort\Contracts\RoleContract $role
      *
      * @return \Illuminate\Http\Response
      */
-    protected function process(Request $request, Role $role)
+    protected function process(Request $request, RoleContract $role)
     {
         // Prepare required input fields
         $data = $request->all();

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Controllers\Frontend;
 
-use Cortex\Fort\Models\User;
+use Rinvex\Fort\Contracts\UserContract;
 use Cortex\Foundation\Http\Controllers\AbstractController;
 use Cortex\Fort\Http\Requests\Frontend\RegistrationRequest;
 use Cortex\Fort\Http\Requests\Frontend\RegistrationProcessRequest;
@@ -35,11 +35,11 @@ class RegistrationController extends AbstractController
      * Process the registration form.
      *
      * @param \Cortex\Fort\Http\Requests\Frontend\RegistrationProcessRequest $request
-     * @param \Cortex\Fort\Models\User                                       $user
+     * @param \Rinvex\Fort\Contracts\UserContract                                       $user
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function register(RegistrationProcessRequest $request, User $user)
+    public function register(RegistrationProcessRequest $request, UserContract $user)
     {
         // Prepare registration data
         $data = $request->all();

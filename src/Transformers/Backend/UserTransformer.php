@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Transformers\Backend;
 
-use Cortex\Fort\Models\User;
+use Rinvex\Fort\Contracts\UserContract;
 use League\Fractal\TransformerAbstract;
 
 class UserTransformer extends TransformerAbstract
@@ -12,7 +12,7 @@ class UserTransformer extends TransformerAbstract
     /**
      * @return array
      */
-    public function transform(User $user)
+    public function transform(UserContract $user)
     {
         return [
             'id' => (int) $user->id,

@@ -2,6 +2,14 @@
 
 declare(strict_types=1);
 
+use Rinvex\Fort\Contracts\AbilityContract;
+use Rinvex\Fort\Contracts\RoleContract;
+use Rinvex\Fort\Contracts\UserContract;
+
+Route::model('ability', AbilityContract::class);
+Route::model('role', RoleContract::class);
+Route::model('user', UserContract::class);
+
 Route::group(['domain' => domain()], function () {
     Route::name('backend.')
          ->namespace('Cortex\Fort\Http\Controllers\Backend')
