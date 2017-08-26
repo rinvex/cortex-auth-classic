@@ -178,7 +178,7 @@
 
                                         <div class="col-md-10">
                                             {{ Form::hidden('gender') }}
-                                            {{ Form::hidden('gender') }}
+                                            {{ Form::hidden('gender', '') }}
                                             {{ Form::select('gender', $genders, null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/fort::common.select_gender'), 'data-allow-clear' => 'true', 'data-minimum-results-for-search' => 'Infinity', 'data-width' => '100%']) }}
 
                                             @if ($errors->has('gender'))
@@ -205,7 +205,7 @@
                                         {{ Form::label('country_code', trans('cortex/fort::common.country'), ['class' => 'col-md-2 control-label']) }}
 
                                         <div class="col-md-10">
-                                            {{ Form::hidden('country_code') }}
+                                            {{ Form::hidden('country_code', '') }}
                                             {{ Form::select('country_code', [], null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/fort::common.select_country'), 'data-allow-clear' => 'true', 'data-width' => '100%']) }}
 
                                             @if ($errors->has('country_code'))
@@ -218,7 +218,7 @@
                                         {{ Form::label('language_code', trans('cortex/fort::common.language'), ['class' => 'col-md-2 control-label']) }}
 
                                         <div class="col-md-10">
-                                            {{ Form::hidden('language_code') }}
+                                            {{ Form::hidden('language_code', '') }}
                                             {{ Form::select('language_code', $languages, null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/fort::common.select_language'), 'data-allow-clear' => 'true', 'data-width' => '100%']) }}
 
                                             @if ($errors->has('language_code'))
