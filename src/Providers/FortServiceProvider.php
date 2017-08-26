@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Providers;
 
+use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Rinvex\Fort\Contracts\RoleContract;
 use Rinvex\Fort\Contracts\UserContract;
+use Rinvex\Fort\Contracts\AbilityContract;
 use Cortex\Fort\Console\Commands\SeedCommand;
 use Cortex\Fort\Console\Commands\InstallCommand;
 use Cortex\Fort\Console\Commands\MigrateCommand;
@@ -46,8 +48,13 @@ class FortServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(Router $router)
     {
+        // Bind models explicitly
+        $router->model('role', RoleContract::class);
+        $router->model('user', UserContract::class);
+        $router->model('ability', AbilityContract::class);
+
         // Load resources
         require __DIR__.'/../../routes/breadcrumbs.php';
         $this->loadRoutesFrom(__DIR__.'/../../routes/web.frontend.php');
