@@ -43,7 +43,6 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        {{ Form::button(trans('cortex/fort::common.reset'), ['class' => 'btn btn-default btn-flat', 'type' => 'reset']) }}
                         {{ Form::button('<i class="fa fa-check"></i> '.trans('cortex/fort::common.verify_phone'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}
                     </div>
                     <!-- /.col -->
