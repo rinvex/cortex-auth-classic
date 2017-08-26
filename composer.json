@@ -53,7 +53,7 @@
         "barryvdh/laravel-snappy": "^0.3.0",
         "cortex/foundation": "dev-develop",
         "cortex/fort": "dev-develop",
-        "davejamesmiller/laravel-breadcrumbs": "4.x-dev",
+        "davejamesmiller/laravel-breadcrumbs": "^4.0.0",
         "Illuminate/auth": "~5.5.0",
         "Illuminate/console": "~5.5.0",
         "Illuminate/database": "~5.5.0",
