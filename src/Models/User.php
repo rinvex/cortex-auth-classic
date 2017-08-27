@@ -147,4 +147,14 @@ class User extends BaseUser
     {
         return $this->morphMany(ActivitylogServiceProvider::determineActivityModel(), 'causer');
     }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'username';
+    }
 }
