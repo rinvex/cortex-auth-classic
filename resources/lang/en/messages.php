@@ -20,13 +20,13 @@ return [
     ],
 
     'role' => [
-        'saved' => 'Congrats! Role [:roleId] saved successfully!',
-        'deleted' => 'Done! Role [:roleId] deleted successfully!',
+        'saved' => 'Congrats! Role [:slug] saved successfully!',
+        'deleted' => 'Done! Role [:slug] deleted successfully!',
     ],
 
     'user' => [
-        'saved' => 'Congrats! User [:userId] saved successfully!',
-        'deleted' => 'Done! User [:userId] deleted successfully!',
+        'saved' => 'Congrats! User [:username] saved successfully!',
+        'deleted' => 'Done! User [:username] deleted successfully!',
     ],
 
     'register' => [

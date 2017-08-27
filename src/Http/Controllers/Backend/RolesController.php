@@ -89,7 +89,7 @@ class RolesController extends AuthorizedController
 
         return intend([
             'url' => route('backend.roles.index'),
-            'with' => ['warning' => trans('cortex/fort::messages.role.deleted', ['roleId' => $role->id])],
+            'with' => ['warning' => trans('cortex/fort::messages.role.deleted', ['slug' => $role->slug])],
         ]);
     }
 
@@ -125,7 +125,7 @@ class RolesController extends AuthorizedController
 
         return intend([
             'url' => route('backend.roles.index'),
-            'with' => ['success' => trans('cortex/fort::messages.role.saved', ['roleId' => $role->id])],
+            'with' => ['success' => trans('cortex/fort::messages.role.saved', ['slug' => $role->slug])],
         ]);
     }
 }
