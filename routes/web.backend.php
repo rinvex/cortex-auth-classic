@@ -13,10 +13,10 @@ Route::group(['domain' => domain()], function () {
                  Route::get('/')->name('index')->uses('AbilitiesController@index');
                  Route::get('create')->name('create')->uses('AbilitiesController@form');
                  Route::post('create')->name('store')->uses('AbilitiesController@store');
-                 Route::get('{ability}')->name('edit')->uses('AbilitiesController@form')->where('ability', '[0-9]+');
-                 Route::put('{ability}')->name('update')->uses('AbilitiesController@update')->where('ability', '[0-9]+');
-                 Route::get('{ability}/logs')->name('logs')->uses('AbilitiesController@logs')->where('ability', '[0-9]+');
-                 Route::delete('{ability}')->name('delete')->uses('AbilitiesController@delete')->where('ability', '[0-9]+');
+                 Route::get('{ability}')->name('edit')->uses('AbilitiesController@form');
+                 Route::put('{ability}')->name('update')->uses('AbilitiesController@update');
+                 Route::get('{ability}/logs')->name('logs')->uses('AbilitiesController@logs');
+                 Route::delete('{ability}')->name('delete')->uses('AbilitiesController@delete');
              });
 
              // Roles Routes
@@ -24,10 +24,10 @@ Route::group(['domain' => domain()], function () {
                  Route::get('/')->name('index')->uses('RolesController@index');
                  Route::get('create')->name('create')->uses('RolesController@form');
                  Route::post('create')->name('store')->uses('RolesController@store');
-                 Route::get('{role}')->name('edit')->uses('RolesController@form')->where('role', '[a-z0-9-]+');
-                 Route::put('{role}')->name('update')->uses('RolesController@update')->where('role', '[a-z0-9-]+');
-                 Route::get('{role}/logs')->name('logs')->uses('RolesController@logs')->where('role', '[a-z0-9-]+');
-                 Route::delete('{role}')->name('delete')->uses('RolesController@delete')->where('role', '[a-z0-9-]+');
+                 Route::get('{role}')->name('edit')->uses('RolesController@form');
+                 Route::put('{role}')->name('update')->uses('RolesController@update');
+                 Route::get('{role}/logs')->name('logs')->uses('RolesController@logs');
+                 Route::delete('{role}')->name('delete')->uses('RolesController@delete');
              });
 
              // Users Routes
@@ -35,11 +35,11 @@ Route::group(['domain' => domain()], function () {
                  Route::get('/')->name('index')->uses('UsersController@index');
                  Route::get('create')->name('create')->uses('UsersController@form');
                  Route::post('create')->name('store')->uses('UsersController@store');
-                 Route::get('{user}')->name('edit')->uses('UsersController@form')->where('user', '[a-zA-Z0-9_-]+');
-                 Route::put('{user}')->name('update')->uses('UsersController@update')->where('user', '[a-zA-Z0-9_-]+');
-                 Route::get('{user}/logs')->name('logs')->uses('UsersController@logs')->where('user', '[a-zA-Z0-9_-]+');
-                 Route::get('{user}/activities')->name('activities')->uses('UsersController@activities')->where('user', '[a-zA-Z0-9_-]+');
-                 Route::delete('{user}')->name('delete')->uses('UsersController@delete')->where('user', '[a-zA-Z0-9_-]+');
+                 Route::get('{user}')->name('edit')->uses('UsersController@form');
+                 Route::put('{user}')->name('update')->uses('UsersController@update');
+                 Route::get('{user}/logs')->name('logs')->uses('UsersController@logs');
+                 Route::get('{user}/activities')->name('activities')->uses('UsersController@activities');
+                 Route::delete('{user}')->name('delete')->uses('UsersController@delete');
              });
          });
 });

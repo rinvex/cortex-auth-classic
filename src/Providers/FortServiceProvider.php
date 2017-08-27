@@ -50,7 +50,10 @@ class FortServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-        // Bind models explicitly
+        // Bind route models and constrains
+        $router->pattern('ability', '[0-9]+');
+        $router->pattern('role', '[a-z0-9-]+');
+        $router->pattern('user', '[a-zA-Z0-9_-]+');
         $router->model('role', RoleContract::class);
         $router->model('user', UserContract::class);
         $router->model('ability', AbilityContract::class);
