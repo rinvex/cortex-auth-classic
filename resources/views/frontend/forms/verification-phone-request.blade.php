@@ -34,11 +34,11 @@
                         @endif
 
                         <div class="input-group-btn" data-toggle="buttons">
-                            <label for="sms" class="btn btn-default @if(! old('method') || old('method') == 'sms') active @endif">
+                            <label for="sms" class="btn btn-default @if(! old('method') || old('method') === 'sms') active @endif">
                                 <input id="sms" name="method" type="radio" value="sms" autocomplete="off" @if(! old('method') || old('method') == 'sms') checked @endif> {{ trans('cortex/fort::common.sms') }}
                             </label>
-                            <label for="call" class="btn btn-default @if(old('method') == 'call') active @endif">
-                                <input id="call" name="method" type="radio" value="call" autocomplete="off" @if(old('method') == 'call') checked @endif> {{ trans('cortex/fort::common.call') }}
+                            <label for="call" class="btn btn-default @if(old('method') === 'call') active @endif">
+                                <input id="call" name="method" type="radio" value="call" autocomplete="off" @if(old('method') === 'call') checked @endif> {{ trans('cortex/fort::common.call') }}
                             </label>
                         </div>
                     </div>

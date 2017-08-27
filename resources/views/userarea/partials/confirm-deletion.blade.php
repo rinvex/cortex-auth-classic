@@ -35,9 +35,9 @@
             var modal = $(this);
             console.log(modal.find('.modal-submit').text);
             console.log(modal.find('.modal-submit').text());
-            modal.find('.modal-title').text(type == 'single' ? single_heading : all_heading);
-            modal.find('.modal-body .warning').text(type == 'single' ? single_body : all_body);
-            modal.find('.modal-submit .button').text(type == 'single' ? single_heading : all_heading);
+            modal.find('.modal-title').text(type === 'single' ? single_heading : all_heading);
+            modal.find('.modal-body .warning').text(type === 'single' ? single_body : all_body);
+            modal.find('.modal-submit .button').text(type === 'single' ? single_heading : all_heading);
             modal.find('#delete-item-form').attr('action', href);
         });
     </script>
