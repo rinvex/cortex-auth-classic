@@ -50,7 +50,7 @@
     ],
     "require": {
         "php": "^7.0.0",
-        "barryvdh/laravel-snappy": "^0.3.0",
+        "barryvdh/laravel-snappy": "^0.4.0",
         "cortex/foundation": "dev-develop",
         "cortex/fort": "dev-develop",
         "davejamesmiller/laravel-breadcrumbs": "^4.0.0",
@@ -69,8 +69,8 @@
         "rinvex/composable": "dev-develop",
         "rinvex/fort": "dev-develop",
         "rinvex/support": "dev-develop",
-        "spatie/laravel-activitylog": "^1.15.0",
-        "spatie/laravel-menu": "^2.1.0"
+        "spatie/laravel-activitylog": "^2.0.0",
+        "spatie/laravel-menu": "^3.0.0"
     },
     "autoload": {
         "psr-4": {
