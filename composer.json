@@ -65,7 +65,7 @@
         "league/fractal": "^0.16.0",
         "nesbot/carbon": "^1.22.0",
         "pragmarx/google2fa": "^2.0.0",
-        "proengsoft/laravel-jsvalidation": "dev-master",
+        "proengsoft/laravel-jsvalidation": "^2.1.0",
         "rinvex/composable": "dev-develop",
         "rinvex/fort": "dev-develop",
         "rinvex/support": "dev-develop",
