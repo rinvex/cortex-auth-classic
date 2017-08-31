@@ -29,11 +29,10 @@ class AbilitiesDataTable extends AbstractDataTable
     {
         $transformer = app($this->transformer);
 
-        return $this->datatables
-            ->eloquent($this->query())
-            ->setTransformer($transformer)
-            ->orderColumn('name', 'name->"$.'.app()->getLocale().'" $1')
-            ->make(true);
+        return datatables()->eloquent($this->query())
+                           ->setTransformer($transformer)
+                           ->orderColumn('name', 'name->"$.'.app()->getLocale().'" $1')
+                           ->make(true);
     }
 
     /**
