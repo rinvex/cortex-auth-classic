@@ -21,6 +21,6 @@ disabled:
 
 finder:
   not-name:
-    - "backend.php"
-    - "userarea.php"
-    - "frontend.php"
+    - "adminarea.php"
+    - "memberarea.php"
+    - "guestarea.php"
