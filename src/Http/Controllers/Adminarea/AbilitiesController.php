@@ -67,7 +67,7 @@ class AbilitiesController extends AuthorizedController
      * Update the given resource in storage.
      *
      * @param \Cortex\Fort\Http\Requests\Adminarea\AbilityFormRequest $request
-     * @param \Rinvex\Fort\Contracts\AbilityContract                $ability
+     * @param \Rinvex\Fort\Contracts\AbilityContract                  $ability
      *
      * @return \Illuminate\Http\Response
      */

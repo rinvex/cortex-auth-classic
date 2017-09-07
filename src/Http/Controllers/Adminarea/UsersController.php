@@ -78,7 +78,7 @@ class UsersController extends AuthorizedController
      * Update the given resource in storage.
      *
      * @param \Cortex\Fort\Http\Requests\Adminarea\UserFormRequest $request
-     * @param \Rinvex\Fort\Contracts\UserContract                $user
+     * @param \Rinvex\Fort\Contracts\UserContract                  $user
      *
      * @return \Illuminate\Http\Response
      */

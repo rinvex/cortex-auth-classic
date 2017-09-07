@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Cortex\Fort\Http\Controllers\Memberarea;
 
 use Illuminate\Http\Request;
-use Cortex\Fort\Http\Requests\Memberarea\AccountSettingsRequest;
 use Cortex\Foundation\Http\Controllers\AuthenticatedController;
+use Cortex\Fort\Http\Requests\Memberarea\AccountSettingsRequest;
 
 class AccountSettingsController extends AuthenticatedController
 {
