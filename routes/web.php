@@ -50,4 +50,80 @@ Route::group(['domain' => domain()], function () {
                  });
              });
          });
+
+
+    Route::name('memberarea.')
+         ->middleware(['web', 'nohttpcache'])
+         ->namespace('Cortex\Fort\Http\Controllers\Memberarea')
+         ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/memberarea' : 'memberarea')->group(function () {
+
+             // User Account Routes
+             Route::name('account.')->prefix('account')->group(function () {
+                 // Account Page Routes
+                 Route::get('settings')->name('settings')->uses('AccountSettingsController@edit');
+                 Route::post('settings')->name('settings.update')->uses('AccountSettingsController@update');
+
+                 // Sessions Manipulation Routes
+                 Route::get('sessions')->name('sessions')->uses('AccountSessionsController@index');
+                 Route::delete('sessions/{token?}')->name('sessions.flush')->uses('AccountSessionsController@flush');
+
+                 // TwoFactor Authentication Routes
+                 Route::name('twofactor.')->prefix('twofactor')->group(function () {
+                     // TwoFactor TOTP Routes
+                     Route::name('totp.')->prefix('totp')->group(function () {
+                         Route::get('enable')->name('enable')->uses('TwoFactorSettingsController@enableTotp');
+                         Route::post('update')->name('update')->uses('TwoFactorSettingsController@updateTotp');
+                         Route::post('disable')->name('disable')->uses('TwoFactorSettingsController@disableTotp');
+                         Route::post('backup')->name('backup')->uses('TwoFactorSettingsController@backupTotp');
+                     });
+
+                     // TwoFactor Phone Routes
+                     Route::name('phone.')->prefix('phone')->group(function () {
+                         Route::post('enable')->name('enable')->uses('TwoFactorSettingsController@enablePhone');
+                         Route::post('disable')->name('disable')->uses('TwoFactorSettingsController@disablePhone');
+                     });
+                 });
+             });
+         });
+
+
+    Route::name('adminarea.')
+         ->namespace('Cortex\Fort\Http\Controllers\Adminarea')
+         ->middleware(['web', 'nohttpcache', 'can:access-dashboard'])
+         ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/adminarea' : 'adminarea')->group(function () {
+
+            // Abilities Routes
+             Route::name('abilities.')->prefix('abilities')->group(function () {
+                 Route::get('/')->name('index')->uses('AbilitiesController@index');
+                 Route::get('create')->name('create')->uses('AbilitiesController@form');
+                 Route::post('create')->name('store')->uses('AbilitiesController@store');
+                 Route::get('{ability}')->name('edit')->uses('AbilitiesController@form');
+                 Route::put('{ability}')->name('update')->uses('AbilitiesController@update');
+                 Route::get('{ability}/logs')->name('logs')->uses('AbilitiesController@logs');
+                 Route::delete('{ability}')->name('delete')->uses('AbilitiesController@delete');
+             });
+
+             // Roles Routes
+             Route::name('roles.')->prefix('roles')->group(function () {
+                 Route::get('/')->name('index')->uses('RolesController@index');
+                 Route::get('create')->name('create')->uses('RolesController@form');
+                 Route::post('create')->name('store')->uses('RolesController@store');
+                 Route::get('{role}')->name('edit')->uses('RolesController@form');
+                 Route::put('{role}')->name('update')->uses('RolesController@update');
+                 Route::get('{role}/logs')->name('logs')->uses('RolesController@logs');
+                 Route::delete('{role}')->name('delete')->uses('RolesController@delete');
+             });
+
+             // Users Routes
+             Route::name('users.')->prefix('users')->group(function () {
+                 Route::get('/')->name('index')->uses('UsersController@index');
+                 Route::get('create')->name('create')->uses('UsersController@form');
+                 Route::post('create')->name('store')->uses('UsersController@store');
+                 Route::get('{user}')->name('edit')->uses('UsersController@form');
+                 Route::put('{user}')->name('update')->uses('UsersController@update');
+                 Route::get('{user}/logs')->name('logs')->uses('UsersController@logs');
+                 Route::get('{user}/activities')->name('activities')->uses('UsersController@activities');
+                 Route::delete('{user}')->name('delete')->uses('UsersController@delete');
+             });
+         });
 });
