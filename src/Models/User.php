@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Cortex\Fort\Models;
 
 use Rinvex\Fort\Models\User as BaseUser;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Rinvex\Attributes\Traits\Attributable;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\ActivitylogServiceProvider;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
