@@ -6,7 +6,7 @@ namespace Cortex\Fort\Models;
 
 use Rinvex\Fort\Models\Role as BaseRole;
 use Spatie\Activitylog\Traits\LogsActivity;
-use Rinvex\Attributable\Traits\Attributable;
+use Rinvex\Attributes\Traits\Attributable;
 
 /**
  * Cortex\Fort\Models\Role.

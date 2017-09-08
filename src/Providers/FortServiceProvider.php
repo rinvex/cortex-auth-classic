@@ -70,9 +70,9 @@ class FortServiceProvider extends ServiceProvider
         // Publish Resources
         ! $this->app->runningInConsole() || $this->publishResources();
 
-        // Register attributable entities
-        app('rinvex.attributable.entities')->push(RoleContract::class);
-        app('rinvex.attributable.entities')->push(UserContract::class);
+        // Register attributes entities
+        app('rinvex.attributes.entities')->push(RoleContract::class);
+        app('rinvex.attributes.entities')->push(UserContract::class);
     }
 
     /**
