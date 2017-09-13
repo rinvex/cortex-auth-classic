@@ -23,10 +23,10 @@ if ($user = auth()->user()) {
         $menu->add(Html::raw($logoutLink.Form::open(['url' => route('guestarea.auth.logout'), 'id' => 'logout-form', 'style' => 'display: none;']).Form::close()));
     };
 
-    Menu::userareaTopbar()->submenu($userMenuHeader, $userMenuBody);
-    Menu::frontendTopbar()->submenu($userMenuHeader, $userMenuBody);
+    Menu::memberareaTopbar()->submenu($userMenuHeader, $userMenuBody);
+    Menu::guestareaTopbar()->submenu($userMenuHeader, $userMenuBody);
     Menu::adminareaTopbar()->submenu($userMenuHeader, $userMenuBody);
 } else {
-    Menu::frontendTopbar()->route('guestarea.auth.login', trans('cortex/fort::common.login'));
-    Menu::frontendTopbar()->route('guestarea.auth.register', trans('cortex/fort::common.register'));
+    Menu::guestareaTopbar()->route('guestarea.auth.login', trans('cortex/fort::common.login'));
+    Menu::guestareaTopbar()->route('guestarea.auth.register', trans('cortex/fort::common.register'));
 }
