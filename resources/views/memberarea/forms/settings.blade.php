@@ -57,6 +57,8 @@
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#basic-tab" data-toggle="tab">{{ trans('cortex/fort::common.basic_info') }}</a></li>
+                            <li><a href="#basic-tab" data-toggle="tab">{{ trans('cortex/fort::common.basic_info') }}</a></li>
+                            <li><a href="#basic-tab" data-toggle="tab">{{ trans('cortex/fort::common.basic_info') }}</a></li>
                         </ul>
 
                         <div class="tab-content">
