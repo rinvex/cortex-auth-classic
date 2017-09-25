@@ -38,6 +38,7 @@ class AccountPasswordRequest extends FormRequest
     public function rules()
     {
         $rules['password'] = 'sometimes|required|confirmed|min:'.config('rinvex.fort.password_min_chars');
+        
         return $rules;
     }
 }
