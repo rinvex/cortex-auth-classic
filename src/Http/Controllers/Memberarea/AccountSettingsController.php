@@ -42,7 +42,6 @@ class AccountSettingsController extends AuthenticatedController
         // Update profile
         $currentUser->fill($data)->save();
 
-
         // redirect the user to the email verification page
         // in case that this feature is enabled and the user changed their email address
         if (config('rinvex.fort.emailverification.required') && ! $currentUser->email_verified) {
