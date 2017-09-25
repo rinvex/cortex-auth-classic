@@ -19,7 +19,6 @@ class AccountPasswordController extends AuthenticatedController
      */
     public function edit(Request $request)
     {
-        
         return view('cortex/fort::memberarea.forms.password');
     }
 
@@ -40,7 +39,7 @@ class AccountPasswordController extends AuthenticatedController
 
         return intend([
             'back' => true,
-            'with' => ['success' => trans('cortex/fort::messages.account.updated')]
+            'with' => ['success' => trans('cortex/fort::messages.account.updated')],
         ]);
     }
 }
