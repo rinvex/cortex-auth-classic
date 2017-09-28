@@ -71,7 +71,6 @@ return [
     'verification_email_request' => 'Request Email Verification',
     'verification_phone_request' => 'Request Phone Verification',
     'verify_phone' => 'Verify Phone',
-    'dashboard' => 'Dashboard',
     'account' => 'Account',
     'settings' => 'Settings',
     'sessions' => 'Sessions',
