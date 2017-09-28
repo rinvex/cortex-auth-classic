@@ -55,7 +55,7 @@ Route::group(['domain' => domain()], function () {
     Route::name('memberarea.')
          ->middleware(['web', 'nohttpcache'])
          ->namespace('Cortex\Fort\Http\Controllers\Memberarea')
-         ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/memberarea' : 'memberarea')->group(function () {
+         ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.foundation.route.prefix.memberarea') : config('cortex.foundation.route.prefix.memberarea'))->group(function () {
 
              // User Account Routes
              Route::name('account.')->prefix('account')->group(function () {
@@ -90,7 +90,7 @@ Route::group(['domain' => domain()], function () {
     Route::name('adminarea.')
          ->namespace('Cortex\Fort\Http\Controllers\Adminarea')
          ->middleware(['web', 'nohttpcache', 'can:access-dashboard'])
-         ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/adminarea' : 'adminarea')->group(function () {
+         ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.foundation.route.prefix.adminarea') : config('cortex.foundation.route.prefix.adminarea'))->group(function () {
 
             // Abilities Routes
              Route::name('abilities.')->prefix('abilities')->group(function () {
