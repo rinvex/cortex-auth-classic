@@ -21,16 +21,4 @@ class SeedCommand extends BaseSeedCommand
      * @var string
      */
     protected $description = 'Seed Cortex Fort Data.';
-
-    /**
-     * Execute the console command.
-     *
-     * @return void
-     */
-    public function handle()
-    {
-        parent::handle();
-
-        $this->seedResources(app('rinvex.fort.role'), realpath(__DIR__.'/../../../resources/data/roles.json'), ['name', 'description']);
-    }
 }
