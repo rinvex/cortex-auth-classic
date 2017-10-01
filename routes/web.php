@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-Route::group(['domain' => domain()], function () {
+Route::domain(domain())->group(function () {
     Route::name('guestarea.')
          ->middleware(['web', 'nohttpcache'])
          ->namespace('Cortex\Fort\Http\Controllers\Guestarea')
