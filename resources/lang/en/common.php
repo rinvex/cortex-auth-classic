@@ -96,8 +96,6 @@ return [
     'phone_verified' => 'Phone verified at <date>:date</date>.',
     'phone_unverified' => 'Phone not yet verified! <a href=":href">Verify Phone</a>',
     'forgot_password' => 'Forgot Password',
-    'welcome' => 'Welcome',
-    'welcome_body' => 'Welcome to your new project based on <strong>Rinvex Cortex</strong>. Enjoy building something awesome! 🎉',
     'registered_already' => 'I already have registered account',
     'basic_info' => 'Basic Info',
     'update_basic_info' => 'Update Basic Info',
