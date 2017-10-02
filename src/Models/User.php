@@ -157,4 +157,14 @@ class User extends BaseUser
     {
         return 'username';
     }
+
+    /**
+     * Get the class name for polymorphic relations.
+     *
+     * @return string
+     */
+    public function getMorphClass()
+    {
+        return 'user';
+    }
 }

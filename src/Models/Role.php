@@ -77,4 +77,14 @@ class Role extends BaseRole
     {
         return 'slug';
     }
+
+    /**
+     * Get the class name for polymorphic relations.
+     *
+     * @return string
+     */
+    public function getMorphClass()
+    {
+        return 'role';
+    }
 }
