@@ -107,17 +107,24 @@ class UsersController extends AuthorizedController
     /**
      * Show the form for create/update of the given resource.
      *
+     * @param \Illuminate\Http\Request            $request
      * @param \Rinvex\Fort\Contracts\UserContract $user
      *
      * @return \Illuminate\Http\Response
      */
-    public function form(UserContract $user)
+    public function form(Request $request, UserContract $user)
     {
         $countries = countries();
-        $roles = app('rinvex.fort.role')->all()->pluck('name', 'id')->toArray();
         $languages = collect(languages())->pluck('name', 'iso_639_1');
         $genders = ['m' => trans('cortex/fort::common.male'), 'f' => trans('cortex/fort::common.female')];
-        $abilities = app('rinvex.fort.ability')->all()->groupBy('resource')->map->pluck('name', 'id')->toArray();
+
+        $roles = $request->user()->isSuperadmin()
+            ? app('rinvex.fort.role')->all()->pluck('name', 'id')->toArray()
+            : $request->user()->roles->pluck('name', 'id')->toArray();
+
+        $abilities = $request->user($this->getGuard())->isSuperadmin()
+            ? app('rinvex.fort.ability')->all()->groupBy('resource')->map->pluck('name', 'id')->toArray()
+            : $request->user()->allAbilities->groupBy('resource')->map->pluck('name', 'id')->toArray();
 
         return view('cortex/fort::adminarea.forms.user', compact('user', 'abilities', 'roles', 'countries', 'languages', 'genders'));
     }

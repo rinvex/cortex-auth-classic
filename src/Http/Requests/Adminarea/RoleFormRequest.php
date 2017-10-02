@@ -28,8 +28,11 @@ class RoleFormRequest extends FormRequest
     public function process($data)
     {
         // Set abilities
-        if ($this->user()->can('grant-abilities')) {
-            $data['abilities'] = $data['abilities'] ?? null;
+        if ($this->user()->can('grant-abilities') && $data['abilities']) {
+            $data['abilities'] = $this->user()->isSuperadmin() ? $data['abilities']
+                : array_intersect($this->user()->allAbilities->pluck('id')->toArray(), $data['abilities']);
+        } else {
+            unset($data['abilities']);
         }
 
         return $data;
