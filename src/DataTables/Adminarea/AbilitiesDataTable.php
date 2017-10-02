@@ -42,8 +42,12 @@ class AbilitiesDataTable extends AbstractDataTable
      */
     protected function getColumns()
     {
+        $link = config('cortex.foundation.route.locale_prefix')
+            ? '"<a href=\""+routes.route(\'adminarea.abilities.edit\', {ability: full.id, locale: \''.$this->request->segment(1).'\'})+"\">"+data+"</a>"'
+            : '"<a href=\""+routes.route(\'adminarea.abilities.edit\', {ability: full.id})+"\">"+data+"</a>"';
+
         return [
-            'name' => ['title' => trans('cortex/fort::common.name'), 'render' => '"<a href=\""+routes.route(\'adminarea.abilities.edit\', {ability: full.id})+"\">"+data+"</a>"', 'responsivePriority' => 0],
+            'name' => ['title' => trans('cortex/fort::common.name'), 'render' => $link, 'responsivePriority' => 0],
             'action' => ['title' => trans('cortex/fort::common.action')],
             'resource' => ['title' => trans('cortex/fort::common.resource')],
             'policy' => ['title' => trans('cortex/fort::common.policy')],

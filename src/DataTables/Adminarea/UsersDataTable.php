@@ -27,8 +27,12 @@ class UsersDataTable extends AbstractDataTable
      */
     protected function getColumns()
     {
+        $link = config('cortex.foundation.route.locale_prefix')
+            ? '"<a href=\""+routes.route(\'adminarea.users.edit\', {user: full.username, locale: \''.$this->request->segment(1).'\'})+"\">"+data+"</a>"'
+            : '"<a href=\""+routes.route(\'adminarea.users.edit\', {user: full.username})+"\">"+data+"</a>"';
+
         return [
-            'username' => ['title' => trans('cortex/fort::common.username'), 'render' => '"<a href=\""+routes.route(\'adminarea.users.edit\', {user: full.username})+"\">"+data+"</a>"', 'responsivePriority' => 0],
+            'username' => ['title' => trans('cortex/fort::common.username'), 'render' => $link, 'responsivePriority' => 0],
             'first_name' => ['title' => trans('cortex/fort::common.first_name')],
             'last_name' => ['title' => trans('cortex/fort::common.last_name')],
             'email' => ['title' => trans('cortex/fort::common.email'), 'render' => 'data+(data ? "&nbsp;&nbsp;"+(full.email_verified ? "<i class=\"text-success fa fa-check\" title=\""+full.email_verified_at+"\"></i>" : "<i class=\"text-danger fa fa-close\"></i>") : "")'],
