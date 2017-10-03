@@ -118,13 +118,13 @@ class UsersController extends AuthorizedController
         $languages = collect(languages())->pluck('name', 'iso_639_1');
         $genders = ['m' => trans('cortex/fort::common.male'), 'f' => trans('cortex/fort::common.female')];
 
-        $roles = $request->user()->isSuperadmin()
+        $roles = $request->user($this->getGuard())->isSuperadmin()
             ? app('rinvex.fort.role')->all()->pluck('name', 'id')->toArray()
-            : $request->user()->roles->pluck('name', 'id')->toArray();
+            : $request->user($this->getGuard())->roles->pluck('name', 'id')->toArray();
 
         $abilities = $request->user($this->getGuard())->isSuperadmin()
             ? app('rinvex.fort.ability')->all()->groupBy('resource')->map->pluck('name', 'id')->toArray()
-            : $request->user()->allAbilities->groupBy('resource')->map->pluck('name', 'id')->toArray();
+            : $request->user($this->getGuard())->allAbilities->groupBy('resource')->map->pluck('name', 'id')->toArray();
 
         return view('cortex/fort::adminarea.forms.user', compact('user', 'abilities', 'roles', 'countries', 'languages', 'genders'));
     }
