@@ -13,6 +13,7 @@ use Cortex\Fort\Console\Commands\SeedCommand;
 use Cortex\Fort\Console\Commands\InstallCommand;
 use Cortex\Fort\Console\Commands\MigrateCommand;
 use Cortex\Fort\Console\Commands\PublishCommand;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class FortServiceProvider extends ServiceProvider
 {
@@ -57,6 +58,13 @@ class FortServiceProvider extends ServiceProvider
         $router->model('role', RoleContract::class);
         $router->model('user', UserContract::class);
         $router->model('ability', AbilityContract::class);
+
+        // Map relations
+        Relation::morphMap([
+            'role' => config('rinvex.fort.models.role'),
+            'ability' => config('rinvex.fort.models.ability'),
+            'user' => config('auth.providers.'.config('auth.guards.'.config('auth.defaults.guard').'.provider').'.model'),
+        ]);
 
         // Load resources
         require __DIR__.'/../../routes/breadcrumbs.php';

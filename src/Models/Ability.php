@@ -70,14 +70,4 @@ class Ability extends BaseAbility
         'updated_at',
         'deleted_at',
     ];
-
-    /**
-     * Get the class name for polymorphic relations.
-     *
-     * @return string
-     */
-    public function getMorphClass()
-    {
-        return 'ability';
-    }
 }
