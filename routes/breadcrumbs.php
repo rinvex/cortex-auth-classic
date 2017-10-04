@@ -77,7 +77,6 @@ Breadcrumbs::register('adminarea.abilities.logs', function (BreadcrumbsGenerator
     $breadcrumbs->push(trans('cortex/fort::common.logs'), route('adminarea.abilities.logs', ['ability' => $ability]));
 });
 
-
 // Tenantarea breadcrumbs
 Breadcrumbs::register('tenantarea.roles.index', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.trans('cortex/foundation::common.tenantarea'), route('tenantarea.home'));
