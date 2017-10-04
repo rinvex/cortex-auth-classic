@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Models;
 
+use Rinvex\Tenants\Traits\Tenantable;
 use Rinvex\Cacheable\CacheableEloquent;
 use Rinvex\Fort\Models\User as BaseUser;
 use Rinvex\Attributes\Traits\Attributable;
@@ -93,6 +94,7 @@ class User extends BaseUser
     // otherwise old cached queries used and no changelog recorded on update.
     use CacheableEloquent;
 
+    use Tenantable;
     use Attributable;
     use LogsActivity;
 

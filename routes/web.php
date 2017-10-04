@@ -127,3 +127,36 @@ Route::domain(domain())->group(function () {
              });
          });
 });
+
+
+Route::domain('{subdomain}.'.domain())->group(function () {
+
+    Route::name('tenantarea.')
+         ->namespace('Cortex\Fort\Http\Controllers\Tenantarea')
+         ->middleware(['web', 'nohttpcache', 'can:access-tenantarea'])
+         ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.foundation.route.prefix.tenantarea') : config('cortex.foundation.route.prefix.tenantarea'))->group(function () {
+
+             // Roles Routes
+             Route::name('roles.')->prefix('roles')->group(function () {
+                 Route::get('/')->name('index')->uses('RolesController@index');
+                 Route::get('create')->name('create')->uses('RolesController@form');
+                 Route::post('create')->name('store')->uses('RolesController@store');
+                 Route::get('{role}')->name('edit')->uses('RolesController@form');
+                 Route::put('{role}')->name('update')->uses('RolesController@update');
+                 Route::get('{role}/logs')->name('logs')->uses('RolesController@logs');
+                 Route::delete('{role}')->name('delete')->uses('RolesController@delete');
+             });
+
+             // Users Routes
+             Route::name('users.')->prefix('users')->group(function () {
+                 Route::get('/')->name('index')->uses('UsersController@index');
+                 Route::get('create')->name('create')->uses('UsersController@form');
+                 Route::post('create')->name('store')->uses('UsersController@store');
+                 Route::get('{user}')->name('edit')->uses('UsersController@form');
+                 Route::put('{user}')->name('update')->uses('UsersController@update');
+                 Route::get('{user}/logs')->name('logs')->uses('UsersController@logs');
+                 Route::get('{user}/activities')->name('activities')->uses('UsersController@activities');
+                 Route::delete('{user}')->name('delete')->uses('UsersController@delete');
+             });
+         });
+});
