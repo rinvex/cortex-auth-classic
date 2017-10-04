@@ -93,7 +93,6 @@ class User extends BaseUser
     // flush before other events in other traits specially LogsActivity,
     // otherwise old cached queries used and no changelog recorded on update.
     use CacheableEloquent;
-
     use Tenantable;
     use Attributable;
     use LogsActivity;

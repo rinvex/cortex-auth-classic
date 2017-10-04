@@ -7,8 +7,8 @@ namespace Cortex\Fort\Http\Controllers\Tenantarea;
 use Illuminate\Http\Request;
 use Rinvex\Fort\Contracts\UserContract;
 use Cortex\Foundation\DataTables\LogsDataTable;
-use Cortex\Foundation\DataTables\ActivitiesDataTable;
 use Cortex\Fort\DataTables\Tenantarea\UsersDataTable;
+use Cortex\Foundation\DataTables\ActivitiesDataTable;
 use Cortex\Fort\Http\Requests\Tenantarea\UserFormRequest;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
 
@@ -107,7 +107,7 @@ class UsersController extends AuthorizedController
     /**
      * Show the form for create/update of the given resource.
      *
-     * @param \Illuminate\Http\Request              $request
+     * @param \Illuminate\Http\Request            $request
      * @param \Rinvex\Fort\Contracts\UserContract $user
      *
      * @return \Illuminate\Http\Response
@@ -133,7 +133,7 @@ class UsersController extends AuthorizedController
     /**
      * Process the form for store/update of the given resource.
      *
-     * @param \Illuminate\Http\Request              $request
+     * @param \Illuminate\Http\Request            $request
      * @param \Rinvex\Fort\Contracts\UserContract $user
      *
      * @return \Illuminate\Http\Response
