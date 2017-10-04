@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Models;
 
+use Rinvex\Cacheable\CacheableEloquent;
 use Rinvex\Fort\Models\User as BaseUser;
 use Rinvex\Attributes\Traits\Attributable;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -86,6 +87,12 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  */
 class User extends BaseUser
 {
+    // Strangely, this issue happens only with users !!!
+    // Duplicate trait usage to fire attached events for cache
+    // flush before other events in other traits specially LogsActivity,
+    // otherwise old cached queries used and no changelog recorded on update.
+    use CacheableEloquent;
+
     use Attributable;
     use LogsActivity;
 
