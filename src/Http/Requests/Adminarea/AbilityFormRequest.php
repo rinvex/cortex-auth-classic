@@ -27,12 +27,12 @@ class AbilityFormRequest extends FormRequest
      */
     public function process($data)
     {
-        // Set abilities
-        if ($this->user()->can('grant-abilities') && $data['abilities']) {
-            $data['abilities'] = $this->user()->isSuperadmin() ? $data['abilities']
-                : array_intersect($this->user()->allAbilities->pluck('id')->toArray(), $data['abilities']);
+        // Set roles
+        if ($this->user()->can('assign-roles') && $data['roles']) {
+            $data['roles'] = $this->user()->isSuperadmin() ? $data['roles']
+                : array_intersect($this->user()->roles->pluck('id')->toArray(), $data['roles']);
         } else {
-            unset($data['abilities']);
+            unset($data['roles']);
         }
 
         return $data;
