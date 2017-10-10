@@ -44,6 +44,7 @@ class RolesController extends AuthorizedController
     public function logs(RoleContract $role)
     {
         return app(LogsDataTable::class)->with([
+            'tab' => 'logs',
             'type' => 'roles',
             'resource' => $role,
             'id' => 'cortex-fort-roles-logs',

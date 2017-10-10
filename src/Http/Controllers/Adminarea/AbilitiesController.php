@@ -44,6 +44,7 @@ class AbilitiesController extends AuthorizedController
     public function logs(AbilityContract $ability)
     {
         return app(LogsDataTable::class)->with([
+            'tab' => 'logs',
             'type' => 'abilities',
             'resource' => $ability,
             'id' => 'cortex-fort-abilities-logs',

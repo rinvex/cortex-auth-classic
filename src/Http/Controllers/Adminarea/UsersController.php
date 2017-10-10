@@ -40,6 +40,7 @@ class UsersController extends AuthorizedController
     public function logs(UserContract $user)
     {
         return app(LogsDataTable::class)->with([
+            'tab' => 'logs',
             'type' => 'users',
             'resource' => $user,
             'id' => 'cortex-fort-users-logs',
@@ -55,6 +56,7 @@ class UsersController extends AuthorizedController
     public function activities(UserContract $user)
     {
         return app(ActivitiesDataTable::class)->with([
+            'tab' => 'activities',
             'type' => 'users',
             'resource' => $user,
             'id' => 'cortex-fort-users-activities',
