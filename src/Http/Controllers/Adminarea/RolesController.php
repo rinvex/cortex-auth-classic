@@ -49,7 +49,7 @@ class RolesController extends AuthorizedController
             'resource' => $role,
             'id' => 'cortex-fort-roles-logs',
             'phrase' => trans('cortex/fort::common.roles'),
-        ])->render('cortex/foundation::adminarea.pages.datatable-logs');
+        ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
 
     /**

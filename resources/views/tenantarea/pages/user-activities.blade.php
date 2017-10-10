@@ -1,5 +1,5 @@
 {{-- Master Layout --}}
-@extends('cortex/foundation::tenantarea.pages.datatable-logs')
+@extends('cortex/foundation::tenantarea.pages.datatable-tab')
 
 @section('tabs')
     <li><a href="{{ route("tenantarea.{$type}.edit", [str_singular($type) => $resource]) }}">{{ trans('cortex/foundation::common.details') }}</a></li>

@@ -49,7 +49,7 @@ class AbilitiesController extends AuthorizedController
             'resource' => $ability,
             'id' => 'cortex-fort-abilities-logs',
             'phrase' => trans('cortex/fort::common.abilities'),
-        ])->render('cortex/foundation::adminarea.pages.datatable-logs');
+        ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
 
     /**
