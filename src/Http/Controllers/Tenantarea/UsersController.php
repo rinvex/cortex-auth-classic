@@ -59,7 +59,7 @@ class UsersController extends AuthorizedController
             'resource' => $user,
             'id' => 'cortex-fort-users-activities',
             'phrase' => trans('cortex/fort::common.users'),
-        ])->render('cortex/foundation::tenantarea.pages.datatable-activities');
+        ])->render('cortex/fort::tenantarea.pages.user-activities');
     }
 
     /**
