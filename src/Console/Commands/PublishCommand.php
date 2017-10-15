@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Console\Commands;
 
-use Illuminate\Console\Command;
+use Rinvex\Fort\Console\Commands\PublishCommand as BasePublishCommand;
 
-class PublishCommand extends Command
+class PublishCommand extends BasePublishCommand
 {
     /**
      * The name and signature of the console command.
@@ -29,8 +29,8 @@ class PublishCommand extends Command
      */
     public function handle()
     {
-        $this->warn('Publish cortex/fort:');
-        $this->call('vendor:publish', ['--tag' => 'rinvex-fort-config', '--force' => $this->option('force')]);
+        parent::handle();
+
         $this->call('vendor:publish', ['--tag' => 'cortex-fort-views', '--force' => $this->option('force')]);
         $this->call('vendor:publish', ['--tag' => 'cortex-fort-lang', '--force' => $this->option('force')]);
     }
