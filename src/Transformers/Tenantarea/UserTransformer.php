@@ -19,6 +19,7 @@ class UserTransformer extends TransformerAbstract
             'username' => (string) $user->username,
             'first_name' => (string) $user->first_name,
             'last_name' => (string) $user->last_name,
+            'is_active' => (bool) $user->is_active,
             'email' => (string) $user->email,
             'email_verified' => (bool) $user->email_verified,
             'email_verified_at' => (string) $user->email_verified_at,
