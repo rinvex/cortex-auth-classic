@@ -38,9 +38,9 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  * @property string                                                                                                         $gender
  * @property bool                                                                                                           $is_active
  * @property \Carbon\Carbon                                                                                                 $last_activity
- * @property \Carbon\Carbon                                                                                                 $created_at
- * @property \Carbon\Carbon                                                                                                 $updated_at
- * @property \Carbon\Carbon                                                                                                 $deleted_at
+ * @property \Carbon\Carbon|null                                                                                            $created_at
+ * @property \Carbon\Carbon|null                                                                                            $updated_at
+ * @property \Carbon\Carbon|null                                                                                            $deleted_at
  * @property \Illuminate\Database\Eloquent\Collection|\Cortex\Fort\Models\Ability[]                                         $abilities
  * @property-read \Illuminate\Database\Eloquent\Collection|\Cortex\Foundation\Models\Log[]                                  $activity
  * @property-read \Illuminate\Database\Eloquent\Collection|\Cortex\Foundation\Models\Log[]                                  $causedActivity
@@ -52,6 +52,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property \Illuminate\Database\Eloquent\Collection|\Cortex\Fort\Models\Role[]                                            $roles
  * @property-read \Illuminate\Database\Eloquent\Collection|\Rinvex\Fort\Models\Session[]                                    $sessions
+ * @property \Illuminate\Database\Eloquent\Collection|\Cortex\Tenants\Models\Tenant[]                                       $tenants
  * @property-read \Illuminate\Database\Eloquent\Collection|\Rinvex\Fort\Models\Socialite[]                                  $socialites
  *
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Fort\Models\User active()
@@ -84,6 +85,11 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User whereTwoFactor($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User whereUsername($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User withAllTenants($tenants, $group = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User withAnyTenants($tenants, $group = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User withTenants($tenants, $group = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User withoutAnyTenants()
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User withoutTenants($tenants, $group = null)
  * @mixin \Eloquent
  */
 class User extends BaseUser

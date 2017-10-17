@@ -16,8 +16,8 @@ use Rinvex\Fort\Models\Ability as BaseAbility;
  * @property string                                                                        $policy
  * @property array                                                                         $name
  * @property array                                                                         $description
- * @property \Carbon\Carbon                                                                $created_at
- * @property \Carbon\Carbon                                                                $updated_at
+ * @property \Carbon\Carbon|null                                                           $created_at
+ * @property \Carbon\Carbon|null                                                           $updated_at
  * @property \Carbon\Carbon                                                                $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\Cortex\Foundation\Models\Log[] $activity
  * @property-read string                                                                   $slug

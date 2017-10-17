@@ -15,15 +15,14 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string                                                                        $slug
  * @property array                                                                         $name
  * @property array                                                                         $description
- * @property \Carbon\Carbon                                                                $created_at
- * @property \Carbon\Carbon                                                                $updated_at
+ * @property \Carbon\Carbon|null                                                           $created_at
+ * @property \Carbon\Carbon|null                                                           $updated_at
  * @property \Carbon\Carbon                                                                $deleted_at
  * @property \Illuminate\Database\Eloquent\Collection|\Cortex\Fort\Models\Ability[]        $abilities
  * @property-read \Illuminate\Database\Eloquent\Collection|\Cortex\Foundation\Models\Log[] $activity
- * @property mixed                                                                         $entity
+ * @property \Illuminate\Database\Eloquent\Collection|\Cortex\Tenants\Models\Tenant[]      $tenants
  * @property \Illuminate\Database\Eloquent\Collection|\Cortex\Fort\Models\User[]           $users
  *
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Role hasAttribute($key, $value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Role whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Role whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Role whereDescription($value)
@@ -31,6 +30,11 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Role whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Role whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Role whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Role withAllTenants($tenants, $group = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Role withAnyTenants($tenants, $group = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Role withTenants($tenants, $group = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Role withoutAnyTenants()
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Role withoutTenants($tenants, $group = null)
  * @mixin \Eloquent
  */
 class Role extends BaseRole
