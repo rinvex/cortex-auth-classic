@@ -3,7 +3,6 @@
 **Cortex Fort** is a frontend layer for the powerful authentication, authorization and verification package **rinvex/fort** on top of Laravel. It has all required controllers, views, routes, and other required assets to run a fully functional user management system with complete dashboard out of the box.
 
 [![Packagist](https://img.shields.io/packagist/v/cortex/fort.svg?label=Packagist&style=flat-square)](https://packagist.org/packages/cortex/fort)
-[![VersionEye Dependencies](https://img.shields.io/versioneye/d/php/cortex:fort.svg?label=Dependencies&style=flat-square)](https://www.versioneye.com/php/cortex:fort/)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/cortex/fort.svg?label=Scrutinizer&style=flat-square)](https://scrutinizer-ci.com/g/cortex/fort/)
 [![Code Climate](https://img.shields.io/codeclimate/github/cortex/fort.svg?label=CodeClimate&style=flat-square)](https://codeclimate.com/github/cortex/fort)
 [![Travis](https://img.shields.io/travis/cortex/fort.svg?label=TravisCI&style=flat-square)](https://travis-ci.org/cortex/fort)
