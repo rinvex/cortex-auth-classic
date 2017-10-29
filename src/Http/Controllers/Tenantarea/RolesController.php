@@ -128,7 +128,6 @@ class RolesController extends AuthorizedController
 
         // Save role
         $role->fill($data)->save();
-        $role->attachTenants(config('rinvex.tenants.tenant.active'));
 
         return intend([
             'url' => route('tenantarea.roles.index'),

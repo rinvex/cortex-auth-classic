@@ -147,7 +147,6 @@ class UsersController extends AuthorizedController
 
         // Save user
         $user->fill($data)->save();
-        $user->attachTenants(config('rinvex.tenants.tenant.active'));
 
         return intend([
             'url' => route('tenantarea.users.index'),
