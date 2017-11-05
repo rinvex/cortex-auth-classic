@@ -42,7 +42,9 @@ class AccountSettingsController extends AuthenticatedController
         // Update profile
         $currentUser->fill($data)->save();
 
-        if (config('rinvex.fort.emailverification.required')) {
+        // redirect the user to the email verification page
+        // in case that this feature is enabled and the user changed their email address
+        if (config('rinvex.fort.emailverification.required') && ! $currentUser->email_verified) {
             return intend([
                 'url' => route('guestarea.verification.email.request'),
                 'with' => ['success' => trans('cortex/fort::messages.account.reverify')]

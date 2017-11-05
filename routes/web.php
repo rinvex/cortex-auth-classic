@@ -62,8 +62,12 @@ Route::domain(domain())->group(function () {
                  // Account Page Routes
                  Route::get('settings')->name('settings')->uses('AccountSettingsController@edit');
                  Route::post('settings')->name('settings.update')->uses('AccountSettingsController@update');
-
-                 // Sessions Manipulation Routes
+	
+	             // Password Page Routes
+	             Route::get('password')->name('password')->uses('AccountPasswordController@edit');
+	             Route::post('password')->name('password.update')->uses('AccountPasswordController@update');
+	
+	             // Sessions Manipulation Routes
                  Route::get('sessions')->name('sessions')->uses('AccountSessionsController@index');
                  Route::delete('sessions/{token?}')->name('sessions.flush')->uses('AccountSessionsController@flush');
 

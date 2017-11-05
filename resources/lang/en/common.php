@@ -99,6 +99,7 @@ return [
     'registered_already' => 'I already have registered account',
     'basic_info' => 'Basic Info',
     'update_basic_info' => 'Update Basic Info',
+    'update_password' => 'Update Password',
 
     // Abilities Phrases
     'abilities' => 'Abilities',
