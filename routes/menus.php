@@ -18,19 +18,18 @@ if ($user = auth()->user()) {
     $userMenuBody = function (MenuModel $menu) {
         $menu->addClass('dropdown-menu');
         $menu->addParentClass('dropdown');
-        $menu->route('memberarea.account.settings', '<i class="fa fa-user"></i> '.trans('cortex/fort::common.settings'));
-        $menu->route('memberarea.account.sessions', '<i class="fa fa-id-badge"></i> '.trans('cortex/fort::common.sessions'));
+        $menu->route('frontarea.account.settings', '<i class="fa fa-user"></i> '.trans('cortex/fort::common.settings'));
+        $menu->route('frontarea.account.sessions', '<i class="fa fa-id-badge"></i> '.trans('cortex/fort::common.sessions'));
         $menu->add(Html::raw('')->addParentClass('divider')->setParentAttribute('role', 'separator'));
 
-        $logoutLink = Link::toRoute('guestarea.auth.logout', '<i class="fa fa-sign-out"></i> '.trans('cortex/fort::common.logout'))->setAttribute('onclick', "event.preventDefault(); document.getElementById('logout-form').submit();");
-        $menu->add(Html::raw($logoutLink.Form::open(['url' => route('guestarea.auth.logout'), 'id' => 'logout-form', 'style' => 'display: none;']).Form::close()));
+        $logoutLink = Link::toRoute('frontarea.auth.logout', '<i class="fa fa-sign-out"></i> '.trans('cortex/fort::common.logout'))->setAttribute('onclick', "event.preventDefault(); document.getElementById('logout-form').submit();");
+        $menu->add(Html::raw($logoutLink.Form::open(['url' => route('frontarea.auth.logout'), 'id' => 'logout-form', 'style' => 'display: none;']).Form::close()));
     };
 
-    Menu::memberareaTopbar()->submenu($userMenuHeader, $userMenuBody);
+    Menu::frontareaTopbar()->submenu($userMenuHeader, $userMenuBody);
     Menu::tenantareaTopbar()->submenu($userMenuHeader, $userMenuBody);
-    Menu::guestareaTopbar()->submenu($userMenuHeader, $userMenuBody);
     Menu::adminareaTopbar()->submenu($userMenuHeader, $userMenuBody);
 } else {
-    Menu::guestareaTopbar()->route('guestarea.auth.login', trans('cortex/fort::common.login'));
-    Menu::guestareaTopbar()->route('guestarea.auth.register', trans('cortex/fort::common.register'));
+    Menu::frontareaTopbar()->route('frontarea.auth.login', trans('cortex/fort::common.login'));
+    Menu::frontareaTopbar()->route('frontarea.auth.register', trans('cortex/fort::common.register'));
 }

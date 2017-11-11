@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 Route::domain(domain())->group(function () {
-    Route::name('guestarea.')
+    Route::name('frontarea.')
          ->middleware(['web', 'nohttpcache'])
-         ->namespace('Cortex\Fort\Http\Controllers\Guestarea')
+         ->namespace('Cortex\Fort\Http\Controllers\Frontarea')
          ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}' : '')->group(function () {
 
             // Authentication Routes
@@ -52,10 +52,10 @@ Route::domain(domain())->group(function () {
          });
 
 
-    Route::name('memberarea.')
+    Route::name('frontarea.')
          ->middleware(['web', 'nohttpcache'])
-         ->namespace('Cortex\Fort\Http\Controllers\Memberarea')
-         ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.foundation.route.prefix.memberarea') : config('cortex.foundation.route.prefix.memberarea'))->group(function () {
+         ->namespace('Cortex\Fort\Http\Controllers\Frontarea')
+         ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.foundation.route.prefix.frontarea') : config('cortex.foundation.route.prefix.frontarea'))->group(function () {
 
              // User Account Routes
              Route::name('account.')->prefix('account')->group(function () {
@@ -68,7 +68,9 @@ Route::domain(domain())->group(function () {
                  Route::delete('sessions/{token?}')->name('sessions.flush')->uses('AccountSessionsController@flush');
 
                  // TwoFactor Authentication Routes
+                 Route::get('twofactor')->name('twofactor')->uses('TwoFactorSettingsController@index');
                  Route::name('twofactor.')->prefix('twofactor')->group(function () {
+
                      // TwoFactor TOTP Routes
                      Route::name('totp.')->prefix('totp')->group(function () {
                          Route::get('enable')->name('enable')->uses('TwoFactorSettingsController@enableTotp');
