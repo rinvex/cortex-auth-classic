@@ -6,8 +6,8 @@ return [
 
     'configure' => 'Configure TwoFactor',
     'notice' => 'Protect your account with an extra layer of security by requiring access to your phone. Once configured, you\'ll be required to enter both your password and an authentication code from your mobile phone in order to sign into your account.',
-    'active' => 'TwoFactor Authentication currently <strong>active</strong>, click to activate!',
-    'inactive' => 'TwoFactor Authentication currently <strong>inactive</strong>, click to de-activate!',
+    'active' => 'TwoFactor Authentication currently <strong>active</strong>!',
+    'inactive' => 'TwoFactor Authentication currently <strong>inactive</strong>!',
     'backup_code' => 'Use backup codes.',
     'backup_notice' => 'Problems with your verification app?',
     'backup_sms' => 'Use backup codes, or request <a href=":href">SMS code</a>.',

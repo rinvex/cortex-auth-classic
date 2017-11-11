@@ -25,7 +25,12 @@ return [
     'register' => 'Register',
     'register_new_account' => 'Register a new Account',
     'login' => 'Login',
+    'account_login' => 'Login to your account',
+    'account_register' => 'Register new account',
+    'account_reset_password' => 'Reset account password',
     'password_reset' => 'Reset Password',
+    'account_verification_email' => 'Verify account email',
+    'account_verification_phone' => 'Verify account phone',
     'password_reset_request' => 'Request Password Reset',
     'remember_me' => 'Remember Me',
 
@@ -74,6 +79,7 @@ return [
     'account' => 'Account',
     'settings' => 'Settings',
     'sessions' => 'Sessions',
+    'twofactor' => 'TwoFactor',
     'active_sessions' => 'Active Sessions',
 
     // Misc
