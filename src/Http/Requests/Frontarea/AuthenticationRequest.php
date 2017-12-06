@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Requests\Frontarea;
 
-use Rinvex\Support\Http\Requests\FormRequest;
+use Illuminate\Foundation\Http\FormRequest;
 
 class AuthenticationRequest extends FormRequest
 {

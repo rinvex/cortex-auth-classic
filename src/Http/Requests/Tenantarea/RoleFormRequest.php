@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Requests\Tenantarea;
 
-use Rinvex\Support\Http\Requests\FormRequest;
+use Illuminate\Foundation\Http\FormRequest;
 
 class RoleFormRequest extends FormRequest
 {
@@ -19,14 +19,14 @@ class RoleFormRequest extends FormRequest
     }
 
     /**
-     * Process given request data before validation.
+     * Prepare the data for validation.
      *
-     * @param array $data
-     *
-     * @return array
+     * @return void
      */
-    public function process($data)
+    protected function prepareForValidation()
     {
+        $data = $this->all();
+
         // Set abilities
         if ($this->user()->can('grant-abilities') && $data['abilities']) {
             $owner = optional(optional(config('rinvex.tenants.tenant.active'))->owner)->id;
@@ -42,7 +42,7 @@ class RoleFormRequest extends FormRequest
         $prefix = optional(config('rinvex.tenants.tenant.active'))->slug.'-';
         starts_with($data['slug'], $prefix) || $data['slug'] = str_start($data['slug'], $prefix);
 
-        return $data;
+        $this->replace($data);
     }
 
     /**

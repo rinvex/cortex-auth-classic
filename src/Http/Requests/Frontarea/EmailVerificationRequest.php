@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Requests\Frontarea;
 
+use Illuminate\Foundation\Http\FormRequest;
 use Rinvex\Fort\Exceptions\GenericException;
-use Rinvex\Support\Http\Requests\FormRequest;
 
 class EmailVerificationRequest extends FormRequest
 {

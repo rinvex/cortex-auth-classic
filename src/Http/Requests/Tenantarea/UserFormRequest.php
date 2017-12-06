@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Fort\Http\Requests\Tenantarea;
 
 use Carbon\Carbon;
-use Rinvex\Support\Http\Requests\FormRequest;
+use Illuminate\Foundation\Http\FormRequest;
 
 class UserFormRequest extends FormRequest
 {
@@ -20,14 +20,14 @@ class UserFormRequest extends FormRequest
     }
 
     /**
-     * Process given request data before validation.
+     * Prepare the data for validation.
      *
-     * @param array $data
-     *
-     * @return array
+     * @return void
      */
-    public function process($data)
+    protected function prepareForValidation()
     {
+        $data = $this->all();
+
         $owner = optional(optional(config('rinvex.tenants.tenant.active'))->owner)->id;
         $user = $this->route('user') ?? app('rinvex.fort.user');
         $country = $data['country_code'] ?? null;
@@ -73,7 +73,7 @@ class UserFormRequest extends FormRequest
             $data['two_factor'] = $twoFactor;
         }
 
-        return $data;
+        $this->replace($data);
     }
 
     /**
