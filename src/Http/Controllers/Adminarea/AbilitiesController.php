@@ -26,11 +26,13 @@ class AbilitiesController extends AuthorizedController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * \Cortex\Fort\DataTables\Adminarea\AbilitiesDataTable $abilitiesDataTable
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
-    public function index()
+    public function index(AbilitiesDataTable $abilitiesDataTable)
     {
-        return app(AbilitiesDataTable::class)->with([
+        return $abilitiesDataTable->with([
             'id' => 'cortex-fort-abilities',
             'phrase' => trans('cortex/fort::common.abilities'),
         ])->render('cortex/foundation::adminarea.pages.datatable');
@@ -39,11 +41,14 @@ class AbilitiesController extends AuthorizedController
     /**
      * Display a listing of the resource logs.
      *
-     * @return \Illuminate\Http\Response
+     * @param \Rinvex\Fort\Contracts\AbilityContract      $ability
+     * @param \Cortex\Foundation\DataTables\LogsDataTable $logsDataTable
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
-    public function logs(AbilityContract $ability)
+    public function logs(AbilityContract $ability, LogsDataTable $logsDataTable)
     {
-        return app(LogsDataTable::class)->with([
+        return $logsDataTable->with([
             'tab' => 'logs',
             'type' => 'abilities',
             'resource' => $ability,

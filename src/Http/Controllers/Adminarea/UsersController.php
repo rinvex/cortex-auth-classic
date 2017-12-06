@@ -22,11 +22,13 @@ class UsersController extends AuthorizedController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param \Cortex\Fort\DataTables\Adminarea\UsersDataTable $usersDataTable
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
-    public function index()
+    public function index(UsersDataTable $usersDataTable)
     {
-        return app(UsersDataTable::class)->with([
+        return $usersDataTable->with([
             'id' => 'cortex-fort-users',
             'phrase' => trans('cortex/fort::common.users'),
         ])->render('cortex/foundation::adminarea.pages.datatable');
@@ -35,11 +37,14 @@ class UsersController extends AuthorizedController
     /**
      * Display a listing of the resource logs.
      *
-     * @return \Illuminate\Http\Response
+     * @param \Rinvex\Fort\Contracts\UserContract         $user
+     * @param \Cortex\Foundation\DataTables\LogsDataTable $logsDataTable
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
-    public function logs(UserContract $user)
+    public function logs(UserContract $user, LogsDataTable $logsDataTable)
     {
-        return app(LogsDataTable::class)->with([
+        return $logsDataTable->with([
             'tab' => 'logs',
             'type' => 'users',
             'resource' => $user,
@@ -51,11 +56,14 @@ class UsersController extends AuthorizedController
     /**
      * Display a listing of the resource activities.
      *
-     * @return \Illuminate\Http\Response
+     * @param \Rinvex\Fort\Contracts\UserContract               $user
+     * @param \Cortex\Foundation\DataTables\ActivitiesDataTable $activitiesDataTable
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
-    public function activities(UserContract $user)
+    public function activities(UserContract $user, ActivitiesDataTable $activitiesDataTable)
     {
-        return app(ActivitiesDataTable::class)->with([
+        return $activitiesDataTable->with([
             'tab' => 'activities',
             'type' => 'users',
             'resource' => $user,

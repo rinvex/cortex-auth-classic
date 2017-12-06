@@ -26,11 +26,13 @@ class RolesController extends AuthorizedController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param \Cortex\Fort\DataTables\Adminarea\RolesDataTable $rolesDataTable
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
-    public function index()
+    public function index(RolesDataTable $rolesDataTable)
     {
-        return app(RolesDataTable::class)->with([
+        return $rolesDataTable->with([
             'id' => 'cortex-fort-roles',
             'phrase' => trans('cortex/fort::common.roles'),
         ])->render('cortex/foundation::adminarea.pages.datatable');
@@ -39,11 +41,14 @@ class RolesController extends AuthorizedController
     /**
      * Display a listing of the resource logs.
      *
-     * @return \Illuminate\Http\Response
+     * @param \Rinvex\Fort\Contracts\RoleContract         $role
+     * @param \Cortex\Foundation\DataTables\LogsDataTable $logsDataTable
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
-    public function logs(RoleContract $role)
+    public function logs(RoleContract $role, LogsDataTable $logsDataTable)
     {
-        return app(LogsDataTable::class)->with([
+        return $logsDataTable->with([
             'tab' => 'logs',
             'type' => 'roles',
             'resource' => $role,
