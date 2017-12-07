@@ -33,6 +33,7 @@ return [
     'account_verification_phone' => 'Verify account phone',
     'password_reset_request' => 'Request Password Reset',
     'remember_me' => 'Remember Me',
+    'last_activity' => 'Last Activity',
 
     // Fields
     'name' => 'Name',

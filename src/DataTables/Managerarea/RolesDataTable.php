@@ -48,6 +48,7 @@ class RolesDataTable extends AbstractDataTable
 
         return [
             'name' => ['title' => trans('cortex/fort::common.name'), 'render' => $link, 'responsivePriority' => 0],
+            'slug' => ['title' => trans('cortex/fort::common.slug'), 'visible' => false],
             'created_at' => ['title' => trans('cortex/fort::common.created_at'), 'render' => "moment(data).format('MMM Do, YYYY')"],
             'updated_at' => ['title' => trans('cortex/fort::common.updated_at'), 'render' => "moment(data).format('MMM Do, YYYY')"],
         ];
