@@ -1,13 +1,13 @@
 {{-- Master Layout --}}
-@extends('cortex/foundation::tenantarea.layouts.default')
+@extends('cortex/tenants::managerarea.layouts.default')
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/foundation::common.tenantarea') }} » {{ trans('cortex/fort::common.roles') }} » {{ $role->exists ? $role->name : trans('cortex/fort::common.create_role') }}
+    {{ config('app.name') }} » {{ trans('cortex/tenants::common.managerarea') }} » {{ trans('cortex/fort::common.roles') }} » {{ $role->exists ? $role->name : trans('cortex/fort::common.create_role') }}
 @stop
 
 @push('scripts')
-    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Tenantarea\RoleFormRequest::class)->selector('#tenantarea-roles-save') !!}
+    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Managerarea\RoleFormRequest::class)->selector('#managerarea-roles-save') !!}
 @endpush
 
 {{-- Main Content --}}
@@ -30,17 +30,17 @@
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#details-tab" data-toggle="tab">{{ trans('cortex/fort::common.details') }}</a></li>
-                    @if($role->exists) <li><a href="{{ route('tenantarea.roles.logs', ['role' => $role]) }}">{{ trans('cortex/fort::common.logs') }}</a></li> @endif
-                    @if($role->exists && $currentUser->can('delete-roles', $role)) <li class="pull-right"><a href="#" data-toggle="modal" data-target="#delete-confirmation" data-item-href="{{ route('tenantarea.roles.delete', ['role' => $role]) }}" data-item-name="{{ $role->slug }}"><i class="fa fa-trash text-danger"></i></a></li> @endif
+                    @if($role->exists) <li><a href="{{ route('managerarea.roles.logs', ['role' => $role]) }}">{{ trans('cortex/fort::common.logs') }}</a></li> @endif
+                    @if($role->exists && $currentUser->can('delete-roles', $role)) <li class="pull-right"><a href="#" data-toggle="modal" data-target="#delete-confirmation" data-item-href="{{ route('managerarea.roles.delete', ['role' => $role]) }}" data-item-name="{{ $role->slug }}"><i class="fa fa-trash text-danger"></i></a></li> @endif
                 </ul>
 
                 <div class="tab-content">
                     <div class="tab-pane active" id="details-tab">
 
                         @if ($role->exists)
-                            {{ Form::model($role, ['url' => route('tenantarea.roles.update', ['role' => $role]), 'method' => 'put', 'id' => 'tenantarea-roles-save']) }}
+                            {{ Form::model($role, ['url' => route('managerarea.roles.update', ['role' => $role]), 'method' => 'put', 'id' => 'managerarea-roles-save']) }}
                         @else
-                            {{ Form::model($role, ['url' => route('tenantarea.roles.store'), 'id' => 'tenantarea-roles-save']) }}
+                            {{ Form::model($role, ['url' => route('managerarea.roles.store'), 'id' => 'managerarea-roles-save']) }}
                         @endif
 
                             <div class="row">
@@ -116,7 +116,7 @@
                                         {{ Form::button(trans('cortex/fort::common.submit'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}
                                     </div>
 
-                                    @include('cortex/foundation::tenantarea.partials.timestamps', ['model' => $role])
+                                    @include('cortex/tenants::managerarea.partials.timestamps', ['model' => $role])
 
                                 </div>
                             </div>

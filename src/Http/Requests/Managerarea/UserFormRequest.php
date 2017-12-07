@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Requests\Tenantarea;
+namespace Cortex\Fort\Http\Requests\Managerarea;
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
@@ -28,7 +28,7 @@ class UserFormRequest extends FormRequest
     {
         $data = $this->all();
 
-        $owner = optional(optional(config('rinvex.tenants.tenant.active'))->owner)->id;
+        $owner = optional(optional(config('rinvex.tenants.active'))->owner)->id;
         $user = $this->route('user') ?? app('rinvex.fort.user');
         $country = $data['country_code'] ?? null;
         $twoFactor = $user->getTwoFactor();

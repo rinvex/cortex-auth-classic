@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Requests\Tenantarea;
+namespace Cortex\Fort\Http\Requests\Managerarea;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -29,7 +29,7 @@ class RoleFormRequest extends FormRequest
 
         // Set abilities
         if ($this->user()->can('grant-abilities') && $data['abilities']) {
-            $owner = optional(optional(config('rinvex.tenants.tenant.active'))->owner)->id;
+            $owner = optional(optional(config('rinvex.tenants.active'))->owner)->id;
 
             $data['abilities'] = $this->user()->id === $owner
                 ? array_intersect(app('rinvex.fort.role')->forAllTenants()->where('slug', 'manager')->first()->abilities->pluck('id')->toArray(), $data['abilities'])
@@ -39,7 +39,7 @@ class RoleFormRequest extends FormRequest
         }
 
         // Prefix slug
-        $prefix = optional(config('rinvex.tenants.tenant.active'))->slug.'-';
+        $prefix = optional(config('rinvex.tenants.active'))->slug.'-';
         starts_with($data['slug'], $prefix) || $data['slug'] = str_start($data['slug'], $prefix);
 
         $this->replace($data);

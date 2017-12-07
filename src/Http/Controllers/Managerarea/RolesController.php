@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Controllers\Tenantarea;
+namespace Cortex\Fort\Http\Controllers\Managerarea;
 
 use Illuminate\Http\Request;
 use Rinvex\Fort\Contracts\RoleContract;
 use Cortex\Foundation\DataTables\LogsDataTable;
-use Cortex\Fort\DataTables\Tenantarea\RolesDataTable;
-use Cortex\Fort\Http\Requests\Tenantarea\RoleFormRequest;
+use Cortex\Fort\DataTables\Managerarea\RolesDataTable;
+use Cortex\Fort\Http\Requests\Managerarea\RoleFormRequest;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
 
 class RolesController extends AuthorizedController
@@ -33,7 +33,7 @@ class RolesController extends AuthorizedController
         return $rolesDataTable->with([
             'id' => 'cortex-roles',
             'phrase' => trans('cortex/fort::common.roles'),
-        ])->render('cortex/foundation::tenantarea.pages.datatable');
+        ])->render('cortex/tenants::managerarea.pages.datatable');
     }
 
     /**
@@ -52,13 +52,13 @@ class RolesController extends AuthorizedController
             'resource' => $role,
             'id' => 'cortex-roles-logs',
             'phrase' => trans('cortex/fort::common.roles'),
-        ])->render('cortex/foundation::tenantarea.pages.datatable-tab');
+        ])->render('cortex/tenants::managerarea.pages.datatable-tab');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Cortex\Fort\Http\Requests\Tenantarea\RoleFormRequest $request
+     * @param \Cortex\Fort\Http\Requests\Managerarea\RoleFormRequest $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -70,7 +70,7 @@ class RolesController extends AuthorizedController
     /**
      * Update the given resource in storage.
      *
-     * @param \Cortex\Fort\Http\Requests\Tenantarea\RoleFormRequest $request
+     * @param \Cortex\Fort\Http\Requests\Managerarea\RoleFormRequest $request
      * @param \Rinvex\Fort\Contracts\RoleContract                   $role
      *
      * @return \Illuminate\Http\Response
@@ -92,7 +92,7 @@ class RolesController extends AuthorizedController
         $role->delete();
 
         return intend([
-            'url' => route('tenantarea.roles.index'),
+            'url' => route('managerarea.roles.index'),
             'with' => ['warning' => trans('cortex/fort::messages.role.deleted', ['slug' => $role->slug])],
         ]);
     }
@@ -107,13 +107,13 @@ class RolesController extends AuthorizedController
      */
     public function form(Request $request, RoleContract $role)
     {
-        $owner = optional(optional(config('rinvex.tenants.tenant.active'))->owner)->id;
+        $owner = optional(optional(config('rinvex.tenants.active'))->owner)->id;
 
         $abilities = $request->user($this->getGuard())->id === $owner
             ? app('rinvex.fort.role')->forAllTenants()->where('slug', 'manager')->first()->abilities->groupBy('resource')->map->pluck('name', 'id')->toArray()
             : $request->user($this->getGuard())->allAbilities->groupBy('resource')->map->pluck('name', 'id')->toArray();
 
-        return view('cortex/fort::tenantarea.forms.role', compact('role', 'abilities'));
+        return view('cortex/fort::managerarea.forms.role', compact('role', 'abilities'));
     }
 
     /**
@@ -133,7 +133,7 @@ class RolesController extends AuthorizedController
         $role->fill($data)->save();
 
         return intend([
-            'url' => route('tenantarea.roles.index'),
+            'url' => route('managerarea.roles.index'),
             'with' => ['success' => trans('cortex/fort::messages.role.saved', ['slug' => $role->slug])],
         ]);
     }

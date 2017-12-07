@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Controllers\Tenantarea;
+namespace Cortex\Fort\Http\Controllers\Managerarea;
 
 use Illuminate\Http\Request;
 use Rinvex\Fort\Contracts\UserContract;
 use Cortex\Foundation\DataTables\LogsDataTable;
-use Cortex\Fort\DataTables\Tenantarea\UsersDataTable;
+use Cortex\Fort\DataTables\Managerarea\UsersDataTable;
 use Cortex\Foundation\DataTables\ActivitiesDataTable;
-use Cortex\Fort\Http\Requests\Tenantarea\UserFormRequest;
+use Cortex\Fort\Http\Requests\Managerarea\UserFormRequest;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
 
 class UsersController extends AuthorizedController
@@ -22,7 +22,7 @@ class UsersController extends AuthorizedController
     /**
      * Display a listing of the resource.
      *
-     * @param \Cortex\Fort\DataTables\Tenantarea\UsersDataTable $usersDataTable
+     * @param \Cortex\Fort\DataTables\Managerarea\UsersDataTable $usersDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
@@ -31,7 +31,7 @@ class UsersController extends AuthorizedController
         return $usersDataTable->with([
             'id' => 'cortex-users',
             'phrase' => trans('cortex/fort::common.users'),
-        ])->render('cortex/foundation::tenantarea.pages.datatable');
+        ])->render('cortex/tenants::managerarea.pages.datatable');
     }
 
     /**
@@ -50,7 +50,7 @@ class UsersController extends AuthorizedController
             'resource' => $user,
             'id' => 'cortex-users-logs',
             'phrase' => trans('cortex/fort::common.users'),
-        ])->render('cortex/fort::tenantarea.pages.user-logs');
+        ])->render('cortex/fort::managerarea.pages.user-logs');
     }
 
     /**
@@ -69,13 +69,13 @@ class UsersController extends AuthorizedController
             'resource' => $user,
             'id' => 'cortex-users-activities',
             'phrase' => trans('cortex/fort::common.users'),
-        ])->render('cortex/fort::tenantarea.pages.user-activities');
+        ])->render('cortex/fort::managerarea.pages.user-activities');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Cortex\Fort\Http\Requests\Tenantarea\UserFormRequest $request
+     * @param \Cortex\Fort\Http\Requests\Managerarea\UserFormRequest $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -87,7 +87,7 @@ class UsersController extends AuthorizedController
     /**
      * Update the given resource in storage.
      *
-     * @param \Cortex\Fort\Http\Requests\Tenantarea\UserFormRequest $request
+     * @param \Cortex\Fort\Http\Requests\Managerarea\UserFormRequest $request
      * @param \Rinvex\Fort\Contracts\UserContract                   $user
      *
      * @return \Illuminate\Http\Response
@@ -109,7 +109,7 @@ class UsersController extends AuthorizedController
         $user->delete();
 
         return intend([
-            'url' => route('tenantarea.users.index'),
+            'url' => route('managerarea.users.index'),
             'with' => ['warning' => trans('cortex/fort::messages.user.deleted', ['username' => $user->username])],
         ]);
     }
@@ -127,7 +127,7 @@ class UsersController extends AuthorizedController
         $countries = countries();
         $languages = collect(languages())->pluck('name', 'iso_639_1');
         $genders = ['m' => trans('cortex/fort::common.male'), 'f' => trans('cortex/fort::common.female')];
-        $owner = optional(optional(config('rinvex.tenants.tenant.active'))->owner)->id;
+        $owner = optional(optional(config('rinvex.tenants.active'))->owner)->id;
 
         $roles = $request->user($this->getGuard())->id === $owner
             ? app('rinvex.fort.role')->all()->pluck('name', 'id')->toArray()
@@ -137,7 +137,7 @@ class UsersController extends AuthorizedController
             ? app('rinvex.fort.role')->forAllTenants()->where('slug', 'manager')->first()->abilities->groupBy('resource')->map->pluck('name', 'id')->toArray()
             : $request->user($this->getGuard())->allAbilities->groupBy('resource')->map->pluck('name', 'id')->toArray();
 
-        return view('cortex/fort::tenantarea.forms.user', compact('user', 'abilities', 'roles', 'countries', 'languages', 'genders'));
+        return view('cortex/fort::managerarea.forms.user', compact('user', 'abilities', 'roles', 'countries', 'languages', 'genders'));
     }
 
     /**
@@ -157,7 +157,7 @@ class UsersController extends AuthorizedController
         $user->fill($data)->save();
 
         return intend([
-            'url' => route('tenantarea.users.index'),
+            'url' => route('managerarea.users.index'),
             'with' => ['success' => trans('cortex/fort::messages.user.saved', ['username' => $user->username])],
         ]);
     }

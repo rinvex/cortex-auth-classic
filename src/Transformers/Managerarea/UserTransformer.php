@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Transformers\Tenantarea;
+namespace Cortex\Fort\Transformers\Managerarea;
 
 use League\Fractal\TransformerAbstract;
 use Rinvex\Fort\Contracts\UserContract;

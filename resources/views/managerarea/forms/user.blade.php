@@ -1,13 +1,13 @@
 {{-- Master Layout --}}
-@extends('cortex/foundation::tenantarea.layouts.default')
+@extends('cortex/tenants::managerarea.layouts.default')
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/foundation::common.tenantarea') }} » {{ trans('cortex/fort::common.users') }} » {{ $user->exists ? $user->username : trans('cortex/fort::common.create_user') }}
+    {{ config('app.name') }} » {{ trans('cortex/tenants::common.managerarea') }} » {{ trans('cortex/fort::common.users') }} » {{ $user->exists ? $user->username : trans('cortex/fort::common.create_user') }}
 @stop
 
 @push('scripts')
-    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Tenantarea\UserFormRequest::class)->selector('#tenantarea-users-save') !!}
+    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Managerarea\UserFormRequest::class)->selector('#managerarea-users-save') !!}
 
     <script>
         (function($) {
@@ -63,9 +63,9 @@
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#details-tab" data-toggle="tab">{{ trans('cortex/fort::common.details') }}</a></li>
-                    @if($user->exists) <li><a href="{{ route('tenantarea.users.logs', ['user' => $user]) }}">{{ trans('cortex/fort::common.logs') }}</a></li> @endif
-                    @if($user->exists) <li><a href="{{ route('tenantarea.users.activities', ['user' => $user]) }}">{{ trans('cortex/fort::common.activities') }}</a></li> @endif
-                    @if($user->exists && $currentUser->can('delete-users', $user)) <li class="pull-right"><a href="#" data-toggle="modal" data-target="#delete-confirmation" data-item-href="{{ route('tenantarea.users.delete', ['user' => $user]) }}" data-item-name="{{ $user->slug }}"><i class="fa fa-trash text-danger"></i></a></li> @endif
+                    @if($user->exists) <li><a href="{{ route('managerarea.users.logs', ['user' => $user]) }}">{{ trans('cortex/fort::common.logs') }}</a></li> @endif
+                    @if($user->exists) <li><a href="{{ route('managerarea.users.activities', ['user' => $user]) }}">{{ trans('cortex/fort::common.activities') }}</a></li> @endif
+                    @if($user->exists && $currentUser->can('delete-users', $user)) <li class="pull-right"><a href="#" data-toggle="modal" data-target="#delete-confirmation" data-item-href="{{ route('managerarea.users.delete', ['user' => $user]) }}" data-item-name="{{ $user->slug }}"><i class="fa fa-trash text-danger"></i></a></li> @endif
                 </ul>
 
                 <div class="tab-content">
@@ -73,9 +73,9 @@
                     <div class="tab-pane active" id="details-tab">
 
                         @if ($user->exists)
-                            {{ Form::model($user, ['url' => route('tenantarea.users.update', ['user' => $user]), 'id' => 'tenantarea-users-save', 'method' => 'put']) }}
+                            {{ Form::model($user, ['url' => route('managerarea.users.update', ['user' => $user]), 'id' => 'managerarea-users-save', 'method' => 'put']) }}
                         @else
-                            {{ Form::model($user, ['url' => route('tenantarea.users.store'), 'id' => 'tenantarea-users-save']) }}
+                            {{ Form::model($user, ['url' => route('managerarea.users.store'), 'id' => 'managerarea-users-save']) }}
                         @endif
 
                             <div class="row">
@@ -390,7 +390,7 @@
                                         {{ Form::button(trans('cortex/fort::common.submit'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}
                                     </div>
 
-                                    @include('cortex/foundation::tenantarea.partials.timestamps', ['model' => $user])
+                                    @include('cortex/tenants::managerarea.partials.timestamps', ['model' => $user])
 
                                 </div>
                             </div>

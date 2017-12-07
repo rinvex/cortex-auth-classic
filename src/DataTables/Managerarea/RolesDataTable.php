@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\DataTables\Tenantarea;
+namespace Cortex\Fort\DataTables\Managerarea;
 
 use Rinvex\Fort\Contracts\RoleContract;
 use Cortex\Foundation\DataTables\AbstractDataTable;
-use Cortex\Fort\Transformers\Tenantarea\RoleTransformer;
+use Cortex\Fort\Transformers\Managerarea\RoleTransformer;
 
 class RolesDataTable extends AbstractDataTable
 {
@@ -43,8 +43,8 @@ class RolesDataTable extends AbstractDataTable
     protected function getColumns()
     {
         $link = config('cortex.foundation.route.locale_prefix')
-            ? '"<a href=\""+routes.route(\'tenantarea.roles.edit\', {role: full.slug, locale: \''.$this->request->segment(1).'\'})+"\">"+data+"</a>"'
-            : '"<a href=\""+routes.route(\'tenantarea.roles.edit\', {role: full.slug})+"\">"+data+"</a>"';
+            ? '"<a href=\""+routes.route(\'managerarea.roles.edit\', {role: full.slug, locale: \''.$this->request->segment(1).'\'})+"\">"+data+"</a>"'
+            : '"<a href=\""+routes.route(\'managerarea.roles.edit\', {role: full.slug})+"\">"+data+"</a>"';
 
         return [
             'name' => ['title' => trans('cortex/fort::common.name'), 'render' => $link, 'responsivePriority' => 0],

@@ -131,10 +131,10 @@ Route::domain(domain())->group(function () {
 
 Route::domain('{subdomain}.'.domain())->group(function () {
 
-    Route::name('tenantarea.')
-         ->namespace('Cortex\Fort\Http\Controllers\Tenantarea')
-         ->middleware(['web', 'nohttpcache', 'can:access-tenantarea'])
-         ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.foundation.route.prefix.tenantarea') : config('cortex.foundation.route.prefix.tenantarea'))->group(function () {
+    Route::name('managerarea.')
+         ->namespace('Cortex\Fort\Http\Controllers\Managerarea')
+         ->middleware(['web', 'nohttpcache', 'can:access-managerarea'])
+         ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.tenants.route.prefix.managerarea') : config('cortex.tenants.route.prefix.managerarea'))->group(function () {
 
          // Roles Routes
          Route::name('roles.')->prefix('roles')->group(function () {

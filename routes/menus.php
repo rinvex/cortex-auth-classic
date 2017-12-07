@@ -10,8 +10,8 @@ Menu::adminareaSidebar('access')->routeIfCan('list-abilities', 'adminarea.abilit
 Menu::adminareaSidebar('access')->routeIfCan('list-roles', 'adminarea.roles.index', '<i class="fa fa-users"></i> <span>'.trans('cortex/fort::common.roles').'</span>');
 Menu::adminareaSidebar('users')->routeIfCan('list-users', 'adminarea.users.index', '<i class="fa fa-user"></i> <span>'.trans('cortex/fort::common.users').'</span>');
 
-Menu::tenantareaSidebar('resources')->routeIfCan('list-roles', 'tenantarea.roles.index', '<i class="fa fa-users"></i> <span>'.trans('cortex/fort::common.roles').'</span>');
-Menu::tenantareaSidebar('resources')->routeIfCan('list-users', 'tenantarea.users.index', '<i class="fa fa-user"></i> <span>'.trans('cortex/fort::common.users').'</span>');
+Menu::managerareaSidebar('resources')->routeIfCan('list-roles', 'managerarea.roles.index', '<i class="fa fa-users"></i> <span>'.trans('cortex/fort::common.roles').'</span>');
+Menu::managerareaSidebar('resources')->routeIfCan('list-users', 'managerarea.users.index', '<i class="fa fa-user"></i> <span>'.trans('cortex/fort::common.users').'</span>');
 
 if ($user = auth()->user()) {
     $userMenuHeader = Link::to('#', $user->username.' <span class="caret"></span>')->addClass('dropdown-toggle')->setAttribute('data-toggle', 'dropdown');
@@ -27,7 +27,7 @@ if ($user = auth()->user()) {
     };
 
     Menu::frontareaTopbar()->submenu($userMenuHeader, $userMenuBody);
-    Menu::tenantareaTopbar()->submenu($userMenuHeader, $userMenuBody);
+    Menu::managerareaTopbar()->submenu($userMenuHeader, $userMenuBody);
     Menu::adminareaTopbar()->submenu($userMenuHeader, $userMenuBody);
 } else {
     Menu::frontareaTopbar()->route('frontarea.login', trans('cortex/fort::common.login'));

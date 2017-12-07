@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\DataTables\Tenantarea;
+namespace Cortex\Fort\DataTables\Managerarea;
 
 use Rinvex\Fort\Contracts\UserContract;
 use Cortex\Foundation\DataTables\AbstractDataTable;
-use Cortex\Fort\Transformers\Tenantarea\UserTransformer;
+use Cortex\Fort\Transformers\Managerarea\UserTransformer;
 
 class UsersDataTable extends AbstractDataTable
 {
@@ -28,8 +28,8 @@ class UsersDataTable extends AbstractDataTable
     protected function getColumns()
     {
         $link = config('cortex.foundation.route.locale_prefix')
-            ? '"<a href=\""+routes.route(\'tenantarea.users.edit\', {user: full.username, locale: \''.$this->request->segment(1).'\'})+"\">"+data+"</a>"'
-            : '"<a href=\""+routes.route(\'tenantarea.users.edit\', {user: full.username})+"\">"+data+"</a>"';
+            ? '"<a href=\""+routes.route(\'managerarea.users.edit\', {user: full.username, locale: \''.$this->request->segment(1).'\'})+"\">"+data+"</a>"'
+            : '"<a href=\""+routes.route(\'managerarea.users.edit\', {user: full.username})+"\">"+data+"</a>"';
 
         return [
             'username' => ['title' => trans('cortex/fort::common.username'), 'render' => $link.'+(full.is_active ? " <i class=\"text-success fa fa-check\"></i>" : " <i class=\"text-danger fa fa-close\"></i>")', 'responsivePriority' => 0],
