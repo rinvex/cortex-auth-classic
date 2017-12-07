@@ -71,7 +71,7 @@ class RolesController extends AuthorizedController
      * Update the given resource in storage.
      *
      * @param \Cortex\Fort\Http\Requests\Managerarea\RoleFormRequest $request
-     * @param \Rinvex\Fort\Contracts\RoleContract                   $role
+     * @param \Rinvex\Fort\Contracts\RoleContract                    $role
      *
      * @return \Illuminate\Http\Response
      */
