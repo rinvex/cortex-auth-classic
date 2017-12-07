@@ -64,7 +64,7 @@
                         <ul class="nav">
                             <li class="active"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-cogs"></i>{{ trans('cortex/fort::common.settings') }}</a></li>
                             <li><a href="{{ route('frontarea.account.sessions') }}"><i class="fa fa-list-alt"></i>{{ trans('cortex/fort::common.sessions') }}</a></li>
-                            @if(! empty(config('rinvex.fort.twofactor.providers')))<li><a href="{{ route('frontarea.account.twofactor') }}"><i class="fa fa-lock"></i>{{ trans('cortex/fort::common.twofactor') }}</a></li>@endif
+                            @if(! empty(config('rinvex.fort.twofactor.providers')))<li><a href="{{ route('frontarea.account.twofactor.index') }}"><i class="fa fa-lock"></i>{{ trans('cortex/fort::common.twofactor') }}</a></li>@endif
                         </ul>
                     </div>
                 </div>

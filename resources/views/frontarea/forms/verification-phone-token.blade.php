@@ -47,9 +47,9 @@
                         {{ Form::button('<i class="fa fa-check"></i> '.trans('cortex/fort::common.verify_phone'), ['class' => 'btn btn-lg btn-primary btn-block', 'type' => 'submit']) }}
 
                         <div>
-                            {{ Html::link(route('frontarea.auth.login'), trans('cortex/fort::common.account_login')) }}
+                            {{ Html::link(route('frontarea.login'), trans('cortex/fort::common.account_login')) }}
                             {{ trans('cortex/foundation::common.or') }}
-                            {{ Html::link(route('frontarea.auth.register'), trans('cortex/fort::common.account_register')) }}
+                            {{ Html::link(route('frontarea.register'), trans('cortex/fort::common.account_register')) }}
                         </div>
 
                     {{ Form::close() }}

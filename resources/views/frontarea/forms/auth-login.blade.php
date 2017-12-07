@@ -24,7 +24,7 @@
 
                 <section class="auth-form">
 
-                    {{ Form::open(['url' => route('frontarea.auth.login.process'), 'id' => 'frontarea-auth-login-process', 'role' => 'auth']) }}
+                    {{ Form::open(['url' => route('frontarea.login.process'), 'id' => 'frontarea-auth-login-process', 'role' => 'auth']) }}
 
                         <div class="centered"><strong>{{ trans('cortex/fort::common.account_login') }}</strong></div>
 
@@ -47,7 +47,7 @@
                         {{ Form::button('<i class="fa fa-sign-in"></i> '.trans('cortex/fort::common.login'), ['class' => 'btn btn-lg btn-primary btn-block', 'type' => 'submit']) }}
 
                         <div>
-                            {{ Html::link(route('frontarea.auth.register'), trans('cortex/fort::common.account_register')) }}
+                            {{ Html::link(route('frontarea.register'), trans('cortex/fort::common.account_register')) }}
                             {{ trans('cortex/foundation::common.or') }}
                             {{ Html::link(route('frontarea.passwordreset.request'), trans('cortex/fort::common.password_reset')) }}
                         </div>
