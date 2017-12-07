@@ -26,7 +26,7 @@ class TwoFactorSettingsController extends AuthenticatedController
     {
         $twoFactor = $request->user($this->getGuard())->getTwoFactor();
 
-        return view('cortex/fort::frontarea.forms.twofactor', compact('twoFactor'));
+        return view('cortex/fort::frontarea.pages.twofactor', compact('twoFactor'));
     }
 
     /**
@@ -53,7 +53,7 @@ class TwoFactorSettingsController extends AuthenticatedController
 
         $qrCode = $totpProvider->getQRCodeInline(config('app.name'), $currentUser->email, $secret);
 
-        return view('cortex/fort::frontarea.forms.twofactor-totp', compact('secret', 'qrCode', 'twoFactor'));
+        return view('cortex/fort::frontarea.pages.twofactor-totp', compact('secret', 'qrCode', 'twoFactor'));
     }
 
     /**

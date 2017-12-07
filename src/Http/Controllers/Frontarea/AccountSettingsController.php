@@ -23,7 +23,7 @@ class AccountSettingsController extends AuthenticatedController
         $languages = collect(languages())->pluck('name', 'iso_639_1');
         $genders = ['m' => trans('cortex/fort::common.male'), 'f' => trans('cortex/fort::common.female')];
 
-        return view('cortex/fort::frontarea.forms.settings', compact('countries', 'languages', 'genders'));
+        return view('cortex/fort::frontarea.pages.settings', compact('countries', 'languages', 'genders'));
     }
 
     /**

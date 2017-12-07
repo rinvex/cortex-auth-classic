@@ -22,7 +22,7 @@ class EmailVerificationController extends AbstractController
      */
     public function request(EmailVerificationRequest $request)
     {
-        return view('cortex/fort::frontarea.forms.verification-email-request');
+        return view('cortex/fort::frontarea.pages.verification-email-request');
     }
 
     /**

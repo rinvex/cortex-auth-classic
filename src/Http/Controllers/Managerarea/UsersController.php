@@ -137,7 +137,7 @@ class UsersController extends AuthorizedController
             ? app('rinvex.fort.role')->forAllTenants()->where('slug', 'manager')->first()->abilities->groupBy('resource')->map->pluck('name', 'id')->toArray()
             : $request->user($this->getGuard())->allAbilities->groupBy('resource')->map->pluck('name', 'id')->toArray();
 
-        return view('cortex/fort::managerarea.forms.user', compact('user', 'abilities', 'roles', 'countries', 'languages', 'genders'));
+        return view('cortex/fort::managerarea.pages.user', compact('user', 'abilities', 'roles', 'countries', 'languages', 'genders'));
     }
 
     /**
