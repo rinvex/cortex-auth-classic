@@ -29,7 +29,7 @@ class UsersController extends AuthorizedController
     public function index(UsersDataTable $usersDataTable)
     {
         return $usersDataTable->with([
-            'id' => 'cortex-fort-users',
+            'id' => 'cortex-users',
             'phrase' => trans('cortex/fort::common.users'),
         ])->render('cortex/foundation::adminarea.pages.datatable');
     }
@@ -48,7 +48,7 @@ class UsersController extends AuthorizedController
             'tab' => 'logs',
             'type' => 'users',
             'resource' => $user,
-            'id' => 'cortex-fort-users-logs',
+            'id' => 'cortex-users-logs',
             'phrase' => trans('cortex/fort::common.users'),
         ])->render('cortex/fort::adminarea.pages.user-logs');
     }
@@ -67,7 +67,7 @@ class UsersController extends AuthorizedController
             'tab' => 'activities',
             'type' => 'users',
             'resource' => $user,
-            'id' => 'cortex-fort-users-activities',
+            'id' => 'cortex-users-activities',
             'phrase' => trans('cortex/fort::common.users'),
         ])->render('cortex/fort::adminarea.pages.user-activities');
     }

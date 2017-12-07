@@ -33,7 +33,7 @@ class RolesController extends AuthorizedController
     public function index(RolesDataTable $rolesDataTable)
     {
         return $rolesDataTable->with([
-            'id' => 'cortex-fort-roles',
+            'id' => 'cortex-roles',
             'phrase' => trans('cortex/fort::common.roles'),
         ])->render('cortex/foundation::adminarea.pages.datatable');
     }
@@ -52,7 +52,7 @@ class RolesController extends AuthorizedController
             'tab' => 'logs',
             'type' => 'roles',
             'resource' => $role,
-            'id' => 'cortex-fort-roles-logs',
+            'id' => 'cortex-roles-logs',
             'phrase' => trans('cortex/fort::common.roles'),
         ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
