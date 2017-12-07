@@ -13,6 +13,7 @@ use Cortex\Fort\Console\Commands\SeedCommand;
 use Cortex\Fort\Console\Commands\InstallCommand;
 use Cortex\Fort\Console\Commands\MigrateCommand;
 use Cortex\Fort\Console\Commands\PublishCommand;
+use Cortex\Fort\Console\Commands\RollbackCommand;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 class FortServiceProvider extends ServiceProvider
@@ -23,10 +24,11 @@ class FortServiceProvider extends ServiceProvider
      * @var array
      */
     protected $commands = [
+        SeedCommand::class => 'command.cortex.fort.seed',
+        InstallCommand::class => 'command.cortex.fort.install',
         MigrateCommand::class => 'command.cortex.fort.migrate',
         PublishCommand::class => 'command.cortex.fort.publish',
-        InstallCommand::class => 'command.cortex.fort.install',
-        SeedCommand::class => 'command.cortex.fort.seed',
+        RollbackCommand::class => 'command.cortex.fort.rollback',
     ];
 
     /**
