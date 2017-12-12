@@ -35,7 +35,7 @@ class RegistrationController extends AbstractController
      * Process the registration form.
      *
      * @param \Cortex\Fort\Http\Requests\Tenantarea\RegistrationProcessRequest $request
-     * @param \Rinvex\Fort\Contracts\UserContract                             $user
+     * @param \Rinvex\Fort\Contracts\UserContract                              $user
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
