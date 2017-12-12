@@ -2,11 +2,14 @@
 
 declare(strict_types=1);
 
-Route::domain(domain())->group(function () {
-    Route::name('frontarea.')
-        ->middleware(['web', 'nohttpcache'])
-        ->namespace('Cortex\Fort\Http\Controllers\Frontarea')
-        ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.foundation.route.prefix.frontarea') : config('cortex.foundation.route.prefix.frontarea'))->group(function () {
+if (! function_exists('authentication_routes')) {
+    /**
+     * Register authenication routes.
+     *
+     * @return void
+     */
+    function authentication_routes()
+    {
 
         // Login Routes
         Route::get('login')->name('login')->uses('AuthenticationController@form');
@@ -78,7 +81,19 @@ Route::domain(domain())->group(function () {
                 });
             });
         });
-    });
+    }
+}
+
+Route::domain(domain())->group(function () {
+    Route::name('frontarea.')
+        ->middleware(['web', 'nohttpcache'])
+        ->namespace('Cortex\Fort\Http\Controllers\Frontarea')
+        ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.foundation.route.prefix.frontarea') : config('cortex.foundation.route.prefix.frontarea'))->group(function () {
+
+            // Register authenication routes
+            authentication_routes();
+
+        });
 
 
     Route::name('adminarea.')
