@@ -28,7 +28,7 @@ class RegistrationController extends AbstractController
      */
     public function form(RegistrationRequest $request)
     {
-        return view('cortex/fort::frontarea.pages.auth-register');
+        return view('cortex/fort::frontarea.pages.registration');
     }
 
     /**

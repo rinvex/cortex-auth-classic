@@ -8,7 +8,7 @@
 
 {{-- Scripts --}}
 @push('scripts')
-    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Frontarea\AuthenticationRequest::class)->selector('#frontarea-auth-login-process') !!}
+    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Frontarea\AuthenticationRequest::class)->selector('#frontarea-authentication-process') !!}
 @endpush
 
 @section('body-attributes')class="auth-page"@endsection
@@ -24,7 +24,7 @@
 
                 <section class="auth-form">
 
-                    {{ Form::open(['url' => route('frontarea.login.process'), 'id' => 'frontarea-auth-login-process', 'role' => 'auth']) }}
+                    {{ Form::open(['url' => route('frontarea.login.process'), 'id' => 'frontarea-authentication-process', 'role' => 'auth']) }}
 
                         <div class="centered"><strong>{{ trans('cortex/fort::common.account_login') }}</strong></div>
 
