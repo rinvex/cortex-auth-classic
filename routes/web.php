@@ -4,87 +4,87 @@ declare(strict_types=1);
 
 Route::domain(domain())->group(function () {
     Route::name('frontarea.')
-         ->middleware(['web', 'nohttpcache'])
-         ->namespace('Cortex\Fort\Http\Controllers\Frontarea')
-         ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}' : '')->group(function () {
+        ->middleware(['web', 'nohttpcache'])
+        ->namespace('Cortex\Fort\Http\Controllers\Frontarea')
+        ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}' : '')->group(function () {
 
-         // Login Routes
-         Route::get('login')->name('login')->uses('AuthenticationController@form');
-         Route::post('login')->name('login.process')->uses('AuthenticationController@login');
-         Route::post('logout')->name('logout')->uses('AuthenticationController@logout');
+        // Login Routes
+        Route::get('login')->name('login')->uses('AuthenticationController@form');
+        Route::post('login')->name('login.process')->uses('AuthenticationController@login');
+        Route::post('logout')->name('logout')->uses('AuthenticationController@logout');
 
-         // Registration Routes
-         Route::get('register')->name('register')->uses('RegistrationController@form');
-         Route::post('register')->name('register.process')->uses('RegistrationController@register');
+        // Registration Routes
+        Route::get('register')->name('register')->uses('RegistrationController@form');
+        Route::post('register')->name('register.process')->uses('RegistrationController@register');
 
-         // Social Authentication Routes
-         Route::get('github')->name('social.github')->uses('SocialAuthenticationController@redirectToGithub');
-         Route::get('github/callback')->name('social.github.callback')->uses('SocialAuthenticationController@handleGithubCallback');
+        // Social Authentication Routes
+        Route::get('github')->name('social.github')->uses('SocialAuthenticationController@redirectToGithub');
+        Route::get('github/callback')->name('social.github.callback')->uses('SocialAuthenticationController@handleGithubCallback');
 
-         // Password Reset Routes
-         Route::name('passwordreset.')->prefix('passwordreset')->group(function () {
-             Route::get('request')->name('request')->uses('PasswordResetController@request');
-             Route::post('send')->name('send')->uses('PasswordResetController@send');
-             Route::get('reset')->name('reset')->uses('PasswordResetController@reset');
-             Route::post('process')->name('process')->uses('PasswordResetController@process');
-         });
+        // Password Reset Routes
+        Route::name('passwordreset.')->prefix('passwordreset')->group(function () {
+            Route::get('request')->name('request')->uses('PasswordResetController@request');
+            Route::post('send')->name('send')->uses('PasswordResetController@send');
+            Route::get('reset')->name('reset')->uses('PasswordResetController@reset');
+            Route::post('process')->name('process')->uses('PasswordResetController@process');
+        });
 
-         // Verification Routes
-         Route::name('verification.')->prefix('verification')->group(function () {
-             // Phone Verification Routes
-             Route::name('phone.')->prefix('phone')->group(function () {
-                 Route::get('request')->name('request')->uses('PhoneVerificationController@request');
-                 Route::post('send')->name('send')->uses('PhoneVerificationController@send');
-                 Route::get('verify')->name('verify')->uses('PhoneVerificationController@verify');
-                 Route::post('process')->name('process')->uses('PhoneVerificationController@process');
-             });
+        // Verification Routes
+        Route::name('verification.')->prefix('verification')->group(function () {
+            // Phone Verification Routes
+            Route::name('phone.')->prefix('phone')->group(function () {
+                Route::get('request')->name('request')->uses('PhoneVerificationController@request');
+                Route::post('send')->name('send')->uses('PhoneVerificationController@send');
+                Route::get('verify')->name('verify')->uses('PhoneVerificationController@verify');
+                Route::post('process')->name('process')->uses('PhoneVerificationController@process');
+            });
 
-             // Email Verification Routes
-             Route::name('email.')->prefix('email')->group(function () {
-                 Route::get('request')->name('request')->uses('EmailVerificationController@request');
-                 Route::post('send')->name('send')->uses('EmailVerificationController@send');
-                 Route::get('verify')->name('verify')->uses('EmailVerificationController@verify');
-             });
-         });
-     });
+            // Email Verification Routes
+            Route::name('email.')->prefix('email')->group(function () {
+                Route::get('request')->name('request')->uses('EmailVerificationController@request');
+                Route::post('send')->name('send')->uses('EmailVerificationController@send');
+                Route::get('verify')->name('verify')->uses('EmailVerificationController@verify');
+            });
+        });
+    });
 
 
     Route::name('frontarea.')
-         ->middleware(['web', 'nohttpcache'])
-         ->namespace('Cortex\Fort\Http\Controllers\Frontarea')
-         ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.foundation.route.prefix.frontarea') : config('cortex.foundation.route.prefix.frontarea'))->group(function () {
+        ->middleware(['web', 'nohttpcache'])
+        ->namespace('Cortex\Fort\Http\Controllers\Frontarea')
+        ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.foundation.route.prefix.frontarea') : config('cortex.foundation.route.prefix.frontarea'))->group(function () {
 
-         // User Account Routes
-         Route::name('account.')->prefix('account')->group(function () {
-             // Account Page Routes
-             Route::get('settings')->name('settings')->uses('AccountSettingsController@edit');
-             Route::post('settings')->name('settings.update')->uses('AccountSettingsController@update');
+        // User Account Routes
+        Route::name('account.')->prefix('account')->group(function () {
+            // Account Page Routes
+            Route::get('settings')->name('settings')->uses('AccountSettingsController@edit');
+            Route::post('settings')->name('settings.update')->uses('AccountSettingsController@update');
 
-             // Sessions Manipulation Routes
-             Route::get('sessions')->name('sessions')->uses('AccountSessionsController@index');
-             Route::delete('sessions/{token?}')->name('sessions.flush')->uses('AccountSessionsController@flush');
+            // Sessions Manipulation Routes
+            Route::get('sessions')->name('sessions')->uses('AccountSessionsController@index');
+            Route::delete('sessions/{token?}')->name('sessions.flush')->uses('AccountSessionsController@flush');
 
-             // TwoFactor Authentication Routes
-             Route::name('twofactor.')->prefix('twofactor')->group(function () {
+            // TwoFactor Authentication Routes
+            Route::name('twofactor.')->prefix('twofactor')->group(function () {
 
-                 Route::get('/')->name('index')->uses('TwoFactorSettingsController@index');
+                Route::get('/')->name('index')->uses('TwoFactorSettingsController@index');
 
-                 // TwoFactor TOTP Routes
-                 Route::name('totp.')->prefix('totp')->group(function () {
-                     Route::get('enable')->name('enable')->uses('TwoFactorSettingsController@enableTotp');
-                     Route::post('update')->name('update')->uses('TwoFactorSettingsController@updateTotp');
-                     Route::post('disable')->name('disable')->uses('TwoFactorSettingsController@disableTotp');
-                     Route::post('backup')->name('backup')->uses('TwoFactorSettingsController@backupTotp');
-                 });
+                // TwoFactor TOTP Routes
+                Route::name('totp.')->prefix('totp')->group(function () {
+                    Route::get('enable')->name('enable')->uses('TwoFactorSettingsController@enableTotp');
+                    Route::post('update')->name('update')->uses('TwoFactorSettingsController@updateTotp');
+                    Route::post('disable')->name('disable')->uses('TwoFactorSettingsController@disableTotp');
+                    Route::post('backup')->name('backup')->uses('TwoFactorSettingsController@backupTotp');
+                });
 
-                 // TwoFactor Phone Routes
-                 Route::name('phone.')->prefix('phone')->group(function () {
-                     Route::post('enable')->name('enable')->uses('TwoFactorSettingsController@enablePhone');
-                     Route::post('disable')->name('disable')->uses('TwoFactorSettingsController@disablePhone');
-                 });
-             });
-         });
-     });
+                // TwoFactor Phone Routes
+                Route::name('phone.')->prefix('phone')->group(function () {
+                    Route::post('enable')->name('enable')->uses('TwoFactorSettingsController@enablePhone');
+                    Route::post('disable')->name('disable')->uses('TwoFactorSettingsController@disablePhone');
+                });
+            });
+        });
+    });
 
 
     Route::name('adminarea.')
