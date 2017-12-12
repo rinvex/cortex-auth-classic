@@ -168,4 +168,16 @@ Route::domain('{subdomain}.'.domain())->group(function () {
              Route::delete('{user}')->name('delete')->uses('UsersController@delete');
          });
      });
+
+
+    Route::name('tenantarea.')
+        ->middleware(['web', 'nohttpcache'])
+        ->namespace('Cortex\Fort\Http\Controllers\Tenantarea')
+        ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.foundation.route.prefix.tenantarea') : config('cortex.foundation.route.prefix.tenantarea'))->group(function () {
+
+        // Register authenication routes
+        authentication_routes();
+
+    });
+
 });
