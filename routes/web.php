@@ -6,7 +6,7 @@ Route::domain(domain())->group(function () {
     Route::name('frontarea.')
         ->middleware(['web', 'nohttpcache'])
         ->namespace('Cortex\Fort\Http\Controllers\Frontarea')
-        ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}' : '')->group(function () {
+        ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.foundation.route.prefix.frontarea') : config('cortex.foundation.route.prefix.frontarea'))->group(function () {
 
         // Login Routes
         Route::get('login')->name('login')->uses('AuthenticationController@form');
@@ -46,13 +46,7 @@ Route::domain(domain())->group(function () {
                 Route::get('verify')->name('verify')->uses('EmailVerificationController@verify');
             });
         });
-    });
 
-
-    Route::name('frontarea.')
-        ->middleware(['web', 'nohttpcache'])
-        ->namespace('Cortex\Fort\Http\Controllers\Frontarea')
-        ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.foundation.route.prefix.frontarea') : config('cortex.foundation.route.prefix.frontarea'))->group(function () {
 
         // User Account Routes
         Route::name('account.')->prefix('account')->group(function () {
