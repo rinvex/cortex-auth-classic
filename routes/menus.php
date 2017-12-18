@@ -2,34 +2,54 @@
 
 declare(strict_types=1);
 
-use Spatie\Menu\Laravel\Html;
-use Spatie\Menu\Laravel\Link;
-use Cortex\Foundation\Models\Menu as MenuModel;
+use Rinvex\Menus\Models\MenuItem;
+use Rinvex\Menus\Factories\MenuFactory;
 
-Menu::adminareaSidebar('access')->routeIfCan('list-abilities', 'adminarea.abilities.index', '<i class="fa fa-sliders"></i> <span>'.trans('cortex/fort::common.abilities').'</span>');
-Menu::adminareaSidebar('access')->routeIfCan('list-roles', 'adminarea.roles.index', '<i class="fa fa-users"></i> <span>'.trans('cortex/fort::common.roles').'</span>');
-Menu::adminareaSidebar('users')->routeIfCan('list-users', 'adminarea.users.index', '<i class="fa fa-user"></i> <span>'.trans('cortex/fort::common.users').'</span>');
+Menu::modify('adminarea.sidebar', function(MenuFactory $menu) {
+    $menu->findBy('title', trans('cortex/foundation::common.access'), function (MenuItem $dropdown) {
+        $dropdown->route(['adminarea.abilities.index'], trans('cortex/fort::common.abilities'), 10, 'fa fa-sliders')->can('list-abilities');
+        $dropdown->route(['adminarea.roles.index'], trans('cortex/fort::common.roles'), 20, 'fa fa-users')->can('list-roles');
+    });
 
-Menu::managerareaSidebar('resources')->routeIfCan('list-roles', 'managerarea.roles.index', '<i class="fa fa-users"></i> <span>'.trans('cortex/fort::common.roles').'</span>');
-Menu::managerareaSidebar('resources')->routeIfCan('list-users', 'managerarea.users.index', '<i class="fa fa-user"></i> <span>'.trans('cortex/fort::common.users').'</span>');
+    $menu->findBy('title', trans('cortex/foundation::common.user'), function (MenuItem $dropdown) {
+        $dropdown->route(['adminarea.users.index'], trans('cortex/fort::common.users'), 10, 'fa fa-user')->can('list-users');
+    });
+});
+
+Menu::modify('managerarea.sidebar', function(MenuFactory $menu) {
+    $menu->findBy('title', trans('cortex/foundation::common.access'), function (MenuItem $dropdown) {
+        $dropdown->route(['managerarea.roles.index'], trans('cortex/fort::common.roles'), 10, 'fa fa-users')->can('list-roles');
+    });
+});
+
+Menu::modify('managerarea.sidebar', function(MenuFactory $menu) {
+    $menu->findBy('title', trans('cortex/foundation::common.user'), function (MenuItem $dropdown) {
+        $dropdown->route(['managerarea.users.index'], trans('cortex/fort::common.users'), 20, 'fa fa-user')->can('list-users');
+    });
+});
 
 if ($user = auth()->user()) {
-    $userMenuHeader = Link::to('#', $user->username.' <span class="caret"></span>')->addClass('dropdown-toggle')->setAttribute('data-toggle', 'dropdown');
-    $userMenuBody = function (MenuModel $menu) {
-        $menu->addClass('dropdown-menu');
-        $menu->addParentClass('dropdown');
-        $menu->route('frontarea.account.settings', '<i class="fa fa-user"></i> '.trans('cortex/fort::common.settings'));
-        $menu->route('frontarea.account.sessions', '<i class="fa fa-id-badge"></i> '.trans('cortex/fort::common.sessions'));
-        $menu->add(Html::raw('')->addParentClass('divider')->setParentAttribute('role', 'separator'));
-
-        $logoutLink = Link::toRoute('frontarea.logout', '<i class="fa fa-sign-out"></i> '.trans('cortex/fort::common.logout'))->setAttribute('onclick', "event.preventDefault(); document.getElementById('logout-form').submit();");
-        $menu->add(Html::raw($logoutLink.Form::open(['url' => route('frontarea.logout'), 'id' => 'logout-form', 'style' => 'display: none;']).Form::close()));
+    $userMenu = function(MenuFactory $menu) use ($user) {
+        $menu->dropdown(function(MenuItem $dropdown) {
+            $dropdown->route(['frontarea.account.settings'], trans('cortex/fort::common.settings'), 10, 'fa fa-user');
+            $dropdown->route(['frontarea.account.sessions'], trans('cortex/fort::common.sessions'), 20, 'fa fa-id-badge');
+            $dropdown->divider(30);
+            $dropdown->route(['frontarea.logout'], trans('cortex/fort::common.logout').Form::open(['url' => route('frontarea.logout'), 'id' => 'logout-form', 'style' => 'display: none;']).Form::close(), 40, 'fa fa-sign-out', ['onclick' => "event.preventDefault(); document.getElementById('logout-form').submit();"]);
+        }, $user->username, 10, 'fa fa-user');
     };
 
-    Menu::frontareaTopbar()->submenu($userMenuHeader, $userMenuBody);
-    Menu::managerareaTopbar()->submenu($userMenuHeader, $userMenuBody);
-    Menu::adminareaTopbar()->submenu($userMenuHeader, $userMenuBody);
+    Menu::modify('frontarea.topbar', $userMenu);
+    Menu::modify('adminarea.topbar', $userMenu);
+    Menu::modify('tenantarea.topbar', $userMenu);
+    Menu::modify('managerarea.topbar', $userMenu);
 } else {
-    Menu::frontareaTopbar()->route('frontarea.login', trans('cortex/fort::common.login'));
-    Menu::frontareaTopbar()->route('frontarea.register', trans('cortex/fort::common.register'));
+    Menu::modify('frontarea.topbar', function(MenuFactory $menu) {
+        $menu->route(['frontarea.login'], trans('cortex/fort::common.login'), 10);
+        $menu->route(['frontarea.register'], trans('cortex/fort::common.register'), 20);
+    });
+
+    Menu::modify('tenantarea.topbar', function(MenuFactory $menu) {
+        $menu->route(['tenantarea.login'], trans('cortex/fort::common.login'), 10);
+        $menu->route(['tenantarea.register'], trans('cortex/fort::common.register'), 20);
+    });
 }
