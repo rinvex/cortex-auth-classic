@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Rinvex\Menus\Models\MenuItem;
 use Rinvex\Menus\Factories\MenuFactory;
 
-Menu::modify('adminarea.sidebar', function(MenuFactory $menu) {
+Menu::modify('adminarea.sidebar', function (MenuFactory $menu) {
     $menu->findBy('title', trans('cortex/foundation::common.access'), function (MenuItem $dropdown) {
         $dropdown->route(['adminarea.abilities.index'], trans('cortex/fort::common.abilities'), 10, 'fa fa-sliders')->can('list-abilities');
         $dropdown->route(['adminarea.roles.index'], trans('cortex/fort::common.roles'), 20, 'fa fa-users')->can('list-roles');
@@ -16,21 +16,21 @@ Menu::modify('adminarea.sidebar', function(MenuFactory $menu) {
     });
 });
 
-Menu::modify('managerarea.sidebar', function(MenuFactory $menu) {
+Menu::modify('managerarea.sidebar', function (MenuFactory $menu) {
     $menu->findBy('title', trans('cortex/foundation::common.access'), function (MenuItem $dropdown) {
         $dropdown->route(['managerarea.roles.index'], trans('cortex/fort::common.roles'), 10, 'fa fa-users')->can('list-roles');
     });
 });
 
-Menu::modify('managerarea.sidebar', function(MenuFactory $menu) {
+Menu::modify('managerarea.sidebar', function (MenuFactory $menu) {
     $menu->findBy('title', trans('cortex/foundation::common.user'), function (MenuItem $dropdown) {
         $dropdown->route(['managerarea.users.index'], trans('cortex/fort::common.users'), 20, 'fa fa-user')->can('list-users');
     });
 });
 
 if ($user = auth()->user()) {
-    $userMenu = function(MenuFactory $menu) use ($user) {
-        $menu->dropdown(function(MenuItem $dropdown) {
+    $userMenu = function (MenuFactory $menu) use ($user) {
+        $menu->dropdown(function (MenuItem $dropdown) {
             $dropdown->route(['frontarea.account.settings'], trans('cortex/fort::common.settings'), 10, 'fa fa-user');
             $dropdown->route(['frontarea.account.sessions'], trans('cortex/fort::common.sessions'), 20, 'fa fa-id-badge');
             $dropdown->divider(30);
@@ -43,12 +43,12 @@ if ($user = auth()->user()) {
     Menu::modify('tenantarea.header', $userMenu);
     Menu::modify('managerarea.header', $userMenu);
 } else {
-    Menu::modify('frontarea.header', function(MenuFactory $menu) {
+    Menu::modify('frontarea.header', function (MenuFactory $menu) {
         $menu->route(['frontarea.login'], trans('cortex/fort::common.login'), 10);
         $menu->route(['frontarea.register'], trans('cortex/fort::common.register'), 20);
     });
 
-    Menu::modify('tenantarea.header', function(MenuFactory $menu) {
+    Menu::modify('tenantarea.header', function (MenuFactory $menu) {
         $menu->route(['tenantarea.login'], trans('cortex/fort::common.login'), 10);
         $menu->route(['tenantarea.register'], trans('cortex/fort::common.register'), 20);
     });
