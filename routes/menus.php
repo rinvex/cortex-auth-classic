@@ -6,24 +6,22 @@ use Rinvex\Menus\Models\MenuItem;
 use Rinvex\Menus\Factories\MenuFactory;
 
 Menu::modify('adminarea.sidebar', function (MenuFactory $menu) {
-    $menu->findBy('title', trans('cortex/foundation::common.access'), function (MenuItem $dropdown) {
+    $menu->findByTitleOrAdd(trans('cortex/foundation::common.access'), 20, 'fa fa-user-circle-o', [], function (MenuItem $dropdown) {
         $dropdown->route(['adminarea.abilities.index'], trans('cortex/fort::common.abilities'), 10, 'fa fa-sliders')->can('list-abilities');
         $dropdown->route(['adminarea.roles.index'], trans('cortex/fort::common.roles'), 20, 'fa fa-users')->can('list-roles');
     });
 
-    $menu->findBy('title', trans('cortex/foundation::common.user'), function (MenuItem $dropdown) {
+    $menu->findByTitleOrAdd(trans('cortex/foundation::common.user'), 30, 'fa fa-users', [], function (MenuItem $dropdown) {
         $dropdown->route(['adminarea.users.index'], trans('cortex/fort::common.users'), 10, 'fa fa-user')->can('list-users');
     });
 });
 
 Menu::modify('managerarea.sidebar', function (MenuFactory $menu) {
-    $menu->findBy('title', trans('cortex/foundation::common.access'), function (MenuItem $dropdown) {
+    $menu->findByTitleOrAdd(trans('cortex/foundation::common.access'), 20, 'fa fa-user-circle-o', [], function (MenuItem $dropdown) {
         $dropdown->route(['managerarea.roles.index'], trans('cortex/fort::common.roles'), 10, 'fa fa-users')->can('list-roles');
     });
-});
 
-Menu::modify('managerarea.sidebar', function (MenuFactory $menu) {
-    $menu->findBy('title', trans('cortex/foundation::common.user'), function (MenuItem $dropdown) {
+    $menu->findByTitleOrAdd(trans('cortex/foundation::common.user'), 30, 'fa fa-users', [], function (MenuItem $dropdown) {
         $dropdown->route(['managerarea.users.index'], trans('cortex/fort::common.users'), 20, 'fa fa-user')->can('list-users');
     });
 });
