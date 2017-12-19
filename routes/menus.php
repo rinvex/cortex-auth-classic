@@ -38,17 +38,17 @@ if ($user = auth()->user()) {
         }, $user->username, 10, 'fa fa-user');
     };
 
-    Menu::modify('frontarea.topbar', $userMenu);
-    Menu::modify('adminarea.topbar', $userMenu);
-    Menu::modify('tenantarea.topbar', $userMenu);
-    Menu::modify('managerarea.topbar', $userMenu);
+    Menu::modify('frontarea.header', $userMenu);
+    Menu::modify('adminarea.header', $userMenu);
+    Menu::modify('tenantarea.header', $userMenu);
+    Menu::modify('managerarea.header', $userMenu);
 } else {
-    Menu::modify('frontarea.topbar', function(MenuFactory $menu) {
+    Menu::modify('frontarea.header', function(MenuFactory $menu) {
         $menu->route(['frontarea.login'], trans('cortex/fort::common.login'), 10);
         $menu->route(['frontarea.register'], trans('cortex/fort::common.register'), 20);
     });
 
-    Menu::modify('tenantarea.topbar', function(MenuFactory $menu) {
+    Menu::modify('tenantarea.header', function(MenuFactory $menu) {
         $menu->route(['tenantarea.login'], trans('cortex/fort::common.login'), 10);
         $menu->route(['tenantarea.register'], trans('cortex/fort::common.register'), 20);
     });
