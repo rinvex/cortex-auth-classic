@@ -52,6 +52,7 @@ class AbilitiesController extends AuthorizedController
             'tab' => 'logs',
             'type' => 'abilities',
             'resource' => $ability,
+            'title' => $ability->name,
             'id' => 'cortex-abilities-logs',
             'phrase' => trans('cortex/fort::common.abilities'),
         ])->render('cortex/foundation::adminarea.pages.datatable-tab');

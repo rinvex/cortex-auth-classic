@@ -50,6 +50,7 @@ class RolesController extends AuthorizedController
             'tab' => 'logs',
             'type' => 'roles',
             'resource' => $role,
+            'title' => $role->name,
             'id' => 'cortex-roles-logs',
             'phrase' => trans('cortex/fort::common.roles'),
         ])->render('cortex/tenants::managerarea.pages.datatable-tab');
