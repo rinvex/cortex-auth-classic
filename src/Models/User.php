@@ -55,9 +55,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  * @property \Illuminate\Database\Eloquent\Collection|\Cortex\Tenants\Models\Tenant[]                                       $tenants
  * @property-read \Illuminate\Database\Eloquent\Collection|\Rinvex\Fort\Models\Socialite[]                                  $socialites
  *
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User active()
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User hasAttribute($key, $value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User inactive()
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User role($roles)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User whereBirthday($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User whereCountryCode($value)
