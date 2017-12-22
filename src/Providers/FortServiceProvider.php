@@ -81,7 +81,6 @@ class FortServiceProvider extends ServiceProvider
         ! $this->app->runningInConsole() || $this->publishResources();
 
         // Register attributes entities
-        app('rinvex.attributes.entities')->push(RoleContract::class);
         app('rinvex.attributes.entities')->push(UserContract::class);
     }
 
