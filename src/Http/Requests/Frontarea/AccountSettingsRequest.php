@@ -65,6 +65,18 @@ class AccountSettingsRequest extends FormRequest
         $user = $this->user();
         $user->updateRulesUniques();
         $rules = $user->getRules();
+
+        // Attach attribute rules
+        $user->getEntityAttributes()->where('is_required', true)->each(function ($attribute, $attributeSlug) use (&$rules) {
+            $type = in_array($attribute->type, ['text', 'varchar']) ? 'string' : $attribute->type;
+
+            if ($attribute->is_collection) {
+                $rules[$attributeSlug.'.*'] = "required|{$type}";
+            } else {
+                $rules[$attributeSlug] = 'required|'.$type;
+            }
+        });
+
         $rules['password'] = 'sometimes|required|confirmed|min:'.config('rinvex.fort.password_min_chars');
 
         return $rules;

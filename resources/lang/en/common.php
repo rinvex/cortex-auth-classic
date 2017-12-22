@@ -92,6 +92,7 @@ return [
     'security' => 'Security',
     'logs' => 'Logs',
     'activities' => 'Activities',
+    'attributes' => 'Attributes',
     'sms' => 'SMS',
     'call' => 'Call',
     'statistics' => 'Statistics',

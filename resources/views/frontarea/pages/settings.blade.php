@@ -62,7 +62,8 @@
                     </div>
                     <div class="profile-usermenu">
                         <ul class="nav">
-                            <li class="active"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-cogs"></i>{{ trans('cortex/fort::common.settings') }}</a></li>
+                            <li class="active"><a href="#settings-tab" aria-controls="settings-tab" role="tab" data-toggle="tab"><i class="fa fa-cogs"></i>{{ trans('cortex/fort::common.settings') }}</a></li>
+                            <li><a href="#attributes-tab" aria-controls="attributes-tab" role="tab" data-toggle="tab"><i class="fa fa-leaf"></i>{{ trans('cortex/fort::common.attributes') }}</a></li>
                             <li><a href="{{ route('frontarea.account.sessions') }}"><i class="fa fa-list-alt"></i>{{ trans('cortex/fort::common.sessions') }}</a></li>
                             @if(! empty(config('rinvex.fort.twofactor.providers')))<li><a href="{{ route('frontarea.account.twofactor.index') }}"><i class="fa fa-lock"></i>{{ trans('cortex/fort::common.twofactor') }}</a></li>@endif
                         </ul>
@@ -72,12 +73,12 @@
             <div class="col-md-9">
                 <div class="profile-content">
 
-                    <!-- Tab panes -->
-                    <div class="tab-content">
+                    {{ Form::model($currentUser, ['url' => route('frontarea.account.settings.update'), 'id' => 'frontarea-account-settings-update']) }}
 
-                        <div role="tabpanel" class="tab-pane active" id="settings">
+                        <!-- Tab panes -->
+                        <div class="tab-content">
 
-                            {{ Form::model($currentUser, ['url' => route('frontarea.account.settings.update'), 'id' => 'frontarea-account-settings-update']) }}
+                            <div role="tabpanel" class="tab-pane active" id="settings-tab">
 
                                 <div class="row">
 
@@ -341,17 +342,23 @@
 
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-md-12 text-center">
-                                        {{ Form::button('<i class="fa fa-user"></i> '.trans('cortex/fort::common.update_basic_info'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}
-                                    </div>
-                                </div>
+                            </div>
 
-                            {{ Form::close() }}
+                            <div role="tabpanel" class="tab-pane" id="attributes-tab">
+
+                                @attributes($currentUser)
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    {{ Form::button('<i class="fa fa-user"></i> '.trans('cortex/fort::common.update_basic_info'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}
+                                </div>
+                            </div>
 
                         </div>
 
-                    </div>
+                    {{ Form::close() }}
 
                 </div>
             </div>

@@ -60,23 +60,24 @@
         <!-- Main content -->
         <section class="content">
 
-            <div class="nav-tabs-custom">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#details-tab" data-toggle="tab">{{ trans('cortex/fort::common.details') }}</a></li>
-                    @if($user->exists) <li><a href="{{ route('adminarea.users.logs', ['user' => $user]) }}">{{ trans('cortex/fort::common.logs') }}</a></li> @endif
-                    @if($user->exists) <li><a href="{{ route('adminarea.users.activities', ['user' => $user]) }}">{{ trans('cortex/fort::common.activities') }}</a></li> @endif
-                    @if($user->exists && $currentUser->can('delete-users', $user)) <li class="pull-right"><a href="#" data-toggle="modal" data-target="#delete-confirmation" data-item-href="{{ route('adminarea.users.delete', ['user' => $user]) }}" data-item-name="{{ $user->slug }}"><i class="fa fa-trash text-danger"></i></a></li> @endif
-                </ul>
+            @if ($user->exists)
+                {{ Form::model($user, ['url' => route('adminarea.users.update', ['user' => $user]), 'id' => 'adminarea-users-save', 'method' => 'put']) }}
+            @else
+                {{ Form::model($user, ['url' => route('adminarea.users.store'), 'id' => 'adminarea-users-save']) }}
+            @endif
 
-                <div class="tab-content">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#details-tab" data-toggle="tab">{{ trans('cortex/fort::common.details') }}</a></li>
+                        <li><a href="#attributes-tab" data-toggle="tab">{{ trans('cortex/fort::common.attributes') }}</a></li>
+                        @if($user->exists) <li><a href="{{ route('adminarea.users.logs', ['user' => $user]) }}">{{ trans('cortex/fort::common.logs') }}</a></li> @endif
+                        @if($user->exists) <li><a href="{{ route('adminarea.users.activities', ['user' => $user]) }}">{{ trans('cortex/fort::common.activities') }}</a></li> @endif
+                        @if($user->exists && $currentUser->can('delete-users', $user)) <li class="pull-right"><a href="#" data-toggle="modal" data-target="#delete-confirmation" data-item-href="{{ route('adminarea.users.delete', ['user' => $user]) }}" data-item-name="{{ $user->slug }}"><i class="fa fa-trash text-danger"></i></a></li> @endif
+                    </ul>
 
-                    <div class="tab-pane active" id="details-tab">
+                    <div class="tab-content">
 
-                        @if ($user->exists)
-                            {{ Form::model($user, ['url' => route('adminarea.users.update', ['user' => $user]), 'id' => 'adminarea-users-save', 'method' => 'put']) }}
-                        @else
-                            {{ Form::model($user, ['url' => route('adminarea.users.store'), 'id' => 'adminarea-users-save']) }}
-                        @endif
+                        <div class="tab-pane active" id="details-tab">
 
                             <div class="row">
                                 <div class="col-md-4">
@@ -383,25 +384,31 @@
 
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-12">
+                        </div>
 
-                                    <div class="pull-right">
-                                        {{ Form::button(trans('cortex/fort::common.submit'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}
-                                    </div>
+                        <div class="tab-pane" id="attributes-tab">
 
-                                    @include('cortex/foundation::adminarea.partials.timestamps', ['model' => $user])
+                            @attributes($user)
 
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="pull-right">
+                                    {{ Form::button(trans('cortex/fort::common.submit'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}
                                 </div>
-                            </div>
 
-                        {{ Form::close() }}
+                                @include('cortex/foundation::adminarea.partials.timestamps', ['model' => $user])
+
+                            </div>
+                        </div>
 
                     </div>
 
                 </div>
 
-            </div>
+            {{ Form::close() }}
 
         </section>
 

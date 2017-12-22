@@ -83,6 +83,18 @@ class UserFormRequest extends FormRequest
         $user = $this->route('user') ?? app('rinvex.fort.user');
         $user->updateRulesUniques();
         $rules = $user->getRules();
+
+        // Attach attribute rules
+        $user->getEntityAttributes()->where('is_required', true)->each(function ($attribute, $attributeSlug) use (&$rules) {
+            $type = in_array($attribute->type, ['text', 'varchar']) ? 'string' : $attribute->type;
+
+            if ($attribute->is_collection) {
+                $rules[$attributeSlug.'.*'] = "required|{$type}";
+            } else {
+                $rules[$attributeSlug] = 'required|'.$type;
+            }
+        });
+
         $rules['password'] = $user->exists
             ? 'confirmed|min:'.config('rinvex.fort.password_min_chars')
             : 'required|confirmed|min:'.config('rinvex.fort.password_min_chars');
