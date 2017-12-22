@@ -48,6 +48,7 @@ class UsersController extends AuthorizedController
             'tab' => 'logs',
             'type' => 'users',
             'resource' => $user,
+            'title' => $user->username,
             'id' => 'cortex-users-logs',
             'phrase' => trans('cortex/fort::common.users'),
         ])->render('cortex/fort::adminarea.pages.user-logs');
@@ -67,6 +68,7 @@ class UsersController extends AuthorizedController
             'tab' => 'activities',
             'type' => 'users',
             'resource' => $user,
+            'title' => $user->username,
             'id' => 'cortex-users-activities',
             'phrase' => trans('cortex/fort::common.users'),
         ])->render('cortex/fort::adminarea.pages.user-activities');
