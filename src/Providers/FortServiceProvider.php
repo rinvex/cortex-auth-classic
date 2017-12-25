@@ -42,6 +42,10 @@ class FortServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->singleton('cortex.fort.user.tabs', function ($app) {
+            return collect();
+        });
+
         // Register console commands
         ! $this->app->runningInConsole() || $this->registerCommands();
     }
