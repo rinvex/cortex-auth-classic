@@ -39,23 +39,17 @@ class RolesController extends AuthorizedController
     }
 
     /**
-     * Display a listing of the resource logs.
+     * Get a listing of the resource logs.
      *
-     * @param \Rinvex\Fort\Contracts\RoleContract         $role
-     * @param \Cortex\Foundation\DataTables\LogsDataTable $logsDataTable
+     * @param \Rinvex\Fort\Contracts\RoleContract $role
      *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
-    public function logs(RoleContract $role, LogsDataTable $logsDataTable)
+    public function logs(RoleContract $role)
     {
-        return $logsDataTable->with([
-            'tab' => 'logs',
-            'type' => 'roles',
-            'resource' => $role,
-            'title' => $role->name,
-            'id' => 'cortex-roles-logs',
-            'phrase' => trans('cortex/fort::common.roles'),
-        ])->render('cortex/foundation::adminarea.pages.datatable-tab');
+        return request()->ajax() && request()->wantsJson()
+            ? app(LogsDataTable::class)->with(['resource' => $role])->ajax()
+            : intend(['url' => route('adminarea.roles.edit', ['role' => $role]).'#logs-tab']);
     }
 
     /**
@@ -114,7 +108,9 @@ class RolesController extends AuthorizedController
             ? app('rinvex.fort.ability')->all()->groupBy('resource')->map->pluck('name', 'id')->toArray()
             : $request->user($this->getGuard())->allAbilities->groupBy('resource')->map->pluck('name', 'id')->toArray();
 
-        return view('cortex/fort::adminarea.pages.role', compact('role', 'abilities'));
+        $logs = app(LogsDataTable::class)->with(['id' => 'logs-table'])->html()->minifiedAjax(route('adminarea.roles.logs', ['role' => $role]));
+
+        return view('cortex/fort::adminarea.pages.role', compact('role', 'abilities', 'logs'));
     }
 
     /**

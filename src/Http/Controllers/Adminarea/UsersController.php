@@ -35,43 +35,31 @@ class UsersController extends AuthorizedController
     }
 
     /**
-     * Display a listing of the resource logs.
+     * Get a listing of the resource logs.
      *
-     * @param \Rinvex\Fort\Contracts\UserContract         $user
-     * @param \Cortex\Foundation\DataTables\LogsDataTable $logsDataTable
+     * @param \Rinvex\Fort\Contracts\UserContract $user
      *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
-    public function logs(UserContract $user, LogsDataTable $logsDataTable)
+    public function logs(UserContract $user)
     {
-        return $logsDataTable->with([
-            'tab' => 'logs',
-            'type' => 'users',
-            'resource' => $user,
-            'title' => $user->username,
-            'id' => 'cortex-users-logs',
-            'phrase' => trans('cortex/fort::common.users'),
-        ])->render('cortex/fort::adminarea.pages.user-logs');
+        return request()->ajax() && request()->wantsJson()
+            ? app(LogsDataTable::class)->with(['resource' => $user])->ajax()
+            : intend(['url' => route('adminarea.users.edit', ['user' => $user]).'#logs-tab']);
     }
 
     /**
-     * Display a listing of the resource activities.
+     * Get a listing of the resource activities.
      *
-     * @param \Rinvex\Fort\Contracts\UserContract               $user
-     * @param \Cortex\Foundation\DataTables\ActivitiesDataTable $activitiesDataTable
+     * @param \Rinvex\Fort\Contracts\UserContract $user
      *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
-    public function activities(UserContract $user, ActivitiesDataTable $activitiesDataTable)
+    public function activities(UserContract $user)
     {
-        return $activitiesDataTable->with([
-            'tab' => 'activities',
-            'type' => 'users',
-            'resource' => $user,
-            'title' => $user->username,
-            'id' => 'cortex-users-activities',
-            'phrase' => trans('cortex/fort::common.users'),
-        ])->render('cortex/fort::adminarea.pages.user-activities');
+        return request()->ajax() && request()->wantsJson()
+            ? app(ActivitiesDataTable::class)->with(['resource' => $user])->ajax()
+            : intend(['url' => route('adminarea.users.edit', ['user' => $user]).'#activities-tab']);
     }
 
     /**
@@ -138,7 +126,10 @@ class UsersController extends AuthorizedController
             ? app('rinvex.fort.ability')->all()->groupBy('resource')->map->pluck('name', 'id')->toArray()
             : $request->user($this->getGuard())->allAbilities->groupBy('resource')->map->pluck('name', 'id')->toArray();
 
-        return view('cortex/fort::adminarea.pages.user', compact('user', 'abilities', 'roles', 'countries', 'languages', 'genders'));
+        $logs = app(LogsDataTable::class)->with(['id' => 'logs-table'])->html()->minifiedAjax(route('adminarea.users.logs', ['user' => $user]));
+        $activities = app(ActivitiesDataTable::class)->with(['id' => 'activities-table'])->html()->minifiedAjax(route('adminarea.users.activities', ['user' => $user]));
+
+        return view('cortex/fort::adminarea.pages.user', compact('user', 'abilities', 'roles', 'countries', 'languages', 'genders', 'logs', 'activities'));
     }
 
     /**

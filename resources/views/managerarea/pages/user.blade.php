@@ -63,8 +63,8 @@
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#details-tab" data-toggle="tab">{{ trans('cortex/fort::common.details') }}</a></li>
-                    @if($user->exists) <li><a href="{{ route('managerarea.users.logs', ['user' => $user]) }}">{{ trans('cortex/fort::common.logs') }}</a></li> @endif
-                    @if($user->exists) <li><a href="{{ route('managerarea.users.activities', ['user' => $user]) }}">{{ trans('cortex/fort::common.activities') }}</a></li> @endif
+                    @if($user->exists) <li><a href="#logs-tab" data-toggle="tab">{{ trans('cortex/fort::common.logs') }}</a></li> @endif
+                    @if($user->exists) <li><a href="#activities-tab" data-toggle="tab">{{ trans('cortex/fort::common.activities') }}</a></li> @endif
                     @if($user->exists && $currentUser->can('delete-users', $user)) <li class="pull-right"><a href="#" data-toggle="modal" data-target="#delete-confirmation" data-item-href="{{ route('managerarea.users.delete', ['user' => $user]) }}" data-item-name="{{ $user->slug }}"><i class="fa fa-trash text-danger"></i></a></li> @endif
                 </ul>
 
@@ -399,6 +399,18 @@
 
                     </div>
 
+                    @if($user->exists)
+
+                        <div class="tab-pane" id="logs-tab">
+                            {!! $logs->table(['class' => 'table table-striped table-hover responsive dataTableBuilder', 'id' => 'logs-table']) !!}
+                        </div>
+
+                        <div class="tab-pane" id="activities-tab">
+                            {!! $activities->table(['class' => 'table table-striped table-hover responsive dataTableBuilder', 'id' => 'activities-table']) !!}
+                        </div>
+
+                    @endif
+
                 </div>
 
             </div>
@@ -408,3 +420,20 @@
     </div>
 
 @endsection
+
+@if($user->exists)
+
+    @push('styles')
+        <link href="{{ mix('css/datatables.css', 'assets') }}" rel="stylesheet">
+    @endpush
+
+    @push('scripts-vendor')
+        <script src="{{ mix('js/datatables.js', 'assets') }}" type="text/javascript"></script>
+    @endpush
+
+    @push('scripts')
+        {!! $logs->scripts() !!}
+        {!! $activities->scripts() !!}
+    @endpush
+
+@endif

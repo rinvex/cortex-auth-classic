@@ -39,23 +39,17 @@ class AbilitiesController extends AuthorizedController
     }
 
     /**
-     * Display a listing of the resource logs.
+     * Get a listing of the resource logs.
      *
-     * @param \Rinvex\Fort\Contracts\AbilityContract      $ability
-     * @param \Cortex\Foundation\DataTables\LogsDataTable $logsDataTable
+     * @param \Rinvex\Fort\Contracts\AbilityContract $ability
      *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
-    public function logs(AbilityContract $ability, LogsDataTable $logsDataTable)
+    public function logs(AbilityContract $ability)
     {
-        return $logsDataTable->with([
-            'tab' => 'logs',
-            'type' => 'abilities',
-            'resource' => $ability,
-            'title' => $ability->name,
-            'id' => 'cortex-abilities-logs',
-            'phrase' => trans('cortex/fort::common.abilities'),
-        ])->render('cortex/foundation::adminarea.pages.datatable-tab');
+        return request()->ajax() && request()->wantsJson()
+            ? app(LogsDataTable::class)->with(['resource' => $ability])->ajax()
+            : intend(['url' => route('adminarea.abilities.edit', ['ability' => $ability]).'#logs-tab']);
     }
 
     /**
@@ -114,7 +108,9 @@ class AbilitiesController extends AuthorizedController
             ? app('rinvex.fort.role')->all()->pluck('name', 'id')->toArray()
             : $request->user($this->getGuard())->roles->pluck('name', 'id')->toArray();
 
-        return view('cortex/fort::adminarea.pages.ability', compact('ability', 'roles'));
+        $logs = app(LogsDataTable::class)->with(['id' => 'logs-table'])->html()->minifiedAjax(route('adminarea.abilities.logs', ['ability' => $ability]));
+
+        return view('cortex/fort::adminarea.pages.ability', compact('ability', 'roles', 'logs'));
     }
 
     /**

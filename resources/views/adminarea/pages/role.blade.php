@@ -30,7 +30,7 @@
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#details-tab" data-toggle="tab">{{ trans('cortex/fort::common.details') }}</a></li>
-                    @if($role->exists) <li><a href="{{ route('adminarea.roles.logs', ['role' => $role]) }}">{{ trans('cortex/fort::common.logs') }}</a></li> @endif
+                    @if($role->exists) <li><a href="#logs-tab" data-toggle="tab">{{ trans('cortex/fort::common.logs') }}</a></li> @endif
                     @if($role->exists && $currentUser->can('delete-roles', $role)) <li class="pull-right"><a href="#" data-toggle="modal" data-target="#delete-confirmation" data-item-href="{{ route('adminarea.roles.delete', ['role' => $role]) }}" data-item-name="{{ $role->slug }}"><i class="fa fa-trash text-danger"></i></a></li> @endif
                 </ul>
 
@@ -124,7 +124,17 @@
                         {{ Form::close() }}
 
                     </div>
+
+                    @if($role->exists)
+
+                        <div class="tab-pane" id="logs-tab">
+                            {!! $logs->table(['class' => 'table table-striped table-hover responsive dataTableBuilder', 'id' => 'logs-table']) !!}
+                        </div>
+
+                    @endif
+
                 </div>
+
             </div>
 
         </section>
@@ -132,3 +142,19 @@
     </div>
 
 @endsection
+
+@if($role->exists)
+
+    @push('styles')
+        <link href="{{ mix('css/datatables.css', 'assets') }}" rel="stylesheet">
+    @endpush
+
+    @push('scripts-vendor')
+        <script src="{{ mix('js/datatables.js', 'assets') }}" type="text/javascript"></script>
+    @endpush
+
+    @push('scripts')
+        {!! $logs->scripts() !!}
+    @endpush
+
+@endif

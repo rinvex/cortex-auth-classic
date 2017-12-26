@@ -60,26 +60,26 @@
         <!-- Main content -->
         <section class="content">
 
-            @if ($user->exists)
-                {{ Form::model($user, ['url' => route('adminarea.users.update', ['user' => $user]), 'id' => 'adminarea-users-save', 'method' => 'put']) }}
-            @else
-                {{ Form::model($user, ['url' => route('adminarea.users.store'), 'id' => 'adminarea-users-save']) }}
-            @endif
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#details-tab" data-toggle="tab">{{ trans('cortex/fort::common.details') }}</a></li>
+                    {!! Tab::headers('cortex.fort.user.tabs', $user) !!}
+                    @if($user->exists) <li><a href="#logs-tab" data-toggle="tab">{{ trans('cortex/fort::common.logs') }}</a></li> @endif
+                    @if($user->exists) <li><a href="#activities-tab" data-toggle="tab">{{ trans('cortex/fort::common.activities') }}</a></li> @endif
+                    @if($user->exists && $currentUser->can('delete-users', $user)) <li class="pull-right"><a href="#" data-toggle="modal" data-target="#delete-confirmation" data-item-href="{{ route('adminarea.users.delete', ['user' => $user]) }}" data-item-name="{{ $user->slug }}"><i class="fa fa-trash text-danger"></i></a></li> @endif
+                </ul>
 
-                <div class="nav-tabs-custom">
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a href="#details-tab" data-toggle="tab">{{ trans('cortex/fort::common.details') }}</a></li>
-                        {!! Tab::headers('cortex.fort.user.tabs', $user) !!}
-                        @if($user->exists) <li><a href="{{ route('adminarea.users.logs', ['user' => $user]) }}">{{ trans('cortex/fort::common.logs') }}</a></li> @endif
-                        @if($user->exists) <li><a href="{{ route('adminarea.users.activities', ['user' => $user]) }}">{{ trans('cortex/fort::common.activities') }}</a></li> @endif
-                        @if($user->exists && $currentUser->can('delete-users', $user)) <li class="pull-right"><a href="#" data-toggle="modal" data-target="#delete-confirmation" data-item-href="{{ route('adminarea.users.delete', ['user' => $user]) }}" data-item-name="{{ $user->slug }}"><i class="fa fa-trash text-danger"></i></a></li> @endif
-                    </ul>
+                <div class="tab-content">
 
-                    <div class="tab-content">
+                    {!! Tab::panels('cortex.fort.user.tabs', $user) !!}
 
-                        {!! Tab::panels('cortex.fort.user.tabs', $user) !!}
+                    <div class="tab-pane active" id="details-tab">
 
-                        <div class="tab-pane active" id="details-tab">
+                        @if ($user->exists)
+                            {{ Form::model($user, ['url' => route('adminarea.users.update', ['user' => $user]), 'id' => 'adminarea-users-save', 'method' => 'put']) }}
+                        @else
+                            {{ Form::model($user, ['url' => route('adminarea.users.store'), 'id' => 'adminarea-users-save']) }}
+                        @endif
 
                             <div class="row">
                                 <div class="col-md-4">
@@ -386,28 +386,59 @@
 
                             </div>
 
-                        </div>
+                            <div class="row">
+                                <div class="col-md-12">
 
-                        <div class="row">
-                            <div class="col-md-12">
+                                    <div class="pull-right">
+                                        {{ Form::button(trans('cortex/fort::common.submit'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}
+                                    </div>
 
-                                <div class="pull-right">
-                                    {{ Form::button(trans('cortex/fort::common.submit'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}
+                                    @include('cortex/foundation::adminarea.partials.timestamps', ['model' => $user])
+
                                 </div>
 
-                                @include('cortex/foundation::adminarea.partials.timestamps', ['model' => $user])
-
                             </div>
-                        </div>
+
+                        {{ Form::close() }}
 
                     </div>
 
+                    @if($user->exists)
+
+                        <div class="tab-pane" id="logs-tab">
+                            {!! $logs->table(['class' => 'table table-striped table-hover responsive dataTableBuilder', 'id' => 'logs-table']) !!}
+                        </div>
+
+                        <div class="tab-pane" id="activities-tab">
+                            {!! $activities->table(['class' => 'table table-striped table-hover responsive dataTableBuilder', 'id' => 'activities-table']) !!}
+                        </div>
+
+                    @endif
+
                 </div>
 
-            {{ Form::close() }}
+            </div>
+
 
         </section>
 
     </div>
 
 @endsection
+
+@if($user->exists)
+
+    @push('styles')
+        <link href="{{ mix('css/datatables.css', 'assets') }}" rel="stylesheet">
+    @endpush
+
+    @push('scripts-vendor')
+        <script src="{{ mix('js/datatables.js', 'assets') }}" type="text/javascript"></script>
+    @endpush
+
+    @push('scripts')
+        {!! $logs->scripts() !!}
+        {!! $activities->scripts() !!}
+    @endpush
+
+@endif
