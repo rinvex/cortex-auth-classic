@@ -19,9 +19,7 @@
 
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>{{ $ability->exists ? $ability->name : trans('cortex/fort::common.create_ability') }}</h1>
-            <!-- Breadcrumbs -->
-            {{ Breadcrumbs::render() }}
+            <h1>{{ Breadcrumbs::render() }}</h1>
         </section>
 
         <!-- Main content -->

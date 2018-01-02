@@ -52,9 +52,7 @@
 
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>{{ $user->exists ? $user->username : trans('cortex/fort::common.create_user') }}</h1>
-            <!-- Breadcrumbs -->
-            {{ Breadcrumbs::render() }}
+            <h1>{{ Breadcrumbs::render() }}</h1>
         </section>
 
         <!-- Main content -->

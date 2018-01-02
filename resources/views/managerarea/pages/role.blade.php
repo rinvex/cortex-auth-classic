@@ -19,9 +19,7 @@
 
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>{{ $role->exists ? $role->name : trans('cortex/fort::common.create_role') }}</h1>
-            <!-- Breadcrumbs -->
-            {{ Breadcrumbs::render() }}
+            <h1>{{ Breadcrumbs::render() }}</h1>
         </section>
 
         <!-- Main content -->
