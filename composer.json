@@ -72,6 +72,7 @@
         "rinvex/tenants": "dev-develop",
         "spatie/laravel-activitylog": "^2.0.0",
         "rinvex/menus": "dev-develop",
+        "roave/security-advisories": "dev-master",
         "yajra/laravel-datatables-fractal": "^1.0.0",
         "yajra/laravel-datatables-buttons": "^3.0.0",
         "yajra/laravel-datatables-html": "^3.0.0",
