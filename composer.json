@@ -50,16 +50,16 @@
     ],
     "require": {
         "php": "^7.1.0",
-        "barryvdh/laravel-snappy": "^0.4.0",
-        "cortex/foundation": "dev-develop",
-        "cortex/fort": "dev-develop",
-        "davejamesmiller/laravel-breadcrumbs": "^4.0.0",
         "Illuminate/auth": "~5.5.0",
         "Illuminate/console": "~5.5.0",
         "Illuminate/database": "~5.5.0",
         "Illuminate/http": "~5.5.0",
         "Illuminate/routing": "~5.5.0",
         "Illuminate/support": "~5.5.0",
+        "barryvdh/laravel-snappy": "^0.4.0",
+        "cortex/fort": "dev-develop",
+        "cortex/foundation": "dev-develop",
+        "davejamesmiller/laravel-breadcrumbs": "^4.0.0",
         "laravel/socialite": "^3.0.0",
         "laravelcollective/html": "~5.5.0",
         "league/fractal": "^0.16.0",
@@ -68,19 +68,18 @@
         "proengsoft/laravel-jsvalidation": "^2.1.0",
         "rinvex/composer": "dev-develop",
         "rinvex/fort": "dev-develop",
+        "rinvex/menus": "dev-develop",
         "rinvex/support": "dev-develop",
         "rinvex/tenants": "dev-develop",
         "spatie/laravel-activitylog": "^2.0.0",
-        "rinvex/menus": "dev-develop",
-        "roave/security-advisories": "dev-master",
-        "yajra/laravel-datatables-fractal": "^1.0.0",
         "yajra/laravel-datatables-buttons": "^3.0.0",
+        "yajra/laravel-datatables-fractal": "^1.0.0",
         "yajra/laravel-datatables-html": "^3.0.0",
         "yajra/laravel-datatables-oracle": "^8.0.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^6.0.0",
-        "codedungeon/phpunit-result-printer": "^0.4.0"
+        "codedungeon/phpunit-result-printer": "^0.4.0",
+        "phpunit/phpunit": "^6.0.0"
     },
     "autoload": {
         "psr-4": {
