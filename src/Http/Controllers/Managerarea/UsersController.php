@@ -129,7 +129,7 @@ class UsersController extends AuthorizedController
     protected function process(Request $request, UserContract $user)
     {
         // Prepare required input fields
-        $data = $request->all();
+        $data = $request->validated();
 
         ! $request->hasFile('profile_picture')
         || $user->addMediaFromRequest('profile_picture')

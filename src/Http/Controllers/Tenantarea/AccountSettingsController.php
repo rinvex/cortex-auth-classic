@@ -35,7 +35,7 @@ class AccountSettingsController extends AuthenticatedController
      */
     public function update(AccountSettingsRequest $request)
     {
-        $data = $request->all();
+        $data = $request->validated();
         $currentUser = $request->user($this->getGuard());
 
         // Update profile

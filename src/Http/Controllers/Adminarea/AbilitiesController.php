@@ -107,7 +107,7 @@ class AbilitiesController extends AuthorizedController
     protected function process(Request $request, AbilityContract $ability)
     {
         // Prepare required input fields
-        $data = $request->all();
+        $data = $request->validated();
 
         // Verify valid policy
         if (! empty($data['policy']) && (($class = mb_strstr($data['policy'], '@', true)) === false || ! method_exists($class, str_replace('@', '', mb_strstr($data['policy'], '@'))))) {

@@ -107,7 +107,7 @@ class RolesController extends AuthorizedController
     protected function process(Request $request, RoleContract $role)
     {
         // Prepare required input fields
-        $data = $request->all();
+        $data = $request->validated();
 
         // Save role
         $role->fill($data)->save();
