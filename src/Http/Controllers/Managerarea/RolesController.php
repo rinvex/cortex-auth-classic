@@ -6,6 +6,7 @@ namespace Cortex\Fort\Http\Controllers\Managerarea;
 
 use Illuminate\Http\Request;
 use Rinvex\Fort\Contracts\RoleContract;
+use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Fort\DataTables\Managerarea\RolesDataTable;
 use Cortex\Fort\Http\Requests\Managerarea\RoleFormRequest;
@@ -99,12 +100,12 @@ class RolesController extends AuthorizedController
     /**
      * Process the form for store/update of the given resource.
      *
-     * @param \Illuminate\Http\Request            $request
-     * @param \Rinvex\Fort\Contracts\RoleContract $role
+     * @param \Illuminate\Foundation\Http\FormRequest $request
+     * @param \Rinvex\Fort\Contracts\RoleContract     $role
      *
      * @return \Illuminate\Http\Response
      */
-    protected function process(Request $request, RoleContract $role)
+    protected function process(FormRequest $request, RoleContract $role)
     {
         // Prepare required input fields
         $data = $request->validated();

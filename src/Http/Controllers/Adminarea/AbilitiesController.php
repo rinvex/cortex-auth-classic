@@ -6,6 +6,7 @@ namespace Cortex\Fort\Http\Controllers\Adminarea;
 
 use Illuminate\Http\Request;
 use Rinvex\Fort\Contracts\AbilityContract;
+use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Fort\DataTables\Adminarea\AbilitiesDataTable;
 use Cortex\Fort\Http\Requests\Adminarea\AbilityFormRequest;
@@ -99,12 +100,12 @@ class AbilitiesController extends AuthorizedController
     /**
      * Process the form for store/update of the given resource.
      *
-     * @param \Illuminate\Http\Request               $request
-     * @param \Rinvex\Fort\Contracts\AbilityContract $ability
+     * @param \Illuminate\Foundation\Http\FormRequest $request
+     * @param \Rinvex\Fort\Contracts\AbilityContract  $ability
      *
      * @return \Illuminate\Http\Response
      */
-    protected function process(Request $request, AbilityContract $ability)
+    protected function process(FormRequest $request, AbilityContract $ability)
     {
         // Prepare required input fields
         $data = $request->validated();

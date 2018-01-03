@@ -7,6 +7,7 @@ namespace Cortex\Fort\Http\Controllers\Adminarea;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\Models\Media;
 use Rinvex\Fort\Contracts\UserContract;
+use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Fort\DataTables\Adminarea\UsersDataTable;
 use Cortex\Foundation\DataTables\ActivitiesDataTable;
@@ -120,12 +121,12 @@ class UsersController extends AuthorizedController
     /**
      * Process the form for store/update of the given resource.
      *
-     * @param \Illuminate\Http\Request            $request
-     * @param \Rinvex\Fort\Contracts\UserContract $user
+     * @param \Illuminate\Foundation\Http\FormRequest $request
+     * @param \Rinvex\Fort\Contracts\UserContract     $user
      *
      * @return \Illuminate\Http\Response
      */
-    protected function process(Request $request, UserContract $user)
+    protected function process(FormRequest $request, UserContract $user)
     {
         // Prepare required input fields
         $data = $request->validated();
