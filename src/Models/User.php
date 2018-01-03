@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Cortex\Fort\Models;
 
 use Rinvex\Tenants\Traits\Tenantable;
+use Spatie\MediaLibrary\Models\Media;
 use Rinvex\Cacheable\CacheableEloquent;
 use Rinvex\Fort\Models\User as BaseUser;
 use Rinvex\Attributes\Traits\Attributable;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\Activitylog\ActivitylogServiceProvider;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
@@ -90,7 +93,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\User withoutTenants($tenants, $group = null)
  * @mixin \Eloquent
  */
-class User extends BaseUser
+class User extends BaseUser implements HasMedia
 {
     // Strangely, this issue happens only with users !!!
     // Duplicate trait usage to fire attached events for cache
@@ -100,6 +103,7 @@ class User extends BaseUser
     use Tenantable;
     use Attributable;
     use LogsActivity;
+    use HasMediaTrait;
 
     /**
      * Indicates whether to log only dirty attributes or all.
@@ -168,5 +172,16 @@ class User extends BaseUser
     public function getRouteKeyName()
     {
         return 'username';
+    }
+
+    /**
+     * Register media collections.
+     *
+     * @return void
+     */
+    public function registerMediaCollections()
+    {
+        $this->addMediaCollection('profile_picture')->singleFile();
+        $this->addMediaCollection('cover_photo')->singleFile();
     }
 }

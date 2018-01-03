@@ -27,6 +27,7 @@ return [
     'user' => [
         'saved' => 'Congrats! User [:username] saved successfully!',
         'deleted' => 'Done! User [:username] deleted successfully!',
+        'media_deleted' => 'Done! User media deleted successfully.',
     ],
 
     'register' => [

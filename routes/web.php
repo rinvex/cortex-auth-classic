@@ -133,6 +133,7 @@ Route::domain(domain())->group(function () {
              Route::get('{user}/logs')->name('logs')->uses('UsersController@logs');
              Route::get('{user}/activities')->name('activities')->uses('UsersController@activities');
              Route::delete('{user}')->name('delete')->uses('UsersController@delete');
+             Route::delete('{user}/media/{media}')->name('media.delete')->uses('UsersController@deleteMedia');
          });
      });
 });
@@ -166,6 +167,7 @@ Route::domain('{subdomain}.'.domain())->group(function () {
              Route::get('{user}/logs')->name('logs')->uses('UsersController@logs');
              Route::get('{user}/activities')->name('activities')->uses('UsersController@activities');
              Route::delete('{user}')->name('delete')->uses('UsersController@delete');
+             Route::delete('{user}/media/{media}')->name('media.delete')->uses('UsersController@deleteMedia');
          });
      });
 

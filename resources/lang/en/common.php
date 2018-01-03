@@ -34,6 +34,7 @@ return [
     'password_reset_request' => 'Request Password Reset',
     'remember_me' => 'Remember Me',
     'last_activity' => 'Last Activity',
+    'browse' => 'Browse',
 
     // Fields
     'name' => 'Name',
@@ -72,6 +73,8 @@ return [
     'loginfield' => 'Username / Email',
     'created_at' => 'Created At',
     'updated_at' => 'Updated At',
+    'cover_photo' => 'Cover Photo',
+    'profile_picture' => 'Profile Picture',
 
     // Headings
     'verification_email_request' => 'Request Email Verification',

@@ -74,9 +74,9 @@
                     <div class="tab-pane active" id="details-tab">
 
                         @if ($user->exists)
-                            {{ Form::model($user, ['url' => route('adminarea.users.update', ['user' => $user]), 'id' => 'adminarea-users-save', 'method' => 'put']) }}
+                            {{ Form::model($user, ['url' => route('adminarea.users.update', ['user' => $user]), 'id' => 'adminarea-users-save', 'method' => 'put', 'files' => true]) }}
                         @else
-                            {{ Form::model($user, ['url' => route('adminarea.users.store'), 'id' => 'adminarea-users-save']) }}
+                            {{ Form::model($user, ['url' => route('adminarea.users.store'), 'id' => 'adminarea-users-save', 'files' => true]) }}
                         @endif
 
                             <div class="row">
@@ -346,6 +346,68 @@
 
                                 <div class="col-md-4">
 
+                                    {{-- Profile Picture --}}
+                                    <div class="form-group has-feedback{{ $errors->has('profile_picture') ? ' has-error' : '' }}">
+                                        {{ Form::label('profile_picture', trans('cortex/fort::common.profile_picture'), ['class' => 'control-label']) }}
+
+                                        <div class="input-group">
+                                            {{ Form::text('profile_picture', null, ['class' => 'form-control file-name', 'placeholder' => trans('cortex/fort::common.profile_picture'), 'readonly' => 'readonly']) }}
+
+                                            <span class="input-group-btn">
+                                                <span class="btn btn-default btn-file">
+                                                    {{ trans('cortex/fort::common.browse') }}
+                                                    {{ Form::file('profile_picture', ['class' => 'form-control']) }}
+                                                </span>
+                                            </span>
+                                        </div>
+
+                                        @if ($user->exists && $user->getMedia('profile_picture')->count())
+                                            <i class="fa fa-paperclip"></i>
+                                            <a href="{{ $user->getFirstMediaUrl('profile_picture') }}" target="_blank">{{ $user->getFirstMedia('profile_picture')->file_name }}</a> ({{ $user->getFirstMedia('profile_picture')->human_readable_size }})
+                                            <a href="{{ route('adminarea.users.media.delete', ['user' => $user, 'media' => $user->getFirstMedia('profile_picture')]) }}" data-method="delete" data-token="{{ csrf_token() }}" class="close" style="float: none; font-size: inherit;" title="{{ trans('cortex/foundation::common.delete') }}"><i class="text-danger fa fa-close"></i></a>
+                                        @endif
+
+
+                                        @if ($errors->has('profile_picture'))
+                                            <span class="help-block">{{ $errors->first('profile_picture') }}</span>
+                                        @endif
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-4">
+
+                                    {{-- Cover Photo --}}
+                                    <div class="form-group has-feedback{{ $errors->has('cover_photo') ? ' has-error' : '' }}">
+                                        {{ Form::label('cover_photo', trans('cortex/fort::common.cover_photo'), ['class' => 'control-label']) }}
+
+                                        <div class="input-group">
+                                            {{ Form::text('cover_photo', null, ['class' => 'form-control file-name', 'placeholder' => trans('cortex/fort::common.cover_photo'), 'readonly' => 'readonly']) }}
+
+                                            <span class="input-group-btn">
+                                                <span class="btn btn-default btn-file">
+                                                    {{ trans('cortex/fort::common.browse') }}
+                                                    {{ Form::file('cover_photo', ['class' => 'form-control']) }}
+                                                </span>
+                                            </span>
+                                        </div>
+
+                                        @if ($user->exists && $user->getMedia('cover_photo')->count())
+                                            <i class="fa fa-paperclip"></i>
+                                            <a href="{{ $user->getFirstMediaUrl('cover_photo') }}" target="_blank">{{ $user->getFirstMedia('cover_photo')->file_name }}</a> ({{ $user->getFirstMedia('cover_photo')->human_readable_size }})
+                                            <a href="{{ route('adminarea.users.media.delete', ['user' => $user, 'media' => $user->getFirstMedia('cover_photo')]) }}" data-method="delete" data-token="{{ csrf_token() }}" class="close" style="float: none; font-size: inherit;" title="{{ trans('cortex/foundation::common.delete') }}"><i class="text-danger fa fa-close"></i></a>
+                                        @endif
+
+
+                                        @if ($errors->has('cover_photo'))
+                                            <span class="help-block">{{ $errors->first('cover_photo') }}</span>
+                                        @endif
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-4">
+
                                     {{-- Password --}}
                                     <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
                                         {{ Form::label('password', trans('cortex/fort::common.password'), ['class' => 'control-label']) }}
@@ -362,6 +424,10 @@
                                     </div>
 
                                 </div>
+
+                            </div>
+
+                            <div class="row">
 
                                 <div class="col-md-4">
 
@@ -416,7 +482,6 @@
                 </div>
 
             </div>
-
 
         </section>
 
