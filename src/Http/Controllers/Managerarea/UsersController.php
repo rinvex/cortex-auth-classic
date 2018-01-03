@@ -166,11 +166,15 @@ class UsersController extends AuthorizedController
         // Prepare required input fields
         $data = $request->all();
 
-        ! $request->hasFile('profile_picture') || $user->addMediaFromRequest('profile_picture')
-             ->toMediaCollection('profile_picture', config('cortex.fort.media.disk'));
+        ! $request->hasFile('profile_picture')
+        || $user->addMediaFromRequest('profile_picture')
+                ->sanitizingFileName(function($fileName) { return md5($fileName).'.'.pathinfo($fileName, PATHINFO_EXTENSION); })
+                ->toMediaCollection('profile_picture', config('cortex.fort.media.disk'));
 
-        ! $request->hasFile('cover_photo') || $user->addMediaFromRequest('cover_photo')
-             ->toMediaCollection('cover_photo', config('cortex.fort.media.disk'));
+        ! $request->hasFile('cover_photo')
+        || $user->addMediaFromRequest('cover_photo')
+                ->sanitizingFileName(function($fileName) { return md5($fileName).'.'.pathinfo($fileName, PATHINFO_EXTENSION); })
+                ->toMediaCollection('cover_photo', config('cortex.fort.media.disk'));
 
         // Save user
         $user->fill($data)->save();
