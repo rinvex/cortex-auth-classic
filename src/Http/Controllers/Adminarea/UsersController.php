@@ -133,12 +133,16 @@ class UsersController extends AuthorizedController
 
         ! $request->hasFile('profile_picture')
         || $user->addMediaFromRequest('profile_picture')
-                ->sanitizingFileName(function($fileName) { return md5($fileName).'.'.pathinfo($fileName, PATHINFO_EXTENSION); })
+                ->sanitizingFileName(function ($fileName) {
+                    return md5($fileName).'.'.pathinfo($fileName, PATHINFO_EXTENSION);
+                })
                 ->toMediaCollection('profile_picture', config('cortex.fort.media.disk'));
 
         ! $request->hasFile('cover_photo')
         || $user->addMediaFromRequest('cover_photo')
-                ->sanitizingFileName(function($fileName) { return md5($fileName).'.'.pathinfo($fileName, PATHINFO_EXTENSION); })
+                ->sanitizingFileName(function ($fileName) {
+                    return md5($fileName).'.'.pathinfo($fileName, PATHINFO_EXTENSION);
+                })
                 ->toMediaCollection('cover_photo', config('cortex.fort.media.disk'));
 
         // Save user
@@ -177,7 +181,7 @@ class UsersController extends AuthorizedController
      */
     public function deleteMedia(UserContract $user, Media $media)
     {
-        $user->media()->where('id' , $media->id)->first()->delete();
+        $user->media()->where('id', $media->id)->first()->delete();
 
         return intend([
             'url' => route('adminarea.users.edit', ['user' => $user]),
