@@ -86,6 +86,9 @@ class UserFormRequest extends FormRequest
         $user = $this->route('user') ?? app('rinvex.fort.user');
         $user->updateRulesUniques();
         $rules = $user->getRules();
+
+        $rules['roles'] = 'nullable|array';
+        $rules['abilities'] = 'nullable|array';
         $rules['password'] = $user->exists
             ? 'confirmed|min:'.config('rinvex.fort.password_min_chars')
             : 'required|confirmed|min:'.config('rinvex.fort.password_min_chars');

@@ -54,7 +54,9 @@ class RoleFormRequest extends FormRequest
     {
         $user = $this->route('role') ?? app('rinvex.fort.role');
         $user->updateRulesUniques();
+        $rules = $user->getRules();
+        $rules['abilities'] = 'nullable|array';
 
-        return $user->getRules();
+        return $rules;
     }
 }

@@ -95,6 +95,8 @@ class UserFormRequest extends FormRequest
             }
         });
 
+        $rules['roles'] = 'nullable|array';
+        $rules['abilities'] = 'nullable|array';
         $rules['password'] = $user->exists
             ? 'confirmed|min:'.config('rinvex.fort.password_min_chars')
             : 'required|confirmed|min:'.config('rinvex.fort.password_min_chars');
