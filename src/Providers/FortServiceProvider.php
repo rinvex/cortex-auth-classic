@@ -45,6 +45,7 @@ class FortServiceProvider extends ServiceProvider
         $this->app->singleton('cortex.fort.user.tabs', function ($app) {
             return collect();
         });
+        $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'cortex.fort');
 
         // Register console commands
         ! $this->app->runningInConsole() || $this->registerCommands();
@@ -95,6 +96,7 @@ class FortServiceProvider extends ServiceProvider
      */
     protected function publishResources()
     {
+        $this->publishes([realpath(__DIR__.'/../../config/config.php') => config_path('cortex.fort.php')], 'cortex-fort-config');
         $this->publishes([realpath(__DIR__.'/../../resources/lang') => resource_path('lang/vendor/cortex/fort')], 'cortex-fort-lang');
         $this->publishes([realpath(__DIR__.'/../../resources/views') => resource_path('views/vendor/cortex/fort')], 'cortex-fort-views');
     }

@@ -367,7 +367,6 @@
                                             <a href="{{ route('adminarea.users.media.delete', ['user' => $user, 'media' => $user->getFirstMedia('profile_picture')]) }}" data-method="delete" data-token="{{ csrf_token() }}" class="close" style="float: none; font-size: inherit;" title="{{ trans('cortex/foundation::common.delete') }}"><i class="text-danger fa fa-close"></i></a>
                                         @endif
 
-
                                         @if ($errors->has('profile_picture'))
                                             <span class="help-block">{{ $errors->first('profile_picture') }}</span>
                                         @endif
@@ -397,7 +396,6 @@
                                             <a href="{{ $user->getFirstMediaUrl('cover_photo') }}" target="_blank">{{ $user->getFirstMedia('cover_photo')->file_name }}</a> ({{ $user->getFirstMedia('cover_photo')->human_readable_size }})
                                             <a href="{{ route('adminarea.users.media.delete', ['user' => $user, 'media' => $user->getFirstMedia('cover_photo')]) }}" data-method="delete" data-token="{{ csrf_token() }}" class="close" style="float: none; font-size: inherit;" title="{{ trans('cortex/foundation::common.delete') }}"><i class="text-danger fa fa-close"></i></a>
                                         @endif
-
 
                                         @if ($errors->has('cover_photo'))
                                             <span class="help-block">{{ $errors->first('cover_photo') }}</span>
