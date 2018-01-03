@@ -64,6 +64,35 @@ class UsersController extends AuthorizedController
     }
 
     /**
+     * Show the form for create/update of the given resource.
+     *
+     * @param \Illuminate\Http\Request            $request
+     * @param \Rinvex\Fort\Contracts\UserContract $user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function form(Request $request, UserContract $user)
+    {
+        $countries = countries();
+        $authUser = $request->user($this->getGuard());
+        $languages = collect(languages())->pluck('name', 'iso_639_1');
+        $genders = ['m' => trans('cortex/fort::common.male'), 'f' => trans('cortex/fort::common.female')];
+
+        $roles = $authUser->isSuperadmin()
+            ? app('rinvex.fort.role')->all()->pluck('name', 'id')->toArray()
+            : $authUser->roles->pluck('name', 'id')->toArray();
+
+        $abilities = $authUser->isSuperadmin()
+            ? app('rinvex.fort.ability')->all()->groupBy('resource')->map->pluck('name', 'id')->toArray()
+            : $authUser->allAbilities->groupBy('resource')->map->pluck('name', 'id')->toArray();
+
+        $logs = app(LogsDataTable::class)->with(['id' => 'logs-table'])->html()->minifiedAjax(route('adminarea.users.logs', ['user' => $user]));
+        $activities = app(ActivitiesDataTable::class)->with(['id' => 'activities-table'])->html()->minifiedAjax(route('adminarea.users.activities', ['user' => $user]));
+
+        return view('cortex/fort::adminarea.pages.user', compact('user', 'abilities', 'roles', 'countries', 'languages', 'genders', 'logs', 'activities'));
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param \Cortex\Fort\Http\Requests\Adminarea\UserFormRequest $request
@@ -86,6 +115,38 @@ class UsersController extends AuthorizedController
     public function update(UserFormRequest $request, UserContract $user)
     {
         return $this->process($request, $user);
+    }
+
+    /**
+     * Process the form for store/update of the given resource.
+     *
+     * @param \Illuminate\Http\Request            $request
+     * @param \Rinvex\Fort\Contracts\UserContract $user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    protected function process(Request $request, UserContract $user)
+    {
+        // Prepare required input fields
+        $data = $request->all();
+
+        ! $request->hasFile('profile_picture')
+        || $user->addMediaFromRequest('profile_picture')
+                ->sanitizingFileName(function($fileName) { return md5($fileName).'.'.pathinfo($fileName, PATHINFO_EXTENSION); })
+                ->toMediaCollection('profile_picture', config('cortex.fort.media.disk'));
+
+        ! $request->hasFile('cover_photo')
+        || $user->addMediaFromRequest('cover_photo')
+                ->sanitizingFileName(function($fileName) { return md5($fileName).'.'.pathinfo($fileName, PATHINFO_EXTENSION); })
+                ->toMediaCollection('cover_photo', config('cortex.fort.media.disk'));
+
+        // Save user
+        $user->fill($data)->save();
+
+        return intend([
+            'url' => route('adminarea.users.index'),
+            'with' => ['success' => trans('cortex/fort::messages.user.saved', ['username' => $user->username])],
+        ]);
     }
 
     /**
@@ -120,67 +181,6 @@ class UsersController extends AuthorizedController
         return intend([
             'url' => route('adminarea.users.edit', ['user' => $user]),
             'with' => ['warning' => trans('cortex/fort::messages.user.media_deleted')],
-        ]);
-    }
-
-    /**
-     * Show the form for create/update of the given resource.
-     *
-     * @param \Illuminate\Http\Request            $request
-     * @param \Rinvex\Fort\Contracts\UserContract $user
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function form(Request $request, UserContract $user)
-    {
-        $countries = countries();
-        $authUser = $request->user($this->getGuard());
-        $languages = collect(languages())->pluck('name', 'iso_639_1');
-        $genders = ['m' => trans('cortex/fort::common.male'), 'f' => trans('cortex/fort::common.female')];
-
-        $roles = $authUser->isSuperadmin()
-            ? app('rinvex.fort.role')->all()->pluck('name', 'id')->toArray()
-            : $authUser->roles->pluck('name', 'id')->toArray();
-
-        $abilities = $authUser->isSuperadmin()
-            ? app('rinvex.fort.ability')->all()->groupBy('resource')->map->pluck('name', 'id')->toArray()
-            : $authUser->allAbilities->groupBy('resource')->map->pluck('name', 'id')->toArray();
-
-        $logs = app(LogsDataTable::class)->with(['id' => 'logs-table'])->html()->minifiedAjax(route('adminarea.users.logs', ['user' => $user]));
-        $activities = app(ActivitiesDataTable::class)->with(['id' => 'activities-table'])->html()->minifiedAjax(route('adminarea.users.activities', ['user' => $user]));
-
-        return view('cortex/fort::adminarea.pages.user', compact('user', 'abilities', 'roles', 'countries', 'languages', 'genders', 'logs', 'activities'));
-    }
-
-    /**
-     * Process the form for store/update of the given resource.
-     *
-     * @param \Illuminate\Http\Request            $request
-     * @param \Rinvex\Fort\Contracts\UserContract $user
-     *
-     * @return \Illuminate\Http\Response
-     */
-    protected function process(Request $request, UserContract $user)
-    {
-        // Prepare required input fields
-        $data = $request->all();
-
-        ! $request->hasFile('profile_picture')
-        || $user->addMediaFromRequest('profile_picture')
-                ->sanitizingFileName(function($fileName) { return md5($fileName).'.'.pathinfo($fileName, PATHINFO_EXTENSION); })
-                ->toMediaCollection('profile_picture', config('cortex.fort.media.disk'));
-
-        ! $request->hasFile('cover_photo')
-        || $user->addMediaFromRequest('cover_photo')
-                ->sanitizingFileName(function($fileName) { return md5($fileName).'.'.pathinfo($fileName, PATHINFO_EXTENSION); })
-                ->toMediaCollection('cover_photo', config('cortex.fort.media.disk'));
-
-        // Save user
-        $user->fill($data)->save();
-
-        return intend([
-            'url' => route('adminarea.users.index'),
-            'with' => ['success' => trans('cortex/fort::messages.user.saved', ['username' => $user->username])],
         ]);
     }
 }

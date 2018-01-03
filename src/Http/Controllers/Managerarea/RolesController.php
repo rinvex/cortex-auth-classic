@@ -51,6 +51,27 @@ class RolesController extends AuthorizedController
     }
 
     /**
+     * Show the form for create/update of the given resource.
+     *
+     * @param \Illuminate\Http\Request            $request
+     * @param \Rinvex\Fort\Contracts\RoleContract $role
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function form(Request $request, RoleContract $role)
+    {
+        $owner = optional(optional(config('rinvex.tenants.active'))->owner)->id;
+
+        $abilities = $request->user($this->getGuard())->id === $owner
+            ? app('rinvex.fort.role')->forAllTenants()->where('slug', 'manager')->first()->abilities->groupBy('resource')->map->pluck('name', 'id')->toArray()
+            : $request->user($this->getGuard())->allAbilities->groupBy('resource')->map->pluck('name', 'id')->toArray();
+
+        $logs = app(LogsDataTable::class)->with(['id' => 'logs-table'])->html()->minifiedAjax(route('managerarea.roles.logs', ['role' => $role]));
+
+        return view('cortex/fort::managerarea.pages.role', compact('role', 'abilities', 'logs'));
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param \Cortex\Fort\Http\Requests\Managerarea\RoleFormRequest $request
@@ -76,44 +97,6 @@ class RolesController extends AuthorizedController
     }
 
     /**
-     * Delete the given resource from storage.
-     *
-     * @param \Rinvex\Fort\Contracts\RoleContract $role
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function delete(RoleContract $role)
-    {
-        $role->delete();
-
-        return intend([
-            'url' => route('managerarea.roles.index'),
-            'with' => ['warning' => trans('cortex/fort::messages.role.deleted', ['slug' => $role->slug])],
-        ]);
-    }
-
-    /**
-     * Show the form for create/update of the given resource.
-     *
-     * @param \Illuminate\Http\Request            $request
-     * @param \Rinvex\Fort\Contracts\RoleContract $role
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function form(Request $request, RoleContract $role)
-    {
-        $owner = optional(optional(config('rinvex.tenants.active'))->owner)->id;
-
-        $abilities = $request->user($this->getGuard())->id === $owner
-            ? app('rinvex.fort.role')->forAllTenants()->where('slug', 'manager')->first()->abilities->groupBy('resource')->map->pluck('name', 'id')->toArray()
-            : $request->user($this->getGuard())->allAbilities->groupBy('resource')->map->pluck('name', 'id')->toArray();
-
-        $logs = app(LogsDataTable::class)->with(['id' => 'logs-table'])->html()->minifiedAjax(route('managerarea.roles.logs', ['role' => $role]));
-
-        return view('cortex/fort::managerarea.pages.role', compact('role', 'abilities', 'logs'));
-    }
-
-    /**
      * Process the form for store/update of the given resource.
      *
      * @param \Illuminate\Http\Request            $request
@@ -132,6 +115,23 @@ class RolesController extends AuthorizedController
         return intend([
             'url' => route('managerarea.roles.index'),
             'with' => ['success' => trans('cortex/fort::messages.role.saved', ['slug' => $role->slug])],
+        ]);
+    }
+
+    /**
+     * Delete the given resource from storage.
+     *
+     * @param \Rinvex\Fort\Contracts\RoleContract $role
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function delete(RoleContract $role)
+    {
+        $role->delete();
+
+        return intend([
+            'url' => route('managerarea.roles.index'),
+            'with' => ['warning' => trans('cortex/fort::messages.role.deleted', ['slug' => $role->slug])],
         ]);
     }
 }

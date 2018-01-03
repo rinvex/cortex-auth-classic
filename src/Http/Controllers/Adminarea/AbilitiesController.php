@@ -53,6 +53,25 @@ class AbilitiesController extends AuthorizedController
     }
 
     /**
+     * Show the form for create/update of the given resource.
+     *
+     * @param \Illuminate\Http\Request               $request
+     * @param \Rinvex\Fort\Contracts\AbilityContract $ability
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function form(Request $request, AbilityContract $ability)
+    {
+        $roles = $request->user($this->getGuard())->isSuperadmin()
+            ? app('rinvex.fort.role')->all()->pluck('name', 'id')->toArray()
+            : $request->user($this->getGuard())->roles->pluck('name', 'id')->toArray();
+
+        $logs = app(LogsDataTable::class)->with(['id' => 'logs-table'])->html()->minifiedAjax(route('adminarea.abilities.logs', ['ability' => $ability]));
+
+        return view('cortex/fort::adminarea.pages.ability', compact('ability', 'roles', 'logs'));
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param \Cortex\Fort\Http\Requests\Adminarea\AbilityFormRequest $request
@@ -75,42 +94,6 @@ class AbilitiesController extends AuthorizedController
     public function update(AbilityFormRequest $request, AbilityContract $ability)
     {
         return $this->process($request, $ability);
-    }
-
-    /**
-     * Delete the given resource from storage.
-     *
-     * @param \Rinvex\Fort\Contracts\AbilityContract $ability
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function delete(AbilityContract $ability)
-    {
-        $ability->delete();
-
-        return intend([
-            'url' => route('adminarea.abilities.index'),
-            'with' => ['warning' => trans('cortex/fort::messages.ability.deleted', ['abilityId' => $ability->id])],
-        ]);
-    }
-
-    /**
-     * Show the form for create/update of the given resource.
-     *
-     * @param \Illuminate\Http\Request               $request
-     * @param \Rinvex\Fort\Contracts\AbilityContract $ability
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function form(Request $request, AbilityContract $ability)
-    {
-        $roles = $request->user($this->getGuard())->isSuperadmin()
-            ? app('rinvex.fort.role')->all()->pluck('name', 'id')->toArray()
-            : $request->user($this->getGuard())->roles->pluck('name', 'id')->toArray();
-
-        $logs = app(LogsDataTable::class)->with(['id' => 'logs-table'])->html()->minifiedAjax(route('adminarea.abilities.logs', ['ability' => $ability]));
-
-        return view('cortex/fort::adminarea.pages.ability', compact('ability', 'roles', 'logs'));
     }
 
     /**
@@ -141,6 +124,23 @@ class AbilitiesController extends AuthorizedController
         return intend([
             'url' => route('adminarea.abilities.index'),
             'with' => ['success' => trans('cortex/fort::messages.ability.saved', ['abilityId' => $ability->id])],
+        ]);
+    }
+
+    /**
+     * Delete the given resource from storage.
+     *
+     * @param \Rinvex\Fort\Contracts\AbilityContract $ability
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function delete(AbilityContract $ability)
+    {
+        $ability->delete();
+
+        return intend([
+            'url' => route('adminarea.abilities.index'),
+            'with' => ['warning' => trans('cortex/fort::messages.ability.deleted', ['abilityId' => $ability->id])],
         ]);
     }
 }
