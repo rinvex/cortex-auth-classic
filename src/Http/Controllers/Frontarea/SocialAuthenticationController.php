@@ -35,9 +35,9 @@ class SocialAuthenticationController extends AuthenticationController
         $attributes = [
             'id' => $providerUser->id,
             'email' => $providerUser->email,
-            'username' => $providerUser->nickname ?? trim(strstr($providerUser->email, '@', true)),
-            'first_name' => trim(strstr($providerUser->name, ' ', true)),
-            'last_name' => trim(strstr($providerUser->name, ' ')),
+            'username' => $providerUser->nickname ?? trim(mb_strstr($providerUser->email, '@', true)),
+            'first_name' => trim(mb_strstr($providerUser->name, ' ', true)),
+            'last_name' => trim(mb_strstr($providerUser->name, ' ')),
         ];
 
         switch ($provider) {
