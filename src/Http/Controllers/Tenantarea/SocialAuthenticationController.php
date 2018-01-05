@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Controllers\Frontarea;
+namespace Cortex\Fort\Http\Controllers\Tenantarea;
 
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Database\Eloquent\Builder;
@@ -36,8 +36,8 @@ class SocialAuthenticationController extends AuthenticationController
             'id' => $providerUser->id,
             'email' => $providerUser->email,
             'username' => $providerUser->nickname ?? trim(mb_strstr($providerUser->email, '@', true)),
-            'first_name' => trim(mb_strstr($providerUser->name, ' ', true)),
-            'last_name' => trim(mb_strstr($providerUser->name, ' ')),
+            'first_name' => str_before($providerUser->name, ' '),
+            'last_name' => str_after($providerUser->name, ' '),
         ];
 
         switch ($provider) {
