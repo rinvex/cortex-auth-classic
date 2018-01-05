@@ -103,6 +103,7 @@ class SocialAuthenticationController extends AuthenticationController
      */
     protected function createLocalUser(string $provider, array $attributes)
     {
+        $localUser = app('rinvex.fort.user');
         $defaultRole = app('rinvex.fort.role')->where('slug', config('rinvex.fort.registration.default_role'))->first();
 
         $attributes['password'] = str_random();
@@ -111,7 +112,7 @@ class SocialAuthenticationController extends AuthenticationController
         $attributes['is_active'] = ! config('rinvex.fort.registration.moderated');
         $attributes['roles'] = $defaultRole ? [$defaultRole->id] : null;
 
-        $localUser = app('rinvex.fort.user')->fill($attributes)->save();
+        $localUser->fill($attributes)->save();
 
         // Fire the register success event
         event('rinvex.fort.register.success', [$localUser]);
