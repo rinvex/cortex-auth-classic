@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Controllers\Tenantarea;
 
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use PragmaRX\Google2FA\Google2FA;
 use Cortex\Foundation\Http\Controllers\AuthenticatedController;
@@ -98,7 +97,7 @@ class TwoFactorSettingsController extends AuthenticatedController
                 'enabled' => true,
                 'secret' => $secret,
                 'backup' => $backup ?? $this->generateTotpBackups(),
-                'backup_at' => $backupAt ?? (new Carbon())->toDateTimeString(),
+                'backup_at' => $backupAt ?? now()->toDateTimeString(),
             ];
 
             // Update TwoFactor settings
@@ -128,7 +127,7 @@ class TwoFactorSettingsController extends AuthenticatedController
         $currentUser = $request->user($this->getGuard());
         $twoFactor = $currentUser->getTwoFactor();
         $twoFactor['totp']['backup'] = $this->generateTotpBackups();
-        $twoFactor['totp']['backup_at'] = (new Carbon())->toDateTimeString();
+        $twoFactor['totp']['backup_at'] = now()->toDateTimeString();
 
         $currentUser->fill(['two_factor' => $twoFactor])->forceSave();
 

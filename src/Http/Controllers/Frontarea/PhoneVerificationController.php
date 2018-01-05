@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Controllers\Frontarea;
 
-use Carbon\Carbon;
 use Rinvex\Fort\Guards\SessionGuard;
 use Cortex\Foundation\Http\Controllers\AbstractController;
 use Cortex\Fort\Http\Requests\Frontarea\PhoneVerificationRequest;
@@ -76,7 +75,7 @@ class PhoneVerificationController extends AbstractController
                 // Update user account
                 $user->fill([
                     'phone_verified' => true,
-                    'phone_verified_at' => new Carbon(),
+                    'phone_verified_at' => now(),
                 ])->forceSave();
 
                 return intend([

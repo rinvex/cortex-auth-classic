@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Requests\Managerarea;
 
-use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserFormRequest extends FormRequest
@@ -42,12 +41,12 @@ class UserFormRequest extends FormRequest
 
         // Update email verification date
         if ($data['email_verified'] && $user->email_verified !== $data['email_verified']) {
-            $data['email_verified_at'] = Carbon::now();
+            $data['email_verified_at'] = now();
         }
 
         // Update phone verification date
         if ($data['phone_verified'] && $user->phone_verified !== $data['phone_verified']) {
-            $data['phone_verified_at'] = Carbon::now();
+            $data['phone_verified_at'] = now();
         }
 
         // Set abilities
