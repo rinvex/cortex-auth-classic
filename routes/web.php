@@ -10,7 +10,6 @@ if (! function_exists('authentication_routes')) {
      */
     function authentication_routes()
     {
-
         // Login Routes
         Route::get('login')->name('login')->uses('AuthenticationController@form');
         Route::post('login')->name('login.process')->uses('AuthenticationController@login');
@@ -21,8 +20,9 @@ if (! function_exists('authentication_routes')) {
         Route::post('register')->name('register.process')->uses('RegistrationController@register');
 
         // Social Authentication Routes
-        Route::get('github')->name('social.github')->uses('SocialAuthenticationController@redirectToGithub');
-        Route::get('github/callback')->name('social.github.callback')->uses('SocialAuthenticationController@handleGithubCallback');
+        Route::redirect('auth', 'login');
+        Route::get('auth/{provider}')->name('auth.social')->uses('SocialAuthenticationController@redirectToProvider');
+        Route::get('auth/{provider}/callback')->name('auth.social.callback')->uses('SocialAuthenticationController@handleProviderCallback');
 
         // Password Reset Routes
         Route::name('passwordreset.')->prefix('passwordreset')->group(function () {
