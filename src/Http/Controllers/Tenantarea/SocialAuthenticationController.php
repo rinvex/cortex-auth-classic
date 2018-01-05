@@ -54,9 +54,6 @@ class SocialAuthenticationController extends AuthenticationController
                 'is_active' => ! config('rinvex.fort.registration.moderated'),
             ];
 
-            // Fire the register start event
-            event('rinvex.fort.register.social.start', [$data]);
-
             // Create user
             $result = $user->create($data);
 
@@ -66,9 +63,6 @@ class SocialAuthenticationController extends AuthenticationController
                     $result->roles()->attach($defaultRole);
                 }
             }
-
-            // Fire the register success event
-            event('rinvex.fort.register.social.success', [$result]);
 
             $result->socialites()->create([
                 'user_id' => 'github',
