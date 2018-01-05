@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Controllers\Frontarea;
 
-use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -41,29 +40,27 @@ class SocialAuthenticationController extends AuthenticationController
             'last_name' => trim(strstr($providerUser->name, ' ')),
         ];
 
-        //switch ($provider) {
-        //    case 'twitter':
-        //        $attributes['bio'] = $providerUser->user['description'];
-        //        $attributes['profile_picture'] = $providerUser->avatar_original;
-        //        break;
-        //    case 'github':
-        //        $attributes['bio'] = $providerUser->user['bio'];
-        //        $attributes['profile_picture'] = $providerUser->avatar;
-        //        break;
-        //    case 'facebook':
-        //        $attributes['profile_picture'] = $providerUser->avatar_original;
-        //        break;
-        //    case 'linkedin':
-        //        $attributes['bio'] = $providerUser->headline;
-        //        $attributes['profile_picture'] = $providerUser->avatar_original;
-        //        break;
-        //    case 'google':
-        //        $attributes['bio'] = $providerUser->tagline;
-        //        $attributes['profile_picture'] = $providerUser->avatar_original;
-        //        break;
-        //}
-
-        //dd($providerUser, $attributes);
+        switch ($provider) {
+            case 'twitter':
+                $attributes['bio'] = $providerUser->user['description'];
+                $attributes['profile_picture'] = $providerUser->avatar_original;
+                break;
+            case 'github':
+                $attributes['bio'] = $providerUser->user['bio'];
+                $attributes['profile_picture'] = $providerUser->avatar;
+                break;
+            case 'facebook':
+                $attributes['profile_picture'] = $providerUser->avatar_original;
+                break;
+            case 'linkedin':
+                $attributes['bio'] = $providerUser->headline;
+                $attributes['profile_picture'] = $providerUser->avatar_original;
+                break;
+            case 'google':
+                $attributes['bio'] = $providerUser->tagline;
+                $attributes['profile_picture'] = $providerUser->avatar_original;
+                break;
+        }
 
         if (! ($localUser = $this->getLocalUser($provider, $providerUser->id))) {
             $localUser = $this->createLocalUser($provider, $attributes);

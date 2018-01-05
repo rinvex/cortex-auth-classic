@@ -19,11 +19,6 @@ if (! function_exists('authentication_routes')) {
         Route::get('register')->name('register')->uses('RegistrationController@form');
         Route::post('register')->name('register.process')->uses('RegistrationController@register');
 
-        // Social Authentication Routes
-        Route::redirect('auth', 'login');
-        Route::get('auth/{provider}')->name('auth.social')->uses('SocialAuthenticationController@redirectToProvider');
-        Route::get('auth/{provider}/callback')->name('auth.social.callback')->uses('SocialAuthenticationController@handleProviderCallback');
-
         // Password Reset Routes
         Route::name('passwordreset.')->prefix('passwordreset')->group(function () {
             Route::get('request')->name('request')->uses('PasswordResetController@request');
@@ -179,6 +174,11 @@ Route::domain('{subdomain}.'.domain())->group(function () {
 
         // Register authenication routes
         authentication_routes();
+
+        // Social Authentication Routes
+        Route::redirect('auth', 'login');
+        Route::get('auth/{provider}')->name('auth.social')->uses('SocialAuthenticationController@redirectToProvider');
+        Route::get('auth/{provider}/callback')->name('auth.social.callback')->uses('SocialAuthenticationController@handleProviderCallback');
 
     });
 
