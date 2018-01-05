@@ -32,7 +32,7 @@ class SocialAuthenticationController extends AuthenticationController
     public function handleProviderCallback(string $provider)
     {
         $providerUser = Socialite::driver($provider)->user();
-dd($providerUser);
+        dd($providerUser);
         // @TODO
         switch ($provider) {
             case 'github':
