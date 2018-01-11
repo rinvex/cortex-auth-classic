@@ -124,7 +124,7 @@ class AbilitiesController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.abilities.index'),
-            'with' => ['success' => trans('cortex/fort::messages.ability.saved', ['abilityId' => $ability->id])],
+            'with' => ['success' => trans('cortex/fort::messages.ability.saved', ['abilityId' => $ability->getKey()])],
         ]);
     }
 
@@ -141,7 +141,7 @@ class AbilitiesController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.abilities.index'),
-            'with' => ['warning' => trans('cortex/fort::messages.ability.deleted', ['abilityId' => $ability->id])],
+            'with' => ['warning' => trans('cortex/fort::messages.ability.deleted', ['abilityId' => $ability->getKey()])],
         ]);
     }
 }

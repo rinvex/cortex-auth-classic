@@ -15,7 +15,7 @@ class UserTransformer extends TransformerAbstract
     public function transform(UserContract $user)
     {
         return [
-            'id' => (int) $user->id,
+            'id' => (int) $user->getKey(),
             'username' => (string) $user->username,
             'first_name' => (string) $user->first_name,
             'middle_name' => (string) $user->middle_name,

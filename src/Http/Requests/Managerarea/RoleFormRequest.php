@@ -29,9 +29,9 @@ class RoleFormRequest extends FormRequest
 
         // Set abilities
         if ($this->user()->can('grant-abilities') && $data['abilities']) {
-            $owner = optional(optional(config('rinvex.tenants.active'))->owner)->id;
+            $owner = optional(optional(config('rinvex.tenants.active'))->owner)->getKey();
 
-            $data['abilities'] = $this->user()->id === $owner
+            $data['abilities'] = $this->user()->getKey() === $owner
                 ? array_intersect(app('rinvex.fort.role')->forAllTenants()->where('slug', 'manager')->first()->abilities->pluck('id')->toArray(), $data['abilities'])
                 : array_intersect($this->user()->allAbilities->pluck('id')->toArray(), $data['abilities']);
         } else {

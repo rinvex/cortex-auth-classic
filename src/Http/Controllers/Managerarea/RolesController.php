@@ -61,9 +61,9 @@ class RolesController extends AuthorizedController
      */
     public function form(Request $request, RoleContract $role)
     {
-        $owner = optional(optional(config('rinvex.tenants.active'))->owner)->id;
+        $owner = optional(optional(config('rinvex.tenants.active'))->owner)->getKey();
 
-        $abilities = $request->user($this->getGuard())->id === $owner
+        $abilities = $request->user($this->getGuard())->getKey() === $owner
             ? app('rinvex.fort.role')->forAllTenants()->where('slug', 'manager')->first()->abilities->groupBy('resource')->map->pluck('name', 'id')->toArray()
             : $request->user($this->getGuard())->allAbilities->groupBy('resource')->map->pluck('name', 'id')->toArray();
 

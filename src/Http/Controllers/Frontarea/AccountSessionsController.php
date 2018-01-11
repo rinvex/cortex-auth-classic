@@ -34,7 +34,7 @@ class AccountSessionsController extends AuthenticatedController
             app('rinvex.fort.session')->find($id)->delete();
             $status = trans('cortex/fort::messages.auth.session.flushed');
         } elseif ($request->get('confirm')) {
-            app('rinvex.fort.session')->where('user_id', $request->user($this->getGuard())->id)->delete();
+            app('rinvex.fort.session')->where('user_id', $request->user($this->getGuard())->getKey())->delete();
             $status = trans('cortex/fort::messages.auth.session.flushedall');
         }
 

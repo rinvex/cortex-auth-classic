@@ -27,7 +27,7 @@ class UserFormRequest extends FormRequest
     {
         $data = $this->all();
 
-        $owner = optional(optional(config('rinvex.tenants.active'))->owner)->id;
+        $owner = optional(optional(config('rinvex.tenants.active'))->owner)->getKey();
         $user = $this->route('user') ?? app('rinvex.fort.user');
         $country = $data['country_code'] ?? null;
         $twoFactor = $user->getTwoFactor();
@@ -51,7 +51,7 @@ class UserFormRequest extends FormRequest
 
         // Set abilities
         if ($this->user()->can('grant-abilities') && $data['abilities']) {
-            $data['abilities'] = $this->user()->id === $owner
+            $data['abilities'] = $this->user()->getKey() === $owner
                 ? array_intersect(app('rinvex.fort.role')->forAllTenants()->where('slug', 'manager')->first()->abilities->pluck('id')->toArray(), $data['abilities'])
                 : array_intersect($this->user()->allAbilities->pluck('id')->toArray(), $data['abilities']);
         } else {
@@ -60,7 +60,7 @@ class UserFormRequest extends FormRequest
 
         // Set roles
         if ($this->user()->can('assign-roles') && $data['roles']) {
-            $data['roles'] = $this->user()->id === $owner
+            $data['roles'] = $this->user()->getKey() === $owner
                 ? array_intersect(app('rinvex.fort.role')->all()->pluck('id')->toArray(), $data['roles'])
                 : array_intersect($this->user()->roles->pluck('id')->toArray(), $data['roles']);
         } else {

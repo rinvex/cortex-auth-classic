@@ -15,7 +15,7 @@ class RoleTransformer extends TransformerAbstract
     public function transform(RoleContract $role)
     {
         return [
-            'id' => (int) $role->id,
+            'id' => (int) $role->getKey(),
             'slug' => (string) $role->slug,
             'name' => (string) $role->name,
             'created_at' => (string) $role->created_at,

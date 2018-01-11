@@ -78,13 +78,13 @@ class UsersController extends AuthorizedController
         $authUser = $request->user($this->getGuard());
         $languages = collect(languages())->pluck('name', 'iso_639_1');
         $genders = ['m' => trans('cortex/fort::common.male'), 'f' => trans('cortex/fort::common.female')];
-        $owner = optional(optional(config('rinvex.tenants.active'))->owner)->id;
+        $owner = optional(optional(config('rinvex.tenants.active'))->owner)->getKey();
 
-        $roles = $authUser->isSuperadmin() || $authUser->id === $owner
+        $roles = $authUser->isSuperadmin() || $authUser->getKey() === $owner
             ? app('rinvex.fort.role')->all()->pluck('name', 'id')->toArray()
             : $authUser->roles->pluck('name', 'id')->toArray();
 
-        $abilities = $authUser->isSuperadmin() || $authUser->id === $owner
+        $abilities = $authUser->isSuperadmin() || $authUser->getKey() === $owner
             ? app('rinvex.fort.role')->forAllTenants()->where('slug', 'manager')->first()->abilities->groupBy('resource')->map->pluck('name', 'id')->toArray()
             : $authUser->allAbilities->groupBy('resource')->map->pluck('name', 'id')->toArray();
 

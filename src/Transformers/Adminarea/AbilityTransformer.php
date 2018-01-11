@@ -15,7 +15,7 @@ class AbilityTransformer extends TransformerAbstract
     public function transform(AbilityContract $ability)
     {
         return [
-            'id' => (int) $ability->id,
+            'id' => (int) $ability->getKey(),
             'action' => (string) $ability->action,
             'resource' => (string) $ability->resource,
             'name' => (string) $ability->name,
