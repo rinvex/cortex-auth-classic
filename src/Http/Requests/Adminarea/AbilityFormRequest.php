@@ -29,6 +29,7 @@ class AbilityFormRequest extends FormRequest
 
         // Set roles
         if ($this->user()->can('assign-roles') && $data['roles']) {
+            $data['roles'] = array_map('intval', $data['roles']);
             $data['roles'] = $this->user()->isSuperadmin() ? $data['roles']
                 : array_intersect($this->user()->roles->pluck('id')->toArray(), $data['roles']);
         } else {

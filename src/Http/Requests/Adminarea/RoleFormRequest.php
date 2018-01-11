@@ -29,6 +29,7 @@ class RoleFormRequest extends FormRequest
 
         // Set abilities
         if ($this->user()->can('grant-abilities') && $data['abilities']) {
+            $data['abilities'] = array_map('intval', $data['abilities']);
             $data['abilities'] = $this->user()->isSuperadmin() ? $data['abilities']
                 : array_intersect($this->user()->allAbilities->pluck('id')->toArray(), $data['abilities']);
         } else {

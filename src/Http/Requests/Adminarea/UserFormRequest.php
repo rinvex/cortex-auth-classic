@@ -50,6 +50,7 @@ class UserFormRequest extends FormRequest
 
         // Set abilities
         if ($this->user()->can('grant-abilities') && $data['abilities']) {
+            $data['abilities'] = array_map('intval', $data['abilities']);
             $data['abilities'] = $this->user()->isSuperadmin() ? $data['abilities']
                 : array_intersect($this->user()->allAbilities->pluck('id')->toArray(), $data['abilities']);
         } else {
@@ -58,6 +59,7 @@ class UserFormRequest extends FormRequest
 
         // Set roles
         if ($this->user()->can('assign-roles') && $data['roles']) {
+            $data['roles'] = array_map('intval', $data['roles']);
             $data['roles'] = $this->user()->isSuperadmin() ? $data['roles']
                 : array_intersect($this->user()->roles->pluck('id')->toArray(), $data['roles']);
         } else {
