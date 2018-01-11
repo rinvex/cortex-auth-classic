@@ -181,7 +181,7 @@ class UsersController extends AuthorizedController
      */
     public function deleteMedia(UserContract $user, Media $media)
     {
-        $user->media()->where('id', $media->id)->first()->delete();
+        $user->media()->where($media->getKeyName(), $media->getKey())->first()->delete();
 
         return intend([
             'url' => route('adminarea.users.edit', ['user' => $user]),
