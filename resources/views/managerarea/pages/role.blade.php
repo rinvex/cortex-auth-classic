@@ -148,7 +148,7 @@
     @endpush
 
     @push('vendor-scripts')
-        <script src="{{ mix('js/datatables.js', 'assets') }}" type="text/javascript"></script>
+        <script src="{{ mix('js/datatables.js', 'assets') }}" defer></script>
     @endpush
 
     @push('inline-scripts')
