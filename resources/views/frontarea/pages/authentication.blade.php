@@ -7,7 +7,7 @@
 @stop
 
 {{-- Scripts --}}
-@push('scripts')
+@push('inline-scripts')
     {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Frontarea\AuthenticationRequest::class)->selector('#frontarea-login-form') !!}
 @endpush
 

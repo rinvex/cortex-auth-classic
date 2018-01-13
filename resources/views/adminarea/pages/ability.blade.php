@@ -6,7 +6,7 @@
     {{ config('app.name') }} » {{ trans('cortex/foundation::common.adminarea') }} » {{ trans('cortex/fort::common.abilities') }} » {{ $ability->exists ? $ability->name : trans('cortex/fort::common.create_ability') }}
 @stop
 
-@push('scripts')
+@push('inline-scripts')
     {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Adminarea\AbilityFormRequest::class)->selector("#adminarea-abilities-create-form, #adminarea-abilities-{$ability->getKey()}-update-form") !!}
 @endpush
 
@@ -177,11 +177,11 @@
         <link href="{{ mix('css/datatables.css', 'assets') }}" rel="stylesheet">
     @endpush
 
-    @push('scripts-vendor')
+    @push('vendor-scripts')
         <script src="{{ mix('js/datatables.js', 'assets') }}" type="text/javascript"></script>
     @endpush
 
-    @push('scripts')
+    @push('inline-scripts')
         {!! $logs->scripts() !!}
     @endpush
 

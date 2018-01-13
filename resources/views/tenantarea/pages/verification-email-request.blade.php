@@ -7,7 +7,7 @@
 @stop
 
 {{-- Scripts --}}
-@push('scripts')
+@push('inline-scripts')
     {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Tenantarea\EmailVerificationProcessRequest::class)->selector('#tenantarea-verification-email-request-form') !!}
 @endpush
 

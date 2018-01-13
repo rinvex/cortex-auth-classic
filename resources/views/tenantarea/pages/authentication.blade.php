@@ -7,7 +7,7 @@
 @stop
 
 {{-- Scripts --}}
-@push('scripts')
+@push('inline-scripts')
     {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Tenantarea\AuthenticationRequest::class)->selector('#tenantarea-login-form') !!}
 @endpush
 

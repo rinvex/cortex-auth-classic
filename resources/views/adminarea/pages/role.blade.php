@@ -6,7 +6,7 @@
     {{ config('app.name') }} » {{ trans('cortex/foundation::common.adminarea') }} » {{ trans('cortex/fort::common.roles') }} » {{ $role->exists ? $role->name : trans('cortex/fort::common.create_role') }}
 @stop
 
-@push('scripts')
+@push('inline-scripts')
     {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Adminarea\RoleFormRequest::class)->selector("#adminarea-roles-create-form, #adminarea-roles-{$role->getKey()}-update-form") !!}
 @endpush
 
@@ -147,11 +147,11 @@
         <link href="{{ mix('css/datatables.css', 'assets') }}" rel="stylesheet">
     @endpush
 
-    @push('scripts-vendor')
+    @push('vendor-scripts')
         <script src="{{ mix('js/datatables.js', 'assets') }}" type="text/javascript"></script>
     @endpush
 
-    @push('scripts')
+    @push('inline-scripts')
         {!! $logs->scripts() !!}
     @endpush
 

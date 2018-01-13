@@ -7,7 +7,7 @@
 @stop
 
 {{-- Scripts --}}
-@push('scripts')
+@push('inline-scripts')
     {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Frontarea\PhoneVerificationProcessRequest::class)->selector('#frontarea-verification-phone-token-form') !!}
 @endpush
 

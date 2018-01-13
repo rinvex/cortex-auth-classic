@@ -6,7 +6,7 @@
     {{ config('app.name') }} » {{ trans('cortex/fort::common.settings') }}
 @stop
 
-@push('scripts')
+@push('inline-scripts')
     {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Frontarea\AccountSettingsRequest::class)->selector('#frontarea-account-settings-form') !!}
 
     <script>

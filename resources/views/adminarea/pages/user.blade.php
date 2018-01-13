@@ -6,7 +6,7 @@
     {{ config('app.name') }} » {{ trans('cortex/foundation::common.adminarea') }} » {{ trans('cortex/fort::common.users') }} » {{ $user->exists ? $user->username : trans('cortex/fort::common.create_user') }}
 @stop
 
-@push('scripts')
+@push('inline-scripts')
     {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Adminarea\UserFormRequest::class)->selector("#adminarea-users-create-form, #adminarea-users-{$user->getKey()}-update-form") !!}
 
     <script>
@@ -493,11 +493,11 @@
         <link href="{{ mix('css/datatables.css', 'assets') }}" rel="stylesheet">
     @endpush
 
-    @push('scripts-vendor')
+    @push('vendor-scripts')
         <script src="{{ mix('js/datatables.js', 'assets') }}" type="text/javascript"></script>
     @endpush
 
-    @push('scripts')
+    @push('inline-scripts')
         {!! $logs->scripts() !!}
         {!! $activities->scripts() !!}
     @endpush

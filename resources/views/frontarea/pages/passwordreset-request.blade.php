@@ -7,7 +7,7 @@
 @stop
 
 {{-- Scripts --}}
-@push('scripts')
+@push('inline-scripts')
     {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Frontarea\PasswordResetProcessRequest::class)->selector('#frontarea-passwordreset-request-form') !!}
 @endpush
 
