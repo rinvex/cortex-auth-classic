@@ -34,7 +34,7 @@ class AbilitiesController extends AuthorizedController
     public function index(AbilitiesDataTable $abilitiesDataTable)
     {
         return $abilitiesDataTable->with([
-            'id' => 'cortex-abilities',
+            'id' => 'adminarea-abilities-index-table',
             'phrase' => trans('cortex/fort::common.abilities'),
         ])->render('cortex/foundation::adminarea.pages.datatable');
     }
@@ -67,7 +67,7 @@ class AbilitiesController extends AuthorizedController
             ? app('rinvex.fort.role')->all()->pluck('name', 'id')->toArray()
             : $request->user($this->getGuard())->roles->pluck('name', 'id')->toArray();
 
-        $logs = app(LogsDataTable::class)->with(['id' => 'logs-table'])->html()->minifiedAjax(route('adminarea.abilities.logs', ['ability' => $ability]));
+        $logs = app(LogsDataTable::class)->with(['id' => "adminarea-abilities-{$ability->getKey()}-logs-table"])->html()->minifiedAjax(route('adminarea.abilities.logs', ['ability' => $ability]));
 
         return view('cortex/fort::adminarea.pages.ability', compact('ability', 'roles', 'logs'));
     }

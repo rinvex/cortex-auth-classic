@@ -8,7 +8,7 @@
 
 {{-- Scripts --}}
 @push('scripts')
-    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Tenantarea\RegistrationProcessRequest::class)->selector('#tenantarea-registration-process') !!}
+    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Tenantarea\RegistrationProcessRequest::class)->selector('#tenantarea-registration-form') !!}
 @endpush
 
 @section('body-attributes')class="auth-page"@endsection
@@ -24,7 +24,7 @@
 
                 <section class="auth-form">
 
-                    {{ Form::open(['url' => route('tenantarea.register.process'), 'id' => 'tenantarea-registration-process', 'role' => 'auth']) }}
+                    {{ Form::open(['url' => route('tenantarea.register.process'), 'id' => 'tenantarea-registration-form', 'role' => 'auth']) }}
 
                         <div class="centered"><strong>{{ trans('cortex/fort::common.account_register') }}</strong></div>
 

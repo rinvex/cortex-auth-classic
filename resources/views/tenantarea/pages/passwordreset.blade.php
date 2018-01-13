@@ -8,7 +8,7 @@
 
 {{-- Scripts --}}
 @push('scripts')
-    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Tenantarea\PasswordResetPostProcessRequest::class)->selector('#tenantarea-passwordreset-process') !!}
+    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Tenantarea\PasswordResetPostProcessRequest::class)->selector('#tenantarea-passwordreset-form') !!}
 @endpush
 
 @section('body-attributes')class="auth-page"@endsection
@@ -24,7 +24,7 @@
 
                 <section class="auth-form">
 
-                    {{ Form::open(['url' => route('tenantarea.passwordreset.process'), 'id' => 'tenantarea-passwordreset-process', 'role' => 'auth']) }}
+                    {{ Form::open(['url' => route('tenantarea.passwordreset.process'), 'id' => 'tenantarea-passwordreset-form', 'role' => 'auth']) }}
 
                         {{ Form::hidden('expiration', old('expiration', $expiration)) }}
                         {{ Form::hidden('token', old('token', $token)) }}

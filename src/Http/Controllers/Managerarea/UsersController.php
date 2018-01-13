@@ -31,7 +31,7 @@ class UsersController extends AuthorizedController
     public function index(UsersDataTable $usersDataTable)
     {
         return $usersDataTable->with([
-            'id' => 'cortex-users',
+            'id' => 'managerarea-users-index-table',
             'phrase' => trans('cortex/fort::common.users'),
         ])->render('cortex/tenants::managerarea.pages.datatable');
     }
@@ -88,8 +88,8 @@ class UsersController extends AuthorizedController
             ? app('rinvex.fort.role')->forAllTenants()->where('slug', 'manager')->first()->abilities->groupBy('resource')->map->pluck('name', 'id')->toArray()
             : $authUser->allAbilities->groupBy('resource')->map->pluck('name', 'id')->toArray();
 
-        $logs = app(LogsDataTable::class)->with(['id' => 'logs-table'])->html()->minifiedAjax(route('managerarea.users.logs', ['user' => $user]));
-        $activities = app(ActivitiesDataTable::class)->with(['id' => 'activities-table'])->html()->minifiedAjax(route('managerarea.users.activities', ['user' => $user]));
+        $logs = app(LogsDataTable::class)->with(['id' => "managerarea-users-{$user->getKey()}-logs-table"])->html()->minifiedAjax(route('managerarea.users.logs', ['user' => $user]));
+        $activities = app(ActivitiesDataTable::class)->with(['id' => "managerarea-users-{$user->getKey()}-activities-table"])->html()->minifiedAjax(route('managerarea.users.activities', ['user' => $user]));
 
         return view('cortex/fort::managerarea.pages.user', compact('user', 'abilities', 'roles', 'countries', 'languages', 'genders', 'logs', 'activities'));
     }

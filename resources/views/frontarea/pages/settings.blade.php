@@ -7,7 +7,7 @@
 @stop
 
 @push('scripts')
-    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Frontarea\AccountSettingsRequest::class)->selector('#frontarea-account-settings-update') !!}
+    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Frontarea\AccountSettingsRequest::class)->selector('#frontarea-account-settings-form') !!}
 
     <script>
         (function($) {
@@ -73,7 +73,7 @@
             <div class="col-md-9">
                 <div class="profile-content">
 
-                    {{ Form::model($currentUser, ['url' => route('frontarea.account.settings.update'), 'id' => 'frontarea-account-settings-update']) }}
+                    {{ Form::model($currentUser, ['url' => route('frontarea.account.settings.update'), 'id' => 'frontarea-account-settings-form']) }}
 
                         <!-- Tab panes -->
                         <div class="tab-content">

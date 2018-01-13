@@ -8,7 +8,7 @@
 
 {{-- Scripts --}}
 @push('scripts')
-    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Frontarea\PasswordResetProcessRequest::class)->selector('#frontarea-passwordreset-send') !!}
+    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Frontarea\PasswordResetProcessRequest::class)->selector('#frontarea-passwordreset-request-form') !!}
 @endpush
 
 @section('body-attributes')class="auth-page"@endsection
@@ -24,7 +24,7 @@
 
                 <section class="auth-form">
 
-                    {{ Form::open(['url' => route('frontarea.passwordreset.send'), 'id' => 'frontarea-passwordreset-send', 'role' => 'auth']) }}
+                    {{ Form::open(['url' => route('frontarea.passwordreset.send'), 'id' => 'frontarea-passwordreset-request-form', 'role' => 'auth']) }}
 
                         <div class="centered"><strong>{{ trans('cortex/fort::common.account_reset_password') }}</strong></div>
 

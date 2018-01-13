@@ -7,7 +7,7 @@
 @stop
 
 @push('scripts')
-    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Adminarea\UserFormRequest::class)->selector('#adminarea-users-save') !!}
+    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Adminarea\UserFormRequest::class)->selector("#adminarea-users-create-form, #adminarea-users-{$user->getKey()}-update-form") !!}
 
     <script>
         (function($) {
@@ -74,9 +74,9 @@
                     <div class="tab-pane active" id="details-tab">
 
                         @if ($user->exists)
-                            {{ Form::model($user, ['url' => route('adminarea.users.update', ['user' => $user]), 'id' => 'adminarea-users-save', 'method' => 'put', 'files' => true]) }}
+                            {{ Form::model($user, ['url' => route('adminarea.users.update', ['user' => $user]), 'id' => "adminarea-users-{$user->getKey()}-update-form", 'method' => 'put', 'files' => true]) }}
                         @else
-                            {{ Form::model($user, ['url' => route('adminarea.users.store'), 'id' => 'adminarea-users-save', 'files' => true]) }}
+                            {{ Form::model($user, ['url' => route('adminarea.users.store'), 'id' => 'adminarea-users-create-form', 'files' => true]) }}
                         @endif
 
                             <div class="row">
@@ -468,11 +468,11 @@
                     @if($user->exists)
 
                         <div class="tab-pane" id="logs-tab">
-                            {!! $logs->table(['class' => 'table table-striped table-hover responsive dataTableBuilder', 'id' => 'logs-table']) !!}
+                            {!! $logs->table(['class' => 'table table-striped table-hover responsive dataTableBuilder', 'id' => "adminarea-users-{$user->getKey()}-logs-table"]) !!}
                         </div>
 
                         <div class="tab-pane" id="activities-tab">
-                            {!! $activities->table(['class' => 'table table-striped table-hover responsive dataTableBuilder', 'id' => 'activities-table']) !!}
+                            {!! $activities->table(['class' => 'table table-striped table-hover responsive dataTableBuilder', 'id' => "adminarea-users-{$user->getKey()}-activities-table"]) !!}
                         </div>
 
                     @endif

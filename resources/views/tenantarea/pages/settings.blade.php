@@ -7,7 +7,7 @@
 @stop
 
 @push('scripts')
-    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Tenantarea\AccountSettingsRequest::class)->selector('#tenantarea-account-settings-update') !!}
+    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Tenantarea\AccountSettingsRequest::class)->selector('#tenantarea-account-settings-form') !!}
 
     <script>
         (function($) {
@@ -77,7 +77,7 @@
 
                         <div role="tabpanel" class="tab-pane active" id="settings">
 
-                            {{ Form::model($currentUser, ['url' => route('tenantarea.account.settings.update'), 'id' => 'tenantarea-account-settings-update']) }}
+                            {{ Form::model($currentUser, ['url' => route('tenantarea.account.settings.update'), 'id' => 'tenantarea-account-settings-form']) }}
 
                                 <div class="row">
 

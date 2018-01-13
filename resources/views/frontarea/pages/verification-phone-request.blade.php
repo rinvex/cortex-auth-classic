@@ -8,7 +8,7 @@
 
 {{-- Scripts --}}
 @push('scripts')
-    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Frontarea\PhoneVerificationSendProcessRequest::class)->selector('#frontarea-verification-phone-send') !!}
+    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Frontarea\PhoneVerificationSendProcessRequest::class)->selector('#frontarea-verification-phone-request-form') !!}
 @endpush
 
 @section('body-attributes')class="auth-page"@endsection
@@ -24,7 +24,7 @@
 
                 <section class="auth-form">
 
-                    {{ Form::open(['url' => route('frontarea.verification.phone.send'), 'id' => 'frontarea-verification-phone-send', 'role' => 'auth']) }}
+                    {{ Form::open(['url' => route('frontarea.verification.phone.send'), 'id' => 'frontarea-verification-phone-request-form', 'role' => 'auth']) }}
 
                         <div class="centered"><strong>{{ trans('cortex/fort::common.account_verification_phone') }}</strong></div>
 

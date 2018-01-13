@@ -8,7 +8,7 @@
 
 {{-- Scripts --}}
 @push('scripts')
-    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Tenantarea\PhoneVerificationProcessRequest::class)->selector('#tenantarea-verification-phone-process') !!}
+    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Tenantarea\PhoneVerificationProcessRequest::class)->selector('#tenantarea-verification-phone-token-form') !!}
 @endpush
 
 @section('body-attributes')class="auth-page"@endsection
@@ -24,7 +24,7 @@
 
                 <section class="auth-form">
 
-                    {{ Form::open(['url' => route('tenantarea.verification.phone.process'), 'id' => 'tenantarea-verification-phone-process', 'role' => 'auth']) }}
+                    {{ Form::open(['url' => route('tenantarea.verification.phone.process'), 'id' => 'tenantarea-verification-phone-token-form', 'role' => 'auth']) }}
 
                         <div class="centered"><strong>{{ trans('cortex/fort::common.account_verification_phone') }}</strong></div>
 

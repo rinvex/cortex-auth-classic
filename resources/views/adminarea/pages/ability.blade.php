@@ -7,7 +7,7 @@
 @stop
 
 @push('scripts')
-    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Adminarea\AbilityFormRequest::class)->selector('#adminarea-abilities-save') !!}
+    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Adminarea\AbilityFormRequest::class)->selector("#adminarea-abilities-create-form, #adminarea-abilities-{$ability->getKey()}-update-form") !!}
 @endpush
 
 {{-- Main Content --}}
@@ -37,9 +37,9 @@
                     <div class="tab-pane active" id="details-tab">
 
                         @if ($ability->exists)
-                            {{ Form::model($ability, ['url' => route('adminarea.abilities.update', ['ability' => $ability]), 'method' => 'put', 'id' => 'adminarea-abilities-save']) }}
+                            {{ Form::model($ability, ['url' => route('adminarea.abilities.update', ['ability' => $ability]), 'method' => 'put', 'id' => "adminarea-abilities-{$ability->getKey()}-update-form"]) }}
                         @else
-                            {{ Form::model($ability, ['url' => route('adminarea.abilities.store'), 'id' => 'adminarea-abilities-save']) }}
+                            {{ Form::model($ability, ['url' => route('adminarea.abilities.store'), 'id' => 'adminarea-abilities-create-form']) }}
                         @endif
 
                             <div class="row">
@@ -156,7 +156,7 @@
                     @if($ability->exists)
 
                         <div class="tab-pane" id="logs-tab">
-                            {!! $logs->table(['class' => 'table table-striped table-hover responsive dataTableBuilder', 'id' => 'logs-table']) !!}
+                            {!! $logs->table(['class' => 'table table-striped table-hover responsive dataTableBuilder', 'id' => "adminarea-abilities-{$ability->getKey()}-logs-table"]) !!}
                         </div>
 
                     @endif

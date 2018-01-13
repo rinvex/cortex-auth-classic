@@ -7,7 +7,7 @@
 @stop
 
 @push('scripts')
-    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Frontarea\TwoFactorTotpProcessSettingsRequest::class)->selector('#frontarea-account-twofactor-totp-update') !!}
+    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Frontarea\TwoFactorTotpProcessSettingsRequest::class)->selector('#frontarea-twofactor-totp-form') !!}
 @endpush
 
 {{-- Main Content --}}
@@ -46,7 +46,7 @@
 
                         <div role="tabpanel" class="tab-pane active" id="security">
 
-                            {{ Form::open(['url' => route('frontarea.account.twofactor.totp.update'), 'class' => 'form-horizontal', 'id' => 'frontarea-account-twofactor-totp-update']) }}
+                            {{ Form::open(['url' => route('frontarea.account.twofactor.totp.update'), 'class' => 'form-horizontal', 'id' => 'frontarea-twofactor-totp-form']) }}
 
                                 <p class="text-justify">
                                     {!! trans('cortex/fort::twofactor.totp_apps') !!}
@@ -141,7 +141,7 @@
                                                     @if(array_get($twoFactor, 'totp.backup'))
                                                         <div class="panel panel-primary">
                                                             <header class="panel-heading">
-                                                                <a class="btn btn-default btn-flat btn-xs pull-right" href="{{ route('frontarea.account.twofactor.totp.backup') }}" onclick="event.preventDefault(); var form = document.getElementById('frontarea-account-twofactor-totp-update'); form.action = '{{ route('frontarea.account.twofactor.totp.backup') }}'; form.submit();">{{ trans('cortex/fort::twofactor.totp_backup_generate') }}</a>
+                                                                <a class="btn btn-default btn-flat btn-xs pull-right" href="{{ route('frontarea.account.twofactor.totp.backup') }}" onclick="event.preventDefault(); var form = document.getElementById('frontarea-twofactor-totp-form'); form.action = '{{ route('frontarea.account.twofactor.totp.backup') }}'; form.submit();">{{ trans('cortex/fort::twofactor.totp_backup_generate') }}</a>
                                                                 <h3 class="panel-title">{{ trans('cortex/fort::twofactor.totp_backup_head') }}</h3>
                                                             </header>
                                                             <div class="panel-body">

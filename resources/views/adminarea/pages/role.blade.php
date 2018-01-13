@@ -7,7 +7,7 @@
 @stop
 
 @push('scripts')
-    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Adminarea\RoleFormRequest::class)->selector('#adminarea-roles-save') !!}
+    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Adminarea\RoleFormRequest::class)->selector("#adminarea-roles-create-form, #adminarea-roles-{$role->getKey()}-update-form") !!}
 @endpush
 
 {{-- Main Content --}}
@@ -36,9 +36,9 @@
                     <div class="tab-pane active" id="details-tab">
 
                         @if ($role->exists)
-                            {{ Form::model($role, ['url' => route('adminarea.roles.update', ['role' => $role]), 'method' => 'put', 'id' => 'adminarea-roles-save']) }}
+                            {{ Form::model($role, ['url' => route('adminarea.roles.update', ['role' => $role]), 'method' => 'put', 'id' => "adminarea-roles-{$role->getKey()}-update-form"]) }}
                         @else
-                            {{ Form::model($role, ['url' => route('adminarea.roles.store'), 'id' => 'adminarea-roles-save']) }}
+                            {{ Form::model($role, ['url' => route('adminarea.roles.store'), 'id' => 'adminarea-roles-create-form']) }}
                         @endif
 
                             <div class="row">
@@ -126,7 +126,7 @@
                     @if($role->exists)
 
                         <div class="tab-pane" id="logs-tab">
-                            {!! $logs->table(['class' => 'table table-striped table-hover responsive dataTableBuilder', 'id' => 'logs-table']) !!}
+                            {!! $logs->table(['class' => 'table table-striped table-hover responsive dataTableBuilder', 'id' => "adminarea-roles-{$role->getKey()}-logs-table"]) !!}
                         </div>
 
                     @endif
