@@ -74,7 +74,13 @@ class UsersController extends AuthorizedController
      */
     public function form(Request $request, UserContract $user)
     {
-        $countries = countries();
+        $countries = collect(countries())->map(function ($country, $code) {
+            return [
+                'id' => $code,
+                'text' => $country['name'],
+                'emoji' => $country['emoji'],
+            ];
+        })->values();
         $authUser = $request->user($this->getGuard());
         $languages = collect(languages())->pluck('name', 'iso_639_1');
         $genders = ['m' => trans('cortex/fort::common.male'), 'f' => trans('cortex/fort::common.female')];

@@ -10,36 +10,8 @@
     {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Frontarea\AccountSettingsRequest::class)->selector('#frontarea-account-settings-form') !!}
 
     <script>
-        (function($) {
-            $(function() {
-                var countries = [
-                    @foreach($countries as $code => $country)
-                        { id: '{{ $code }}', text: '{{ $country['name'] }}', emoji: '{{ $country['emoji'] }}' },
-                    @endforeach
-                ];
-
-                function formatCountry (country) {
-                    if (! country.id) {
-                        return country.text;
-                    }
-
-                    var $country = $(
-                        '<span style="padding-right: 10px">' + country.emoji + '</span>' +
-                        '<span>' + country.text + '</span>'
-                    );
-
-                    return $country;
-                };
-
-                $("select[name='country_code']").select2({
-                    placeholder: "Select a country",
-                    templateSelection: formatCountry,
-                    templateResult: formatCountry,
-                    data: countries
-                }).val('{{ $currentUser->country_code }}').trigger('change');
-
-            });
-        })(jQuery);
+        window.countries = {!! $countries !!};
+        window.selectedCountry = '{{ old('country_code', $currentUser->country_code) }}';
     </script>
 @endpush
 

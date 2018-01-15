@@ -10,36 +10,8 @@
     {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Adminarea\UserFormRequest::class)->selector("#adminarea-users-create-form, #adminarea-users-{$user->getKey()}-update-form") !!}
 
     <script>
-        (function($) {
-            $(function() {
-                var countries = [
-                    @foreach($countries as $code => $country)
-                        { id: '{{ $code }}', text: '{{ $country['name'] }}', emoji: '{{ $country['emoji'] }}' },
-                    @endforeach
-                ];
-
-                function formatCountry (country_code) {
-                    if (! country_code.id) {
-                        return country_code.text;
-                    }
-
-                    var $country = $(
-                        '<span style="padding-right: 10px">' + country_code.emoji + '</span>' +
-                        '<span>' + country_code.text + '</span>'
-                    );
-
-                    return $country;
-                };
-
-                $("select[name='country_code']").select2({
-                    placeholder: "Select a country",
-                    templateSelection: formatCountry,
-                    templateResult: formatCountry,
-                    data: countries
-                }).val('{{ old('country_code', $user->country_code) }}').trigger('change');
-
-            });
-        })(jQuery);
+        window.countries = {!! $countries !!};
+        window.selectedCountry = '{{ old('country_code', $user->country_code) }}';
     </script>
 @endpush
 
