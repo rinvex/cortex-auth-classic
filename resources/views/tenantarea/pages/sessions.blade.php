@@ -40,7 +40,7 @@
 
                         <div role="tabpanel" class="tab-pane active" id="sessions">
 
-                            @include('cortex/fort::tenantarea.partials.confirm-deletion')
+                            @include('cortex/foundation::common.partials.confirm-deletion')
 
                             <div class="row">
 
@@ -69,7 +69,7 @@
                                                         </a>
 
                                                         <div class="col-md-1 col-sm-1 col-xs-1">
-                                                            <a href="#" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete-confirmation" data-item-href="{{ route('tenantarea.account.sessions.flush', ['id' => $session->id]) }}" data-item-type="single"><i class="fa fa-remove"></i></a>
+                                                            <a href="#" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete-confirmation" data-modal-action="{{ route('tenantarea.account.sessions.flush', ['id' => $session->id]) }}" data-item-type="single"><i class="fa fa-remove"></i></a>
                                                         </div>
 
                                                     </div>
@@ -98,11 +98,7 @@
 
                             <div class="row">
                                 <div class="col-md-12 text-center">
-
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-confirmation" data-item-href="{{ route('tenantarea.account.sessions.flush') }}" data-item-type="all">
-                                        <i class="fa fa-remove"></i> {{ trans('cortex/fort::messages.sessions.flush_all_heading') }}
-                                    </button>
-
+                                    <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#delete-confirmation" data-modal-action="{{ route('tenantarea.account.sessions.flush') }}" data-modal-title="{!! trans('cortex/foundation::messages.delete_confirmation_title') !!}" data-modal-body="{!! trans('cortex/foundation::messages.delete_confirmation_body', ['type' => 'sessions', 'name' => 'all']) !!}" title="{{ trans('cortex/foundation::common.delete') }}"><i class="fa fa-remove"></i> {{ trans('cortex/fort::messages.sessions.flush_all_heading') }}</a>
                                 </div>
                             </div>
 
