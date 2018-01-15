@@ -463,6 +463,10 @@
 
 @if($user->exists)
 
+    @push('head-elements')
+        <meta name="turbolinks-cache-control" content="no-cache">
+    @endpush
+
     @push('styles')
         <link href="{{ mix('css/datatables.css', 'assets') }}" rel="stylesheet">
     @endpush
