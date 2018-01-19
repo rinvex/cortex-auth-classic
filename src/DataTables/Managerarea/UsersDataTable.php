@@ -40,7 +40,7 @@ class UsersDataTable extends AbstractDataTable
             'phone' => ['title' => trans('cortex/fort::common.phone'), 'render' => 'data+(data ? (full.phone_verified ? " <i class=\"text-success fa fa-check\" title=\""+full.phone_verified_at+"\"></i>" : " <i class=\"text-danger fa fa-close\"></i>") : "")'],
             'country_code' => ['title' => trans('cortex/fort::common.country')],
             'language_code' => ['title' => trans('cortex/fort::common.language'), 'visible' => false],
-            'job_title' => ['title' => trans('cortex/fort::common.job_title'), 'visible' => false],
+            'title' => ['title' => trans('cortex/fort::common.title'), 'visible' => false],
             'birthday' => ['title' => trans('cortex/fort::common.birthday'), 'visible' => false],
             'gender' => ['title' => trans('cortex/fort::common.gender'), 'visible' => false],
             'last_activity' => ['title' => trans('cortex/fort::common.last_activity'), 'render' => "moment(data).format('MMM Do, YYYY')", 'visible' => false],

@@ -29,7 +29,7 @@ class UserTransformer extends TransformerAbstract
             'phone_verified_at' => (string) $user->phone_verified_at,
             'country_code' => (string) $user->country_code ? $user->country->getEmoji().'&nbsp;&nbsp;'.$user->country->getName() : '',
             'language_code' => (string) $user->language_code,
-            'job_title' => (string) $user->job_title,
+            'title' => (string) $user->title,
             'birthday' => (string) $user->birthday,
             'gender' => (string) $user->gender,
             'last_activity' => (string) $user->last_activity,

@@ -17,9 +17,9 @@
                         <div class="profile-usertitle-name">
                             {{ $currentUser->name ?: $currentUser->username }}
                         </div>
-                        @if($currentUser->job_title)
+                        @if($currentUser->title)
                             <div class="profile-usertitle-job">
-                                {{ $currentUser->job_title }}
+                                {{ $currentUser->title }}
                             </div>
                         @endif
                     </div>

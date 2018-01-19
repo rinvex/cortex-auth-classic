@@ -26,9 +26,9 @@
                         <div class="profile-usertitle-name">
                             {{ $currentUser->name ?: $currentUser->username }}
                         </div>
-                        @if($currentUser->job_title)
+                        @if($currentUser->title)
                             <div class="profile-usertitle-job">
-                                {{ $currentUser->job_title }}
+                                {{ $currentUser->title }}
                             </div>
                         @endif
                     </div>
@@ -169,13 +169,13 @@
 
                                     <div class="col-md-4">
 
-                                        <div class="form-group{{ $errors->has('job_title') ? ' has-error' : '' }}">
-                                            {{ Form::label('job_title', trans('cortex/fort::common.job_title')) }}
+                                        <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
+                                            {{ Form::label('title', trans('cortex/fort::common.title')) }}
 
-                                            {{ Form::text('job_title', null, ['class' => 'form-control', 'placeholder' => $currentUser->job_title ?: trans('cortex/fort::common.job_title')]) }}
+                                            {{ Form::text('title', null, ['class' => 'form-control', 'placeholder' => $currentUser->title ?: trans('cortex/fort::common.title')]) }}
 
-                                            @if ($errors->has('job_title'))
-                                                <span class="help-block">{{ $errors->first('job_title') }}</span>
+                                            @if ($errors->has('title'))
+                                                <span class="help-block">{{ $errors->first('title') }}</span>
                                             @endif
                                         </div>
 

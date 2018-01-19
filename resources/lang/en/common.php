@@ -49,7 +49,7 @@ return [
     'username' => 'Username',
     'country' => 'Country',
     'language' => 'Language',
-    'job_title' => 'Job Title',
+    'title' => 'Title',
     'name_prefix' => 'Name Prefix',
     'name_suffix' => 'Name Suffix',
     'password' => 'Password',

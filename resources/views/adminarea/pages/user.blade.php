@@ -109,13 +109,13 @@
                                 </div>
                                 <div class="col-md-4">
 
-                                    {{-- Job Title --}}
-                                    <div class="form-group{{ $errors->has('job_title') ? ' has-error' : '' }}">
-                                        {{ Form::label('job_title', trans('cortex/fort::common.job_title'), ['class' => 'control-label']) }}
-                                        {{ Form::text('job_title', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.job_title')]) }}
+                                    {{-- Title --}}
+                                    <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
+                                        {{ Form::label('title', trans('cortex/fort::common.title'), ['class' => 'control-label']) }}
+                                        {{ Form::text('title', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.title')]) }}
 
-                                        @if ($errors->has('job_title'))
-                                            <span class="help-block">{{ $errors->first('job_title') }}</span>
+                                        @if ($errors->has('title'))
+                                            <span class="help-block">{{ $errors->first('title') }}</span>
                                         @endif
                                     </div>
 
