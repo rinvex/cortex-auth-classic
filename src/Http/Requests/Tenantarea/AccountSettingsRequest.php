@@ -23,7 +23,7 @@ class AccountSettingsRequest extends FormRequest
      *
      * @return void
      */
-    protected function prepareForValidation()
+    protected function prepareForValidation(): void
     {
         $data = $this->all();
 

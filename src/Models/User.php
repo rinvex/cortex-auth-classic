@@ -178,7 +178,7 @@ class User extends BaseUser implements HasMedia
      *
      * @return void
      */
-    public function registerMediaCollections()
+    public function registerMediaCollections(): void
     {
         $this->addMediaCollection('profile_picture')->singleFile();
         $this->addMediaCollection('cover_photo')->singleFile();

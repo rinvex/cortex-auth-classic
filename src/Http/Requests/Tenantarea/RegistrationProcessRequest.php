@@ -11,7 +11,7 @@ class RegistrationProcessRequest extends RegistrationRequest
      *
      * @return void
      */
-    protected function prepareForValidation()
+    protected function prepareForValidation(): void
     {
         $data = $this->all();
 
