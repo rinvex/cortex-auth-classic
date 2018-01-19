@@ -4,7 +4,7 @@
 {{-- Page Title --}}
 @section('title')
     {{ config('app.name') }} » {{ trans('cortex/fort::common.verification_phone_request') }}
-@stop
+@endsection
 
 {{-- Scripts --}}
 @push('inline-scripts')

@@ -4,7 +4,7 @@
 {{-- Page Title --}}
 @section('title')
     {{ config('app.name') }} » {{ trans('cortex/fort::common.active_sessions') }}
-@stop
+@endsection
 
 {{-- Main Content --}}
 @section('content')

@@ -4,7 +4,7 @@
 {{-- Page Title --}}
 @section('title')
     {{ config('app.name') }} » {{ trans('cortex/fort::common.password_reset_request') }}
-@stop
+@endsection
 
 {{-- Scripts --}}
 @push('inline-scripts')

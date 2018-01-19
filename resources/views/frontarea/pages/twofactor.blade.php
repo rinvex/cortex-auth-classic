@@ -4,7 +4,7 @@
 {{-- Page Title --}}
 @section('title')
     {{ config('app.name') }} » {{ trans('cortex/fort::common.twofactor') }}
-@stop
+@endsection
 
 {{-- Main Content --}}
 @section('content')
