@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\DataTables\Adminarea;
 
-use Rinvex\Fort\Contracts\UserContract;
+use Rinvex\Fort\Models\User;
 use Cortex\Foundation\DataTables\AbstractDataTable;
 use Cortex\Fort\Transformers\Adminarea\UserTransformer;
 
@@ -13,7 +13,7 @@ class UsersDataTable extends AbstractDataTable
     /**
      * {@inheritdoc}
      */
-    protected $model = UserContract::class;
+    protected $model = User::class;
 
     /**
      * {@inheritdoc}

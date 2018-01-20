@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Fort\Http\Controllers\Adminarea;
 
 use Illuminate\Http\Request;
-use Rinvex\Fort\Contracts\AbilityContract;
+use Rinvex\Fort\Models\Ability;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Fort\DataTables\Adminarea\AbilitiesDataTable;
@@ -42,11 +42,11 @@ class AbilitiesController extends AuthorizedController
     /**
      * Get a listing of the resource logs.
      *
-     * @param \Rinvex\Fort\Contracts\AbilityContract $ability
+     * @param \Rinvex\Fort\Models\Ability $ability
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function logs(AbilityContract $ability)
+    public function logs(Ability $ability)
     {
         return request()->ajax() && request()->wantsJson()
             ? app(LogsDataTable::class)->with(['resource' => $ability])->ajax()
@@ -57,11 +57,11 @@ class AbilitiesController extends AuthorizedController
      * Show the form for create/update of the given resource.
      *
      * @param \Illuminate\Http\Request               $request
-     * @param \Rinvex\Fort\Contracts\AbilityContract $ability
+     * @param \Rinvex\Fort\Models\Ability $ability
      *
      * @return \Illuminate\View\View
      */
-    public function form(Request $request, AbilityContract $ability)
+    public function form(Request $request, Ability $ability)
     {
         $roles = $request->user($this->getGuard())->isSuperadmin()
             ? app('rinvex.fort.role')->all()->pluck('name', 'id')->toArray()
@@ -88,11 +88,11 @@ class AbilitiesController extends AuthorizedController
      * Update the given resource in storage.
      *
      * @param \Cortex\Fort\Http\Requests\Adminarea\AbilityFormRequest $request
-     * @param \Rinvex\Fort\Contracts\AbilityContract                  $ability
+     * @param \Rinvex\Fort\Models\Ability                  $ability
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function update(AbilityFormRequest $request, AbilityContract $ability)
+    public function update(AbilityFormRequest $request, Ability $ability)
     {
         return $this->process($request, $ability);
     }
@@ -101,11 +101,11 @@ class AbilitiesController extends AuthorizedController
      * Process the form for store/update of the given resource.
      *
      * @param \Illuminate\Foundation\Http\FormRequest $request
-     * @param \Rinvex\Fort\Contracts\AbilityContract  $ability
+     * @param \Rinvex\Fort\Models\Ability  $ability
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    protected function process(FormRequest $request, AbilityContract $ability)
+    protected function process(FormRequest $request, Ability $ability)
     {
         // Prepare required input fields
         $data = $request->validated();
@@ -131,11 +131,11 @@ class AbilitiesController extends AuthorizedController
     /**
      * Delete the given resource from storage.
      *
-     * @param \Rinvex\Fort\Contracts\AbilityContract $ability
+     * @param \Rinvex\Fort\Models\Ability $ability
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function delete(AbilityContract $ability)
+    public function delete(Ability $ability)
     {
         $ability->delete();
 

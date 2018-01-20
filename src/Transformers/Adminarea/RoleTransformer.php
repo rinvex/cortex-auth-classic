@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Cortex\Fort\Transformers\Adminarea;
 
 use League\Fractal\TransformerAbstract;
-use Rinvex\Fort\Contracts\RoleContract;
+use Rinvex\Fort\Models\Role;
 
 class RoleTransformer extends TransformerAbstract
 {
     /**
      * @return array
      */
-    public function transform(RoleContract $role): array
+    public function transform(Role $role): array
     {
         return [
             'id' => (int) $role->getKey(),

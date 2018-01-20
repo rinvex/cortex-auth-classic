@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\DataTables\Adminarea;
 
-use Rinvex\Fort\Contracts\RoleContract;
+use Rinvex\Fort\Models\Role;
 use Cortex\Foundation\DataTables\AbstractDataTable;
 use Cortex\Fort\Transformers\Adminarea\RoleTransformer;
 
@@ -13,7 +13,7 @@ class RolesDataTable extends AbstractDataTable
     /**
      * {@inheritdoc}
      */
-    protected $model = RoleContract::class;
+    protected $model = Role::class;
 
     /**
      * {@inheritdoc}

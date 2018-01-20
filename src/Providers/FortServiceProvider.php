@@ -6,9 +6,9 @@ namespace Cortex\Fort\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
-use Rinvex\Fort\Contracts\RoleContract;
-use Rinvex\Fort\Contracts\UserContract;
-use Rinvex\Fort\Contracts\AbilityContract;
+use Rinvex\Fort\Models\Role;
+use Rinvex\Fort\Models\User;
+use Rinvex\Fort\Models\Ability;
 use Cortex\Fort\Console\Commands\SeedCommand;
 use Cortex\Fort\Console\Commands\InstallCommand;
 use Cortex\Fort\Console\Commands\MigrateCommand;
@@ -62,9 +62,9 @@ class FortServiceProvider extends ServiceProvider
         $router->pattern('ability', '[0-9]+');
         $router->pattern('role', '[a-z0-9-]+');
         $router->pattern('user', '[a-zA-Z0-9_-]+');
-        $router->model('role', RoleContract::class);
-        $router->model('user', UserContract::class);
-        $router->model('ability', AbilityContract::class);
+        $router->model('role', Role::class);
+        $router->model('user', User::class);
+        $router->model('ability', Ability::class);
 
         // Map relations
         Relation::morphMap([

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\DataTables\Adminarea;
 
-use Rinvex\Fort\Contracts\AbilityContract;
+use Rinvex\Fort\Models\Ability;
 use Cortex\Foundation\DataTables\AbstractDataTable;
 use Cortex\Fort\Transformers\Adminarea\AbilityTransformer;
 
@@ -13,7 +13,7 @@ class AbilitiesDataTable extends AbstractDataTable
     /**
      * {@inheritdoc}
      */
-    protected $model = AbilityContract::class;
+    protected $model = Ability::class;
 
     /**
      * {@inheritdoc}

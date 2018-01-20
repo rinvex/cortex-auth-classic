@@ -6,7 +6,7 @@ namespace Cortex\Fort\Http\Controllers\Adminarea;
 
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\Models\Media;
-use Rinvex\Fort\Contracts\UserContract;
+use Rinvex\Fort\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Fort\DataTables\Adminarea\UsersDataTable;
@@ -39,11 +39,11 @@ class UsersController extends AuthorizedController
     /**
      * Get a listing of the resource logs.
      *
-     * @param \Rinvex\Fort\Contracts\UserContract $user
+     * @param \Rinvex\Fort\Models\User $user
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function logs(UserContract $user)
+    public function logs(User $user)
     {
         return request()->ajax() && request()->wantsJson()
             ? app(LogsDataTable::class)->with(['resource' => $user])->ajax()
@@ -53,11 +53,11 @@ class UsersController extends AuthorizedController
     /**
      * Get a listing of the resource activities.
      *
-     * @param \Rinvex\Fort\Contracts\UserContract $user
+     * @param \Rinvex\Fort\Models\User $user
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function activities(UserContract $user)
+    public function activities(User $user)
     {
         return request()->ajax() && request()->wantsJson()
             ? app(ActivitiesDataTable::class)->with(['resource' => $user])->ajax()
@@ -68,11 +68,11 @@ class UsersController extends AuthorizedController
      * Show the form for create/update of the given resource.
      *
      * @param \Illuminate\Http\Request            $request
-     * @param \Rinvex\Fort\Contracts\UserContract $user
+     * @param \Rinvex\Fort\Models\User $user
      *
      * @return \Illuminate\View\View
      */
-    public function form(Request $request, UserContract $user)
+    public function form(Request $request, User $user)
     {
         $countries = collect(countries())->map(function ($country, $code) {
             return [
@@ -115,11 +115,11 @@ class UsersController extends AuthorizedController
      * Update the given resource in storage.
      *
      * @param \Cortex\Fort\Http\Requests\Adminarea\UserFormRequest $request
-     * @param \Rinvex\Fort\Contracts\UserContract                  $user
+     * @param \Rinvex\Fort\Models\User                  $user
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function update(UserFormRequest $request, UserContract $user)
+    public function update(UserFormRequest $request, User $user)
     {
         return $this->process($request, $user);
     }
@@ -128,11 +128,11 @@ class UsersController extends AuthorizedController
      * Process the form for store/update of the given resource.
      *
      * @param \Illuminate\Foundation\Http\FormRequest $request
-     * @param \Rinvex\Fort\Contracts\UserContract     $user
+     * @param \Rinvex\Fort\Models\User     $user
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    protected function process(FormRequest $request, UserContract $user)
+    protected function process(FormRequest $request, User $user)
     {
         // Prepare required input fields
         $data = $request->validated();
@@ -163,11 +163,11 @@ class UsersController extends AuthorizedController
     /**
      * Delete the given resource from storage.
      *
-     * @param \Rinvex\Fort\Contracts\UserContract $user
+     * @param \Rinvex\Fort\Models\User $user
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function delete(UserContract $user)
+    public function delete(User $user)
     {
         $user->delete();
 
@@ -180,12 +180,12 @@ class UsersController extends AuthorizedController
     /**
      * Delete the given resource from storage.
      *
-     * @param \Rinvex\Fort\Contracts\UserContract $user
+     * @param \Rinvex\Fort\Models\User $user
      * @param \Spatie\MediaLibrary\Models\Media   $media
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function deleteMedia(UserContract $user, Media $media)
+    public function deleteMedia(User $user, Media $media)
     {
         $user->media()->where($media->getKeyName(), $media->getKey())->first()->delete();
 

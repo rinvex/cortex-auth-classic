@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Cortex\Fort\Transformers\Adminarea;
 
 use League\Fractal\TransformerAbstract;
-use Rinvex\Fort\Contracts\AbilityContract;
+use Rinvex\Fort\Models\Ability;
 
 class AbilityTransformer extends TransformerAbstract
 {
     /**
      * @return array
      */
-    public function transform(AbilityContract $ability): array
+    public function transform(Ability $ability): array
     {
         return [
             'id' => (int) $ability->getKey(),

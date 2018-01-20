@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Fort\Http\Controllers\Managerarea;
 
 use Illuminate\Http\Request;
-use Rinvex\Fort\Contracts\RoleContract;
+use Rinvex\Fort\Models\Role;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Fort\DataTables\Managerarea\RolesDataTable;
@@ -40,11 +40,11 @@ class RolesController extends AuthorizedController
     /**
      * Get a listing of the resource logs.
      *
-     * @param \Rinvex\Fort\Contracts\RoleContract $role
+     * @param \Rinvex\Fort\Models\Role $role
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function logs(RoleContract $role)
+    public function logs(Role $role)
     {
         return request()->ajax() && request()->wantsJson()
             ? app(LogsDataTable::class)->with(['resource' => $role])->ajax()
@@ -55,11 +55,11 @@ class RolesController extends AuthorizedController
      * Show the form for create/update of the given resource.
      *
      * @param \Illuminate\Http\Request            $request
-     * @param \Rinvex\Fort\Contracts\RoleContract $role
+     * @param \Rinvex\Fort\Models\Role $role
      *
      * @return \Illuminate\View\View
      */
-    public function form(Request $request, RoleContract $role)
+    public function form(Request $request, Role $role)
     {
         $owner = optional(optional(config('rinvex.tenants.active'))->owner)->getKey();
 
@@ -88,11 +88,11 @@ class RolesController extends AuthorizedController
      * Update the given resource in storage.
      *
      * @param \Cortex\Fort\Http\Requests\Managerarea\RoleFormRequest $request
-     * @param \Rinvex\Fort\Contracts\RoleContract                    $role
+     * @param \Rinvex\Fort\Models\Role                    $role
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function update(RoleFormRequest $request, RoleContract $role)
+    public function update(RoleFormRequest $request, Role $role)
     {
         return $this->process($request, $role);
     }
@@ -101,11 +101,11 @@ class RolesController extends AuthorizedController
      * Process the form for store/update of the given resource.
      *
      * @param \Illuminate\Foundation\Http\FormRequest $request
-     * @param \Rinvex\Fort\Contracts\RoleContract     $role
+     * @param \Rinvex\Fort\Models\Role     $role
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    protected function process(FormRequest $request, RoleContract $role)
+    protected function process(FormRequest $request, Role $role)
     {
         // Prepare required input fields
         $data = $request->validated();
@@ -122,11 +122,11 @@ class RolesController extends AuthorizedController
     /**
      * Delete the given resource from storage.
      *
-     * @param \Rinvex\Fort\Contracts\RoleContract $role
+     * @param \Rinvex\Fort\Models\Role $role
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function delete(RoleContract $role)
+    public function delete(Role $role)
     {
         $role->delete();
 

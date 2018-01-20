@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Cortex\Fort\Transformers\Managerarea;
 
 use League\Fractal\TransformerAbstract;
-use Rinvex\Fort\Contracts\UserContract;
+use Rinvex\Fort\Models\User;
 
 class UserTransformer extends TransformerAbstract
 {
     /**
      * @return array
      */
-    public function transform(UserContract $user): array
+    public function transform(User $user): array
     {
         return [
             'id' => (int) $user->getKey(),

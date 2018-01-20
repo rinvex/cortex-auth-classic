@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Controllers\Tenantarea;
 
-use Rinvex\Fort\Contracts\UserContract;
+use Rinvex\Fort\Models\User;
 use Cortex\Foundation\Http\Controllers\AbstractController;
 use Cortex\Fort\Http\Requests\Tenantarea\RegistrationRequest;
 use Cortex\Fort\Http\Requests\Tenantarea\RegistrationProcessRequest;
@@ -37,11 +37,11 @@ class RegistrationController extends AbstractController
      * Process the registration form.
      *
      * @param \Cortex\Fort\Http\Requests\Tenantarea\RegistrationProcessRequest $request
-     * @param \Rinvex\Fort\Contracts\UserContract                              $user
+     * @param \Rinvex\Fort\Models\User                              $user
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function register(RegistrationProcessRequest $request, UserContract $user)
+    public function register(RegistrationProcessRequest $request, User $user)
     {
         // Prepare registration data
         $data = $request->validated();
