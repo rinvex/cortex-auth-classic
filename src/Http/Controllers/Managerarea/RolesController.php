@@ -42,7 +42,7 @@ class RolesController extends AuthorizedController
      *
      * @param \Rinvex\Fort\Contracts\RoleContract $role
      *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function logs(RoleContract $role)
     {
@@ -57,7 +57,7 @@ class RolesController extends AuthorizedController
      * @param \Illuminate\Http\Request            $request
      * @param \Rinvex\Fort\Contracts\RoleContract $role
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function form(Request $request, RoleContract $role)
     {
@@ -77,7 +77,7 @@ class RolesController extends AuthorizedController
      *
      * @param \Cortex\Fort\Http\Requests\Managerarea\RoleFormRequest $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function store(RoleFormRequest $request)
     {
@@ -90,7 +90,7 @@ class RolesController extends AuthorizedController
      * @param \Cortex\Fort\Http\Requests\Managerarea\RoleFormRequest $request
      * @param \Rinvex\Fort\Contracts\RoleContract                    $role
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function update(RoleFormRequest $request, RoleContract $role)
     {
@@ -103,7 +103,7 @@ class RolesController extends AuthorizedController
      * @param \Illuminate\Foundation\Http\FormRequest $request
      * @param \Rinvex\Fort\Contracts\RoleContract     $role
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     protected function process(FormRequest $request, RoleContract $role)
     {
@@ -124,7 +124,7 @@ class RolesController extends AuthorizedController
      *
      * @param \Rinvex\Fort\Contracts\RoleContract $role
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function delete(RoleContract $role)
     {

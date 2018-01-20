@@ -29,7 +29,7 @@ class AuthenticationController extends AbstractController
     /**
      * Show the login form.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function form()
     {

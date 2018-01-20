@@ -12,7 +12,7 @@ class AccountSessionsController extends AuthenticatedController
     /**
      * Show the account sessions.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {

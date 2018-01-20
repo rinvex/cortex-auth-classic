@@ -15,7 +15,7 @@ class AccountSettingsController extends AuthenticatedController
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function edit(Request $request)
     {

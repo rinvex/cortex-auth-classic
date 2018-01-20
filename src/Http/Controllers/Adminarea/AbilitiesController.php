@@ -44,7 +44,7 @@ class AbilitiesController extends AuthorizedController
      *
      * @param \Rinvex\Fort\Contracts\AbilityContract $ability
      *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function logs(AbilityContract $ability)
     {
@@ -59,7 +59,7 @@ class AbilitiesController extends AuthorizedController
      * @param \Illuminate\Http\Request               $request
      * @param \Rinvex\Fort\Contracts\AbilityContract $ability
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function form(Request $request, AbilityContract $ability)
     {
@@ -77,7 +77,7 @@ class AbilitiesController extends AuthorizedController
      *
      * @param \Cortex\Fort\Http\Requests\Adminarea\AbilityFormRequest $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function store(AbilityFormRequest $request)
     {
@@ -90,7 +90,7 @@ class AbilitiesController extends AuthorizedController
      * @param \Cortex\Fort\Http\Requests\Adminarea\AbilityFormRequest $request
      * @param \Rinvex\Fort\Contracts\AbilityContract                  $ability
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function update(AbilityFormRequest $request, AbilityContract $ability)
     {
@@ -103,7 +103,7 @@ class AbilitiesController extends AuthorizedController
      * @param \Illuminate\Foundation\Http\FormRequest $request
      * @param \Rinvex\Fort\Contracts\AbilityContract  $ability
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     protected function process(FormRequest $request, AbilityContract $ability)
     {
@@ -133,7 +133,7 @@ class AbilitiesController extends AuthorizedController
      *
      * @param \Rinvex\Fort\Contracts\AbilityContract $ability
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function delete(AbilityContract $ability)
     {

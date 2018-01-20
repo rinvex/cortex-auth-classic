@@ -26,7 +26,7 @@ class RegistrationController extends AbstractController
      *
      * @param \Cortex\Fort\Http\Requests\Frontarea\RegistrationRequest $request
      *
-     * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\View\View
      */
     public function form(RegistrationRequest $request)
     {

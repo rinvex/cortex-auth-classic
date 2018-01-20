@@ -19,7 +19,7 @@ class PasswordResetController extends AbstractController
      *
      * @param Cortex\Fort\Http\Requests\Frontarea\PasswordResetRequest
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function request(PasswordResetRequest $request)
     {

@@ -41,7 +41,7 @@ class UsersController extends AuthorizedController
      *
      * @param \Rinvex\Fort\Contracts\UserContract $user
      *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function logs(UserContract $user)
     {
@@ -55,7 +55,7 @@ class UsersController extends AuthorizedController
      *
      * @param \Rinvex\Fort\Contracts\UserContract $user
      *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function activities(UserContract $user)
     {
@@ -70,7 +70,7 @@ class UsersController extends AuthorizedController
      * @param \Illuminate\Http\Request            $request
      * @param \Rinvex\Fort\Contracts\UserContract $user
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function form(Request $request, UserContract $user)
     {
@@ -104,7 +104,7 @@ class UsersController extends AuthorizedController
      *
      * @param \Cortex\Fort\Http\Requests\Adminarea\UserFormRequest $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function store(UserFormRequest $request)
     {
@@ -117,7 +117,7 @@ class UsersController extends AuthorizedController
      * @param \Cortex\Fort\Http\Requests\Adminarea\UserFormRequest $request
      * @param \Rinvex\Fort\Contracts\UserContract                  $user
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function update(UserFormRequest $request, UserContract $user)
     {
@@ -130,7 +130,7 @@ class UsersController extends AuthorizedController
      * @param \Illuminate\Foundation\Http\FormRequest $request
      * @param \Rinvex\Fort\Contracts\UserContract     $user
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     protected function process(FormRequest $request, UserContract $user)
     {
@@ -165,7 +165,7 @@ class UsersController extends AuthorizedController
      *
      * @param \Rinvex\Fort\Contracts\UserContract $user
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function delete(UserContract $user)
     {
@@ -183,7 +183,7 @@ class UsersController extends AuthorizedController
      * @param \Rinvex\Fort\Contracts\UserContract $user
      * @param \Spatie\MediaLibrary\Models\Media   $media
      *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function deleteMedia(UserContract $user, Media $media)
     {
