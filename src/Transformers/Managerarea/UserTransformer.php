@@ -12,7 +12,7 @@ class UserTransformer extends TransformerAbstract
     /**
      * @return array
      */
-    public function transform(UserContract $user)
+    public function transform(UserContract $user): array
     {
         return [
             'id' => (int) $user->getKey(),

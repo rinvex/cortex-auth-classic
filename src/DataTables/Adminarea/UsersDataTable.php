@@ -25,7 +25,7 @@ class UsersDataTable extends AbstractDataTable
      *
      * @return array
      */
-    protected function getColumns()
+    protected function getColumns(): array
     {
         $link = config('cortex.foundation.route.locale_prefix')
             ? '"<a href=\""+routes.route(\'adminarea.users.edit\', {user: full.username, locale: \''.$this->request->segment(1).'\'})+"\">"+data+"</a>"'

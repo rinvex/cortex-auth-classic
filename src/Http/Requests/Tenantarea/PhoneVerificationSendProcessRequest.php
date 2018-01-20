@@ -11,7 +11,7 @@ class PhoneVerificationSendProcessRequest extends PhoneVerificationSendRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'phone' => 'required|numeric|min:4|exists:'.config('rinvex.fort.tables.users').',phone',

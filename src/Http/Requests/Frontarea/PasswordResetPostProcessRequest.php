@@ -11,7 +11,7 @@ class PasswordResetPostProcessRequest extends PasswordResetRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             //'token' => 'required|regex:/^([0-9a-f]*)$/',

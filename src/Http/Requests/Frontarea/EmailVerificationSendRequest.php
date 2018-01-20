@@ -11,7 +11,7 @@ class EmailVerificationSendRequest extends EmailVerificationRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'email' => 'required|email|min:3|max:150|exists:'.config('rinvex.fort.tables.users').',email',

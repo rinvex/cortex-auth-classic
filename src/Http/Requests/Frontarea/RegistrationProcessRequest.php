@@ -27,7 +27,7 @@ class RegistrationProcessRequest extends RegistrationRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         $rules = app('rinvex.fort.user')->getRules();
         $rules['password'] = 'required|confirmed|min:'.config('rinvex.fort.password_min_chars');

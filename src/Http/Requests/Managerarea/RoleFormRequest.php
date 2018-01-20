@@ -13,7 +13,7 @@ class RoleFormRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -50,7 +50,7 @@ class RoleFormRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         $user = $this->route('role') ?? app('rinvex.fort.role');
         $user->updateRulesUniques();

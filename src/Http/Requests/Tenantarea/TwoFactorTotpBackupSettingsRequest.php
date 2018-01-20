@@ -15,7 +15,7 @@ class TwoFactorTotpBackupSettingsRequest extends TwoFactorTotpSettingsRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         parent::authorize();
 
@@ -34,7 +34,7 @@ class TwoFactorTotpBackupSettingsRequest extends TwoFactorTotpSettingsRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [];
     }

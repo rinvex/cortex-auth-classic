@@ -13,7 +13,7 @@ class AbilityFormRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -44,7 +44,7 @@ class AbilityFormRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         $user = $this->route('ability') ?? app('rinvex.fort.ability');
         $user->updateRulesUniques();

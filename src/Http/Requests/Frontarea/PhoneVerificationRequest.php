@@ -16,7 +16,7 @@ class PhoneVerificationRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         $user = $this->user();
         $attemptUser = auth()->attemptUser();
@@ -39,7 +39,7 @@ class PhoneVerificationRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [];
     }

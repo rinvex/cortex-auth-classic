@@ -12,7 +12,7 @@ class AbilityTransformer extends TransformerAbstract
     /**
      * @return array
      */
-    public function transform(AbilityContract $ability)
+    public function transform(AbilityContract $ability): array
     {
         return [
             'id' => (int) $ability->getKey(),

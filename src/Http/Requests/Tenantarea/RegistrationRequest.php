@@ -16,7 +16,7 @@ class RegistrationRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         if (! config('rinvex.fort.registration.enabled')) {
             throw new GenericException(trans('cortex/fort::messages.register.disabled'));
@@ -30,7 +30,7 @@ class RegistrationRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [];
     }

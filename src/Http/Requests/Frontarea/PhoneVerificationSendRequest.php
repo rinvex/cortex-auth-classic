@@ -15,7 +15,7 @@ class PhoneVerificationSendRequest extends PhoneVerificationRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         parent::authorize();
 
@@ -55,7 +55,7 @@ class PhoneVerificationSendRequest extends PhoneVerificationRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [];
     }

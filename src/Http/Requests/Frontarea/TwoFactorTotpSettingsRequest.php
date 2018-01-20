@@ -16,7 +16,7 @@ class TwoFactorTotpSettingsRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         if (! in_array('totp', config('rinvex.fort.twofactor.providers'))) {
             throw new GenericException(trans('cortex/fort::messages.verification.twofactor.totp.globaly_disabled'), route('frontarea.account.settings'));
@@ -30,7 +30,7 @@ class TwoFactorTotpSettingsRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [];
     }

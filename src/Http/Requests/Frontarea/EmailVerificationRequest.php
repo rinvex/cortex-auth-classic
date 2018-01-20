@@ -16,7 +16,7 @@ class EmailVerificationRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         $userVerified = $this->user() && $this->user()->email_verified;
         $guestVerified = empty($userVerified) && ($email = $this->get('email')) && ($user = app('rinvex.fort.user')->where('email', $email)->first()) && $user->email_verified;
@@ -34,7 +34,7 @@ class EmailVerificationRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [];
     }

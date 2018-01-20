@@ -11,7 +11,7 @@ class TwoFactorTotpProcessSettingsRequest extends TwoFactorTotpSettingsRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return ['token' => 'required|integer'];
     }

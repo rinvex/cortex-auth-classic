@@ -16,7 +16,7 @@ class PasswordResetRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         if ($this->user()) {
             throw new GenericException(trans('cortex/fort::messages.passwordreset.already_logged'), route('tenantarea.account.settings').'#security-tab');
@@ -30,7 +30,7 @@ class PasswordResetRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [];
     }

@@ -77,7 +77,7 @@ class Role extends BaseRole
      *
      * @return string
      */
-    public function getRouteKeyName()
+    public function getRouteKeyName(): string
     {
         return 'slug';
     }

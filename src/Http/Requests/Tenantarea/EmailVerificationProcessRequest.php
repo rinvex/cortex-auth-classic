@@ -11,7 +11,7 @@ class EmailVerificationProcessRequest extends EmailVerificationRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             // Do not validate `token` here since at this stage we can NOT generate viewable error,

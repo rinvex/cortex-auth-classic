@@ -185,7 +185,7 @@ class TwoFactorSettingsController extends AuthenticatedController
      *
      * @return array
      */
-    protected function generateTotpBackups()
+    protected function generateTotpBackups(): array
     {
         $backup = [];
 

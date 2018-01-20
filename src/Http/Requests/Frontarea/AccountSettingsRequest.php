@@ -13,7 +13,7 @@ class AccountSettingsRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -60,7 +60,7 @@ class AccountSettingsRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         $user = $this->user();
         $user->updateRulesUniques();

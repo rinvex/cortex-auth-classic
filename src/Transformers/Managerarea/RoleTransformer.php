@@ -12,7 +12,7 @@ class RoleTransformer extends TransformerAbstract
     /**
      * @return array
      */
-    public function transform(RoleContract $role)
+    public function transform(RoleContract $role): array
     {
         return [
             'id' => (int) $role->getKey(),
