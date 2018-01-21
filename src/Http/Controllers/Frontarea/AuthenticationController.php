@@ -69,11 +69,11 @@ class AuthenticationController extends AbstractController
      */
     public function logout()
     {
-        $result = auth()->guard($this->getGuard())->logout();
+        auth()->guard($this->getGuard())->logout();
 
         return intend([
             'url' => route('frontarea.home'),
-            'with' => ['warning' => trans('cortex/fort::'.$result)],
+            'with' => ['warning' => trans('cortex/fort::messages.auth.logout')],
         ]);
     }
 
