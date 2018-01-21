@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Transformers\Managerarea;
 
-use League\Fractal\TransformerAbstract;
 use Rinvex\Fort\Models\Role;
+use League\Fractal\TransformerAbstract;
 
 class RoleTransformer extends TransformerAbstract
 {

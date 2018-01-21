@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Cortex\Fort\Http\Controllers\Adminarea;
 
 use Illuminate\Http\Request;
-use Spatie\MediaLibrary\Models\Media;
 use Rinvex\Fort\Models\User;
+use Spatie\MediaLibrary\Models\Media;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Fort\DataTables\Adminarea\UsersDataTable;
@@ -67,7 +67,7 @@ class UsersController extends AuthorizedController
     /**
      * Show the form for create/update of the given resource.
      *
-     * @param \Illuminate\Http\Request            $request
+     * @param \Illuminate\Http\Request $request
      * @param \Rinvex\Fort\Models\User $user
      *
      * @return \Illuminate\View\View
@@ -115,7 +115,7 @@ class UsersController extends AuthorizedController
      * Update the given resource in storage.
      *
      * @param \Cortex\Fort\Http\Requests\Adminarea\UserFormRequest $request
-     * @param \Rinvex\Fort\Models\User                  $user
+     * @param \Rinvex\Fort\Models\User                             $user
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -128,7 +128,7 @@ class UsersController extends AuthorizedController
      * Process the form for store/update of the given resource.
      *
      * @param \Illuminate\Foundation\Http\FormRequest $request
-     * @param \Rinvex\Fort\Models\User     $user
+     * @param \Rinvex\Fort\Models\User                $user
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -180,8 +180,8 @@ class UsersController extends AuthorizedController
     /**
      * Delete the given resource from storage.
      *
-     * @param \Rinvex\Fort\Models\User $user
-     * @param \Spatie\MediaLibrary\Models\Media   $media
+     * @param \Rinvex\Fort\Models\User          $user
+     * @param \Spatie\MediaLibrary\Models\Media $media
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Transformers\Adminarea;
 
-use League\Fractal\TransformerAbstract;
 use Rinvex\Fort\Models\Ability;
+use League\Fractal\TransformerAbstract;
 
 class AbilityTransformer extends TransformerAbstract
 {
