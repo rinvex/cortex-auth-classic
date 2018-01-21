@@ -56,7 +56,7 @@ class RolesController extends AuthorizedController
     /**
      * Show the form for create/update of the given resource.
      *
-     * @param \Illuminate\Http\Request            $request
+     * @param \Illuminate\Http\Request $request
      * @param \Rinvex\Fort\Models\Role $role
      *
      * @return \Illuminate\View\View
@@ -88,7 +88,7 @@ class RolesController extends AuthorizedController
      * Update the given resource in storage.
      *
      * @param \Cortex\Fort\Http\Requests\Adminarea\RoleFormRequest $request
-     * @param \Rinvex\Fort\Models\Role                  $role
+     * @param \Rinvex\Fort\Models\Role                             $role
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -101,7 +101,7 @@ class RolesController extends AuthorizedController
      * Process the form for store/update of the given resource.
      *
      * @param \Illuminate\Foundation\Http\FormRequest $request
-     * @param \Rinvex\Fort\Models\Role     $role
+     * @param \Rinvex\Fort\Models\Role                $role
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

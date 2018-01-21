@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Providers;
 
-use Illuminate\Routing\Router;
-use Illuminate\Support\ServiceProvider;
 use Rinvex\Fort\Models\Role;
 use Rinvex\Fort\Models\User;
+use Illuminate\Routing\Router;
 use Rinvex\Fort\Models\Ability;
+use Illuminate\Support\ServiceProvider;
 use Cortex\Fort\Console\Commands\SeedCommand;
 use Cortex\Fort\Console\Commands\InstallCommand;
 use Cortex\Fort\Console\Commands\MigrateCommand;
