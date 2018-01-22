@@ -28,7 +28,7 @@
                             <li><a href="{{ route('frontarea.account.settings') }}#settings-tab" aria-controls="settings-tab" role="tab" data-toggle="tab"><i class="fa fa-cogs"></i>{{ trans('cortex/fort::common.settings') }}</a></li>
                             <li><a href="{{ route('frontarea.account.settings') }}#attributes-tab" aria-controls="attributes-tab" role="tab" data-toggle="tab"><i class="fa fa-leaf"></i>{{ trans('cortex/fort::common.attributes') }}</a></li>
                             <li><a href="{{ route('frontarea.account.sessions') }}"><i class="fa fa-list-alt"></i>{{ trans('cortex/fort::common.sessions') }}</a></li>
-                            @if(! empty(config('rinvex.fort.twofactor.providers')))<li class="active"><a href="{{ route('frontarea.account.twofactor.index') }}"><i class="fa fa-lock"></i>{{ trans('cortex/fort::common.twofactor') }}</a></li>@endif
+                            <li class="active"><a href="{{ route('frontarea.account.twofactor.index') }}"><i class="fa fa-lock"></i>{{ trans('cortex/fort::common.twofactor') }}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -55,44 +55,36 @@
 
                                 <p class="text-justify">{{ trans('cortex/fort::twofactor.notice') }}</p>
 
-                                @if(in_array('totp', config('rinvex.fort.twofactor.providers')))
+                                <div class="panel panel-primary">
+                                    <header class="panel-heading">
+                                        @if(! empty($twoFactor['totp']['enabled']))
+                                            <a class="btn btn-default btn-flat btn-xs pull-right" href="{{ route('frontarea.account.twofactor.totp.disable') }}" onclick="event.preventDefault(); var form = document.getElementById('frontarea-account-twofactor-update'); form.action = '{{ route('frontarea.account.twofactor.totp.disable') }}'; form.submit();">{{ trans('cortex/fort::common.disable') }}</a>
+                                            <a class="btn btn-default btn-flat btn-xs pull-right" style="margin-right: 10px" href="{{ route('frontarea.account.twofactor.totp.enable') }}">{{ trans('cortex/fort::common.settings') }}</a>
+                                        @else
+                                            <a class="btn btn-default btn-flat btn-xs pull-right" href="{{ route('frontarea.account.twofactor.totp.enable') }}">{{ trans('cortex/fort::common.enable') }}</a>
+                                        @endif
 
-                                    <div class="panel panel-primary">
-                                        <header class="panel-heading">
-                                            @if(! empty($twoFactor['totp']['enabled']))
-                                                <a class="btn btn-default btn-flat btn-xs pull-right" href="{{ route('frontarea.account.twofactor.totp.disable') }}" onclick="event.preventDefault(); var form = document.getElementById('frontarea-account-twofactor-update'); form.action = '{{ route('frontarea.account.twofactor.totp.disable') }}'; form.submit();">{{ trans('cortex/fort::common.disable') }}</a>
-                                                <a class="btn btn-default btn-flat btn-xs pull-right" style="margin-right: 10px" href="{{ route('frontarea.account.twofactor.totp.enable') }}">{{ trans('cortex/fort::common.settings') }}</a>
-                                            @else
-                                                <a class="btn btn-default btn-flat btn-xs pull-right" href="{{ route('frontarea.account.twofactor.totp.enable') }}">{{ trans('cortex/fort::common.enable') }}</a>
-                                            @endif
-
-                                            <h3 class="panel-title">
-                                                {{ trans('cortex/fort::twofactor.totp_head') }}
-                                            </h3>
-                                        </header>
-                                        <div class="panel-body">
-                                            {!! trans('cortex/fort::twofactor.totp_body') !!}
-                                        </div>
+                                        <h3 class="panel-title">
+                                            {{ trans('cortex/fort::twofactor.totp_head') }}
+                                        </h3>
+                                    </header>
+                                    <div class="panel-body">
+                                        {!! trans('cortex/fort::twofactor.totp_body') !!}
                                     </div>
+                                </div>
 
-                                @endif
+                                <div class="panel panel-primary">
+                                    <header class="panel-heading">
+                                        <a class="btn btn-default btn-flat btn-xs pull-right" href="{{ route('frontarea.account.twofactor.phone.'.(! empty($twoFactor['phone']['enabled']) ? 'disable' : 'enable')) }}" onclick="event.preventDefault(); var form = document.getElementById('frontarea-account-twofactor-update'); form.action = '{{ route('frontarea.account.twofactor.phone.'.(! empty($twoFactor['phone']['enabled']) ? 'disable' : 'enable')) }}'; form.submit();">{{ trans('cortex/fort::common.'.(! empty($twoFactor['phone']['enabled']) ? 'disable' : 'enable')) }}</a>
 
-                                @if(in_array('phone', config('rinvex.fort.twofactor.providers')))
-
-                                    <div class="panel panel-primary">
-                                        <header class="panel-heading">
-                                            <a class="btn btn-default btn-flat btn-xs pull-right" href="{{ route('frontarea.account.twofactor.phone.'.(! empty($twoFactor['phone']['enabled']) ? 'disable' : 'enable')) }}" onclick="event.preventDefault(); var form = document.getElementById('frontarea-account-twofactor-update'); form.action = '{{ route('frontarea.account.twofactor.phone.'.(! empty($twoFactor['phone']['enabled']) ? 'disable' : 'enable')) }}'; form.submit();">{{ trans('cortex/fort::common.'.(! empty($twoFactor['phone']['enabled']) ? 'disable' : 'enable')) }}</a>
-
-                                            <h3 class="panel-title">
-                                                {{ trans('cortex/fort::twofactor.phone_head') }}
-                                            </h3>
-                                        </header>
-                                        <div class="panel-body">
-                                            {{ trans('cortex/fort::twofactor.phone_body') }}
-                                        </div>
+                                        <h3 class="panel-title">
+                                            {{ trans('cortex/fort::twofactor.phone_head') }}
+                                        </h3>
+                                    </header>
+                                    <div class="panel-body">
+                                        {{ trans('cortex/fort::twofactor.phone_body') }}
                                     </div>
-
-                                @endif
+                                </div>
 
                             {{ Form::close() }}
 

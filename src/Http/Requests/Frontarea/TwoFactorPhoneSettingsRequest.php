@@ -20,10 +20,6 @@ class TwoFactorPhoneSettingsRequest extends FormRequest
     {
         $user = $this->user();
 
-        if (! in_array('phone', config('rinvex.fort.twofactor.providers'))) {
-            throw new GenericException(trans('cortex/fort::messages.verification.twofactor.phone.globaly_disabled'), route('frontarea.account.settings'));
-        }
-
         if (mb_strpos($this->route()->getName(), 'frontarea.account.twofactor.phone') !== false && (! $user->phone || ! $user->phone_verified)) {
             throw new GenericException(trans('cortex/fort::messages.account.'.(! $user->phone ? 'phone_field_required' : 'phone_verification_required')), route('frontarea.account.settings'));
         }

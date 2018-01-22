@@ -37,7 +37,7 @@
                             <li class="active"><a href="{{ route('frontarea.account.settings') }}#settings-tab" aria-controls="settings-tab" role="tab" data-toggle="tab"><i class="fa fa-cogs"></i>{{ trans('cortex/fort::common.settings') }}</a></li>
                             <li><a href="{{ route('frontarea.account.settings') }}#attributes-tab" aria-controls="attributes-tab" role="tab" data-toggle="tab"><i class="fa fa-leaf"></i>{{ trans('cortex/fort::common.attributes') }}</a></li>
                             <li><a href="{{ route('frontarea.account.sessions') }}"><i class="fa fa-list-alt"></i>{{ trans('cortex/fort::common.sessions') }}</a></li>
-                            @if(! empty(config('rinvex.fort.twofactor.providers')))<li><a href="{{ route('frontarea.account.twofactor.index') }}"><i class="fa fa-lock"></i>{{ trans('cortex/fort::common.twofactor') }}</a></li>@endif
+                            <li><a href="{{ route('frontarea.account.twofactor.index') }}"><i class="fa fa-lock"></i>{{ trans('cortex/fort::common.twofactor') }}</a></li>
                         </ul>
                     </div>
                 </div>

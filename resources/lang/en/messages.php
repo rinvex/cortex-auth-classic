@@ -82,7 +82,6 @@ return [
 
         'twofactor' => [
             'invalid_token' => 'This verification token is invalid.',
-            'globaly_disabled' => 'Sorry, TwoFactor authentication globally disabled!',
             'totp' => [
                 'required' => 'TwoFactor TOTP authentication enabled for your account, authentication code required to proceed.',
                 'enabled' => 'TwoFactor TOTP authentication has been enabled and backup codes generated for your account.',
@@ -90,7 +89,6 @@ return [
                 'rebackup' => 'TwoFactor TOTP authentication backup codes re-generated for your account.',
                 'cant_backup' => 'TwoFactor TOTP authentication currently disabled for your account, thus backup codes can not be generated.',
                 'invalid_token' => 'Your passcode did not match, or expired after scanning. Remove the old barcode from your app, and try again. Since this process is time-sensitive, make sure your device\'s date and time is set to "automatic."',
-                'globaly_disabled' => 'Sorry, TwoFactor TOTP authentication globally disabled!',
             ],
             'phone' => [
                 'enabled' => 'TwoFactor phone authentication has been enabled for your account.',
@@ -98,7 +96,6 @@ return [
                 'auto_disabled' => 'TwoFactor phone authentication has been disabled for your account. Changing country or phone results in TwoFactor auto disable. You need to enable it again manually.',
                 'phone_required' => 'Phone field seems to be missing in your account, and since TwoFactor authentication already activated which require that field, you can NOT login unfortunately. Please contact staff to solve this issue.',
                 'country_required' => 'Country field seems to be missing in your account, and since TwoFactor authentication already activated which require that field, you can NOT login unfortunately. Please contact staff to solve this issue.',
-                'globaly_disabled' => 'Sorry, TwoFactor phone authentication globally disabled!',
             ],
         ],
 

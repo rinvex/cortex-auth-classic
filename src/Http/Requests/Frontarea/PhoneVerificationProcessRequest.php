@@ -18,11 +18,6 @@ class PhoneVerificationProcessRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (empty(config('rinvex.fort.twofactor.providers'))) {
-            // At least one TwoFactor provider required for phone verification
-            throw new GenericException(trans('cortex/fort::messages.verification.twofactor.globaly_disabled'), route('frontarea.account.settings'));
-        }
-
         return true;
     }
 

@@ -20,11 +20,6 @@ class PhoneVerificationSendRequest extends PhoneVerificationRequest
         $user = $this->user();
         $attemptUser = auth()->attemptUser();
 
-        if (empty(config('rinvex.fort.twofactor.providers'))) {
-            // At least one TwoFactor provider required for phone verification
-            throw new GenericException(trans('cortex/fort::messages.verification.twofactor.globaly_disabled'), route('frontarea.account.settings'));
-        }
-
         if ($user && ! $user->country_code) {
             // Country field required for phone verification
             throw new GenericException(trans('cortex/fort::messages.account.country_required'), route('frontarea.account.settings'));
@@ -43,11 +38,6 @@ class PhoneVerificationSendRequest extends PhoneVerificationRequest
         if ($attemptUser && ! $attemptUser->phone) {
             // Phone field required for TwoFactor authentication
             throw new GenericException(trans('cortex/fort::messages.verification.twofactor.phone.phone_required'), route('frontarea.home'));
-        }
-
-        if (! in_array('phone', config('rinvex.fort.twofactor.providers'))) {
-            // Country required for phone verification
-            throw new GenericException(trans('cortex/fort::messages.verification.twofactor.phone.disabled'), route('frontarea.account.settings'));
         }
 
         return true;
