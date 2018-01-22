@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Requests\Tenantarea;
 
+use Illuminate\Foundation\Http\FormRequest;
 use Rinvex\Fort\Exceptions\GenericException;
 
-class PhoneVerificationSendRequest extends PhoneVerificationRequest
+class PhoneVerificationSendRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -17,10 +18,13 @@ class PhoneVerificationSendRequest extends PhoneVerificationRequest
      */
     public function authorize(): bool
     {
-        parent::authorize();
-
         $user = $this->user();
         $attemptUser = auth()->attemptUser();
+
+        if (empty(config('rinvex.fort.twofactor.providers'))) {
+            // At least one TwoFactor provider required for phone verification
+            throw new GenericException(trans('cortex/fort::messages.verification.twofactor.globaly_disabled'), route('frontarea.account.settings'));
+        }
 
         if ($user && ! $user->country_code) {
             // Country field required for phone verification

@@ -17,10 +17,13 @@ class PhoneVerificationSendRequest extends PhoneVerificationRequest
      */
     public function authorize(): bool
     {
-        parent::authorize();
-
         $user = $this->user();
         $attemptUser = auth()->attemptUser();
+
+        if (empty(config('rinvex.fort.twofactor.providers'))) {
+            // At least one TwoFactor provider required for phone verification
+            throw new GenericException(trans('cortex/fort::messages.verification.twofactor.globaly_disabled'), route('frontarea.account.settings'));
+        }
 
         if ($user && ! $user->country_code) {
             // Country field required for phone verification

@@ -18,17 +18,9 @@ class PhoneVerificationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $user = $this->user();
-        $attemptUser = auth()->attemptUser();
-
         if (empty(config('rinvex.fort.twofactor.providers'))) {
             // At least one TwoFactor provider required for phone verification
-            throw new GenericException(trans('cortex/fort::messages.verification.twofactor.globaly_disabled'), ! $user ? route('frontarea.login') : route('frontarea.account.settings'));
-        }
-
-        if (! $user && ! $attemptUser) {
-            // User instance required to detect active TwoFactor methods
-            throw new GenericException(trans('cortex/foundation::messages.session_required'), route('frontarea.login'));
+            throw new GenericException(trans('cortex/fort::messages.verification.twofactor.globaly_disabled'), route('frontarea.account.settings'));
         }
 
         return true;
