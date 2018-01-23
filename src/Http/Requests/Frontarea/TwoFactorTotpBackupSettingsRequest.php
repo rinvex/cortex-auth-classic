@@ -18,8 +18,6 @@ class TwoFactorTotpBackupSettingsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        parent::authorize();
-
         $user = $this->user();
         $twoFactor = $user->getTwoFactor();
 
