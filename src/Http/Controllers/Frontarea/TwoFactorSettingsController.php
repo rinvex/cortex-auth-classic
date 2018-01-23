@@ -161,11 +161,11 @@ class TwoFactorSettingsController extends AuthenticatedController
     /**
      * Disable TwoFactor Phone authentication.
      *
-     * @param \Cortex\Fort\Http\Requests\Frontarea\TwoFactorPhoneSettingsRequest $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function disablePhone(TwoFactorPhoneSettingsRequest $request)
+    public function disablePhone(Request $request)
     {
         $currentUser = $request->user($this->getGuard());
         $twoFactor = $currentUser->getTwoFactor();
