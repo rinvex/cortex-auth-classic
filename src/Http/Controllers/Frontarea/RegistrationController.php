@@ -52,19 +52,15 @@ class RegistrationController extends AbstractController
         event('rinvex.fort.register.success', [$user]);
 
         // Send verification if required
-        if (config('rinvex.fort.emailverification.required')) {
-            app('rinvex.fort.emailverification')->broker()->sendVerificationLink(['email' => $data['email']]);
+        ! config('rinvex.fort.emailverification.required')
+        || app('rinvex.fort.emailverification')->broker()->sendVerificationLink(['email' => $data['email']]);
 
-            // Registration completed, verification required
-            return intend([
-                'url' => route('frontarea.verification.email.request'),
-                'with' => ['success' => trans('cortex/fort::messages.register.success_verify')],
-            ]);
-        }
+        // Auto-login registered user
+        auth()->guard($this->getGuard())->login($user);
 
         // Registration completed successfully
         return intend([
-            'url' => route('frontarea.login'),
+            'intended' => route('frontarea.login'),
             'with' => ['success' => trans('cortex/fort::messages.register.success')],
         ]);
     }

@@ -32,7 +32,6 @@ return [
 
     'register' => [
         'success' => 'Registration completed successfully!',
-        'success_verify' => 'Registration completed successfully! We have e-mailed your verification link!',
         'disabled' => 'Sorry, registration is currently disabled!',
     ],
 
