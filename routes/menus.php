@@ -27,6 +27,7 @@ Menu::modify('managerarea.sidebar', function (MenuFactory $menu) {
 });
 
 if ($user = auth()->user()) {
+    
     $userMenu = function (MenuFactory $menu) use ($user) {
         $menu->dropdown(function (MenuItem $dropdown) {
             $dropdown->route(['frontarea.account.settings'], trans('cortex/fort::common.settings'), 10, 'fa fa-user');
@@ -36,11 +37,23 @@ if ($user = auth()->user()) {
         }, $user->username, 10, 'fa fa-user');
     };
 
+    $userSidebarMenu = function (MenuFactory $menu) use ($user) {
+        $menu->route(['frontarea.account.settings'], trans('cortex/fort::common.settings'), 10, 'fa fa-cogs');
+        //$menu->route(['frontarea.account.attributes'], trans('cortex/fort::common.attributes'), 10, 'fa fa-leaf');
+        $menu->route(['frontarea.account.sessions'], trans('cortex/fort::common.sessions'), 20, 'fa fa-id-badge');
+        $menu->route(['frontarea.account.twofactor.index'], trans('cortex/fort::common.twofactor'), 30, 'fa fa-lock')->hideWhen(function() {
+           return empty(config('rinvex.fort.twofactor.providers'));
+        });
+    };
+
     Menu::modify('frontarea.header', $userMenu);
+    Menu::modify('frontarea.user.sidebar', $userSidebarMenu);
     Menu::modify('adminarea.header', $userMenu);
     Menu::modify('tenantarea.header', $userMenu);
     Menu::modify('managerarea.header', $userMenu);
+
 } else {
+
     Menu::modify('frontarea.header', function (MenuFactory $menu) {
         $menu->route(['frontarea.login'], trans('cortex/fort::common.login'), 10);
         $menu->route(['frontarea.register'], trans('cortex/fort::common.register'), 20);
