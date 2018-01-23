@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Controllers\Frontarea;
 
+use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -28,7 +29,7 @@ class SocialAuthenticationController extends AuthenticationController
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function handleProviderCallback(string $provider)
+    public function handleProviderCallback(Request $request, string $provider)
     {
         $providerUser = Socialite::driver($provider)->user();
 
@@ -66,13 +67,9 @@ class SocialAuthenticationController extends AuthenticationController
             $localUser = $this->createLocalUser($provider, $attributes);
         }
 
-        $loginResult = auth()->guard($this->getGuard())->attempt([
-            'is_active' => $localUser->is_active,
-            'email' => $localUser->email,
-            'social' => true,
-        ], true);
+        auth()->guard($this->getGuard())->login($localUser, true);
 
-        return $this->getLoginResponse(request(), $loginResult);
+        return $this->sendLoginResponse($request);
     }
 
     /**
