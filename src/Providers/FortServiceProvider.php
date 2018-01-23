@@ -7,8 +7,10 @@ namespace Cortex\Fort\Providers;
 use Rinvex\Fort\Models\Role;
 use Rinvex\Fort\Models\User;
 use Illuminate\Routing\Router;
+use Rinvex\Menus\Facades\Menu;
 use Rinvex\Fort\Models\Ability;
 use Illuminate\Support\ServiceProvider;
+use Rinvex\Menus\Factories\MenuFactory;
 use Cortex\Fort\Console\Commands\SeedCommand;
 use Cortex\Fort\Console\Commands\InstallCommand;
 use Cortex\Fort\Console\Commands\MigrateCommand;
@@ -87,6 +89,9 @@ class FortServiceProvider extends ServiceProvider
 
         // Register attributes entities
         app('rinvex.attributes.entities')->push('user');
+
+        // Register menus
+        $this->registerMenus();
     }
 
     /**
@@ -116,5 +121,18 @@ class FortServiceProvider extends ServiceProvider
         }
 
         $this->commands(array_values($this->commands));
+    }
+
+    /**
+     * Register menus.
+     *
+     * @return void
+     */
+    protected function registerMenus(): void
+    {
+        $this->app['rinvex.menus.presenters']->put('user.sidebar', \Cortex\Fort\Presenters\UserSidebarMenuPresenter::class);
+
+        Menu::make('frontarea.user.sidebar', function (MenuFactory $menu) {
+        });
     }
 }
