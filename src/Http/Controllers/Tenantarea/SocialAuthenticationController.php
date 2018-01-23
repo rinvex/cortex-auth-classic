@@ -66,11 +66,7 @@ class SocialAuthenticationController extends AuthenticationController
             $localUser = $this->createLocalUser($provider, $attributes);
         }
 
-        $loginResult = auth()->guard($this->getGuard())->attempt([
-            'is_active' => $localUser->is_active,
-            'email' => $localUser->email,
-            'social' => true,
-        ], true);
+        auth()->guard($this->getGuard())->login($localUser, true);
 
         return $this->getLoginResponse(request(), $loginResult);
     }
