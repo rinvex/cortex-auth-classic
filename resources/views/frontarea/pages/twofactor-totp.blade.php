@@ -120,7 +120,7 @@
 
                                 </div>
 
-                                <hr />
+                                <br />
 
                                 @if(array_get($twoFactor, 'totp.enabled'))
                                     <div class="row">
@@ -136,7 +136,7 @@
 
                                                 <div class="collapse" id="collapse2Example">
 
-                                                    <hr />
+                                                    <br />
 
                                                     @if(array_get($twoFactor, 'totp.backup'))
                                                         <div class="panel panel-primary">
@@ -168,8 +168,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <hr />
 
                                 @endif
 
