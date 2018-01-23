@@ -15,7 +15,7 @@ class AccountSettingsController extends AuthenticatedController
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function edit(Request $request)
     {
@@ -46,14 +46,6 @@ class AccountSettingsController extends AuthenticatedController
 
         // Update profile
         $currentUser->fill($data)->save();
-
-        if (config('rinvex.fort.emailverification.required')) {
-            return intend([
-                'url' => route('tenantarea.verification.email.request'),
-                'with' => ['success' => trans('cortex/fort::messages.account.reverify')]
-                          + (isset($data['two_factor']) ? ['warning' => trans('cortex/fort::messages.verification.twofactor.phone.auto_disabled')] : []),
-            ]);
-        }
 
         return intend([
             'back' => true,
