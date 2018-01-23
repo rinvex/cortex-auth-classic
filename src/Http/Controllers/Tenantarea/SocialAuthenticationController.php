@@ -42,22 +42,22 @@ class SocialAuthenticationController extends AuthenticationController
 
         switch ($provider) {
             case 'twitter':
-                $attributes['bio'] = $providerUser->user['description'];
+                $attributes['title'] = $providerUser->user['description'];
                 $attributes['profile_picture'] = $providerUser->avatar_original;
                 break;
             case 'github':
-                $attributes['bio'] = $providerUser->user['bio'];
+                $attributes['title'] = $providerUser->user['bio'];
                 $attributes['profile_picture'] = $providerUser->avatar;
                 break;
             case 'facebook':
                 $attributes['profile_picture'] = $providerUser->avatar_original;
                 break;
             case 'linkedin':
-                $attributes['bio'] = $providerUser->headline;
+                $attributes['title'] = $providerUser->headline;
                 $attributes['profile_picture'] = $providerUser->avatar_original;
                 break;
             case 'google':
-                $attributes['bio'] = $providerUser->tagline;
+                $attributes['title'] = $providerUser->tagline;
                 $attributes['profile_picture'] = $providerUser->avatar_original;
                 break;
         }
