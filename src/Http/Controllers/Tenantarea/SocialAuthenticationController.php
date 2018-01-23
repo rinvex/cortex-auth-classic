@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Controllers\Tenantarea;
 
+use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Database\Eloquent\Builder;
 use Cortex\Foundation\Http\Controllers\AbstractController;
@@ -25,11 +26,12 @@ class SocialAuthenticationController extends AbstractController
     /**
      * Obtain the user information from Provider.
      *
-     * @param string $provider
+     * @param \Illuminate\Http\Request $request
+     * @param string                   $provider
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function handleProviderCallback(string $provider)
+    public function handleProviderCallback(Request $request, string $provider)
     {
         $providerUser = Socialite::driver($provider)->user();
 

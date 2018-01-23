@@ -26,7 +26,8 @@ class SocialAuthenticationController extends AbstractController
     /**
      * Obtain the user information from Provider.
      *
-     * @param string $provider
+     * @param \Illuminate\Http\Request $request
+     * @param string                   $provider
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
