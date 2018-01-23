@@ -60,7 +60,7 @@ class RegistrationController extends AbstractController
 
         // Registration completed successfully
         return intend([
-            'intended' => route('frontarea.login'),
+            'intended' => route('tenantarea.home'),
             'with' => ['success' => trans('cortex/fort::messages.register.success')],
         ]);
     }
