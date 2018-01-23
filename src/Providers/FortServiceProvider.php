@@ -6,8 +6,8 @@ namespace Cortex\Fort\Providers;
 
 use Rinvex\Fort\Models\Role;
 use Rinvex\Fort\Models\User;
-use Rinvex\Menus\Facades\Menu;
 use Illuminate\Routing\Router;
+use Rinvex\Menus\Facades\Menu;
 use Rinvex\Fort\Models\Ability;
 use Illuminate\Support\ServiceProvider;
 use Rinvex\Menus\Factories\MenuFactory;
@@ -132,6 +132,7 @@ class FortServiceProvider extends ServiceProvider
     {
         $this->app['rinvex.menus.presenters']->put('user.sidebar', \Cortex\Fort\Presenters\UserSidebarMenuPresenter::class);
 
-        Menu::make('frontarea.user.sidebar', function (MenuFactory $menu) {});
+        Menu::make('frontarea.user.sidebar', function (MenuFactory $menu) {
+        });
     }
 }
