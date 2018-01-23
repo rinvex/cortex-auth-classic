@@ -148,7 +148,7 @@
                                                                 {{ trans('cortex/fort::twofactor.totp_backup_body') }}
                                                                 <div>
 
-                                                                    {!! trans('cortex/fort::twofactor.totp_backup_notice', ['backup_at' => array_get($twoFactor, 'totp.backup_at')]) !!}
+                                                                    {!! trans('cortex/fort::twofactor.totp_backup_notice', ['backup_at' => Carbon\Carbon::parse(array_get($twoFactor, 'totp.backup_at'))->format('F d, Y - h:ia')]) !!}
 
                                                                     <ul class="list-group">
                                                                         @foreach(array_get($twoFactor, 'totp.backup') as $backup)
