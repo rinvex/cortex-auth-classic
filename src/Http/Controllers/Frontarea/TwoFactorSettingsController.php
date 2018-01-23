@@ -7,7 +7,6 @@ namespace Cortex\Fort\Http\Controllers\Frontarea;
 use Illuminate\Http\Request;
 use PragmaRX\Google2FA\Google2FA;
 use Cortex\Foundation\Http\Controllers\AuthenticatedController;
-use Cortex\Fort\Http\Requests\Frontarea\TwoFactorTotpSettingsRequest;
 use Cortex\Fort\Http\Requests\Frontarea\TwoFactorPhoneSettingsRequest;
 use Cortex\Fort\Http\Requests\Frontarea\TwoFactorTotpBackupSettingsRequest;
 use Cortex\Fort\Http\Requests\Frontarea\TwoFactorTotpProcessSettingsRequest;
@@ -31,12 +30,12 @@ class TwoFactorSettingsController extends AuthenticatedController
     /**
      * Enable TwoFactor TOTP authentication.
      *
-     * @param \Cortex\Fort\Http\Requests\Frontarea\TwoFactorTotpSettingsRequest $request
-     * @param \PragmaRX\Google2FA\Google2FA                                     $totpProvider
+     * @param \Illuminate\Http\Request      $request
+     * @param \PragmaRX\Google2FA\Google2FA $totpProvider
      *
      * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function enableTotp(TwoFactorTotpSettingsRequest $request, Google2FA $totpProvider)
+    public function enableTotp(Request $request, Google2FA $totpProvider)
     {
         $currentUser = $request->user($this->getGuard());
         $twoFactor = $currentUser->getTwoFactor();
@@ -58,11 +57,11 @@ class TwoFactorSettingsController extends AuthenticatedController
     /**
      * Disable TwoFactor TOTP authentication.
      *
-     * @param \Cortex\Fort\Http\Requests\Frontarea\TwoFactorTotpSettingsRequest $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function disableTotp(TwoFactorTotpSettingsRequest $request)
+    public function disableTotp(Request $request)
     {
         $currentUser = $request->user($this->getGuard());
         $twoFactor = $currentUser->getTwoFactor();

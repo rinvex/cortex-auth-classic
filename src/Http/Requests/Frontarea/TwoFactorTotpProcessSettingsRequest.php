@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Requests\Frontarea;
 
-class TwoFactorTotpProcessSettingsRequest extends TwoFactorTotpSettingsRequest
+use Illuminate\Foundation\Http\FormRequest;
+
+class TwoFactorTotpProcessSettingsRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.

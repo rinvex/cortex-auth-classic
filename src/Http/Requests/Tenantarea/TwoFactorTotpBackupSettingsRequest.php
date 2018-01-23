@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Requests\Tenantarea;
 
+use Illuminate\Foundation\Http\FormRequest;
 use Rinvex\Fort\Exceptions\GenericException;
 
-class TwoFactorTotpBackupSettingsRequest extends TwoFactorTotpSettingsRequest
+class TwoFactorTotpBackupSettingsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
