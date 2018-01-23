@@ -70,7 +70,7 @@ class TwoFactorSettingsController extends AuthenticatedController
         $currentUser->fill(['two_factor' => $twoFactor])->forceSave();
 
         return intend([
-            'url' => route('frontarea.account.settings'),
+            'back' => true,
             'with' => ['success' => trans('cortex/fort::messages.verification.twofactor.totp.disabled')],
         ]);
     }
@@ -153,7 +153,7 @@ class TwoFactorSettingsController extends AuthenticatedController
         $currentUser->fill(['two_factor' => $twoFactor])->forceSave();
 
         return intend([
-            'url' => route('frontarea.account.settings'),
+            'back' => true,
             'with' => ['success' => trans('cortex/fort::messages.verification.twofactor.phone.enabled')],
         ]);
     }
@@ -174,7 +174,7 @@ class TwoFactorSettingsController extends AuthenticatedController
         $currentUser->fill(['two_factor' => $twoFactor])->forceSave();
 
         return intend([
-            'url' => route('frontarea.account.settings'),
+            'back' => true,
             'with' => ['success' => trans('cortex/fort::messages.verification.twofactor.phone.disabled')],
         ]);
     }

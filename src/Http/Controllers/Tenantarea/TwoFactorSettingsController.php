@@ -70,7 +70,7 @@ class TwoFactorSettingsController extends AuthenticatedController
         $currentUser->fill(['two_factor' => $twoFactor])->forceSave();
 
         return intend([
-            'url' => route('tenantarea.account.settings'),
+            'back' => true,
             'with' => ['success' => trans('cortex/fort::messages.verification.twofactor.totp.disabled')],
         ]);
     }
@@ -79,7 +79,7 @@ class TwoFactorSettingsController extends AuthenticatedController
      * Process the TwoFactor TOTP enable form.
      *
      * @param \Cortex\Fort\Http\Requests\Tenantarea\TwoFactorTotpProcessSettingsRequest $request
-     * @param \PragmaRX\Google2FA\Google2FA                                             $totpProvider
+     * @param \PragmaRX\Google2FA\Google2FA                                            $totpProvider
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -153,7 +153,7 @@ class TwoFactorSettingsController extends AuthenticatedController
         $currentUser->fill(['two_factor' => $twoFactor])->forceSave();
 
         return intend([
-            'url' => route('tenantarea.account.settings'),
+            'back' => true,
             'with' => ['success' => trans('cortex/fort::messages.verification.twofactor.phone.enabled')],
         ]);
     }
@@ -174,7 +174,7 @@ class TwoFactorSettingsController extends AuthenticatedController
         $currentUser->fill(['two_factor' => $twoFactor])->forceSave();
 
         return intend([
-            'url' => route('tenantarea.account.settings'),
+            'back' => true,
             'with' => ['success' => trans('cortex/fort::messages.verification.twofactor.phone.disabled')],
         ]);
     }
