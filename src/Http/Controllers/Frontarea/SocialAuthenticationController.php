@@ -7,8 +7,9 @@ namespace Cortex\Fort\Http\Controllers\Frontarea;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Database\Eloquent\Builder;
+use Cortex\Foundation\Http\Controllers\AbstractController;
 
-class SocialAuthenticationController extends AuthenticationController
+class SocialAuthenticationController extends AbstractController
 {
     /**
      * Redirect the user to the provider authentication page.
