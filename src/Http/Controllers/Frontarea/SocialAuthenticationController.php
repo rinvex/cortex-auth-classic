@@ -70,7 +70,10 @@ class SocialAuthenticationController extends AbstractController
 
         auth()->guard($this->getGuard())->login($localUser, true);
 
-        return $this->sendLoginResponse($request);
+        return intend([
+            'intended' => route('frontarea.home'),
+            'with' => ['success' => trans('cortex/fort::messages.auth.login')],
+        ]);
     }
 
     /**

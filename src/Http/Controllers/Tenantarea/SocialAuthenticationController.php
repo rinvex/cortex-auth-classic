@@ -69,7 +69,10 @@ class SocialAuthenticationController extends AbstractController
 
         auth()->guard($this->getGuard())->login($localUser, true);
 
-        return $this->getLoginResponse(request(), $loginResult);
+        return intend([
+            'intended' => route('tenantarea.home'),
+            'with' => ['success' => trans('cortex/fort::messages.auth.login')],
+        ]);
     }
 
     /**
