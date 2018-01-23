@@ -37,7 +37,7 @@ if ($user = auth()->user()) {
         }, $user->username, 10, 'fa fa-user');
     };
 
-    $userSidebarMenu = function (MenuFactory $menu) use () {
+    $userSidebarMenu = function (MenuFactory $menu) {
         $menu->route(['frontarea.account.settings'], trans('cortex/fort::common.settings'), 10, 'fa fa-cogs');
         $menu->route(['frontarea.account.sessions'], trans('cortex/fort::common.sessions'), 20, 'fa fa-id-badge');
         $menu->route(['frontarea.account.twofactor.index'], trans('cortex/fort::common.twofactor'), 30, 'fa fa-lock')->hideWhen(function() {
