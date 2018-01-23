@@ -36,10 +36,19 @@ if ($user = auth()->user()) {
         }, $user->username, 10, 'fa fa-user');
     };
 
+    $tenantUserMenu = function (MenuFactory $menu) use ($user) {
+        $menu->dropdown(function (MenuItem $dropdown) {
+            $dropdown->route(['tenantarea.account.settings'], trans('cortex/fort::common.settings'), 10, 'fa fa-user');
+            $dropdown->route(['tenantarea.account.sessions'], trans('cortex/fort::common.sessions'), 20, 'fa fa-id-badge');
+            $dropdown->divider(30);
+            $dropdown->route(['tenantarea.logout'], trans('cortex/fort::common.logout').Form::open(['url' => route('tenantarea.logout'), 'id' => 'logout-form', 'style' => 'display: none;']).Form::close(), 40, 'fa fa-sign-out', ['onclick' => "event.preventDefault(); document.getElementById('logout-form').submit();"]);
+        }, $user->username, 10, 'fa fa-user');
+    };
+
     Menu::modify('frontarea.header', $userMenu);
     Menu::modify('adminarea.header', $userMenu);
-    Menu::modify('tenantarea.header', $userMenu);
-    Menu::modify('managerarea.header', $userMenu);
+    Menu::modify('tenantarea.header', $tenantUserMenu);
+    Menu::modify('managerarea.header', $tenantUserMenu);
 } else {
     Menu::modify('frontarea.header', function (MenuFactory $menu) {
         $menu->route(['frontarea.login'], trans('cortex/fort::common.login'), 10);
