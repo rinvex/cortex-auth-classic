@@ -8,7 +8,7 @@
 
 {{-- Scripts --}}
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Frontarea\EmailVerificationProcessRequest::class)->selector('#frontarea-verification-email-request-form') !!}
+    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Frontarea\EmailVerificationSendRequest::class)->selector('#frontarea-verification-email-request-form') !!}
 @endpush
 
 @section('body-attributes')class="auth-page"@endsection

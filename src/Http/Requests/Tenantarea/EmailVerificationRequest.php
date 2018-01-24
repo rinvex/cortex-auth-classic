@@ -18,12 +18,9 @@ class EmailVerificationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $userVerified = $this->user() && $this->user()->email_verified;
-        $guestVerified = empty($userVerified) && ($email = $this->get('email')) && ($user = app('rinvex.fort.user')->where('email', $email)->first()) && $user->email_verified;
-
-        if ($userVerified || $guestVerified) {
+        if (($user = $this->user() ?: $this->attemptUser()) && $user->email_verified) {
             // Redirect users if their email already verified, no need to process their request
-            throw new GenericException(trans('cortex/fort::messages.verification.email.already_verified'), $userVerified ? route('tenantarea.account.settings') : route('tenantarea.login'));
+            throw new GenericException(trans('cortex/fort::messages.verification.email.already_verified'), route('tenantarea.account.settings'));
         }
 
         return true;

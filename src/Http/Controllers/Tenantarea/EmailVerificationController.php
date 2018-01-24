@@ -75,7 +75,7 @@ class EmailVerificationController extends AbstractController
         switch ($result) {
             case EmailVerificationBrokerContract::EMAIL_VERIFIED:
                 return intend([
-                    'url' => $request->user($this->getGuard()) ? route('tenantarea.account.settings') : route('tenantarea.login'),
+                    'url' => route('tenantarea.account.settings'),
                     'with' => ['success' => trans('cortex/fort::'.$result)],
                 ]);
 
