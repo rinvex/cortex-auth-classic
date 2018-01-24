@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Providers;
 
+use Illuminate\Http\Request;
 use Rinvex\Fort\Models\Role;
 use Rinvex\Fort\Models\User;
 use Illuminate\Routing\Router;
@@ -58,6 +59,9 @@ class FortServiceProvider extends ServiceProvider
      */
     public function boot(Router $router): void
     {
+        // Attach request macro
+        $this->attachRequestMacro();
+
         // Bind route models and constrains
         $router->pattern('ability', '[0-9]+');
         $router->pattern('role', '[a-z0-9-]+');
@@ -116,5 +120,18 @@ class FortServiceProvider extends ServiceProvider
         }
 
         $this->commands(array_values($this->commands));
+    }
+
+    /**
+     * Register console commands.
+     *
+     * @return void
+     */
+    protected function attachRequestMacro(): void
+    {
+        Request::macro('attemptUser', function (string $guard = null) {
+            $twofactor = $this->session()->get('rinvex.fort.twofactor');
+            return auth()->guard($guard)->getProvider()->retrieveById($twofactor['user_id']);
+        });
     }
 }

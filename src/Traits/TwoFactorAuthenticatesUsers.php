@@ -8,18 +8,6 @@ use Rinvex\Fort\Contracts\AuthenticatableTwoFactorContract;
 trait TwoFactorAuthenticatesUsers
 {
     /**
-     * Return login attempt user.
-     *
-     * @return \Illuminate\Contracts\Auth\Authenticatable|object|null
-     */
-    public function attemptUser()
-    {
-        if (! empty($twofactor = $this->session->get('_twofactor'))) {
-            return $this->provider->retrieveById($twofactor['user_id']);
-        }
-    }
-
-    /**
      * Verify TwoFactor authentication.
      *
      * @param \Rinvex\Fort\Contracts\AuthenticatableTwoFactorContract $user

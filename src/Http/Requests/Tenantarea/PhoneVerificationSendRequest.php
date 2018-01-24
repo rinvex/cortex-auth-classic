@@ -19,7 +19,7 @@ class PhoneVerificationSendRequest extends FormRequest
     public function authorize(): bool
     {
         $user = $this->user();
-        $attemptUser = auth()->attemptUser();
+        $attemptUser = $this->attemptUser();
 
         if ($user && ! $user->country_code) {
             // Country field required for phone verification

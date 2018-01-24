@@ -35,7 +35,7 @@ class PhoneVerificationController extends AbstractController
     public function send(PhoneVerificationSendProcessRequest $request)
     {
         // Send phone verification notification
-        $user = $request->user($this->getGuard()) ?? auth()->guard($this->getGuard())->attemptUser();
+        $user = $request->user($this->getGuard()) ?? $request->attemptUser($this->getGuard());
         $user->sendPhoneVerificationNotification($request->get('method'), true);
 
         return intend([
@@ -67,7 +67,7 @@ class PhoneVerificationController extends AbstractController
      */
     public function process(PhoneVerificationProcessRequest $request)
     {
-        $user = $request->user($this->getGuard()) ?? auth()->guard($this->getGuard())->attemptUser();
+        $user = $request->user($this->getGuard()) ?? $request->attemptUser($this->getGuard());
         $result = auth()->guard($this->getGuard())->attemptTwoFactor($user, $request->get('token'));
 
         switch ($result) {
