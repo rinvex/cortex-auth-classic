@@ -51,8 +51,8 @@ return [
         'login' => 'You have successfully logged in!',
         'logout' => 'You have successfully logged out!',
         'session' => [
-            'flushed' => 'Your selected session has been successfully flushed!',
-            'flushedall' => 'All your active sessions has been successfully flushed!',
+            'deleted' => 'Done! Session [:sessionId] deleted successfully!',
+            'flushed' => 'All your active sessions has been successfully flushed!',
         ],
     ],
 
