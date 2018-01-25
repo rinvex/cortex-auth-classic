@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Cortex\Fort\Http\Controllers\Frontarea;
 
 use Illuminate\Http\Request;
-use Rinvex\Fort\Guards\SessionGuard;
+use Cortex\Fort\Traits\AuthenticatesUsers;
 use Cortex\Foundation\Http\Controllers\AbstractController;
 use Cortex\Fort\Http\Requests\Frontarea\AuthenticationRequest;
 
 class AuthenticationController extends AbstractController
 {
+    use AuthenticatesUsers;
+
     /**
      * {@inheritdoc}
      */
@@ -49,88 +51,48 @@ class AuthenticationController extends AbstractController
     public function login(AuthenticationRequest $request)
     {
         // Prepare variables
-        $remember = $request->has('remember');
-        $loginField = get_login_field($request->get('loginfield'));
+        $loginField = get_login_field($request->input($this->username()));
         $credentials = [
             'is_active' => true,
             $loginField => $request->input('loginfield'),
             'password' => $request->input('password'),
         ];
 
-        $result = auth()->guard($this->getGuard())->attempt($credentials, $remember);
+        // If the class is using the ThrottlesLogins trait, we can automatically throttle
+        // the login attempts for this application. We'll key this by the username and
+        // the IP address of the client making these requests into this application.
+        if ($this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
 
-        return $this->getLoginResponse($request, $result);
+            return $this->sendLockoutResponse($request);
+        }
+
+        if (auth()->guard($this->getGuard())->attempt($credentials, $request->filled('remember'))) {
+            return $this->sendLoginResponse($request);
+        }
+
+        // If the login attempt was unsuccessful we will increment the number of attempts
+        // to login and redirect the user back to the login form. Of course, when this
+        // user surpasses their maximum number of attempts they will get locked out.
+        $this->incrementLoginAttempts($request);
+
+        return $this->sendFailedLoginResponse($request);
     }
 
     /**
      * Logout currently logged in user.
      *
+     * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function logout()
+    public function logout(Request $request)
     {
-        auth()->guard($this->getGuard())->logout();
+        $this->processLogout($request);
 
         return intend([
             'url' => route('frontarea.home'),
             'with' => ['warning' => trans('cortex/fort::messages.auth.logout')],
         ]);
-    }
-
-    /**
-     * Get login response upon the given request & result.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param string                   $result
-     *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
-     */
-    protected function getLoginResponse(Request $request, $result)
-    {
-        switch ($result) {
-            // Too many failed logins, user locked out
-            case SessionGuard::AUTH_LOCKED_OUT:
-                $seconds = auth()->guard($this->getGuard())->secondsRemainingOnLockout($request);
-
-                return intend([
-                    'url' => route('frontarea.home'),
-                    'withInput' => $request->only(['loginfield', 'remember']),
-                    'withErrors' => ['loginfield' => trans('cortex/fort::'.$result, ['seconds' => $seconds])],
-                ]);
-
-            // Valid credentials, but user is unverified; Can NOT login!
-            case SessionGuard::AUTH_UNVERIFIED:
-                return intend([
-                    'url' => route('frontarea.verification.email.request'),
-                    'withErrors' => ['email' => trans('cortex/fort::'.$result)],
-                ]);
-
-            // Wrong credentials, failed login
-            case SessionGuard::AUTH_FAILED:
-                return intend([
-                    'back' => true,
-                    'withInput' => $request->only(['loginfield', 'remember']),
-                    'withErrors' => ['loginfield' => trans('cortex/fort::'.$result)],
-                ]);
-
-            // TwoFactor authentication required
-            case SessionGuard::AUTH_TWOFACTOR_REQUIRED:
-                $route = session('_twofactor.totp')
-                    ? route('frontarea.verification.phone.verify')
-                    : route('frontarea.verification.phone.request');
-
-                return intend([
-                    'url' => $route,
-                    'with' => ['warning' => trans('cortex/fort::'.$result)],
-                ]);
-
-            // Login successful and everything is fine!
-            case SessionGuard::AUTH_LOGIN:
-            default:
-                return intend([
-                    'intended' => route('frontarea.home'),
-                    'with' => ['success' => trans('cortex/fort::'.$result)],
-                ]);
-        }
     }
 }
