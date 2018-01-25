@@ -11,36 +11,24 @@ trait TwoFactorAuthenticatesUsers
      * Verify TwoFactor authentication.
      *
      * @param \Rinvex\Fort\Contracts\AuthenticatableTwoFactorContract $user
-     * @param string                                                  $token
+     * @param int                                                     $token
      *
-     * @return string
+     * @return bool
      */
-    public function attemptTwoFactor(AuthenticatableTwoFactorContract $user, $token): string
+    protected function attemptTwoFactor(AuthenticatableTwoFactorContract $user, int $token): bool
     {
-        // Verify TwoFactor authentication
-        if (request()->session()->has('rinvex.fort.twofactor') && ($this->isValidTwoFactorTotp($user, $token) || $this->isValidTwoFactorBackup($user, $token) || $this->isValidTwoFactorPhone($user, $token))) {
-            request()->session()->forget('rinvex.fort.twofactor');
-
-            return static::AUTH_LOGIN;
-        }
-
-        // This is NOT login attempt, it's just account update -> phone verification
-        if (! request()->session()->has('rinvex.fort.twofactor') && $this->isValidTwoFactorPhone($user, $token)) {
-            return 'messages.verification.phone.verified';
-        }
-
-        return 'messages.verification.twofactor.invalid_token';
+        return $this->isValidTwoFactorTotp($user, $token) || $this->isValidTwoFactorBackup($user, $token) || $this->isValidTwoFactorPhone($user, $token);
     }
 
     /**
      * Invalidate given backup code for the given user.
      *
      * @param \Rinvex\Fort\Contracts\AuthenticatableTwoFactorContract $user
-     * @param                                                         $token
+     * @param int                                                     $token
      *
      * @return void
      */
-    protected function invalidateTwoFactorBackup(AuthenticatableTwoFactorContract $user, $token): void
+    protected function invalidateTwoFactorBackup(AuthenticatableTwoFactorContract $user, int $token): void
     {
         $settings = $user->getTwoFactor();
         $backup = array_get($settings, 'totp.backup');
@@ -57,11 +45,11 @@ trait TwoFactorAuthenticatesUsers
      * Determine if the given token is a valid TwoFactor Phone token.
      *
      * @param \Rinvex\Fort\Contracts\AuthenticatableTwoFactorContract $user
-     * @param                                                         $token
+     * @param int                                                     $token
      *
      * @return bool
      */
-    protected function isValidTwoFactorPhone(AuthenticatableTwoFactorContract $user, $token): bool
+    protected function isValidTwoFactorPhone(AuthenticatableTwoFactorContract $user, int $token): bool
     {
         $settings = $user->getTwoFactor();
         $authyId = array_get($settings, 'phone.authy_id');
@@ -73,11 +61,11 @@ trait TwoFactorAuthenticatesUsers
      * Determine if the given token is a valid TwoFactor Backup code.
      *
      * @param \Rinvex\Fort\Contracts\AuthenticatableTwoFactorContract $user
-     * @param                                                         $token
+     * @param int                                                     $token
      *
      * @return bool
      */
-    protected function isValidTwoFactorBackup(AuthenticatableTwoFactorContract $user, $token): bool
+    protected function isValidTwoFactorBackup(AuthenticatableTwoFactorContract $user, int $token): bool
     {
         $backup = array_get($user->getTwoFactor(), 'totp.backup', []);
         $result = mb_strlen($token) === 10 && in_array($token, $backup);
@@ -90,11 +78,11 @@ trait TwoFactorAuthenticatesUsers
      * Determine if the given token is a valid TwoFactor TOTP token.
      *
      * @param \Rinvex\Fort\Contracts\AuthenticatableTwoFactorContract $user
-     * @param                                                         $token
+     * @param int                                                     $token
      *
      * @return bool
      */
-    protected function isValidTwoFactorTotp(AuthenticatableTwoFactorContract $user, $token): bool
+    protected function isValidTwoFactorTotp(AuthenticatableTwoFactorContract $user, int $token): bool
     {
         $totpProvider = app(Google2FA::class);
         $secret = array_get($user->getTwoFactor(), 'totp.secret');

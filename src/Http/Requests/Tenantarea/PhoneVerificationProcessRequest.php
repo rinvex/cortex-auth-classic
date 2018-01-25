@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Requests\Tenantarea;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Rinvex\Fort\Exceptions\GenericException;
 
-class PhoneVerificationProcessRequest extends FormRequest
+class PhoneVerificationProcessRequest extends PhoneVerificationRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -18,6 +17,17 @@ class PhoneVerificationProcessRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        parent::authorize();
+
+        $user = $this->user()
+                ?? $this->attemptUser()
+                   ?? app('rinvex.fort.user')->whereNotNull('phone')->where('phone', $this->get('phone'))->first();
+
+        if (! $user) {
+            // User instance required to detect active TwoFactor methods
+            throw new GenericException(trans('cortex/foundation::messages.session_required'), route('tenantarea.login'));
+        }
+
         return true;
     }
 
@@ -28,6 +38,8 @@ class PhoneVerificationProcessRequest extends FormRequest
      */
     public function rules(): array
     {
-        return ['token' => 'required|integer'];
+        return [
+            'token' => 'required|digits_between:6,10'
+        ];
     }
 }

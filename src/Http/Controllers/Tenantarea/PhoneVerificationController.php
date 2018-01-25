@@ -4,23 +4,25 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Controllers\Tenantarea;
 
-use Rinvex\Fort\Guards\SessionGuard;
+use Cortex\Fort\Traits\TwoFactorAuthenticatesUsers;
 use Cortex\Foundation\Http\Controllers\AbstractController;
 use Cortex\Fort\Http\Requests\Tenantarea\PhoneVerificationRequest;
 use Cortex\Fort\Http\Requests\Tenantarea\PhoneVerificationSendRequest;
+use Cortex\Fort\Http\Requests\Tenantarea\PhoneVerificationVerifyRequest;
 use Cortex\Fort\Http\Requests\Tenantarea\PhoneVerificationProcessRequest;
-use Cortex\Fort\Http\Requests\Tenantarea\PhoneVerificationSendProcessRequest;
 
 class PhoneVerificationController extends AbstractController
 {
+    use TwoFactorAuthenticatesUsers;
+
     /**
      * Show the phone verification form.
      *
-     * @param \Cortex\Fort\Http\Requests\Tenantarea\PhoneVerificationSendRequest $request
+     * @param \Cortex\Fort\Http\Requests\Tenantarea\PhoneVerificationRequest $request
      *
-     * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\View\View
      */
-    public function request(PhoneVerificationSendRequest $request)
+    public function request(PhoneVerificationRequest $request)
     {
         return view('cortex/fort::tenantarea.pages.verification-phone-request');
     }
@@ -28,18 +30,20 @@ class PhoneVerificationController extends AbstractController
     /**
      * Process the phone verification request form.
      *
-     * @param \Cortex\Fort\Http\Requests\Tenantarea\PhoneVerificationSendProcessRequest $request
+     * @param \Cortex\Fort\Http\Requests\Tenantarea\PhoneVerificationSendRequest $request
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function send(PhoneVerificationSendProcessRequest $request)
+    public function send(PhoneVerificationSendRequest $request)
     {
-        // Send phone verification notification
-        $user = $request->user($this->getGuard()) ?? $request->attemptUser($this->getGuard());
+        $user = $request->user($this->getGuard())
+                ?? $request->attemptUser($this->getGuard())
+                   ?? app('rinvex.fort.user')->whereNotNull('phone')->where('phone', $request->input('phone'))->first();
+
         $user->sendPhoneVerificationNotification($request->get('method'), true);
 
         return intend([
-            'url' => route('tenantarea.verification.phone.verify'),
+            'url' => route('tenantarea.verification.phone.verify', ['phone' => $user->phone]),
             'with' => ['success' => trans('cortex/fort::messages.verification.phone.sent')],
         ]);
     }
@@ -47,15 +51,13 @@ class PhoneVerificationController extends AbstractController
     /**
      * Show the phone verification form.
      *
-     * @param \Cortex\Fort\Http\Requests\Tenantarea\PhoneVerificationRequest $request
+     * @param \Cortex\Fort\Http\Requests\Tenantarea\PhoneVerificationVerifyRequest $request
      *
-     * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\View\View
      */
-    public function verify(PhoneVerificationRequest $request)
+    public function verify(PhoneVerificationVerifyRequest $request)
     {
-        $phoneEnabled = session('_twofactor.phone');
-
-        return view('cortex/fort::tenantarea.pages.verification-phone-token', compact('phoneEnabled'));
+        return view('cortex/fort::tenantarea.pages.verification-phone-token');
     }
 
     /**
@@ -63,40 +65,38 @@ class PhoneVerificationController extends AbstractController
      *
      * @param \Cortex\Fort\Http\Requests\Tenantarea\PhoneVerificationProcessRequest $request
      *
-     * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function process(PhoneVerificationProcessRequest $request)
     {
-        $user = $request->user($this->getGuard()) ?? $request->attemptUser($this->getGuard());
-        $result = auth()->guard($this->getGuard())->attemptTwoFactor($user, $request->get('token'));
+        // Guest trying to authenticate through TwoFactor
+        if (($attemptUser = $request->attemptUser($this->getGuard())) && $this->attemptTwoFactor($attemptUser, $request->get('token'))) {
+            auth()->guard($this->getGuard())->login($attemptUser, $request->session()->get('rinvex.fort.twofactor.remember'));
+            $request->session()->forget('rinvex.fort.twofactor'); // @TODO: Do we need to forget session, or it's already gone after login?
 
-        switch ($result) {
-            case SessionGuard::AUTH_PHONE_VERIFIED:
-                // Update user account
-                $user->fill([
-                    'phone_verified' => true,
-                    'phone_verified_at' => now(),
-                ])->forceSave();
-
-                return intend([
-                    'url' => route('tenantarea.account.settings'),
-                    'with' => ['success' => trans('cortex/fort::'.$result)],
-                ]);
-
-            case SessionGuard::AUTH_LOGIN:
-                auth()->guard($this->getGuard())->login($user, session('_twofactor.remember'));
-
-                return intend([
-                    'url' => route('tenantarea.account.settings'),
-                    'with' => ['success' => trans('cortex/fort::'.$result)],
-                ]);
-
-            case SessionGuard::AUTH_TWOFACTOR_FAILED:
-            default:
-                return intend([
-                    'back' => true,
-                    'withErrors' => ['token' => trans('cortex/fort::'.$result)],
-                ]);
+            return intend([
+                'intended' => route('tenantarea.home'),
+                'with' => ['success' => trans('cortex/fort::messages.auth.login')],
+            ]);
         }
+
+        // Logged in user OR A GUEST trying to verify phone
+        if (($user = $request->user($this->getGuard()) ?? app('rinvex.fort.user')->whereNotNull('phone')->where('phone', $request->get('phone'))->first()) && $this->isValidTwoFactorPhone($user, $request->get('token'))) {
+            // Profile update
+            $user->fill([
+                'phone_verified' => true,
+                'phone_verified_at' => now(),
+            ])->forceSave();
+
+            return intend([
+                'url' => route('tenantarea.account.settings'),
+                'with' => ['success' => trans('cortex/fort::messages.verification.phone.verified')],
+            ]);
+        }
+
+        return intend([
+            'back' => true,
+            'withErrors' => ['token' => trans('cortex/fort::messages.verification.twofactor.invalid_token')],
+        ]);
     }
 }

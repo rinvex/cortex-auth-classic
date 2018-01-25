@@ -8,7 +8,7 @@
 
 {{-- Scripts --}}
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Tenantarea\PhoneVerificationSendProcessRequest::class)->selector('#tenantarea-verification-phone-request-form') !!}
+    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Tenantarea\PhoneVerificationSendRequest::class)->selector('#tenantarea-verification-phone-request-form') !!}
 @endpush
 
 @section('body-attributes')class="auth-page"@endsection

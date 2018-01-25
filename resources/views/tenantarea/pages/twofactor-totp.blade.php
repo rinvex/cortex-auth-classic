@@ -29,9 +29,9 @@
                     </div>
                     <div class="profile-usermenu">
                         <ul class="nav">
-                            <li><a href="{{ route('frontarea.account.settings') }}"><i class="fa fa-cogs"></i>{{ trans('cortex/fort::common.settings') }}</a></li>
-                            <li><a href="{{ route('frontarea.account.sessions') }}"><i class="fa fa-list-alt"></i>{{ trans('cortex/fort::common.sessions') }}</a></li>
-                            <li class="active"><a href="{{ route('frontarea.account.twofactor.index') }}"><i class="fa fa-lock"></i>{{ trans('cortex/fort::common.twofactor') }}</a></li>
+                            <li><a href="{{ route('tenantarea.account.settings') }}"><i class="fa fa-cogs"></i>{{ trans('cortex/fort::common.settings') }}</a></li>
+                            <li><a href="{{ route('tenantarea.account.sessions') }}"><i class="fa fa-list-alt"></i>{{ trans('cortex/fort::common.sessions') }}</a></li>
+                            <li class="active"><a href="{{ route('tenantarea.account.twofactor.index') }}"><i class="fa fa-lock"></i>{{ trans('cortex/fort::common.twofactor') }}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -120,7 +120,7 @@
 
                                 </div>
 
-                                <hr />
+                                <br />
 
                                 @if(array_get($twoFactor, 'totp.enabled'))
                                     <div class="row">
@@ -136,7 +136,7 @@
 
                                                 <div class="collapse" id="collapse2Example">
 
-                                                    <hr />
+                                                    <br />
 
                                                     @if(array_get($twoFactor, 'totp.backup'))
                                                         <div class="panel panel-primary">
@@ -168,8 +168,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <hr />
 
                                 @endif
 

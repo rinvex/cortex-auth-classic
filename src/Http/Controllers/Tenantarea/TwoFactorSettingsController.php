@@ -33,7 +33,7 @@ class TwoFactorSettingsController extends AuthenticatedController
      * @param \Illuminate\Http\Request      $request
      * @param \PragmaRX\Google2FA\Google2FA $totpProvider
      *
-     * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\View\View
      */
     public function enableTotp(Request $request, Google2FA $totpProvider)
     {

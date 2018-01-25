@@ -18,6 +18,30 @@ class PhoneVerificationRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        $user = $this->user()
+                ?? $this->attemptUser()
+                   ?? app('rinvex.fort.user')->whereNotNull('phone')->where('phone', $this->get('phone'))->first();
+
+        if ($user && $user->phone_verified) {
+            // Redirect users if their phone already verified, no need to process their request
+            throw new GenericException(trans('cortex/fort::messages.verification.phone.already_verified'), route('tenantarea.account.settings'));
+        }
+
+        if ($user && ! $user->phone) {
+            // Phone field required before verification
+            throw new GenericException(trans('cortex/fort::messages.account.phone_required'), route('tenantarea.account.settings'));
+        }
+
+        if ($user && ! $user->country_code) {
+            // Country field required for phone verification
+            throw new GenericException(trans('cortex/fort::messages.account.country_required'), route('tenantarea.account.settings'));
+        }
+
+        if ($user && ! $user->email_verified) {
+            // Email verification required for phone verification
+            throw new GenericException(trans('cortex/fort::messages.account.email_verification_required'), route('tenantarea.verification.email.request'));
+        }
+
         return true;
     }
 

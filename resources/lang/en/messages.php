@@ -73,12 +73,14 @@ return [
 
         'phone' => [
             'verified' => 'Your phone has been verified!',
+            'already_verified' => 'Your phone already verified!',
             'sent' => 'We have sent your verification token to your phone!',
             'failed' => 'Weird problem happen while verifying your phone, this issue has been logged and reported to staff.',
             'invalid_user' => 'We can not find a user with that email address.',
         ],
 
         'twofactor' => [
+            'already_logged' => 'You are logged in, so you can control TwoFactor from your account settings.',
             'invalid_token' => 'This verification token is invalid.',
             'totp' => [
                 'required' => 'TwoFactor TOTP authentication enabled for your account, authentication code required to proceed.',

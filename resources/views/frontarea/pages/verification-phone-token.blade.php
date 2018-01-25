@@ -29,18 +29,17 @@
                         <div class="centered"><strong>{{ trans('cortex/fort::common.account_verification_phone') }}</strong></div>
 
                         <div class="form-group has-feedback{{ $errors->has('token') ? ' has-error' : '' }}">
+                            {{ Form::hidden('phone', old('phone', request('phone'))) }}
                             {{ Form::text('token', null, ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/fort::common.authentication_code'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
 
                             @if ($errors->has('token'))
                                 <span class="help-block">{{ $errors->first('token') }}</span>
                             @endif
 
-                            {{ trans('cortex/fort::twofactor.backup_notice') }}<br />
-
-                            @if ($phoneEnabled)
-                                <strong>{!! trans('cortex/fort::twofactor.backup_sms', ['href' => route('frontarea.verification.phone.request')]) !!}</strong>
-                            @else
-                                <strong>{{ trans('cortex/fort::twofactor.backup_code') }}</strong>
+                            @if (session()->get('rinvex.fort.twofactor.phone'))
+                                {!! trans('cortex/fort::twofactor.backup_phone', ['href' => route('tenantarea.verification.phone.request')]) !!}
+                            @elseif(session()->get('rinvex.fort.twofactor.totp'))
+                                {!! trans('cortex/fort::twofactor.backup_totp') !!}
                             @endif
                         </div>
 
