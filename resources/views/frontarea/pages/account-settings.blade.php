@@ -323,7 +323,7 @@
 
                             <div class="row">
                                 <div class="col-md-12 text-center">
-                                    {{ Form::button('<i class="fa fa-user"></i> '.trans('cortex/fort::common.update_basic_info'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}
+                                    {{ Form::button('<i class="fa fa-user"></i> '.trans('cortex/fort::common.update_settings'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}
                                 </div>
                             </div>
 

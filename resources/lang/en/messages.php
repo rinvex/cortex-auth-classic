@@ -41,7 +41,7 @@ return [
         'email_verification_required' => 'You verify your email address first!',
         'country_required' => 'You must select your country first!',
         'phone_required' => 'You must update your phone first!',
-        'updated' => 'You have successfully updated your profile!',
+        'updated_account' => 'You have successfully updated your account!',
     ],
 
     'auth' => [

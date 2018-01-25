@@ -109,7 +109,7 @@ return [
     'forgot_password' => 'Forgot Password',
     'registered_already' => 'I already have registered account',
     'basic_info' => 'Basic Info',
-    'update_basic_info' => 'Update Basic Info',
+    'update_settings' => 'Update Settings',
 
     // Abilities Phrases
     'abilities' => 'Abilities',

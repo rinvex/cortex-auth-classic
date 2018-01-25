@@ -67,6 +67,7 @@ class AccountSettingsRequest extends FormRequest
         $rules = $user->getRules();
 
         // Attach attribute rules
+        // @TODO: move attributes rules to separate FormRequest
         $user->getEntityAttributes()->each(function ($attribute, $attributeSlug) use (&$rules) {
             switch ($attribute->type) {
                 case 'datetime':

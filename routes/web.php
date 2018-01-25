@@ -48,21 +48,21 @@ if (! function_exists('authentication_routes')) {
 
         // User Account Routes
         Route::name('account.')->prefix('account')->group(function () {
-            // Account Page Routes
+            // Account Settings Routes
             Route::get('settings')->name('settings')->uses('AccountSettingsController@edit');
             Route::post('settings')->name('settings.update')->uses('AccountSettingsController@update');
 
-            // Sessions Manipulation Routes
+            // Account Sessions Routes
             Route::get('sessions')->name('sessions')->uses('AccountSessionsController@index');
             Route::delete('sessions')->name('sessions.flush')->uses('AccountSessionsController@flush');
             Route::delete('sessions/{session?}')->name('sessions.delete')->uses('AccountSessionsController@delete');
 
-            // TwoFactor Authentication Routes
+            // Account TwoFactor Routes
             Route::name('twofactor.')->prefix('twofactor')->group(function () {
 
                 Route::get('/')->name('index')->uses('TwoFactorSettingsController@index');
 
-                // TwoFactor TOTP Routes
+                // Account TwoFactor TOTP Routes
                 Route::name('totp.')->prefix('totp')->group(function () {
                     Route::get('enable')->name('enable')->uses('TwoFactorSettingsController@enableTotp');
                     Route::post('update')->name('update')->uses('TwoFactorSettingsController@updateTotp');
@@ -70,7 +70,7 @@ if (! function_exists('authentication_routes')) {
                     Route::post('backup')->name('backup')->uses('TwoFactorSettingsController@backupTotp');
                 });
 
-                // TwoFactor Phone Routes
+                // Account TwoFactor Phone Routes
                 Route::name('phone.')->prefix('phone')->group(function () {
                     Route::post('enable')->name('enable')->uses('TwoFactorSettingsController@enablePhone');
                     Route::post('disable')->name('disable')->uses('TwoFactorSettingsController@disablePhone');
