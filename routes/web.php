@@ -54,7 +54,8 @@ if (! function_exists('authentication_routes')) {
 
             // Sessions Manipulation Routes
             Route::get('sessions')->name('sessions')->uses('AccountSessionsController@index');
-            Route::delete('sessions/{token?}')->name('sessions.flush')->uses('AccountSessionsController@flush');
+            Route::delete('sessions')->name('sessions.flush')->uses('AccountSessionsController@flush');
+            Route::delete('sessions/{session?}')->name('sessions.delete')->uses('AccountSessionsController@delete');
 
             // TwoFactor Authentication Routes
             Route::name('twofactor.')->prefix('twofactor')->group(function () {
