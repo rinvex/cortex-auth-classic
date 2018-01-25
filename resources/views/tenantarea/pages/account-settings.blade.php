@@ -36,6 +36,7 @@
                         <ul class="nav">
                             <li class="active"><a href="{{ route('tenantarea.account.settings') }}"><i class="fa fa-cogs"></i>{{ trans('cortex/fort::common.settings') }}</a></li>
                             <li><a href="{{ route('tenantarea.account.sessions') }}"><i class="fa fa-list-alt"></i>{{ trans('cortex/fort::common.sessions') }}</a></li>
+                            <li><a href="{{ route('tenantarea.account.password') }}"><i class="fa fa-key"></i>{{ trans('cortex/fort::common.password') }}</a></li>
                             <li><a href="{{ route('tenantarea.account.twofactor.index') }}"><i class="fa fa-lock"></i>{{ trans('cortex/fort::common.twofactor') }}</a></li>
                         </ul>
                     </div>
@@ -270,42 +271,6 @@
 
                                             @if ($errors->has('phone'))
                                                 <span class="help-block">{{ $errors->first('phone') }}</span>
-                                            @endif
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <hr />
-
-                                <div class="row">
-
-                                    <div class="col-md-6">
-
-                                        <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
-                                            {{ Form::label('password', trans('cortex/fort::common.password')) }}
-
-                                            {{ Form::password('password', ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.password')]) }}
-                                            <span class="fa fa-key form-control-feedback"></span>
-
-                                            @if ($errors->has('password'))
-                                                <span class="help-block">{{ $errors->first('password') }}</span>
-                                            @endif
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-md-6">
-
-                                        <div class="form-group has-feedback{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                                            {{ Form::label('password_confirmation', trans('cortex/fort::common.password_confirmation')) }}
-
-                                            {{ Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.password_confirmation')]) }}
-                                            <span class="fa fa-key form-control-feedback"></span>
-
-                                            @if ($errors->has('password_confirmation'))
-                                                <span class="help-block">{{ $errors->first('password_confirmation') }}</span>
                                             @endif
                                         </div>
 

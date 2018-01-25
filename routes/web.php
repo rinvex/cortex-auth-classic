@@ -52,6 +52,10 @@ if (! function_exists('authentication_routes')) {
             Route::get('settings')->name('settings')->uses('AccountSettingsController@edit');
             Route::post('settings')->name('settings.update')->uses('AccountSettingsController@update');
 
+            // Account Password Routes
+            Route::get('password')->name('password')->uses('AccountPasswordController@edit');
+            Route::post('password')->name('password.update')->uses('AccountPasswordController@update');
+
             // Account Sessions Routes
             Route::get('sessions')->name('sessions')->uses('AccountSessionsController@index');
             Route::delete('sessions')->name('sessions.flush')->uses('AccountSessionsController@flush');

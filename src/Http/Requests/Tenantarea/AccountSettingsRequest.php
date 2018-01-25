@@ -33,10 +33,6 @@ class AccountSettingsRequest extends FormRequest
         $user = $this->user();
         $twoFactor = $user->getTwoFactor();
 
-        if (empty($data['password'])) {
-            unset($data['password'], $data['password_confirmation']);
-        }
-
         if ($email !== $user->email) {
             $data['email_verified'] = false;
             $data['email_verified_at'] = null;
@@ -85,8 +81,6 @@ class AccountSettingsRequest extends FormRequest
             $rule = ($attribute->is_required ? 'required|' : 'nullable|').$type;
             $rules[$attributeSlug.($attribute->is_collection ? '.*' : '')] = $rule;
         });
-
-        $rules['password'] = 'sometimes|required|confirmed|min:'.config('rinvex.fort.password_min_chars');
 
         return $rules;
     }

@@ -54,6 +54,7 @@ return [
     'name_suffix' => 'Name Suffix',
     'password' => 'Password',
     'password_confirmation' => 'Password Confirmation',
+    'old_password' => 'Old Password',
     'new_password' => 'New Password',
     'new_password_confirmation' => 'New Password Confirmation',
     'email' => 'Email',
@@ -110,6 +111,7 @@ return [
     'registered_already' => 'I already have registered account',
     'basic_info' => 'Basic Info',
     'update_settings' => 'Update Settings',
+    'update_password' => 'Update Password',
 
     // Abilities Phrases
     'abilities' => 'Abilities',

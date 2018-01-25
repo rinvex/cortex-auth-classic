@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Cortex\Fort\Http\Controllers\Tenantarea;
 
 use Illuminate\Http\Request;
-use Cortex\Foundation\Http\Controllers\AuthenticatedController;
 use Cortex\Fort\Http\Requests\Tenantarea\AccountSettingsRequest;
+use Cortex\Foundation\Http\Controllers\AuthenticatedController;
 
 class AccountSettingsController extends AuthenticatedController
 {

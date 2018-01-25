@@ -39,8 +39,11 @@ return [
         'phone_field_required' => 'You must enter your phone first!',
         'phone_verification_required' => 'You must verify your phone first!',
         'email_verification_required' => 'You verify your email address first!',
+        'wrong_password' => 'Sorry, your old password must match your current password!',
+        'different_password' => 'Sorry, your new password must not match your current password!',
         'country_required' => 'You must select your country first!',
         'phone_required' => 'You must update your phone first!',
+        'updated_password' => 'You have successfully updated your password!',
         'updated_account' => 'You have successfully updated your account!',
     ],
 
