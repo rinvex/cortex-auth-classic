@@ -61,7 +61,7 @@ class PasswordResetController extends AbstractController
      *
      * @param \Cortex\Fort\Http\Requests\Tenantarea\PasswordResetProcessRequest $request
      *
-     * @return \Illuminate\Http\Response|\Illuminate\View\View
+     * @return \Illuminate\View\View
      */
     public function reset(PasswordResetProcessRequest $request)
     {

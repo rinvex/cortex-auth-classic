@@ -17,7 +17,7 @@ class EmailVerificationController extends AbstractController
      *
      * @param \Cortex\Fort\Http\Requests\Frontarea\EmailVerificationRequest $request
      *
-     * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\View\View
      */
     public function request(EmailVerificationRequest $request)
     {
