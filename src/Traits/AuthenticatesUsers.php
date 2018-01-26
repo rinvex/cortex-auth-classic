@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Cortex\Fort\Traits;
 
 use Illuminate\Http\Request;
@@ -13,7 +15,7 @@ trait AuthenticatesUsers
     /**
      * Send the response after the user was authenticated.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -53,7 +55,7 @@ trait AuthenticatesUsers
     /**
      * Get the failed login response instance.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      *
      * @throws ValidationException
      *
@@ -69,7 +71,7 @@ trait AuthenticatesUsers
     /**
      * Redirect the user after determining they are locked out.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      *
      * @throws \Illuminate\Validation\ValidationException
      *

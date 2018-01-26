@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Cortex\Fort\Traits;
 
 use PragmaRX\Google2FA\Google2FA;

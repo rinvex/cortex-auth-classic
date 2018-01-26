@@ -139,6 +139,7 @@ class FortServiceProvider extends ServiceProvider
     {
         Request::macro('attemptUser', function (string $guard = null) {
             $twofactor = $this->session()->get('rinvex.fort.twofactor');
+
             return auth()->guard($guard)->getProvider()->retrieveById($twofactor['user_id']);
         });
     }

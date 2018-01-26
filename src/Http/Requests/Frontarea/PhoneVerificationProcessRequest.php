@@ -39,7 +39,7 @@ class PhoneVerificationProcessRequest extends PhoneVerificationRequest
     public function rules(): array
     {
         return [
-            'token' => 'required|digits_between:6,10'
+            'token' => 'required|digits_between:6,10',
         ];
     }
 }
