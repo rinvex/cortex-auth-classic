@@ -85,6 +85,8 @@ return [
     'settings' => 'Settings',
     'sessions' => 'Sessions',
     'twofactor' => 'TwoFactor',
+    'attributes' => 'Attributes',
+    'account_attributes' => 'Account Attributes',
     'active_sessions' => 'Active Sessions',
 
     // Misc
@@ -96,7 +98,6 @@ return [
     'security' => 'Security',
     'logs' => 'Logs',
     'activities' => 'Activities',
-    'attributes' => 'Attributes',
     'sms' => 'SMS',
     'call' => 'Call',
     'statistics' => 'Statistics',
@@ -112,6 +113,7 @@ return [
     'basic_info' => 'Basic Info',
     'update_settings' => 'Update Settings',
     'update_password' => 'Update Password',
+    'update_attributes' => 'Update Attributes',
 
     // Abilities Phrases
     'abilities' => 'Abilities',
