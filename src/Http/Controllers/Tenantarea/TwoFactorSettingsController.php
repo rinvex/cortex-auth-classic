@@ -79,7 +79,7 @@ class TwoFactorSettingsController extends AuthenticatedController
      * Process the TwoFactor TOTP enable form.
      *
      * @param \Cortex\Fort\Http\Requests\Tenantarea\TwoFactorTotpProcessSettingsRequest $request
-     * @param \PragmaRX\Google2FA\Google2FA                                            $totpProvider
+     * @param \PragmaRX\Google2FA\Google2FA                                             $totpProvider
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

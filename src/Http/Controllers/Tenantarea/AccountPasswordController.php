@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Controllers\Tenantarea;
 
-use Cortex\Fort\Http\Requests\Tenantarea\AccountPasswordRequest;
 use Cortex\Foundation\Http\Controllers\AuthenticatedController;
+use Cortex\Fort\Http\Requests\Tenantarea\AccountPasswordRequest;
 
 class AccountPasswordController extends AuthenticatedController
 {

@@ -82,7 +82,7 @@ class AuthenticationController extends AbstractController
     /**
      * Logout currently logged in user.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
