@@ -8,9 +8,11 @@ use Illuminate\Http\Request;
 use Rinvex\Fort\Models\Role;
 use Rinvex\Fort\Models\User;
 use Illuminate\Routing\Router;
+use Rinvex\Menus\Facades\Menu;
 use Rinvex\Fort\Models\Ability;
 use Rinvex\Fort\Models\Session;
 use Illuminate\Support\ServiceProvider;
+use Rinvex\Menus\Factories\MenuFactory;
 use Cortex\Fort\Console\Commands\SeedCommand;
 use Cortex\Fort\Console\Commands\InstallCommand;
 use Cortex\Fort\Console\Commands\MigrateCommand;
@@ -94,6 +96,9 @@ class FortServiceProvider extends ServiceProvider
 
         // Register attributes entities
         app('rinvex.attributes.entities')->push('user');
+
+        // Register menus
+        $this->registerMenus();
     }
 
     /**
@@ -135,6 +140,21 @@ class FortServiceProvider extends ServiceProvider
         Request::macro('attemptUser', function (string $guard = null) {
             $twofactor = $this->session()->get('rinvex.fort.twofactor');
             return auth()->guard($guard)->getProvider()->retrieveById($twofactor['user_id']);
+        });
+    }
+
+    /**
+     * Register menus.
+     *
+     * @return void
+     */
+    protected function registerMenus(): void
+    {
+        $this->app['rinvex.menus.presenters']->put('account.sidebar', \Cortex\Fort\Presenters\AccountSidebarMenuPresenter::class);
+
+        Menu::make('frontarea.account.sidebar', function (MenuFactory $menu) {
+        });
+        Menu::make('tenantarea.account.sidebar', function (MenuFactory $menu) {
         });
     }
 }

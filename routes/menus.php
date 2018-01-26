@@ -47,10 +47,28 @@ if ($user = auth()->user()) {
         }, $user->username, 10, 'fa fa-user');
     };
 
+    $accountSidebarMenu = function (MenuFactory $menu) {
+        $menu->route(['frontarea.account.settings'], trans('cortex/fort::common.settings'), 10, 'fa fa-cogs');
+        $menu->route(['frontarea.account.attributes'], trans('cortex/fort::common.attributes'), 20, 'fa fa-leaf');
+        $menu->route(['frontarea.account.sessions'], trans('cortex/fort::common.sessions'), 30, 'fa fa-list-alt');
+        $menu->route(['frontarea.account.password'], trans('cortex/fort::common.password'), 40, 'fa fa-key');
+        $menu->route(['frontarea.account.twofactor.index'], trans('cortex/fort::common.twofactor'), 50, 'fa fa-lock');
+    };
+
+    $tenantAccountSidebarMenu = function (MenuFactory $menu) {
+        $menu->route(['tenantarea.account.settings'], trans('cortex/fort::common.settings'), 10, 'fa fa-cogs');
+        $menu->route(['tenantarea.account.attributes'], trans('cortex/fort::common.attributes'), 20, 'fa fa-leaf');
+        $menu->route(['tenantarea.account.sessions'], trans('cortex/fort::common.sessions'), 30, 'fa fa-list-alt');
+        $menu->route(['tenantarea.account.password'], trans('cortex/fort::common.password'), 40, 'fa fa-key');
+        $menu->route(['tenantarea.account.twofactor.index'], trans('cortex/fort::common.twofactor'), 50, 'fa fa-lock');
+    };
+
     Menu::modify('frontarea.header', $userMenu);
     Menu::modify('adminarea.header', $userMenu);
     Menu::modify('tenantarea.header', $tenantUserMenu);
     Menu::modify('managerarea.header', $tenantUserMenu);
+    Menu::modify('frontarea.account.sidebar', $accountSidebarMenu);
+    Menu::modify('tenantarea.account.sidebar', $tenantAccountSidebarMenu);
 } else {
     Menu::modify('frontarea.header', function (MenuFactory $menu) {
         $menu->route(['frontarea.login'], trans('cortex/fort::common.login'), 10);
