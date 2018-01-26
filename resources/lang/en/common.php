@@ -87,6 +87,9 @@ return [
     'twofactor' => 'TwoFactor',
     'attributes' => 'Attributes',
     'account_attributes' => 'Account Attributes',
+    'twofactor_authentication' => 'TwoFactor Authentication',
+    'account_settings' => 'Account Settings',
+    'account_password' => 'Account Password',
     'active_sessions' => 'Active Sessions',
 
     // Misc

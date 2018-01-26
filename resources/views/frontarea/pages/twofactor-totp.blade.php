@@ -174,7 +174,7 @@
                                 @endif
 
                                 <div class="row">
-                                    <div class="col-md-12 text-center">
+                                    <div class="col-md-12 text-center profile-buttons">
                                         {{ Form::button('<i class="fa fa-cog"></i> '.trans('cortex/fort::twofactor.configure'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}
                                     </div>
                                 </div>

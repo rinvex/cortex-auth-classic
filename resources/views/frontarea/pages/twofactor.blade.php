@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/fort::common.twofactor') }}
+    {{ config('app.name') }} » {{ trans('cortex/fort::common.twofactor_authentication') }}
 @endsection
 
 {{-- Main Content --}}

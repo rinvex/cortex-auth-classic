@@ -29,19 +29,21 @@ Menu::modify('managerarea.sidebar', function (MenuFactory $menu) {
 if ($user = auth()->user()) {
     $userMenu = function (MenuFactory $menu) use ($user) {
         $menu->dropdown(function (MenuItem $dropdown) {
-            $dropdown->route(['frontarea.account.settings'], trans('cortex/fort::common.settings'), 10, 'fa fa-user');
-            $dropdown->route(['frontarea.account.sessions'], trans('cortex/fort::common.sessions'), 20, 'fa fa-id-badge');
-            $dropdown->divider(30);
-            $dropdown->route(['frontarea.logout'], trans('cortex/fort::common.logout').Form::open(['url' => route('frontarea.logout'), 'id' => 'logout-form', 'style' => 'display: none;']).Form::close(), 40, 'fa fa-sign-out', ['onclick' => "event.preventDefault(); document.getElementById('logout-form').submit();"]);
+            $dropdown->route(['adminarea.home'], trans('cortex/foundation::common.adminarea'), 10, 'fa fa-dashboard')->ifCan('access-adminarea');
+            $dropdown->route(['managerarea.home'], trans('cortex/tenants::common.managerarea'), 20, 'fa fa-briefcase')->ifCan('access-managerarea');
+            $dropdown->route(['frontarea.account'], trans('cortex/fort::common.settings'), 30, 'fa fa-cogs');
+            $dropdown->divider(40);
+            $dropdown->route(['frontarea.logout'], trans('cortex/fort::common.logout').Form::open(['url' => route('frontarea.logout'), 'id' => 'logout-form', 'style' => 'display: none;']).Form::close(), 50, 'fa fa-sign-out', ['onclick' => "event.preventDefault(); document.getElementById('logout-form').submit();"]);
         }, $user->username, 10, 'fa fa-user');
     };
 
     $tenantUserMenu = function (MenuFactory $menu) use ($user) {
         $menu->dropdown(function (MenuItem $dropdown) {
-            $dropdown->route(['tenantarea.account.settings'], trans('cortex/fort::common.settings'), 10, 'fa fa-user');
-            $dropdown->route(['tenantarea.account.sessions'], trans('cortex/fort::common.sessions'), 20, 'fa fa-id-badge');
-            $dropdown->divider(30);
-            $dropdown->route(['tenantarea.logout'], trans('cortex/fort::common.logout').Form::open(['url' => route('tenantarea.logout'), 'id' => 'logout-form', 'style' => 'display: none;']).Form::close(), 40, 'fa fa-sign-out', ['onclick' => "event.preventDefault(); document.getElementById('logout-form').submit();"]);
+            $dropdown->route(['adminarea.home'], trans('cortex/foundation::common.adminarea'), 10, 'fa fa-dashboard')->ifCan('access-adminarea');
+            $dropdown->route(['managerarea.home'], trans('cortex/tenants::common.managerarea'), 20, 'fa fa-briefcase')->ifCan('access-managerarea');
+            $dropdown->route(['tenantarea.account'], trans('cortex/fort::common.settings'), 30, 'fa fa-cogs');
+            $dropdown->divider(40);
+            $dropdown->route(['tenantarea.logout'], trans('cortex/fort::common.logout').Form::open(['url' => route('tenantarea.logout'), 'id' => 'logout-form', 'style' => 'display: none;']).Form::close(), 50, 'fa fa-sign-out', ['onclick' => "event.preventDefault(); document.getElementById('logout-form').submit();"]);
         }, $user->username, 10, 'fa fa-user');
     };
 
