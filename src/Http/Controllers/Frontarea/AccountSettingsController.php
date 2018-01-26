@@ -13,6 +13,18 @@ class AccountSettingsController extends AuthenticatedController
     /**
      * Show the account update form.
      *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function index()
+    {
+        return intend([
+            'url' => route('frontarea.account.settings'),
+        ]);
+    }
+
+    /**
+     * Show the account update form.
+     *
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\View\View

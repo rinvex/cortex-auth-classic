@@ -45,6 +45,8 @@ if (! function_exists('authentication_routes')) {
             });
         });
 
+        // Account Settings Route Placeholder
+        Route::redirect('account', '/account/settings')->name('account')->uses('AccountSettingsController@index');
 
         // User Account Routes
         Route::name('account.')->prefix('account')->group(function () {
