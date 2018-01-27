@@ -6,7 +6,6 @@ namespace Cortex\Fort\DataTables\Adminarea;
 
 use Rinvex\Fort\Models\User;
 use Cortex\Foundation\DataTables\AbstractDataTable;
-use Cortex\Fort\Transformers\Adminarea\UserTransformer;
 
 class UsersDataTable extends AbstractDataTable
 {
@@ -14,11 +13,6 @@ class UsersDataTable extends AbstractDataTable
      * {@inheritdoc}
      */
     protected $model = User::class;
-
-    /**
-     * {@inheritdoc}
-     */
-    protected $transformer = UserTransformer::class;
 
     /**
      * Get columns.

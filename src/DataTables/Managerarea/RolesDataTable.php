@@ -6,7 +6,6 @@ namespace Cortex\Fort\DataTables\Managerarea;
 
 use Rinvex\Fort\Models\Role;
 use Cortex\Foundation\DataTables\AbstractDataTable;
-use Cortex\Fort\Transformers\Managerarea\RoleTransformer;
 
 class RolesDataTable extends AbstractDataTable
 {
@@ -16,21 +15,13 @@ class RolesDataTable extends AbstractDataTable
     protected $model = Role::class;
 
     /**
-     * {@inheritdoc}
-     */
-    protected $transformer = RoleTransformer::class;
-
-    /**
      * Display ajax response.
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function ajax()
     {
-        $transformer = app($this->transformer);
-
         return datatables($this->query())
-            ->setTransformer($transformer)
             ->orderColumn('name', 'name->"$.'.app()->getLocale().'" $1')
             ->make(true);
     }

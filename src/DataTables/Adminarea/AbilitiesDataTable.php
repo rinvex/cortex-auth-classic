@@ -6,7 +6,6 @@ namespace Cortex\Fort\DataTables\Adminarea;
 
 use Rinvex\Fort\Models\Ability;
 use Cortex\Foundation\DataTables\AbstractDataTable;
-use Cortex\Fort\Transformers\Adminarea\AbilityTransformer;
 
 class AbilitiesDataTable extends AbstractDataTable
 {
@@ -16,21 +15,13 @@ class AbilitiesDataTable extends AbstractDataTable
     protected $model = Ability::class;
 
     /**
-     * {@inheritdoc}
-     */
-    protected $transformer = AbilityTransformer::class;
-
-    /**
      * Display ajax response.
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function ajax()
     {
-        $transformer = app($this->transformer);
-
         return datatables($this->query())
-            ->setTransformer($transformer)
             ->orderColumn('name', 'name->"$.'.app()->getLocale().'" $1')
             ->make(true);
     }
