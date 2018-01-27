@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Providers;
 
+use Cortex\Fort\Http\Middleware\Reauthenticate;
 use Illuminate\Http\Request;
 use Rinvex\Fort\Models\Role;
 use Rinvex\Fort\Models\User;
@@ -96,6 +97,9 @@ class FortServiceProvider extends ServiceProvider
 
         // Register attributes entities
         app('rinvex.attributes.entities')->push('user');
+
+        //Register new middleware
+        $router->aliasMiddleware('reauthenticate', Reauthenticate::class);
 
         // Register menus
         $this->registerMenus();

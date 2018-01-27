@@ -91,6 +91,7 @@ return [
     'account_settings' => 'Account Settings',
     'account_password' => 'Account Password',
     'active_sessions' => 'Active Sessions',
+    'reauthentication' => 'Reauthentication',
 
     // Misc
     'no' => 'No',

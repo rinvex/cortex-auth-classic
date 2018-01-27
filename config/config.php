@@ -9,4 +9,10 @@ return [
         'disk' => 'public',
     ],
 
+    //Reauthentication
+    'reauthentication' => [
+        'prefix' => 'cortex.fort.reauthentication.',
+        'timeout' => 60
+    ]
+
 ];

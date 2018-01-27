@@ -99,6 +99,15 @@ Route::domain(domain())->group(function () {
             // Register authenication routes
             authentication_routes();
 
+            //Reauthentication Routes
+            Route::name('reauthentication.')->prefix('reauthentication')->group(function () {
+                // Reauthentication Password Routes
+                Route::post('password')->name('password.process')->uses('ReauthenticationController@processPassword');
+
+                // Reauthentication Twofactor Routes
+                Route::post('twofactor')->name('twofactor.process')->uses('ReauthenticationController@processTwofactor');
+            });
+
         });
 
 
