@@ -14,12 +14,17 @@ use Rinvex\Fort\Models\Session;
 use Illuminate\Support\ServiceProvider;
 use Rinvex\Menus\Factories\MenuFactory;
 use Cortex\Fort\Handlers\GenericHandler;
+use Cortex\Fort\Http\Middleware\Abilities;
+use Cortex\Fort\Http\Middleware\NoHttpCache;
+use Cortex\Fort\Http\Middleware\Authenticate;
 use Cortex\Fort\Console\Commands\SeedCommand;
 use Cortex\Fort\Console\Commands\InstallCommand;
 use Cortex\Fort\Console\Commands\MigrateCommand;
 use Cortex\Fort\Console\Commands\PublishCommand;
 use Cortex\Fort\Console\Commands\RollbackCommand;
+use Cortex\Fort\Http\Middleware\UpdateLastActivity;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Cortex\Fort\Http\Middleware\RedirectIfAuthenticated;
 
 class FortServiceProvider extends ServiceProvider
 {
@@ -101,6 +106,9 @@ class FortServiceProvider extends ServiceProvider
         // Register attributes entities
         app('rinvex.attributes.entities')->push('user');
 
+        // Override middlware
+        $this->overrideMiddleware($router);
+
         // Register menus
         $this->registerMenus();
     }
@@ -161,5 +169,23 @@ class FortServiceProvider extends ServiceProvider
         });
         Menu::make('tenantarea.account.sidebar', function (MenuFactory $menu) {
         });
+    }
+    /**
+     * Override middleware.
+     *
+     * @param \Illuminate\Routing\Router $router
+     *
+     * @return void
+     */
+    protected function overrideMiddleware(Router $router): void
+    {
+        // Append middleware to the 'web' middlware group
+        $router->pushMiddlewareToGroup('web', Abilities::class);
+        $router->pushMiddlewareToGroup('web', UpdateLastActivity::class);
+
+        // Override route middleware on the fly
+        $router->aliasMiddleware('auth', Authenticate::class);
+        $router->aliasMiddleware('nohttpcache', NoHttpCache::class);
+        $router->aliasMiddleware('guest', RedirectIfAuthenticated::class);
     }
 }
