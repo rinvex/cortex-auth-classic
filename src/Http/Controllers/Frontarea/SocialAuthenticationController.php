@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Fort\Http\Controllers\Frontarea;
 
 use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Database\Eloquent\Builder;
 use Cortex\Foundation\Http\Controllers\AbstractController;
@@ -114,7 +115,7 @@ class SocialAuthenticationController extends AbstractController
         $localUser->fill($attributes)->save();
 
         // Fire the register success event
-        event('rinvex.fort.register.success', [$localUser]);
+        event(new Registered($localUser));
 
         $localUser->socialites()->create([
             'provider' => $provider,

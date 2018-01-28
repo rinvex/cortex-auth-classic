@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Fort\Http\Controllers\Frontarea;
 
 use Rinvex\Fort\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Cortex\Foundation\Http\Controllers\AbstractController;
 use Cortex\Fort\Http\Requests\Frontarea\RegistrationRequest;
 use Cortex\Fort\Http\Requests\Frontarea\RegistrationProcessRequest;
@@ -49,7 +50,7 @@ class RegistrationController extends AbstractController
         $user->fill($data)->save();
 
         // Fire the register success event
-        event('rinvex.fort.register.success', [$user]);
+        event(new Registered($user));
 
         // Send verification if required
         ! config('rinvex.fort.emailverification.required')
