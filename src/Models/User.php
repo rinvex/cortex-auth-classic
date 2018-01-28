@@ -13,6 +13,9 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\Activitylog\ActivitylogServiceProvider;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Cortex\Fort\Notifications\PasswordResetNotification;
+use Cortex\Fort\Notifications\EmailVerificationNotification;
+use Cortex\Fort\Notifications\PhoneVerificationNotification;
 
 /**
  * Cortex\Fort\Models\User.
@@ -94,7 +97,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  */
 class User extends BaseUser implements HasMedia
 {
-    // Strangely, this issue happens only with users !!!
+    // @TODO: Strangely, this issue happens only here!!!
     // Duplicate trait usage to fire attached events for cache
     // flush before other events in other traits specially LogsActivity,
     // otherwise old cached queries used and no changelog recorded on update.
@@ -152,6 +155,21 @@ class User extends BaseUser implements HasMedia
         'updated_at',
         'deleted_at',
     ];
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $passwordResetNotificationClass = PasswordResetNotification::class;
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $emailVerificationNotificationClass = EmailVerificationNotification::class;
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $phoneVerificationNotificationClass = PhoneVerificationNotification::class;
 
     /**
      * Get the caused activity relations for the model.
