@@ -98,17 +98,6 @@
             "providers": [
                 "Cortex\\Fort\\Providers\\FortServiceProvider"
             ]
-        },
-        "cortex-module": {
-            "autoinstall": false,
-            "icon": {
-                "color": "#2196f3",
-                "name": "heartbeat",
-                "background-size": "cover",
-                "background-color": "#e3f2fd",
-                "background-position": "center",
-                "background-repeat": "no-repeat"
-            }
         }
     },
     "minimum-stability": "dev",
