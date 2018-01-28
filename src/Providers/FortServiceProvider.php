@@ -13,6 +13,7 @@ use Rinvex\Fort\Models\Ability;
 use Rinvex\Fort\Models\Session;
 use Illuminate\Support\ServiceProvider;
 use Rinvex\Menus\Factories\MenuFactory;
+use Cortex\Fort\Handlers\GenericHandler;
 use Cortex\Fort\Console\Commands\SeedCommand;
 use Cortex\Fort\Console\Commands\InstallCommand;
 use Cortex\Fort\Console\Commands\MigrateCommand;
@@ -93,6 +94,9 @@ class FortServiceProvider extends ServiceProvider
 
         // Publish Resources
         ! $this->app->runningInConsole() || $this->publishResources();
+
+        // Register event handlers
+        $this->app['events']->subscribe(GenericHandler::class);
 
         // Register attributes entities
         app('rinvex.attributes.entities')->push('user');
