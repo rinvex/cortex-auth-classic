@@ -11,7 +11,6 @@ return [
 
     //Reauthentication
     'reauthentication' => [
-        'prefix' => 'cortex.fort.reauthentication.',
         'timeout' => 3600
     ]
 

@@ -21,8 +21,8 @@ class ReauthenticationController extends AuthenticatedController
      */
     public function processPassword( Request $request ) {
 
-        $session_name = session(config('cortex.fort.reauthentication.prefix').'.session_name');
-        $redirect_url = session(config('cortex.fort.reauthentication.prefix').'.intended');
+        $session_name = session('cortex.fort.reauthentication.session_name');
+        $redirect_url = session('cortex.fort.reauthentication.intended');
 
         if( Hash::check($request->input('password'), request()->user()->password) ) {
             $this->setSession($session_name);
@@ -46,8 +46,8 @@ class ReauthenticationController extends AuthenticatedController
      */
     public function processTwofactor( Request $request ) {
 
-        $session_name = session(config('cortex.fort.reauthentication.prefix').'.session_name');
-        $redirect_url = session(config('cortex.fort.reauthentication.prefix').'.intended');
+        $session_name = session('cortex.fort.reauthentication.session_name');
+        $redirect_url = session('cortex.fort.reauthentication.intended');
 
         $guard = $this->getGuard();
         $token = $request->input('token');
@@ -72,8 +72,8 @@ class ReauthenticationController extends AuthenticatedController
      */
     protected  function setSession($session_name) {
         session()->put($session_name, time());
-        session()->forget(config('cortex.fort.reauthentication.prefix').'.session_name');
-        session()->forget(config('cortex.fort.reauthentication.prefix').'.intended');
+        session()->forget('cortex.fort.reauthentication.session_name');
+        session()->forget('cortex.fort.reauthentication.intended');
         session()->forget('rinvex.fort.twofactor.totp');
     }
 

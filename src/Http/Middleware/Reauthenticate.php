@@ -26,17 +26,17 @@ class Reauthenticate
         $timeout = $timeout ?? config('cortex.fort.reauthentication.timeout');
 
         if( is_null($session_name) || empty($session_name) ) {
-            $session_name = config('cortex.fort.reauthentication.prefix').$request->route()->getName();
+            $session_name = 'cortex.fort.reauthentication.'.$request->route()->getName();
         } else {
-            $session_name = config('cortex.fort.reauthentication.prefix').$session_name;
+            $session_name = 'cortex.fort.reauthentication.'.$session_name;
         }
 
         if( is_null( session( $session_name ) ) || time() - session( $session_name ) >= $timeout ) {
 
             session()->forget( $session_name );
             session()->put('rinvex.fort.twofactor.totp', true);
-            session()->put(config('cortex.fort.reauthentication.prefix').'.intended', $request->url());
-            session()->put(config('cortex.fort.reauthentication.prefix').'.session_name', $session_name);
+            session()->put('cortex.fort.reauthentication.intended', $request->url());
+            session()->put('cortex.fort.reauthentication.session_name', $session_name);
 
             return view('cortex/fort::frontarea.common.reauthentication.'.$type);
         }
