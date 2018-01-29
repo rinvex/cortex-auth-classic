@@ -165,10 +165,8 @@ class FortServiceProvider extends ServiceProvider
     {
         $this->app['rinvex.menus.presenters']->put('account.sidebar', \Cortex\Fort\Presenters\AccountSidebarMenuPresenter::class);
 
-        Menu::make('frontarea.account.sidebar', function (MenuFactory $menu) {
-        });
-        Menu::make('tenantarea.account.sidebar', function (MenuFactory $menu) {
-        });
+        Menu::make('frontarea.account.sidebar');
+        Menu::make('tenantarea.account.sidebar');
     }
     /**
      * Override middleware.
