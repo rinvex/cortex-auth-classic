@@ -8,11 +8,9 @@ use Illuminate\Http\Request;
 use Rinvex\Fort\Models\Role;
 use Rinvex\Fort\Models\User;
 use Illuminate\Routing\Router;
-use Rinvex\Menus\Facades\Menu;
 use Rinvex\Fort\Models\Ability;
 use Rinvex\Fort\Models\Session;
 use Illuminate\Support\ServiceProvider;
-use Rinvex\Menus\Factories\MenuFactory;
 use Cortex\Fort\Handlers\GenericHandler;
 use Cortex\Fort\Http\Middleware\Abilities;
 use Cortex\Fort\Http\Middleware\NoHttpCache;
@@ -162,9 +160,6 @@ class FortServiceProvider extends ServiceProvider
     protected function registerMenus(): void
     {
         $this->app['rinvex.menus.presenters']->put('account.sidebar', \Cortex\Fort\Presenters\AccountSidebarMenuPresenter::class);
-
-        Menu::make('frontarea.account.sidebar');
-        Menu::make('tenantarea.account.sidebar');
     }
     /**
      * Override middleware.
