@@ -9,7 +9,7 @@ use Rinvex\Cacheable\CacheableEloquent;
 use Rinvex\Fort\Models\User as BaseUser;
 use Rinvex\Attributes\Traits\Attributable;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\Traits\HasActivity;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\Activitylog\ActivitylogServiceProvider;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -48,7 +48,7 @@ use Cortex\Fort\Notifications\PhoneVerificationNotification;
  * @property \Carbon\Carbon|null                                                                                            $deleted_at
  * @property \Illuminate\Database\Eloquent\Collection|\Cortex\Fort\Models\Ability[]                                         $abilities
  * @property-read \Illuminate\Database\Eloquent\Collection|\Cortex\Foundation\Models\Log[]                                  $activity
- * @property-read \Illuminate\Database\Eloquent\Collection|\Cortex\Foundation\Models\Log[]                                  $causedActivity
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Cortex\Foundation\Models\Log[]                                  $actions
  * @property-read \Illuminate\Support\Collection                                                                            $all_abilities
  * @property-read \Rinvex\Country\Country                                                                                   $country
  * @property mixed                                                                                                          $entity
@@ -103,8 +103,8 @@ class User extends BaseUser implements HasMedia
     // otherwise old cached queries used and no changelog recorded on update.
     use CacheableEloquent;
     use Tenantable;
+    use HasActivity;
     use Attributable;
-    use LogsActivity;
     use HasMediaTrait;
 
     /**
@@ -170,16 +170,6 @@ class User extends BaseUser implements HasMedia
      * {@inheritdoc}
      */
     protected $phoneVerificationNotificationClass = PhoneVerificationNotification::class;
-
-    /**
-     * Get the caused activity relations for the model.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
-     */
-    public function causedActivity(): MorphMany
-    {
-        return $this->morphMany(ActivitylogServiceProvider::determineActivityModel(), 'causer');
-    }
 
     /**
      * Get the route key for the model.
