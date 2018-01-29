@@ -134,9 +134,7 @@ class FortServiceProvider extends ServiceProvider
     {
         // Register artisan commands
         foreach ($this->commands as $key => $value) {
-            $this->app->singleton($value, function ($app) use ($key) {
-                return new $key();
-            });
+            $this->app->singleton($value, $key);
         }
 
         $this->commands(array_values($this->commands));
