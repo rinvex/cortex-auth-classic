@@ -124,7 +124,7 @@ class UsersController extends AuthorizedController
         })->values();
         $authUser = $request->user($this->getGuard());
         $languages = collect(languages())->pluck('name', 'iso_639_1');
-        $genders = ['m' => trans('cortex/fort::common.male'), 'f' => trans('cortex/fort::common.female')];
+        $genders = ['male' => trans('cortex/fort::common.male'), 'female' => trans('cortex/fort::common.female')];
 
         $roles = $authUser->isSuperadmin()
             ? app('rinvex.fort.role')->all()->pluck('name', 'id')->toArray()
