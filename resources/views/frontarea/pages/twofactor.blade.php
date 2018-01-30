@@ -19,7 +19,6 @@
 
                 <div class="profile-content">
 
-                    <!-- Tab panes -->
                     <div class="tab-content">
 
                         <div role="tabpanel" class="tab-pane active" id="security">

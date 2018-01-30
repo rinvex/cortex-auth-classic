@@ -27,7 +27,7 @@
             <h1>{{ Breadcrumbs::render() }}</h1>
         </section>
 
-        <!-- Main content -->
+        {{-- Main content --}}
         <section class="content">
 
             <div class="nav-tabs-custom">
