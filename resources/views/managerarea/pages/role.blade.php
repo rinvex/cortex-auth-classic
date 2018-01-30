@@ -123,14 +123,6 @@
 
                     </div>
 
-                    @if($role->exists)
-
-                        <div class="tab-pane" id="logs-tab">
-                            {!! $logs->table(['class' => 'table table-striped table-hover responsive dataTableBuilder', 'id' => "managerarea-roles-{$role->getKey()}-logs-table"]) !!}
-                        </div>
-
-                    @endif
-
                 </div>
 
             </div>
@@ -140,23 +132,3 @@
     </div>
 
 @endsection
-
-@if($role->exists)
-
-    @push('head-elements')
-        <meta name="turbolinks-cache-control" content="no-cache">
-    @endpush
-
-    @push('styles')
-        <link href="{{ mix('css/datatables.css', 'assets') }}" rel="stylesheet">
-    @endpush
-
-    @push('vendor-scripts')
-        <script src="{{ mix('js/datatables.js', 'assets') }}" defer></script>
-    @endpush
-
-    @push('inline-scripts')
-        {!! $logs->scripts() !!}
-    @endpush
-
-@endif

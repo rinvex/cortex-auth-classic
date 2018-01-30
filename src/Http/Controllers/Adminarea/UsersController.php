@@ -13,6 +13,7 @@ use Cortex\Fort\DataTables\Adminarea\UsersDataTable;
 use Cortex\Foundation\DataTables\ActivitiesDataTable;
 use Cortex\Fort\Http\Requests\Adminarea\UserFormRequest;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
+use Cortex\Fort\Http\Requests\Adminarea\UserAttributesFormRequest;
 
 class UsersController extends AuthorizedController
 {
@@ -43,11 +44,14 @@ class UsersController extends AuthorizedController
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function logs(User $user)
+    public function logs(User $user, LogsDataTable $logsDataTable)
     {
-        return request()->ajax() && request()->wantsJson()
-            ? app(LogsDataTable::class)->with(['resource' => $user])->ajax()
-            : intend(['url' => route('adminarea.users.edit', ['user' => $user]).'#logs-tab']);
+        return $logsDataTable->with([
+            'resource' => $user,
+            'tabs' => 'adminarea.users.tabs',
+            'phrase' => trans('cortex/fort::common.users'),
+            'id' => "adminarea-users-{$user->getKey()}-logs-table",
+        ])->render('cortex/foundation::adminarea.pages.datatable-logs');
     }
 
     /**
@@ -57,11 +61,48 @@ class UsersController extends AuthorizedController
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function activities(User $user)
+    public function activities(User $user, ActivitiesDataTable $activitiesDataTable)
     {
-        return request()->ajax() && request()->wantsJson()
-            ? app(ActivitiesDataTable::class)->with(['resource' => $user])->ajax()
-            : intend(['url' => route('adminarea.users.edit', ['user' => $user]).'#activities-tab']);
+        return $activitiesDataTable->with([
+            'resource' => $user,
+            'tabs' => 'adminarea.users.tabs',
+            'phrase' => trans('cortex/fort::common.users'),
+            'id' => "adminarea-users-{$user->getKey()}-activities-table",
+        ])->render('cortex/foundation::adminarea.pages.datatable-logs');
+    }
+
+    /**
+     * Show the form for create/update of the given resource attributes.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \Rinvex\Fort\Models\User $user
+     *
+     * @return \Illuminate\View\View
+     */
+    public function attributes(Request $request, User $user)
+    {
+        return view('cortex/fort::adminarea.pages.user-attributes', compact('user'));
+    }
+
+    /**
+     * Process the account update form.
+     *
+     * @param \Cortex\Fort\Http\Requests\Adminarea\UserAttributesFormRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function updateAttributes(UserAttributesFormRequest $request)
+    {
+        $data = $request->validated();
+        $currentUser = $request->user($this->getGuard());
+
+        // Update profile
+        $currentUser->fill($data)->save();
+
+        return intend([
+            'back' => true,
+            'with' => ['success' => trans('cortex/fort::messages.account.updated_attributes')],
+        ]);
     }
 
     /**
@@ -93,10 +134,7 @@ class UsersController extends AuthorizedController
             ? app('rinvex.fort.ability')->all()->groupBy('resource')->map->pluck('name', 'id')->toArray()
             : $authUser->allAbilities->groupBy('resource')->map->pluck('name', 'id')->toArray();
 
-        $logs = app(LogsDataTable::class)->with(['id' => "adminarea-users-{$user->getKey()}-logs-table"])->html()->minifiedAjax(route('adminarea.users.logs', ['user' => $user]));
-        $activities = app(ActivitiesDataTable::class)->with(['id' => "adminarea-users-{$user->getKey()}-activities-table"])->html()->minifiedAjax(route('adminarea.users.activities', ['user' => $user]));
-
-        return view('cortex/fort::adminarea.pages.user', compact('user', 'abilities', 'roles', 'countries', 'languages', 'genders', 'logs', 'activities'));
+        return view('cortex/fort::adminarea.pages.user', compact('user', 'abilities', 'roles', 'countries', 'languages', 'genders'));
     }
 
     /**

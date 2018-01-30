@@ -50,9 +50,6 @@ class FortServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton('cortex.fort.user.tabs', function ($app) {
-            return collect();
-        });
         $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'cortex.fort');
 
         // Register console commands

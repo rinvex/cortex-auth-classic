@@ -32,16 +32,9 @@
 
             <div class="nav-tabs-custom">
                 @if($user->exists && $currentUser->can('delete-users', $user)) <div class="pull-right"><a href="#" data-toggle="modal" data-target="#delete-confirmation" data-modal-action="{{ route('adminarea.users.delete', ['user' => $user]) }}" data-modal-title="{!! trans('cortex/foundation::messages.delete_confirmation_title') !!}" data-modal-body="{!! trans('cortex/foundation::messages.delete_confirmation_body', ['type' => 'user', 'name' => $user->slug]) !!}" title="{{ trans('cortex/foundation::common.delete') }}" class="btn btn-default" style="margin: 4px"><i class="fa fa-trash text-danger"></i></a></div> @endif
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#details-tab" data-toggle="tab">{{ trans('cortex/fort::common.details') }}</a></li>
-                    {!! Tab::headers('cortex.fort.user.tabs', $user) !!}
-                    @if($user->exists) <li><a href="#logs-tab" data-toggle="tab">{{ trans('cortex/fort::common.logs') }}</a></li> @endif
-                    @if($user->exists) <li><a href="#activities-tab" data-toggle="tab">{{ trans('cortex/fort::common.activities') }}</a></li> @endif
-                </ul>
+                {!! Menu::render('adminarea.users.tabs', 'nav-tab') !!}
 
                 <div class="tab-content">
-
-                    {!! Tab::panels('cortex.fort.user.tabs', $user) !!}
 
                     <div class="tab-pane active" id="details-tab">
 
@@ -437,18 +430,6 @@
 
                     </div>
 
-                    @if($user->exists)
-
-                        <div class="tab-pane" id="logs-tab">
-                            {!! $logs->table(['class' => 'table table-striped table-hover responsive dataTableBuilder', 'id' => "adminarea-users-{$user->getKey()}-logs-table"]) !!}
-                        </div>
-
-                        <div class="tab-pane" id="activities-tab">
-                            {!! $activities->table(['class' => 'table table-striped table-hover responsive dataTableBuilder', 'id' => "adminarea-users-{$user->getKey()}-activities-table"]) !!}
-                        </div>
-
-                    @endif
-
                 </div>
 
             </div>
@@ -458,24 +439,3 @@
     </div>
 
 @endsection
-
-@if($user->exists)
-
-    @push('head-elements')
-        <meta name="turbolinks-cache-control" content="no-cache">
-    @endpush
-
-    @push('styles')
-        <link href="{{ mix('css/datatables.css', 'assets') }}" rel="stylesheet">
-    @endpush
-
-    @push('vendor-scripts')
-        <script src="{{ mix('js/datatables.js', 'assets') }}" defer></script>
-    @endpush
-
-    @push('inline-scripts')
-        {!! $logs->scripts() !!}
-        {!! $activities->scripts() !!}
-    @endpush
-
-@endif
