@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Models;
 
+use Cortex\Foundation\Traits\Auditable;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Rinvex\Fort\Models\Ability as BaseAbility;
 
@@ -37,6 +38,7 @@ use Rinvex\Fort\Models\Ability as BaseAbility;
  */
 class Ability extends BaseAbility
 {
+    use Auditable;
     use LogsActivity;
 
     /**

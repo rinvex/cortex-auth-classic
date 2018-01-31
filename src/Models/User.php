@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Fort\Models;
 
 use Rinvex\Tenants\Traits\Tenantable;
+use Cortex\Foundation\Traits\Auditable;
 use Rinvex\Cacheable\CacheableEloquent;
 use Rinvex\Fort\Models\User as BaseUser;
 use Rinvex\Attributes\Traits\Attributable;
@@ -102,6 +103,7 @@ class User extends BaseUser implements HasMedia
     // flush before other events in other traits specially LogsActivity,
     // otherwise old cached queries used and no changelog recorded on update.
     use CacheableEloquent;
+    use Auditable;
     use Tenantable;
     use HasActivity;
     use Attributable;

@@ -81,6 +81,9 @@
         "phpunit/phpunit": "^6.0.0"
     },
     "autoload": {
+        "classmap": [
+            "database"
+        ],
         "psr-4": {
             "Cortex\\Fort\\": "src/"
         }
