@@ -46,7 +46,6 @@ class UserAttributesFormRequest extends FormRequest
             $rules[$attributeSlug.($attribute->is_collection ? '.*' : '')] = $rule;
         });
 
-
         return $rules ?? [];
     }
 }

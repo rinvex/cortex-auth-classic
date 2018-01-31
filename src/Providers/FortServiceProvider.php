@@ -14,8 +14,8 @@ use Illuminate\Support\ServiceProvider;
 use Cortex\Fort\Handlers\GenericHandler;
 use Cortex\Fort\Http\Middleware\Abilities;
 use Cortex\Fort\Http\Middleware\NoHttpCache;
-use Cortex\Fort\Http\Middleware\Authenticate;
 use Cortex\Fort\Console\Commands\SeedCommand;
+use Cortex\Fort\Http\Middleware\Authenticate;
 use Cortex\Fort\Console\Commands\InstallCommand;
 use Cortex\Fort\Console\Commands\MigrateCommand;
 use Cortex\Fort\Console\Commands\PublishCommand;
@@ -160,6 +160,7 @@ class FortServiceProvider extends ServiceProvider
     {
         $this->app['rinvex.menus.presenters']->put('account.sidebar', \Cortex\Fort\Presenters\AccountSidebarMenuPresenter::class);
     }
+
     /**
      * Override middleware.
      *
