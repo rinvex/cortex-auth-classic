@@ -12,8 +12,6 @@ use Rinvex\Attributes\Traits\Attributable;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\Activitylog\Traits\HasActivity;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Spatie\Activitylog\ActivitylogServiceProvider;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Cortex\Fort\Notifications\PasswordResetNotification;
 use Cortex\Fort\Notifications\EmailVerificationNotification;
 use Cortex\Fort\Notifications\PhoneVerificationNotification;
