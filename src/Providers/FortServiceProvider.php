@@ -4,22 +4,26 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Providers;
 
-use Cortex\Fort\Http\Middleware\Reauthenticate;
 use Illuminate\Http\Request;
 use Rinvex\Fort\Models\Role;
 use Rinvex\Fort\Models\User;
 use Illuminate\Routing\Router;
-use Rinvex\Menus\Facades\Menu;
 use Rinvex\Fort\Models\Ability;
 use Rinvex\Fort\Models\Session;
 use Illuminate\Support\ServiceProvider;
-use Rinvex\Menus\Factories\MenuFactory;
+use Cortex\Fort\Handlers\GenericHandler;
+use Cortex\Fort\Http\Middleware\Abilities;
+use Cortex\Fort\Http\Middleware\NoHttpCache;
 use Cortex\Fort\Console\Commands\SeedCommand;
+use Cortex\Fort\Http\Middleware\Authenticate;
+use Cortex\Fort\Http\Middleware\Reauthenticate;
 use Cortex\Fort\Console\Commands\InstallCommand;
 use Cortex\Fort\Console\Commands\MigrateCommand;
 use Cortex\Fort\Console\Commands\PublishCommand;
 use Cortex\Fort\Console\Commands\RollbackCommand;
+use Cortex\Fort\Http\Middleware\UpdateLastActivity;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Cortex\Fort\Http\Middleware\RedirectIfAuthenticated;
 
 class FortServiceProvider extends ServiceProvider
 {
@@ -47,9 +51,6 @@ class FortServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton('cortex.fort.user.tabs', function ($app) {
-            return collect();
-        });
         $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'cortex.fort');
 
         // Register console commands
@@ -88,6 +89,7 @@ class FortServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__.'/../../routes/web.php');
         $this->loadViewsFrom(__DIR__.'/../../resources/views', 'cortex/fort');
         $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'cortex/fort');
+        ! $this->app->runningInConsole() || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
         $this->app->afterResolving('blade.compiler', function () {
             require __DIR__.'/../../routes/menus.php';
         });
@@ -95,11 +97,14 @@ class FortServiceProvider extends ServiceProvider
         // Publish Resources
         ! $this->app->runningInConsole() || $this->publishResources();
 
+        // Register event handlers
+        $this->app['events']->subscribe(GenericHandler::class);
+
         // Register attributes entities
         app('rinvex.attributes.entities')->push('user');
 
-        //Register new middleware
-        $router->aliasMiddleware('reauthenticate', Reauthenticate::class);
+        // Override middlware
+        $this->overrideMiddleware($router);
 
         // Register menus
         $this->registerMenus();
@@ -113,6 +118,7 @@ class FortServiceProvider extends ServiceProvider
     protected function publishResources(): void
     {
         $this->publishes([realpath(__DIR__.'/../../config/config.php') => config_path('cortex.fort.php')], 'cortex-fort-config');
+        $this->publishes([realpath(__DIR__.'/../../database/migrations') => database_path('migrations')], 'cortex-fort-migrations');
         $this->publishes([realpath(__DIR__.'/../../resources/lang') => resource_path('lang/vendor/cortex/fort')], 'cortex-fort-lang');
         $this->publishes([realpath(__DIR__.'/../../resources/views') => resource_path('views/vendor/cortex/fort')], 'cortex-fort-views');
     }
@@ -126,9 +132,7 @@ class FortServiceProvider extends ServiceProvider
     {
         // Register artisan commands
         foreach ($this->commands as $key => $value) {
-            $this->app->singleton($value, function ($app) use ($key) {
-                return new $key();
-            });
+            $this->app->singleton($value, $key);
         }
 
         $this->commands(array_values($this->commands));
@@ -156,10 +160,25 @@ class FortServiceProvider extends ServiceProvider
     protected function registerMenus(): void
     {
         $this->app['rinvex.menus.presenters']->put('account.sidebar', \Cortex\Fort\Presenters\AccountSidebarMenuPresenter::class);
+    }
 
-        Menu::make('frontarea.account.sidebar', function (MenuFactory $menu) {
-        });
-        Menu::make('tenantarea.account.sidebar', function (MenuFactory $menu) {
-        });
+    /**
+     * Override middleware.
+     *
+     * @param \Illuminate\Routing\Router $router
+     *
+     * @return void
+     */
+    protected function overrideMiddleware(Router $router): void
+    {
+        // Append middleware to the 'web' middlware group
+        $router->pushMiddlewareToGroup('web', Abilities::class);
+        $router->pushMiddlewareToGroup('web', UpdateLastActivity::class);
+
+        // Override route middleware on the fly
+        $router->aliasMiddleware('auth', Authenticate::class);
+        $router->aliasMiddleware('nohttpcache', NoHttpCache::class);
+        $router->aliasMiddleware('reauthenticate', Reauthenticate::class);
+        $router->aliasMiddleware('guest', RedirectIfAuthenticated::class);
     }
 }
