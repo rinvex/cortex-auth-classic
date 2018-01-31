@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Fort\Models;
 
 use Rinvex\Tenants\Traits\Tenantable;
+use Cortex\Foundation\Traits\Auditable;
 use Rinvex\Fort\Models\Role as BaseRole;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -39,6 +40,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  */
 class Role extends BaseRole
 {
+    use Auditable;
     use Tenantable;
     use LogsActivity;
 

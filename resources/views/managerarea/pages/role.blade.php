@@ -22,14 +22,14 @@
             <h1>{{ Breadcrumbs::render() }}</h1>
         </section>
 
-        <!-- Main content -->
+        {{-- Main content --}}
         <section class="content">
 
             <div class="nav-tabs-custom">
+                @if($role->exists && $currentUser->can('delete-roles', $role)) <div class="pull-right"><a href="#" data-toggle="modal" data-target="#delete-confirmation" data-modal-action="{{ route('managerarea.roles.delete', ['role' => $role]) }}" data-modal-title="{!! trans('cortex/foundation::messages.delete_confirmation_title') !!}" data-modal-body="{!! trans('cortex/foundation::messages.delete_confirmation_body', ['type' => 'role', 'name' => $role->slug]) !!}" title="{{ trans('cortex/foundation::common.delete') }}" class="btn btn-default" style="margin: 4px"><i class="fa fa-trash text-danger"></i></a></div> @endif
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#details-tab" data-toggle="tab">{{ trans('cortex/fort::common.details') }}</a></li>
                     @if($role->exists) <li><a href="#logs-tab" data-toggle="tab">{{ trans('cortex/fort::common.logs') }}</a></li> @endif
-                    @if($role->exists && $currentUser->can('delete-roles', $role)) <li class="pull-right"><a href="#" data-toggle="modal" data-target="#delete-confirmation" data-modal-action="{{ route('managerarea.roles.delete', ['role' => $role]) }}" data-modal-title="{!! trans('cortex/foundation::messages.delete_confirmation_title') !!}" data-modal-body="{!! trans('cortex/foundation::messages.delete_confirmation_body', ['type' => 'role', 'name' => $role->slug]) !!}" title="{{ trans('cortex/foundation::common.delete') }}"><i class="fa fa-trash text-danger"></i></a></li> @endif
                 </ul>
 
                 <div class="tab-content">
@@ -47,7 +47,7 @@
                                     {{-- Name --}}
                                     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                         {{ Form::label('name', trans('cortex/fort::common.name'), ['class' => 'control-label']) }}
-                                        {{ Form::text('name', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.name'), 'data-slugify' => '#slug', 'required' => 'required', 'autofocus' => 'autofocus']) }}
+                                        {{ Form::text('name', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.name'), 'data-slugify' => '[name="slug"]', 'required' => 'required', 'autofocus' => 'autofocus']) }}
 
                                         @if ($errors->has('name'))
                                             <span class="help-block">{{ $errors->first('name') }}</span>
@@ -123,14 +123,6 @@
 
                     </div>
 
-                    @if($role->exists)
-
-                        <div class="tab-pane" id="logs-tab">
-                            {!! $logs->table(['class' => 'table table-striped table-hover responsive dataTableBuilder', 'id' => "managerarea-roles-{$role->getKey()}-logs-table"]) !!}
-                        </div>
-
-                    @endif
-
                 </div>
 
             </div>
@@ -140,23 +132,3 @@
     </div>
 
 @endsection
-
-@if($role->exists)
-
-    @push('head-elements')
-        <meta name="turbolinks-cache-control" content="no-cache">
-    @endpush
-
-    @push('styles')
-        <link href="{{ mix('css/datatables.css', 'assets') }}" rel="stylesheet">
-    @endpush
-
-    @push('vendor-scripts')
-        <script src="{{ mix('js/datatables.js', 'assets') }}" defer></script>
-    @endpush
-
-    @push('inline-scripts')
-        {!! $logs->scripts() !!}
-    @endpush
-
-@endif

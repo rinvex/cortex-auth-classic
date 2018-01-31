@@ -5,14 +5,16 @@ declare(strict_types=1);
 namespace Cortex\Fort\Models;
 
 use Rinvex\Tenants\Traits\Tenantable;
+use Cortex\Foundation\Traits\Auditable;
 use Rinvex\Cacheable\CacheableEloquent;
 use Rinvex\Fort\Models\User as BaseUser;
 use Rinvex\Attributes\Traits\Attributable;
+use Spatie\Activitylog\Traits\HasActivity;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Spatie\Activitylog\ActivitylogServiceProvider;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Cortex\Fort\Notifications\PasswordResetNotification;
+use Cortex\Fort\Notifications\EmailVerificationNotification;
+use Cortex\Fort\Notifications\PhoneVerificationNotification;
 
 /**
  * Cortex\Fort\Models\User.
@@ -45,7 +47,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  * @property \Carbon\Carbon|null                                                                                            $deleted_at
  * @property \Illuminate\Database\Eloquent\Collection|\Cortex\Fort\Models\Ability[]                                         $abilities
  * @property-read \Illuminate\Database\Eloquent\Collection|\Cortex\Foundation\Models\Log[]                                  $activity
- * @property-read \Illuminate\Database\Eloquent\Collection|\Cortex\Foundation\Models\Log[]                                  $causedActivity
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Cortex\Foundation\Models\Log[]                                  $actions
  * @property-read \Illuminate\Support\Collection                                                                            $all_abilities
  * @property-read \Rinvex\Country\Country                                                                                   $country
  * @property mixed                                                                                                          $entity
@@ -94,14 +96,15 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  */
 class User extends BaseUser implements HasMedia
 {
-    // Strangely, this issue happens only with users !!!
+    // @TODO: Strangely, this issue happens only here!!!
     // Duplicate trait usage to fire attached events for cache
     // flush before other events in other traits specially LogsActivity,
     // otherwise old cached queries used and no changelog recorded on update.
     use CacheableEloquent;
+    use Auditable;
     use Tenantable;
+    use HasActivity;
     use Attributable;
-    use LogsActivity;
     use HasMediaTrait;
 
     /**
@@ -154,14 +157,19 @@ class User extends BaseUser implements HasMedia
     ];
 
     /**
-     * Get the caused activity relations for the model.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     * {@inheritdoc}
      */
-    public function causedActivity(): MorphMany
-    {
-        return $this->morphMany(ActivitylogServiceProvider::determineActivityModel(), 'causer');
-    }
+    protected $passwordResetNotificationClass = PasswordResetNotification::class;
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $emailVerificationNotificationClass = EmailVerificationNotification::class;
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $phoneVerificationNotificationClass = PhoneVerificationNotification::class;
 
     /**
      * Get the route key for the model.

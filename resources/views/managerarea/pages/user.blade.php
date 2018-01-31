@@ -27,21 +27,14 @@
             <h1>{{ Breadcrumbs::render() }}</h1>
         </section>
 
-        <!-- Main content -->
+        {{-- Main content --}}
         <section class="content">
 
             <div class="nav-tabs-custom">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#details-tab" data-toggle="tab">{{ trans('cortex/fort::common.details') }}</a></li>
-                    {!! Tab::headers('cortex.fort.user.tabs', $user) !!}
-                    @if($user->exists) <li><a href="#logs-tab" data-toggle="tab">{{ trans('cortex/fort::common.logs') }}</a></li> @endif
-                    @if($user->exists) <li><a href="#activities-tab" data-toggle="tab">{{ trans('cortex/fort::common.activities') }}</a></li> @endif
-                    @if($user->exists && $currentUser->can('delete-users', $user)) <li class="pull-right"><a href="#" data-toggle="modal" data-target="#delete-confirmation" data-modal-action="{{ route('managerarea.users.delete', ['user' => $user]) }}" data-modal-title="{!! trans('cortex/foundation::messages.delete_confirmation_title') !!}" data-modal-body="{!! trans('cortex/foundation::messages.delete_confirmation_body', ['type' => 'user', 'name' => $user->slug]) !!}" title="{{ trans('cortex/foundation::common.delete') }}"><i class="fa fa-trash text-danger"></i></a></li> @endif
-                </ul>
+                @if($user->exists && $currentUser->can('delete-users', $user)) <div class="pull-right"><a href="#" data-toggle="modal" data-target="#delete-confirmation" data-modal-action="{{ route('managerarea.users.delete', ['user' => $user]) }}" data-modal-title="{!! trans('cortex/foundation::messages.delete_confirmation_title') !!}" data-modal-body="{!! trans('cortex/foundation::messages.delete_confirmation_body', ['type' => 'user', 'name' => $user->slug]) !!}" title="{{ trans('cortex/foundation::common.delete') }}" class="btn btn-default" style="margin: 4px"><i class="fa fa-trash text-danger"></i></a></div> @endif
+                {!! Menu::render('managerarea.users.tabs', 'nav-tab') !!}
 
                 <div class="tab-content">
-
-                    {!! Tab::panels('cortex.fort.user.tabs', $user) !!}
 
                     <div class="tab-pane active" id="details-tab">
 
@@ -339,7 +332,6 @@
                                             <a href="#" data-toggle="modal" data-target="#delete-confirmation" data-modal-action="{{ route('managerarea.users.media.delete', ['user' => $user, 'media' => $user->getFirstMedia('profile_picture')]) }}" data-modal-title="{{ trans('cortex/foundation::messages.delete_confirmation_title') }}" data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['type' => 'media', 'name' => $user->getFirstMedia('profile_picture')->file_name]) }}" title="{{ trans('cortex/foundation::common.delete') }}"><i class="fa fa-trash text-danger"></i></a>
                                         @endif
 
-
                                         @if ($errors->has('profile_picture'))
                                             <span class="help-block">{{ $errors->first('profile_picture') }}</span>
                                         @endif
@@ -369,7 +361,6 @@
                                             <a href="{{ $user->getFirstMediaUrl('cover_photo') }}" target="_blank">{{ $user->getFirstMedia('cover_photo')->file_name }}</a> ({{ $user->getFirstMedia('cover_photo')->human_readable_size }})
                                             <a href="#" data-toggle="modal" data-target="#delete-confirmation" data-modal-action="{{ route('managerarea.users.media.delete', ['user' => $user, 'media' => $user->getFirstMedia('cover_photo')]) }}" data-modal-title="{{ trans('cortex/foundation::messages.delete_confirmation_title') }}" data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['type' => 'media', 'name' => $user->getFirstMedia('cover_photo')->file_name]) }}" title="{{ trans('cortex/foundation::common.delete') }}"><i class="fa fa-trash text-danger"></i></a>
                                         @endif
-
 
                                         @if ($errors->has('cover_photo'))
                                             <span class="help-block">{{ $errors->first('cover_photo') }}</span>
@@ -439,18 +430,6 @@
 
                     </div>
 
-                    @if($user->exists)
-
-                        <div class="tab-pane" id="logs-tab">
-                            {!! $logs->table(['class' => 'table table-striped table-hover responsive dataTableBuilder', 'id' => "managerarea-users-{$user->getKey()}-logs-table"]) !!}
-                        </div>
-
-                        <div class="tab-pane" id="activities-tab">
-                            {!! $activities->table(['class' => 'table table-striped table-hover responsive dataTableBuilder', 'id' => "managerarea-users-{$user->getKey()}-activities-table"]) !!}
-                        </div>
-
-                    @endif
-
                 </div>
 
             </div>
@@ -460,24 +439,3 @@
     </div>
 
 @endsection
-
-@if($user->exists)
-
-    @push('head-elements')
-        <meta name="turbolinks-cache-control" content="no-cache">
-    @endpush
-
-    @push('styles')
-        <link href="{{ mix('css/datatables.css', 'assets') }}" rel="stylesheet">
-    @endpush
-
-    @push('vendor-scripts')
-        <script src="{{ mix('js/datatables.js', 'assets') }}" defer></script>
-    @endpush
-
-    @push('inline-scripts')
-        {!! $logs->scripts() !!}
-        {!! $activities->scripts() !!}
-    @endpush
-
-@endif

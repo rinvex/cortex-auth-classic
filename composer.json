@@ -49,18 +49,18 @@
         }
     ],
     "require": {
-        "php": "^7.1.0",
-        "Illuminate/auth": "~5.5.0",
-        "Illuminate/console": "~5.5.0",
-        "Illuminate/database": "~5.5.0",
-        "Illuminate/http": "~5.5.0",
-        "Illuminate/routing": "~5.5.0",
-        "Illuminate/support": "~5.5.0",
+        "php": "^7.1.3",
+        "Illuminate/auth": "~5.5.0|~5.6.0",
+        "Illuminate/console": "~5.5.0|~5.6.0",
+        "Illuminate/database": "~5.5.0|~5.6.0",
+        "Illuminate/http": "~5.5.0|~5.6.0",
+        "Illuminate/routing": "~5.5.0|~5.6.0",
+        "Illuminate/support": "~5.5.0|~5.6.0",
         "cortex/fort": "dev-develop",
         "cortex/foundation": "dev-develop",
         "davejamesmiller/laravel-breadcrumbs": "^4.0.0",
         "laravel/socialite": "^3.0.0",
-        "laravelcollective/html": "~5.5.0",
+        "laravelcollective/html": "~5.5.0|~5.6.0",
         "league/fractal": "^0.16.0",
         "nesbot/carbon": "^1.22.0",
         "pragmarx/google2fa": "^2.0.0",
@@ -70,7 +70,7 @@
         "rinvex/menus": "dev-develop",
         "rinvex/support": "dev-develop",
         "rinvex/tenants": "dev-develop",
-        "spatie/laravel-activitylog": "^2.0.0",
+        "spatie/laravel-activitylog": "^2.4.0",
         "yajra/laravel-datatables-buttons": "^3.0.0",
         "yajra/laravel-datatables-fractal": "^1.0.0",
         "yajra/laravel-datatables-html": "^3.0.0",
@@ -81,6 +81,9 @@
         "phpunit/phpunit": "^6.0.0"
     },
     "autoload": {
+        "classmap": [
+            "database"
+        ],
         "psr-4": {
             "Cortex\\Fort\\": "src/"
         }
@@ -98,17 +101,6 @@
             "providers": [
                 "Cortex\\Fort\\Providers\\FortServiceProvider"
             ]
-        },
-        "cortex-module": {
-            "autoinstall": false,
-            "icon": {
-                "color": "#2196f3",
-                "name": "heartbeat",
-                "background-size": "cover",
-                "background-color": "#e3f2fd",
-                "background-position": "center",
-                "background-repeat": "no-repeat"
-            }
         }
     },
     "minimum-stability": "dev",

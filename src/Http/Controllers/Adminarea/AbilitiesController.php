@@ -46,11 +46,14 @@ class AbilitiesController extends AuthorizedController
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function logs(Ability $ability)
+    public function logs(Ability $ability, LogsDataTable $logsDataTable)
     {
-        return request()->ajax() && request()->wantsJson()
-            ? app(LogsDataTable::class)->with(['resource' => $ability])->ajax()
-            : intend(['url' => route('adminarea.abilities.edit', ['ability' => $ability]).'#logs-tab']);
+        return $logsDataTable->with([
+            'resource' => $ability,
+            'tabs' => 'adminarea.abilities.tabs',
+            'phrase' => trans('cortex/fort::common.abilities'),
+            'id' => "adminarea-abilities-{$ability->getKey()}-logs-table",
+        ])->render('cortex/foundation::adminarea.pages.datatable-logs');
     }
 
     /**
@@ -67,9 +70,7 @@ class AbilitiesController extends AuthorizedController
             ? app('rinvex.fort.role')->all()->pluck('name', 'id')->toArray()
             : $request->user($this->getGuard())->roles->pluck('name', 'id')->toArray();
 
-        $logs = app(LogsDataTable::class)->with(['id' => "adminarea-abilities-{$ability->getKey()}-logs-table"])->html()->minifiedAjax(route('adminarea.abilities.logs', ['ability' => $ability]));
-
-        return view('cortex/fort::adminarea.pages.ability', compact('ability', 'roles', 'logs'));
+        return view('cortex/fort::adminarea.pages.ability', compact('ability', 'roles'));
     }
 
     /**

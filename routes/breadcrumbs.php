@@ -56,6 +56,12 @@ Breadcrumbs::register('adminarea.users.activities', function (BreadcrumbsGenerat
     $breadcrumbs->push(trans('cortex/fort::common.activities'), route('adminarea.users.activities', ['user' => $user]));
 });
 
+Breadcrumbs::register('adminarea.users.attributes', function (BreadcrumbsGenerator $breadcrumbs, User $user) {
+    $breadcrumbs->parent('adminarea.users.index');
+    $breadcrumbs->push($user->username, route('adminarea.users.edit', ['user' => $user]));
+    $breadcrumbs->push(trans('cortex/fort::common.attributes'), route('adminarea.users.attributes', ['user' => $user]));
+});
+
 Breadcrumbs::register('adminarea.abilities.index', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.trans('cortex/foundation::common.adminarea'), route('adminarea.home'));
     $breadcrumbs->push(trans('cortex/fort::common.abilities'), route('adminarea.abilities.index'));
@@ -124,4 +130,10 @@ Breadcrumbs::register('managerarea.users.activities', function (BreadcrumbsGener
     $breadcrumbs->parent('managerarea.users.index');
     $breadcrumbs->push($user->username, route('managerarea.users.edit', ['user' => $user]));
     $breadcrumbs->push(trans('cortex/fort::common.activities'), route('managerarea.users.activities', ['user' => $user]));
+});
+
+Breadcrumbs::register('managerarea.users.attributes', function (BreadcrumbsGenerator $breadcrumbs, User $user) {
+    $breadcrumbs->parent('managerarea.users.index');
+    $breadcrumbs->push($user->username, route('managerarea.users.edit', ['user' => $user]));
+    $breadcrumbs->push(trans('cortex/fort::common.attributes'), route('managerarea.users.attributes', ['user' => $user]));
 });

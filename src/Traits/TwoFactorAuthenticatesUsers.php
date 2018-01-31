@@ -89,6 +89,6 @@ trait TwoFactorAuthenticatesUsers
         $totpProvider = app(Google2FA::class);
         $secret = array_get($user->getTwoFactor(), 'totp.secret');
 
-        return mb_strlen($token) === 6 && request()->session()->get('rinvex.fort.twofactor.totp') && $totpProvider->verifyKey($secret, $token);
+        return mb_strlen($token) === 6 && $totpProvider->verifyKey($secret, $token);
     }
 }
