@@ -16,7 +16,7 @@ class AlterAbilitiesTableAddAuditableColumns extends Migration
     public function up()
     {
         Schema::table(config('rinvex.fort.tables.abilities'), function (Blueprint $table) {
-            $table->auditable();
+            $table->auditable(true);
         });
     }
 

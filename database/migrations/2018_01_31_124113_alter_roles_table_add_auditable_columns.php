@@ -16,7 +16,7 @@ class AlterRolesTableAddAuditableColumns extends Migration
     public function up()
     {
         Schema::table(config('rinvex.fort.tables.roles'), function (Blueprint $table) {
-            $table->auditable();
+            $table->auditable(true);
         });
     }
 

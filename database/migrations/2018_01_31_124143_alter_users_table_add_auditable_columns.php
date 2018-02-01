@@ -16,7 +16,7 @@ class AlterUsersTableAddAuditableColumns extends Migration
     public function up()
     {
         Schema::table(config('rinvex.fort.tables.users'), function (Blueprint $table) {
-            $table->auditable();
+            $table->auditable(true);
         });
     }
 
