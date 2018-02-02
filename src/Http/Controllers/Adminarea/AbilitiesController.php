@@ -110,9 +110,11 @@ class AbilitiesController extends AuthorizedController
     {
         // Prepare required input fields
         $data = $request->validated();
+        $class = mb_strstr($data['policy'], '@', true);
+        $method = str_replace('@', '', mb_strstr($data['policy'], '@'));
 
         // Verify valid policy
-        if (! empty($data['policy']) && (($class = mb_strstr($data['policy'], '@', true)) === false || ! method_exists($class, str_replace('@', '', mb_strstr($data['policy'], '@'))))) {
+        if (! $data['policy'] || ! class_exists($class) || ! method_exists($class, $method)) {
             return intend([
                 'back' => true,
                 'withInput' => $request->all(),
