@@ -13,7 +13,7 @@ class RollbackCommand extends BaseRollbackCommand
      *
      * @var string
      */
-    protected $signature = 'cortex:rollback:fort';
+    protected $signature = 'cortex:rollback:fort {--force : Force the operation to run when in production.}';
 
     /**
      * The console command description.
@@ -21,4 +21,16 @@ class RollbackCommand extends BaseRollbackCommand
      * @var string
      */
     protected $description = 'Rollback Cortex Fort Tables.';
+
+    /**
+     * Execute the console command.
+     *
+     * @return void
+     */
+    public function handle(): void
+    {
+        $this->call('migrate:reset', ['--path' => 'app/cortex/fort/database/migrations', '--force' => $this->option('force')]);
+
+        parent::handle();
+    }
 }
