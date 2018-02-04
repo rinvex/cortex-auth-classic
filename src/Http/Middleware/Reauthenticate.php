@@ -24,8 +24,8 @@ class Reauthenticate
     {
         $timeout = $timeout ?? config('cortex.fort.reauthentication.timeout');
         $sessionName = $sessionName ? 'cortex.fort.reauthentication.'.$sessionName : 'cortex.fort.reauthentication.'.$request->route()->getName();
-       
-        if(is_null(session($sessionName)) || time() - session($sessionName) >= $timeout) {
+
+        if (is_null(session($sessionName)) || time() - session($sessionName) >= $timeout) {
             session()->forget($sessionName);
             session()->put('cortex.fort.reauthentication.intended', $request->url());
             session()->put('cortex.fort.reauthentication.session_name', $sessionName);

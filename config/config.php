@@ -11,7 +11,7 @@ return [
 
     //Reauthentication
     'reauthentication' => [
-        'timeout' => 3600
-    ]
+        'timeout' => 3600,
+    ],
 
 ];
