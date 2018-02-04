@@ -9,4 +9,9 @@ return [
         'disk' => 'public',
     ],
 
+    //Reauthentication
+    'reauthentication' => [
+        'timeout' => 3600
+    ]
+
 ];

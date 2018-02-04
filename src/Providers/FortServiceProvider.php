@@ -16,6 +16,7 @@ use Cortex\Fort\Http\Middleware\Abilities;
 use Cortex\Fort\Http\Middleware\NoHttpCache;
 use Cortex\Fort\Console\Commands\SeedCommand;
 use Cortex\Fort\Http\Middleware\Authenticate;
+use Cortex\Fort\Http\Middleware\Reauthenticate;
 use Cortex\Fort\Console\Commands\InstallCommand;
 use Cortex\Fort\Console\Commands\MigrateCommand;
 use Cortex\Fort\Console\Commands\PublishCommand;
@@ -177,6 +178,7 @@ class FortServiceProvider extends ServiceProvider
         // Override route middleware on the fly
         $router->aliasMiddleware('auth', Authenticate::class);
         $router->aliasMiddleware('nohttpcache', NoHttpCache::class);
+        $router->aliasMiddleware('reauthenticate', Reauthenticate::class);
         $router->aliasMiddleware('guest', RedirectIfAuthenticated::class);
     }
 }
