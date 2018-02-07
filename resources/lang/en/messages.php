@@ -13,23 +13,6 @@ return [
         'flush_all_body' => 'All active sessions of your account, including this one will be flushed, and you will be forced to re-login again!',
     ],
 
-    'ability' => [
-        'saved' => 'Congrats! Ability [:abilityId] saved successfully!',
-        'deleted' => 'Done! Ability [:abilityId] deleted successfully!',
-        'invalid_policy' => 'The policy must be a valid class method.',
-    ],
-
-    'role' => [
-        'saved' => 'Congrats! Role [:slug] saved successfully!',
-        'deleted' => 'Done! Role [:slug] deleted successfully!',
-    ],
-
-    'user' => [
-        'saved' => 'Congrats! User [:username] saved successfully!',
-        'deleted' => 'Done! User [:username] deleted successfully!',
-        'media_deleted' => 'Done! User media deleted successfully.',
-    ],
-
     'register' => [
         'success' => 'Registration completed successfully!',
         'disabled' => 'Sorry, registration is currently disabled!',

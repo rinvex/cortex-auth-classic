@@ -116,14 +116,14 @@ class RolesController extends AuthorizedController
 
         return intend([
             'url' => route('managerarea.roles.index'),
-            'with' => ['success' => trans('cortex/fort::messages.role.saved', ['slug' => $role->slug])],
+            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => 'role', 'id' => $role->name])],
         ]);
     }
 
     /**
      * Delete the given resource from storage.
      *
-     * @param \Rinvex\Fort\Models\Role $role
+     * @param \Cortex\Fort\Models\Role $role
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -133,7 +133,7 @@ class RolesController extends AuthorizedController
 
         return intend([
             'url' => route('managerarea.roles.index'),
-            'with' => ['warning' => trans('cortex/fort::messages.role.deleted', ['slug' => $role->slug])],
+            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => 'role', 'id' => $role->name])],
         ]);
     }
 }

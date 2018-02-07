@@ -194,7 +194,7 @@ class UsersController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.users.index'),
-            'with' => ['success' => trans('cortex/fort::messages.user.saved', ['username' => $user->username])],
+            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => 'user', 'id' => $user->username])],
         ]);
     }
 
@@ -229,7 +229,7 @@ class UsersController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.users.edit', ['user' => $user]),
-            'with' => ['warning' => trans('cortex/fort::messages.user.media_deleted')],
+            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => 'media', 'id' => $media->getKey()])],
         ]);
     }
 }
