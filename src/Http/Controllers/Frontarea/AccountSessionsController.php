@@ -33,7 +33,7 @@ class AccountSessionsController extends AuthenticatedController
 
         return intend([
             'back' => true,
-            'with' => ['warning' => trans('cortex/fort::messages.auth.session.deleted', ['sessionId' => $session->getKey()])],
+            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => 'session', 'id' => $session->getKey()])],
         ]);
     }
 

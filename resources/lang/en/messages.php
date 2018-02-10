@@ -39,7 +39,6 @@ return [
         'login' => 'You have successfully logged in!',
         'logout' => 'You have successfully logged out!',
         'session' => [
-            'deleted' => 'Done! Session [:sessionId] deleted successfully!',
             'flushed' => 'All your active sessions has been successfully flushed!',
         ],
     ],
