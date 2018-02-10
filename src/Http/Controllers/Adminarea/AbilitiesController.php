@@ -57,17 +57,43 @@ class AbilitiesController extends AuthorizedController
     }
 
     /**
-     * Show the form for create/update of the given resource.
+     * Create new ability.
      *
-     * @param \Illuminate\Http\Request    $request
-     * @param \Rinvex\Fort\Models\Ability $ability
+     * @param \Illuminate\Http\Request $request
+     * @param \Cortex\Fort\Models\Role $ability
      *
      * @return \Illuminate\View\View
      */
-    public function form(Request $request, Ability $ability)
+    public function create(Request $request, Ability $ability)
     {
-        $roles = $request->user($this->getGuard())->isSuperadmin()
-            ? app('rinvex.fort.role')->all()->pluck('name', 'id')->toArray()
+        return $this->form($request, $ability);
+    }
+
+    /**
+     * Edit given ability.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \Cortex\Fort\Models\Role $ability
+     *
+     * @return \Illuminate\View\View
+     */
+    public function edit(Request $request, Ability $ability)
+    {
+        return $this->form($request, $ability);
+    }
+
+    /**
+     * Show ability create/edit form.
+     *
+     * @param \Illuminate\Http\Request    $request
+     * @param \Cortex\Fort\Models\Ability $ability
+     *
+     * @return \Illuminate\View\View
+     */
+    protected function form(Request $request, Ability $ability)
+    {
+        $roles = $request->user($this->getGuard())->can('superadmin')
+            ? Models::role()->all()->pluck('name', 'id')->toArray()
             : $request->user($this->getGuard())->roles->pluck('name', 'id')->toArray();
 
         return view('cortex/fort::adminarea.pages.ability', compact('ability', 'roles'));

@@ -55,20 +55,43 @@ class RolesController extends AuthorizedController
     }
 
     /**
-     * Show the form for create/update of the given resource.
+     * Create new role.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Rinvex\Fort\Models\Role $role
+     * @param \Cortex\Fort\Models\Role $role
      *
      * @return \Illuminate\View\View
      */
-    public function form(Request $request, Role $role)
+    public function create(Request $request, Role $role)
     {
-        $owner = optional(optional(config('rinvex.tenants.active'))->owner)->getKey();
+        return $this->form($request, $role);
+    }
 
-        $abilities = $request->user($this->getGuard())->getKey() === $owner
-            ? app('rinvex.fort.role')->forAllTenants()->where('slug', 'manager')->first()->abilities->groupBy('resource')->map->pluck('name', 'id')->toArray()
-            : $request->user($this->getGuard())->allAbilities->groupBy('resource')->map->pluck('name', 'id')->toArray();
+    /**
+     * Edit given role.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \Cortex\Fort\Models\Role $role
+     *
+     * @return \Illuminate\View\View
+     */
+    public function edit(Request $request, Role $role)
+    {
+        return $this->form($request, $role);
+    }
+
+    /**
+     * Show role create/edit form.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \Cortex\Fort\Models\Role $role
+     *
+     * @return \Illuminate\View\View
+     */
+    protected function form(Request $request, Role $role)
+    {
+        $abilities = $request->user($this->getGuard())->can('superadmin') ? Ability::all()->pluck('title', 'id')->toArray()
+            : $request->user($this->getGuard())->abilities->pluck('title', 'id')->toArray();
 
         return view('cortex/fort::managerarea.pages.role', compact('role', 'abilities'));
     }

@@ -119,9 +119,9 @@ Route::domain(domain())->group(function () {
          // Abilities Routes
          Route::name('abilities.')->prefix('abilities')->group(function () {
              Route::get('/')->name('index')->uses('AbilitiesController@index');
-             Route::get('create')->name('create')->uses('AbilitiesController@form');
+             Route::get('create')->name('create')->uses('AbilitiesController@create');
              Route::post('create')->name('store')->uses('AbilitiesController@store');
-             Route::get('{ability}')->name('edit')->uses('AbilitiesController@form');
+             Route::get('{ability}')->name('edit')->uses('AbilitiesController@edit');
              Route::put('{ability}')->name('update')->uses('AbilitiesController@update');
              Route::get('{ability}/logs')->name('logs')->uses('AbilitiesController@logs');
              Route::delete('{ability}')->name('destroy')->uses('AbilitiesController@destroy');
@@ -130,9 +130,9 @@ Route::domain(domain())->group(function () {
          // Roles Routes
          Route::name('roles.')->prefix('roles')->group(function () {
              Route::get('/')->name('index')->uses('RolesController@index');
-             Route::get('create')->name('create')->uses('RolesController@form');
+             Route::get('create')->name('create')->uses('RolesController@create');
              Route::post('create')->name('store')->uses('RolesController@store');
-             Route::get('{role}')->name('edit')->uses('RolesController@form');
+             Route::get('{role}')->name('edit')->uses('RolesController@edit');
              Route::put('{role}')->name('update')->uses('RolesController@update');
              Route::get('{role}/logs')->name('logs')->uses('RolesController@logs');
              Route::delete('{role}')->name('destroy')->uses('RolesController@destroy');
@@ -141,9 +141,9 @@ Route::domain(domain())->group(function () {
          // Users Routes
          Route::name('users.')->prefix('users')->group(function () {
              Route::get('/')->name('index')->uses('UsersController@index');
-             Route::get('create')->name('create')->uses('UsersController@form');
+             Route::get('create')->name('create')->uses('UsersController@create');
              Route::post('create')->name('store')->uses('UsersController@store');
-             Route::get('{user}')->name('edit')->uses('UsersController@form');
+             Route::get('{user}')->name('edit')->uses('UsersController@edit');
              Route::put('{user}')->name('update')->uses('UsersController@update');
              Route::get('{user}/logs')->name('logs')->uses('UsersController@logs');
              Route::get('{user}/activities')->name('activities')->uses('UsersController@activities');
@@ -166,9 +166,9 @@ Route::domain('{subdomain}.'.domain())->group(function () {
          // Roles Routes
          Route::name('roles.')->prefix('roles')->group(function () {
              Route::get('/')->name('index')->uses('RolesController@index');
-             Route::get('create')->name('create')->uses('RolesController@form');
+             Route::get('create')->name('create')->uses('RolesController@create');
              Route::post('create')->name('store')->uses('RolesController@store');
-             Route::get('{role}')->name('edit')->uses('RolesController@form');
+             Route::get('{role}')->name('edit')->uses('RolesController@edit');
              Route::put('{role}')->name('update')->uses('RolesController@update');
              Route::get('{role}/logs')->name('logs')->uses('RolesController@logs');
              Route::delete('{role}')->name('destroy')->uses('RolesController@destroy');
@@ -177,9 +177,9 @@ Route::domain('{subdomain}.'.domain())->group(function () {
          // Users Routes
          Route::name('users.')->prefix('users')->group(function () {
              Route::get('/')->name('index')->uses('UsersController@index');
-             Route::get('create')->name('create')->uses('UsersController@form');
+             Route::get('create')->name('create')->uses('UsersController@create');
              Route::post('create')->name('store')->uses('UsersController@store');
-             Route::get('{user}')->name('edit')->uses('UsersController@form');
+             Route::get('{user}')->name('edit')->uses('UsersController@edit');
              Route::put('{user}')->name('update')->uses('UsersController@update');
              Route::get('{user}/logs')->name('logs')->uses('UsersController@logs');
              Route::get('{user}/activities')->name('activities')->uses('UsersController@activities');

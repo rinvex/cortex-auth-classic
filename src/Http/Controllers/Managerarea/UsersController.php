@@ -107,14 +107,40 @@ class UsersController extends AuthorizedController
     }
 
     /**
-     * Show the form for create/update of the given resource.
+     * Create new user.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Rinvex\Fort\Models\User $user
+     * @param \Cortex\Fort\Models\User $user
      *
      * @return \Illuminate\View\View
      */
-    public function form(Request $request, User $user)
+    public function create(Request $request, User $user)
+    {
+        return $this->form($request, $user);
+    }
+
+    /**
+     * Edit given user.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \Cortex\Fort\Models\User $user
+     *
+     * @return \Illuminate\View\View
+     */
+    public function edit(Request $request, User $user)
+    {
+        return $this->form($request, $user);
+    }
+
+    /**
+     * Show user create/edit form.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \Cortex\Fort\Models\User $user
+     *
+     * @return \Illuminate\View\View
+     */
+    protected function form(Request $request, User $user)
     {
         $countries = collect(countries())->map(function ($country, $code) {
             return [
