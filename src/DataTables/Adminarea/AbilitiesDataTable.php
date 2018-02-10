@@ -22,7 +22,7 @@ class AbilitiesDataTable extends AbstractDataTable
     public function ajax()
     {
         return datatables($this->query())
-            ->orderColumn('name', 'name->"$.'.app()->getLocale().'" $1')
+            ->orderColumn('title', 'title->"$.'.app()->getLocale().'" $1')
             ->make(true);
     }
 
@@ -38,10 +38,8 @@ class AbilitiesDataTable extends AbstractDataTable
             : '"<a href=\""+routes.route(\'adminarea.abilities.edit\', {ability: full.id})+"\">"+data+"</a>"';
 
         return [
-            'name' => ['title' => trans('cortex/fort::common.name'), 'render' => $link, 'responsivePriority' => 0],
-            'action' => ['title' => trans('cortex/fort::common.action')],
-            'resource' => ['title' => trans('cortex/fort::common.resource')],
-            'policy' => ['title' => trans('cortex/fort::common.policy')],
+            'title' => ['title' => trans('cortex/fort::common.title'), 'render' => $link, 'responsivePriority' => 0],
+            'name' => ['title' => trans('cortex/fort::common.name')],
             'created_at' => ['title' => trans('cortex/fort::common.created_at'), 'render' => "moment(data).format('MMM Do, YYYY')"],
             'updated_at' => ['title' => trans('cortex/fort::common.updated_at'), 'render' => "moment(data).format('MMM Do, YYYY')"],
         ];

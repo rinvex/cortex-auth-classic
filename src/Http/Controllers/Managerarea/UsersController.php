@@ -6,6 +6,7 @@ namespace Cortex\Fort\Http\Controllers\Managerarea;
 
 use Illuminate\Http\Request;
 use Rinvex\Fort\Models\User;
+use Silber\Bouncer\Database\Models;
 use Spatie\MediaLibrary\Models\Media;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
@@ -20,7 +21,7 @@ class UsersController extends AuthorizedController
     /**
      * {@inheritdoc}
      */
-    protected $resource = 'users';
+    protected $resource = 'user';
 
     /**
      * Display a listing of the resource.
@@ -122,18 +123,17 @@ class UsersController extends AuthorizedController
                 'emoji' => $country['emoji'],
             ];
         })->values();
-        $authUser = $request->user($this->getGuard());
+        $currentUser = $request->user($this->getGuard());
         $languages = collect(languages())->pluck('name', 'iso_639_1');
         $genders = ['male' => trans('cortex/fort::common.male'), 'female' => trans('cortex/fort::common.female')];
-        $owner = optional(optional(config('rinvex.tenants.active'))->owner)->getKey();
 
-        $roles = $authUser->isSuperadmin() || $authUser->getKey() === $owner
-            ? app('rinvex.fort.role')->all()->pluck('name', 'id')->toArray()
-            : $authUser->roles->pluck('name', 'id')->toArray();
+        $roles = $currentUser->can('superadmin')
+            ? Models::role()->all()->pluck('name', 'id')->toArray()
+            : $currentUser->roles->pluck('name', 'id')->toArray();
 
-        $abilities = $authUser->isSuperadmin() || $authUser->getKey() === $owner
-            ? app('rinvex.fort.role')->forAllTenants()->where('slug', 'manager')->first()->abilities->groupBy('resource')->map->pluck('name', 'id')->toArray()
-            : $authUser->allAbilities->groupBy('resource')->map->pluck('name', 'id')->toArray();
+        $abilities = $currentUser->can('superadmin')
+            ? Models::ability()->all()->pluck('title', 'id')->toArray()
+            : $currentUser->abilities->pluck('title', 'id')->toArray();
 
         return view('cortex/fort::managerarea.pages.user', compact('user', 'abilities', 'roles', 'countries', 'languages', 'genders'));
     }

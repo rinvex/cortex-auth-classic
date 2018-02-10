@@ -15,9 +15,7 @@ class RegistrationProcessRequest extends RegistrationRequest
     {
         $data = $this->all();
 
-        $role = app('rinvex.fort.role')->where('slug', config('rinvex.fort.registration.default_role'))->first();
         $data['is_active'] = ! config('rinvex.fort.registration.moderated');
-        ! $role || $data['roles'] = [$role->getKey()];
 
         $this->replace($data);
     }

@@ -104,13 +104,11 @@ class SocialAuthenticationController extends AbstractController
     protected function createLocalUser(string $provider, array $attributes)
     {
         $localUser = app('rinvex.fort.user');
-        $defaultRole = app('rinvex.fort.role')->where('slug', config('rinvex.fort.registration.default_role'))->first();
 
         $attributes['password'] = str_random();
         $attributes['email_verified'] = true;
         $attributes['email_verified_at'] = now();
         $attributes['is_active'] = ! config('rinvex.fort.registration.moderated');
-        $attributes['roles'] = $defaultRole ? [$defaultRole->id] : null;
 
         $localUser->fill($attributes)->save();
 

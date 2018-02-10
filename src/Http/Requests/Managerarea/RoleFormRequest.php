@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Requests\Managerarea;
 
+use Cortex\Fort\Models\Role;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RoleFormRequest extends FormRequest
@@ -28,19 +29,12 @@ class RoleFormRequest extends FormRequest
         $data = $this->all();
 
         // Set abilities
-        if ($this->user()->can('grant-abilities') && $data['abilities']) {
-            $owner = optional(optional(config('rinvex.tenants.active'))->owner)->getKey();
-
-            $data['abilities'] = $this->user()->getKey() === $owner
-                ? array_intersect(app('rinvex.fort.role')->forAllTenants()->where('slug', 'manager')->first()->abilities->pluck('id')->toArray(), $data['abilities'])
-                : array_intersect($this->user()->allAbilities->pluck('id')->toArray(), $data['abilities']);
+        if ($this->user()->can('grant', \Cortex\Fort\Models\Ability::class)) {
+            $data['abilities'] = $this->user()->can('superadmin') ? $this->get('abilities', [])
+                : $this->user()->abilities->pluck('id')->intersect($this->get('abilities', []))->toArray();
         } else {
             unset($data['abilities']);
         }
-
-        // Prefix slug
-        $prefix = optional(config('rinvex.tenants.active'))->slug.'-';
-        starts_with($data['slug'], $prefix) || $data['slug'] = str_start($data['slug'], $prefix);
 
         $this->replace($data);
     }
@@ -52,7 +46,7 @@ class RoleFormRequest extends FormRequest
      */
     public function rules(): array
     {
-        $user = $this->route('role') ?? app('rinvex.fort.role');
+        $user = $this->route('role') ?? new Role;
         $user->updateRulesUniques();
         $rules = $user->getRules();
         $rules['abilities'] = 'nullable|array';

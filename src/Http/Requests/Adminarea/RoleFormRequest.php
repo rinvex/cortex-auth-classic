@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Requests\Adminarea;
 
+use Cortex\Fort\Models\Role;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RoleFormRequest extends FormRequest
@@ -28,10 +29,9 @@ class RoleFormRequest extends FormRequest
         $data = $this->all();
 
         // Set abilities
-        if ($this->user()->can('grant-abilities') && $data['abilities']) {
-            $data['abilities'] = array_map('intval', $data['abilities']);
-            $data['abilities'] = $this->user()->isSuperadmin() ? $data['abilities']
-                : array_intersect($this->user()->allAbilities->pluck('id')->toArray(), $data['abilities']);
+        if ($this->user()->can('grant', \Cortex\Fort\Models\Ability::class)) {
+            $data['abilities'] = $this->user()->can('superadmin') ? $this->get('abilities', [])
+                : $this->user()->abilities->pluck('id')->intersect($this->get('abilities', []))->toArray();
         } else {
             unset($data['abilities']);
         }
@@ -46,7 +46,7 @@ class RoleFormRequest extends FormRequest
      */
     public function rules(): array
     {
-        $user = $this->route('role') ?? app('rinvex.fort.role');
+        $user = $this->route('role') ?? new Role;
         $user->updateRulesUniques();
         $rules = $user->getRules();
         $rules['abilities'] = 'nullable|array';

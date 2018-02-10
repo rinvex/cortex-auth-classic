@@ -22,7 +22,7 @@ class RolesDataTable extends AbstractDataTable
     public function ajax()
     {
         return datatables($this->query())
-            ->orderColumn('name', 'name->"$.'.app()->getLocale().'" $1')
+            ->orderColumn('title', 'title->"$.'.app()->getLocale().'" $1')
             ->make(true);
     }
 
@@ -34,12 +34,12 @@ class RolesDataTable extends AbstractDataTable
     protected function getColumns(): array
     {
         $link = config('cortex.foundation.route.locale_prefix')
-            ? '"<a href=\""+routes.route(\'adminarea.roles.edit\', {role: full.slug, locale: \''.$this->request->segment(1).'\'})+"\">"+data+"</a>"'
-            : '"<a href=\""+routes.route(\'adminarea.roles.edit\', {role: full.slug})+"\">"+data+"</a>"';
+            ? '"<a href=\""+routes.route(\'adminarea.roles.edit\', {role: full.id, locale: \''.$this->request->segment(1).'\'})+"\">"+data+"</a>"'
+            : '"<a href=\""+routes.route(\'adminarea.roles.edit\', {role: full.id})+"\">"+data+"</a>"';
 
         return [
-            'name' => ['title' => trans('cortex/fort::common.name'), 'render' => $link, 'responsivePriority' => 0],
-            'slug' => ['title' => trans('cortex/fort::common.slug'), 'visible' => false],
+            'title' => ['title' => trans('cortex/fort::common.title'), 'render' => $link, 'responsivePriority' => 0],
+            'name' => ['title' => trans('cortex/fort::common.name')],
             'created_at' => ['title' => trans('cortex/fort::common.created_at'), 'render' => "moment(data).format('MMM Do, YYYY')"],
             'updated_at' => ['title' => trans('cortex/fort::common.updated_at'), 'render' => "moment(data).format('MMM Do, YYYY')"],
         ];

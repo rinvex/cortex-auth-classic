@@ -5,41 +5,81 @@ declare(strict_types=1);
 namespace Cortex\Fort\Models;
 
 use Cortex\Foundation\Traits\Auditable;
+use Rinvex\Support\Traits\HasTranslations;
+use Rinvex\Support\Traits\ValidatingTrait;
 use Spatie\Activitylog\Traits\LogsActivity;
-use Rinvex\Fort\Models\Ability as BaseAbility;
+use Silber\Bouncer\Database\Ability as BaseAbility;
 
-/**
- * Cortex\Fort\Models\Ability.
- *
- * @property int                                                                           $id
- * @property string                                                                        $action
- * @property string                                                                        $resource
- * @property string                                                                        $policy
- * @property array                                                                         $name
- * @property array                                                                         $description
- * @property \Carbon\Carbon|null                                                           $created_at
- * @property \Carbon\Carbon|null                                                           $updated_at
- * @property \Carbon\Carbon                                                                $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\Cortex\Foundation\Models\Log[] $activity
- * @property-read string                                                                   $slug
- * @property \Illuminate\Database\Eloquent\Collection|\Cortex\Fort\Models\Role[]           $roles
- * @property-read \Illuminate\Database\Eloquent\Collection|\Cortex\Fort\Models\User[]      $users
- *
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Ability whereAction($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Ability whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Ability whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Ability whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Ability whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Ability whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Ability wherePolicy($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Ability whereResource($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Ability whereUpdatedAt($value)
- * @mixin \Eloquent
- */
 class Ability extends BaseAbility
 {
     use Auditable;
     use LogsActivity;
+    use HasTranslations;
+    use ValidatingTrait;
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $fillable = [
+        'name',
+        'title',
+        'entity_id',
+        'entity_type',
+        'only_owned',
+        'scope',
+        'roles',
+    ];
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $casts = [
+        'name' => 'string',
+        'title' => 'string',
+        'entity_id' => 'integer',
+        'entity_type' => 'string',
+        'only_owned' => 'boolean',
+        'scope' => 'integer',
+    ];
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $observables = [
+        'validating',
+        'validated',
+    ];
+
+    /**
+     * The attributes that are translatable.
+     *
+     * @var array
+     */
+    public $translatable = [
+        'title',
+    ];
+
+    /**
+     * The default rules that the model will validate against.
+     *
+     * @var array
+     */
+    protected $rules = [
+        'name' => 'nullable|string|max:150',
+        'title' => 'nullable|string',
+        'entity_id' => 'nullable|integer',
+        'entity_type' => 'nullable|string',
+        'only_owned' => 'sometimes|boolean',
+        'scope' => 'nullable|integer',
+    ];
+
+    /**
+     * Whether the model should throw a
+     * ValidationException if it fails validation.
+     *
+     * @var bool
+     */
+    protected $throwValidationExceptions = true;
 
     /**
      * Indicates whether to log only dirty attributes or all.
@@ -70,6 +110,24 @@ class Ability extends BaseAbility
     protected static $ignoreChangedAttributes = [
         'created_at',
         'updated_at',
-        'deleted_at',
     ];
+
+    /**
+     * Attach the given roles to the model.
+     *
+     * @param mixed $roles
+     *
+     * @return void
+     */
+    public function setRolesAttribute($roles): void
+    {
+        static::saved(function (self $model) use ($roles) {
+            activity()
+                ->performedOn($model)
+                ->withProperties(['attributes' => ['roles' => $roles], 'old' => ['roles' => $model->roles->pluck('id')->toArray()]])
+                ->log('updated');
+
+            $model->roles()->sync($roles, true);
+        });
+    }
 }

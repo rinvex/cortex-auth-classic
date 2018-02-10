@@ -70,6 +70,7 @@
         "rinvex/menus": "dev-develop",
         "rinvex/support": "dev-develop",
         "rinvex/tenants": "dev-develop",
+        "silber/bouncer": "v1.0.0-rc.1",
         "spatie/laravel-activitylog": "^2.4.0",
         "yajra/laravel-datatables-buttons": "^3.0.0",
         "yajra/laravel-datatables-fractal": "^1.0.0",
@@ -99,8 +100,12 @@
         },
         "laravel": {
             "providers": [
-                "Cortex\\Fort\\Providers\\FortServiceProvider"
-            ]
+                "Cortex\\Fort\\Providers\\FortServiceProvider",
+                "Cortex\\Fort\\Overrides\\Silber\\Bouncer\\BouncerServiceProvider"
+            ],
+            "aliases": {
+                "Bouncer": "Silber\\Bouncer\\BouncerFacade"
+            }
         }
     },
     "minimum-stability": "dev",

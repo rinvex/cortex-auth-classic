@@ -8,24 +8,24 @@ use Cortex\Fort\Models\Ability;
 use Rinvex\Menus\Models\MenuItem;
 use Rinvex\Menus\Models\MenuGenerator;
 
-Menu::register('adminarea.sidebar', function (MenuGenerator $menu) {
-    $menu->findByTitleOrAdd(trans('cortex/foundation::common.access'), 20, 'fa fa-user-circle-o', [], function (MenuItem $dropdown) {
-        $dropdown->route(['adminarea.abilities.index'], trans('cortex/fort::common.abilities'), 10, 'fa fa-sliders')->ifCan('list-abilities')->activateOnRoute('adminarea.abilities');
-        $dropdown->route(['adminarea.roles.index'], trans('cortex/fort::common.roles'), 20, 'fa fa-users')->ifCan('list-roles')->activateOnRoute('adminarea.roles');
+Menu::register('adminarea.sidebar', function (MenuGenerator $menu, Ability $ability, Role $role, User $user) {
+    $menu->findByTitleOrAdd(trans('cortex/foundation::common.access'), 20, 'fa fa-user-circle-o', [], function (MenuItem $dropdown) use ($ability, $role) {
+        $dropdown->route(['adminarea.abilities.index'], trans('cortex/fort::common.abilities'), 10, 'fa fa-sliders')->ifCan('list', $ability)->activateOnRoute('adminarea.abilities');
+        $dropdown->route(['adminarea.roles.index'], trans('cortex/fort::common.roles'), 20, 'fa fa-users')->ifCan('list', $role)->activateOnRoute('adminarea.roles');
     });
 
-    $menu->findByTitleOrAdd(trans('cortex/foundation::common.user'), 30, 'fa fa-users', [], function (MenuItem $dropdown) {
-        $dropdown->route(['adminarea.users.index'], trans('cortex/fort::common.users'), 10, 'fa fa-user')->ifCan('list-users')->activateOnRoute('adminarea.users');
+    $menu->findByTitleOrAdd(trans('cortex/foundation::common.user'), 30, 'fa fa-users', [], function (MenuItem $dropdown) use ($user) {
+        $dropdown->route(['adminarea.users.index'], trans('cortex/fort::common.users'), 10, 'fa fa-user')->ifCan('list', $user)->activateOnRoute('adminarea.users');
     });
 });
 
-Menu::register('managerarea.sidebar', function (MenuGenerator $menu) {
-    $menu->findByTitleOrAdd(trans('cortex/foundation::common.access'), 20, 'fa fa-user-circle-o', [], function (MenuItem $dropdown) {
-        $dropdown->route(['managerarea.roles.index'], trans('cortex/fort::common.roles'), 10, 'fa fa-users')->ifCan('list-roles')->activateOnRoute('managerarea.roles');
+Menu::register('managerarea.sidebar', function (MenuGenerator $menu, Role $role, User $user) {
+    $menu->findByTitleOrAdd(trans('cortex/foundation::common.access'), 20, 'fa fa-user-circle-o', [], function (MenuItem $dropdown)  use ($role) {
+        $dropdown->route(['managerarea.roles.index'], trans('cortex/fort::common.roles'), 10, 'fa fa-users')->ifCan('list', $role)->activateOnRoute('managerarea.roles');
     });
 
-    $menu->findByTitleOrAdd(trans('cortex/foundation::common.user'), 30, 'fa fa-users', [], function (MenuItem $dropdown) {
-        $dropdown->route(['managerarea.users.index'], trans('cortex/fort::common.users'), 20, 'fa fa-user')->ifCan('list-users')->activateOnRoute('managerarea.users');
+    $menu->findByTitleOrAdd(trans('cortex/foundation::common.user'), 30, 'fa fa-users', [], function (MenuItem $dropdown) use ($user) {
+        $dropdown->route(['managerarea.users.index'], trans('cortex/fort::common.users'), 20, 'fa fa-user')->ifCan('list', $user)->activateOnRoute('managerarea.users');
     });
 });
 
@@ -85,35 +85,35 @@ if ($user = auth()->user()) {
 }
 
 Menu::register('adminarea.abilities.tabs', function (MenuGenerator $menu, Ability $ability) {
-    $menu->route(['adminarea.abilities.create'], trans('cortex/fort::common.details'))->ifCan('create-abilities')->if(! $ability->exists);
-    $menu->route(['adminarea.abilities.edit', ['ability' => $ability]], trans('cortex/fort::common.details'))->ifCan('update-abilities')->if($ability->exists);
-    $menu->route(['adminarea.abilities.logs', ['ability' => $ability]], trans('cortex/fort::common.logs'))->ifCan('update-abilities')->if($ability->exists);
+    $menu->route(['adminarea.abilities.create'], trans('cortex/fort::common.details'))->ifCan('create', $ability)->if(! $ability->exists);
+    $menu->route(['adminarea.abilities.edit', ['ability' => $ability]], trans('cortex/fort::common.details'))->ifCan('update', $ability)->if($ability->exists);
+    $menu->route(['adminarea.abilities.logs', ['ability' => $ability]], trans('cortex/fort::common.logs'))->ifCan('audit', $ability)->if($ability->exists);
 });
 
 Menu::register('adminarea.roles.tabs', function (MenuGenerator $menu, Role $role) {
-    $menu->route(['adminarea.roles.create'], trans('cortex/fort::common.details'))->ifCan('create-roles')->if(! $role->exists);
-    $menu->route(['adminarea.roles.edit', ['role' => $role]], trans('cortex/fort::common.details'))->ifCan('update-roles')->if($role->exists);
-    $menu->route(['adminarea.roles.logs', ['role' => $role]], trans('cortex/fort::common.logs'))->ifCan('update-roles')->if($role->exists);
+    $menu->route(['adminarea.roles.create'], trans('cortex/fort::common.details'))->ifCan('create', $role)->if(! $role->exists);
+    $menu->route(['adminarea.roles.edit', ['role' => $role]], trans('cortex/fort::common.details'))->ifCan('update', $role)->if($role->exists);
+    $menu->route(['adminarea.roles.logs', ['role' => $role]], trans('cortex/fort::common.logs'))->ifCan('audit', $role)->if($role->exists);
 });
 
 Menu::register('adminarea.users.tabs', function (MenuGenerator $menu, User $user) {
     $menu->route(['adminarea.users.create'], trans('cortex/fort::common.details'))->ifCan('create-users')->if(! $user->exists);
     $menu->route(['adminarea.users.edit', ['user' => $user]], trans('cortex/fort::common.details'))->ifCan('update-users')->if($user->exists);
     $menu->route(['adminarea.users.attributes', ['user' => $user]], trans('cortex/fort::common.attributes'))->ifCan('update-users')->if($user->exists);
-    $menu->route(['adminarea.users.logs', ['user' => $user]], trans('cortex/fort::common.logs'))->ifCan('update-users')->if($user->exists);
-    $menu->route(['adminarea.users.activities', ['user' => $user]], trans('cortex/fort::common.activities'))->ifCan('update-users')->if($user->exists);
+    $menu->route(['adminarea.users.logs', ['user' => $user]], trans('cortex/fort::common.logs'))->ifCan('audit-users')->if($user->exists);
+    $menu->route(['adminarea.users.activities', ['user' => $user]], trans('cortex/fort::common.activities'))->ifCan('audit-users')->if($user->exists);
 });
 
 Menu::register('managerarea.roles.tabs', function (MenuGenerator $menu, Role $role) {
     $menu->route(['managerarea.roles.create'], trans('cortex/fort::common.details'))->ifCan('create-roles')->if(! $role->exists);
     $menu->route(['managerarea.roles.edit', ['role' => $role]], trans('cortex/fort::common.details'))->ifCan('update-roles')->if($role->exists);
-    $menu->route(['managerarea.roles.logs', ['role' => $role]], trans('cortex/fort::common.logs'))->ifCan('update-roles')->if($role->exists);
+    $menu->route(['managerarea.roles.logs', ['role' => $role]], trans('cortex/fort::common.logs'))->ifCan('audit-roles')->if($role->exists);
 });
 
 Menu::register('managerarea.users.tabs', function (MenuGenerator $menu, User $user) {
     $menu->route(['managerarea.users.create'], trans('cortex/fort::common.details'))->ifCan('create-users')->if(! $user->exists);
     $menu->route(['managerarea.users.edit', ['user' => $user]], trans('cortex/fort::common.details'))->ifCan('update-users')->if($user->exists);
     $menu->route(['managerarea.users.attributes', ['user' => $user]], trans('cortex/fort::common.attributes'))->ifCan('update-users')->if($user->exists);
-    $menu->route(['managerarea.users.logs', ['user' => $user]], trans('cortex/fort::common.logs'))->ifCan('update-users')->if($user->exists);
-    $menu->route(['managerarea.users.activities', ['user' => $user]], trans('cortex/fort::common.activities'))->ifCan('update-users')->if($user->exists);
+    $menu->route(['managerarea.users.logs', ['user' => $user]], trans('cortex/fort::common.logs'))->ifCan('audit-users')->if($user->exists);
+    $menu->route(['managerarea.users.activities', ['user' => $user]], trans('cortex/fort::common.activities'))->ifCan('audit-users')->if($user->exists);
 });

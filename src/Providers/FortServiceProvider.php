@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Providers;
 
+use Bouncer;
+use Cortex\Fort\Models\Role;
+use Cortex\Fort\Models\User;
 use Illuminate\Http\Request;
-use Rinvex\Fort\Models\Role;
-use Rinvex\Fort\Models\User;
 use Illuminate\Routing\Router;
-use Rinvex\Fort\Models\Ability;
+use Cortex\Fort\Models\Ability;
 use Rinvex\Fort\Models\Session;
 use Illuminate\Support\ServiceProvider;
 use Cortex\Fort\Handlers\GenericHandler;
-use Cortex\Fort\Http\Middleware\Abilities;
 use Cortex\Fort\Http\Middleware\NoHttpCache;
 use Cortex\Fort\Console\Commands\SeedCommand;
 use Cortex\Fort\Http\Middleware\Authenticate;
@@ -67,9 +67,16 @@ class FortServiceProvider extends ServiceProvider
         // Attach request macro
         $this->attachRequestMacro();
 
+        $userModel = config('auth.providers.'.config('auth.guards.'.config('auth.defaults.guard').'.provider').'.model');
+
+        // Map bouncer models
+        Bouncer::useUserModel($userModel);
+        Bouncer::useRoleModel(Role::class);
+        Bouncer::useAbilityModel(Ability::class);
+
         // Bind route models and constrains
+        $router->pattern('role', '[0-9]+');
         $router->pattern('ability', '[0-9]+');
-        $router->pattern('role', '[a-z0-9-]+');
         $router->pattern('user', '[a-zA-Z0-9_-]+');
         $router->pattern('session', '[a-zA-Z0-9]+');
         $router->model('ability', Ability::class);
@@ -79,9 +86,9 @@ class FortServiceProvider extends ServiceProvider
 
         // Map relations
         Relation::morphMap([
-            'role' => config('rinvex.fort.models.role'),
-            'ability' => config('rinvex.fort.models.ability'),
-            'user' => config('auth.providers.'.config('auth.guards.'.config('auth.defaults.guard').'.provider').'.model'),
+            'user' => User::class,
+            'role' => Role::class,
+            'ability' => Ability::class,
         ]);
 
         // Load resources
@@ -172,7 +179,6 @@ class FortServiceProvider extends ServiceProvider
     protected function overrideMiddleware(Router $router): void
     {
         // Append middleware to the 'web' middlware group
-        $router->pushMiddlewareToGroup('web', Abilities::class);
         $router->pushMiddlewareToGroup('web', UpdateLastActivity::class);
 
         // Override route middleware on the fly
