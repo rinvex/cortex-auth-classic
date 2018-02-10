@@ -93,14 +93,7 @@ class Ability extends BaseAbility
      *
      * @var array
      */
-    protected static $logAttributes = [
-        'action',
-        'resource',
-        'policy',
-        'name',
-        'description',
-        'roles',
-    ];
+    protected static $logFillable = true;
 
     /**
      * The attributes that are ignored on change.

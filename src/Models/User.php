@@ -30,23 +30,18 @@ class User extends BaseUser implements HasMedia
     use HasMediaTrait;
 
     /**
-     * Indicates whether to log only dirty attributes or all.
-     *
-     * @var bool
+     * {@inheritdoc}
      */
-    protected static $logOnlyDirty = true;
-
-    /**
-     * The attributes that are logged on change.
-     *
-     * @var array
-     */
-    protected static $logAttributes = [
+    protected $fillable = [
         'username',
+        'password',
+        'two_factor',
         'email',
         'email_verified',
+        'email_verified_at',
         'phone',
         'phone_verified',
+        'phone_verified_at',
         'name_prefix',
         'first_name',
         'middle_name',
@@ -58,9 +53,24 @@ class User extends BaseUser implements HasMedia
         'birthday',
         'gender',
         'is_active',
+        'last_activity',
         'abilities',
         'roles',
     ];
+
+    /**
+     * Indicates whether to log only dirty attributes or all.
+     *
+     * @var bool
+     */
+    protected static $logOnlyDirty = true;
+
+    /**
+     * The attributes that are logged on change.
+     *
+     * @var array
+     */
+    protected static $logFillable = true;
 
     /**
      * The attributes that are ignored on change.

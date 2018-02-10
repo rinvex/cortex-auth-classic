@@ -91,12 +91,7 @@ class Role extends BaseRole
      *
      * @var array
      */
-    protected static $logAttributes = [
-        'slug',
-        'name',
-        'description',
-        'abilities',
-    ];
+    protected static $logFillable = true;
 
     /**
      * The attributes that are ignored on change.
