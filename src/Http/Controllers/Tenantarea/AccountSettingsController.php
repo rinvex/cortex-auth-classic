@@ -11,7 +11,7 @@ use Cortex\Fort\Http\Requests\Tenantarea\AccountSettingsRequest;
 class AccountSettingsController extends AuthenticatedController
 {
     /**
-     * Show the account update form.
+     * Show account settings.
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -23,7 +23,7 @@ class AccountSettingsController extends AuthenticatedController
     }
 
     /**
-     * Show the account update form.
+     * Edit account settings.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -45,7 +45,7 @@ class AccountSettingsController extends AuthenticatedController
     }
 
     /**
-     * Process the account update form.
+     * Update account settings.
      *
      * @param \Cortex\Fort\Http\Requests\Tenantarea\AccountSettingsRequest $request
      *

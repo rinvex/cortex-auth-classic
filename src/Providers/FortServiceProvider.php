@@ -60,6 +60,8 @@ class FortServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      *
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     *
      * @return void
      */
     public function boot(Router $router): void

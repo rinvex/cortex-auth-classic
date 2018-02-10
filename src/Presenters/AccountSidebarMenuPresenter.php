@@ -48,7 +48,7 @@ class AccountSidebarMenuPresenter extends BasePresenter
     /**
      * Get menu tag without dropdown wrapper.
      *
-     * @param \Rinvex\Menus\Models\MenuItem $item
+     * @param \Cortex\Menus\Models\MenuItem $item
      *
      * @return string
      */
@@ -89,7 +89,7 @@ class AccountSidebarMenuPresenter extends BasePresenter
     /**
      * Get multilevel menu wrapper.
      *
-     * @param \Rinvex\Menus\Models\MenuItem $item
+     * @param \Cortex\Menus\Models\MenuItem $item
      *
      * @return string`
      */

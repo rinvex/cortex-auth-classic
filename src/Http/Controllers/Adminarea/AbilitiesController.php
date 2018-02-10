@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Cortex\Fort\Http\Controllers\Adminarea;
 
 use Illuminate\Http\Request;
-use Rinvex\Fort\Models\Ability;
+use Cortex\Fort\Models\Ability;
+use Silber\Bouncer\Database\Models;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Fort\DataTables\Adminarea\AbilitiesDataTable;
@@ -20,14 +21,9 @@ class AbilitiesController extends AuthorizedController
     protected $resource = 'ability';
 
     /**
-     * {@inheritdoc}
-     */
-    protected $resourceActionWhitelist = ['grant'];
-
-    /**
-     * Display a listing of the resource.
+     * List all abilities.
      *
-     * \Cortex\Fort\DataTables\Adminarea\AbilitiesDataTable $abilitiesDataTable
+     * @param \Cortex\Fort\DataTables\Adminarea\AbilitiesDataTable $abilitiesDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
@@ -40,9 +36,10 @@ class AbilitiesController extends AuthorizedController
     }
 
     /**
-     * Get a listing of the resource logs.
+     * List ability logs.
      *
-     * @param \Rinvex\Fort\Models\Ability $ability
+     * @param \Cortex\Fort\Models\Ability                 $ability
+     * @param \Cortex\Foundation\DataTables\LogsDataTable $logsDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -100,22 +97,23 @@ class AbilitiesController extends AuthorizedController
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store new ability.
      *
      * @param \Cortex\Fort\Http\Requests\Adminarea\AbilityFormRequest $request
+     * @param \Cortex\Fort\Models\Ability                             $ability
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function store(AbilityFormRequest $request)
+    public function store(AbilityFormRequest $request, Ability $ability)
     {
-        return $this->process($request, app('rinvex.fort.ability'));
+        return $this->process($request, $ability);
     }
 
     /**
-     * Update the given resource in storage.
+     * Update given ability.
      *
      * @param \Cortex\Fort\Http\Requests\Adminarea\AbilityFormRequest $request
-     * @param \Rinvex\Fort\Models\Ability                             $ability
+     * @param \Cortex\Fort\Models\Ability                             $ability
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -125,10 +123,10 @@ class AbilitiesController extends AuthorizedController
     }
 
     /**
-     * Process the form for store/update of the given resource.
+     * Process stored/updated ability.
      *
      * @param \Illuminate\Foundation\Http\FormRequest $request
-     * @param \Rinvex\Fort\Models\Ability             $ability
+     * @param \Cortex\Fort\Models\Ability             $ability
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -136,17 +134,6 @@ class AbilitiesController extends AuthorizedController
     {
         // Prepare required input fields
         $data = $request->validated();
-        $class = mb_strstr($data['policy'], '@', true);
-        $method = str_replace('@', '', mb_strstr($data['policy'], '@'));
-
-        // Verify valid policy
-        if (! $data['policy'] || ! class_exists($class) || ! method_exists($class, $method)) {
-            return intend([
-                'back' => true,
-                'withInput' => $request->all(),
-                'withErrors' => ['policy' => trans('cortex/fort::messages.ability.invalid_policy')],
-            ]);
-        }
 
         // Save ability
         $ability->fill($data)->save();
@@ -158,9 +145,9 @@ class AbilitiesController extends AuthorizedController
     }
 
     /**
-     * Delete the given resource from storage.
+     * Destroy given ability.
      *
-     * @param \Rinvex\Fort\Models\Ability $ability
+     * @param \Cortex\Fort\Models\Ability $ability
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

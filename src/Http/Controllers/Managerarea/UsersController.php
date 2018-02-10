@@ -7,7 +7,6 @@ namespace Cortex\Fort\Http\Controllers\Managerarea;
 use Illuminate\Http\Request;
 use Rinvex\Fort\Models\User;
 use Silber\Bouncer\Database\Models;
-use Spatie\MediaLibrary\Models\Media;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Foundation\DataTables\ActivitiesDataTable;
@@ -24,7 +23,7 @@ class UsersController extends AuthorizedController
     protected $resource = 'user';
 
     /**
-     * Display a listing of the resource.
+     * List all users.
      *
      * @param \Cortex\Fort\DataTables\Managerarea\UsersDataTable $usersDataTable
      *
@@ -39,9 +38,10 @@ class UsersController extends AuthorizedController
     }
 
     /**
-     * Get a listing of the resource logs.
+     * List user logs.
      *
-     * @param \Rinvex\Fort\Models\User $user
+     * @param \Cortex\Fort\Models\User                    $user
+     * @param \Cortex\Foundation\DataTables\LogsDataTable $logsDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -49,7 +49,7 @@ class UsersController extends AuthorizedController
     {
         return $logsDataTable->with([
             'resource' => $user,
-            'tabs' => 'managerarea.attributes.tabs',
+            'tabs' => 'managerarea.users.tabs',
             'phrase' => trans('cortex/fort::common.users'),
             'id' => "managerarea-users-{$user->getKey()}-logs-table",
         ])->render('cortex/tenants::managerarea.pages.datatable-logs');
@@ -58,7 +58,8 @@ class UsersController extends AuthorizedController
     /**
      * Get a listing of the resource activities.
      *
-     * @param \Rinvex\Fort\Models\User $user
+     * @param \Cortex\Fort\Models\User                          $user
+     * @param \Cortex\Foundation\DataTables\ActivitiesDataTable $activitiesDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -66,7 +67,7 @@ class UsersController extends AuthorizedController
     {
         return $activitiesDataTable->with([
             'resource' => $user,
-            'tabs' => 'managerarea.attributes.tabs',
+            'tabs' => 'managerarea.users.tabs',
             'phrase' => trans('cortex/fort::common.users'),
             'id' => "managerarea-users-{$user->getKey()}-activities-table",
         ])->render('cortex/tenants::managerarea.pages.datatable-logs');
@@ -76,7 +77,7 @@ class UsersController extends AuthorizedController
      * Show the form for create/update of the given resource attributes.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Rinvex\Fort\Models\User $user
+     * @param \Cortex\Fort\Models\User $user
      *
      * @return \Illuminate\View\View
      */
@@ -89,16 +90,16 @@ class UsersController extends AuthorizedController
      * Process the account update form.
      *
      * @param \Cortex\Fort\Http\Requests\Managerarea\UserAttributesFormRequest $request
+     * @param \Cortex\Fort\Models\User                                         $user
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function updateAttributes(UserAttributesFormRequest $request)
+    public function updateAttributes(UserAttributesFormRequest $request, User $user)
     {
         $data = $request->validated();
-        $currentUser = $request->user($this->getGuard());
 
         // Update profile
-        $currentUser->fill($data)->save();
+        $user->fill($data)->save();
 
         return intend([
             'back' => true,
@@ -165,22 +166,23 @@ class UsersController extends AuthorizedController
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store new user.
      *
      * @param \Cortex\Fort\Http\Requests\Managerarea\UserFormRequest $request
+     * @param \Cortex\Fort\Models\User                             $user
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function store(UserFormRequest $request)
+    public function store(UserFormRequest $request, User $user)
     {
-        return $this->process($request, app('rinvex.fort.user'));
+        return $this->process($request, $user);
     }
 
     /**
-     * Update the given resource in storage.
+     * Update given user.
      *
      * @param \Cortex\Fort\Http\Requests\Managerarea\UserFormRequest $request
-     * @param \Rinvex\Fort\Models\User                               $user
+     * @param \Cortex\Fort\Models\User                             $user
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -190,10 +192,10 @@ class UsersController extends AuthorizedController
     }
 
     /**
-     * Process the form for store/update of the given resource.
+     * Process stored/updated user.
      *
      * @param \Illuminate\Foundation\Http\FormRequest $request
-     * @param \Rinvex\Fort\Models\User                $user
+     * @param \Cortex\Fort\Models\User                $user
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -226,9 +228,9 @@ class UsersController extends AuthorizedController
     }
 
     /**
-     * Delete the given resource from storage.
+     * Destroy given user.
      *
-     * @param \Rinvex\Fort\Models\User $user
+     * @param \Cortex\Fort\Models\User $user
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

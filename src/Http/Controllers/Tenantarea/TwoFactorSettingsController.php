@@ -14,7 +14,7 @@ use Cortex\Fort\Http\Requests\Tenantarea\TwoFactorTotpProcessSettingsRequest;
 class TwoFactorSettingsController extends AuthenticatedController
 {
     /**
-     * Show the account security form.
+     * Show account TwoFactor settings.
      *
      * @param \Illuminate\Http\Request $request
      *

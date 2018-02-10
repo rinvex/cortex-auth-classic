@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\DataTables\Adminarea;
 
-use Rinvex\Fort\Models\Role;
+use Cortex\Fort\Models\Role;
 use Cortex\Foundation\DataTables\AbstractDataTable;
 
 class RolesDataTable extends AbstractDataTable

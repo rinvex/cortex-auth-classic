@@ -10,7 +10,7 @@ use Cortex\Fort\Http\Requests\Tenantarea\AccountPasswordRequest;
 class AccountPasswordController extends AuthenticatedController
 {
     /**
-     * Show the account update form.
+     * Edit account password.
      *
      * @return \Illuminate\View\View
      */
@@ -20,7 +20,7 @@ class AccountPasswordController extends AuthenticatedController
     }
 
     /**
-     * Process the account update form.
+     * Update account password.
      *
      * @param \Cortex\Fort\Http\Requests\Tenantarea\AccountPasswordRequest $request
      *

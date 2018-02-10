@@ -11,7 +11,7 @@ use Cortex\Fort\Http\Requests\Frontarea\AccountAttributesRequest;
 class AccountAttributesController extends AuthenticatedController
 {
     /**
-     * Show the account update form.
+     * Edit account attributes.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -23,7 +23,7 @@ class AccountAttributesController extends AuthenticatedController
     }
 
     /**
-     * Process the account update form.
+     * Update account attributes.
      *
      * @param \Cortex\Fort\Http\Requests\Frontarea\AccountAttributesRequest $request
      *

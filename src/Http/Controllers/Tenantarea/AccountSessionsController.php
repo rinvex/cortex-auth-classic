@@ -11,7 +11,7 @@ use Cortex\Foundation\Http\Controllers\AuthenticatedController;
 class AccountSessionsController extends AuthenticatedController
 {
     /**
-     * Show the account sessions.
+     * Show account sessions.
      *
      * @return \Illuminate\View\View
      */
@@ -21,7 +21,7 @@ class AccountSessionsController extends AuthenticatedController
     }
 
     /**
-     * Delete the given session.
+     * Destroy given session.
      *
      * @param \Rinvex\Fort\Models\Session $session
      *

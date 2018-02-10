@@ -11,8 +11,8 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Rinvex\Fort\Notifications\RegistrationSuccessNotification;
-use Rinvex\Fort\Notifications\AuthenticationLockoutNotification;
+use Cortex\Fort\Notifications\RegistrationSuccessNotification;
+use Cortex\Fort\Notifications\AuthenticationLockoutNotification;
 
 class GenericHandler
 {

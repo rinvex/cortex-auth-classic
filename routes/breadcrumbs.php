@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use Rinvex\Fort\Models\Role;
 use Rinvex\Fort\Models\User;
-use Rinvex\Fort\Models\Ability;
+use Cortex\Fort\Models\Role;
+use Cortex\Fort\Models\Ability;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator;
 
 // Adminarea breadcrumbs

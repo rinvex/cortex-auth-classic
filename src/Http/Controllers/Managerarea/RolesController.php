@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Controllers\Managerarea;
 
+use Cortex\Fort\Models\Role;
 use Illuminate\Http\Request;
-use Rinvex\Fort\Models\Role;
+use Cortex\Fort\Models\Ability;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Fort\DataTables\Managerarea\RolesDataTable;
@@ -17,15 +18,12 @@ class RolesController extends AuthorizedController
     /**
      * {@inheritdoc}
      */
-    protected $resource = 'roles';
+    protected $resource = 'role';
 
     /**
-     * {@inheritdoc}
-     */
-    protected $resourceActionWhitelist = ['assign'];
-
-    /**
-     * Display a listing of the resource.
+     * List all roles.
+     *
+     * @param \Cortex\Fort\DataTables\Managerarea\RolesDataTable $rolesDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
@@ -38,9 +36,10 @@ class RolesController extends AuthorizedController
     }
 
     /**
-     * Get a listing of the resource logs.
+     * List role logs.
      *
-     * @param \Rinvex\Fort\Models\Role $role
+     * @param \Cortex\Fort\Models\Role                    $role
+     * @param \Cortex\Foundation\DataTables\LogsDataTable $logsDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -97,22 +96,23 @@ class RolesController extends AuthorizedController
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store new role.
      *
      * @param \Cortex\Fort\Http\Requests\Managerarea\RoleFormRequest $request
+     * @param \Cortex\Fort\Models\Role                             $role
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function store(RoleFormRequest $request)
+    public function store(RoleFormRequest $request, Role $role)
     {
-        return $this->process($request, app('rinvex.fort.role'));
+        return $this->process($request, $role);
     }
 
     /**
-     * Update the given resource in storage.
+     * Update given role.
      *
      * @param \Cortex\Fort\Http\Requests\Managerarea\RoleFormRequest $request
-     * @param \Rinvex\Fort\Models\Role                               $role
+     * @param \Cortex\Fort\Models\Role                             $role
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -122,10 +122,10 @@ class RolesController extends AuthorizedController
     }
 
     /**
-     * Process the form for store/update of the given resource.
+     * Process stored/updated role.
      *
      * @param \Illuminate\Foundation\Http\FormRequest $request
-     * @param \Rinvex\Fort\Models\Role                $role
+     * @param \Cortex\Fort\Models\Role                $role
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -144,7 +144,7 @@ class RolesController extends AuthorizedController
     }
 
     /**
-     * Delete the given resource from storage.
+     * Destroy given role.
      *
      * @param \Cortex\Fort\Models\Role $role
      *
