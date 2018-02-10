@@ -240,25 +240,7 @@ class UsersController extends AuthorizedController
 
         return intend([
             'url' => route('managerarea.users.index'),
-            'with' => ['warning' => trans('cortex/fort::messages.user.deleted', ['username' => $user->username])],
-        ]);
-    }
-
-    /**
-     * Delete the given resource from storage.
-     *
-     * @param \Rinvex\Fort\Models\User          $user
-     * @param \Spatie\MediaLibrary\Models\Media $media
-     *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
-     */
-    public function deleteMedia(User $user, Media $media)
-    {
-        $user->media()->where($media->getKeyName(), $media->getKey())->first()->delete();
-
-        return intend([
-            'url' => route('managerarea.users.edit', ['user' => $user]),
-            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => 'media', 'id' => $media->getKey()])],
+            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => 'user', 'id' => $user->username])],
         ]);
     }
 }
