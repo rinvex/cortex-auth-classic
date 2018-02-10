@@ -82,9 +82,6 @@ class GenericHandler
      */
     public function registered(Authenticatable $user): void
     {
-        // Send welcome email
-        if (config('rinvex.fort.registration.welcome_email')) {
-            $user->notify(new RegistrationSuccessNotification());
-        }
+        ! config('rinvex.fort.registration.welcome_email') || $user->notify(new RegistrationSuccessNotification());
     }
 }
