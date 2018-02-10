@@ -138,7 +138,7 @@ class AbilitiesController extends AuthorizedController
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function delete(Ability $ability)
+    public function destroy(Ability $ability)
     {
         $ability->delete();
 

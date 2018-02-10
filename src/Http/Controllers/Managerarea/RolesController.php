@@ -127,7 +127,7 @@ class RolesController extends AuthorizedController
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function delete(Role $role)
+    public function destroy(Role $role)
     {
         $role->delete();
 

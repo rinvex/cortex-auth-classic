@@ -206,7 +206,7 @@ class UsersController extends AuthorizedController
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function delete(User $user)
+    public function destroy(User $user)
     {
         $user->delete();
 

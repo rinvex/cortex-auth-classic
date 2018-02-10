@@ -65,7 +65,7 @@ if (! function_exists('authentication_routes')) {
             // Account Sessions Routes
             Route::get('sessions')->name('sessions')->uses('AccountSessionsController@index');
             Route::delete('sessions')->name('sessions.flush')->uses('AccountSessionsController@flush');
-            Route::delete('sessions/{session?}')->name('sessions.delete')->uses('AccountSessionsController@delete');
+            Route::delete('sessions/{session?}')->name('sessions.destroy')->uses('AccountSessionsController@destroy');
 
             // Account TwoFactor Routes
             Route::name('twofactor.')->prefix('twofactor')->group(function () {
@@ -124,7 +124,7 @@ Route::domain(domain())->group(function () {
              Route::get('{ability}')->name('edit')->uses('AbilitiesController@form');
              Route::put('{ability}')->name('update')->uses('AbilitiesController@update');
              Route::get('{ability}/logs')->name('logs')->uses('AbilitiesController@logs');
-             Route::delete('{ability}')->name('delete')->uses('AbilitiesController@delete');
+             Route::delete('{ability}')->name('destroy')->uses('AbilitiesController@destroy');
          });
 
          // Roles Routes
@@ -135,7 +135,7 @@ Route::domain(domain())->group(function () {
              Route::get('{role}')->name('edit')->uses('RolesController@form');
              Route::put('{role}')->name('update')->uses('RolesController@update');
              Route::get('{role}/logs')->name('logs')->uses('RolesController@logs');
-             Route::delete('{role}')->name('delete')->uses('RolesController@delete');
+             Route::delete('{role}')->name('destroy')->uses('RolesController@destroy');
          });
 
          // Users Routes
@@ -149,8 +149,8 @@ Route::domain(domain())->group(function () {
              Route::get('{user}/activities')->name('activities')->uses('UsersController@activities');
              Route::get('{user}/attributes')->name('attributes')->uses('UsersController@attributes');
              Route::put('{user}/attributes')->name('attributes.update')->uses('UsersController@updateAttributes');
-             Route::delete('{user}')->name('delete')->uses('UsersController@delete');
-             Route::delete('{user}/media/{media}')->name('media.delete')->uses('UsersController@deleteMedia');
+             Route::delete('{user}')->name('destroy')->uses('UsersController@destroy');
+             Route::delete('{user}/media/{media}')->name('media.destroy')->uses('UsersMediaController@destroy');
          });
      });
 });
@@ -171,7 +171,7 @@ Route::domain('{subdomain}.'.domain())->group(function () {
              Route::get('{role}')->name('edit')->uses('RolesController@form');
              Route::put('{role}')->name('update')->uses('RolesController@update');
              Route::get('{role}/logs')->name('logs')->uses('RolesController@logs');
-             Route::delete('{role}')->name('delete')->uses('RolesController@delete');
+             Route::delete('{role}')->name('destroy')->uses('RolesController@destroy');
          });
 
          // Users Routes
@@ -185,8 +185,8 @@ Route::domain('{subdomain}.'.domain())->group(function () {
              Route::get('{user}/activities')->name('activities')->uses('UsersController@activities');
              Route::get('{user}/attributes')->name('attributes')->uses('UsersController@attributes');
              Route::put('{user}/attributes')->name('attributes.update')->uses('UsersController@updateAttributes');
-             Route::delete('{user}')->name('delete')->uses('UsersController@delete');
-             Route::delete('{user}/media/{media}')->name('media.delete')->uses('UsersController@deleteMedia');
+             Route::delete('{user}')->name('destroy')->uses('UsersController@destroy');
+             Route::delete('{user}/media/{media}')->name('media.destroy')->uses('UsersMediaController@destroy');
          });
      });
 

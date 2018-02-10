@@ -46,7 +46,7 @@
                                                 </a>
 
                                                 <div class="col-md-1 col-sm-1 col-xs-1">
-                                                    <a href="#" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete-confirmation" data-modal-action="{{ route('tenantarea.account.sessions.delete', ['id' => $session->id]) }}" data-modal-title="{!! trans('cortex/foundation::messages.delete_confirmation_title') !!}" data-modal-body="{!! trans('cortex/foundation::messages.delete_confirmation_body', ['type' => 'session', 'name' => $session->id]) !!}" title="{{ trans('cortex/foundation::common.delete') }}"><i class="fa fa-remove"></i></a>
+                                                    <a href="#" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete-confirmation" data-modal-action="{{ route('tenantarea.account.sessions.destroy', ['id' => $session->id]) }}" data-modal-title="{!! trans('cortex/foundation::messages.delete_confirmation_title') !!}" data-modal-body="{!! trans('cortex/foundation::messages.delete_confirmation_body', ['type' => 'session', 'name' => $session->id]) !!}" title="{{ trans('cortex/foundation::common.delete') }}"><i class="fa fa-remove"></i></a>
                                                 </div>
 
                                             </div>

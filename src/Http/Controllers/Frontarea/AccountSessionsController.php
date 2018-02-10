@@ -27,7 +27,7 @@ class AccountSessionsController extends AuthenticatedController
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function delete(Session $session)
+    public function destroy(Session $session)
     {
         $session->delete();
 
