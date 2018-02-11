@@ -46,7 +46,7 @@ class RoleFormRequest extends FormRequest
      */
     public function rules(): array
     {
-        $user = $this->route('role') ?? new Role;
+        $user = $this->route('role') ?? new Role();
         $user->updateRulesUniques();
         $rules = $user->getRules();
         $rules['abilities'] = 'nullable|array';
