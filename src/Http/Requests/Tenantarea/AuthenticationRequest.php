@@ -27,7 +27,7 @@ class AuthenticationRequest extends FormRequest
     {
         return [
             'loginfield' => 'required|min:3|max:150',
-            'password' => 'required|min:'.config('rinvex.fort.password_min_chars'),
+            'password' => 'required|min:'.config('cortex.fort.password_min_chars'),
         ];
     }
 }

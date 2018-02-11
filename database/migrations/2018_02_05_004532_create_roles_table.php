@@ -1,6 +1,5 @@
 <?php
 
-use Silber\Bouncer\Database\Models;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -14,7 +13,7 @@ class CreateRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create(Models::table('roles'), function (Blueprint $table) {
+        Schema::create(config('cortex.fort.tables.roles'), function (Blueprint $table) {
             // Columns
             $table->increments('id');
             $table->string('name', 150);
@@ -37,7 +36,7 @@ class CreateRolesTable extends Migration
      */
     public function down()
     {
-        Schema::drop(Models::table('roles'));
+        Schema::drop(config('cortex.fort.tables.roles'));
     }
 
     /**

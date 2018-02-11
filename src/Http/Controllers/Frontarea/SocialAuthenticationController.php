@@ -88,7 +88,7 @@ class SocialAuthenticationController extends AbstractController
      */
     protected function getLocalUser(string $provider, string $providerUserId)
     {
-        return app('rinvex.fort.user')->whereHas('socialites', function (Builder $builder) use ($provider, $providerUserId) {
+        return app('cortex.fort.user')->whereHas('socialites', function (Builder $builder) use ($provider, $providerUserId) {
             $builder->where('provider', $provider)->where('provider_uid', $providerUserId);
         })->first();
     }
@@ -103,12 +103,12 @@ class SocialAuthenticationController extends AbstractController
      */
     protected function createLocalUser(string $provider, array $attributes)
     {
-        $localUser = app('rinvex.fort.user');
+        $localUser = app('cortex.fort.user');
 
         $attributes['password'] = str_random();
         $attributes['email_verified'] = true;
         $attributes['email_verified_at'] = now();
-        $attributes['is_active'] = ! config('rinvex.fort.registration.moderated');
+        $attributes['is_active'] = ! config('cortex.fort.registration.moderated');
 
         $localUser->fill($attributes)->save();
 

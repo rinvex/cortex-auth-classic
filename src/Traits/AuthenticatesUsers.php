@@ -34,7 +34,7 @@ trait AuthenticatesUsers
         if ($totpStatus || $phoneStatus) {
             $this->processLogout($request);
 
-            $request->session()->put('rinvex.fort.twofactor', ['user_id' => $user->getKey(), 'remember' => $request->filled('remember'), 'totp' => $totpStatus, 'phone' => $phoneStatus]);
+            $request->session()->put('cortex.fort.twofactor', ['user_id' => $user->getKey(), 'remember' => $request->filled('remember'), 'totp' => $totpStatus, 'phone' => $phoneStatus]);
 
             $route = $totpStatus
                 ? route('frontarea.verification.phone.verify')

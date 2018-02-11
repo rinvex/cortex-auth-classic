@@ -21,7 +21,7 @@ class PhoneVerificationVerifyRequest extends PhoneVerificationRequest
 
         $user = $this->user()
                 ?? $this->attemptUser()
-                   ?? app('rinvex.fort.user')->whereNotNull('phone')->where('phone', $this->get('phone'))->first();
+                   ?? app('cortex.fort.user')->whereNotNull('phone')->where('phone', $this->get('phone'))->first();
 
         if (! $user) {
             // User instance required to detect active TwoFactor methods

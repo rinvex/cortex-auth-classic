@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Fort\Http\Controllers\Adminarea;
 
 use Illuminate\Http\Request;
-use Rinvex\Fort\Models\User;
-use Silber\Bouncer\Database\Models;
+use Cortex\Fort\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Fort\DataTables\Adminarea\UsersDataTable;
@@ -155,11 +154,11 @@ class UsersController extends AuthorizedController
         $genders = ['male' => trans('cortex/fort::common.male'), 'female' => trans('cortex/fort::common.female')];
 
         $roles = $currentUser->can('superadmin')
-            ? Models::role()->all()->pluck('name', 'id')->toArray()
+            ? app('cortex.fort.role')->all()->pluck('name', 'id')->toArray()
             : $currentUser->roles->pluck('name', 'id')->toArray();
 
         $abilities = $currentUser->can('superadmin')
-            ? Models::ability()->all()->pluck('title', 'id')->toArray()
+            ? app('cortex.fort.ability')->all()->pluck('title', 'id')->toArray()
             : $currentUser->abilities->pluck('title', 'id')->toArray();
 
         return view('cortex/fort::adminarea.pages.user', compact('user', 'abilities', 'roles', 'countries', 'languages', 'genders'));

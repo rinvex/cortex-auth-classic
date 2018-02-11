@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\DataTables\Managerarea;
 
-use Rinvex\Fort\Models\User;
+use Cortex\Fort\Models\User;
 use Cortex\Foundation\DataTables\AbstractDataTable;
 
 class UsersDataTable extends AbstractDataTable

@@ -18,7 +18,7 @@ class RegistrationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (! config('rinvex.fort.registration.enabled')) {
+        if (! config('cortex.fort.registration.enabled')) {
             throw new GenericException(trans('cortex/fort::messages.register.disabled'));
         }
 

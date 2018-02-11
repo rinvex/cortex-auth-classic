@@ -38,7 +38,7 @@ class PhoneVerificationController extends AbstractController
     {
         $user = $request->user($this->getGuard())
                 ?? $request->attemptUser($this->getGuard())
-                   ?? app('rinvex.fort.user')->whereNotNull('phone')->where('phone', $request->input('phone'))->first();
+                   ?? app('cortex.fort.user')->whereNotNull('phone')->where('phone', $request->input('phone'))->first();
 
         $user->sendPhoneVerificationNotification($request->get('method'), true);
 
@@ -71,8 +71,8 @@ class PhoneVerificationController extends AbstractController
     {
         // Guest trying to authenticate through TwoFactor
         if (($attemptUser = $request->attemptUser($this->getGuard())) && $this->attemptTwoFactor($attemptUser, $request->get('token'))) {
-            auth()->guard($this->getGuard())->login($attemptUser, $request->session()->get('rinvex.fort.twofactor.remember'));
-            $request->session()->forget('rinvex.fort.twofactor'); // @TODO: Do we need to forget session, or it's already gone after login?
+            auth()->guard($this->getGuard())->login($attemptUser, $request->session()->get('cortex.fort.twofactor.remember'));
+            $request->session()->forget('cortex.fort.twofactor'); // @TODO: Do we need to forget session, or it's already gone after login?
 
             return intend([
                 'intended' => route('frontarea.home'),
@@ -81,7 +81,7 @@ class PhoneVerificationController extends AbstractController
         }
 
         // Logged in user OR A GUEST trying to verify phone
-        if (($user = $request->user($this->getGuard()) ?? app('rinvex.fort.user')->whereNotNull('phone')->where('phone', $request->get('phone'))->first()) && $this->isValidTwoFactorPhone($user, $request->get('token'))) {
+        if (($user = $request->user($this->getGuard()) ?? app('cortex.fort.user')->whereNotNull('phone')->where('phone', $request->get('phone'))->first()) && $this->isValidTwoFactorPhone($user, $request->get('token'))) {
             // Profile update
             $user->fill([
                 'phone_verified' => true,

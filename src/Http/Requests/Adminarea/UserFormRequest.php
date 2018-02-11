@@ -27,7 +27,7 @@ class UserFormRequest extends FormRequest
     {
         $data = $this->all();
 
-        $user = $this->route('user') ?? app('rinvex.fort.user');
+        $user = $this->route('user') ?? app('cortex.fort.user');
         $country = $data['country_code'] ?? null;
         $twoFactor = $user->getTwoFactor();
 
@@ -79,15 +79,15 @@ class UserFormRequest extends FormRequest
      */
     public function rules(): array
     {
-        $user = $this->route('user') ?? app('rinvex.fort.user');
+        $user = $this->route('user') ?? app('cortex.fort.user');
         $user->updateRulesUniques();
         $rules = $user->getRules();
 
         $rules['roles'] = 'nullable|array';
         $rules['abilities'] = 'nullable|array';
         $rules['password'] = $user->exists
-            ? 'confirmed|min:'.config('rinvex.fort.password_min_chars')
-            : 'required|confirmed|min:'.config('rinvex.fort.password_min_chars');
+            ? 'confirmed|min:'.config('cortex.fort.password_min_chars')
+            : 'required|confirmed|min:'.config('cortex.fort.password_min_chars');
 
         return $rules;
     }

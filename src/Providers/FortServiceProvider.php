@@ -10,7 +10,8 @@ use Cortex\Fort\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
 use Cortex\Fort\Models\Ability;
-use Rinvex\Fort\Models\Session;
+use Cortex\Fort\Models\Session;
+use Cortex\Fort\Models\Socialite;
 use Illuminate\Support\ServiceProvider;
 use Cortex\Fort\Handlers\GenericHandler;
 use Cortex\Fort\Http\Middleware\NoHttpCache;
@@ -51,10 +52,27 @@ class FortServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        // Merge config
         $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'cortex.fort');
 
         // Register console commands
         ! $this->app->runningInConsole() || $this->registerCommands();
+
+        // Bind eloquent models to IoC container
+        $this->app->singleton('cortex.fort.session', $sessionModel = $this->app['config']['cortex.fort.models.session']);
+        $sessionModel === Session::class || $this->app->alias('cortex.fort.session', Session::class);
+
+        $this->app->singleton('cortex.fort.socialite', $socialiteModel = $this->app['config']['cortex.fort.models.socialite']);
+        $socialiteModel === Socialite::class || $this->app->alias('cortex.fort.socialite', Socialite::class);
+
+        $this->app->singleton('cortex.fort.user', $userModel = $this->app['config']['cortex.fort.models.user']);
+        $userModel === User::class || $this->app->alias('cortex.fort.user', User::class);
+
+        $this->app->singleton('cortex.fort.role', $roleModel = $this->app['config']['cortex.fort.models.role']);
+        $roleModel === Role::class || $this->app->alias('cortex.fort.role', Role::class);
+
+        $this->app->singleton('cortex.fort.ability', $abilityModel = $this->app['config']['cortex.fort.models.ability']);
+        $abilityModel === Ability::class || $this->app->alias('cortex.fort.ability', Ability::class);
     }
 
     /**
@@ -69,28 +87,32 @@ class FortServiceProvider extends ServiceProvider
         // Attach request macro
         $this->attachRequestMacro();
 
-        $userModel = config('auth.providers.'.config('auth.guards.'.config('auth.defaults.guard').'.provider').'.model');
-
         // Map bouncer models
-        Bouncer::useUserModel($userModel);
-        Bouncer::useRoleModel(Role::class);
-        Bouncer::useAbilityModel(Ability::class);
+        Bouncer::useUserModel(config('cortex.fort.models.user'));
+        Bouncer::useRoleModel(config('cortex.fort.models.role'));
+        Bouncer::useAbilityModel(config('cortex.fort.models.ability'));
+
+        // Map bouncer tables (users, roles, abilities tables are set through their models)
+        Bouncer::tables([
+            'permissions' => config('cortex.fort.tables.permissions'),
+            'assigned_roles' => config('cortex.fort.tables.assigned_roles'),
+        ]);
 
         // Bind route models and constrains
         $router->pattern('role', '[0-9]+');
         $router->pattern('ability', '[0-9]+');
         $router->pattern('user', '[a-zA-Z0-9_-]+');
         $router->pattern('session', '[a-zA-Z0-9]+');
-        $router->model('ability', Ability::class);
-        $router->model('session', Session::class);
-        $router->model('role', Role::class);
-        $router->model('user', User::class);
+        $router->model('role', config('cortex.fort.models.role'));
+        $router->model('user', config('cortex.fort.models.user'));
+        $router->model('ability', config('cortex.fort.models.ability'));
+        $router->model('session', config('cortex.fort.models.session'));
 
         // Map relations
         Relation::morphMap([
-            'user' => User::class,
-            'role' => Role::class,
-            'ability' => Ability::class,
+            'user' => config('cortex.fort.models.user'),
+            'role' => config('cortex.fort.models.role'),
+            'ability' => config('cortex.fort.models.ability'),
         ]);
 
         // Load resources
@@ -110,13 +132,18 @@ class FortServiceProvider extends ServiceProvider
         $this->app['events']->subscribe(GenericHandler::class);
 
         // Register attributes entities
-        app('rinvex.attributes.entities')->push('user');
+        ! app()->bound('rinvex.attributes.entities') || app('rinvex.attributes.entities')->push('user');
 
         // Override middlware
         $this->overrideMiddleware($router);
 
         // Register menus
         $this->registerMenus();
+
+        // Share current user instance with all views
+        $this->app['view']->composer('*', function ($view) {
+            $view->with('currentUser', auth()->user());
+        });
     }
 
     /**
@@ -155,7 +182,7 @@ class FortServiceProvider extends ServiceProvider
     protected function attachRequestMacro(): void
     {
         Request::macro('attemptUser', function (string $guard = null) {
-            $twofactor = $this->session()->get('rinvex.fort.twofactor');
+            $twofactor = $this->session()->get('cortex.fort.twofactor');
 
             return auth()->guard($guard)->getProvider()->retrieveById($twofactor['user_id']);
         });

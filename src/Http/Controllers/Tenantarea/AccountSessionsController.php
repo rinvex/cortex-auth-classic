@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Fort\Http\Controllers\Tenantarea;
 
 use Illuminate\Http\Request;
-use Rinvex\Fort\Models\Session;
+use Cortex\Fort\Models\Session;
 use Cortex\Foundation\Http\Controllers\AuthenticatedController;
 
 class AccountSessionsController extends AuthenticatedController
@@ -23,7 +23,7 @@ class AccountSessionsController extends AuthenticatedController
     /**
      * Destroy given session.
      *
-     * @param \Rinvex\Fort\Models\Session $session
+     * @param \Cortex\Fort\Models\Session $session
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

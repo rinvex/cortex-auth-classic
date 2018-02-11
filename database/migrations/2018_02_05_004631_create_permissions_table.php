@@ -1,6 +1,5 @@
 <?php
 
-use Silber\Bouncer\Database\Models;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -14,7 +13,7 @@ class CreatePermissionsTable extends Migration
      */
     public function up()
     {
-        Schema::create(Models::table('permissions'), function (Blueprint $table) {
+        Schema::create(config('cortex.fort.tables.permissions'), function (Blueprint $table) {
             // Columns
             $table->integer('ability_id')->unsigned();
             $table->integer('entity_id')->unsigned();
@@ -26,7 +25,7 @@ class CreatePermissionsTable extends Migration
             $table->index(['scope']);
             $table->index(['ability_id']);
             $table->index(['entity_id', 'entity_type', 'scope'], 'permissions_entity_index');
-            $table->foreign('ability_id')->references('id')->on(Models::table('abilities'))
+            $table->foreign('ability_id')->references('id')->on(config('cortex.fort.tables.abilities'))
                  ->onDelete('cascade')->onUpdate('cascade');
         });
     }
@@ -38,6 +37,6 @@ class CreatePermissionsTable extends Migration
      */
     public function down()
     {
-        Schema::drop(Models::table('permissions'));
+        Schema::drop(config('cortex.fort.tables.permissions'));
     }
 }

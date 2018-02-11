@@ -20,7 +20,7 @@ class PhoneVerificationRequest extends FormRequest
     {
         $user = $this->user()
                 ?? $this->attemptUser()
-                   ?? app('rinvex.fort.user')->whereNotNull('phone')->where('phone', $this->get('phone'))->first();
+                   ?? app('cortex.fort.user')->whereNotNull('phone')->where('phone', $this->get('phone'))->first();
 
         if ($user && $user->phone_verified) {
             // Redirect users if their phone already verified, no need to process their request

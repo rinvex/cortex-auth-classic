@@ -37,8 +37,8 @@ class AccountPasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'old_password' => 'required|min:'.config('rinvex.fort.password_min_chars'),
-            'new_password' => 'required|confirmed|min:'.config('rinvex.fort.password_min_chars'),
+            'old_password' => 'required|min:'.config('cortex.fort.password_min_chars'),
+            'new_password' => 'required|confirmed|min:'.config('cortex.fort.password_min_chars'),
         ];
     }
 }

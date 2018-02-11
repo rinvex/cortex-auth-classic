@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Models;
 
-use Silber\Bouncer\Database\Models;
 use Rinvex\Tenants\Traits\Tenantable;
 use Cortex\Foundation\Traits\Auditable;
 use Rinvex\Support\Traits\HasTranslations;
@@ -114,8 +113,8 @@ class Role extends BaseRole
 
         $this->setRules([
             'title' => 'nullable|string|max:150',
-            'name' => 'required|string|max:150|unique:'.Models::table('roles').',name,NULL,id,scope,'.($this->scope ?? 'null'),
-            'scope' => 'nullable|integer|unique:'.Models::table('roles').',scope,NULL,id,name,'.($this->name ?? 'null'),
+            'name' => 'required|string|max:150|unique:'.config('cortex.fort.tables.roles').',name,NULL,id,scope,'.($this->scope ?? 'null'),
+            'scope' => 'nullable|integer|unique:'.config('cortex.fort.tables.roles').',scope,NULL,id,name,'.($this->name ?? 'null'),
         ]);
     }
 

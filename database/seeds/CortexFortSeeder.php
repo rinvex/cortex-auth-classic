@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Illuminate\Database\Seeder;
-use Silber\Bouncer\Database\Models;
 
 class CortexFortSeeder extends Seeder
 {
@@ -16,26 +15,24 @@ class CortexFortSeeder extends Seeder
     {
         Bouncer::allow('superadmin')->everything();
 
-        Bouncer::allow('admin')->to('list', Models::classname(\Silber\Bouncer\Database\Ability::class));
-        Bouncer::allow('admin')->to('create', Models::classname(\Silber\Bouncer\Database\Ability::class));
-        Bouncer::allow('admin')->to('update', Models::classname(\Silber\Bouncer\Database\Ability::class));
-        Bouncer::allow('admin')->to('delete', Models::classname(\Silber\Bouncer\Database\Ability::class));
-        Bouncer::allow('admin')->to('audit', Models::classname(\Silber\Bouncer\Database\Ability::class));
-        Bouncer::allow('admin')->to('grant', Models::classname(\Silber\Bouncer\Database\Ability::class));
+        Bouncer::allow('admin')->to('list', config('cortex.fort.models.ability'));
+        Bouncer::allow('admin')->to('create', config('cortex.fort.models.ability'));
+        Bouncer::allow('admin')->to('update', config('cortex.fort.models.ability'));
+        Bouncer::allow('admin')->to('delete', config('cortex.fort.models.ability'));
+        Bouncer::allow('admin')->to('audit', config('cortex.fort.models.ability'));
+        Bouncer::allow('admin')->to('grant', config('cortex.fort.models.ability'));
 
-        Bouncer::allow('admin')->to('list', Models::classname(\Silber\Bouncer\Database\Role::class));
-        Bouncer::allow('admin')->to('create', Models::classname(\Silber\Bouncer\Database\Role::class));
-        Bouncer::allow('admin')->to('update', Models::classname(\Silber\Bouncer\Database\Role::class));
-        Bouncer::allow('admin')->to('delete', Models::classname(\Silber\Bouncer\Database\Role::class));
-        Bouncer::allow('admin')->to('audit', Models::classname(\Silber\Bouncer\Database\Role::class));
-        Bouncer::allow('admin')->to('assign', Models::classname(\Silber\Bouncer\Database\Role::class));
+        Bouncer::allow('admin')->to('list', config('cortex.fort.models.role'));
+        Bouncer::allow('admin')->to('create', config('cortex.fort.models.role'));
+        Bouncer::allow('admin')->to('update', config('cortex.fort.models.role'));
+        Bouncer::allow('admin')->to('delete', config('cortex.fort.models.role'));
+        Bouncer::allow('admin')->to('audit', config('cortex.fort.models.role'));
+        Bouncer::allow('admin')->to('assign', config('cortex.fort.models.role'));
 
-        $userModel = config('auth.providers.'.config('auth.guards.'.config('auth.defaults.guard').'.provider').'.model');
-
-        Bouncer::allow('admin')->to('list', $userModel);
-        Bouncer::allow('admin')->to('create', $userModel);
-        Bouncer::allow('admin')->to('update', $userModel);
-        Bouncer::allow('admin')->to('delete', $userModel);
-        Bouncer::allow('admin')->to('audit', $userModel);
+        Bouncer::allow('admin')->to('list', config('cortex.fort.models.user'));
+        Bouncer::allow('admin')->to('create', config('cortex.fort.models.user'));
+        Bouncer::allow('admin')->to('update', config('cortex.fort.models.user'));
+        Bouncer::allow('admin')->to('delete', config('cortex.fort.models.user'));
+        Bouncer::allow('admin')->to('audit', config('cortex.fort.models.user'));
     }
 }

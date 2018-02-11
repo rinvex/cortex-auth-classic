@@ -36,9 +36,9 @@
                                 <span class="help-block">{{ $errors->first('token') }}</span>
                             @endif
 
-                            @if (session()->get('rinvex.fort.twofactor.phone'))
+                            @if (session()->get('cortex.fort.twofactor.phone'))
                                 {!! trans('cortex/fort::twofactor.backup_phone', ['href' => route('tenantarea.verification.phone.request')]) !!}
-                            @elseif(session()->get('rinvex.fort.twofactor.totp'))
+                            @elseif(session()->get('cortex.fort.twofactor.totp'))
                                 {!! trans('cortex/fort::twofactor.backup_totp') !!}
                             @endif
                         </div>

@@ -54,8 +54,8 @@ class GenericHandler
      */
     public function lockout(Request $request): void
     {
-        if (config('rinvex.fort.emails.throttle_lockout')) {
-            $user = get_login_field($loginfield = $request->get('loginfield')) === 'email' ? app('rinvex.fort.user')->where('email', $loginfield)->first() : app('rinvex.fort.user')->where('username', $loginfield)->first();
+        if (config('cortex.fort.emails.throttle_lockout')) {
+            $user = get_login_field($loginfield = $request->get('loginfield')) === 'email' ? app('cortex.fort.user')->where('email', $loginfield)->first() : app('cortex.fort.user')->where('username', $loginfield)->first();
 
             $user->notify(new AuthenticationLockoutNotification($request));
         }
@@ -70,7 +70,7 @@ class GenericHandler
      */
     public function login(Login $event): void
     {
-        ! config('rinvex.fort.persistence') === 'single' || $event->user->sessions()->delete();
+        ! config('cortex.fort.persistence') === 'single' || $event->user->sessions()->delete();
     }
 
     /**
@@ -82,6 +82,6 @@ class GenericHandler
      */
     public function registered(Authenticatable $user): void
     {
-        ! config('rinvex.fort.emails.welcome') || $user->notify(new RegistrationSuccessNotification());
+        ! config('cortex.fort.emails.welcome') || $user->notify(new RegistrationSuccessNotification());
     }
 }

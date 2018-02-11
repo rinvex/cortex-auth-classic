@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Console\Commands;
 
-use Rinvex\Fort\Console\Commands\RollbackCommand as BaseRollbackCommand;
+use Illuminate\Console\Command;
 
-class RollbackCommand extends BaseRollbackCommand
+class RollbackCommand extends Command
 {
     /**
      * The name and signature of the console command.
@@ -29,8 +29,8 @@ class RollbackCommand extends BaseRollbackCommand
      */
     public function handle(): void
     {
-        $this->call('migrate:reset', ['--path' => 'app/cortex/fort/database/migrations', '--force' => $this->option('force')]);
+        $this->warn($this->description);
 
-        parent::handle();
+        $this->call('migrate:reset', ['--path' => 'app/cortex/fort/database/migrations', '--force' => $this->option('force')]);
     }
 }

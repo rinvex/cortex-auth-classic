@@ -14,7 +14,7 @@ class PasswordResetSendRequest extends PasswordResetRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email|min:3|max:150|exists:'.config('rinvex.fort.tables.users').',email',
+            'email' => 'required|email|min:3|max:150|exists:'.config('cortex.fort.tables.users').',email',
         ];
     }
 

@@ -40,7 +40,7 @@ class SeedCommand extends Command
             'is_active' => true,
         ];
 
-        $user = tap(app('rinvex.fort.user')->firstOrNew($user)->fill([
+        $user = tap(app('cortex.fort.user')->firstOrNew($user)->fill([
             'email_verified_at' => now(),
             'remember_token' => str_random(10),
             'password' => $password = str_random(),

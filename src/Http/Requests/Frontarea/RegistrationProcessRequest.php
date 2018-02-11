@@ -15,7 +15,7 @@ class RegistrationProcessRequest extends RegistrationRequest
     {
         $data = $this->all();
 
-        $data['is_active'] = ! config('rinvex.fort.registration.moderated');
+        $data['is_active'] = ! config('cortex.fort.registration.moderated');
 
         $this->replace($data);
     }
@@ -27,8 +27,8 @@ class RegistrationProcessRequest extends RegistrationRequest
      */
     public function rules(): array
     {
-        $rules = app('rinvex.fort.user')->getRules();
-        $rules['password'] = 'required|confirmed|min:'.config('rinvex.fort.password_min_chars');
+        $rules = app('cortex.fort.user')->getRules();
+        $rules['password'] = 'required|confirmed|min:'.config('cortex.fort.password_min_chars');
         $rules['roles'] = 'nullable|array';
 
         return $rules;

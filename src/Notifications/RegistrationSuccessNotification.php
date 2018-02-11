@@ -36,7 +36,7 @@ class RegistrationSuccessNotification extends Notification implements ShouldQueu
     {
         return (new MailMessage())
             ->subject(trans('cortex/fort::emails.register.welcome.subject'))
-            ->line(config('rinvex.fort.registration.moderated')
+            ->line(config('cortex.fort.registration.moderated')
                 ? trans('cortex/fort::emails.register.welcome.intro_moderation')
                 : trans('cortex/fort::emails.register.welcome.intro_default')
             );

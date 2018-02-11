@@ -6,7 +6,6 @@ namespace Cortex\Fort\Http\Controllers\Adminarea;
 
 use Illuminate\Http\Request;
 use Cortex\Fort\Models\Ability;
-use Silber\Bouncer\Database\Models;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Fort\DataTables\Adminarea\AbilitiesDataTable;
@@ -90,7 +89,7 @@ class AbilitiesController extends AuthorizedController
     protected function form(Request $request, Ability $ability)
     {
         $roles = $request->user($this->getGuard())->can('superadmin')
-            ? Models::role()->all()->pluck('name', 'id')->toArray()
+            ? app('cortex.fort.role')->all()->pluck('name', 'id')->toArray()
             : $request->user($this->getGuard())->roles->pluck('name', 'id')->toArray();
 
         return view('cortex/fort::adminarea.pages.ability', compact('ability', 'roles'));

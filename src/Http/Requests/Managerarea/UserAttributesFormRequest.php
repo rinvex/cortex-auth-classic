@@ -25,7 +25,7 @@ class UserAttributesFormRequest extends FormRequest
      */
     public function rules(): array
     {
-        $user = $this->route('user') ?? app('rinvex.fort.user');
+        $user = $this->route('user') ?? app('cortex.fort.user');
 
         // Attach attribute rules
         $user->getEntityAttributes()->each(function ($attribute, $attributeSlug) use (&$rules) {
