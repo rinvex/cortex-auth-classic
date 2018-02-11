@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Controllers\Managerarea;
 
-use Illuminate\Http\Request;
 use Cortex\Fort\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Foundation\DataTables\ActivitiesDataTable;
@@ -168,7 +168,7 @@ class UsersController extends AuthorizedController
      * Store new user.
      *
      * @param \Cortex\Fort\Http\Requests\Managerarea\UserFormRequest $request
-     * @param \Cortex\Fort\Models\User                             $user
+     * @param \Cortex\Fort\Models\User                               $user
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -181,7 +181,7 @@ class UsersController extends AuthorizedController
      * Update given user.
      *
      * @param \Cortex\Fort\Http\Requests\Managerarea\UserFormRequest $request
-     * @param \Cortex\Fort\Models\User                             $user
+     * @param \Cortex\Fort\Models\User                               $user
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
