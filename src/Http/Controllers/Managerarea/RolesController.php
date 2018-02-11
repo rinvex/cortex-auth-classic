@@ -99,7 +99,7 @@ class RolesController extends AuthorizedController
      * Store new role.
      *
      * @param \Cortex\Fort\Http\Requests\Managerarea\RoleFormRequest $request
-     * @param \Cortex\Fort\Models\Role                             $role
+     * @param \Cortex\Fort\Models\Role                               $role
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -112,7 +112,7 @@ class RolesController extends AuthorizedController
      * Update given role.
      *
      * @param \Cortex\Fort\Http\Requests\Managerarea\RoleFormRequest $request
-     * @param \Cortex\Fort\Models\Role                             $role
+     * @param \Cortex\Fort\Models\Role                               $role
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Cortex\Fort\Models\User;
 use Cortex\Fort\Models\Role;
+use Cortex\Fort\Models\User;
 use Cortex\Fort\Models\Ability;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator;
 

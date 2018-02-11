@@ -20,7 +20,7 @@ Menu::register('adminarea.sidebar', function (MenuGenerator $menu, Ability $abil
 });
 
 Menu::register('managerarea.sidebar', function (MenuGenerator $menu, Role $role, User $user) {
-    $menu->findByTitleOrAdd(trans('cortex/foundation::common.access'), 20, 'fa fa-user-circle-o', [], function (MenuItem $dropdown)  use ($role) {
+    $menu->findByTitleOrAdd(trans('cortex/foundation::common.access'), 20, 'fa fa-user-circle-o', [], function (MenuItem $dropdown) use ($role) {
         $dropdown->route(['managerarea.roles.index'], trans('cortex/fort::common.roles'), 10, 'fa fa-users')->ifCan('list', $role)->activateOnRoute('managerarea.roles');
     });
 
