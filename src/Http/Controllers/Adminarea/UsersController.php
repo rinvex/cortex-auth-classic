@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Controllers\Adminarea;
 
-use Illuminate\Http\Request;
 use Cortex\Fort\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Fort\DataTables\Adminarea\UsersDataTable;
@@ -89,7 +89,7 @@ class UsersController extends AuthorizedController
      * Process the account update form.
      *
      * @param \Cortex\Fort\Http\Requests\Adminarea\UserAttributesFormRequest $request
-     * @param \Cortex\Fort\Models\User                                         $user
+     * @param \Cortex\Fort\Models\User                                       $user
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
