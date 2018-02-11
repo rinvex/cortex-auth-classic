@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Requests\Tenantarea;
 
-use Rinvex\Fort\Exceptions\GenericException;
+use Cortex\Foundation\Exceptions\GenericException;
 
 class PhoneVerificationVerifyRequest extends PhoneVerificationRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
-     * @throws \Rinvex\Fort\Exceptions\GenericException
+     * @throws \Cortex\Foundation\Exceptions\GenericException
      *
      * @return bool
      */

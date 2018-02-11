@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Cortex\Fort\Http\Requests\Frontarea;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Rinvex\Fort\Exceptions\GenericException;
+use Cortex\Foundation\Exceptions\GenericException;
 
 class TwoFactorPhoneSettingsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
-     * @throws \Rinvex\Fort\Exceptions\GenericException
+     * @throws \Cortex\Foundation\Exceptions\GenericException
      *
      * @return bool
      */
