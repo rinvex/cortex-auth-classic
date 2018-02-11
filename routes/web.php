@@ -19,6 +19,15 @@ if (! function_exists('authentication_routes')) {
         Route::get('register')->name('register')->uses('RegistrationController@form');
         Route::post('register')->name('register.process')->uses('RegistrationController@register');
 
+        // Reauthentication Routes
+        Route::name('reauthentication.')->prefix('reauthentication')->group(function () {
+            // Reauthentication Password Routes
+            Route::post('password')->name('password.process')->uses('ReauthenticationController@processPassword');
+
+            // Reauthentication Twofactor Routes
+            Route::post('twofactor')->name('twofactor.process')->uses('ReauthenticationController@processTwofactor');
+        });
+
         // Password Reset Routes
         Route::name('passwordreset.')->prefix('passwordreset')->group(function () {
             Route::get('request')->name('request')->uses('PasswordResetController@request');
@@ -96,17 +105,8 @@ Route::domain(domain())->group(function () {
         ->namespace('Cortex\Fort\Http\Controllers\Frontarea')
         ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.foundation.route.prefix.frontarea') : config('cortex.foundation.route.prefix.frontarea'))->group(function () {
 
-            // Register authenication routes
+            // Authenication routes
             authentication_routes();
-
-            //Reauthentication Routes
-            Route::name('reauthentication.')->prefix('reauthentication')->group(function () {
-                // Reauthentication Password Routes
-                Route::post('password')->name('password.process')->uses('ReauthenticationController@processPassword');
-
-                // Reauthentication Twofactor Routes
-                Route::post('twofactor')->name('twofactor.process')->uses('ReauthenticationController@processTwofactor');
-            });
 
         });
 
@@ -196,7 +196,7 @@ Route::domain('{subdomain}.'.domain())->group(function () {
         ->namespace('Cortex\Fort\Http\Controllers\Tenantarea')
         ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.foundation.route.prefix.tenantarea') : config('cortex.foundation.route.prefix.tenantarea'))->group(function () {
 
-        // Register authenication routes
+        // Authenication routes
         authentication_routes();
 
         // Social Authentication Routes
