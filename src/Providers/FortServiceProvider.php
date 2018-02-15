@@ -140,7 +140,7 @@ class FortServiceProvider extends ServiceProvider
 
         // Share current user instance with all views
         $this->app['view']->composer('*', function ($view) {
-            $view->with('currentUser', auth()->user());
+            $view->with('currentUser', auth()->guard(request('guard'))->user());
         });
     }
 

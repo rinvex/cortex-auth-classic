@@ -19,7 +19,7 @@ class PhoneVerificationVerifyRequest extends PhoneVerificationRequest
     {
         parent::authorize();
 
-        $user = $this->user()
+        $user = $this->user($this->get('guard'))
                 ?? $this->attemptUser()
                    ?? app('cortex.fort.user')->whereNotNull('phone')->where('phone', $this->get('phone'))->first();
 

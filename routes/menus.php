@@ -29,7 +29,7 @@ Menu::register('managerarea.sidebar', function (MenuGenerator $menu, Role $role,
     });
 });
 
-if ($user = auth()->user()) {
+if ($user = auth()->guard(request('guard'))->user()) {
     $userMenu = function (MenuGenerator $menu) use ($user) {
         $menu->dropdown(function (MenuItem $dropdown) {
             $dropdown->route(['adminarea.home'], trans('cortex/foundation::common.adminarea'), 10, 'fa fa-dashboard')->ifCan('access-adminarea');

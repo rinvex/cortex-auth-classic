@@ -18,7 +18,7 @@ class TwoFactorTotpBackupSettingsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $user = $this->user();
+        $user = $this->user($this->get('guard'));
         $twoFactor = $user->getTwoFactor();
 
         if (empty($twoFactor['totp']['enabled'])) {

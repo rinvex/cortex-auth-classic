@@ -30,7 +30,7 @@ class AccountSettingsRequest extends FormRequest
         $country = $data['country_code'] ?? null;
         $email = $data['email'] ?? null;
         $phone = $data['phone'] ?? null;
-        $user = $this->user();
+        $user = $this->user($this->get('guard'));
         $twoFactor = $user->getTwoFactor();
 
         if ($email !== $user->email) {
@@ -58,7 +58,7 @@ class AccountSettingsRequest extends FormRequest
      */
     public function rules(): array
     {
-        $user = $this->user();
+        $user = $this->user($this->get('guard'));
         $user->updateRulesUniques();
 
         return $user->getRules();

@@ -29,9 +29,9 @@ class RoleFormRequest extends FormRequest
         $data = $this->all();
 
         // Set abilities
-        if ($this->user()->can('grant', \Cortex\Fort\Models\Ability::class)) {
-            $data['abilities'] = $this->user()->can('superadmin') ? $this->get('abilities', [])
-                : $this->user()->abilities->pluck('id')->intersect($this->get('abilities', []))->toArray();
+        if ($this->user($this->get('guard'))->can('grant', \Cortex\Fort\Models\Ability::class)) {
+            $data['abilities'] = $this->user($this->get('guard'))->can('superadmin') ? $this->get('abilities', [])
+                : $this->user($this->get('guard'))->abilities->pluck('id')->intersect($this->get('abilities', []))->toArray();
         } else {
             unset($data['abilities']);
         }

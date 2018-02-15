@@ -18,11 +18,11 @@ class AccountPasswordRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (! auth()->guard()->getProvider()->validateCredentials($this->user(), ['password' => $this->get('old_password')])) {
+        if (! auth()->guard($this->get('guard'))->getProvider()->validateCredentials($this->user($this->get('guard')), ['password' => $this->get('old_password')])) {
             throw new GenericException(trans('cortex/fort::messages.account.wrong_password'), route('frontarea.account.password'));
         }
 
-        if (auth()->guard()->getProvider()->validateCredentials($this->user(), ['password' => $this->get('new_password')])) {
+        if (auth()->guard($this->get('guard'))->getProvider()->validateCredentials($this->user($this->get('guard')), ['password' => $this->get('new_password')])) {
             throw new GenericException(trans('cortex/fort::messages.account.different_password'), route('frontarea.account.password'));
         }
 

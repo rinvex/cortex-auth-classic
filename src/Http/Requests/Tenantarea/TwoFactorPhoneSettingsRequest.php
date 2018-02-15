@@ -18,7 +18,7 @@ class TwoFactorPhoneSettingsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $user = $this->user();
+        $user = $this->user($this->get('guard'));
 
         if (! $user->phone || ! $user->phone_verified) {
             throw new GenericException(trans('cortex/fort::messages.account.'.(! $user->phone ? 'phone_field_required' : 'phone_verification_required')), route('tenantarea.account.settings'));
