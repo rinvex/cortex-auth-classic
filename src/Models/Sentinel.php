@@ -6,7 +6,7 @@ namespace Cortex\Fort\Models;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Support\Facades\Hash;
-use Rinvex\Fort\Traits\HasHashables;
+use Rinvex\Auth\Traits\HasHashables;
 use Cortex\Foundation\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;

@@ -1,7 +1,7 @@
 {
     "name": "cortex/fort",
     "type": "cortex-module",
-    "description": "Cortex Fort is a frontend layer for the powerful authentication, authorization and verification package rinvex/fort on top of Laravel. It has all required controllers, views, routes, and other required assets to run a fully functional user management system with complete dashboard out of the box.",
+    "description": "Cortex Fort is a frontend layer for the powerful authentication, authorization and verification package rinvex/auth on top of Laravel. It has all required controllers, views, routes, and other required assets to run a fully functional user management system with complete dashboard out of the box.",
     "keywords": [
         "authentication",
         "authorization",
@@ -66,7 +66,7 @@
         "pragmarx/google2fa": "^2.0.0",
         "proengsoft/laravel-jsvalidation": "^2.1.0",
         "rinvex/composer": "dev-develop",
-        "rinvex/fort": "dev-develop",
+        "rinvex/auth": "dev-develop",
         "rinvex/menus": "dev-develop",
         "rinvex/support": "dev-develop",
         "rinvex/tenants": "dev-develop",

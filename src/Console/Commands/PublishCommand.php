@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Console\Commands;
 
-use Rinvex\Fort\Console\Commands\PublishCommand as BasePublishCommand;
+use Rinvex\Auth\Console\Commands\PublishCommand as BasePublishCommand;
 
 class PublishCommand extends BasePublishCommand
 {

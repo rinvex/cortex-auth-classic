@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Fort\Http\Controllers\Adminarea;
 
 use Cortex\Foundation\Http\Controllers\AbstractController;
-use Rinvex\Fort\Contracts\EmailVerificationBrokerContract;
+use Rinvex\Auth\Contracts\EmailVerificationBrokerContract;
 use Cortex\Fort\Http\Requests\Adminarea\EmailVerificationRequest;
 use Cortex\Fort\Http\Requests\Adminarea\EmailVerificationSendRequest;
 use Cortex\Fort\Http\Requests\Adminarea\EmailVerificationProcessRequest;
@@ -33,7 +33,7 @@ class EmailVerificationController extends AbstractController
      */
     public function send(EmailVerificationSendRequest $request)
     {
-        $result = app('rinvex.fort.emailverification')
+        $result = app('rinvex.auth.emailverification')
             ->broker($this->getBroker())
             ->sendVerificationLink($request->only(['email']));
 
@@ -63,7 +63,7 @@ class EmailVerificationController extends AbstractController
      */
     public function verify(EmailVerificationProcessRequest $request)
     {
-        $result = app('rinvex.fort.emailverification')
+        $result = app('rinvex.auth.emailverification')
             ->broker($this->getBroker())
             ->verify($request->only(['email', 'expiration', 'token']), function ($user) {
                 $user->fill([

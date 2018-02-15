@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Fort\Http\Controllers\Adminarea;
 
 use Illuminate\Support\Str;
-use Rinvex\Fort\Contracts\PasswordResetBrokerContract;
+use Rinvex\Auth\Contracts\PasswordResetBrokerContract;
 use Cortex\Foundation\Http\Controllers\AbstractController;
 use Cortex\Fort\Http\Requests\Adminarea\PasswordResetRequest;
 use Cortex\Fort\Http\Requests\Adminarea\PasswordResetSendRequest;

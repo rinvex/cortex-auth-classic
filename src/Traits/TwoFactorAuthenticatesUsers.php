@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Cortex\Fort\Traits;
 
 use PragmaRX\Google2FA\Google2FA;
-use Rinvex\Fort\Contracts\AuthenticatableTwoFactorContract;
+use Rinvex\Auth\Contracts\AuthenticatableTwoFactorContract;
 
 trait TwoFactorAuthenticatesUsers
 {
     /**
      * Verify TwoFactor authentication.
      *
-     * @param \Rinvex\Fort\Contracts\AuthenticatableTwoFactorContract $user
+     * @param \Rinvex\Auth\Contracts\AuthenticatableTwoFactorContract $user
      * @param int                                                     $token
      *
      * @return bool
@@ -25,7 +25,7 @@ trait TwoFactorAuthenticatesUsers
     /**
      * Invalidate given backup code for the given user.
      *
-     * @param \Rinvex\Fort\Contracts\AuthenticatableTwoFactorContract $user
+     * @param \Rinvex\Auth\Contracts\AuthenticatableTwoFactorContract $user
      * @param int                                                     $token
      *
      * @return void
@@ -46,7 +46,7 @@ trait TwoFactorAuthenticatesUsers
     /**
      * Determine if the given token is a valid TwoFactor Phone token.
      *
-     * @param \Rinvex\Fort\Contracts\AuthenticatableTwoFactorContract $user
+     * @param \Rinvex\Auth\Contracts\AuthenticatableTwoFactorContract $user
      * @param int                                                     $token
      *
      * @return bool
@@ -62,7 +62,7 @@ trait TwoFactorAuthenticatesUsers
     /**
      * Determine if the given token is a valid TwoFactor Backup code.
      *
-     * @param \Rinvex\Fort\Contracts\AuthenticatableTwoFactorContract $user
+     * @param \Rinvex\Auth\Contracts\AuthenticatableTwoFactorContract $user
      * @param int                                                     $token
      *
      * @return bool
@@ -79,7 +79,7 @@ trait TwoFactorAuthenticatesUsers
     /**
      * Determine if the given token is a valid TwoFactor TOTP token.
      *
-     * @param \Rinvex\Fort\Contracts\AuthenticatableTwoFactorContract $user
+     * @param \Rinvex\Auth\Contracts\AuthenticatableTwoFactorContract $user
      * @param int                                                     $token
      *
      * @return bool

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Requests\Adminarea;
 
-use Rinvex\Fort\Contracts\PasswordResetBrokerContract;
+use Rinvex\Auth\Contracts\PasswordResetBrokerContract;
 
 class PasswordResetProcessRequest extends PasswordResetRequest
 {
