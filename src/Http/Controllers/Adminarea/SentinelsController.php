@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Cortex\Fort\Models\Sentinel;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
-use Cortex\Foundation\DataTables\ActivitiesDataTable;
 use Cortex\Fort\DataTables\Adminarea\SentinelsDataTable;
 use Cortex\Fort\Http\Requests\Adminarea\SentinelFormRequest;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
@@ -38,7 +37,7 @@ class SentinelsController extends AuthorizedController
     /**
      * List sentinel logs.
      *
-     * @param \Cortex\Fort\Models\Sentinel                    $sentinel
+     * @param \Cortex\Fort\Models\Sentinel                $sentinel
      * @param \Cortex\Foundation\DataTables\LogsDataTable $logsDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
@@ -56,7 +55,7 @@ class SentinelsController extends AuthorizedController
     /**
      * Create new sentinel.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request     $request
      * @param \Cortex\Fort\Models\Sentinel $sentinel
      *
      * @return \Illuminate\View\View
@@ -69,7 +68,7 @@ class SentinelsController extends AuthorizedController
     /**
      * Edit given sentinel.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request     $request
      * @param \Cortex\Fort\Models\Sentinel $sentinel
      *
      * @return \Illuminate\View\View
@@ -82,7 +81,7 @@ class SentinelsController extends AuthorizedController
     /**
      * Show sentinel create/edit form.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request     $request
      * @param \Cortex\Fort\Models\Sentinel $sentinel
      *
      * @return \Illuminate\View\View
@@ -141,7 +140,7 @@ class SentinelsController extends AuthorizedController
      * Process stored/updated sentinel.
      *
      * @param \Illuminate\Foundation\Http\FormRequest $request
-     * @param \Cortex\Fort\Models\Sentinel                $sentinel
+     * @param \Cortex\Fort\Models\Sentinel            $sentinel
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

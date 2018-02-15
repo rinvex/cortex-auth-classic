@@ -5,8 +5,8 @@ declare(strict_types=1);
 use Cortex\Fort\Models\Role;
 use Cortex\Fort\Models\Admin;
 use Cortex\Fort\Models\Member;
-use Cortex\Fort\Models\Manager;
 use Cortex\Fort\Models\Ability;
+use Cortex\Fort\Models\Manager;
 use Cortex\Fort\Models\Sentinel;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator;
 

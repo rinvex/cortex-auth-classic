@@ -39,7 +39,7 @@ class AdminsMediaController extends AuthorizedController
     /**
      * Destroy given admin media.
      *
-     * @param \Cortex\Fort\Models\Admin          $admin
+     * @param \Cortex\Fort\Models\Admin         $admin
      * @param \Spatie\MediaLibrary\Models\Media $media
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse

@@ -39,7 +39,7 @@ class AdminsController extends AuthorizedController
     /**
      * List admin logs.
      *
-     * @param \Cortex\Fort\Models\Admin                    $admin
+     * @param \Cortex\Fort\Models\Admin                   $admin
      * @param \Cortex\Foundation\DataTables\LogsDataTable $logsDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
@@ -57,7 +57,7 @@ class AdminsController extends AuthorizedController
     /**
      * Get a listing of the resource activities.
      *
-     * @param \Cortex\Fort\Models\Admin                          $admin
+     * @param \Cortex\Fort\Models\Admin                         $admin
      * @param \Cortex\Foundation\DataTables\ActivitiesDataTable $activitiesDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
@@ -75,7 +75,7 @@ class AdminsController extends AuthorizedController
     /**
      * Show the form for create/update of the given resource attributes.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request  $request
      * @param \Cortex\Fort\Models\Admin $admin
      *
      * @return \Illuminate\View\View
@@ -109,7 +109,7 @@ class AdminsController extends AuthorizedController
     /**
      * Create new admin.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request  $request
      * @param \Cortex\Fort\Models\Admin $admin
      *
      * @return \Illuminate\View\View
@@ -122,7 +122,7 @@ class AdminsController extends AuthorizedController
     /**
      * Edit given admin.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request  $request
      * @param \Cortex\Fort\Models\Admin $admin
      *
      * @return \Illuminate\View\View
@@ -135,7 +135,7 @@ class AdminsController extends AuthorizedController
     /**
      * Show admin create/edit form.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request  $request
      * @param \Cortex\Fort\Models\Admin $admin
      *
      * @return \Illuminate\View\View
@@ -194,7 +194,7 @@ class AdminsController extends AuthorizedController
      * Process stored/updated admin.
      *
      * @param \Illuminate\Foundation\Http\FormRequest $request
-     * @param \Cortex\Fort\Models\Admin                $admin
+     * @param \Cortex\Fort\Models\Admin               $admin
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

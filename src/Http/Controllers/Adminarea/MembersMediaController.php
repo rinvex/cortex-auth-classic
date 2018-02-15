@@ -39,7 +39,7 @@ class MembersMediaController extends AuthorizedController
     /**
      * Destroy given member media.
      *
-     * @param \Cortex\Fort\Models\Member          $member
+     * @param \Cortex\Fort\Models\Member        $member
      * @param \Spatie\MediaLibrary\Models\Media $media
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
