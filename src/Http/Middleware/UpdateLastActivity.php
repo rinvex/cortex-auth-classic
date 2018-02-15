@@ -32,7 +32,7 @@ class UpdateLastActivity
      */
     public function terminate($request, $response): void
     {
-        if ($user = $request->user()) {
+        if ($user = $request->user(request('guard'))) {
             // We are using database queries rather than eloquent, to bypass triggering events.
             // Triggering update events flush cache and costs us more queries, which we don't need.
             $userModel = config('auth.providers.'.config('auth.guards.'.config('auth.defaults.guard').'.provider').'.model');
