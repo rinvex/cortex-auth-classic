@@ -39,7 +39,7 @@ class ManagersController extends AuthorizedController
     /**
      * List manager logs.
      *
-     * @param \Cortex\Fort\Models\Manager                    $manager
+     * @param \Cortex\Fort\Models\Manager                 $manager
      * @param \Cortex\Foundation\DataTables\LogsDataTable $logsDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
@@ -57,7 +57,7 @@ class ManagersController extends AuthorizedController
     /**
      * Get a listing of the resource activities.
      *
-     * @param \Cortex\Fort\Models\Manager                          $manager
+     * @param \Cortex\Fort\Models\Manager                       $manager
      * @param \Cortex\Foundation\DataTables\ActivitiesDataTable $activitiesDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
@@ -75,7 +75,7 @@ class ManagersController extends AuthorizedController
     /**
      * Show the form for create/update of the given resource attributes.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request    $request
      * @param \Cortex\Fort\Models\Manager $manager
      *
      * @return \Illuminate\View\View
@@ -109,7 +109,7 @@ class ManagersController extends AuthorizedController
     /**
      * Create new manager.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request    $request
      * @param \Cortex\Fort\Models\Manager $manager
      *
      * @return \Illuminate\View\View
@@ -122,7 +122,7 @@ class ManagersController extends AuthorizedController
     /**
      * Edit given manager.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request    $request
      * @param \Cortex\Fort\Models\Manager $manager
      *
      * @return \Illuminate\View\View
@@ -135,7 +135,7 @@ class ManagersController extends AuthorizedController
     /**
      * Show manager create/edit form.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request    $request
      * @param \Cortex\Fort\Models\Manager $manager
      *
      * @return \Illuminate\View\View
@@ -194,7 +194,7 @@ class ManagersController extends AuthorizedController
      * Process stored/updated manager.
      *
      * @param \Illuminate\Foundation\Http\FormRequest $request
-     * @param \Cortex\Fort\Models\Manager                $manager
+     * @param \Cortex\Fort\Models\Manager             $manager
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
