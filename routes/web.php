@@ -79,20 +79,20 @@ if (! function_exists('authentication_routes')) {
             // Account TwoFactor Routes
             Route::name('twofactor.')->prefix('twofactor')->group(function () {
 
-                Route::get('/')->name('index')->uses('TwoFactorSettingsController@index');
+                Route::get('/')->name('index')->uses('AccountTwoFactorController@index');
 
                 // Account TwoFactor TOTP Routes
                 Route::name('totp.')->prefix('totp')->group(function () {
-                    Route::get('enable')->name('enable')->uses('TwoFactorSettingsController@enableTotp');
-                    Route::post('update')->name('update')->uses('TwoFactorSettingsController@updateTotp');
-                    Route::post('disable')->name('disable')->uses('TwoFactorSettingsController@disableTotp');
-                    Route::post('backup')->name('backup')->uses('TwoFactorSettingsController@backupTotp');
+                    Route::get('enable')->name('enable')->uses('AccountTwoFactorController@enableTotp');
+                    Route::post('update')->name('update')->uses('AccountTwoFactorController@updateTotp');
+                    Route::post('disable')->name('disable')->uses('AccountTwoFactorController@disableTotp');
+                    Route::post('backup')->name('backup')->uses('AccountTwoFactorController@backupTotp');
                 });
 
                 // Account TwoFactor Phone Routes
                 Route::name('phone.')->prefix('phone')->group(function () {
-                    Route::post('enable')->name('enable')->uses('TwoFactorSettingsController@enablePhone');
-                    Route::post('disable')->name('disable')->uses('TwoFactorSettingsController@disablePhone');
+                    Route::post('enable')->name('enable')->uses('AccountTwoFactorController@enablePhone');
+                    Route::post('disable')->name('disable')->uses('AccountTwoFactorController@disablePhone');
                 });
             });
         });

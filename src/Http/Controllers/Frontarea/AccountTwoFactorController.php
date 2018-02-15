@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Controllers\Tenantarea;
+namespace Cortex\Fort\Http\Controllers\Frontarea;
 
 use Illuminate\Http\Request;
 use PragmaRX\Google2FA\Google2FA;
 use Cortex\Foundation\Http\Controllers\AuthenticatedController;
-use Cortex\Fort\Http\Requests\Tenantarea\TwoFactorPhoneSettingsRequest;
-use Cortex\Fort\Http\Requests\Tenantarea\TwoFactorTotpBackupSettingsRequest;
-use Cortex\Fort\Http\Requests\Tenantarea\TwoFactorTotpProcessSettingsRequest;
+use Cortex\Fort\Http\Requests\Frontarea\TwoFactorPhoneSettingsRequest;
+use Cortex\Fort\Http\Requests\Frontarea\TwoFactorTotpBackupSettingsRequest;
+use Cortex\Fort\Http\Requests\Frontarea\TwoFactorTotpProcessSettingsRequest;
 
-class TwoFactorSettingsController extends AuthenticatedController
+class AccountTwoFactorController extends AuthenticatedController
 {
     /**
-     * Show account TwoFactor settings.
+     * Show the account security form.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -24,7 +24,7 @@ class TwoFactorSettingsController extends AuthenticatedController
     {
         $twoFactor = $request->user($this->getGuard())->getTwoFactor();
 
-        return view('cortex/fort::tenantarea.pages.twofactor', compact('twoFactor'));
+        return view('cortex/fort::frontarea.pages.account-twofactor', compact('twoFactor'));
     }
 
     /**
@@ -51,7 +51,7 @@ class TwoFactorSettingsController extends AuthenticatedController
 
         $qrCode = $totpProvider->getQRCodeInline(config('app.name'), $currentUser->email, $secret);
 
-        return view('cortex/fort::tenantarea.pages.twofactor-totp', compact('secret', 'qrCode', 'twoFactor'));
+        return view('cortex/fort::frontarea.pages.account-twofactor-totp', compact('secret', 'qrCode', 'twoFactor'));
     }
 
     /**
@@ -78,8 +78,8 @@ class TwoFactorSettingsController extends AuthenticatedController
     /**
      * Process the TwoFactor TOTP enable form.
      *
-     * @param \Cortex\Fort\Http\Requests\Tenantarea\TwoFactorTotpProcessSettingsRequest $request
-     * @param \PragmaRX\Google2FA\Google2FA                                             $totpProvider
+     * @param \Cortex\Fort\Http\Requests\Frontarea\TwoFactorTotpProcessSettingsRequest $request
+     * @param \PragmaRX\Google2FA\Google2FA                                            $totpProvider
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -117,7 +117,7 @@ class TwoFactorSettingsController extends AuthenticatedController
     /**
      * Process the TwoFactor OTP backup.
      *
-     * @param \Cortex\Fort\Http\Requests\Tenantarea\TwoFactorTotpBackupSettingsRequest $request
+     * @param \Cortex\Fort\Http\Requests\Frontarea\TwoFactorTotpBackupSettingsRequest $request
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -139,7 +139,7 @@ class TwoFactorSettingsController extends AuthenticatedController
     /**
      * Enable TwoFactor Phone authentication.
      *
-     * @param \Cortex\Fort\Http\Requests\Tenantarea\TwoFactorPhoneSettingsRequest $request
+     * @param \Cortex\Fort\Http\Requests\Frontarea\TwoFactorPhoneSettingsRequest $request
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
