@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/fort::common.active_sessions') }}
+    {{ config('app.name') }} » {{ trans('cortex/auth::common.active_sessions') }}
 @endsection
 
 {{-- Main Content --}}
@@ -15,7 +15,7 @@
 
             <div class="row profile">
                 <div class="col-md-3">
-                    @include('cortex/fort::adminarea.partials.sidebar')
+                    @include('cortex/auth::adminarea.partials.sidebar')
                 </div>
                 <div class="col-md-9">
                     <div class="profile-content">
@@ -41,7 +41,7 @@
                                                         <div class="col-md-11 col-sm-11 col-xs-11">
 
                                                             <span class="label label-info">{{ $session->last_activity->format('F d, Y - h:ia') }} <span style="background-color: #428bca; border-radius: 0 3px 3px 0; margin-right: -6px; padding: 2px 4px 3px;">{{ $session->last_activity->diffForHumans() }}</span></span>
-                                                            @if ($session->id === request()->session()->getId())<span class="label label-success">{{ trans('cortex/fort::common.you') }}</span>@endif
+                                                            @if ($session->id === request()->session()->getId())<span class="label label-success">{{ trans('cortex/auth::common.you') }}</span>@endif
                                                             <span class="badge pull-right">{{ $session->ip_address }}</span>
 
                                                         </div>
@@ -78,7 +78,7 @@
 
                         <div class="row">
                             <div class="col-md-12 text-center profile-buttons">
-                                <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#delete-confirmation" data-modal-action="{{ route('adminarea.account.sessions.flush') }}" data-modal-title="{!! trans('cortex/foundation::messages.delete_confirmation_title') !!}" data-modal-body="{!! trans('cortex/foundation::messages.delete_confirmation_body', ['type' => 'sessions', 'name' => 'all']) !!}" title="{{ trans('cortex/foundation::common.delete') }}"><i class="fa fa-remove"></i> {{ trans('cortex/fort::messages.sessions.flush_all_heading') }}</a>
+                                <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#delete-confirmation" data-modal-action="{{ route('adminarea.account.sessions.flush') }}" data-modal-title="{!! trans('cortex/foundation::messages.delete_confirmation_title') !!}" data-modal-body="{!! trans('cortex/foundation::messages.delete_confirmation_body', ['type' => 'sessions', 'name' => 'all']) !!}" title="{{ trans('cortex/foundation::common.delete') }}"><i class="fa fa-remove"></i> {{ trans('cortex/auth::messages.sessions.flush_all_heading') }}</a>
                             </div>
                         </div>
 

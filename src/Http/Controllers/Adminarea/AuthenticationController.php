@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Controllers\Adminarea;
+namespace Cortex\Auth\Http\Controllers\Adminarea;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Cortex\Foundation\Http\Controllers\AbstractController;
-use Cortex\Fort\Http\Requests\Adminarea\AuthenticationRequest;
+use Cortex\Auth\Http\Requests\Adminarea\AuthenticationRequest;
 
 class AuthenticationController extends AbstractController
 {
@@ -41,13 +41,13 @@ class AuthenticationController extends AbstractController
         // Remember previous URL for later redirect back
         session()->put('url.intended', url()->previous());
 
-        return view('cortex/fort::adminarea.pages.authentication');
+        return view('cortex/auth::adminarea.pages.authentication');
     }
 
     /**
      * Process to the login form.
      *
-     * @param \Cortex\Fort\Http\Requests\Adminarea\AuthenticationRequest $request
+     * @param \Cortex\Auth\Http\Requests\Adminarea\AuthenticationRequest $request
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -95,7 +95,7 @@ class AuthenticationController extends AbstractController
 
         return intend([
             'url' => route('adminarea.home'),
-            'with' => ['warning' => trans('cortex/fort::messages.auth.logout')],
+            'with' => ['warning' => trans('cortex/auth::messages.auth.logout')],
         ]);
     }
 
@@ -121,7 +121,7 @@ class AuthenticationController extends AbstractController
         if ($totpStatus || $phoneStatus) {
             $this->processLogout($request);
 
-            $request->session()->put('cortex.fort.twofactor', ['user_id' => $user->getKey(), 'remember' => $request->filled('remember'), 'totp' => $totpStatus, 'phone' => $phoneStatus]);
+            $request->session()->put('cortex.auth.twofactor', ['user_id' => $user->getKey(), 'remember' => $request->filled('remember'), 'totp' => $totpStatus, 'phone' => $phoneStatus]);
 
             $route = $totpStatus
                 ? route('adminarea.verification.phone.verify')
@@ -129,13 +129,13 @@ class AuthenticationController extends AbstractController
 
             return intend([
                 'url' => $route,
-                'with' => ['warning' => trans('cortex/fort::messages.verification.twofactor.totp.required')],
+                'with' => ['warning' => trans('cortex/auth::messages.verification.twofactor.totp.required')],
             ]);
         }
 
         return intend([
             'intended' => route('adminarea.home'),
-            'with' => ['success' => trans('cortex/fort::messages.auth.login')],
+            'with' => ['success' => trans('cortex/auth::messages.auth.login')],
         ]);
     }
 
@@ -151,7 +151,7 @@ class AuthenticationController extends AbstractController
     protected function sendFailedLoginResponse(Request $request)
     {
         throw ValidationException::withMessages([
-            $this->username() => [trans('cortex/fort::messages.auth.failed')],
+            $this->username() => [trans('cortex/auth::messages.auth.failed')],
         ]);
     }
 
@@ -171,7 +171,7 @@ class AuthenticationController extends AbstractController
         );
 
         throw ValidationException::withMessages([
-            $this->username() => [trans('cortex/fort::messages.auth.lockout', ['seconds' => $seconds])],
+            $this->username() => [trans('cortex/auth::messages.auth.lockout', ['seconds' => $seconds])],
         ])->status(423);
     }
 

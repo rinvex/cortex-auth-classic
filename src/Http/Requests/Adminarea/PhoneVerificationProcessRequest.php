@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Requests\Adminarea;
+namespace Cortex\Auth\Http\Requests\Adminarea;
 
 use Cortex\Foundation\Exceptions\GenericException;
 
@@ -21,7 +21,7 @@ class PhoneVerificationProcessRequest extends PhoneVerificationRequest
 
         $user = $this->user($this->get('guard'))
                 ?? $this->attemptUser($this->get('guard'))
-                   ?? app('cortex.fort.admin')->whereNotNull('phone')->where('phone', $this->get('phone'))->first();
+                   ?? app('cortex.auth.admin')->whereNotNull('phone')->where('phone', $this->get('phone'))->first();
 
         if (! $user) {
             // User instance required to detect active TwoFactor methods

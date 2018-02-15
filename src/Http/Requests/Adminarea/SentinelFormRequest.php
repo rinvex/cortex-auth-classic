@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Requests\Adminarea;
+namespace Cortex\Auth\Http\Requests\Adminarea;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -27,7 +27,7 @@ class SentinelFormRequest extends FormRequest
     {
         $data = $this->all();
 
-        $sentinel = $this->route('sentinel') ?? app('cortex.fort.sentinel');
+        $sentinel = $this->route('sentinel') ?? app('cortex.auth.sentinel');
         $country = $data['country_code'] ?? null;
         $twoFactor = $sentinel->getTwoFactor();
 
@@ -49,7 +49,7 @@ class SentinelFormRequest extends FormRequest
         }
 
         // Set abilities
-        if ($this->user($this->get('guard'))->can('grant', \Cortex\Fort\Models\Ability::class)) {
+        if ($this->user($this->get('guard'))->can('grant', \Cortex\Auth\Models\Ability::class)) {
             $data['abilities'] = $this->user($this->get('guard'))->can('superadmin') ? $this->get('abilities', [])
                 : $this->user($this->get('guard'))->abilities->pluck('id')->intersect($this->get('abilities', []))->toArray();
         } else {
@@ -57,7 +57,7 @@ class SentinelFormRequest extends FormRequest
         }
 
         // Set roles
-        if ($this->user($this->get('guard'))->can('assign', \Cortex\Fort\Models\Role::class) && $data['roles']) {
+        if ($this->user($this->get('guard'))->can('assign', \Cortex\Auth\Models\Role::class) && $data['roles']) {
             $data['roles'] = $this->user($this->get('guard'))->can('superadmin') ? $this->get('roles', [])
                 : $this->user($this->get('guard'))->roles->pluck('id')->intersect($this->get('roles', []))->toArray();
         } else {
@@ -79,15 +79,15 @@ class SentinelFormRequest extends FormRequest
      */
     public function rules(): array
     {
-        $sentinel = $this->route('sentinel') ?? app('cortex.fort.sentinel');
+        $sentinel = $this->route('sentinel') ?? app('cortex.auth.sentinel');
         $sentinel->updateRulesUniques();
         $rules = $sentinel->getRules();
 
         $rules['roles'] = 'nullable|array';
         $rules['abilities'] = 'nullable|array';
         $rules['password'] = $sentinel->exists
-            ? 'confirmed|min:'.config('cortex.fort.password_min_chars')
-            : 'required|confirmed|min:'.config('cortex.fort.password_min_chars');
+            ? 'confirmed|min:'.config('cortex.auth.password_min_chars')
+            : 'required|confirmed|min:'.config('cortex.auth.password_min_chars');
 
         return $rules;
     }

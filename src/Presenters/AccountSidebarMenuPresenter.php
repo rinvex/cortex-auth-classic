@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Presenters;
+namespace Cortex\Auth\Presenters;
 
 use Rinvex\Menus\Models\MenuItem;
 use Rinvex\Menus\Presenters\BasePresenter;

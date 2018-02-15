@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Requests\Adminarea;
+namespace Cortex\Auth\Http\Requests\Adminarea;
 
 class PhoneVerificationSendRequest extends PhoneVerificationRequest
 {
@@ -14,7 +14,7 @@ class PhoneVerificationSendRequest extends PhoneVerificationRequest
     public function rules(): array
     {
         return [
-            'phone' => 'required|numeric|min:4|exists:'.config('cortex.fort.tables.admins').',phone',
+            'phone' => 'required|numeric|min:4|exists:'.config('cortex.auth.tables.admins').',phone',
         ];
     }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Handlers;
+namespace Cortex\Auth\Handlers;
 
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Login;
@@ -11,8 +11,8 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Cortex\Fort\Notifications\RegistrationSuccessNotification;
-use Cortex\Fort\Notifications\AuthenticationLockoutNotification;
+use Cortex\Auth\Notifications\RegistrationSuccessNotification;
+use Cortex\Auth\Notifications\AuthenticationLockoutNotification;
 
 class GenericHandler
 {
@@ -24,7 +24,7 @@ class GenericHandler
     protected $app;
 
     /**
-     * Create a new fort event listener instance.
+     * Create a new GenericHandler instance.
      *
      * @param \Illuminate\Contracts\Container\Container $app
      */
@@ -54,8 +54,8 @@ class GenericHandler
      */
     public function lockout(Request $request): void
     {
-        if (config('cortex.fort.emails.throttle_lockout')) {
-            $user = get_login_field($loginfield = $request->get('loginfield')) === 'email' ? app('cortex.fort.user')->where('email', $loginfield)->first() : app('cortex.fort.user')->where('username', $loginfield)->first();
+        if (config('cortex.auth.emails.throttle_lockout')) {
+            $user = get_login_field($loginfield = $request->get('loginfield')) === 'email' ? app('cortex.auth.user')->where('email', $loginfield)->first() : app('cortex.auth.user')->where('username', $loginfield)->first();
 
             $user->notify(new AuthenticationLockoutNotification($request));
         }
@@ -70,7 +70,7 @@ class GenericHandler
      */
     public function login(Login $event): void
     {
-        ! config('cortex.fort.persistence') === 'single' || $event->user->sessions()->delete();
+        ! config('cortex.auth.persistence') === 'single' || $event->user->sessions()->delete();
     }
 
     /**
@@ -82,6 +82,6 @@ class GenericHandler
      */
     public function registered(Authenticatable $user): void
     {
-        ! config('cortex.fort.emails.welcome') || $user->notify(new RegistrationSuccessNotification());
+        ! config('cortex.auth.emails.welcome') || $user->notify(new RegistrationSuccessNotification());
     }
 }

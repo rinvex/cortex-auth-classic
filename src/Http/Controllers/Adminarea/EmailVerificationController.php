@@ -2,32 +2,32 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Controllers\Adminarea;
+namespace Cortex\Auth\Http\Controllers\Adminarea;
 
 use Cortex\Foundation\Http\Controllers\AbstractController;
 use Rinvex\Auth\Contracts\EmailVerificationBrokerContract;
-use Cortex\Fort\Http\Requests\Adminarea\EmailVerificationRequest;
-use Cortex\Fort\Http\Requests\Adminarea\EmailVerificationSendRequest;
-use Cortex\Fort\Http\Requests\Adminarea\EmailVerificationProcessRequest;
+use Cortex\Auth\Http\Requests\Adminarea\EmailVerificationRequest;
+use Cortex\Auth\Http\Requests\Adminarea\EmailVerificationSendRequest;
+use Cortex\Auth\Http\Requests\Adminarea\EmailVerificationProcessRequest;
 
 class EmailVerificationController extends AbstractController
 {
     /**
      * Show the email verification request form.
      *
-     * @param \Cortex\Fort\Http\Requests\Adminarea\EmailVerificationRequest $request
+     * @param \Cortex\Auth\Http\Requests\Adminarea\EmailVerificationRequest $request
      *
      * @return \Illuminate\View\View
      */
     public function request(EmailVerificationRequest $request)
     {
-        return view('cortex/fort::adminarea.pages.verification-email-request');
+        return view('cortex/auth::adminarea.pages.verification-email-request');
     }
 
     /**
      * Process the email verification request form.
      *
-     * @param \Cortex\Fort\Http\Requests\Adminarea\EmailVerificationSendRequest $request
+     * @param \Cortex\Auth\Http\Requests\Adminarea\EmailVerificationSendRequest $request
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -41,7 +41,7 @@ class EmailVerificationController extends AbstractController
             case EmailVerificationBrokerContract::LINK_SENT:
                 return intend([
                     'url' => route('adminarea.home'),
-                    'with' => ['success' => trans('cortex/fort::'.$result)],
+                    'with' => ['success' => trans('cortex/auth::'.$result)],
                 ]);
 
             case EmailVerificationBrokerContract::INVALID_USER:
@@ -49,7 +49,7 @@ class EmailVerificationController extends AbstractController
                 return intend([
                     'back' => true,
                     'withInput' => $request->only(['email']),
-                    'withErrors' => ['email' => trans('cortex/fort::'.$result)],
+                    'withErrors' => ['email' => trans('cortex/auth::'.$result)],
                 ]);
         }
     }
@@ -57,7 +57,7 @@ class EmailVerificationController extends AbstractController
     /**
      * Process the email verification.
      *
-     * @param \Cortex\Fort\Http\Requests\Adminarea\EmailVerificationProcessRequest $request
+     * @param \Cortex\Auth\Http\Requests\Adminarea\EmailVerificationProcessRequest $request
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -76,7 +76,7 @@ class EmailVerificationController extends AbstractController
             case EmailVerificationBrokerContract::EMAIL_VERIFIED:
                 return intend([
                     'url' => route('adminarea.account.settings'),
-                    'with' => ['success' => trans('cortex/fort::'.$result)],
+                    'with' => ['success' => trans('cortex/auth::'.$result)],
                 ]);
 
             case EmailVerificationBrokerContract::INVALID_USER:
@@ -86,7 +86,7 @@ class EmailVerificationController extends AbstractController
                 return intend([
                     'url' => route('adminarea.verification.email.request'),
                     'withInput' => $request->only(['email']),
-                    'withErrors' => ['email' => trans('cortex/fort::'.$result)],
+                    'withErrors' => ['email' => trans('cortex/auth::'.$result)],
                 ]);
         }
     }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Middleware;
+namespace Cortex\Auth\Http\Middleware;
 
 use Closure;
 
@@ -22,15 +22,15 @@ class Reauthenticate
      */
     public function handle($request, Closure $next, string $type = 'password', string $sessionName = null, int $timeout = null, bool $renew = false)
     {
-        $timeout = $timeout ?? config('cortex.fort.reauthentication.timeout');
-        $sessionName = $sessionName ? 'cortex.fort.reauthentication.'.$sessionName : 'cortex.fort.reauthentication.'.$request->route()->getName();
+        $timeout = $timeout ?? config('cortex.auth.reauthentication.timeout');
+        $sessionName = $sessionName ? 'cortex.auth.reauthentication.'.$sessionName : 'cortex.auth.reauthentication.'.$request->route()->getName();
 
         if (is_null(session($sessionName)) || time() - session($sessionName) >= $timeout) {
             session()->forget($sessionName);
-            session()->put('cortex.fort.reauthentication.intended', $request->url());
-            session()->put('cortex.fort.reauthentication.session_name', $sessionName);
+            session()->put('cortex.auth.reauthentication.intended', $request->url());
+            session()->put('cortex.auth.reauthentication.session_name', $sessionName);
 
-            return view('cortex/fort::'.$request->get('accessarea').'.pages.reauthentication-'.$type);
+            return view('cortex/auth::'.$request->get('accessarea').'.pages.reauthentication-'.$type);
         }
 
         ! $renew || session()->put($sessionName, time());

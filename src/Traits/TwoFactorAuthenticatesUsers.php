@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Traits;
+namespace Cortex\Auth\Traits;
 
 use PragmaRX\Google2FA\Google2FA;
 use Rinvex\Auth\Contracts\AuthenticatableTwoFactorContract;

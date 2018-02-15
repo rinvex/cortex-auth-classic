@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Models;
+namespace Cortex\Auth\Models;
 
 use Rinvex\Country\Country;
 use Rinvex\Language\Language;
@@ -266,7 +266,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
      */
     public function sessions(): MorphMany
     {
-        return $this->morphMany(config('cortex.fort.models.session'), 'user');
+        return $this->morphMany(config('cortex.auth.models.session'), 'user');
     }
 
     /**
@@ -276,7 +276,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
      */
     public function socialites(): MorphMany
     {
-        return $this->morphMany(config('cortex.fort.models.socialite'), 'user');
+        return $this->morphMany(config('cortex.auth.models.socialite'), 'user');
     }
 
     /**

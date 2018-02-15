@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Overrides\Silber\Bouncer;
+namespace Cortex\Auth\Overrides\Silber\Bouncer;
 
 use Silber\Bouncer\BouncerServiceProvider as BaseBouncerServiceProvider;
 

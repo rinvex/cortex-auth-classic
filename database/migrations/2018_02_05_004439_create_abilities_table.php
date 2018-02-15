@@ -15,7 +15,7 @@ class CreateAbilitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create(config('cortex.fort.tables.abilities'), function (Blueprint $table) {
+        Schema::create(config('cortex.auth.tables.abilities'), function (Blueprint $table) {
             // Columns
             $table->increments('id');
             $table->string('name', 150);
@@ -38,7 +38,7 @@ class CreateAbilitiesTable extends Migration
      */
     public function down()
     {
-        Schema::drop(config('cortex.fort.tables.abilities'));
+        Schema::drop(config('cortex.auth.tables.abilities'));
     }
 
     /**

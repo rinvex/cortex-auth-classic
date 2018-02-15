@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Requests\Adminarea;
+namespace Cortex\Auth\Http\Requests\Adminarea;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -27,7 +27,7 @@ class AdminFormRequest extends FormRequest
     {
         $data = $this->all();
 
-        $admin = $this->route('admin') ?? app('cortex.fort.admin');
+        $admin = $this->route('admin') ?? app('cortex.auth.admin');
         $country = $data['country_code'] ?? null;
         $twoFactor = $admin->getTwoFactor();
 
@@ -49,7 +49,7 @@ class AdminFormRequest extends FormRequest
         }
 
         // Set abilities
-        if ($this->user($this->get('guard'))->can('grant', \Cortex\Fort\Models\Ability::class)) {
+        if ($this->user($this->get('guard'))->can('grant', \Cortex\Auth\Models\Ability::class)) {
             $data['abilities'] = $this->user($this->get('guard'))->can('superadmin') ? $this->get('abilities', [])
                 : $this->user($this->get('guard'))->abilities->pluck('id')->intersect($this->get('abilities', []))->toArray();
         } else {
@@ -57,7 +57,7 @@ class AdminFormRequest extends FormRequest
         }
 
         // Set roles
-        if ($this->user($this->get('guard'))->can('assign', \Cortex\Fort\Models\Role::class) && $data['roles']) {
+        if ($this->user($this->get('guard'))->can('assign', \Cortex\Auth\Models\Role::class) && $data['roles']) {
             $data['roles'] = $this->user($this->get('guard'))->can('superadmin') ? $this->get('roles', [])
                 : $this->user($this->get('guard'))->roles->pluck('id')->intersect($this->get('roles', []))->toArray();
         } else {
@@ -79,15 +79,15 @@ class AdminFormRequest extends FormRequest
      */
     public function rules(): array
     {
-        $admin = $this->route('admin') ?? app('cortex.fort.admin');
+        $admin = $this->route('admin') ?? app('cortex.auth.admin');
         $admin->updateRulesUniques();
         $rules = $admin->getRules();
 
         $rules['roles'] = 'nullable|array';
         $rules['abilities'] = 'nullable|array';
         $rules['password'] = $admin->exists
-            ? 'confirmed|min:'.config('cortex.fort.password_min_chars')
-            : 'required|confirmed|min:'.config('cortex.fort.password_min_chars');
+            ? 'confirmed|min:'.config('cortex.auth.password_min_chars')
+            : 'required|confirmed|min:'.config('cortex.auth.password_min_chars');
 
         return $rules;
     }

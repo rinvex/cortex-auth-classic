@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Requests\Adminarea;
+namespace Cortex\Auth\Http\Requests\Adminarea;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -25,7 +25,7 @@ class AdminAttributesFormRequest extends FormRequest
      */
     public function rules(): array
     {
-        $admin = $this->route('admin') ?? app('cortex.fort.admin');
+        $admin = $this->route('admin') ?? app('cortex.auth.admin');
 
         // Attach attribute rules
         $admin->getEntityAttributes()->each(function ($attribute, $attributeSlug) use (&$rules) {

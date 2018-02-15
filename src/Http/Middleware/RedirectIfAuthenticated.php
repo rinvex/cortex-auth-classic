@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Middleware;
+namespace Cortex\Auth\Http\Middleware;
 
 use Closure;
 

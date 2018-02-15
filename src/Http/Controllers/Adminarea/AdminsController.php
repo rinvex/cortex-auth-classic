@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Controllers\Adminarea;
+namespace Cortex\Auth\Http\Controllers\Adminarea;
 
 use Illuminate\Http\Request;
-use Cortex\Fort\Models\Admin;
+use Cortex\Auth\Models\Admin;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
-use Cortex\Fort\DataTables\Adminarea\AdminsDataTable;
+use Cortex\Auth\DataTables\Adminarea\AdminsDataTable;
 use Cortex\Foundation\DataTables\ActivitiesDataTable;
-use Cortex\Fort\Http\Requests\Adminarea\AdminFormRequest;
+use Cortex\Auth\Http\Requests\Adminarea\AdminFormRequest;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
-use Cortex\Fort\Http\Requests\Adminarea\AdminAttributesFormRequest;
+use Cortex\Auth\Http\Requests\Adminarea\AdminAttributesFormRequest;
 
 class AdminsController extends AuthorizedController
 {
@@ -24,7 +24,7 @@ class AdminsController extends AuthorizedController
     /**
      * List all admins.
      *
-     * @param \Cortex\Fort\DataTables\Adminarea\AdminsDataTable $adminsDataTable
+     * @param \Cortex\Auth\DataTables\Adminarea\AdminsDataTable $adminsDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
@@ -32,14 +32,14 @@ class AdminsController extends AuthorizedController
     {
         return $adminsDataTable->with([
             'id' => 'adminarea-admins-index-table',
-            'phrase' => trans('cortex/fort::common.admins'),
+            'phrase' => trans('cortex/auth::common.admins'),
         ])->render('cortex/foundation::adminarea.pages.datatable');
     }
 
     /**
      * List admin logs.
      *
-     * @param \Cortex\Fort\Models\Admin                   $admin
+     * @param \Cortex\Auth\Models\Admin                   $admin
      * @param \Cortex\Foundation\DataTables\LogsDataTable $logsDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
@@ -49,7 +49,7 @@ class AdminsController extends AuthorizedController
         return $logsDataTable->with([
             'resource' => $admin,
             'tabs' => 'adminarea.admins.tabs',
-            'phrase' => trans('cortex/fort::common.admins'),
+            'phrase' => trans('cortex/auth::common.admins'),
             'id' => "adminarea-admins-{$admin->getKey()}-logs-table",
         ])->render('cortex/foundation::adminarea.pages.datatable-logs');
     }
@@ -57,7 +57,7 @@ class AdminsController extends AuthorizedController
     /**
      * Get a listing of the resource activities.
      *
-     * @param \Cortex\Fort\Models\Admin                         $admin
+     * @param \Cortex\Auth\Models\Admin                         $admin
      * @param \Cortex\Foundation\DataTables\ActivitiesDataTable $activitiesDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
@@ -67,7 +67,7 @@ class AdminsController extends AuthorizedController
         return $activitiesDataTable->with([
             'resource' => $admin,
             'tabs' => 'adminarea.admins.tabs',
-            'phrase' => trans('cortex/fort::common.admins'),
+            'phrase' => trans('cortex/auth::common.admins'),
             'id' => "adminarea-admins-{$admin->getKey()}-activities-table",
         ])->render('cortex/foundation::adminarea.pages.datatable-logs');
     }
@@ -76,20 +76,20 @@ class AdminsController extends AuthorizedController
      * Show the form for create/update of the given resource attributes.
      *
      * @param \Illuminate\Http\Request  $request
-     * @param \Cortex\Fort\Models\Admin $admin
+     * @param \Cortex\Auth\Models\Admin $admin
      *
      * @return \Illuminate\View\View
      */
     public function attributes(Request $request, Admin $admin)
     {
-        return view('cortex/fort::adminarea.pages.admin-attributes', compact('admin'));
+        return view('cortex/auth::adminarea.pages.admin-attributes', compact('admin'));
     }
 
     /**
      * Process the account update form.
      *
-     * @param \Cortex\Fort\Http\Requests\Adminarea\AdminAttributesFormRequest $request
-     * @param \Cortex\Fort\Models\Admin                                       $admin
+     * @param \Cortex\Auth\Http\Requests\Adminarea\AdminAttributesFormRequest $request
+     * @param \Cortex\Auth\Models\Admin                                       $admin
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -102,7 +102,7 @@ class AdminsController extends AuthorizedController
 
         return intend([
             'back' => true,
-            'with' => ['success' => trans('cortex/fort::messages.account.updated_attributes')],
+            'with' => ['success' => trans('cortex/auth::messages.account.updated_attributes')],
         ]);
     }
 
@@ -110,7 +110,7 @@ class AdminsController extends AuthorizedController
      * Create new admin.
      *
      * @param \Illuminate\Http\Request  $request
-     * @param \Cortex\Fort\Models\Admin $admin
+     * @param \Cortex\Auth\Models\Admin $admin
      *
      * @return \Illuminate\View\View
      */
@@ -123,7 +123,7 @@ class AdminsController extends AuthorizedController
      * Edit given admin.
      *
      * @param \Illuminate\Http\Request  $request
-     * @param \Cortex\Fort\Models\Admin $admin
+     * @param \Cortex\Auth\Models\Admin $admin
      *
      * @return \Illuminate\View\View
      */
@@ -136,7 +136,7 @@ class AdminsController extends AuthorizedController
      * Show admin create/edit form.
      *
      * @param \Illuminate\Http\Request  $request
-     * @param \Cortex\Fort\Models\Admin $admin
+     * @param \Cortex\Auth\Models\Admin $admin
      *
      * @return \Illuminate\View\View
      */
@@ -151,24 +151,24 @@ class AdminsController extends AuthorizedController
         })->values();
         $currentUser = $request->user($this->getGuard());
         $languages = collect(languages())->pluck('name', 'iso_639_1');
-        $genders = ['male' => trans('cortex/fort::common.male'), 'female' => trans('cortex/fort::common.female')];
+        $genders = ['male' => trans('cortex/auth::common.male'), 'female' => trans('cortex/auth::common.female')];
 
         $roles = $currentUser->can('superadmin')
-            ? app('cortex.fort.role')->all()->pluck('name', 'id')->toArray()
+            ? app('cortex.auth.role')->all()->pluck('name', 'id')->toArray()
             : $currentUser->roles->pluck('name', 'id')->toArray();
 
         $abilities = $currentUser->can('superadmin')
-            ? app('cortex.fort.ability')->all()->pluck('title', 'id')->toArray()
+            ? app('cortex.auth.ability')->all()->pluck('title', 'id')->toArray()
             : $currentUser->abilities->pluck('title', 'id')->toArray();
 
-        return view('cortex/fort::adminarea.pages.admin', compact('admin', 'abilities', 'roles', 'countries', 'languages', 'genders'));
+        return view('cortex/auth::adminarea.pages.admin', compact('admin', 'abilities', 'roles', 'countries', 'languages', 'genders'));
     }
 
     /**
      * Store new admin.
      *
-     * @param \Cortex\Fort\Http\Requests\Adminarea\AdminFormRequest $request
-     * @param \Cortex\Fort\Models\Admin                             $admin
+     * @param \Cortex\Auth\Http\Requests\Adminarea\AdminFormRequest $request
+     * @param \Cortex\Auth\Models\Admin                             $admin
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -180,8 +180,8 @@ class AdminsController extends AuthorizedController
     /**
      * Update given admin.
      *
-     * @param \Cortex\Fort\Http\Requests\Adminarea\AdminFormRequest $request
-     * @param \Cortex\Fort\Models\Admin                             $admin
+     * @param \Cortex\Auth\Http\Requests\Adminarea\AdminFormRequest $request
+     * @param \Cortex\Auth\Models\Admin                             $admin
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -194,7 +194,7 @@ class AdminsController extends AuthorizedController
      * Process stored/updated admin.
      *
      * @param \Illuminate\Foundation\Http\FormRequest $request
-     * @param \Cortex\Fort\Models\Admin               $admin
+     * @param \Cortex\Auth\Models\Admin               $admin
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -208,14 +208,14 @@ class AdminsController extends AuthorizedController
                 ->sanitizingFileName(function ($fileName) {
                     return md5($fileName).'.'.pathinfo($fileName, PATHINFO_EXTENSION);
                 })
-                ->toMediaCollection('profile_picture', config('cortex.fort.media.disk'));
+                ->toMediaCollection('profile_picture', config('cortex.auth.media.disk'));
 
         ! $request->hasFile('cover_photo')
         || $admin->addMediaFromRequest('cover_photo')
                 ->sanitizingFileName(function ($fileName) {
                     return md5($fileName).'.'.pathinfo($fileName, PATHINFO_EXTENSION);
                 })
-                ->toMediaCollection('cover_photo', config('cortex.fort.media.disk'));
+                ->toMediaCollection('cover_photo', config('cortex.auth.media.disk'));
 
         // Save admin
         $admin->fill($data)->save();
@@ -229,7 +229,7 @@ class AdminsController extends AuthorizedController
     /**
      * Destroy given admin.
      *
-     * @param \Cortex\Fort\Models\Admin $admin
+     * @param \Cortex\Auth\Models\Admin $admin
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Models;
+namespace Cortex\Auth\Models;
 
-use Cortex\Fort\Notifications\PhoneVerificationNotification;
-use Cortex\Fort\Notifications\ManagerPasswordResetNotification;
-use Cortex\Fort\Notifications\ManagerEmailVerificationNotification;
+use Cortex\Auth\Notifications\PhoneVerificationNotification;
+use Cortex\Auth\Notifications\ManagerPasswordResetNotification;
+use Cortex\Auth\Notifications\ManagerEmailVerificationNotification;
 
 class Manager extends User
 {
@@ -34,12 +34,12 @@ class Manager extends User
     {
         parent::__construct($attributes);
 
-        $this->setTable(config('cortex.fort.tables.managers'));
+        $this->setTable(config('cortex.auth.tables.managers'));
         $this->setRules([
-            'username' => 'required|alpha_dash|min:3|max:150|unique:'.config('cortex.fort.tables.managers').',username',
-            'password' => 'sometimes|required|min:'.config('cortex.fort.password_min_chars'),
+            'username' => 'required|alpha_dash|min:3|max:150|unique:'.config('cortex.auth.tables.managers').',username',
+            'password' => 'sometimes|required|min:'.config('cortex.auth.password_min_chars'),
             'two_factor' => 'nullable|array',
-            'email' => 'required|email|min:3|max:150|unique:'.config('cortex.fort.tables.managers').',email',
+            'email' => 'required|email|min:3|max:150|unique:'.config('cortex.auth.tables.managers').',email',
             'email_verified' => 'sometimes|boolean',
             'email_verified_at' => 'nullable|date',
             'phone' => 'nullable|numeric|min:4',

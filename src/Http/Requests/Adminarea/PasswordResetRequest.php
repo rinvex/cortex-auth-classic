@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Requests\Adminarea;
+namespace Cortex\Auth\Http\Requests\Adminarea;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\Exceptions\GenericException;
@@ -19,7 +19,7 @@ class PasswordResetRequest extends FormRequest
     public function authorize(): bool
     {
         if ($this->user($this->get('guard'))) {
-            throw new GenericException(trans('cortex/fort::messages.passwordreset.already_logged'), route('adminarea.account.settings').'#security-tab');
+            throw new GenericException(trans('cortex/auth::messages.passwordreset.already_logged'), route('adminarea.account.settings').'#security-tab');
         }
 
         return true;

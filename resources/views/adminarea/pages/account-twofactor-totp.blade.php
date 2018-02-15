@@ -3,11 +3,11 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/fort::twofactor.configure') }}
+    {{ config('app.name') }} » {{ trans('cortex/auth::twofactor.configure') }}
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Adminarea\TwoFactorTotpProcessSettingsRequest::class)->selector('#adminarea-twofactor-totp-form') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\TwoFactorTotpProcessSettingsRequest::class)->selector('#adminarea-twofactor-totp-form') !!}
 @endpush
 
 {{-- Main Content --}}
@@ -19,7 +19,7 @@
 
             <div class="row profile">
                 <div class="col-md-3">
-                    @include('cortex/fort::adminarea.partials.sidebar')
+                    @include('cortex/auth::adminarea.partials.sidebar')
                 </div>
 
                 <div class="col-md-9">
@@ -33,7 +33,7 @@
                                 {{ Form::open(['url' => route('adminarea.account.twofactor.totp.update'), 'class' => 'form-horizontal', 'id' => 'adminarea-twofactor-totp-form']) }}
 
                                     <p class="text-justify">
-                                        {!! trans('cortex/fort::twofactor.totp_apps') !!}
+                                        {!! trans('cortex/auth::twofactor.totp_apps') !!}
                                     </p>
 
 
@@ -47,7 +47,7 @@
                                         </div>
 
                                         <div class="col-md-8 col-sm-8 col-xs-8">
-                                            {!! trans('cortex/fort::twofactor.totp_apps_step1') !!}
+                                            {!! trans('cortex/auth::twofactor.totp_apps_step1') !!}
                                         </div>
 
                                     </div>
@@ -61,19 +61,19 @@
                                         </div>
 
                                         <div class="col-md-8 col-sm-8 col-xs-8">
-                                            {!! trans('cortex/fort::twofactor.totp_apps_step2') !!}
+                                            {!! trans('cortex/auth::twofactor.totp_apps_step2') !!}
 
                                             <a class="btn btn-default text-center" role="button" data-toggle="collapse" href="#collapseSecretKey" aria-expanded="false" aria-controls="collapseSecretKey">
-                                                {{ trans('cortex/fort::twofactor.totp_apps_step2_button') }}
+                                                {{ trans('cortex/auth::twofactor.totp_apps_step2_button') }}
                                             </a>
 
                                             <div class="collapse" id="collapseSecretKey">
                                                 <hr />
                                                 <div class="well">
 
-                                                    <p class="small">{{ trans('cortex/fort::twofactor.totp_apps_step2_1') }}</p>
+                                                    <p class="small">{{ trans('cortex/auth::twofactor.totp_apps_step2_1') }}</p>
                                                     <code>{{ $secret }}</code>
-                                                    <p class="small">{{ trans('cortex/fort::twofactor.totp_apps_step2_2') }}</p>
+                                                    <p class="small">{{ trans('cortex/auth::twofactor.totp_apps_step2_2') }}</p>
 
                                                 </div>
                                             </div>
@@ -90,10 +90,10 @@
                                         </div>
 
                                         <div class="col-md-8 col-sm-8 col-xs-8">
-                                            {!! trans('cortex/fort::twofactor.totp_apps_step3') !!}
+                                            {!! trans('cortex/auth::twofactor.totp_apps_step3') !!}
 
                                             <div class="form-group{{ $errors->has('token') ? ' has-error' : '' }}" style="margin-left: 0; margin-right: 0">
-                                                {{ Form::text('token', null, ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.authentication_code'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
+                                                {{ Form::text('token', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.authentication_code'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
 
                                                 @if ($errors->has('token'))
                                                     <span class="help-block">{{ $errors->first('token') }}</span>
@@ -114,7 +114,7 @@
 
                                                     <div class="text-center">
                                                         <a class="btn btn-default text-center" role="button" data-toggle="collapse" href="#collapse2Example" aria-expanded="false" aria-controls="collapseSecretKey">
-                                                            {{ trans('cortex/fort::twofactor.totp_backup_button', ['count' => count(array_get($twoFactor, 'totp.backup'))]) }}
+                                                            {{ trans('cortex/auth::twofactor.totp_backup_button', ['count' => count(array_get($twoFactor, 'totp.backup'))]) }}
                                                         </a>
                                                     </div>
 
@@ -125,14 +125,14 @@
                                                         @if(array_get($twoFactor, 'totp.backup'))
                                                             <div class="panel panel-primary">
                                                                 <header class="panel-heading">
-                                                                    <a class="btn btn-default btn-flat btn-xs pull-right" href="{{ route('adminarea.account.twofactor.totp.backup') }}" onclick="event.preventDefault(); var form = document.getElementById('adminarea-twofactor-totp-form'); form.action = '{{ route('adminarea.account.twofactor.totp.backup') }}'; form.submit();">{{ trans('cortex/fort::twofactor.totp_backup_generate') }}</a>
-                                                                    <h3 class="panel-title">{{ trans('cortex/fort::twofactor.totp_backup_head') }}</h3>
+                                                                    <a class="btn btn-default btn-flat btn-xs pull-right" href="{{ route('adminarea.account.twofactor.totp.backup') }}" onclick="event.preventDefault(); var form = document.getElementById('adminarea-twofactor-totp-form'); form.action = '{{ route('adminarea.account.twofactor.totp.backup') }}'; form.submit();">{{ trans('cortex/auth::twofactor.totp_backup_generate') }}</a>
+                                                                    <h3 class="panel-title">{{ trans('cortex/auth::twofactor.totp_backup_head') }}</h3>
                                                                 </header>
                                                                 <div class="panel-body">
-                                                                    {{ trans('cortex/fort::twofactor.totp_backup_body') }}
+                                                                    {{ trans('cortex/auth::twofactor.totp_backup_body') }}
                                                                     <div>
 
-                                                                        {!! trans('cortex/fort::twofactor.totp_backup_notice', ['backup_at' => Carbon\Carbon::parse(array_get($twoFactor, 'totp.backup_at'))->format('F d, Y - h:ia')]) !!}
+                                                                        {!! trans('cortex/auth::twofactor.totp_backup_notice', ['backup_at' => Carbon\Carbon::parse(array_get($twoFactor, 'totp.backup_at'))->format('F d, Y - h:ia')]) !!}
 
                                                                         <ul class="list-group">
                                                                             @foreach(array_get($twoFactor, 'totp.backup') as $backup)
@@ -144,7 +144,7 @@
                                                                 </div>
                                                             </div>
                                                         @else
-                                                            {{ trans('cortex/fort::twofactor.totp_backup_none') }}
+                                                            {{ trans('cortex/auth::twofactor.totp_backup_none') }}
                                                         @endif
 
                                                     </div>
@@ -157,7 +157,7 @@
 
                                     <div class="row">
                                         <div class="col-md-12 text-center profile-buttons">
-                                            {{ Form::button('<i class="fa fa-cog"></i> '.trans('cortex/fort::twofactor.configure'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}
+                                            {{ Form::button('<i class="fa fa-cog"></i> '.trans('cortex/auth::twofactor.configure'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}
                                         </div>
                                     </div>
 

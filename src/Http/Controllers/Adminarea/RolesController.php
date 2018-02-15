@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Controllers\Adminarea;
+namespace Cortex\Auth\Http\Controllers\Adminarea;
 
-use Cortex\Fort\Models\Role;
+use Cortex\Auth\Models\Role;
 use Illuminate\Http\Request;
-use Cortex\Fort\Models\Ability;
+use Cortex\Auth\Models\Ability;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
-use Cortex\Fort\DataTables\Adminarea\RolesDataTable;
-use Cortex\Fort\Http\Requests\Adminarea\RoleFormRequest;
+use Cortex\Auth\DataTables\Adminarea\RolesDataTable;
+use Cortex\Auth\Http\Requests\Adminarea\RoleFormRequest;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
 
 class RolesController extends AuthorizedController
@@ -23,7 +23,7 @@ class RolesController extends AuthorizedController
     /**
      * List all roles.
      *
-     * @param \Cortex\Fort\DataTables\Adminarea\RolesDataTable $rolesDataTable
+     * @param \Cortex\Auth\DataTables\Adminarea\RolesDataTable $rolesDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
@@ -31,14 +31,14 @@ class RolesController extends AuthorizedController
     {
         return $rolesDataTable->with([
             'id' => 'adminarea-roles-index-table',
-            'phrase' => trans('cortex/fort::common.roles'),
+            'phrase' => trans('cortex/auth::common.roles'),
         ])->render('cortex/foundation::adminarea.pages.datatable');
     }
 
     /**
      * List role logs.
      *
-     * @param \Cortex\Fort\Models\Role                    $role
+     * @param \Cortex\Auth\Models\Role                    $role
      * @param \Cortex\Foundation\DataTables\LogsDataTable $logsDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
@@ -48,7 +48,7 @@ class RolesController extends AuthorizedController
         return $logsDataTable->with([
             'resource' => $role,
             'tabs' => 'adminarea.roles.tabs',
-            'phrase' => trans('cortex/fort::common.roles'),
+            'phrase' => trans('cortex/auth::common.roles'),
             'id' => "adminarea-roles-{$role->getKey()}-logs-table",
         ])->render('cortex/foundation::adminarea.pages.datatable-logs');
     }
@@ -57,7 +57,7 @@ class RolesController extends AuthorizedController
      * Create new role.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Cortex\Fort\Models\Role $role
+     * @param \Cortex\Auth\Models\Role $role
      *
      * @return \Illuminate\View\View
      */
@@ -70,7 +70,7 @@ class RolesController extends AuthorizedController
      * Edit given role.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Cortex\Fort\Models\Role $role
+     * @param \Cortex\Auth\Models\Role $role
      *
      * @return \Illuminate\View\View
      */
@@ -83,7 +83,7 @@ class RolesController extends AuthorizedController
      * Show role create/edit form.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Cortex\Fort\Models\Role $role
+     * @param \Cortex\Auth\Models\Role $role
      *
      * @return \Illuminate\View\View
      */
@@ -92,14 +92,14 @@ class RolesController extends AuthorizedController
         $abilities = $request->user($this->getGuard())->can('superadmin') ? Ability::all()->pluck('title', 'id')->toArray()
             : $request->user($this->getGuard())->abilities->pluck('title', 'id')->toArray();
 
-        return view('cortex/fort::adminarea.pages.role', compact('role', 'abilities'));
+        return view('cortex/auth::adminarea.pages.role', compact('role', 'abilities'));
     }
 
     /**
      * Store new role.
      *
-     * @param \Cortex\Fort\Http\Requests\Adminarea\RoleFormRequest $request
-     * @param \Cortex\Fort\Models\Role                             $role
+     * @param \Cortex\Auth\Http\Requests\Adminarea\RoleFormRequest $request
+     * @param \Cortex\Auth\Models\Role                             $role
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -111,8 +111,8 @@ class RolesController extends AuthorizedController
     /**
      * Update given role.
      *
-     * @param \Cortex\Fort\Http\Requests\Adminarea\RoleFormRequest $request
-     * @param \Cortex\Fort\Models\Role                             $role
+     * @param \Cortex\Auth\Http\Requests\Adminarea\RoleFormRequest $request
+     * @param \Cortex\Auth\Models\Role                             $role
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -125,7 +125,7 @@ class RolesController extends AuthorizedController
      * Process stored/updated role.
      *
      * @param \Illuminate\Foundation\Http\FormRequest $request
-     * @param \Cortex\Fort\Models\Role                $role
+     * @param \Cortex\Auth\Models\Role                $role
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -146,7 +146,7 @@ class RolesController extends AuthorizedController
     /**
      * Destroy given role.
      *
-     * @param \Cortex\Fort\Models\Role $role
+     * @param \Cortex\Auth\Models\Role $role
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

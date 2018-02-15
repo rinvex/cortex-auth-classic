@@ -1,13 +1,13 @@
-# Cortex Fort
+# Cortex Auth
 
-**Cortex Fort** is a frontend layer for the powerful authentication, authorization and verification package **rinvex/auth** on top of Laravel. It has all required controllers, views, routes, and other required assets to run a fully functional user management system with complete dashboard out of the box.
+**Cortex Auth** is a frontend layer for the powerful authentication, authorization and verification package **rinvex/auth** on top of Laravel. It has all required controllers, views, routes, and other required assets to run a fully functional user management system with complete dashboard out of the box.
 
-[![Packagist](https://img.shields.io/packagist/v/cortex/fort.svg?label=Packagist&style=flat-square)](https://packagist.org/packages/cortex/fort)
-[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/rinvex/cortex-fort.svg?label=Scrutinizer&style=flat-square)](https://scrutinizer-ci.com/g/rinvex/cortex-fort/)
-[![Code Climate](https://img.shields.io/codeclimate/github/rinvex/cortex-fort.svg?label=CodeClimate&style=flat-square)](https://codeclimate.com/github/rinvex/cortex-fort)
-[![Travis](https://img.shields.io/travis/rinvex/cortex-fort.svg?label=TravisCI&style=flat-square)](https://travis-ci.org/rinvex/cortex-fort)
+[![Packagist](https://img.shields.io/packagist/v/cortex/auth.svg?label=Packagist&style=flat-square)](https://packagist.org/packages/cortex/auth)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/rinvex/cortex-auth.svg?label=Scrutinizer&style=flat-square)](https://scrutinizer-ci.com/g/rinvex/cortex-auth/)
+[![Code Climate](https://img.shields.io/codeclimate/github/rinvex/cortex-auth.svg?label=CodeClimate&style=flat-square)](https://codeclimate.com/github/rinvex/cortex-auth)
+[![Travis](https://img.shields.io/travis/rinvex/cortex-auth.svg?label=TravisCI&style=flat-square)](https://travis-ci.org/rinvex/cortex-auth)
 [![StyleCI](https://styleci.io/repos/77746390/shield)](https://styleci.io/repos/77746390)
-[![License](https://img.shields.io/packagist/l/cortex/fort.svg?label=License&style=flat-square)](https://github.com/rinvex/cortex-fort/blob/develop/LICENSE)
+[![License](https://img.shields.io/packagist/l/cortex/auth.svg?label=License&style=flat-square)](https://github.com/rinvex/cortex-auth/blob/develop/LICENSE)
 
 
 ## Installation and Usage

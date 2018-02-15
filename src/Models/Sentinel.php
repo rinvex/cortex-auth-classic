@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Models;
+namespace Cortex\Auth\Models;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Support\Facades\Hash;
@@ -154,7 +154,7 @@ class Sentinel extends Model implements AuthenticatableContract, AuthorizableCon
      */
     public function sessions(): MorphMany
     {
-        return $this->morphMany(config('cortex.fort.models.session'), 'user');
+        return $this->morphMany(config('cortex.auth.models.session'), 'user');
     }
 
     /**

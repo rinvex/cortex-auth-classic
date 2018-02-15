@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Console\Commands;
+namespace Cortex\Auth\Console\Commands;
 
 use Illuminate\Console\Command;
 
@@ -13,14 +13,14 @@ class MigrateCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'cortex:migrate:fort {--force : Force the operation to run when in production.}';
+    protected $signature = 'cortex:migrate:auth {--force : Force the operation to run when in production.}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Migrate Cortex Fort Tables.';
+    protected $description = 'Migrate Cortex Auth Tables.';
 
     /**
      * Execute the console command.
@@ -31,6 +31,6 @@ class MigrateCommand extends Command
     {
         $this->warn($this->description);
 
-        $this->call('migrate', ['--step' => true, '--path' => 'app/cortex/fort/database/migrations', '--force' => $this->option('force')]);
+        $this->call('migrate', ['--step' => true, '--path' => 'app/cortex/auth/database/migrations', '--force' => $this->option('force')]);
     }
 }

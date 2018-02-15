@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Controllers\Adminarea;
+namespace Cortex\Auth\Http\Controllers\Adminarea;
 
 use Illuminate\Http\Request;
-use Cortex\Fort\Models\Sentinel;
+use Cortex\Auth\Models\Sentinel;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
-use Cortex\Fort\DataTables\Adminarea\SentinelsDataTable;
-use Cortex\Fort\Http\Requests\Adminarea\SentinelFormRequest;
+use Cortex\Auth\DataTables\Adminarea\SentinelsDataTable;
+use Cortex\Auth\Http\Requests\Adminarea\SentinelFormRequest;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
 
 class SentinelsController extends AuthorizedController
@@ -22,7 +22,7 @@ class SentinelsController extends AuthorizedController
     /**
      * List all sentinels.
      *
-     * @param \Cortex\Fort\DataTables\Adminarea\SentinelsDataTable $sentinelsDataTable
+     * @param \Cortex\Auth\DataTables\Adminarea\SentinelsDataTable $sentinelsDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
@@ -30,14 +30,14 @@ class SentinelsController extends AuthorizedController
     {
         return $sentinelsDataTable->with([
             'id' => 'adminarea-sentinels-index-table',
-            'phrase' => trans('cortex/fort::common.sentinels'),
+            'phrase' => trans('cortex/auth::common.sentinels'),
         ])->render('cortex/foundation::adminarea.pages.datatable');
     }
 
     /**
      * List sentinel logs.
      *
-     * @param \Cortex\Fort\Models\Sentinel                $sentinel
+     * @param \Cortex\Auth\Models\Sentinel                $sentinel
      * @param \Cortex\Foundation\DataTables\LogsDataTable $logsDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
@@ -47,7 +47,7 @@ class SentinelsController extends AuthorizedController
         return $logsDataTable->with([
             'resource' => $sentinel,
             'tabs' => 'adminarea.sentinels.tabs',
-            'phrase' => trans('cortex/fort::common.sentinels'),
+            'phrase' => trans('cortex/auth::common.sentinels'),
             'id' => "adminarea-sentinels-{$sentinel->getKey()}-logs-table",
         ])->render('cortex/foundation::adminarea.pages.datatable-logs');
     }
@@ -56,7 +56,7 @@ class SentinelsController extends AuthorizedController
      * Create new sentinel.
      *
      * @param \Illuminate\Http\Request     $request
-     * @param \Cortex\Fort\Models\Sentinel $sentinel
+     * @param \Cortex\Auth\Models\Sentinel $sentinel
      *
      * @return \Illuminate\View\View
      */
@@ -69,7 +69,7 @@ class SentinelsController extends AuthorizedController
      * Edit given sentinel.
      *
      * @param \Illuminate\Http\Request     $request
-     * @param \Cortex\Fort\Models\Sentinel $sentinel
+     * @param \Cortex\Auth\Models\Sentinel $sentinel
      *
      * @return \Illuminate\View\View
      */
@@ -82,7 +82,7 @@ class SentinelsController extends AuthorizedController
      * Show sentinel create/edit form.
      *
      * @param \Illuminate\Http\Request     $request
-     * @param \Cortex\Fort\Models\Sentinel $sentinel
+     * @param \Cortex\Auth\Models\Sentinel $sentinel
      *
      * @return \Illuminate\View\View
      */
@@ -97,24 +97,24 @@ class SentinelsController extends AuthorizedController
         })->values();
         $currentUser = $request->user($this->getGuard());
         $languages = collect(languages())->pluck('name', 'iso_639_1');
-        $genders = ['male' => trans('cortex/fort::common.male'), 'female' => trans('cortex/fort::common.female')];
+        $genders = ['male' => trans('cortex/auth::common.male'), 'female' => trans('cortex/auth::common.female')];
 
         $roles = $currentUser->can('superadmin')
-            ? app('cortex.fort.role')->all()->pluck('name', 'id')->toArray()
+            ? app('cortex.auth.role')->all()->pluck('name', 'id')->toArray()
             : $currentUser->roles->pluck('name', 'id')->toArray();
 
         $abilities = $currentUser->can('superadmin')
-            ? app('cortex.fort.ability')->all()->pluck('title', 'id')->toArray()
+            ? app('cortex.auth.ability')->all()->pluck('title', 'id')->toArray()
             : $currentUser->abilities->pluck('title', 'id')->toArray();
 
-        return view('cortex/fort::adminarea.pages.sentinel', compact('sentinel', 'abilities', 'roles', 'countries', 'languages', 'genders'));
+        return view('cortex/auth::adminarea.pages.sentinel', compact('sentinel', 'abilities', 'roles', 'countries', 'languages', 'genders'));
     }
 
     /**
      * Store new sentinel.
      *
-     * @param \Cortex\Fort\Http\Requests\Adminarea\SentinelFormRequest $request
-     * @param \Cortex\Fort\Models\Sentinel                             $sentinel
+     * @param \Cortex\Auth\Http\Requests\Adminarea\SentinelFormRequest $request
+     * @param \Cortex\Auth\Models\Sentinel                             $sentinel
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -126,8 +126,8 @@ class SentinelsController extends AuthorizedController
     /**
      * Update given sentinel.
      *
-     * @param \Cortex\Fort\Http\Requests\Adminarea\SentinelFormRequest $request
-     * @param \Cortex\Fort\Models\Sentinel                             $sentinel
+     * @param \Cortex\Auth\Http\Requests\Adminarea\SentinelFormRequest $request
+     * @param \Cortex\Auth\Models\Sentinel                             $sentinel
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -140,7 +140,7 @@ class SentinelsController extends AuthorizedController
      * Process stored/updated sentinel.
      *
      * @param \Illuminate\Foundation\Http\FormRequest $request
-     * @param \Cortex\Fort\Models\Sentinel            $sentinel
+     * @param \Cortex\Auth\Models\Sentinel            $sentinel
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -161,7 +161,7 @@ class SentinelsController extends AuthorizedController
     /**
      * Destroy given sentinel.
      *
-     * @param \Cortex\Fort\Models\Sentinel $sentinel
+     * @param \Cortex\Auth\Models\Sentinel $sentinel
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

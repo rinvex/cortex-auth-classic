@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Notifications;
+namespace Cortex\Auth\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
@@ -35,10 +35,10 @@ class RegistrationSuccessNotification extends Notification implements ShouldQueu
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage())
-            ->subject(trans('cortex/fort::emails.register.welcome.subject'))
-            ->line(config('cortex.fort.registration.moderated')
-                ? trans('cortex/fort::emails.register.welcome.intro_moderation')
-                : trans('cortex/fort::emails.register.welcome.intro_default')
+            ->subject(trans('cortex/auth::emails.register.welcome.subject'))
+            ->line(config('cortex.auth.registration.moderated')
+                ? trans('cortex/auth::emails.register.welcome.intro_moderation')
+                : trans('cortex/auth::emails.register.welcome.intro_default')
             );
     }
 }

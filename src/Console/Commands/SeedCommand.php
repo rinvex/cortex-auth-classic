@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Console\Commands;
+namespace Cortex\Auth\Console\Commands;
 
-use Cortex\Fort\Models\Admin;
+use Cortex\Auth\Models\Admin;
 use Illuminate\Console\Command;
-use Cortex\Fort\Models\Sentinel;
+use Cortex\Auth\Models\Sentinel;
 
 class SeedCommand extends Command
 {
@@ -15,14 +15,14 @@ class SeedCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'cortex:seed:fort';
+    protected $signature = 'cortex:seed:auth';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Seed Cortex Fort Data.';
+    protected $description = 'Seed Cortex Auth Data.';
 
     /**
      * Execute the console command.
@@ -33,7 +33,7 @@ class SeedCommand extends Command
     {
         $this->warn($this->description);
 
-        $this->call('db:seed', ['--class' => 'CortexFortSeeder']);
+        $this->call('db:seed', ['--class' => 'CortexAuthSeeder']);
 
         // Create models
         $admin = $this->createAdmin($adminPassword = str_random());
@@ -53,7 +53,7 @@ class SeedCommand extends Command
      *
      * @param string $password
      *
-     * @return \Cortex\Fort\Models\Admin
+     * @return \Cortex\Auth\Models\Admin
      */
     protected function createAdmin(string $password): Admin
     {
@@ -64,7 +64,7 @@ class SeedCommand extends Command
             'email' => 'admin@example.com',
         ];
 
-        return tap(app('cortex.fort.admin')->firstOrNew($admin)->fill([
+        return tap(app('cortex.auth.admin')->firstOrNew($admin)->fill([
             'remember_token' => str_random(10),
             'email_verified_at' => now(),
             'password' => $password,
@@ -78,7 +78,7 @@ class SeedCommand extends Command
      *
      * @param string $password
      *
-     * @return \Cortex\Fort\Models\Sentinel
+     * @return \Cortex\Auth\Models\Sentinel
      */
     protected function createSentinel(string $password): Sentinel
     {
@@ -88,7 +88,7 @@ class SeedCommand extends Command
             'email' => 'sentinel@example.com',
         ];
 
-        return tap(app('cortex.fort.sentinel')->firstOrNew($sentinel)->fill([
+        return tap(app('cortex.auth.sentinel')->firstOrNew($sentinel)->fill([
             'remember_token' => str_random(10),
             'password' => $password,
         ]), function ($instance) {

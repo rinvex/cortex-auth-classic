@@ -3,11 +3,11 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/foundation::common.adminarea') }} » {{ trans('cortex/fort::common.managers') }} » {{ $manager->username }} » {{ trans('cortex/fort::common.attributes') }}
+    {{ config('app.name') }} » {{ trans('cortex/foundation::common.adminarea') }} » {{ trans('cortex/auth::common.managers') }} » {{ $manager->username }} » {{ trans('cortex/auth::common.attributes') }}
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Adminarea\ManagerAttributesFormRequest::class)->selector("#adminarea-managers-create-form, #adminarea-managers-{$manager->getKey()}-update-attributes-form") !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\ManagerAttributesFormRequest::class)->selector("#adminarea-managers-create-form, #adminarea-managers-{$manager->getKey()}-update-attributes-form") !!}
 @endpush
 
 {{-- Main Content --}}

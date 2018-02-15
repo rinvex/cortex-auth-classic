@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Requests\Adminarea;
+namespace Cortex\Auth\Http\Requests\Adminarea;
 
 class EmailVerificationProcessRequest extends EmailVerificationRequest
 {
@@ -17,7 +17,7 @@ class EmailVerificationProcessRequest extends EmailVerificationRequest
             // Do not validate `token` here since at this stage we can NOT generate viewable error,
             // and it is been processed in the controller through EmailVerificationBroker anyway
             //'token' => 'required|regex:/^([0-9a-f]*)$/',
-            'email' => 'required|email|min:3|max:150|exists:'.config('cortex.fort.tables.admins').',email',
+            'email' => 'required|email|min:3|max:150|exists:'.config('cortex.auth.tables.admins').',email',
         ];
     }
 

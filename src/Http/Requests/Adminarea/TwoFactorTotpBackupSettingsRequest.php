@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Requests\Adminarea;
+namespace Cortex\Auth\Http\Requests\Adminarea;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\Exceptions\GenericException;
@@ -22,7 +22,7 @@ class TwoFactorTotpBackupSettingsRequest extends FormRequest
         $twoFactor = $user->getTwoFactor();
 
         if (empty($twoFactor['totp']['enabled'])) {
-            throw new GenericException(trans('cortex/fort::messages.verification.twofactor.totp.cant_backup'), route('adminarea.account.settings'));
+            throw new GenericException(trans('cortex/auth::messages.verification.twofactor.totp.cant_backup'), route('adminarea.account.settings'));
         }
 
         return true;

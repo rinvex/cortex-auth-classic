@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Requests\Adminarea;
+namespace Cortex\Auth\Http\Requests\Adminarea;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\Exceptions\GenericException;
@@ -21,7 +21,7 @@ class TwoFactorPhoneSettingsRequest extends FormRequest
         $user = $this->user($this->get('guard'));
 
         if (! $user->phone || ! $user->phone_verified) {
-            throw new GenericException(trans('cortex/fort::messages.account.'.(! $user->phone ? 'phone_field_required' : 'phone_verification_required')), route('adminarea.account.settings'));
+            throw new GenericException(trans('cortex/auth::messages.account.'.(! $user->phone ? 'phone_field_required' : 'phone_verification_required')), route('adminarea.account.settings'));
         }
 
         return true;

@@ -15,7 +15,7 @@ class CreateManagersTable extends Migration
      */
     public function up(): void
     {
-        Schema::create(config('cortex.fort.tables.managers'), function (Blueprint $table) {
+        Schema::create(config('cortex.auth.tables.managers'), function (Blueprint $table) {
             // Columns
             $table->increments('id');
             $table->string('username');
@@ -56,6 +56,6 @@ class CreateManagersTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists(config('cortex.fort.tables.managers'));
+        Schema::dropIfExists(config('cortex.auth.tables.managers'));
     }
 }

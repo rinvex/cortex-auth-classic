@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Requests\Adminarea;
+namespace Cortex\Auth\Http\Requests\Adminarea;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\Exceptions\GenericException;
@@ -20,26 +20,26 @@ class PhoneVerificationRequest extends FormRequest
     {
         $user = $this->user($this->get('guard'))
                 ?? $this->attemptUser($this->get('guard'))
-                   ?? app('cortex.fort.admin')->whereNotNull('phone')->where('phone', $this->get('phone'))->first();
+                   ?? app('cortex.auth.admin')->whereNotNull('phone')->where('phone', $this->get('phone'))->first();
 
         if ($user && $user->phone_verified) {
             // Redirect users if their phone already verified, no need to process their request
-            throw new GenericException(trans('cortex/fort::messages.verification.phone.already_verified'), route('adminarea.account.settings'));
+            throw new GenericException(trans('cortex/auth::messages.verification.phone.already_verified'), route('adminarea.account.settings'));
         }
 
         if ($user && ! $user->phone) {
             // Phone field required before verification
-            throw new GenericException(trans('cortex/fort::messages.account.phone_required'), route('adminarea.account.settings'));
+            throw new GenericException(trans('cortex/auth::messages.account.phone_required'), route('adminarea.account.settings'));
         }
 
         if ($user && ! $user->country_code) {
             // Country field required for phone verification
-            throw new GenericException(trans('cortex/fort::messages.account.country_required'), route('adminarea.account.settings'));
+            throw new GenericException(trans('cortex/auth::messages.account.country_required'), route('adminarea.account.settings'));
         }
 
         if ($user && ! $user->email_verified) {
             // Email verification required for phone verification
-            throw new GenericException(trans('cortex/fort::messages.account.email_verification_required'), route('adminarea.verification.email.request'));
+            throw new GenericException(trans('cortex/auth::messages.account.email_verification_required'), route('adminarea.verification.email.request'));
         }
 
         return true;

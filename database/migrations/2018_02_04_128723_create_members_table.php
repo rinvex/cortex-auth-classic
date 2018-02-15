@@ -15,7 +15,7 @@ class CreateMembersTable extends Migration
      */
     public function up(): void
     {
-        Schema::create(config('cortex.fort.tables.members'), function (Blueprint $table) {
+        Schema::create(config('cortex.auth.tables.members'), function (Blueprint $table) {
             // Columns
             $table->increments('id');
             $table->string('username');
@@ -56,6 +56,6 @@ class CreateMembersTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists(config('cortex.fort.tables.members'));
+        Schema::dropIfExists(config('cortex.auth.tables.members'));
     }
 }

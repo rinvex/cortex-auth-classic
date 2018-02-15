@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Requests\Adminarea;
+namespace Cortex\Auth\Http\Requests\Adminarea;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -27,7 +27,7 @@ class AuthenticationRequest extends FormRequest
     {
         return [
             'loginfield' => 'required|min:3|max:150',
-            'password' => 'required|min:'.config('cortex.fort.password_min_chars'),
+            'password' => 'required|min:'.config('cortex.auth.password_min_chars'),
         ];
     }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Requests\Adminarea;
+namespace Cortex\Auth\Http\Requests\Adminarea;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\Exceptions\GenericException;
@@ -20,7 +20,7 @@ class EmailVerificationRequest extends FormRequest
     {
         // Redirect users if their email already verified, no need to process their request
         if (($user = $this->user($this->get('guard')) ?: $this->attemptUser($this->get('guard'))) && $user->email_verified) {
-            throw new GenericException(trans('cortex/fort::messages.verification.email.already_verified'), route('adminarea.account.settings'));
+            throw new GenericException(trans('cortex/auth::messages.verification.email.already_verified'), route('adminarea.account.settings'));
         }
 
         return true;

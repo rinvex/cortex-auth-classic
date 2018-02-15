@@ -1,4 +1,4 @@
-# Cortex Fort Change Log
+# Cortex Auth Change Log
 
 All notable changes to this project will be documented in this file.
 

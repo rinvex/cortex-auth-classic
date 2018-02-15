@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Notifications;
+namespace Cortex\Auth\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
@@ -64,9 +64,9 @@ class ManagerPasswordResetNotification extends Notification implements ShouldQue
         $link = route('managerarea.passwordreset.reset')."?email={$email}&expiration={$this->expiration}&token={$this->token}";
 
         return (new MailMessage())
-            ->subject(trans('cortex/fort::emails.passwordreset.request.subject'))
-            ->line(trans('cortex/fort::emails.passwordreset.request.intro', ['expire' => now()->createFromTimestamp($this->expiration)->diffForHumans()]))
-            ->action(trans('cortex/fort::emails.passwordreset.request.action'), $link)
-            ->line(trans('cortex/fort::emails.passwordreset.request.outro'));
+            ->subject(trans('cortex/auth::emails.passwordreset.request.subject'))
+            ->line(trans('cortex/auth::emails.passwordreset.request.intro', ['expire' => now()->createFromTimestamp($this->expiration)->diffForHumans()]))
+            ->action(trans('cortex/auth::emails.passwordreset.request.action'), $link)
+            ->line(trans('cortex/auth::emails.passwordreset.request.outro'));
     }
 }

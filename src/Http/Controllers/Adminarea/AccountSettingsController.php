@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Controllers\Adminarea;
+namespace Cortex\Auth\Http\Controllers\Adminarea;
 
 use Illuminate\Http\Request;
-use Cortex\Fort\Http\Requests\Adminarea\AccountSettingsRequest;
+use Cortex\Auth\Http\Requests\Adminarea\AccountSettingsRequest;
 use Cortex\Foundation\Http\Controllers\AuthenticatedController;
 
 class AccountSettingsController extends AuthenticatedController
@@ -39,15 +39,15 @@ class AccountSettingsController extends AuthenticatedController
             ];
         })->values();
         $languages = collect(languages())->pluck('name', 'iso_639_1');
-        $genders = ['male' => trans('cortex/fort::common.male'), 'female' => trans('cortex/fort::common.female')];
+        $genders = ['male' => trans('cortex/auth::common.male'), 'female' => trans('cortex/auth::common.female')];
 
-        return view('cortex/fort::adminarea.pages.account-settings', compact('countries', 'languages', 'genders'));
+        return view('cortex/auth::adminarea.pages.account-settings', compact('countries', 'languages', 'genders'));
     }
 
     /**
      * Update account settings.
      *
-     * @param \Cortex\Fort\Http\Requests\Adminarea\AccountSettingsRequest $request
+     * @param \Cortex\Auth\Http\Requests\Adminarea\AccountSettingsRequest $request
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -61,8 +61,8 @@ class AccountSettingsController extends AuthenticatedController
 
         return intend([
             'back' => true,
-            'with' => ['success' => trans('cortex/fort::messages.account.updated_account')]
-                      + (isset($data['two_factor']) ? ['warning' => trans('cortex/fort::messages.verification.twofactor.phone.auto_disabled')] : []),
+            'with' => ['success' => trans('cortex/auth::messages.account.updated_account')]
+                      + (isset($data['two_factor']) ? ['warning' => trans('cortex/auth::messages.verification.twofactor.phone.auto_disabled')] : []),
         ]);
     }
 }

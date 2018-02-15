@@ -15,7 +15,7 @@ class CreateSocialitesTable extends Migration
      */
     public function up(): void
     {
-        Schema::create(config('cortex.fort.tables.socialites'), function (Blueprint $table) {
+        Schema::create(config('cortex.auth.tables.socialites'), function (Blueprint $table) {
             // Columns
             $table->increments('id');
             $table->morphs('user');
@@ -35,6 +35,6 @@ class CreateSocialitesTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists(config('cortex.fort.tables.socialites'));
+        Schema::dropIfExists(config('cortex.auth.tables.socialites'));
     }
 }

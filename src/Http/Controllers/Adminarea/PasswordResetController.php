@@ -2,34 +2,34 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Controllers\Adminarea;
+namespace Cortex\Auth\Http\Controllers\Adminarea;
 
 use Illuminate\Support\Str;
 use Rinvex\Auth\Contracts\PasswordResetBrokerContract;
 use Cortex\Foundation\Http\Controllers\AbstractController;
-use Cortex\Fort\Http\Requests\Adminarea\PasswordResetRequest;
-use Cortex\Fort\Http\Requests\Adminarea\PasswordResetSendRequest;
-use Cortex\Fort\Http\Requests\Adminarea\PasswordResetProcessRequest;
-use Cortex\Fort\Http\Requests\Adminarea\PasswordResetPostProcessRequest;
+use Cortex\Auth\Http\Requests\Adminarea\PasswordResetRequest;
+use Cortex\Auth\Http\Requests\Adminarea\PasswordResetSendRequest;
+use Cortex\Auth\Http\Requests\Adminarea\PasswordResetProcessRequest;
+use Cortex\Auth\Http\Requests\Adminarea\PasswordResetPostProcessRequest;
 
 class PasswordResetController extends AbstractController
 {
     /**
      * Show the password reset request form.
      *
-     * @param Cortex\Fort\Http\Requests\Adminarea\PasswordResetRequest
+     * @param Cortex\Auth\Http\Requests\Adminarea\PasswordResetRequest
      *
      * @return \Illuminate\View\View
      */
     public function request(PasswordResetRequest $request)
     {
-        return view('cortex/fort::adminarea.pages.passwordreset-request');
+        return view('cortex/auth::adminarea.pages.passwordreset-request');
     }
 
     /**
      * Process the password reset request form.
      *
-     * @param \Cortex\Fort\Http\Requests\Adminarea\PasswordResetSendRequest $request
+     * @param \Cortex\Auth\Http\Requests\Adminarea\PasswordResetSendRequest $request
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -59,7 +59,7 @@ class PasswordResetController extends AbstractController
     /**
      * Show the password reset form.
      *
-     * @param \Cortex\Fort\Http\Requests\Adminarea\PasswordResetProcessRequest $request
+     * @param \Cortex\Auth\Http\Requests\Adminarea\PasswordResetProcessRequest $request
      *
      * @return \Illuminate\View\View
      */
@@ -67,13 +67,13 @@ class PasswordResetController extends AbstractController
     {
         $credentials = $request->only('email', 'expiration', 'token');
 
-        return view('cortex/fort::adminarea.pages.passwordreset')->with($credentials);
+        return view('cortex/auth::adminarea.pages.passwordreset')->with($credentials);
     }
 
     /**
      * Process the password reset form.
      *
-     * @param \Cortex\Fort\Http\Requests\Adminarea\PasswordResetPostProcessRequest $request
+     * @param \Cortex\Auth\Http\Requests\Adminarea\PasswordResetPostProcessRequest $request
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Controllers\Adminarea;
+namespace Cortex\Auth\Http\Controllers\Adminarea;
 
 use Illuminate\Http\Request;
-use Cortex\Fort\Models\Ability;
+use Cortex\Auth\Models\Ability;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
-use Cortex\Fort\DataTables\Adminarea\AbilitiesDataTable;
-use Cortex\Fort\Http\Requests\Adminarea\AbilityFormRequest;
+use Cortex\Auth\DataTables\Adminarea\AbilitiesDataTable;
+use Cortex\Auth\Http\Requests\Adminarea\AbilityFormRequest;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
 
 class AbilitiesController extends AuthorizedController
@@ -22,7 +22,7 @@ class AbilitiesController extends AuthorizedController
     /**
      * List all abilities.
      *
-     * @param \Cortex\Fort\DataTables\Adminarea\AbilitiesDataTable $abilitiesDataTable
+     * @param \Cortex\Auth\DataTables\Adminarea\AbilitiesDataTable $abilitiesDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
@@ -30,14 +30,14 @@ class AbilitiesController extends AuthorizedController
     {
         return $abilitiesDataTable->with([
             'id' => 'adminarea-abilities-index-table',
-            'phrase' => trans('cortex/fort::common.abilities'),
+            'phrase' => trans('cortex/auth::common.abilities'),
         ])->render('cortex/foundation::adminarea.pages.datatable');
     }
 
     /**
      * List ability logs.
      *
-     * @param \Cortex\Fort\Models\Ability                 $ability
+     * @param \Cortex\Auth\Models\Ability                 $ability
      * @param \Cortex\Foundation\DataTables\LogsDataTable $logsDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
@@ -47,7 +47,7 @@ class AbilitiesController extends AuthorizedController
         return $logsDataTable->with([
             'resource' => $ability,
             'tabs' => 'adminarea.abilities.tabs',
-            'phrase' => trans('cortex/fort::common.abilities'),
+            'phrase' => trans('cortex/auth::common.abilities'),
             'id' => "adminarea-abilities-{$ability->getKey()}-logs-table",
         ])->render('cortex/foundation::adminarea.pages.datatable-logs');
     }
@@ -56,7 +56,7 @@ class AbilitiesController extends AuthorizedController
      * Create new ability.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Cortex\Fort\Models\Role $ability
+     * @param \Cortex\Auth\Models\Role $ability
      *
      * @return \Illuminate\View\View
      */
@@ -69,7 +69,7 @@ class AbilitiesController extends AuthorizedController
      * Edit given ability.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Cortex\Fort\Models\Role $ability
+     * @param \Cortex\Auth\Models\Role $ability
      *
      * @return \Illuminate\View\View
      */
@@ -82,24 +82,24 @@ class AbilitiesController extends AuthorizedController
      * Show ability create/edit form.
      *
      * @param \Illuminate\Http\Request    $request
-     * @param \Cortex\Fort\Models\Ability $ability
+     * @param \Cortex\Auth\Models\Ability $ability
      *
      * @return \Illuminate\View\View
      */
     protected function form(Request $request, Ability $ability)
     {
         $roles = $request->user($this->getGuard())->can('superadmin')
-            ? app('cortex.fort.role')->all()->pluck('name', 'id')->toArray()
+            ? app('cortex.auth.role')->all()->pluck('name', 'id')->toArray()
             : $request->user($this->getGuard())->roles->pluck('name', 'id')->toArray();
 
-        return view('cortex/fort::adminarea.pages.ability', compact('ability', 'roles'));
+        return view('cortex/auth::adminarea.pages.ability', compact('ability', 'roles'));
     }
 
     /**
      * Store new ability.
      *
-     * @param \Cortex\Fort\Http\Requests\Adminarea\AbilityFormRequest $request
-     * @param \Cortex\Fort\Models\Ability                             $ability
+     * @param \Cortex\Auth\Http\Requests\Adminarea\AbilityFormRequest $request
+     * @param \Cortex\Auth\Models\Ability                             $ability
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -111,8 +111,8 @@ class AbilitiesController extends AuthorizedController
     /**
      * Update given ability.
      *
-     * @param \Cortex\Fort\Http\Requests\Adminarea\AbilityFormRequest $request
-     * @param \Cortex\Fort\Models\Ability                             $ability
+     * @param \Cortex\Auth\Http\Requests\Adminarea\AbilityFormRequest $request
+     * @param \Cortex\Auth\Models\Ability                             $ability
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -125,7 +125,7 @@ class AbilitiesController extends AuthorizedController
      * Process stored/updated ability.
      *
      * @param \Illuminate\Foundation\Http\FormRequest $request
-     * @param \Cortex\Fort\Models\Ability             $ability
+     * @param \Cortex\Auth\Models\Ability             $ability
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -146,7 +146,7 @@ class AbilitiesController extends AuthorizedController
     /**
      * Destroy given ability.
      *
-     * @param \Cortex\Fort\Models\Ability $ability
+     * @param \Cortex\Auth\Models\Ability $ability
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

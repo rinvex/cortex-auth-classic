@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Controllers\Adminarea;
+namespace Cortex\Auth\Http\Controllers\Adminarea;
 
 use Illuminate\Http\Request;
-use Cortex\Fort\Models\Session;
+use Cortex\Auth\Models\Session;
 use Cortex\Foundation\Http\Controllers\AuthenticatedController;
 
 class AccountSessionsController extends AuthenticatedController
@@ -17,13 +17,13 @@ class AccountSessionsController extends AuthenticatedController
      */
     public function index()
     {
-        return view('cortex/fort::adminarea.pages.account-sessions');
+        return view('cortex/auth::adminarea.pages.account-sessions');
     }
 
     /**
      * Destroy given session.
      *
-     * @param \Cortex\Fort\Models\Session $session
+     * @param \Cortex\Auth\Models\Session $session
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -50,7 +50,7 @@ class AccountSessionsController extends AuthenticatedController
 
         return intend([
             'back' => true,
-            'with' => ['warning' => trans('cortex/fort::messages.auth.session.flushed')],
+            'with' => ['warning' => trans('cortex/auth::messages.auth.session.flushed')],
         ]);
     }
 }

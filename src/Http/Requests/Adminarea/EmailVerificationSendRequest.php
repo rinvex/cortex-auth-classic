@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Requests\Adminarea;
+namespace Cortex\Auth\Http\Requests\Adminarea;
 
 class EmailVerificationSendRequest extends EmailVerificationRequest
 {
@@ -14,7 +14,7 @@ class EmailVerificationSendRequest extends EmailVerificationRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email|min:3|max:150|exists:'.config('cortex.fort.tables.admins').',email',
+            'email' => 'required|email|min:3|max:150|exists:'.config('cortex.auth.tables.admins').',email',
         ];
     }
 }

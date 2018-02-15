@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Notifications;
+namespace Cortex\Auth\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
@@ -64,9 +64,9 @@ class ManagerEmailVerificationNotification extends Notification implements Shoul
         $link = route('managerarea.verification.email.verify')."?email={$email}&expiration={$this->expiration}&token={$this->token}";
 
         return (new MailMessage())
-            ->subject(trans('cortex/fort::emails.verification.email.subject'))
-            ->line(trans('cortex/fort::emails.verification.email.intro', ['expire' => now()->createFromTimestamp($this->expiration)->diffForHumans()]))
-            ->action(trans('cortex/fort::emails.verification.email.action'), $link)
-            ->line(trans('cortex/fort::emails.verification.email.outro'));
+            ->subject(trans('cortex/auth::emails.verification.email.subject'))
+            ->line(trans('cortex/auth::emails.verification.email.intro', ['expire' => now()->createFromTimestamp($this->expiration)->diffForHumans()]))
+            ->action(trans('cortex/auth::emails.verification.email.action'), $link)
+            ->line(trans('cortex/auth::emails.verification.email.outro'));
     }
 }

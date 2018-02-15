@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Controllers\Adminarea;
+namespace Cortex\Auth\Http\Controllers\Adminarea;
 
 use Illuminate\Support\Str;
-use Cortex\Fort\Models\Admin;
+use Cortex\Auth\Models\Admin;
 use Spatie\MediaLibrary\Models\Media;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
 
@@ -39,7 +39,7 @@ class AdminsMediaController extends AuthorizedController
     /**
      * Destroy given admin media.
      *
-     * @param \Cortex\Fort\Models\Admin         $admin
+     * @param \Cortex\Auth\Models\Admin         $admin
      * @param \Spatie\MediaLibrary\Models\Media $media
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse

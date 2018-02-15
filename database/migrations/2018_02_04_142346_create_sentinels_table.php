@@ -15,7 +15,7 @@ class CreateSentinelsTable extends Migration
      */
     public function up(): void
     {
-        Schema::create(config('cortex.fort.tables.sentinels'), function (Blueprint $table) {
+        Schema::create(config('cortex.auth.tables.sentinels'), function (Blueprint $table) {
             // Columns
             $table->increments('id');
             $table->string('username');
@@ -40,6 +40,6 @@ class CreateSentinelsTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists(config('cortex.fort.tables.sentinels'));
+        Schema::dropIfExists(config('cortex.auth.tables.sentinels'));
     }
 }

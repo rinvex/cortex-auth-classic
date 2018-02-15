@@ -15,7 +15,7 @@ class CreateAssignedRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create(config('cortex.fort.tables.assigned_roles'), function (Blueprint $table) {
+        Schema::create(config('cortex.auth.tables.assigned_roles'), function (Blueprint $table) {
             // Columns
             $table->integer('role_id')->unsigned();
             $table->integer('entity_id')->unsigned();
@@ -26,7 +26,7 @@ class CreateAssignedRolesTable extends Migration
             $table->index(['scope']);
             $table->index(['role_id']);
             $table->index(['entity_id', 'entity_type', 'scope'], 'assigned_roles_entity_index');
-            $table->foreign('role_id')->references('id')->on(config('cortex.fort.tables.roles'))
+            $table->foreign('role_id')->references('id')->on(config('cortex.auth.tables.roles'))
                  ->onDelete('cascade')->onUpdate('cascade');
         });
     }
@@ -38,6 +38,6 @@ class CreateAssignedRolesTable extends Migration
      */
     public function down()
     {
-        Schema::drop(config('cortex.fort.tables.assigned_roles'));
+        Schema::drop(config('cortex.auth.tables.assigned_roles'));
     }
 }

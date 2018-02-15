@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Notifications;
+namespace Cortex\Auth\Notifications;
 
 use Illuminate\Http\Request;
 use Illuminate\Bus\Queueable;
@@ -53,12 +53,12 @@ class AuthenticationLockoutNotification extends Notification implements ShouldQu
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage())
-            ->subject(trans('cortex/fort::emails.auth.lockout.subject'))
-            ->line(trans('cortex/fort::emails.auth.lockout.intro', [
+            ->subject(trans('cortex/auth::emails.auth.lockout.subject'))
+            ->line(trans('cortex/auth::emails.auth.lockout.intro', [
                 'created_at' => now(),
                 'ip' => $this->request->ip(),
                 'agent' => $this->request->server('HTTP_USER_AGENT'),
             ]))
-            ->line(trans('cortex/fort::emails.auth.lockout.outro'));
+            ->line(trans('cortex/auth::emails.auth.lockout.outro'));
     }
 }

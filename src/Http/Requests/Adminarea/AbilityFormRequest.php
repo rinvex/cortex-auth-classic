@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Requests\Adminarea;
+namespace Cortex\Auth\Http\Requests\Adminarea;
 
-use Cortex\Fort\Models\Ability;
+use Cortex\Auth\Models\Ability;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AbilityFormRequest extends FormRequest
@@ -29,7 +29,7 @@ class AbilityFormRequest extends FormRequest
         $data = $this->all();
 
         // Set roles
-        if ($this->user($this->get('guard'))->can('grant', \Cortex\Fort\Models\Ability::class) && $data['roles']) {
+        if ($this->user($this->get('guard'))->can('grant', \Cortex\Auth\Models\Ability::class) && $data['roles']) {
             $data['roles'] = $this->user($this->get('guard'))->can('superadmin') ? $this->get('roles', [])
                 : $this->user($this->get('guard'))->roles->pluck('id')->intersect($this->get('roles', []))->toArray();
         } else {

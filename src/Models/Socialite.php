@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Models;
+namespace Cortex\Auth\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
- * Cortex\Fort\Models\Socialite.
+ * Cortex\Auth\Models\Socialite.
  *
  * @property int                                                $id
  * @property int                                                $user_id
@@ -20,13 +20,13 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  * @property \Carbon\Carbon|null                                $updated_at
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $user
  *
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Socialite whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Socialite whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Socialite whereProvider($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Socialite whereProviderUid($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Socialite whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Socialite whereUserId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Socialite whereUserType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Socialite whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Socialite whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Socialite whereProvider($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Socialite whereProviderUid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Socialite whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Socialite whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Socialite whereUserType($value)
  * @mixin \Eloquent
  */
 class Socialite extends Model
@@ -60,7 +60,7 @@ class Socialite extends Model
     {
         parent::__construct($attributes);
 
-        $this->setTable(config('cortex.fort.tables.socialites'));
+        $this->setTable(config('cortex.auth.tables.socialites'));
     }
 
     /**

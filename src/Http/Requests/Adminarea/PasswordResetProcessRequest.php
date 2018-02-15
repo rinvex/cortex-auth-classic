@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Requests\Adminarea;
+namespace Cortex\Auth\Http\Requests\Adminarea;
 
 use Rinvex\Auth\Contracts\PasswordResetBrokerContract;
 
@@ -22,15 +22,15 @@ class PasswordResetProcessRequest extends PasswordResetRequest
 
         $validator->after(function ($validator) use ($broker, $credentials) {
             if (! ($user = $broker->getUser($credentials))) {
-                $validator->errors()->add('email', trans('cortex/fort::'.PasswordResetBrokerContract::INVALID_USER));
+                $validator->errors()->add('email', trans('cortex/auth::'.PasswordResetBrokerContract::INVALID_USER));
             }
 
             if ($user && ! $broker->validateToken($user, $credentials)) {
-                $validator->errors()->add('email', trans('cortex/fort::'.PasswordResetBrokerContract::INVALID_TOKEN));
+                $validator->errors()->add('email', trans('cortex/auth::'.PasswordResetBrokerContract::INVALID_TOKEN));
             }
 
             if (! $broker->validateTimestamp($credentials['expiration'])) {
-                $validator->errors()->add('email', trans('cortex/fort::'.PasswordResetBrokerContract::EXPIRED_TOKEN));
+                $validator->errors()->add('email', trans('cortex/auth::'.PasswordResetBrokerContract::EXPIRED_TOKEN));
             }
         });
     }
@@ -46,7 +46,7 @@ class PasswordResetProcessRequest extends PasswordResetRequest
             // Do not validate `token` here since at this stage we can NOT generate viewable error,
             // and it is been processed in the controller through EmailVerificationBroker anyway
             //'token' => 'required|regex:/^([0-9a-f]*)$/',
-            'email' => 'required|email|min:3|max:150|exists:'.config('cortex.fort.tables.admins').',email',
+            'email' => 'required|email|min:3|max:150|exists:'.config('cortex.auth.tables.admins').',email',
         ];
     }
 

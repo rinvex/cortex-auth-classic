@@ -15,7 +15,7 @@ class CreateRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create(config('cortex.fort.tables.roles'), function (Blueprint $table) {
+        Schema::create(config('cortex.auth.tables.roles'), function (Blueprint $table) {
             // Columns
             $table->increments('id');
             $table->string('name', 150);
@@ -37,7 +37,7 @@ class CreateRolesTable extends Migration
      */
     public function down()
     {
-        Schema::drop(config('cortex.fort.tables.roles'));
+        Schema::drop(config('cortex.auth.tables.roles'));
     }
 
     /**

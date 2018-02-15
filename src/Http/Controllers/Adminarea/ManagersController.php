@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Controllers\Adminarea;
+namespace Cortex\Auth\Http\Controllers\Adminarea;
 
 use Illuminate\Http\Request;
-use Cortex\Fort\Models\Manager;
+use Cortex\Auth\Models\Manager;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Foundation\DataTables\ActivitiesDataTable;
-use Cortex\Fort\DataTables\Adminarea\ManagersDataTable;
-use Cortex\Fort\Http\Requests\Adminarea\ManagerFormRequest;
+use Cortex\Auth\DataTables\Adminarea\ManagersDataTable;
+use Cortex\Auth\Http\Requests\Adminarea\ManagerFormRequest;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
-use Cortex\Fort\Http\Requests\Adminarea\ManagerAttributesFormRequest;
+use Cortex\Auth\Http\Requests\Adminarea\ManagerAttributesFormRequest;
 
 class ManagersController extends AuthorizedController
 {
@@ -24,7 +24,7 @@ class ManagersController extends AuthorizedController
     /**
      * List all managers.
      *
-     * @param \Cortex\Fort\DataTables\Adminarea\ManagersDataTable $managersDataTable
+     * @param \Cortex\Auth\DataTables\Adminarea\ManagersDataTable $managersDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
@@ -32,14 +32,14 @@ class ManagersController extends AuthorizedController
     {
         return $managersDataTable->with([
             'id' => 'adminarea-managers-index-table',
-            'phrase' => trans('cortex/fort::common.managers'),
+            'phrase' => trans('cortex/auth::common.managers'),
         ])->render('cortex/foundation::adminarea.pages.datatable');
     }
 
     /**
      * List manager logs.
      *
-     * @param \Cortex\Fort\Models\Manager                 $manager
+     * @param \Cortex\Auth\Models\Manager                 $manager
      * @param \Cortex\Foundation\DataTables\LogsDataTable $logsDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
@@ -49,7 +49,7 @@ class ManagersController extends AuthorizedController
         return $logsDataTable->with([
             'resource' => $manager,
             'tabs' => 'adminarea.managers.tabs',
-            'phrase' => trans('cortex/fort::common.managers'),
+            'phrase' => trans('cortex/auth::common.managers'),
             'id' => "adminarea-managers-{$manager->getKey()}-logs-table",
         ])->render('cortex/foundation::adminarea.pages.datatable-logs');
     }
@@ -57,7 +57,7 @@ class ManagersController extends AuthorizedController
     /**
      * Get a listing of the resource activities.
      *
-     * @param \Cortex\Fort\Models\Manager                       $manager
+     * @param \Cortex\Auth\Models\Manager                       $manager
      * @param \Cortex\Foundation\DataTables\ActivitiesDataTable $activitiesDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
@@ -67,7 +67,7 @@ class ManagersController extends AuthorizedController
         return $activitiesDataTable->with([
             'resource' => $manager,
             'tabs' => 'adminarea.managers.tabs',
-            'phrase' => trans('cortex/fort::common.managers'),
+            'phrase' => trans('cortex/auth::common.managers'),
             'id' => "adminarea-managers-{$manager->getKey()}-activities-table",
         ])->render('cortex/foundation::adminarea.pages.datatable-logs');
     }
@@ -76,20 +76,20 @@ class ManagersController extends AuthorizedController
      * Show the form for create/update of the given resource attributes.
      *
      * @param \Illuminate\Http\Request    $request
-     * @param \Cortex\Fort\Models\Manager $manager
+     * @param \Cortex\Auth\Models\Manager $manager
      *
      * @return \Illuminate\View\View
      */
     public function attributes(Request $request, Manager $manager)
     {
-        return view('cortex/fort::adminarea.pages.manager-attributes', compact('manager'));
+        return view('cortex/auth::adminarea.pages.manager-attributes', compact('manager'));
     }
 
     /**
      * Process the account update form.
      *
-     * @param \Cortex\Fort\Http\Requests\Adminarea\ManagerAttributesFormRequest $request
-     * @param \Cortex\Fort\Models\Manager                                       $manager
+     * @param \Cortex\Auth\Http\Requests\Adminarea\ManagerAttributesFormRequest $request
+     * @param \Cortex\Auth\Models\Manager                                       $manager
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -102,7 +102,7 @@ class ManagersController extends AuthorizedController
 
         return intend([
             'back' => true,
-            'with' => ['success' => trans('cortex/fort::messages.account.updated_attributes')],
+            'with' => ['success' => trans('cortex/auth::messages.account.updated_attributes')],
         ]);
     }
 
@@ -110,7 +110,7 @@ class ManagersController extends AuthorizedController
      * Create new manager.
      *
      * @param \Illuminate\Http\Request    $request
-     * @param \Cortex\Fort\Models\Manager $manager
+     * @param \Cortex\Auth\Models\Manager $manager
      *
      * @return \Illuminate\View\View
      */
@@ -123,7 +123,7 @@ class ManagersController extends AuthorizedController
      * Edit given manager.
      *
      * @param \Illuminate\Http\Request    $request
-     * @param \Cortex\Fort\Models\Manager $manager
+     * @param \Cortex\Auth\Models\Manager $manager
      *
      * @return \Illuminate\View\View
      */
@@ -136,7 +136,7 @@ class ManagersController extends AuthorizedController
      * Show manager create/edit form.
      *
      * @param \Illuminate\Http\Request    $request
-     * @param \Cortex\Fort\Models\Manager $manager
+     * @param \Cortex\Auth\Models\Manager $manager
      *
      * @return \Illuminate\View\View
      */
@@ -151,24 +151,24 @@ class ManagersController extends AuthorizedController
         })->values();
         $currentUser = $request->user($this->getGuard());
         $languages = collect(languages())->pluck('name', 'iso_639_1');
-        $genders = ['male' => trans('cortex/fort::common.male'), 'female' => trans('cortex/fort::common.female')];
+        $genders = ['male' => trans('cortex/auth::common.male'), 'female' => trans('cortex/auth::common.female')];
 
         $roles = $currentUser->can('superadmin')
-            ? app('cortex.fort.role')->all()->pluck('name', 'id')->toArray()
+            ? app('cortex.auth.role')->all()->pluck('name', 'id')->toArray()
             : $currentUser->roles->pluck('name', 'id')->toArray();
 
         $abilities = $currentUser->can('superadmin')
-            ? app('cortex.fort.ability')->all()->pluck('title', 'id')->toArray()
+            ? app('cortex.auth.ability')->all()->pluck('title', 'id')->toArray()
             : $currentUser->abilities->pluck('title', 'id')->toArray();
 
-        return view('cortex/fort::adminarea.pages.manager', compact('manager', 'abilities', 'roles', 'countries', 'languages', 'genders'));
+        return view('cortex/auth::adminarea.pages.manager', compact('manager', 'abilities', 'roles', 'countries', 'languages', 'genders'));
     }
 
     /**
      * Store new manager.
      *
-     * @param \Cortex\Fort\Http\Requests\Adminarea\ManagerFormRequest $request
-     * @param \Cortex\Fort\Models\Manager                             $manager
+     * @param \Cortex\Auth\Http\Requests\Adminarea\ManagerFormRequest $request
+     * @param \Cortex\Auth\Models\Manager                             $manager
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -180,8 +180,8 @@ class ManagersController extends AuthorizedController
     /**
      * Update given manager.
      *
-     * @param \Cortex\Fort\Http\Requests\Adminarea\ManagerFormRequest $request
-     * @param \Cortex\Fort\Models\Manager                             $manager
+     * @param \Cortex\Auth\Http\Requests\Adminarea\ManagerFormRequest $request
+     * @param \Cortex\Auth\Models\Manager                             $manager
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -194,7 +194,7 @@ class ManagersController extends AuthorizedController
      * Process stored/updated manager.
      *
      * @param \Illuminate\Foundation\Http\FormRequest $request
-     * @param \Cortex\Fort\Models\Manager             $manager
+     * @param \Cortex\Auth\Models\Manager             $manager
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -208,14 +208,14 @@ class ManagersController extends AuthorizedController
                 ->sanitizingFileName(function ($fileName) {
                     return md5($fileName).'.'.pathinfo($fileName, PATHINFO_EXTENSION);
                 })
-                ->toMediaCollection('profile_picture', config('cortex.fort.media.disk'));
+                ->toMediaCollection('profile_picture', config('cortex.auth.media.disk'));
 
         ! $request->hasFile('cover_photo')
         || $manager->addMediaFromRequest('cover_photo')
                 ->sanitizingFileName(function ($fileName) {
                     return md5($fileName).'.'.pathinfo($fileName, PATHINFO_EXTENSION);
                 })
-                ->toMediaCollection('cover_photo', config('cortex.fort.media.disk'));
+                ->toMediaCollection('cover_photo', config('cortex.auth.media.disk'));
 
         // Save manager
         $manager->fill($data)->save();
@@ -229,7 +229,7 @@ class ManagersController extends AuthorizedController
     /**
      * Destroy given manager.
      *
-     * @param \Cortex\Fort\Models\Manager $manager
+     * @param \Cortex\Auth\Models\Manager $manager
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

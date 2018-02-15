@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Console\Commands;
+namespace Cortex\Auth\Console\Commands;
 
 use Rinvex\Auth\Console\Commands\PublishCommand as BasePublishCommand;
 
@@ -13,14 +13,14 @@ class PublishCommand extends BasePublishCommand
      *
      * @var string
      */
-    protected $signature = 'cortex:publish:fort {--force : Overwrite any existing files.}';
+    protected $signature = 'cortex:publish:auth {--force : Overwrite any existing files.}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Publish Cortex Fort Resources.';
+    protected $description = 'Publish Cortex Auth Resources.';
 
     /**
      * Execute the console command.
@@ -33,9 +33,9 @@ class PublishCommand extends BasePublishCommand
 
         $this->warn($this->description);
 
-        $this->call('vendor:publish', ['--tag' => 'cortex-fort-lang', '--force' => $this->option('force')]);
-        $this->call('vendor:publish', ['--tag' => 'cortex-fort-views', '--force' => $this->option('force')]);
-        $this->call('vendor:publish', ['--tag' => 'cortex-fort-config', '--force' => $this->option('force')]);
-        $this->call('vendor:publish', ['--tag' => 'cortex-fort-migrations', '--force' => $this->option('force')]);
+        $this->call('vendor:publish', ['--tag' => 'cortex-auth-lang', '--force' => $this->option('force')]);
+        $this->call('vendor:publish', ['--tag' => 'cortex-auth-views', '--force' => $this->option('force')]);
+        $this->call('vendor:publish', ['--tag' => 'cortex-auth-config', '--force' => $this->option('force')]);
+        $this->call('vendor:publish', ['--tag' => 'cortex-auth-migrations', '--force' => $this->option('force')]);
     }
 }

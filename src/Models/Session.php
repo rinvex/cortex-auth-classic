@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Models;
+namespace Cortex\Auth\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
- * Cortex\Fort\Models\Session.
+ * Cortex\Auth\Models\Session.
  *
  * @property int                                                $id
  * @property int                                                $user_id
@@ -20,22 +20,22 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  * @property \Carbon\Carbon                                     $last_activity
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $user
  *
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Session guests($minutes = 5)
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Session guestsByHours($hours = 1)
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Session guestsByMinutes($minutes = 5)
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Session guestsBySeconds($seconds = 60)
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Session leastRecent($column = 'last_activity')
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Session mostRecent($column = 'last_activity')
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Session usersByHours($hours = 1)
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Session usersByMinutes($minutes = 5)
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Session usersBySeconds($seconds = 60)
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Session whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Session whereIpAddress($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Session whereLastActivity($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Session wherePayload($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Session whereUserAgent($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Session whereUserId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Fort\Models\Session whereUserType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Session guests($minutes = 5)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Session guestsByHours($hours = 1)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Session guestsByMinutes($minutes = 5)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Session guestsBySeconds($seconds = 60)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Session leastRecent($column = 'last_activity')
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Session mostRecent($column = 'last_activity')
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Session usersByHours($hours = 1)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Session usersByMinutes($minutes = 5)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Session usersBySeconds($seconds = 60)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Session whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Session whereIpAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Session whereLastActivity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Session wherePayload($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Session whereUserAgent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Session whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Session whereUserType($value)
  * @mixin \Eloquent
  */
 class Session extends Model

@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Controllers\Adminarea;
+namespace Cortex\Auth\Http\Controllers\Adminarea;
 
 use Illuminate\Http\Request;
-use Cortex\Fort\Models\Member;
+use Cortex\Auth\Models\Member;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Foundation\DataTables\ActivitiesDataTable;
-use Cortex\Fort\DataTables\Adminarea\MembersDataTable;
-use Cortex\Fort\Http\Requests\Adminarea\MemberFormRequest;
+use Cortex\Auth\DataTables\Adminarea\MembersDataTable;
+use Cortex\Auth\Http\Requests\Adminarea\MemberFormRequest;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
-use Cortex\Fort\Http\Requests\Adminarea\MemberAttributesFormRequest;
+use Cortex\Auth\Http\Requests\Adminarea\MemberAttributesFormRequest;
 
 class MembersController extends AuthorizedController
 {
@@ -24,7 +24,7 @@ class MembersController extends AuthorizedController
     /**
      * List all members.
      *
-     * @param \Cortex\Fort\DataTables\Adminarea\MembersDataTable $membersDataTable
+     * @param \Cortex\Auth\DataTables\Adminarea\MembersDataTable $membersDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
@@ -32,14 +32,14 @@ class MembersController extends AuthorizedController
     {
         return $membersDataTable->with([
             'id' => 'adminarea-members-index-table',
-            'phrase' => trans('cortex/fort::common.members'),
+            'phrase' => trans('cortex/auth::common.members'),
         ])->render('cortex/foundation::adminarea.pages.datatable');
     }
 
     /**
      * List member logs.
      *
-     * @param \Cortex\Fort\Models\Member                  $member
+     * @param \Cortex\Auth\Models\Member                  $member
      * @param \Cortex\Foundation\DataTables\LogsDataTable $logsDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
@@ -49,7 +49,7 @@ class MembersController extends AuthorizedController
         return $logsDataTable->with([
             'resource' => $member,
             'tabs' => 'adminarea.members.tabs',
-            'phrase' => trans('cortex/fort::common.members'),
+            'phrase' => trans('cortex/auth::common.members'),
             'id' => "adminarea-members-{$member->getKey()}-logs-table",
         ])->render('cortex/foundation::adminarea.pages.datatable-logs');
     }
@@ -57,7 +57,7 @@ class MembersController extends AuthorizedController
     /**
      * Get a listing of the resource activities.
      *
-     * @param \Cortex\Fort\Models\Member                        $member
+     * @param \Cortex\Auth\Models\Member                        $member
      * @param \Cortex\Foundation\DataTables\ActivitiesDataTable $activitiesDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
@@ -67,7 +67,7 @@ class MembersController extends AuthorizedController
         return $activitiesDataTable->with([
             'resource' => $member,
             'tabs' => 'adminarea.members.tabs',
-            'phrase' => trans('cortex/fort::common.members'),
+            'phrase' => trans('cortex/auth::common.members'),
             'id' => "adminarea-members-{$member->getKey()}-activities-table",
         ])->render('cortex/foundation::adminarea.pages.datatable-logs');
     }
@@ -76,20 +76,20 @@ class MembersController extends AuthorizedController
      * Show the form for create/update of the given resource attributes.
      *
      * @param \Illuminate\Http\Request   $request
-     * @param \Cortex\Fort\Models\Member $member
+     * @param \Cortex\Auth\Models\Member $member
      *
      * @return \Illuminate\View\View
      */
     public function attributes(Request $request, Member $member)
     {
-        return view('cortex/fort::adminarea.pages.member-attributes', compact('member'));
+        return view('cortex/auth::adminarea.pages.member-attributes', compact('member'));
     }
 
     /**
      * Process the account update form.
      *
-     * @param \Cortex\Fort\Http\Requests\Adminarea\MemberAttributesFormRequest $request
-     * @param \Cortex\Fort\Models\Member                                       $member
+     * @param \Cortex\Auth\Http\Requests\Adminarea\MemberAttributesFormRequest $request
+     * @param \Cortex\Auth\Models\Member                                       $member
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -102,7 +102,7 @@ class MembersController extends AuthorizedController
 
         return intend([
             'back' => true,
-            'with' => ['success' => trans('cortex/fort::messages.account.updated_attributes')],
+            'with' => ['success' => trans('cortex/auth::messages.account.updated_attributes')],
         ]);
     }
 
@@ -110,7 +110,7 @@ class MembersController extends AuthorizedController
      * Create new member.
      *
      * @param \Illuminate\Http\Request   $request
-     * @param \Cortex\Fort\Models\Member $member
+     * @param \Cortex\Auth\Models\Member $member
      *
      * @return \Illuminate\View\View
      */
@@ -123,7 +123,7 @@ class MembersController extends AuthorizedController
      * Edit given member.
      *
      * @param \Illuminate\Http\Request   $request
-     * @param \Cortex\Fort\Models\Member $member
+     * @param \Cortex\Auth\Models\Member $member
      *
      * @return \Illuminate\View\View
      */
@@ -136,7 +136,7 @@ class MembersController extends AuthorizedController
      * Show member create/edit form.
      *
      * @param \Illuminate\Http\Request   $request
-     * @param \Cortex\Fort\Models\Member $member
+     * @param \Cortex\Auth\Models\Member $member
      *
      * @return \Illuminate\View\View
      */
@@ -151,24 +151,24 @@ class MembersController extends AuthorizedController
         })->values();
         $currentUser = $request->user($this->getGuard());
         $languages = collect(languages())->pluck('name', 'iso_639_1');
-        $genders = ['male' => trans('cortex/fort::common.male'), 'female' => trans('cortex/fort::common.female')];
+        $genders = ['male' => trans('cortex/auth::common.male'), 'female' => trans('cortex/auth::common.female')];
 
         $roles = $currentUser->can('superadmin')
-            ? app('cortex.fort.role')->all()->pluck('name', 'id')->toArray()
+            ? app('cortex.auth.role')->all()->pluck('name', 'id')->toArray()
             : $currentUser->roles->pluck('name', 'id')->toArray();
 
         $abilities = $currentUser->can('superadmin')
-            ? app('cortex.fort.ability')->all()->pluck('title', 'id')->toArray()
+            ? app('cortex.auth.ability')->all()->pluck('title', 'id')->toArray()
             : $currentUser->abilities->pluck('title', 'id')->toArray();
 
-        return view('cortex/fort::adminarea.pages.member', compact('member', 'abilities', 'roles', 'countries', 'languages', 'genders'));
+        return view('cortex/auth::adminarea.pages.member', compact('member', 'abilities', 'roles', 'countries', 'languages', 'genders'));
     }
 
     /**
      * Store new member.
      *
-     * @param \Cortex\Fort\Http\Requests\Adminarea\MemberFormRequest $request
-     * @param \Cortex\Fort\Models\Member                             $member
+     * @param \Cortex\Auth\Http\Requests\Adminarea\MemberFormRequest $request
+     * @param \Cortex\Auth\Models\Member                             $member
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -180,8 +180,8 @@ class MembersController extends AuthorizedController
     /**
      * Update given member.
      *
-     * @param \Cortex\Fort\Http\Requests\Adminarea\MemberFormRequest $request
-     * @param \Cortex\Fort\Models\Member                             $member
+     * @param \Cortex\Auth\Http\Requests\Adminarea\MemberFormRequest $request
+     * @param \Cortex\Auth\Models\Member                             $member
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -194,7 +194,7 @@ class MembersController extends AuthorizedController
      * Process stored/updated member.
      *
      * @param \Illuminate\Foundation\Http\FormRequest $request
-     * @param \Cortex\Fort\Models\Member              $member
+     * @param \Cortex\Auth\Models\Member              $member
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -208,14 +208,14 @@ class MembersController extends AuthorizedController
                 ->sanitizingFileName(function ($fileName) {
                     return md5($fileName).'.'.pathinfo($fileName, PATHINFO_EXTENSION);
                 })
-                ->toMediaCollection('profile_picture', config('cortex.fort.media.disk'));
+                ->toMediaCollection('profile_picture', config('cortex.auth.media.disk'));
 
         ! $request->hasFile('cover_photo')
         || $member->addMediaFromRequest('cover_photo')
                 ->sanitizingFileName(function ($fileName) {
                     return md5($fileName).'.'.pathinfo($fileName, PATHINFO_EXTENSION);
                 })
-                ->toMediaCollection('cover_photo', config('cortex.fort.media.disk'));
+                ->toMediaCollection('cover_photo', config('cortex.auth.media.disk'));
 
         // Save member
         $member->fill($data)->save();
@@ -229,7 +229,7 @@ class MembersController extends AuthorizedController
     /**
      * Destroy given member.
      *
-     * @param \Cortex\Fort\Models\Member $member
+     * @param \Cortex\Auth\Models\Member $member
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

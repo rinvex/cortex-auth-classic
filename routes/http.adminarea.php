@@ -5,7 +5,7 @@ declare(strict_types=1);
 Route::domain(domain())->group(function () {
     Route::name('adminarea.')
          ->middleware(['web', 'nohttpcache'])
-         ->namespace('Cortex\Fort\Http\Controllers\Adminarea')
+         ->namespace('Cortex\Auth\Http\Controllers\Adminarea')
          ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.foundation.route.prefix.adminarea') : config('cortex.foundation.route.prefix.adminarea'))->group(function () {
 
         // Login Routes

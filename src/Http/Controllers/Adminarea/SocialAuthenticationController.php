@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Controllers\Adminarea;
+namespace Cortex\Auth\Http\Controllers\Adminarea;
 
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
@@ -74,7 +74,7 @@ class SocialAuthenticationController extends AbstractController
 
         return intend([
             'intended' => route('adminarea.home'),
-            'with' => ['success' => trans('cortex/fort::messages.auth.login')],
+            'with' => ['success' => trans('cortex/auth::messages.auth.login')],
         ]);
     }
 
@@ -88,7 +88,7 @@ class SocialAuthenticationController extends AbstractController
      */
     protected function getLocalUser(string $provider, string $providerUserId)
     {
-        return app('cortex.fort.admin')->whereHas('socialites', function (Builder $builder) use ($provider, $providerUserId) {
+        return app('cortex.auth.admin')->whereHas('socialites', function (Builder $builder) use ($provider, $providerUserId) {
             $builder->where('provider', $provider)->where('provider_uid', $providerUserId);
         })->first();
     }
@@ -103,12 +103,12 @@ class SocialAuthenticationController extends AbstractController
      */
     protected function createLocalUser(string $provider, array $attributes)
     {
-        $localUser = app('cortex.fort.admin');
+        $localUser = app('cortex.auth.admin');
 
         $attributes['password'] = str_random();
         $attributes['email_verified'] = true;
         $attributes['email_verified_at'] = now();
-        $attributes['is_active'] = ! config('cortex.fort.registration.moderated');
+        $attributes['is_active'] = ! config('cortex.auth.registration.moderated');
 
         $localUser->fill($attributes)->save();
 

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\DataTables\Adminarea;
+namespace Cortex\Auth\DataTables\Adminarea;
 
-use Cortex\Fort\Models\Ability;
+use Cortex\Auth\Models\Ability;
 use Cortex\Foundation\DataTables\AbstractDataTable;
 
 class AbilitiesDataTable extends AbstractDataTable
@@ -38,10 +38,10 @@ class AbilitiesDataTable extends AbstractDataTable
             : '"<a href=\""+routes.route(\'adminarea.abilities.edit\', {ability: full.id})+"\">"+data+"</a>"';
 
         return [
-            'title' => ['title' => trans('cortex/fort::common.title'), 'render' => $link, 'responsivePriority' => 0],
-            'name' => ['title' => trans('cortex/fort::common.name')],
-            'created_at' => ['title' => trans('cortex/fort::common.created_at'), 'render' => "moment(data).format('MMM Do, YYYY')"],
-            'updated_at' => ['title' => trans('cortex/fort::common.updated_at'), 'render' => "moment(data).format('MMM Do, YYYY')"],
+            'title' => ['title' => trans('cortex/auth::common.title'), 'render' => $link, 'responsivePriority' => 0],
+            'name' => ['title' => trans('cortex/auth::common.name')],
+            'created_at' => ['title' => trans('cortex/auth::common.created_at'), 'render' => "moment(data).format('MMM Do, YYYY')"],
+            'updated_at' => ['title' => trans('cortex/auth::common.updated_at'), 'render' => "moment(data).format('MMM Do, YYYY')"],
         ];
     }
 }

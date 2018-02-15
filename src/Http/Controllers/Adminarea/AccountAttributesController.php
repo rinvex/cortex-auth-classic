@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Fort\Http\Controllers\Adminarea;
+namespace Cortex\Auth\Http\Controllers\Adminarea;
 
 use Illuminate\Http\Request;
 use Cortex\Foundation\Http\Controllers\AuthenticatedController;
-use Cortex\Fort\Http\Requests\Adminarea\AccountAttributesRequest;
+use Cortex\Auth\Http\Requests\Adminarea\AccountAttributesRequest;
 
 class AccountAttributesController extends AuthenticatedController
 {
@@ -19,13 +19,13 @@ class AccountAttributesController extends AuthenticatedController
      */
     public function edit(Request $request)
     {
-        return view('cortex/fort::adminarea.pages.account-attributes');
+        return view('cortex/auth::adminarea.pages.account-attributes');
     }
 
     /**
      * Update account attributes.
      *
-     * @param \Cortex\Fort\Http\Requests\Adminarea\AccountAttributesRequest $request
+     * @param \Cortex\Auth\Http\Requests\Adminarea\AccountAttributesRequest $request
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -39,7 +39,7 @@ class AccountAttributesController extends AuthenticatedController
 
         return intend([
             'back' => true,
-            'with' => ['success' => trans('cortex/fort::messages.account.updated_attributes')],
+            'with' => ['success' => trans('cortex/auth::messages.account.updated_attributes')],
         ]);
     }
 }
