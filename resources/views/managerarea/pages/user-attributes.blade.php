@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/tenants::common.managerarea') }} » {{ trans('cortex/fort::common.users') }} » {{ $user->username }} » {{ trans('cortex/fort::common.attributes') }}
+    {{ config('app.name') }} » {{ trans('cortex/foundation::common.managerarea') }} » {{ trans('cortex/fort::common.users') }} » {{ $user->username }} » {{ trans('cortex/fort::common.attributes') }}
 @endsection
 
 @push('inline-scripts')
