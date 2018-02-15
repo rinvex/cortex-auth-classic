@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\DataTables\Adminarea;
 
-use Cortex\Fort\Models\User;
+use Cortex\Fort\Models\Manager;
 use Cortex\Foundation\DataTables\AbstractDataTable;
 
-class UsersDataTable extends AbstractDataTable
+class ManagersDataTable extends AbstractDataTable
 {
     /**
      * {@inheritdoc}
      */
-    protected $model = User::class;
+    protected $model = Manager::class;
 
     /**
      * Get columns.
@@ -22,8 +22,8 @@ class UsersDataTable extends AbstractDataTable
     protected function getColumns(): array
     {
         $link = config('cortex.foundation.route.locale_prefix')
-            ? '"<a href=\""+routes.route(\'adminarea.users.edit\', {user: full.username, locale: \''.$this->request->segment(1).'\'})+"\">"+data+"</a>"'
-            : '"<a href=\""+routes.route(\'adminarea.users.edit\', {user: full.username})+"\">"+data+"</a>"';
+            ? '"<a href=\""+routes.route(\'adminarea.managers.edit\', {manager: full.username, locale: \''.$this->request->segment(1).'\'})+"\">"+data+"</a>"'
+            : '"<a href=\""+routes.route(\'adminarea.managers.edit\', {manager: full.username})+"\">"+data+"</a>"';
 
         return [
             'username' => ['title' => trans('cortex/fort::common.username'), 'render' => $link.'+(full.is_active ? " <i class=\"text-success fa fa-check\"></i>" : " <i class=\"text-danger fa fa-close\"></i>")', 'responsivePriority' => 0],

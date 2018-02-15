@@ -3,11 +3,11 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/foundation::common.adminarea') }} » {{ trans('cortex/fort::common.users') }} » {{ $user->username }} » {{ trans('cortex/fort::common.attributes') }}
+    {{ config('app.name') }} » {{ trans('cortex/foundation::common.adminarea') }} » {{ trans('cortex/fort::common.managers') }} » {{ $manager->username }} » {{ trans('cortex/fort::common.attributes') }}
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Adminarea\UserAttributesFormRequest::class)->selector("#adminarea-users-create-form, #adminarea-users-{$user->getKey()}-update-attributes-form") !!}
+    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Adminarea\ManagerAttributesFormRequest::class)->selector("#adminarea-managers-create-form, #adminarea-managers-{$manager->getKey()}-update-attributes-form") !!}
 @endpush
 
 {{-- Main Content --}}
@@ -22,12 +22,12 @@
         <section class="content">
 
             <div class="nav-tabs-custom">
-                {!! Menu::render('adminarea.users.tabs', 'nav-tab') !!}
+                {!! Menu::render('adminarea.managers.tabs', 'nav-tab') !!}
 
                 <div class="tab-content">
 
                     <div class="tab-pane active" id="attributes-tab">
-                        @attributes($user)
+                        @attributes($manager)
                     </div>
 
                 </div>

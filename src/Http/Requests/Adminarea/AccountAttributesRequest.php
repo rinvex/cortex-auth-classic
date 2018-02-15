@@ -6,7 +6,7 @@ namespace Cortex\Fort\Http\Requests\Adminarea;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserAttributesFormRequest extends FormRequest
+class AccountAttributesRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,7 @@ class UserAttributesFormRequest extends FormRequest
      */
     public function rules(): array
     {
-        $user = $this->route('user') ?? app('cortex.fort.user');
+        $user = $this->user($this->get('guard'));
 
         // Attach attribute rules
         $user->getEntityAttributes()->each(function ($attribute, $attributeSlug) use (&$rules) {

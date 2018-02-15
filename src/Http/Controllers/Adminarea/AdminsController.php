@@ -4,71 +4,71 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Http\Controllers\Adminarea;
 
-use Cortex\Fort\Models\User;
 use Illuminate\Http\Request;
+use Cortex\Fort\Models\Admin;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
-use Cortex\Fort\DataTables\Adminarea\UsersDataTable;
+use Cortex\Fort\DataTables\Adminarea\AdminsDataTable;
 use Cortex\Foundation\DataTables\ActivitiesDataTable;
-use Cortex\Fort\Http\Requests\Adminarea\UserFormRequest;
+use Cortex\Fort\Http\Requests\Adminarea\AdminFormRequest;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
-use Cortex\Fort\Http\Requests\Adminarea\UserAttributesFormRequest;
+use Cortex\Fort\Http\Requests\Adminarea\AdminAttributesFormRequest;
 
-class UsersController extends AuthorizedController
+class AdminsController extends AuthorizedController
 {
     /**
      * {@inheritdoc}
      */
-    protected $resource = 'user';
+    protected $resource = 'admin';
 
     /**
-     * List all users.
+     * List all admins.
      *
-     * @param \Cortex\Fort\DataTables\Adminarea\UsersDataTable $usersDataTable
+     * @param \Cortex\Fort\DataTables\Adminarea\AdminsDataTable $adminsDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
-    public function index(UsersDataTable $usersDataTable)
+    public function index(AdminsDataTable $adminsDataTable)
     {
-        return $usersDataTable->with([
-            'id' => 'adminarea-users-index-table',
-            'phrase' => trans('cortex/fort::common.users'),
+        return $adminsDataTable->with([
+            'id' => 'adminarea-admins-index-table',
+            'phrase' => trans('cortex/fort::common.admins'),
         ])->render('cortex/foundation::adminarea.pages.datatable');
     }
 
     /**
-     * List user logs.
+     * List admin logs.
      *
-     * @param \Cortex\Fort\Models\User                    $user
+     * @param \Cortex\Fort\Models\Admin                    $admin
      * @param \Cortex\Foundation\DataTables\LogsDataTable $logsDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function logs(User $user, LogsDataTable $logsDataTable)
+    public function logs(Admin $admin, LogsDataTable $logsDataTable)
     {
         return $logsDataTable->with([
-            'resource' => $user,
-            'tabs' => 'adminarea.users.tabs',
-            'phrase' => trans('cortex/fort::common.users'),
-            'id' => "adminarea-users-{$user->getKey()}-logs-table",
+            'resource' => $admin,
+            'tabs' => 'adminarea.admins.tabs',
+            'phrase' => trans('cortex/fort::common.admins'),
+            'id' => "adminarea-admins-{$admin->getKey()}-logs-table",
         ])->render('cortex/foundation::adminarea.pages.datatable-logs');
     }
 
     /**
      * Get a listing of the resource activities.
      *
-     * @param \Cortex\Fort\Models\User                          $user
+     * @param \Cortex\Fort\Models\Admin                          $admin
      * @param \Cortex\Foundation\DataTables\ActivitiesDataTable $activitiesDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function activities(User $user, ActivitiesDataTable $activitiesDataTable)
+    public function activities(Admin $admin, ActivitiesDataTable $activitiesDataTable)
     {
         return $activitiesDataTable->with([
-            'resource' => $user,
-            'tabs' => 'adminarea.users.tabs',
-            'phrase' => trans('cortex/fort::common.users'),
-            'id' => "adminarea-users-{$user->getKey()}-activities-table",
+            'resource' => $admin,
+            'tabs' => 'adminarea.admins.tabs',
+            'phrase' => trans('cortex/fort::common.admins'),
+            'id' => "adminarea-admins-{$admin->getKey()}-activities-table",
         ])->render('cortex/foundation::adminarea.pages.datatable-logs');
     }
 
@@ -76,29 +76,29 @@ class UsersController extends AuthorizedController
      * Show the form for create/update of the given resource attributes.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Cortex\Fort\Models\User $user
+     * @param \Cortex\Fort\Models\Admin $admin
      *
      * @return \Illuminate\View\View
      */
-    public function attributes(Request $request, User $user)
+    public function attributes(Request $request, Admin $admin)
     {
-        return view('cortex/fort::adminarea.pages.user-attributes', compact('user'));
+        return view('cortex/fort::adminarea.pages.admin-attributes', compact('admin'));
     }
 
     /**
      * Process the account update form.
      *
-     * @param \Cortex\Fort\Http\Requests\Adminarea\UserAttributesFormRequest $request
-     * @param \Cortex\Fort\Models\User                                       $user
+     * @param \Cortex\Fort\Http\Requests\Adminarea\AdminAttributesFormRequest $request
+     * @param \Cortex\Fort\Models\Admin                                       $admin
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function updateAttributes(UserAttributesFormRequest $request, User $user)
+    public function updateAttributes(AdminAttributesFormRequest $request, Admin $admin)
     {
         $data = $request->validated();
 
         // Update profile
-        $user->fill($data)->save();
+        $admin->fill($data)->save();
 
         return intend([
             'back' => true,
@@ -107,40 +107,40 @@ class UsersController extends AuthorizedController
     }
 
     /**
-     * Create new user.
+     * Create new admin.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Cortex\Fort\Models\User $user
+     * @param \Cortex\Fort\Models\Admin $admin
      *
      * @return \Illuminate\View\View
      */
-    public function create(Request $request, User $user)
+    public function create(Request $request, Admin $admin)
     {
-        return $this->form($request, $user);
+        return $this->form($request, $admin);
     }
 
     /**
-     * Edit given user.
+     * Edit given admin.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Cortex\Fort\Models\User $user
+     * @param \Cortex\Fort\Models\Admin $admin
      *
      * @return \Illuminate\View\View
      */
-    public function edit(Request $request, User $user)
+    public function edit(Request $request, Admin $admin)
     {
-        return $this->form($request, $user);
+        return $this->form($request, $admin);
     }
 
     /**
-     * Show user create/edit form.
+     * Show admin create/edit form.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Cortex\Fort\Models\User $user
+     * @param \Cortex\Fort\Models\Admin $admin
      *
      * @return \Illuminate\View\View
      */
-    protected function form(Request $request, User $user)
+    protected function form(Request $request, Admin $admin)
     {
         $countries = collect(countries())->map(function ($country, $code) {
             return [
@@ -161,85 +161,85 @@ class UsersController extends AuthorizedController
             ? app('cortex.fort.ability')->all()->pluck('title', 'id')->toArray()
             : $currentUser->abilities->pluck('title', 'id')->toArray();
 
-        return view('cortex/fort::adminarea.pages.user', compact('user', 'abilities', 'roles', 'countries', 'languages', 'genders'));
+        return view('cortex/fort::adminarea.pages.admin', compact('admin', 'abilities', 'roles', 'countries', 'languages', 'genders'));
     }
 
     /**
-     * Store new user.
+     * Store new admin.
      *
-     * @param \Cortex\Fort\Http\Requests\Adminarea\UserFormRequest $request
-     * @param \Cortex\Fort\Models\User                             $user
+     * @param \Cortex\Fort\Http\Requests\Adminarea\AdminFormRequest $request
+     * @param \Cortex\Fort\Models\Admin                             $admin
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function store(UserFormRequest $request, User $user)
+    public function store(AdminFormRequest $request, Admin $admin)
     {
-        return $this->process($request, $user);
+        return $this->process($request, $admin);
     }
 
     /**
-     * Update given user.
+     * Update given admin.
      *
-     * @param \Cortex\Fort\Http\Requests\Adminarea\UserFormRequest $request
-     * @param \Cortex\Fort\Models\User                             $user
+     * @param \Cortex\Fort\Http\Requests\Adminarea\AdminFormRequest $request
+     * @param \Cortex\Fort\Models\Admin                             $admin
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function update(UserFormRequest $request, User $user)
+    public function update(AdminFormRequest $request, Admin $admin)
     {
-        return $this->process($request, $user);
+        return $this->process($request, $admin);
     }
 
     /**
-     * Process stored/updated user.
+     * Process stored/updated admin.
      *
      * @param \Illuminate\Foundation\Http\FormRequest $request
-     * @param \Cortex\Fort\Models\User                $user
+     * @param \Cortex\Fort\Models\Admin                $admin
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    protected function process(FormRequest $request, User $user)
+    protected function process(FormRequest $request, Admin $admin)
     {
         // Prepare required input fields
         $data = $request->validated();
 
         ! $request->hasFile('profile_picture')
-        || $user->addMediaFromRequest('profile_picture')
+        || $admin->addMediaFromRequest('profile_picture')
                 ->sanitizingFileName(function ($fileName) {
                     return md5($fileName).'.'.pathinfo($fileName, PATHINFO_EXTENSION);
                 })
                 ->toMediaCollection('profile_picture', config('cortex.fort.media.disk'));
 
         ! $request->hasFile('cover_photo')
-        || $user->addMediaFromRequest('cover_photo')
+        || $admin->addMediaFromRequest('cover_photo')
                 ->sanitizingFileName(function ($fileName) {
                     return md5($fileName).'.'.pathinfo($fileName, PATHINFO_EXTENSION);
                 })
                 ->toMediaCollection('cover_photo', config('cortex.fort.media.disk'));
 
-        // Save user
-        $user->fill($data)->save();
+        // Save admin
+        $admin->fill($data)->save();
 
         return intend([
-            'url' => route('adminarea.users.index'),
-            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => 'user', 'id' => $user->username])],
+            'url' => route('adminarea.admins.index'),
+            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => 'admin', 'id' => $admin->username])],
         ]);
     }
 
     /**
-     * Destroy given user.
+     * Destroy given admin.
      *
-     * @param \Cortex\Fort\Models\User $user
+     * @param \Cortex\Fort\Models\Admin $admin
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function destroy(User $user)
+    public function destroy(Admin $admin)
     {
-        $user->delete();
+        $admin->delete();
 
         return intend([
-            'url' => route('adminarea.users.index'),
-            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => 'user', 'id' => $user->username])],
+            'url' => route('adminarea.admins.index'),
+            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => 'admin', 'id' => $admin->username])],
         ]);
     }
 }

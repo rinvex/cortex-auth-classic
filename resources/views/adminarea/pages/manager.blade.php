@@ -3,22 +3,22 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/foundation::common.adminarea') }} » {{ trans('cortex/fort::common.users') }} » {{ $user->exists ? $user->username : trans('cortex/fort::common.create_user') }}
+    {{ config('app.name') }} » {{ trans('cortex/foundation::common.adminarea') }} » {{ trans('cortex/fort::common.managers') }} » {{ $manager->exists ? $manager->username : trans('cortex/fort::common.create_manager') }}
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Adminarea\UserFormRequest::class)->selector("#adminarea-users-create-form, #adminarea-users-{$user->getKey()}-update-form") !!}
+    {!! JsValidator::formRequest(Cortex\Fort\Http\Requests\Adminarea\ManagerFormRequest::class)->selector("#adminarea-managers-create-form, #adminarea-managers-{$manager->getKey()}-update-form") !!}
 
     <script>
         window.countries = {!! $countries !!};
-        window.selectedCountry = '{{ old('country_code', $user->country_code) }}';
+        window.selectedCountry = '{{ old('country_code', $manager->country_code) }}';
     </script>
 @endpush
 
 {{-- Main Content --}}
 @section('content')
 
-    @if($user->exists)
+    @if($manager->exists)
         @include('cortex/foundation::common.partials.confirm-deletion')
     @endif
 
@@ -31,17 +31,17 @@
         <section class="content">
 
             <div class="nav-tabs-custom">
-                @if($user->exists && $currentUser->can('delete', $user)) <div class="pull-right"><a href="#" data-toggle="modal" data-target="#delete-confirmation" data-modal-action="{{ route('adminarea.users.destroy', ['user' => $user]) }}" data-modal-title="{!! trans('cortex/foundation::messages.delete_confirmation_title') !!}" data-modal-body="{!! trans('cortex/foundation::messages.delete_confirmation_body', ['type' => 'user', 'name' => $user->slug]) !!}" title="{{ trans('cortex/foundation::common.delete') }}" class="btn btn-default" style="margin: 4px"><i class="fa fa-trash text-danger"></i></a></div> @endif
-                {!! Menu::render('adminarea.users.tabs', 'nav-tab') !!}
+                @if($manager->exists && $currentUser->can('delete', $manager)) <div class="pull-right"><a href="#" data-toggle="modal" data-target="#delete-confirmation" data-modal-action="{{ route('adminarea.managers.destroy', ['manager' => $manager]) }}" data-modal-title="{!! trans('cortex/foundation::messages.delete_confirmation_title') !!}" data-modal-body="{!! trans('cortex/foundation::messages.delete_confirmation_body', ['type' => 'manager', 'name' => $manager->slug]) !!}" title="{{ trans('cortex/foundation::common.delete') }}" class="btn btn-default" style="margin: 4px"><i class="fa fa-trash text-danger"></i></a></div> @endif
+                {!! Menu::render('adminarea.managers.tabs', 'nav-tab') !!}
 
                 <div class="tab-content">
 
                     <div class="tab-pane active" id="details-tab">
 
-                        @if ($user->exists)
-                            {{ Form::model($user, ['url' => route('adminarea.users.update', ['user' => $user]), 'id' => "adminarea-users-{$user->getKey()}-update-form", 'method' => 'put', 'files' => true]) }}
+                        @if ($manager->exists)
+                            {{ Form::model($manager, ['url' => route('adminarea.managers.update', ['manager' => $manager]), 'id' => "adminarea-managers-{$manager->getKey()}-update-form", 'method' => 'put', 'files' => true]) }}
                         @else
-                            {{ Form::model($user, ['url' => route('adminarea.users.store'), 'id' => 'adminarea-users-create-form', 'files' => true]) }}
+                            {{ Form::model($manager, ['url' => route('adminarea.managers.store'), 'id' => 'adminarea-managers-create-form', 'files' => true]) }}
                         @endif
 
                             <div class="row">
@@ -326,10 +326,10 @@
                                             </span>
                                         </div>
 
-                                        @if ($user->exists && $user->getMedia('profile_picture')->count())
+                                        @if ($manager->exists && $manager->getMedia('profile_picture')->count())
                                             <i class="fa fa-paperclip"></i>
-                                            <a href="{{ $user->getFirstMediaUrl('profile_picture') }}" target="_blank">{{ $user->getFirstMedia('profile_picture')->file_name }}</a> ({{ $user->getFirstMedia('profile_picture')->human_readable_size }})
-                                            <a href="#" data-toggle="modal" data-target="#delete-confirmation" data-modal-action="{{ route('adminarea.users.media.destroy', ['user' => $user, 'media' => $user->getFirstMedia('profile_picture')]) }}" data-modal-title="{{ trans('cortex/foundation::messages.delete_confirmation_title') }}" data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['type' => 'media', 'name' => $user->getFirstMedia('profile_picture')->file_name]) }}" title="{{ trans('cortex/foundation::common.delete') }}"><i class="fa fa-trash text-danger"></i></a>
+                                            <a href="{{ $manager->getFirstMediaUrl('profile_picture') }}" target="_blank">{{ $manager->getFirstMedia('profile_picture')->file_name }}</a> ({{ $manager->getFirstMedia('profile_picture')->human_readable_size }})
+                                            <a href="#" data-toggle="modal" data-target="#delete-confirmation" data-modal-action="{{ route('adminarea.managers.media.destroy', ['manager' => $manager, 'media' => $manager->getFirstMedia('profile_picture')]) }}" data-modal-title="{{ trans('cortex/foundation::messages.delete_confirmation_title') }}" data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['type' => 'media', 'name' => $manager->getFirstMedia('profile_picture')->file_name]) }}" title="{{ trans('cortex/foundation::common.delete') }}"><i class="fa fa-trash text-danger"></i></a>
                                         @endif
 
                                         @if ($errors->has('profile_picture'))
@@ -356,10 +356,10 @@
                                             </span>
                                         </div>
 
-                                        @if ($user->exists && $user->getMedia('cover_photo')->count())
+                                        @if ($manager->exists && $manager->getMedia('cover_photo')->count())
                                             <i class="fa fa-paperclip"></i>
-                                            <a href="{{ $user->getFirstMediaUrl('cover_photo') }}" target="_blank">{{ $user->getFirstMedia('cover_photo')->file_name }}</a> ({{ $user->getFirstMedia('cover_photo')->human_readable_size }})
-                                            <a href="#" data-toggle="modal" data-target="#delete-confirmation" data-modal-action="{{ route('adminarea.users.media.destroy', ['user' => $user, 'media' => $user->getFirstMedia('cover_photo')]) }}" data-modal-title="{{ trans('cortex/foundation::messages.delete_confirmation_title') }}" data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['type' => 'media', 'name' => $user->getFirstMedia('cover_photo')->file_name]) }}" title="{{ trans('cortex/foundation::common.delete') }}"><i class="fa fa-trash text-danger"></i></a>
+                                            <a href="{{ $manager->getFirstMediaUrl('cover_photo') }}" target="_blank">{{ $manager->getFirstMedia('cover_photo')->file_name }}</a> ({{ $manager->getFirstMedia('cover_photo')->human_readable_size }})
+                                            <a href="#" data-toggle="modal" data-target="#delete-confirmation" data-modal-action="{{ route('adminarea.managers.media.destroy', ['manager' => $manager, 'media' => $manager->getFirstMedia('cover_photo')]) }}" data-modal-title="{{ trans('cortex/foundation::messages.delete_confirmation_title') }}" data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['type' => 'media', 'name' => $manager->getFirstMedia('cover_photo')->file_name]) }}" title="{{ trans('cortex/foundation::common.delete') }}"><i class="fa fa-trash text-danger"></i></a>
                                         @endif
 
                                         @if ($errors->has('cover_photo'))
@@ -374,7 +374,7 @@
                                     {{-- Password --}}
                                     <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
                                         {{ Form::label('password', trans('cortex/fort::common.password'), ['class' => 'control-label']) }}
-                                        @if ($user->exists)
+                                        @if ($manager->exists)
                                             {{ Form::password('password', ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.password')]) }}
                                         @else
                                             {{ Form::password('password', ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.password'), 'required' => 'required']) }}
@@ -397,7 +397,7 @@
                                     {{-- Password Confirmation --}}
                                     <div class="form-group has-feedback{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
                                         {{ Form::label('password_confirmation', trans('cortex/fort::common.password_confirmation'), ['class' => 'control-label']) }}
-                                        @if ($user->exists)
+                                        @if ($manager->exists)
                                             {{ Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.password_confirmation')]) }}
                                         @else
                                             {{ Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => trans('cortex/fort::common.password_confirmation'), 'required' => 'required']) }}
@@ -420,7 +420,7 @@
                                         {{ Form::button(trans('cortex/fort::common.submit'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}
                                     </div>
 
-                                    @include('cortex/foundation::adminarea.partials.timestamps', ['model' => $user])
+                                    @include('cortex/foundation::adminarea.partials.timestamps', ['model' => $manager])
 
                                 </div>
 

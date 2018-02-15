@@ -6,7 +6,7 @@ namespace Cortex\Fort\Http\Requests\Adminarea;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserFormRequest extends FormRequest
+class ManagerFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,24 +27,24 @@ class UserFormRequest extends FormRequest
     {
         $data = $this->all();
 
-        $user = $this->route('user') ?? app('cortex.fort.user');
+        $manager = $this->route('manager') ?? app('cortex.fort.manager');
         $country = $data['country_code'] ?? null;
-        $twoFactor = $user->getTwoFactor();
+        $twoFactor = $manager->getTwoFactor();
 
         $data['email_verified'] = $this->get('email_verified', false);
         $data['phone_verified'] = $this->get('phone_verified', false);
 
-        if ($user->exists && empty($data['password'])) {
+        if ($manager->exists && empty($data['password'])) {
             unset($data['password'], $data['password_confirmation']);
         }
 
         // Update email verification date
-        if ($data['email_verified'] && $user->email_verified !== $data['email_verified']) {
+        if ($data['email_verified'] && $manager->email_verified !== $data['email_verified']) {
             $data['email_verified_at'] = now();
         }
 
         // Update phone verification date
-        if ($data['phone_verified'] && $user->phone_verified !== $data['phone_verified']) {
+        if ($data['phone_verified'] && $manager->phone_verified !== $data['phone_verified']) {
             $data['phone_verified_at'] = now();
         }
 
@@ -64,7 +64,7 @@ class UserFormRequest extends FormRequest
             unset($data['roles']);
         }
 
-        if ($twoFactor && (isset($data['phone_verified_at']) || $country !== $user->country_code)) {
+        if ($twoFactor && (isset($data['phone_verified_at']) || $country !== $manager->country_code)) {
             array_set($twoFactor, 'phone.enabled', false);
             $data['two_factor'] = $twoFactor;
         }
@@ -79,13 +79,13 @@ class UserFormRequest extends FormRequest
      */
     public function rules(): array
     {
-        $user = $this->route('user') ?? app('cortex.fort.user');
-        $user->updateRulesUniques();
-        $rules = $user->getRules();
+        $manager = $this->route('manager') ?? app('cortex.fort.manager');
+        $manager->updateRulesUniques();
+        $rules = $manager->getRules();
 
         $rules['roles'] = 'nullable|array';
         $rules['abilities'] = 'nullable|array';
-        $rules['password'] = $user->exists
+        $rules['password'] = $manager->exists
             ? 'confirmed|min:'.config('cortex.fort.password_min_chars')
             : 'required|confirmed|min:'.config('cortex.fort.password_min_chars');
 

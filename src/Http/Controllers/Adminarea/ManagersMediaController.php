@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace Cortex\Fort\Http\Controllers\Adminarea;
 
 use Illuminate\Support\Str;
-use Cortex\Fort\Models\User;
+use Cortex\Fort\Models\Manager;
 use Spatie\MediaLibrary\Models\Media;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
 
-class UsersMediaController extends AuthorizedController
+class ManagersMediaController extends AuthorizedController
 {
     /**
      * {@inheritdoc}
      */
-    protected $resource = 'user';
+    protected $resource = 'manager';
 
     /**
      * {@inheritdoc}
@@ -37,19 +37,19 @@ class UsersMediaController extends AuthorizedController
     }
 
     /**
-     * Destroy given user media.
+     * Destroy given manager media.
      *
-     * @param \Cortex\Fort\Models\User          $user
+     * @param \Cortex\Fort\Models\Manager          $manager
      * @param \Spatie\MediaLibrary\Models\Media $media
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function destroy(User $user, Media $media)
+    public function destroy(Manager $manager, Media $media)
     {
-        $user->media()->where($media->getKeyName(), $media->getKey())->first()->delete();
+        $manager->media()->where($media->getKeyName(), $media->getKey())->first()->delete();
 
         return intend([
-            'url' => route('adminarea.users.edit', ['user' => $user]),
+            'url' => route('adminarea.managers.edit', ['manager' => $manager]),
             'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => 'media', 'id' => $media->getKey()])],
         ]);
     }
