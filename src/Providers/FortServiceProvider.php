@@ -14,7 +14,6 @@ use Cortex\Fort\Models\Session;
 use Cortex\Fort\Models\Socialite;
 use Illuminate\Support\ServiceProvider;
 use Cortex\Fort\Handlers\GenericHandler;
-use Cortex\Fort\Http\Middleware\NoHttpCache;
 use Cortex\Fort\Console\Commands\SeedCommand;
 use Cortex\Fort\Http\Middleware\Reauthenticate;
 use Cortex\Fort\Console\Commands\InstallCommand;
@@ -210,7 +209,6 @@ class FortServiceProvider extends ServiceProvider
         $router->pushMiddlewareToGroup('web', UpdateLastActivity::class);
 
         // Override route middleware on the fly
-        $router->aliasMiddleware('nohttpcache', NoHttpCache::class);
         $router->aliasMiddleware('reauthenticate', Reauthenticate::class);
         $router->aliasMiddleware('guest', RedirectIfAuthenticated::class);
     }
