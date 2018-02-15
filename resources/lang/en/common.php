@@ -127,8 +127,20 @@ return [
     'roles' => 'Roles',
     'create_role' => 'Create New Role',
 
-    // Users Phrases
-    'users' => 'Users',
-    'create_user' => 'Create New User',
+    // Admins Phrases
+    'admins' => 'Admins',
+    'create_admin' => 'Create New Admin',
+
+    // Members Phrases
+    'members' => 'Members',
+    'create_member' => 'Create New Member',
+
+    // Managers Phrases
+    'managers' => 'Managers',
+    'create_manager' => 'Create New Manager',
+
+    // Sentinels Phrases
+    'sentinels' => 'Sentinels',
+    'create_sentinel' => 'Create New Sentinel',
 
 ];

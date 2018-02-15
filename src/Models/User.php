@@ -29,18 +29,15 @@ use Silber\Bouncer\Database\HasRolesAndAbilities;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Rinvex\Fort\Contracts\CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Cortex\Fort\Notifications\PasswordResetNotification;
 use Rinvex\Fort\Contracts\AuthenticatableTwoFactorContract;
-use Cortex\Fort\Notifications\EmailVerificationNotification;
-use Cortex\Fort\Notifications\PhoneVerificationNotification;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 
-class User extends Model implements AuthenticatableContract, AuthenticatableTwoFactorContract, AuthorizableContract, CanResetPasswordContract, CanVerifyEmailContract, CanVerifyPhoneContract, HasMedia
+abstract class User extends Model implements AuthenticatableContract, AuthenticatableTwoFactorContract, AuthorizableContract, CanResetPasswordContract, CanVerifyEmailContract, CanVerifyPhoneContract, HasMedia
 {
     // @TODO: Strangely, this issue happens only here!!!
     // Duplicate trait usage to fire attached events for cache
-    // flush before other events in other traits specially LogsActivity,
+    // flush before other events in other traits specially HasActivity,
     // otherwise old cached queries used and no changelog recorded on update.
     use CacheableEloquent;
     use Auditable;
@@ -56,7 +53,6 @@ class User extends Model implements AuthenticatableContract, AuthenticatableTwoF
     use Authenticatable;
     use ValidatingTrait;
     use CanResetPassword;
-    use CacheableEloquent;
     use HasRolesAndAbilities;
     use AuthenticatableTwoFactor;
 
@@ -189,21 +185,6 @@ class User extends Model implements AuthenticatableContract, AuthenticatableTwoF
     ];
 
     /**
-     * {@inheritdoc}
-     */
-    protected $passwordResetNotificationClass = PasswordResetNotification::class;
-
-    /**
-     * {@inheritdoc}
-     */
-    protected $emailVerificationNotificationClass = EmailVerificationNotification::class;
-
-    /**
-     * {@inheritdoc}
-     */
-    protected $phoneVerificationNotificationClass = PhoneVerificationNotification::class;
-
-    /**
      * Get the route key for the model.
      *
      * @return string
@@ -260,41 +241,6 @@ class User extends Model implements AuthenticatableContract, AuthenticatableTwoF
 
             $model->roles()->sync($roles, true);
         });
-    }
-
-    /**
-     * Create a new Eloquent model instance.
-     *
-     * @param array $attributes
-     */
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-
-        $this->setTable(config('cortex.fort.tables.users'));
-        $this->setRules([
-            'username' => 'required|alpha_dash|min:3|max:150|unique:'.config('cortex.fort.tables.users').',username',
-            'password' => 'sometimes|required|min:'.config('cortex.fort.password_min_chars'),
-            'two_factor' => 'nullable|array',
-            'email' => 'required|email|min:3|max:150|unique:'.config('cortex.fort.tables.users').',email',
-            'email_verified' => 'sometimes|boolean',
-            'email_verified_at' => 'nullable|date',
-            'phone' => 'nullable|numeric|min:4',
-            'phone_verified' => 'sometimes|boolean',
-            'phone_verified_at' => 'nullable|date',
-            'name_prefix' => 'nullable|string|max:150',
-            'first_name' => 'nullable|string|max:150',
-            'middle_name' => 'nullable|string|max:150',
-            'last_name' => 'nullable|string|max:150',
-            'name_suffix' => 'nullable|string|max:150',
-            'title' => 'nullable|string|max:150',
-            'country_code' => 'nullable|alpha|size:2|country',
-            'language_code' => 'nullable|alpha|size:2|language',
-            'birthday' => 'nullable|date_format:Y-m-d',
-            'gender' => 'nullable|string|in:male,female',
-            'is_active' => 'sometimes|boolean',
-            'last_activity' => 'nullable|date',
-        ]);
     }
 
     /**

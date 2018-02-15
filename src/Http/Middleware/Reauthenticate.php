@@ -30,7 +30,7 @@ class Reauthenticate
             session()->put('cortex.fort.reauthentication.intended', $request->url());
             session()->put('cortex.fort.reauthentication.session_name', $sessionName);
 
-            return view('cortex/fort::frontarea.common.reauthentication.'.$type);
+            return view('cortex/fort::'.$request->get('accessarea').'.pages.reauthentication-'.$type);
         }
 
         ! $renew || session()->put($sessionName, time());

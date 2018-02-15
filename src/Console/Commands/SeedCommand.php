@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Cortex\Fort\Console\Commands;
 
+use Cortex\Fort\Models\Admin;
 use Illuminate\Console\Command;
+use Cortex\Fort\Models\Sentinel;
 
 class SeedCommand extends Command
 {
@@ -33,24 +35,64 @@ class SeedCommand extends Command
 
         $this->call('db:seed', ['--class' => 'CortexFortSeeder']);
 
-        $user = [
-            'username' => 'Fort',
-            'email' => 'help@rinvex.com',
-            'email_verified' => true,
+        // Create models
+        $admin = $this->createAdmin($adminPassword = str_random());
+        $sentinel = $this->createSentinel($sentinelPassword = str_random());
+
+        // Assign roles
+        $admin->assign('superadmin');
+
+        $this->table(['Username', 'Password'], [
+            ['username' => $admin['username'], 'password' => $adminPassword],
+            ['username' => $sentinel['username'], 'password' => $sentinelPassword],
+        ]);
+    }
+
+    /**
+     * Create admin model.
+     *
+     * @param string $password
+     *
+     * @return \Cortex\Fort\Models\Admin
+     */
+    protected function createAdmin(string $password): Admin
+    {
+        $admin = [
             'is_active' => true,
+            'username' => 'Admin',
+            'email_verified' => true,
+            'email' => 'admin@example.com',
         ];
 
-        $user = tap(app('cortex.fort.user')->firstOrNew($user)->fill([
-            'email_verified_at' => now(),
+        return tap(app('cortex.fort.admin')->firstOrNew($admin)->fill([
             'remember_token' => str_random(10),
-            'password' => $password = str_random(),
+            'email_verified_at' => now(),
+            'password' => $password,
         ]), function ($instance) {
             $instance->save();
         });
+    }
 
-        // Assign roles
-        $user->assign('superadmin');
+    /**
+     * Create sentinel model.
+     *
+     * @param string $password
+     *
+     * @return \Cortex\Fort\Models\Sentinel
+     */
+    protected function createSentinel(string $password): Sentinel
+    {
+        $sentinel = [
+            'is_active' => true,
+            'username' => 'Sentinel',
+            'email' => 'sentinel@example.com',
+        ];
 
-        $this->table(['Username', 'Password'], [['username' => $user['username'], 'password' => $password]]);
+        return tap(app('cortex.fort.sentinel')->firstOrNew($sentinel)->fill([
+            'remember_token' => str_random(10),
+            'password' => $password,
+        ]), function ($instance) {
+            $instance->save();
+        });
     }
 }

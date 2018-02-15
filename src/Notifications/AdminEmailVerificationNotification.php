@@ -9,19 +9,19 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class PasswordResetNotification extends Notification implements ShouldQueue
+class AdminEmailVerificationNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
     /**
-     * The password reset token.
+     * The email verification token.
      *
      * @var string
      */
     public $token;
 
     /**
-     * The password reset expiration date.
+     * The email verification expiration date.
      *
      * @var int
      */
@@ -60,13 +60,13 @@ class PasswordResetNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable): MailMessage
     {
-        $email = $notifiable->getEmailForPasswordReset();
-        $link = route('frontarea.passwordreset.reset')."?email={$email}&expiration={$this->expiration}&token={$this->token}";
+        $email = $notifiable->getEmailForVerification();
+        $link = route('adminarea.verification.email.verify')."?email={$email}&expiration={$this->expiration}&token={$this->token}";
 
         return (new MailMessage())
-            ->subject(trans('cortex/fort::emails.passwordreset.request.subject'))
-            ->line(trans('cortex/fort::emails.passwordreset.request.intro', ['expire' => now()->createFromTimestamp($this->expiration)->diffForHumans()]))
-            ->action(trans('cortex/fort::emails.passwordreset.request.action'), $link)
-            ->line(trans('cortex/fort::emails.passwordreset.request.outro'));
+            ->subject(trans('cortex/fort::emails.verification.email.subject'))
+            ->line(trans('cortex/fort::emails.verification.email.intro', ['expire' => now()->createFromTimestamp($this->expiration)->diffForHumans()]))
+            ->action(trans('cortex/fort::emails.verification.email.action'), $link)
+            ->line(trans('cortex/fort::emails.verification.email.outro'));
     }
 }

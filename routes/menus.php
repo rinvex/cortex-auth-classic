@@ -3,84 +3,51 @@
 declare(strict_types=1);
 
 use Cortex\Fort\Models\Role;
-use Cortex\Fort\Models\User;
+use Cortex\Fort\Models\Admin;
+use Cortex\Fort\Models\Member;
+use Cortex\Fort\Models\Manager;
 use Cortex\Fort\Models\Ability;
+use Cortex\Fort\Models\Sentinel;
 use Rinvex\Menus\Models\MenuItem;
 use Rinvex\Menus\Models\MenuGenerator;
 
-Menu::register('adminarea.sidebar', function (MenuGenerator $menu, Ability $ability, Role $role, User $user) {
+Menu::register('adminarea.sidebar', function (MenuGenerator $menu, Ability $ability, Role $role, Admin $admin, Member $member, Manager $manager, Sentinel $sentinel) {
     $menu->findByTitleOrAdd(trans('cortex/foundation::common.access'), 20, 'fa fa-user-circle-o', [], function (MenuItem $dropdown) use ($ability, $role) {
         $dropdown->route(['adminarea.abilities.index'], trans('cortex/fort::common.abilities'), 10, 'fa fa-sliders')->ifCan('list', $ability)->activateOnRoute('adminarea.abilities');
         $dropdown->route(['adminarea.roles.index'], trans('cortex/fort::common.roles'), 20, 'fa fa-users')->ifCan('list', $role)->activateOnRoute('adminarea.roles');
     });
 
-    $menu->findByTitleOrAdd(trans('cortex/foundation::common.user'), 30, 'fa fa-users', [], function (MenuItem $dropdown) use ($user) {
-        $dropdown->route(['adminarea.users.index'], trans('cortex/fort::common.users'), 10, 'fa fa-user')->ifCan('list', $user)->activateOnRoute('adminarea.users');
-    });
-});
-
-Menu::register('managerarea.sidebar', function (MenuGenerator $menu, Role $role, User $user) {
-    $menu->findByTitleOrAdd(trans('cortex/foundation::common.access'), 20, 'fa fa-user-circle-o', [], function (MenuItem $dropdown) use ($role) {
-        $dropdown->route(['managerarea.roles.index'], trans('cortex/fort::common.roles'), 10, 'fa fa-users')->ifCan('list', $role)->activateOnRoute('managerarea.roles');
-    });
-
-    $menu->findByTitleOrAdd(trans('cortex/foundation::common.user'), 30, 'fa fa-users', [], function (MenuItem $dropdown) use ($user) {
-        $dropdown->route(['managerarea.users.index'], trans('cortex/fort::common.users'), 20, 'fa fa-user')->ifCan('list', $user)->activateOnRoute('managerarea.users');
+    $menu->findByTitleOrAdd(trans('cortex/foundation::common.user'), 30, 'fa fa-users', [], function (MenuItem $dropdown) use ($admin, $member, $manager, $sentinel) {
+        $dropdown->route(['adminarea.admins.index'], trans('cortex/fort::common.admins'), 10, 'fa fa-user')->ifCan('list', $admin)->activateOnRoute('adminarea.admins');
+        $dropdown->route(['adminarea.members.index'], trans('cortex/fort::common.members'), 10, 'fa fa-user')->ifCan('list', $member)->activateOnRoute('adminarea.members');
+        $dropdown->route(['adminarea.managers.index'], trans('cortex/fort::common.managers'), 10, 'fa fa-user')->ifCan('list', $manager)->activateOnRoute('adminarea.managers');
+        $dropdown->route(['adminarea.sentinels.index'], trans('cortex/fort::common.sentinels'), 10, 'fa fa-user')->ifCan('list', $sentinel)->activateOnRoute('adminarea.sentinels');
     });
 });
 
 if ($user = auth()->guard(request('guard'))->user()) {
-    $userMenu = function (MenuGenerator $menu) use ($user) {
+    $userHeaderMenu = function (MenuGenerator $menu) use ($user) {
         $menu->dropdown(function (MenuItem $dropdown) {
-            $dropdown->route(['adminarea.home'], trans('cortex/foundation::common.adminarea'), 10, 'fa fa-dashboard')->ifCan('access-adminarea');
-            $dropdown->route(['managerarea.home'], trans('cortex/tenants::common.managerarea'), 20, 'fa fa-briefcase')->ifCan('access-managerarea');
-            $dropdown->route(['frontarea.account'], trans('cortex/fort::common.settings'), 30, 'fa fa-cogs');
-            $dropdown->divider(40);
-            $dropdown->route(['frontarea.logout'], trans('cortex/fort::common.logout').Form::open(['url' => route('frontarea.logout'), 'id' => 'logout-form', 'style' => 'display: none;']).Form::close(), 50, 'fa fa-sign-out', ['onclick' => "event.preventDefault(); document.getElementById('logout-form').submit();"]);
+            $dropdown->route([request('accessarea').'.account'], trans('cortex/fort::common.settings'), null, 'fa fa-cogs');
+            $dropdown->divider();
+            $dropdown->route([request('accessarea').'.logout'], trans('cortex/fort::common.logout').Form::open(['url' => route(request('accessarea').'.logout'), 'id' => 'logout-form', 'style' => 'display: none;']).Form::close(), null, 'fa fa-sign-out', ['onclick' => "event.preventDefault(); document.getElementById('logout-form').submit();"]);
         }, $user->username, 10, 'fa fa-user');
     };
 
-    $tenantUserMenu = function (MenuGenerator $menu) use ($user) {
-        $menu->dropdown(function (MenuItem $dropdown) {
-            $dropdown->route(['adminarea.home'], trans('cortex/foundation::common.adminarea'), 10, 'fa fa-dashboard')->ifCan('access-adminarea');
-            $dropdown->route(['managerarea.home'], trans('cortex/tenants::common.managerarea'), 20, 'fa fa-briefcase')->ifCan('access-managerarea');
-            $dropdown->route(['tenantarea.account'], trans('cortex/fort::common.settings'), 30, 'fa fa-cogs');
-            $dropdown->divider(40);
-            $dropdown->route(['tenantarea.logout'], trans('cortex/fort::common.logout').Form::open(['url' => route('tenantarea.logout'), 'id' => 'logout-form', 'style' => 'display: none;']).Form::close(), 50, 'fa fa-sign-out', ['onclick' => "event.preventDefault(); document.getElementById('logout-form').submit();"]);
-        }, $user->username, 10, 'fa fa-user');
+    $userSidebarMenu = function (MenuGenerator $menu) {
+        $menu->route([request('accessarea').'.account.settings'], trans('cortex/fort::common.settings'), null, 'fa fa-cogs');
+        $menu->route([request('accessarea').'.account.attributes'], trans('cortex/fort::common.attributes'), null, 'fa fa-leaf');
+        $menu->route([request('accessarea').'.account.sessions'], trans('cortex/fort::common.sessions'), null, 'fa fa-list-alt');
+        $menu->route([request('accessarea').'.account.password'], trans('cortex/fort::common.password'), null, 'fa fa-key');
+        $menu->route([request('accessarea').'.account.twofactor.index'], trans('cortex/fort::common.twofactor'), null, 'fa fa-lock');
     };
 
-    $accountSidebarMenu = function (MenuGenerator $menu) {
-        $menu->route(['frontarea.account.settings'], trans('cortex/fort::common.settings'), 10, 'fa fa-cogs');
-        $menu->route(['frontarea.account.attributes'], trans('cortex/fort::common.attributes'), 20, 'fa fa-leaf');
-        $menu->route(['frontarea.account.sessions'], trans('cortex/fort::common.sessions'), 30, 'fa fa-list-alt');
-        $menu->route(['frontarea.account.password'], trans('cortex/fort::common.password'), 40, 'fa fa-key');
-        $menu->route(['frontarea.account.twofactor.index'], trans('cortex/fort::common.twofactor'), 50, 'fa fa-lock');
-    };
-
-    $tenantAccountSidebarMenu = function (MenuGenerator $menu) {
-        $menu->route(['tenantarea.account.settings'], trans('cortex/fort::common.settings'), 10, 'fa fa-cogs');
-        $menu->route(['tenantarea.account.attributes'], trans('cortex/fort::common.attributes'), 20, 'fa fa-leaf');
-        $menu->route(['tenantarea.account.sessions'], trans('cortex/fort::common.sessions'), 30, 'fa fa-list-alt');
-        $menu->route(['tenantarea.account.password'], trans('cortex/fort::common.password'), 40, 'fa fa-key');
-        $menu->route(['tenantarea.account.twofactor.index'], trans('cortex/fort::common.twofactor'), 50, 'fa fa-lock');
-    };
-
-    Menu::register('frontarea.header', $userMenu);
-    Menu::register('adminarea.header', $userMenu);
-    Menu::register('tenantarea.header', $tenantUserMenu);
-    Menu::register('managerarea.header', $tenantUserMenu);
-    Menu::register('frontarea.account.sidebar', $accountSidebarMenu);
-    Menu::register('tenantarea.account.sidebar', $tenantAccountSidebarMenu);
+    Menu::register(request('accessarea').'.header', $userHeaderMenu);
+    Menu::register(request('accessarea').'.account.sidebar', $userSidebarMenu);
 } else {
-    Menu::register('frontarea.header', function (MenuGenerator $menu) {
-        $menu->route(['frontarea.login'], trans('cortex/fort::common.login'), 10);
-        $menu->route(['frontarea.register'], trans('cortex/fort::common.register'), 20);
-    });
-
-    Menu::register('tenantarea.header', function (MenuGenerator $menu) {
-        $menu->route(['tenantarea.login'], trans('cortex/fort::common.login'), 10);
-        $menu->route(['tenantarea.register'], trans('cortex/fort::common.register'), 20);
+    Menu::register(request('accessarea').'.header', function (MenuGenerator $menu) {
+        $menu->route([request('accessarea').'.login'], trans('cortex/fort::common.login'));
+        $menu->route([request('accessarea').'.register'], trans('cortex/fort::common.register'));
     });
 }
 
@@ -96,24 +63,32 @@ Menu::register('adminarea.roles.tabs', function (MenuGenerator $menu, Role $role
     $menu->route(['adminarea.roles.logs', ['role' => $role]], trans('cortex/fort::common.logs'))->ifCan('audit', $role)->if($role->exists);
 });
 
-Menu::register('adminarea.users.tabs', function (MenuGenerator $menu, User $user) {
-    $menu->route(['adminarea.users.create'], trans('cortex/fort::common.details'))->ifCan('create-users')->if(! $user->exists);
-    $menu->route(['adminarea.users.edit', ['user' => $user]], trans('cortex/fort::common.details'))->ifCan('update-users')->if($user->exists);
-    $menu->route(['adminarea.users.attributes', ['user' => $user]], trans('cortex/fort::common.attributes'))->ifCan('update-users')->if($user->exists);
-    $menu->route(['adminarea.users.logs', ['user' => $user]], trans('cortex/fort::common.logs'))->ifCan('audit-users')->if($user->exists);
-    $menu->route(['adminarea.users.activities', ['user' => $user]], trans('cortex/fort::common.activities'))->ifCan('audit-users')->if($user->exists);
+Menu::register('adminarea.admins.tabs', function (MenuGenerator $menu, Admin $admin) {
+    $menu->route(['adminarea.admins.create'], trans('cortex/fort::common.details'))->ifCan('create-admins')->if(! $admin->exists);
+    $menu->route(['adminarea.admins.edit', ['admin' => $admin]], trans('cortex/fort::common.details'))->ifCan('update-admins')->if($admin->exists);
+    $menu->route(['adminarea.admins.attributes', ['admin' => $admin]], trans('cortex/fort::common.attributes'))->ifCan('update-admins')->if($admin->exists);
+    $menu->route(['adminarea.admins.logs', ['admin' => $admin]], trans('cortex/fort::common.logs'))->ifCan('audit-admins')->if($admin->exists);
+    $menu->route(['adminarea.admins.activities', ['admin' => $admin]], trans('cortex/fort::common.activities'))->ifCan('audit-admins')->if($admin->exists);
 });
 
-Menu::register('managerarea.roles.tabs', function (MenuGenerator $menu, Role $role) {
-    $menu->route(['managerarea.roles.create'], trans('cortex/fort::common.details'))->ifCan('create-roles')->if(! $role->exists);
-    $menu->route(['managerarea.roles.edit', ['role' => $role]], trans('cortex/fort::common.details'))->ifCan('update-roles')->if($role->exists);
-    $menu->route(['managerarea.roles.logs', ['role' => $role]], trans('cortex/fort::common.logs'))->ifCan('audit-roles')->if($role->exists);
+Menu::register('adminarea.members.tabs', function (MenuGenerator $menu, Member $member) {
+    $menu->route(['adminarea.members.create'], trans('cortex/fort::common.details'))->ifCan('create-members')->if(! $member->exists);
+    $menu->route(['adminarea.members.edit', ['member' => $member]], trans('cortex/fort::common.details'))->ifCan('update-members')->if($member->exists);
+    $menu->route(['adminarea.members.attributes', ['member' => $member]], trans('cortex/fort::common.attributes'))->ifCan('update-members')->if($member->exists);
+    $menu->route(['adminarea.members.logs', ['member' => $member]], trans('cortex/fort::common.logs'))->ifCan('audit-members')->if($member->exists);
+    $menu->route(['adminarea.members.activities', ['member' => $member]], trans('cortex/fort::common.activities'))->ifCan('audit-members')->if($member->exists);
 });
 
-Menu::register('managerarea.users.tabs', function (MenuGenerator $menu, User $user) {
-    $menu->route(['managerarea.users.create'], trans('cortex/fort::common.details'))->ifCan('create-users')->if(! $user->exists);
-    $menu->route(['managerarea.users.edit', ['user' => $user]], trans('cortex/fort::common.details'))->ifCan('update-users')->if($user->exists);
-    $menu->route(['managerarea.users.attributes', ['user' => $user]], trans('cortex/fort::common.attributes'))->ifCan('update-users')->if($user->exists);
-    $menu->route(['managerarea.users.logs', ['user' => $user]], trans('cortex/fort::common.logs'))->ifCan('audit-users')->if($user->exists);
-    $menu->route(['managerarea.users.activities', ['user' => $user]], trans('cortex/fort::common.activities'))->ifCan('audit-users')->if($user->exists);
+Menu::register('adminarea.managers.tabs', function (MenuGenerator $menu, Manager $manager) {
+    $menu->route(['adminarea.managers.create'], trans('cortex/fort::common.details'))->ifCan('create-managers')->if(! $manager->exists);
+    $menu->route(['adminarea.managers.edit', ['manager' => $manager]], trans('cortex/fort::common.details'))->ifCan('update-managers')->if($manager->exists);
+    $menu->route(['adminarea.managers.attributes', ['manager' => $manager]], trans('cortex/fort::common.attributes'))->ifCan('update-managers')->if($manager->exists);
+    $menu->route(['adminarea.managers.logs', ['manager' => $manager]], trans('cortex/fort::common.logs'))->ifCan('audit-managers')->if($manager->exists);
+    $menu->route(['adminarea.managers.activities', ['manager' => $manager]], trans('cortex/fort::common.activities'))->ifCan('audit-managers')->if($manager->exists);
+});
+
+Menu::register('adminarea.sentinels.tabs', function (MenuGenerator $menu, Sentinel $sentinel) {
+    $menu->route(['adminarea.sentinels.create'], trans('cortex/fort::common.details'))->ifCan('create-sentinels')->if(! $sentinel->exists);
+    $menu->route(['adminarea.sentinels.edit', ['sentinel' => $sentinel]], trans('cortex/fort::common.details'))->ifCan('update-sentinels')->if($sentinel->exists);
+    $menu->route(['adminarea.sentinels.logs', ['sentinel' => $sentinel]], trans('cortex/fort::common.logs'))->ifCan('audit-sentinels')->if($sentinel->exists);
 });

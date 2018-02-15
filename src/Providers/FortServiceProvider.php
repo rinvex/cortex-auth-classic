@@ -6,11 +6,14 @@ namespace Cortex\Fort\Providers;
 
 use Bouncer;
 use Cortex\Fort\Models\Role;
-use Cortex\Fort\Models\User;
 use Illuminate\Http\Request;
+use Cortex\Fort\Models\Admin;
+use Cortex\Fort\Models\Member;
 use Illuminate\Routing\Router;
+use Cortex\Fort\Models\Manager;
 use Cortex\Fort\Models\Ability;
 use Cortex\Fort\Models\Session;
+use Cortex\Fort\Models\Sentinel;
 use Cortex\Fort\Models\Socialite;
 use Illuminate\Support\ServiceProvider;
 use Cortex\Fort\Handlers\GenericHandler;
@@ -51,6 +54,7 @@ class FortServiceProvider extends ServiceProvider
     public function register(): void
     {
         // Merge config
+        $this->app['config']->set('auth.model', config('cortex.fort.models.member'));
         $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'cortex.fort');
 
         // Register console commands
@@ -63,8 +67,17 @@ class FortServiceProvider extends ServiceProvider
         $this->app->singleton('cortex.fort.socialite', $socialiteModel = $this->app['config']['cortex.fort.models.socialite']);
         $socialiteModel === Socialite::class || $this->app->alias('cortex.fort.socialite', Socialite::class);
 
-        $this->app->singleton('cortex.fort.user', $userModel = $this->app['config']['cortex.fort.models.user']);
-        $userModel === User::class || $this->app->alias('cortex.fort.user', User::class);
+        $this->app->singleton('cortex.fort.admin', $adminModel = $this->app['config']['cortex.fort.models.admin']);
+        $adminModel === Admin::class || $this->app->alias('cortex.fort.admin', Admin::class);
+
+        $this->app->singleton('cortex.fort.member', $memberModel = $this->app['config']['cortex.fort.models.member']);
+        $memberModel === Member::class || $this->app->alias('cortex.fort.member', Member::class);
+
+        $this->app->singleton('cortex.fort.manager', $managerModel = $this->app['config']['cortex.fort.models.manager']);
+        $managerModel === Manager::class || $this->app->alias('cortex.fort.manager', Manager::class);
+
+        $this->app->singleton('cortex.fort.sentinel', $sentinelModel = $this->app['config']['cortex.fort.models.sentinel']);
+        $sentinelModel === Sentinel::class || $this->app->alias('cortex.fort.sentinel', Sentinel::class);
 
         $this->app->singleton('cortex.fort.role', $roleModel = $this->app['config']['cortex.fort.models.role']);
         $roleModel === Role::class || $this->app->alias('cortex.fort.role', Role::class);
@@ -86,8 +99,8 @@ class FortServiceProvider extends ServiceProvider
         $this->attachRequestMacro();
 
         // Map bouncer models
-        Bouncer::useUserModel(config('cortex.fort.models.user'));
         Bouncer::useRoleModel(config('cortex.fort.models.role'));
+        Bouncer::useUserModel(config('cortex.fort.models.member'));
         Bouncer::useAbilityModel(config('cortex.fort.models.ability'));
 
         // Map bouncer tables (users, roles, abilities tables are set through their models)
@@ -102,20 +115,26 @@ class FortServiceProvider extends ServiceProvider
         $router->pattern('user', '[a-zA-Z0-9_-]+');
         $router->pattern('session', '[a-zA-Z0-9]+');
         $router->model('role', config('cortex.fort.models.role'));
-        $router->model('user', config('cortex.fort.models.user'));
+        $router->model('admin', config('cortex.fort.models.admin'));
+        $router->model('member', config('cortex.fort.models.member'));
+        $router->model('manager', config('cortex.fort.models.manager'));
+        $router->model('sentinel', config('cortex.fort.models.sentinel'));
         $router->model('ability', config('cortex.fort.models.ability'));
         $router->model('session', config('cortex.fort.models.session'));
 
         // Map relations
         Relation::morphMap([
-            'user' => config('cortex.fort.models.user'),
             'role' => config('cortex.fort.models.role'),
+            'admin' => config('cortex.fort.models.admin'),
+            'member' => config('cortex.fort.models.member'),
+            'manager' => config('cortex.fort.models.manager'),
+            'sentinel' => config('cortex.fort.models.sentinel'),
             'ability' => config('cortex.fort.models.ability'),
         ]);
 
         // Load resources
         require __DIR__.'/../../routes/breadcrumbs.php';
-        $this->loadRoutesFrom(__DIR__.'/../../routes/web.php');
+        $this->loadRoutesFrom(__DIR__.'/../../routes/http.adminarea.php');
         $this->loadViewsFrom(__DIR__.'/../../resources/views', 'cortex/fort');
         $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'cortex/fort');
         ! $this->app->runningInConsole() || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');

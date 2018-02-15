@@ -29,10 +29,28 @@ class CortexFortSeeder extends Seeder
         Bouncer::allow('admin')->to('audit', config('cortex.fort.models.role'));
         Bouncer::allow('admin')->to('assign', config('cortex.fort.models.role'));
 
-        Bouncer::allow('admin')->to('list', config('cortex.fort.models.user'));
-        Bouncer::allow('admin')->to('create', config('cortex.fort.models.user'));
-        Bouncer::allow('admin')->to('update', config('cortex.fort.models.user'));
-        Bouncer::allow('admin')->to('delete', config('cortex.fort.models.user'));
-        Bouncer::allow('admin')->to('audit', config('cortex.fort.models.user'));
+        Bouncer::allow('admin')->to('list', config('cortex.fort.models.admin'));
+        Bouncer::allow('admin')->to('create', config('cortex.fort.models.admin'));
+        Bouncer::allow('admin')->to('update', config('cortex.fort.models.admin'));
+        Bouncer::allow('admin')->to('delete', config('cortex.fort.models.admin'));
+        Bouncer::allow('admin')->to('audit', config('cortex.fort.models.admin'));
+
+        Bouncer::allow('admin')->to('list', config('cortex.fort.models.member'));
+        Bouncer::allow('admin')->to('create', config('cortex.fort.models.member'));
+        Bouncer::allow('admin')->to('update', config('cortex.fort.models.member'));
+        Bouncer::allow('admin')->to('delete', config('cortex.fort.models.member'));
+        Bouncer::allow('admin')->to('audit', config('cortex.fort.models.member'));
+
+        Bouncer::allow('admin')->to('list', config('cortex.fort.models.manager'));
+        Bouncer::allow('admin')->to('create', config('cortex.fort.models.manager'));
+        Bouncer::allow('admin')->to('update', config('cortex.fort.models.manager'));
+        Bouncer::allow('admin')->to('delete', config('cortex.fort.models.manager'));
+        Bouncer::allow('admin')->to('audit', config('cortex.fort.models.manager'));
+
+        Bouncer::allow('admin')->to('list', config('cortex.fort.models.sentinel'));
+        Bouncer::allow('admin')->to('create', config('cortex.fort.models.sentinel'));
+        Bouncer::allow('admin')->to('update', config('cortex.fort.models.sentinel'));
+        Bouncer::allow('admin')->to('delete', config('cortex.fort.models.sentinel'));
+        Bouncer::allow('admin')->to('audit', config('cortex.fort.models.sentinel'));
     }
 }
