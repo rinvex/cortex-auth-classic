@@ -22,8 +22,7 @@ class CreateRolesTable extends Migration
             $table->{$this->jsonable()}('title')->nullable();
             $table->integer('level')->unsigned()->nullable();
             $table->integer('scope')->nullable();
-            $table->auditable();
-            $table->timestamps();
+            $table->auditableAndTimestamps();
 
             // Indexes
             $table->index(['scope']);

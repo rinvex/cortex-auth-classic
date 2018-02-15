@@ -24,8 +24,7 @@ class CreateAbilitiesTable extends Migration
             $table->string('entity_type', 150)->nullable();
             $table->boolean('only_owned')->default(false);
             $table->integer('scope')->nullable();
-            $table->auditable();
-            $table->timestamps();
+            $table->auditableAndTimestamps();
 
             // Indexes
             $table->index(['scope']);

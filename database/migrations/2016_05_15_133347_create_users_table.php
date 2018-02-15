@@ -40,8 +40,7 @@ class CreateUsersTable extends Migration
             $table->string('gender')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamp('last_activity')->nullable();
-            $table->auditable();
-            $table->timestamps();
+            $table->auditableAndTimestamps();
             $table->softDeletes();
 
             // Indexes
