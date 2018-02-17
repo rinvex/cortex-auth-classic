@@ -28,7 +28,7 @@ class AuthenticationController extends AbstractController
     {
         parent::__construct();
 
-        $this->middleware($this->getGuestMiddleware(), ['except' => $this->middlewareWhitelist]);
+        $this->middleware($this->getGuestMiddleware())->except($this->middlewareWhitelist]);
     }
 
     /**
