@@ -129,36 +129,6 @@ Route::domain(domain())->group(function () {
                      Route::delete('{admin}/media/{media}')->name('media.destroy')->uses('AdminsMediaController@destroy');
                  });
 
-                 // Members Routes
-                 Route::name('members.')->prefix('members')->group(function () {
-                     Route::get('/')->name('index')->uses('MembersController@index');
-                     Route::get('create')->name('create')->uses('MembersController@create');
-                     Route::post('create')->name('store')->uses('MembersController@store');
-                     Route::get('{member}')->name('edit')->uses('MembersController@edit');
-                     Route::put('{member}')->name('update')->uses('MembersController@update');
-                     Route::get('{member}/logs')->name('logs')->uses('MembersController@logs');
-                     Route::get('{member}/activities')->name('activities')->uses('MembersController@activities');
-                     Route::get('{member}/attributes')->name('attributes')->uses('MembersController@attributes');
-                     Route::put('{member}/attributes')->name('attributes.update')->uses('MembersController@updateAttributes');
-                     Route::delete('{member}')->name('destroy')->uses('MembersController@destroy');
-                     Route::delete('{member}/media/{media}')->name('media.destroy')->uses('MembersMediaController@destroy');
-                 });
-
-                 // Managers Routes
-                 Route::name('managers.')->prefix('managers')->group(function () {
-                     Route::get('/')->name('index')->uses('ManagersController@index');
-                     Route::get('create')->name('create')->uses('ManagersController@create');
-                     Route::post('create')->name('store')->uses('ManagersController@store');
-                     Route::get('{manager}')->name('edit')->uses('ManagersController@edit');
-                     Route::put('{manager}')->name('update')->uses('ManagersController@update');
-                     Route::get('{manager}/logs')->name('logs')->uses('ManagersController@logs');
-                     Route::get('{manager}/activities')->name('activities')->uses('ManagersController@activities');
-                     Route::get('{manager}/attributes')->name('attributes')->uses('ManagersController@attributes');
-                     Route::put('{manager}/attributes')->name('attributes.update')->uses('ManagersController@updateAttributes');
-                     Route::delete('{manager}')->name('destroy')->uses('ManagersController@destroy');
-                     Route::delete('{manager}/media/{media}')->name('media.destroy')->uses('ManagersMediaController@destroy');
-                 });
-
                  // Sentinels Routes
                  Route::name('sentinels.')->prefix('sentinels')->group(function () {
                      Route::get('/')->name('index')->uses('SentinelsController@index');

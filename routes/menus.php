@@ -4,24 +4,20 @@ declare(strict_types=1);
 
 use Cortex\Auth\Models\Role;
 use Cortex\Auth\Models\Admin;
-use Cortex\Auth\Models\Member;
 use Cortex\Auth\Models\Ability;
-use Cortex\Auth\Models\Manager;
 use Cortex\Auth\Models\Sentinel;
 use Rinvex\Menus\Models\MenuItem;
 use Rinvex\Menus\Models\MenuGenerator;
 
-Menu::register('adminarea.sidebar', function (MenuGenerator $menu, Ability $ability, Role $role, Admin $admin, Member $member, Manager $manager, Sentinel $sentinel) {
-    $menu->findByTitleOrAdd(trans('cortex/foundation::common.access'), 20, 'fa fa-user-circle-o', [], function (MenuItem $dropdown) use ($ability, $role) {
-        $dropdown->route(['adminarea.abilities.index'], trans('cortex/auth::common.abilities'), 10, 'fa fa-sliders')->ifCan('list', $ability)->activateOnRoute('adminarea.abilities');
-        $dropdown->route(['adminarea.roles.index'], trans('cortex/auth::common.roles'), 20, 'fa fa-users')->ifCan('list', $role)->activateOnRoute('adminarea.roles');
+Menu::register('adminarea.sidebar', function (MenuGenerator $menu, Ability $ability, Role $role, Admin $admin, Sentinel $sentinel) {
+    $menu->findByTitleOrAdd(trans('cortex/foundation::common.access'), null, 'fa fa-user-circle-o', [], function (MenuItem $dropdown) use ($ability, $role) {
+        $dropdown->route(['adminarea.abilities.index'], trans('cortex/auth::common.abilities'), null, 'fa fa-sliders')->ifCan('list', $ability)->activateOnRoute('adminarea.abilities');
+        $dropdown->route(['adminarea.roles.index'], trans('cortex/auth::common.roles'), null, 'fa fa-users')->ifCan('list', $role)->activateOnRoute('adminarea.roles');
     });
 
-    $menu->findByTitleOrAdd(trans('cortex/foundation::common.user'), 30, 'fa fa-users', [], function (MenuItem $dropdown) use ($admin, $member, $manager, $sentinel) {
-        $dropdown->route(['adminarea.admins.index'], trans('cortex/auth::common.admins'), 10, 'fa fa-user')->ifCan('list', $admin)->activateOnRoute('adminarea.admins');
-        $dropdown->route(['adminarea.members.index'], trans('cortex/auth::common.members'), 10, 'fa fa-user')->ifCan('list', $member)->activateOnRoute('adminarea.members');
-        $dropdown->route(['adminarea.managers.index'], trans('cortex/auth::common.managers'), 10, 'fa fa-user')->ifCan('list', $manager)->activateOnRoute('adminarea.managers');
-        $dropdown->route(['adminarea.sentinels.index'], trans('cortex/auth::common.sentinels'), 10, 'fa fa-user')->ifCan('list', $sentinel)->activateOnRoute('adminarea.sentinels');
+    $menu->findByTitleOrAdd(trans('cortex/foundation::common.user'), null, 'fa fa-users', [], function (MenuItem $dropdown) use ($admin, $sentinel) {
+        $dropdown->route(['adminarea.admins.index'], trans('cortex/auth::common.admins'), null, 'fa fa-user')->ifCan('list', $admin)->activateOnRoute('adminarea.admins');
+        $dropdown->route(['adminarea.sentinels.index'], trans('cortex/auth::common.sentinels'), null, 'fa fa-user')->ifCan('list', $sentinel)->activateOnRoute('adminarea.sentinels');
     });
 });
 
@@ -69,22 +65,6 @@ Menu::register('adminarea.admins.tabs', function (MenuGenerator $menu, Admin $ad
     $menu->route(['adminarea.admins.attributes', ['admin' => $admin]], trans('cortex/auth::common.attributes'))->ifCan('update-admins')->if($admin->exists);
     $menu->route(['adminarea.admins.logs', ['admin' => $admin]], trans('cortex/auth::common.logs'))->ifCan('audit-admins')->if($admin->exists);
     $menu->route(['adminarea.admins.activities', ['admin' => $admin]], trans('cortex/auth::common.activities'))->ifCan('audit-admins')->if($admin->exists);
-});
-
-Menu::register('adminarea.members.tabs', function (MenuGenerator $menu, Member $member) {
-    $menu->route(['adminarea.members.create'], trans('cortex/auth::common.details'))->ifCan('create-members')->if(! $member->exists);
-    $menu->route(['adminarea.members.edit', ['member' => $member]], trans('cortex/auth::common.details'))->ifCan('update-members')->if($member->exists);
-    $menu->route(['adminarea.members.attributes', ['member' => $member]], trans('cortex/auth::common.attributes'))->ifCan('update-members')->if($member->exists);
-    $menu->route(['adminarea.members.logs', ['member' => $member]], trans('cortex/auth::common.logs'))->ifCan('audit-members')->if($member->exists);
-    $menu->route(['adminarea.members.activities', ['member' => $member]], trans('cortex/auth::common.activities'))->ifCan('audit-members')->if($member->exists);
-});
-
-Menu::register('adminarea.managers.tabs', function (MenuGenerator $menu, Manager $manager) {
-    $menu->route(['adminarea.managers.create'], trans('cortex/auth::common.details'))->ifCan('create-managers')->if(! $manager->exists);
-    $menu->route(['adminarea.managers.edit', ['manager' => $manager]], trans('cortex/auth::common.details'))->ifCan('update-managers')->if($manager->exists);
-    $menu->route(['adminarea.managers.attributes', ['manager' => $manager]], trans('cortex/auth::common.attributes'))->ifCan('update-managers')->if($manager->exists);
-    $menu->route(['adminarea.managers.logs', ['manager' => $manager]], trans('cortex/auth::common.logs'))->ifCan('audit-managers')->if($manager->exists);
-    $menu->route(['adminarea.managers.activities', ['manager' => $manager]], trans('cortex/auth::common.activities'))->ifCan('audit-managers')->if($manager->exists);
 });
 
 Menu::register('adminarea.sentinels.tabs', function (MenuGenerator $menu, Sentinel $sentinel) {
