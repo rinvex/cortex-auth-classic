@@ -23,7 +23,6 @@ class CreateGuardiansTable extends Migration
             $table->rememberToken();
             $table->string('email');
             $table->boolean('is_active')->default(true);
-            $table->timestamp('last_activity')->nullable();
             $table->auditableAndTimestamps();
             $table->softDeletes();
 

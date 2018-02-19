@@ -39,7 +39,6 @@ class Guardian extends Model implements AuthenticatableContract, AuthorizableCon
         'password',
         'email',
         'is_active',
-        'last_activity',
     ];
 
     /**
@@ -50,7 +49,6 @@ class Guardian extends Model implements AuthenticatableContract, AuthorizableCon
         'password' => 'string',
         'email' => 'string',
         'is_active' => 'boolean',
-        'last_activity' => 'datetime',
         'deleted_at' => 'datetime',
     ];
 
@@ -115,7 +113,6 @@ class Guardian extends Model implements AuthenticatableContract, AuthorizableCon
      */
     protected static $ignoreChangedAttributes = [
         'password',
-        'last_activity',
         'created_at',
         'updated_at',
         'deleted_at',
