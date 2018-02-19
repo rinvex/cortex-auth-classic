@@ -29,7 +29,7 @@ class AbilityFormRequest extends FormRequest
         $data = $this->all();
 
         // Set roles
-        if ($this->user($this->get('guard'))->can('grant', \Cortex\Auth\Models\Ability::class) && $data['roles']) {
+        if ($data['abilities'] && $this->user($this->get('guard'))->can('grant', \Cortex\Auth\Models\Ability::class) && $data['roles']) {
             $roles = array_map('intval', $this->get('roles', []));
             $data['roles'] = $this->user($this->get('guard'))->can('superadmin') ? $roles
                 : $this->user($this->get('guard'))->roles->pluck('id')->intersect($roles)->toArray();
