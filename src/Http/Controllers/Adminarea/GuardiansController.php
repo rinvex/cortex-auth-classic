@@ -88,26 +88,7 @@ class GuardiansController extends AuthorizedController
      */
     protected function form(Request $request, Guardian $guardian)
     {
-        $countries = collect(countries())->map(function ($country, $code) {
-            return [
-                'id' => $code,
-                'text' => $country['name'],
-                'emoji' => $country['emoji'],
-            ];
-        })->values();
-        $currentUser = $request->user($this->getGuard());
-        $languages = collect(languages())->pluck('name', 'iso_639_1');
-        $genders = ['male' => trans('cortex/auth::common.male'), 'female' => trans('cortex/auth::common.female')];
-
-        $roles = $currentUser->can('superadmin')
-            ? app('cortex.auth.role')->all()->pluck('name', 'id')->toArray()
-            : $currentUser->roles->pluck('name', 'id')->toArray();
-
-        $abilities = $currentUser->can('superadmin')
-            ? app('cortex.auth.ability')->all()->pluck('title', 'id')->toArray()
-            : $currentUser->abilities->pluck('title', 'id')->toArray();
-
-        return view('cortex/auth::adminarea.pages.guardian', compact('guardian', 'abilities', 'roles', 'countries', 'languages', 'genders'));
+        return view('cortex/auth::adminarea.pages.guardian', compact('guardian'));
     }
 
     /**
