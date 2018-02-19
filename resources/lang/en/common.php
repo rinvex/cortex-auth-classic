@@ -38,7 +38,6 @@ return [
 
     // Fields
     'name' => 'Name',
-    'slug' => 'Slug',
     'description' => 'Description',
     'action' => 'Action',
     'resource' => 'Resource',
