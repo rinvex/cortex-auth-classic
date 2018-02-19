@@ -215,7 +215,8 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     public function setAbilitiesAttribute($abilities): void
     {
         static::saved(function (self $model) use ($abilities) {
-            activity()
+            $abilities === $model->abilities->pluck('id')->toArray()
+            || activity()
                 ->performedOn($model)
                 ->withProperties(['attributes' => ['abilities' => $abilities], 'old' => ['abilities' => $model->abilities->pluck('id')->toArray()]])
                 ->log('updated');
@@ -234,7 +235,8 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     public function setRolesAttribute($roles): void
     {
         static::saved(function (self $model) use ($roles) {
-            activity()
+            $roles === $model->roles->pluck('id')->toArray()
+            || activity()
                 ->performedOn($model)
                 ->withProperties(['attributes' => ['roles' => $roles], 'old' => ['roles' => $model->roles->pluck('id')->toArray()]])
                 ->log('updated');
