@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Cortex\Auth\Http\Requests\Adminarea;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Cortex\Foundation\Exceptions\GenericException;
 
-class TwoFactorTotpProcessSettingsRequest extends FormRequest
+class AccountTwoFactorTotpBackupRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -17,6 +18,13 @@ class TwoFactorTotpProcessSettingsRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        $user = $this->user($this->get('guard'));
+        $twoFactor = $user->getTwoFactor();
+
+        if (empty($twoFactor['totp']['enabled'])) {
+            throw new GenericException(trans('cortex/auth::messages.verification.twofactor.totp.cant_backup'), route('adminarea.account.settings'));
+        }
+
         return true;
     }
 
@@ -27,8 +35,6 @@ class TwoFactorTotpProcessSettingsRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'token' => 'required|digits:6',
-        ];
+        return [];
     }
 }

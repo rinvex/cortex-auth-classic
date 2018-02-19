@@ -7,7 +7,7 @@ namespace Cortex\Auth\Http\Requests\Adminarea;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\Exceptions\GenericException;
 
-class TwoFactorPhoneSettingsRequest extends FormRequest
+class AccountTwoFactorPhoneRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

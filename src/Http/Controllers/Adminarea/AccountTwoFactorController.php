@@ -7,9 +7,9 @@ namespace Cortex\Auth\Http\Controllers\Adminarea;
 use Illuminate\Http\Request;
 use PragmaRX\Google2FA\Google2FA;
 use Cortex\Foundation\Http\Controllers\AuthenticatedController;
-use Cortex\Auth\Http\Requests\Adminarea\TwoFactorPhoneSettingsRequest;
-use Cortex\Auth\Http\Requests\Adminarea\TwoFactorTotpBackupSettingsRequest;
-use Cortex\Auth\Http\Requests\Adminarea\TwoFactorTotpProcessSettingsRequest;
+use Cortex\Auth\Http\Requests\Adminarea\AccountTwoFactorPhoneRequest;
+use Cortex\Auth\Http\Requests\Adminarea\AccountTwoFactorTotpBackupRequest;
+use Cortex\Auth\Http\Requests\Adminarea\AccountTwoFactorTotpProcessRequest;
 
 class AccountTwoFactorController extends AuthenticatedController
 {
@@ -78,12 +78,12 @@ class AccountTwoFactorController extends AuthenticatedController
     /**
      * Process the TwoFactor TOTP enable form.
      *
-     * @param \Cortex\Auth\Http\Requests\Adminarea\TwoFactorTotpProcessSettingsRequest $request
+     * @param \Cortex\Auth\Http\Requests\Adminarea\AccountTwoFactorTotpProcessRequest $request
      * @param \PragmaRX\Google2FA\Google2FA                                            $totpProvider
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function updateTotp(TwoFactorTotpProcessSettingsRequest $request, Google2FA $totpProvider)
+    public function updateTotp(AccountTwoFactorTotpProcessRequest $request, Google2FA $totpProvider)
     {
         $currentUser = $request->user($this->getGuard());
         $twoFactor = $currentUser->getTwoFactor();
@@ -117,11 +117,11 @@ class AccountTwoFactorController extends AuthenticatedController
     /**
      * Process the TwoFactor OTP backup.
      *
-     * @param \Cortex\Auth\Http\Requests\Adminarea\TwoFactorTotpBackupSettingsRequest $request
+     * @param \Cortex\Auth\Http\Requests\Adminarea\AccountTwoFactorTotpBackupRequest $request
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function backupTotp(TwoFactorTotpBackupSettingsRequest $request)
+    public function backupTotp(AccountTwoFactorTotpBackupRequest $request)
     {
         $currentUser = $request->user($this->getGuard());
         $twoFactor = $currentUser->getTwoFactor();
@@ -139,11 +139,11 @@ class AccountTwoFactorController extends AuthenticatedController
     /**
      * Enable TwoFactor Phone authentication.
      *
-     * @param \Cortex\Auth\Http\Requests\Adminarea\TwoFactorPhoneSettingsRequest $request
+     * @param \Cortex\Auth\Http\Requests\Adminarea\AccountTwoFactorPhoneRequest $request
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function enablePhone(TwoFactorPhoneSettingsRequest $request)
+    public function enablePhone(AccountTwoFactorPhoneRequest $request)
     {
         $currentUser = $request->user($this->getGuard());
         $currentUser->routeNotificationForAuthy();
