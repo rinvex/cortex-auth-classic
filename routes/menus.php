@@ -5,19 +5,19 @@ declare(strict_types=1);
 use Cortex\Auth\Models\Role;
 use Cortex\Auth\Models\Admin;
 use Cortex\Auth\Models\Ability;
-use Cortex\Auth\Models\Sentinel;
+use Cortex\Auth\Models\Guardian;
 use Rinvex\Menus\Models\MenuItem;
 use Rinvex\Menus\Models\MenuGenerator;
 
-Menu::register('adminarea.sidebar', function (MenuGenerator $menu, Ability $ability, Role $role, Admin $admin, Sentinel $sentinel) {
+Menu::register('adminarea.sidebar', function (MenuGenerator $menu, Ability $ability, Role $role, Admin $admin, Guardian $guardian) {
     $menu->findByTitleOrAdd(trans('cortex/foundation::common.access'), null, 'fa fa-user-circle-o', [], function (MenuItem $dropdown) use ($ability, $role) {
         $dropdown->route(['adminarea.abilities.index'], trans('cortex/auth::common.abilities'), null, 'fa fa-sliders')->ifCan('list', $ability)->activateOnRoute('adminarea.abilities');
         $dropdown->route(['adminarea.roles.index'], trans('cortex/auth::common.roles'), null, 'fa fa-users')->ifCan('list', $role)->activateOnRoute('adminarea.roles');
     });
 
-    $menu->findByTitleOrAdd(trans('cortex/foundation::common.user'), null, 'fa fa-users', [], function (MenuItem $dropdown) use ($admin, $sentinel) {
+    $menu->findByTitleOrAdd(trans('cortex/foundation::common.user'), null, 'fa fa-users', [], function (MenuItem $dropdown) use ($admin, $guardian) {
         $dropdown->route(['adminarea.admins.index'], trans('cortex/auth::common.admins'), null, 'fa fa-user')->ifCan('list', $admin)->activateOnRoute('adminarea.admins');
-        $dropdown->route(['adminarea.sentinels.index'], trans('cortex/auth::common.sentinels'), null, 'fa fa-user')->ifCan('list', $sentinel)->activateOnRoute('adminarea.sentinels');
+        $dropdown->route(['adminarea.guardians.index'], trans('cortex/auth::common.guardians'), null, 'fa fa-user')->ifCan('list', $guardian)->activateOnRoute('adminarea.guardians');
     });
 });
 
@@ -67,8 +67,8 @@ Menu::register('adminarea.admins.tabs', function (MenuGenerator $menu, Admin $ad
     $menu->route(['adminarea.admins.activities', ['admin' => $admin]], trans('cortex/auth::common.activities'))->ifCan('audit-admins')->if($admin->exists);
 });
 
-Menu::register('adminarea.sentinels.tabs', function (MenuGenerator $menu, Sentinel $sentinel) {
-    $menu->route(['adminarea.sentinels.create'], trans('cortex/auth::common.details'))->ifCan('create-sentinels')->if(! $sentinel->exists);
-    $menu->route(['adminarea.sentinels.edit', ['sentinel' => $sentinel]], trans('cortex/auth::common.details'))->ifCan('update-sentinels')->if($sentinel->exists);
-    $menu->route(['adminarea.sentinels.logs', ['sentinel' => $sentinel]], trans('cortex/auth::common.logs'))->ifCan('audit-sentinels')->if($sentinel->exists);
+Menu::register('adminarea.guardians.tabs', function (MenuGenerator $menu, Guardian $guardian) {
+    $menu->route(['adminarea.guardians.create'], trans('cortex/auth::common.details'))->ifCan('create-guardians')->if(! $guardian->exists);
+    $menu->route(['adminarea.guardians.edit', ['guardian' => $guardian]], trans('cortex/auth::common.details'))->ifCan('update-guardians')->if($guardian->exists);
+    $menu->route(['adminarea.guardians.logs', ['guardian' => $guardian]], trans('cortex/auth::common.logs'))->ifCan('audit-guardians')->if($guardian->exists);
 });

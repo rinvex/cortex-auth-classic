@@ -6,7 +6,7 @@ namespace Cortex\Auth\Console\Commands;
 
 use Cortex\Auth\Models\Admin;
 use Illuminate\Console\Command;
-use Cortex\Auth\Models\Sentinel;
+use Cortex\Auth\Models\Guardian;
 
 class SeedCommand extends Command
 {
@@ -37,14 +37,14 @@ class SeedCommand extends Command
 
         // Create models
         $admin = $this->createAdmin($adminPassword = str_random());
-        $sentinel = $this->createSentinel($sentinelPassword = str_random());
+        $guardian = $this->createGuardian($guardianPassword = str_random());
 
         // Assign roles
         $admin->assign('superadmin');
 
         $this->table(['Username', 'Password'], [
             ['username' => $admin['username'], 'password' => $adminPassword],
-            ['username' => $sentinel['username'], 'password' => $sentinelPassword],
+            ['username' => $guardian['username'], 'password' => $guardianPassword],
         ]);
     }
 
@@ -74,21 +74,21 @@ class SeedCommand extends Command
     }
 
     /**
-     * Create sentinel model.
+     * Create guardian model.
      *
      * @param string $password
      *
-     * @return \Cortex\Auth\Models\Sentinel
+     * @return \Cortex\Auth\Models\Guardian
      */
-    protected function createSentinel(string $password): Sentinel
+    protected function createGuardian(string $password): Guardian
     {
-        $sentinel = [
+        $guardian = [
             'is_active' => true,
-            'username' => 'Sentinel',
-            'email' => 'sentinel@example.com',
+            'username' => 'Guardian',
+            'email' => 'guardian@example.com',
         ];
 
-        return tap(app('cortex.auth.sentinel')->firstOrNew($sentinel)->fill([
+        return tap(app('cortex.auth.guardian')->firstOrNew($guardian)->fill([
             'remember_token' => str_random(10),
             'password' => $password,
         ]), function ($instance) {

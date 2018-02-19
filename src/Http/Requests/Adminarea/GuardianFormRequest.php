@@ -6,7 +6,7 @@ namespace Cortex\Auth\Http\Requests\Adminarea;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SentinelFormRequest extends FormRequest
+class GuardianFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,24 +27,24 @@ class SentinelFormRequest extends FormRequest
     {
         $data = $this->all();
 
-        $sentinel = $this->route('sentinel') ?? app('cortex.auth.sentinel');
+        $guardian = $this->route('guardian') ?? app('cortex.auth.guardian');
         $country = $data['country_code'] ?? null;
-        $twoFactor = $sentinel->getTwoFactor();
+        $twoFactor = $guardian->getTwoFactor();
 
         $data['email_verified'] = $this->get('email_verified', false);
         $data['phone_verified'] = $this->get('phone_verified', false);
 
-        if ($sentinel->exists && empty($data['password'])) {
+        if ($guardian->exists && empty($data['password'])) {
             unset($data['password'], $data['password_confirmation']);
         }
 
         // Update email verification date
-        if ($data['email_verified'] && $sentinel->email_verified !== $data['email_verified']) {
+        if ($data['email_verified'] && $guardian->email_verified !== $data['email_verified']) {
             $data['email_verified_at'] = now();
         }
 
         // Update phone verification date
-        if ($data['phone_verified'] && $sentinel->phone_verified !== $data['phone_verified']) {
+        if ($data['phone_verified'] && $guardian->phone_verified !== $data['phone_verified']) {
             $data['phone_verified_at'] = now();
         }
 
@@ -64,7 +64,7 @@ class SentinelFormRequest extends FormRequest
             unset($data['roles']);
         }
 
-        if ($twoFactor && (isset($data['phone_verified_at']) || $country !== $sentinel->country_code)) {
+        if ($twoFactor && (isset($data['phone_verified_at']) || $country !== $guardian->country_code)) {
             array_set($twoFactor, 'phone.enabled', false);
             $data['two_factor'] = $twoFactor;
         }
@@ -79,13 +79,13 @@ class SentinelFormRequest extends FormRequest
      */
     public function rules(): array
     {
-        $sentinel = $this->route('sentinel') ?? app('cortex.auth.sentinel');
-        $sentinel->updateRulesUniques();
-        $rules = $sentinel->getRules();
+        $guardian = $this->route('guardian') ?? app('cortex.auth.guardian');
+        $guardian->updateRulesUniques();
+        $rules = $guardian->getRules();
 
         $rules['roles'] = 'nullable|array';
         $rules['abilities'] = 'nullable|array';
-        $rules['password'] = $sentinel->exists
+        $rules['password'] = $guardian->exists
             ? 'confirmed|min:'.config('cortex.auth.password_min_chars')
             : 'required|confirmed|min:'.config('cortex.auth.password_min_chars');
 

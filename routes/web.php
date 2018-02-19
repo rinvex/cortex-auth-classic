@@ -129,15 +129,15 @@ Route::domain(domain())->group(function () {
                      Route::delete('{admin}/media/{media}')->name('media.destroy')->uses('AdminsMediaController@destroy');
                  });
 
-                 // Sentinels Routes
-                 Route::name('sentinels.')->prefix('sentinels')->group(function () {
-                     Route::get('/')->name('index')->uses('SentinelsController@index');
-                     Route::get('create')->name('create')->uses('SentinelsController@create');
-                     Route::post('create')->name('store')->uses('SentinelsController@store');
-                     Route::get('{sentinel}')->name('edit')->uses('SentinelsController@edit');
-                     Route::put('{sentinel}')->name('update')->uses('SentinelsController@update');
-                     Route::get('{sentinel}/logs')->name('logs')->uses('SentinelsController@logs');
-                     Route::delete('{sentinel}')->name('destroy')->uses('SentinelsController@destroy');
+                 // Guardians Routes
+                 Route::name('guardians.')->prefix('guardians')->group(function () {
+                     Route::get('/')->name('index')->uses('GuardiansController@index');
+                     Route::get('create')->name('create')->uses('GuardiansController@create');
+                     Route::post('create')->name('store')->uses('GuardiansController@store');
+                     Route::get('{guardian}')->name('edit')->uses('GuardiansController@edit');
+                     Route::put('{guardian}')->name('update')->uses('GuardiansController@update');
+                     Route::get('{guardian}/logs')->name('logs')->uses('GuardiansController@logs');
+                     Route::delete('{guardian}')->name('destroy')->uses('GuardiansController@destroy');
                  });
              });
          });

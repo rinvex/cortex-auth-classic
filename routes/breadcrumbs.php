@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Cortex\Auth\Models\Role;
 use Cortex\Auth\Models\Admin;
 use Cortex\Auth\Models\Ability;
-use Cortex\Auth\Models\Sentinel;
+use Cortex\Auth\Models\Guardian;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator;
 
 // Adminarea breadcrumbs
@@ -63,25 +63,25 @@ Breadcrumbs::register('adminarea.admins.attributes', function (BreadcrumbsGenera
     $breadcrumbs->push(trans('cortex/auth::common.attributes'), route('adminarea.admins.attributes', ['admin' => $admin]));
 });
 
-Breadcrumbs::register('adminarea.sentinels.index', function (BreadcrumbsGenerator $breadcrumbs) {
+Breadcrumbs::register('adminarea.guardians.index', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.trans('cortex/foundation::common.adminarea'), route('adminarea.home'));
-    $breadcrumbs->push(trans('cortex/auth::common.sentinels'), route('adminarea.sentinels.index'));
+    $breadcrumbs->push(trans('cortex/auth::common.guardians'), route('adminarea.guardians.index'));
 });
 
-Breadcrumbs::register('adminarea.sentinels.create', function (BreadcrumbsGenerator $breadcrumbs) {
-    $breadcrumbs->parent('adminarea.sentinels.index');
-    $breadcrumbs->push(trans('cortex/auth::common.create_sentinel'), route('adminarea.sentinels.create'));
+Breadcrumbs::register('adminarea.guardians.create', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->parent('adminarea.guardians.index');
+    $breadcrumbs->push(trans('cortex/auth::common.create_guardian'), route('adminarea.guardians.create'));
 });
 
-Breadcrumbs::register('adminarea.sentinels.edit', function (BreadcrumbsGenerator $breadcrumbs, Sentinel $sentinel) {
-    $breadcrumbs->parent('adminarea.sentinels.index');
-    $breadcrumbs->push($sentinel->username, route('adminarea.sentinels.edit', ['sentinel' => $sentinel]));
+Breadcrumbs::register('adminarea.guardians.edit', function (BreadcrumbsGenerator $breadcrumbs, Guardian $guardian) {
+    $breadcrumbs->parent('adminarea.guardians.index');
+    $breadcrumbs->push($guardian->username, route('adminarea.guardians.edit', ['guardian' => $guardian]));
 });
 
-Breadcrumbs::register('adminarea.sentinels.logs', function (BreadcrumbsGenerator $breadcrumbs, Sentinel $sentinel) {
-    $breadcrumbs->parent('adminarea.sentinels.index');
-    $breadcrumbs->push($sentinel->username, route('adminarea.sentinels.edit', ['sentinel' => $sentinel]));
-    $breadcrumbs->push(trans('cortex/auth::common.logs'), route('adminarea.sentinels.logs', ['sentinel' => $sentinel]));
+Breadcrumbs::register('adminarea.guardians.logs', function (BreadcrumbsGenerator $breadcrumbs, Guardian $guardian) {
+    $breadcrumbs->parent('adminarea.guardians.index');
+    $breadcrumbs->push($guardian->username, route('adminarea.guardians.edit', ['guardian' => $guardian]));
+    $breadcrumbs->push(trans('cortex/auth::common.logs'), route('adminarea.guardians.logs', ['guardian' => $guardian]));
 });
 
 Breadcrumbs::register('adminarea.abilities.index', function (BreadcrumbsGenerator $breadcrumbs) {

@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\DataTables\Adminarea;
 
-use Cortex\Auth\Models\Sentinel;
+use Cortex\Auth\Models\Guardian;
 use Cortex\Foundation\DataTables\AbstractDataTable;
 
-class SentinelsDataTable extends AbstractDataTable
+class GuardiansDataTable extends AbstractDataTable
 {
     /**
      * {@inheritdoc}
      */
-    protected $model = Sentinel::class;
+    protected $model = Guardian::class;
 
     /**
      * Get columns.
@@ -22,8 +22,8 @@ class SentinelsDataTable extends AbstractDataTable
     protected function getColumns(): array
     {
         $link = config('cortex.foundation.route.locale_prefix')
-            ? '"<a href=\""+routes.route(\'adminarea.sentinels.edit\', {sentinel: full.username, locale: \''.$this->request->segment(1).'\'})+"\">"+data+"</a>"'
-            : '"<a href=\""+routes.route(\'adminarea.sentinels.edit\', {sentinel: full.username})+"\">"+data+"</a>"';
+            ? '"<a href=\""+routes.route(\'adminarea.guardians.edit\', {guardian: full.username, locale: \''.$this->request->segment(1).'\'})+"\">"+data+"</a>"'
+            : '"<a href=\""+routes.route(\'adminarea.guardians.edit\', {guardian: full.username})+"\">"+data+"</a>"';
 
         return [
             'username' => ['title' => trans('cortex/auth::common.username'), 'render' => $link.'+(full.is_active ? " <i class=\"text-success fa fa-check\"></i>" : " <i class=\"text-danger fa fa-close\"></i>")', 'responsivePriority' => 0],

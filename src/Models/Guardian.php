@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 
-class Sentinel extends Model implements AuthenticatableContract, AuthorizableContract
+class Guardian extends Model implements AuthenticatableContract, AuthorizableContract
 {
     // @TODO: Strangely, this issue happens only here!!!
     // Duplicate trait usage to fire attached events for cache

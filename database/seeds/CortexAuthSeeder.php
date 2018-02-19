@@ -47,10 +47,10 @@ class CortexAuthSeeder extends Seeder
         Bouncer::allow('admin')->to('delete', config('cortex.auth.models.manager'));
         Bouncer::allow('admin')->to('audit', config('cortex.auth.models.manager'));
 
-        Bouncer::allow('admin')->to('list', config('cortex.auth.models.sentinel'));
-        Bouncer::allow('admin')->to('create', config('cortex.auth.models.sentinel'));
-        Bouncer::allow('admin')->to('update', config('cortex.auth.models.sentinel'));
-        Bouncer::allow('admin')->to('delete', config('cortex.auth.models.sentinel'));
-        Bouncer::allow('admin')->to('audit', config('cortex.auth.models.sentinel'));
+        Bouncer::allow('admin')->to('list', config('cortex.auth.models.guardian'));
+        Bouncer::allow('admin')->to('create', config('cortex.auth.models.guardian'));
+        Bouncer::allow('admin')->to('update', config('cortex.auth.models.guardian'));
+        Bouncer::allow('admin')->to('delete', config('cortex.auth.models.guardian'));
+        Bouncer::allow('admin')->to('audit', config('cortex.auth.models.guardian'));
     }
 }

@@ -139,8 +139,8 @@ return [
     'managers' => 'Managers',
     'create_manager' => 'Create New Manager',
 
-    // Sentinels Phrases
-    'sentinels' => 'Sentinels',
-    'create_sentinel' => 'Create New Sentinel',
+    // Guardians Phrases
+    'guardians' => 'Guardians',
+    'create_guardian' => 'Create New Guardian',
 
 ];
