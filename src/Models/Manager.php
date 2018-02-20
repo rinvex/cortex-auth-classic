@@ -102,14 +102,14 @@ class Manager extends User
      */
     public function setTenantsAttribute($tenants): void
     {
-        parent::setTenantsAttribute($tenants);
-
         static::saved(function (self $model) use ($tenants) {
             $tenants === $model->tenants->pluck('id')->toArray()
             || activity()
                 ->performedOn($model)
                 ->withProperties(['attributes' => ['tenants' => $tenants], 'old' => ['tenants' => $model->tenants->pluck('id')->toArray()]])
                 ->log('updated');
+
+            $model->syncTenants($tenants);
         });
     }
 }
