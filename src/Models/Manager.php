@@ -16,6 +16,36 @@ class Manager extends User
     /**
      * {@inheritdoc}
      */
+    protected $fillable = [
+        'username',
+        'password',
+        'two_factor',
+        'email',
+        'email_verified',
+        'email_verified_at',
+        'phone',
+        'phone_verified',
+        'phone_verified_at',
+        'name_prefix',
+        'first_name',
+        'middle_name',
+        'last_name',
+        'name_suffix',
+        'title',
+        'country_code',
+        'language_code',
+        'birthday',
+        'gender',
+        'is_active',
+        'last_activity',
+        'abilities',
+        'roles',
+        'tenants',
+    ];
+
+    /**
+     * {@inheritdoc}
+     */
     protected $passwordResetNotificationClass = ManagerPasswordResetNotification::class;
 
     /**
@@ -61,5 +91,25 @@ class Manager extends User
             'is_active' => 'sometimes|boolean',
             'last_activity' => 'nullable|date',
         ]);
+    }
+
+    /**
+     * Attach the given tenants to the model.
+     *
+     * @param mixed $tenants
+     *
+     * @return void
+     */
+    public function setTenantsAttribute($tenants): void
+    {
+        parent::setTenantsAttribute($tenants);
+
+        static::saved(function (self $model) use ($tenants) {
+            $tenants === $model->tenants->pluck('id')->toArray()
+            || activity()
+                ->performedOn($model)
+                ->withProperties(['attributes' => ['tenants' => $tenants], 'old' => ['tenants' => $model->tenants->pluck('id')->toArray()]])
+                ->log('updated');
+        });
     }
 }
