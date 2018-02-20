@@ -14,7 +14,7 @@ class AdminsMediaController extends AuthorizedController
     /**
      * {@inheritdoc}
      */
-    protected $resource = 'admin';
+    protected $resource = Admin::class;
 
     /**
      * {@inheritdoc}

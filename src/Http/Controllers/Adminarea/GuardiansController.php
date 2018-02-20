@@ -17,7 +17,7 @@ class GuardiansController extends AuthorizedController
     /**
      * {@inheritdoc}
      */
-    protected $resource = 'guardian';
+    protected $resource = Guardian::class;
 
     /**
      * List all guardians.

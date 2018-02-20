@@ -17,7 +17,7 @@ class AbilitiesController extends AuthorizedController
     /**
      * {@inheritdoc}
      */
-    protected $resource = 'ability';
+    protected $resource = Ability::class;
 
     /**
      * List all abilities.

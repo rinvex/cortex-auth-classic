@@ -19,7 +19,7 @@ class AdminsController extends AuthorizedController
     /**
      * {@inheritdoc}
      */
-    protected $resource = 'admin';
+    protected $resource = Admin::class;
 
     /**
      * List all admins.
