@@ -75,6 +75,7 @@ return [
     'updated_at' => 'Updated At',
     'cover_photo' => 'Cover Photo',
     'profile_picture' => 'Profile Picture',
+    'tenants' => 'Tenants',
 
     // Headings
     'verification_email_request' => 'Request Email Verification',
