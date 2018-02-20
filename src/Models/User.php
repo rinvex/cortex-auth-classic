@@ -9,7 +9,6 @@ use Rinvex\Language\Language;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Rinvex\Auth\Traits\HasHashables;
-use Rinvex\Tenants\Traits\Tenantable;
 use Rinvex\Auth\Traits\CanVerifyEmail;
 use Rinvex\Auth\Traits\CanVerifyPhone;
 use Cortex\Foundation\Traits\Auditable;
@@ -41,7 +40,6 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     // otherwise old cached queries used and no changelog recorded on update.
     use CacheableEloquent;
     use Auditable;
-    use Tenantable;
     use Notifiable;
     use HasActivity;
     use Attributable;
