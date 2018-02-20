@@ -217,7 +217,7 @@ class Session extends Model
      */
     public function user(): MorphTo
     {
-        return $this->morphTo();
+        return $this->morphTo('user', 'user_type', 'user_id');
     }
 
     /**
