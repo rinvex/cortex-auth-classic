@@ -15,6 +15,20 @@ class RolesDataTable extends AbstractDataTable
     protected $model = Role::class;
 
     /**
+     * Get the query object to be processed by dataTables.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder|\Illuminate\Support\Collection
+     */
+    public function query()
+    {
+        $currentUser = $this->request->user($this->request->get('guard'));
+
+        $query = $currentUser->can('superadmin') ? app($this->model)->query() : app($this->model)->query()->whereIn('id', $currentUser->roles->pluck('id')->toArray());
+
+        return $this->applyScopes($query);
+    }
+
+    /**
      * Display ajax response.
      *
      * @return \Illuminate\Http\JsonResponse
