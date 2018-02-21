@@ -20,7 +20,7 @@ class RoleFormRequest extends FormRequest
     {
         $currentUser = $this->user($this->route('guard'));
 
-        if (! $currentUser->can('superadmin') && ! $currentUser->roles->contains($this->route('role'))) {
+        if (optional($this->route('role'))->exists && ! $currentUser->can('superadmin') && ! $currentUser->roles->contains($this->route('role'))) {
             throw new GenericException(trans('cortex/auth::messages.action_unauthorized'), route('adminarea.roles.index'));
         }
 
