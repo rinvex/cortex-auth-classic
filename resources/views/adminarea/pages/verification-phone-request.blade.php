@@ -26,7 +26,7 @@
 
                 <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
                     <div class="input-group input-group-lg">
-                        @if (auth()->guard(request('guard'))->user())
+                        @if (auth()->guard(request()->route('guard'))->user())
                             {{ Form::number('phone', old('phone', $currentUser->phone), ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.phone'), 'required' => 'required', 'autofocus' => 'autofocus', 'disabled' => 'disabled']) }}
                             {{ Form::hidden('phone', old('phone', $currentUser->phone)) }}
                         @else

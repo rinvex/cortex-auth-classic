@@ -160,7 +160,7 @@ class AuthServiceProvider extends ServiceProvider
         // Share current user instance with all views
         $this->app['view']->composer('*', function ($view) {
             ! config('rinvex.tenants.active') || $view->with('currentTenant', config('rinvex.tenants.active'));
-            $view->with('currentUser', auth()->guard(request('guard'))->user());
+            $view->with('currentUser', auth()->guard(request()->route('guard'))->user());
         });
     }
 

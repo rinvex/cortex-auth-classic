@@ -21,7 +21,7 @@ Menu::register('adminarea.sidebar', function (MenuGenerator $menu, Ability $abil
     });
 });
 
-if ($user = auth()->guard(request('guard'))->user()) {
+if ($user = auth()->guard(request()->route('guard'))->user()) {
     $userHeaderMenu = function (MenuGenerator $menu) use ($user) {
         $menu->dropdown(function (MenuItem $dropdown) {
             $dropdown->route([request()->route('accessarea').'.account'], trans('cortex/auth::common.settings'), null, 'fa fa-cogs');
