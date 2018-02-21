@@ -14,7 +14,7 @@ use Silber\Bouncer\Database\Role as BaseRole;
 class Role extends BaseRole
 {
     use Auditable;
-    //use Tenantable;
+    use Tenantable;
     use LogsActivity;
     use ValidatingTrait;
     use HasTranslations;
