@@ -49,19 +49,19 @@ class AdminFormRequest extends FormRequest
         }
 
         // Set abilities
-        if ($data['abilities'] && $this->user($this->get('guard'))->can('grant', \Cortex\Auth\Models\Ability::class)) {
+        if ($data['abilities'] && $this->user($this->route('guard'))->can('grant', \Cortex\Auth\Models\Ability::class)) {
             $abilities = array_map('intval', $this->get('abilities', []));
-            $data['abilities'] = $this->user($this->get('guard'))->can('superadmin') ? $abilities
-                : $this->user($this->get('guard'))->getAbilities()->pluck('id')->intersect($abilities)->toArray();
+            $data['abilities'] = $this->user($this->route('guard'))->can('superadmin') ? $abilities
+                : $this->user($this->route('guard'))->getAbilities()->pluck('id')->intersect($abilities)->toArray();
         } else {
             unset($data['abilities']);
         }
 
         // Set roles
-        if ($data['roles'] && $this->user($this->get('guard'))->can('assign', \Cortex\Auth\Models\Role::class)) {
+        if ($data['roles'] && $this->user($this->route('guard'))->can('assign', \Cortex\Auth\Models\Role::class)) {
             $roles = array_map('intval', $this->get('roles', []));
-            $data['roles'] = $this->user($this->get('guard'))->can('superadmin') ? $roles
-                : $this->user($this->get('guard'))->roles->pluck('id')->intersect($roles)->toArray();
+            $data['roles'] = $this->user($this->route('guard'))->can('superadmin') ? $roles
+                : $this->user($this->route('guard'))->roles->pluck('id')->intersect($roles)->toArray();
         } else {
             unset($data['roles']);
         }

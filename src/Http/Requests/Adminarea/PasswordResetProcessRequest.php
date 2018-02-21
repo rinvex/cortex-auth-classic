@@ -18,7 +18,7 @@ class PasswordResetProcessRequest extends PasswordResetRequest
     public function withValidator($validator): void
     {
         $credentials = $this->only('email', 'expiration', 'token');
-        $broker = app('auth.password')->broker($this->get('broker'));
+        $broker = app('auth.password')->broker($this->route('broker'));
 
         $validator->after(function ($validator) use ($broker, $credentials) {
             if (! ($user = $broker->getUser($credentials))) {
