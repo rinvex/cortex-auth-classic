@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Cortex\Auth\Models;
 
 use Rinvex\Tenants\Traits\Tenantable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Cortex\Auth\Notifications\PhoneVerificationNotification;
 use Cortex\Auth\Notifications\ManagerPasswordResetNotification;
 use Cortex\Auth\Notifications\ManagerEmailVerificationNotification;
@@ -111,5 +113,40 @@ class Manager extends User
 
             $model->syncTenants($tenants);
         });
+    }
+
+    /**
+     * Get all attached tenants to the manager.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function tenants(): MorphToMany
+    {
+        return $this->morphToMany(config('rinvex.tenants.models.tenant'), 'tenantable', config('rinvex.tenants.tables.tenantables'), 'tenantable_id', 'tenant_id')
+                    ->withTimestamps();
+    }
+
+    /**
+     * Determine if manager is owner of the given tenant.
+     *
+     * @param \Illuminate\Database\Eloquent\Model $tenant
+     *
+     * @return bool
+     */
+    public function isOwner(Model $tenant): bool
+    {
+        return $this->getKey() === $tenant->owner->getKey();
+    }
+
+    /**
+     * Determine if manager is staff of the given tenant.
+     *
+     * @param \Illuminate\Database\Eloquent\Model $tenant
+     *
+     * @return bool
+     */
+    public function isStaff(Model $tenant): bool
+    {
+        return $this->tenants->contains($tenant);
     }
 }
