@@ -21,7 +21,7 @@ class RedirectIfAuthenticated
     {
         if (auth()->guard($guard)->check()) {
             return intend([
-                'url' => route($request->route()->parameter('accessarea').'.home'),
+                'url' => route($request->route('accessarea').'.home'),
                 'with' => ['success' => trans('cortex/foundation::messages.already_authenticated')],
             ]);
         }
