@@ -21,7 +21,7 @@ class RolesDataTable extends AbstractDataTable
      */
     public function query()
     {
-        $currentUser = $this->request->user($this->request->get('guard'));
+        $currentUser = $this->request->user($this->request->route('guard'));
 
         $query = $currentUser->can('superadmin') ? app($this->model)->query() : app($this->model)->query()->whereIn('id', $currentUser->roles->pluck('id')->toArray());
 
