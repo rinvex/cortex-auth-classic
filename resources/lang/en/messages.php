@@ -5,6 +5,7 @@ declare(strict_types=1);
 return [
 
     'error' => '<strong>Whoops!</strong> There were some problems with your input.',
+    'action_unauthorized' => 'This action is unauthorized.',
 
     'sessions' => [
         'flush_single_heading' => 'Flush Selected Session',

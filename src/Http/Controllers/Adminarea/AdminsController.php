@@ -158,8 +158,11 @@ class AdminsController extends AuthorizedController
             : $currentUser->roles->pluck('name', 'id')->toArray();
 
         $abilities = $currentUser->can('superadmin')
-            ? app('cortex.auth.ability')->all()->pluck('title', 'id')->toArray()
-            : $currentUser->abilities->pluck('title', 'id')->toArray();
+            ? app('cortex.auth.ability')->all()->groupBy('entity_type')->map->pluck('title', 'id')->toArray()
+            : $currentUser->getAbilities()->groupBy('entity_type')->map->pluck('title', 'id')->toArray();
+
+        asort($roles);
+        ksort($abilities);
 
         return view('cortex/auth::adminarea.pages.admin', compact('admin', 'abilities', 'roles', 'countries', 'languages', 'genders'));
     }

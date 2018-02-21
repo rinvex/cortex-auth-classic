@@ -6,12 +6,12 @@ namespace Cortex\Auth\Http\Controllers\Adminarea;
 
 use Cortex\Auth\Models\Role;
 use Illuminate\Http\Request;
-use Cortex\Auth\Models\Ability;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Auth\DataTables\Adminarea\RolesDataTable;
 use Cortex\Auth\Http\Requests\Adminarea\RoleFormRequest;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
+use Cortex\Auth\Http\Requests\Adminarea\RoleFormProcessRequest;
 
 class RolesController extends AuthorizedController
 {
@@ -69,12 +69,12 @@ class RolesController extends AuthorizedController
     /**
      * Edit given role.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Cortex\Auth\Models\Role $role
+     * @param \Cortex\Auth\Http\Requests\Adminarea\RoleFormRequest $request
+     * @param \Cortex\Auth\Models\Role                             $role
      *
      * @return \Illuminate\View\View
      */
-    public function edit(Request $request, Role $role)
+    public function edit(RoleFormRequest $request, Role $role)
     {
         return $this->form($request, $role);
     }
@@ -89,8 +89,11 @@ class RolesController extends AuthorizedController
      */
     protected function form(Request $request, Role $role)
     {
-        $abilities = $request->user($this->getGuard())->can('superadmin') ? Ability::all()->pluck('title', 'id')->toArray()
-            : $request->user($this->getGuard())->abilities->pluck('title', 'id')->toArray();
+        $abilities = $request->user($this->getGuard())->can('superadmin')
+            ? app('cortex.auth.ability')->all()->groupBy('entity_type')->map->pluck('title', 'id')->toArray()
+            : $request->user($this->getGuard())->getAbilities()->groupBy('entity_type')->map->pluck('title', 'id')->toArray();
+
+        ksort($abilities);
 
         return view('cortex/auth::adminarea.pages.role', compact('role', 'abilities'));
     }
@@ -98,12 +101,12 @@ class RolesController extends AuthorizedController
     /**
      * Store new role.
      *
-     * @param \Cortex\Auth\Http\Requests\Adminarea\RoleFormRequest $request
+     * @param \Cortex\Auth\Http\Requests\Adminarea\RoleFormProcessRequest $request
      * @param \Cortex\Auth\Models\Role                             $role
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function store(RoleFormRequest $request, Role $role)
+    public function store(RoleFormProcessRequest $request, Role $role)
     {
         return $this->process($request, $role);
     }
@@ -111,12 +114,12 @@ class RolesController extends AuthorizedController
     /**
      * Update given role.
      *
-     * @param \Cortex\Auth\Http\Requests\Adminarea\RoleFormRequest $request
+     * @param \Cortex\Auth\Http\Requests\Adminarea\RoleFormProcessRequest $request
      * @param \Cortex\Auth\Models\Role                             $role
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function update(RoleFormRequest $request, Role $role)
+    public function update(RoleFormProcessRequest $request, Role $role)
     {
         return $this->process($request, $role);
     }

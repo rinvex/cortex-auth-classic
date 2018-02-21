@@ -4,40 +4,27 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Requests\Adminarea;
 
-use Cortex\Auth\Models\Role;
 use Illuminate\Foundation\Http\FormRequest;
+use Cortex\Foundation\Exceptions\GenericException;
 
 class RoleFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
+     * @throws \Cortex\Foundation\Exceptions\GenericException
+     *
      * @return bool
      */
     public function authorize(): bool
     {
-        return true;
-    }
+        $currentUser = $this->user($this->get('guard'));
 
-    /**
-     * Prepare the data for validation.
-     *
-     * @return void
-     */
-    protected function prepareForValidation(): void
-    {
-        $data = $this->all();
-
-        // Set abilities
-        if ($data['abilities'] && $this->user($this->get('guard'))->can('grant', \Cortex\Auth\Models\Ability::class)) {
-            $abilities = array_map('intval', $this->get('abilities', []));
-            $data['abilities'] = $this->user($this->get('guard'))->can('superadmin') ? $abilities
-                : $this->user($this->get('guard'))->abilities->pluck('id')->intersect($abilities)->toArray();
-        } else {
-            unset($data['abilities']);
+        if (! $currentUser->can('superadmin') && ! $currentUser->roles->contains($this->route('role'))) {
+            throw new GenericException(trans('cortex/auth::messages.action_unauthorized'), route('adminarea.roles.index'));
         }
 
-        $this->replace($data);
+        return true;
     }
 
     /**
@@ -47,11 +34,6 @@ class RoleFormRequest extends FormRequest
      */
     public function rules(): array
     {
-        $user = $this->route('role') ?? new Role();
-        $user->updateRulesUniques();
-        $rules = $user->getRules();
-        $rules['abilities'] = 'nullable|array';
-
-        return $rules;
+        return [];
     }
 }

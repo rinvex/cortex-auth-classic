@@ -52,13 +52,13 @@ class AdminFormRequest extends FormRequest
         if ($data['abilities'] && $this->user($this->get('guard'))->can('grant', \Cortex\Auth\Models\Ability::class)) {
             $abilities = array_map('intval', $this->get('abilities', []));
             $data['abilities'] = $this->user($this->get('guard'))->can('superadmin') ? $abilities
-                : $this->user($this->get('guard'))->abilities->pluck('id')->intersect($abilities)->toArray();
+                : $this->user($this->get('guard'))->getAbilities()->pluck('id')->intersect($abilities)->toArray();
         } else {
             unset($data['abilities']);
         }
 
         // Set roles
-        if ($data['roles'] && $this->user($this->get('guard'))->can('assign', \Cortex\Auth\Models\Role::class) && $data['roles']) {
+        if ($data['roles'] && $this->user($this->get('guard'))->can('assign', \Cortex\Auth\Models\Role::class)) {
             $roles = array_map('intval', $this->get('roles', []));
             $data['roles'] = $this->user($this->get('guard'))->can('superadmin') ? $roles
                 : $this->user($this->get('guard'))->roles->pluck('id')->intersect($roles)->toArray();

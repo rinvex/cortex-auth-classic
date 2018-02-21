@@ -11,6 +11,7 @@ use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Auth\DataTables\Adminarea\AbilitiesDataTable;
 use Cortex\Auth\Http\Requests\Adminarea\AbilityFormRequest;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
+use Cortex\Auth\Http\Requests\Adminarea\AbilityFormProcessRequest;
 
 class AbilitiesController extends AuthorizedController
 {
@@ -68,12 +69,12 @@ class AbilitiesController extends AuthorizedController
     /**
      * Edit given ability.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Cortex\Auth\Models\Role $ability
+     * @param \Cortex\Auth\Http\Requests\Adminarea\AbilityFormRequest $request
+     * @param \Cortex\Auth\Models\Role                                $ability
      *
      * @return \Illuminate\View\View
      */
-    public function edit(Request $request, Ability $ability)
+    public function edit(AbilityFormRequest $request, Ability $ability)
     {
         return $this->form($request, $ability);
     }
@@ -92,18 +93,20 @@ class AbilitiesController extends AuthorizedController
             ? app('cortex.auth.role')->all()->pluck('name', 'id')->toArray()
             : $request->user($this->getGuard())->roles->pluck('name', 'id')->toArray();
 
+        asort($roles);
+
         return view('cortex/auth::adminarea.pages.ability', compact('ability', 'roles'));
     }
 
     /**
      * Store new ability.
      *
-     * @param \Cortex\Auth\Http\Requests\Adminarea\AbilityFormRequest $request
+     * @param \Cortex\Auth\Http\Requests\Adminarea\AbilityFormProcessRequest $request
      * @param \Cortex\Auth\Models\Ability                             $ability
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function store(AbilityFormRequest $request, Ability $ability)
+    public function store(AbilityFormProcessRequest $request, Ability $ability)
     {
         return $this->process($request, $ability);
     }
@@ -111,12 +114,12 @@ class AbilitiesController extends AuthorizedController
     /**
      * Update given ability.
      *
-     * @param \Cortex\Auth\Http\Requests\Adminarea\AbilityFormRequest $request
+     * @param \Cortex\Auth\Http\Requests\Adminarea\AbilityFormProcessRequest $request
      * @param \Cortex\Auth\Models\Ability                             $ability
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function update(AbilityFormRequest $request, Ability $ability)
+    public function update(AbilityFormProcessRequest $request, Ability $ability)
     {
         return $this->process($request, $ability);
     }
