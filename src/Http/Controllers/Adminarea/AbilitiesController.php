@@ -102,7 +102,7 @@ class AbilitiesController extends AuthorizedController
      * Store new ability.
      *
      * @param \Cortex\Auth\Http\Requests\Adminarea\AbilityFormProcessRequest $request
-     * @param \Cortex\Auth\Models\Ability                             $ability
+     * @param \Cortex\Auth\Models\Ability                                    $ability
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -115,7 +115,7 @@ class AbilitiesController extends AuthorizedController
      * Update given ability.
      *
      * @param \Cortex\Auth\Http\Requests\Adminarea\AbilityFormProcessRequest $request
-     * @param \Cortex\Auth\Models\Ability                             $ability
+     * @param \Cortex\Auth\Models\Ability                                    $ability
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
