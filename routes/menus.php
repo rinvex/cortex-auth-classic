@@ -60,15 +60,15 @@ Menu::register('adminarea.roles.tabs', function (MenuGenerator $menu, Role $role
 });
 
 Menu::register('adminarea.admins.tabs', function (MenuGenerator $menu, Admin $admin) {
-    $menu->route(['adminarea.admins.create'], trans('cortex/auth::common.details'))->ifCan('create-admins')->if(! $admin->exists);
-    $menu->route(['adminarea.admins.edit', ['admin' => $admin]], trans('cortex/auth::common.details'))->ifCan('update-admins')->if($admin->exists);
-    $menu->route(['adminarea.admins.attributes', ['admin' => $admin]], trans('cortex/auth::common.attributes'))->ifCan('update-admins')->if($admin->exists);
-    $menu->route(['adminarea.admins.logs', ['admin' => $admin]], trans('cortex/auth::common.logs'))->ifCan('audit-admins')->if($admin->exists);
-    $menu->route(['adminarea.admins.activities', ['admin' => $admin]], trans('cortex/auth::common.activities'))->ifCan('audit-admins')->if($admin->exists);
+    $menu->route(['adminarea.admins.create'], trans('cortex/auth::common.details'))->ifCan('create', $admin)->if(! $admin->exists);
+    $menu->route(['adminarea.admins.edit', ['admin' => $admin]], trans('cortex/auth::common.details'))->ifCan('update', $admin)->if($admin->exists);
+    $menu->route(['adminarea.admins.attributes', ['admin' => $admin]], trans('cortex/auth::common.attributes'))->ifCan('update', $admin)->if($admin->exists);
+    $menu->route(['adminarea.admins.logs', ['admin' => $admin]], trans('cortex/auth::common.logs'))->ifCan('audit', $admin)->if($admin->exists);
+    $menu->route(['adminarea.admins.activities', ['admin' => $admin]], trans('cortex/auth::common.activities'))->ifCan('audit', $admin)->if($admin->exists);
 });
 
 Menu::register('adminarea.guardians.tabs', function (MenuGenerator $menu, Guardian $guardian) {
-    $menu->route(['adminarea.guardians.create'], trans('cortex/auth::common.details'))->ifCan('create-guardians')->if(! $guardian->exists);
-    $menu->route(['adminarea.guardians.edit', ['guardian' => $guardian]], trans('cortex/auth::common.details'))->ifCan('update-guardians')->if($guardian->exists);
-    $menu->route(['adminarea.guardians.logs', ['guardian' => $guardian]], trans('cortex/auth::common.logs'))->ifCan('audit-guardians')->if($guardian->exists);
+    $menu->route(['adminarea.guardians.create'], trans('cortex/auth::common.details'))->ifCan('create', $guardian)->if(! $guardian->exists);
+    $menu->route(['adminarea.guardians.edit', ['guardian' => $guardian]], trans('cortex/auth::common.details'))->ifCan('update', $guardian)->if($guardian->exists);
+    $menu->route(['adminarea.guardians.logs', ['guardian' => $guardian]], trans('cortex/auth::common.logs'))->ifCan('audit', $guardian)->if($guardian->exists);
 });
