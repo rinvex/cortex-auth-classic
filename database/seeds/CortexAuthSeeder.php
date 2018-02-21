@@ -72,5 +72,6 @@ class CortexAuthSeeder extends Seeder
         Bouncer::allow('owner')->to('delete', config('cortex.auth.models.manager'));
         Bouncer::allow('owner')->to('audit', config('cortex.auth.models.manager'));
 
+        Bouncer::allow('owner')->to('grant', config('cortex.auth.models.ability'));
     }
 }
