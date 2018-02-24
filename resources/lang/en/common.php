@@ -19,6 +19,7 @@ return [
     'select_country' => 'Select Country',
     'select_language' => 'Select Language',
     'select_abilities' => 'Select Abilities',
+    'select_entity_type' => 'Select Entity Types',
     'close' => 'Close',
     'logout' => 'Logout',
     'warning' => 'Warning',
@@ -35,6 +36,9 @@ return [
     'remember_me' => 'Remember Me',
     'last_activity' => 'Last Activity',
     'browse' => 'Browse',
+    'entity_id' => 'Entity Id',
+    'entity_type' => 'Entity Type',
+    'only_owned' => 'Only Owned',
 
     // Fields
     'name' => 'Name',

@@ -41,7 +41,7 @@
 
                             <div class="row">
 
-                                <div class="col-md-6">
+                                <div class="col-md-4">
 
                                     {{-- Title --}}
                                     <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
@@ -55,7 +55,7 @@
 
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-4">
 
                                     {{-- Name --}}
                                     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -69,12 +69,55 @@
 
                                 </div>
 
+                                <div class="col-md-4">
+
+                                    {{-- Only Owned --}}
+                                    <div class="form-group{{ $errors->has('only_owned') ? ' has-error' : '' }}">
+                                        {{ Form::label('only_owned', trans('cortex/auth::common.only_owned'), ['class' => 'control-label']) }}
+                                        {{ Form::select('only_owned', [1 => trans('cortex/auth::common.yes'), 0 => trans('cortex/auth::common.no')], null, ['class' => 'form-control select2', 'data-minimum-results-for-search' => 'Infinity', 'data-width' => '100%']) }}
+
+                                        @if ($errors->has('only_owned'))
+                                            <span class="help-block">{{ $errors->first('only_owned') }}</span>
+                                        @endif
+                                    </div>
+
+                                </div>
+
                             </div>
 
                             <div class="row">
 
+                                <div class="col-md-4">
+
+                                    {{-- Entity Type --}}
+                                    <div class="form-group{{ $errors->has('entity_type') ? ' has-error' : '' }}">
+                                        {{ Form::label('entity_type', trans('cortex/auth::common.entity_type'), ['class' => 'control-label']) }}
+                                        {{ Form::hidden('entity_type', '') }}
+                                        {{ Form::select('entity_type', $entityTypes, null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/attributes::common.select_entity_type'), 'data-tags' => 'true', 'required' => 'required', 'data-width' => '100%']) }}
+
+                                        @if ($errors->has('entity_type'))
+                                            <span class="help-block">{{ $errors->first('entity_type') }}</span>
+                                        @endif
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-4">
+
+                                    {{-- Entity Id --}}
+                                    <div class="form-group{{ $errors->has('entity_id') ? ' has-error' : '' }}">
+                                        {{ Form::label('entity_id', trans('cortex/auth::common.entity_id'), ['class' => 'control-label']) }}
+                                        {{ Form::number('entity_id', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.entity_id'), 'required' => 'required']) }}
+
+                                        @if ($errors->has('entity_id'))
+                                            <span class="help-block">{{ $errors->first('entity_id') }}</span>
+                                        @endif
+                                    </div>
+
+                                </div>
+
                                 @can('grant', \Cortex\Auth\Models\Ability::class)
-                                    <div class="col-md-12">
+                                    <div class="col-md-4">
 
                                         {{-- Roles --}}
                                         <div class="form-group{{ $errors->has('roles') ? ' has-error' : '' }}">

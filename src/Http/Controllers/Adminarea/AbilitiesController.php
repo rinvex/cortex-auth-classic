@@ -93,9 +93,11 @@ class AbilitiesController extends AuthorizedController
             ? app('cortex.auth.role')->all()->pluck('name', 'id')->toArray()
             : $request->user($this->getGuard())->roles->pluck('name', 'id')->toArray();
 
+        $entityTypes = app('cortex.auth.ability')->distinct()->get(['entity_type'])->pluck('entity_type', 'entity_type')->toArray();
+
         asort($roles);
 
-        return view('cortex/auth::adminarea.pages.ability', compact('ability', 'roles'));
+        return view('cortex/auth::adminarea.pages.ability', compact('ability', 'roles', 'entityTypes'));
     }
 
     /**
