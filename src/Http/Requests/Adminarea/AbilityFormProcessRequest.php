@@ -18,12 +18,14 @@ class AbilityFormProcessRequest extends AbilityFormRequest
         $data = $this->all();
 
         // Set roles
-        if ($data['roles'] && $this->user($this->route('guard'))->can('grant', \Cortex\Auth\Models\Ability::class)) {
-            $roles = array_map('intval', $this->get('roles', []));
-            $data['roles'] = $this->user($this->route('guard'))->can('superadmin') ? $roles
-                : $this->user($this->route('guard'))->roles->pluck('id')->intersect($roles)->toArray();
-        } else {
-            unset($data['roles']);
+        if (! empty($data['roles'])) {
+            if ($data['roles'] && $this->user($this->route('guard'))->can('grant', \Cortex\Auth\Models\Ability::class)) {
+                $roles = array_map('intval', $this->get('roles', []));
+                $data['roles'] = $this->user($this->route('guard'))->can('superadmin') ? $roles
+                    : $this->user($this->route('guard'))->roles->pluck('id')->intersect($roles)->toArray();
+            } else {
+                unset($data['roles']);
+            }
         }
 
         $this->replace($data);
