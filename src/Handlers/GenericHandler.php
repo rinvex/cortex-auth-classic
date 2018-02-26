@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Handlers;
 
-use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Container\Container;
-use Illuminate\Contracts\Auth\Authenticatable;
 use Cortex\Auth\Notifications\RegistrationSuccessNotification;
 use Cortex\Auth\Notifications\AuthenticationLockoutNotification;
 
@@ -48,16 +46,32 @@ class GenericHandler
     /**
      * Listen to the authentication lockout event.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Auth\Events\Lockout $event
      *
      * @return void
      */
-    public function lockout(Request $request): void
+    public function lockout(Lockout $event): void
     {
         if (config('cortex.auth.emails.throttle_lockout')) {
-            $user = get_login_field($loginfield = $request->get('loginfield')) === 'email' ? app('cortex.auth.user')->where('email', $loginfield)->first() : app('cortex.auth.user')->where('username', $loginfield)->first();
+            switch ($event->request->route('accessarea')) {
+                case 'managerarea':
+                    $model = app('cortex.auth.manager');
+                    break;
+                case 'adminarea':
+                    $model = app('cortex.auth.admin');
+                    break;
+                case 'frontarea':
+                case 'tenantarea':
+                default:
+                    $model = app('cortex.auth.member');
+                    break;
+            }
 
-            $user->notify(new AuthenticationLockoutNotification($request));
+            $user = get_login_field($loginfield = $event->request->get('loginfield')) === 'email'
+                ? $model::where('email', $loginfield)->first()
+                : $model::where('username', $loginfield)->first();
+
+            ! $user || $user->notify(new AuthenticationLockoutNotification($event->request));
         }
     }
 
