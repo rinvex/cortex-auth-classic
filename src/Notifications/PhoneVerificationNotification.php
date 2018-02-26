@@ -34,7 +34,7 @@ class PhoneVerificationNotification extends Notification implements ShouldQueue
      * @param string $method
      * @param bool   $force
      */
-    public function __construct($method = 'sms', $force = false)
+    public function __construct(string $method = 'sms', bool $force = false)
     {
         $this->method = $method;
         $this->force = $force;

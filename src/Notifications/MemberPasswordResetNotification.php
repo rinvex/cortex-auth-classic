@@ -31,9 +31,9 @@ class MemberPasswordResetNotification extends Notification implements ShouldQueu
      * Create a notification instance.
      *
      * @param string $token
-     * @param string $expiration
+     * @param int    $expiration
      */
-    public function __construct($token, $expiration)
+    public function __construct(string $token, int $expiration)
     {
         $this->token = $token;
         $this->expiration = $expiration;
