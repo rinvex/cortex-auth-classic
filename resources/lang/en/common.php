@@ -39,6 +39,8 @@ return [
     'entity_id' => 'Entity Id',
     'entity_type' => 'Entity Type',
     'only_owned' => 'Only Owned',
+    'owner_account' => 'Owner Account',
+    'tenant_details' => 'Tenant Details',
 
     // Fields
     'name' => 'Name',
