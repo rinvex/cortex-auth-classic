@@ -7,7 +7,7 @@
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\AdminFormRequest::class)->selector("#adminarea-guardians-create-form, #adminarea-guardians-{$guardian->getKey()}-update-form") !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\GuardianFormRequest::class)->selector("#adminarea-guardians-create-form, #adminarea-guardians-{$guardian->getKey()}-update-form") !!}
 @endpush
 
 {{-- Main Content --}}
