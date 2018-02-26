@@ -19,6 +19,24 @@ class GuardianFormRequest extends FormRequest
     }
 
     /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation(): void
+    {
+        $data = $this->all();
+
+        $guardian = $this->route('guardian') ?? app('cortex.auth.guardian');
+
+        if ($guardian->exists && empty($data['password'])) {
+            unset($data['password'], $data['password_confirmation']);
+        }
+
+        $this->replace($data);
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
