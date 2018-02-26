@@ -10,7 +10,6 @@ use Illuminate\Auth\Events\Lockout;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Container\Container;
-use Illuminate\Contracts\Auth\Authenticatable;
 use Cortex\Auth\Notifications\RegistrationSuccessNotification;
 use Cortex\Auth\Notifications\AuthenticationLockoutNotification;
 
