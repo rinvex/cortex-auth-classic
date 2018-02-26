@@ -216,7 +216,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
         static::saved(function (self $model) use ($abilities) {
             $abilities = collect($abilities)->filter();
 
-            $this->hasChangedAttributes($abilities, $model->abilities->pluck('id'))
+            $model->abilities->pluck('id')->similar($abilities)
             || activity()
                 ->performedOn($model)
                 ->withProperties(['attributes' => ['abilities' => $abilities], 'old' => ['abilities' => $model->abilities->pluck('id')->toArray()]])
@@ -238,7 +238,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
         static::saved(function (self $model) use ($roles) {
             $roles = collect($roles)->filter();
 
-            $this->hasChangedAttributes($roles, $model->roles->pluck('id'))
+            $model->roles->pluck('id')->similar($roles)
             || activity()
                 ->performedOn($model)
                 ->withProperties(['attributes' => ['roles' => $roles], 'old' => ['roles' => $model->roles->pluck('id')->toArray()]])
@@ -246,19 +246,6 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
 
             $model->roles()->sync($roles, true);
         });
-    }
-
-    /**
-     * Check if new and current attributes differs.
-     *
-     * @param \Illuminate\Support\Collection $newAttributes
-     * @param \Illuminate\Support\Collection $currentAttributes
-     *
-     * @return bool
-     */
-    protected function hasChangedAttributes(Collection $newAttributes, Collection $currentAttributes): bool
-    {
-        return $newAttributes->diff($currentAttributes)->isEmpty() && $currentAttributes->diff($newAttributes)->isEmpty();
     }
 
     /**

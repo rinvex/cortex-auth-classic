@@ -105,7 +105,9 @@ class Manager extends User
     public function setTenantsAttribute($tenants): void
     {
         static::saved(function (self $model) use ($tenants) {
-            $tenants === $model->tenants->pluck('id')->toArray()
+            $tenants = collect($tenants)->filter();
+
+            $model->tenants->pluck('id')->similar($tenants)
             || activity()
                 ->performedOn($model)
                 ->withProperties(['attributes' => ['tenants' => $tenants], 'old' => ['tenants' => $model->tenants->pluck('id')->toArray()]])

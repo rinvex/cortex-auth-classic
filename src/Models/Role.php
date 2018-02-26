@@ -128,7 +128,9 @@ class Role extends BaseRole
     public function setAbilitiesAttribute($abilities): void
     {
         static::saved(function (self $model) use ($abilities) {
-            $abilities === $model->abilities->pluck('id')->toArray()
+            $abilities = collect($abilities)->filter();
+
+            $model->abilities->pluck('id')->similar($abilities)
             || activity()
                 ->performedOn($model)
                 ->withProperties(['attributes' => ['abilities' => $abilities], 'old' => ['abilities' => $model->abilities->pluck('id')->toArray()]])
