@@ -6,7 +6,6 @@ namespace Cortex\Auth\Models;
 
 use Rinvex\Country\Country;
 use Rinvex\Language\Language;
-use Illuminate\Support\Collection;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Rinvex\Auth\Traits\HasHashables;
