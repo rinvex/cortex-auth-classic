@@ -71,7 +71,7 @@ class GenericHandler
                 ? $model::where('email', $loginfield)->first()
                 : $model::where('username', $loginfield)->first();
 
-            ! $user || $user->notify(new AuthenticationLockoutNotification($event->request));
+            ! $user || $user->notify(new AuthenticationLockoutNotification($event->request->ip(), $event->request->server('HTTP_USER_AGENT')));
         }
     }
 
