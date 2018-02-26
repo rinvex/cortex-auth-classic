@@ -76,12 +76,12 @@ class GenericHandler
     /**
      * Listen to the register success event.
      *
-     * @param \Illuminate\Contracts\Auth\Authenticatable $user
+     * @param \Illuminate\Contracts\Auth\Registered $event
      *
      * @return void
      */
-    public function registered(Authenticatable $user): void
+    public function registered(Registered $event): void
     {
-        ! config('cortex.auth.emails.welcome') || $user->notify(new RegistrationSuccessNotification());
+        ! config('cortex.auth.emails.welcome') || $event->user->notify(new RegistrationSuccessNotification());
     }
 }
