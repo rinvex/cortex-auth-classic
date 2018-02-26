@@ -28,7 +28,7 @@ class AdminAttributesFormRequest extends FormRequest
         $admin = $this->route('admin') ?? app('cortex.auth.admin');
 
         // Attach attribute rules
-        $admin->getEntityAttributes()->each(function ($attribute, $attributeSlug) use (&$rules) {
+        $admin->getEntityAttributes()->each(function ($attribute, $attributeName) use (&$rules) {
             switch ($attribute->type) {
                 case 'datetime':
                     $type = 'date';
@@ -43,7 +43,7 @@ class AdminAttributesFormRequest extends FormRequest
             }
 
             $rule = ($attribute->is_required ? 'required|' : 'nullable|').$type;
-            $rules[$attributeSlug.($attribute->is_collection ? '.*' : '')] = $rule;
+            $rules[$attributeName.($attribute->is_collection ? '.*' : '')] = $rule;
         });
 
         return $rules ?? [];
