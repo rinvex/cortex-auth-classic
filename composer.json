@@ -68,6 +68,7 @@
         "rinvex/auth": "dev-develop",
         "rinvex/composer": "dev-develop",
         "rinvex/country": "dev-develop",
+        "rinvex/language": "dev-develop",
         "rinvex/menus": "dev-develop",
         "rinvex/support": "dev-develop",
         "rinvex/tenants": "dev-develop",
