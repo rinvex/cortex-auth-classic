@@ -112,8 +112,10 @@ class AuthServiceProvider extends ServiceProvider
         // Bind route models and constrains
         $router->pattern('role', '[0-9]+');
         $router->pattern('ability', '[0-9]+');
-        $router->pattern('user', '[a-zA-Z0-9_-]+');
         $router->pattern('session', '[a-zA-Z0-9]+');
+        $router->pattern('admin', '[a-zA-Z0-9_-]+');
+        $router->pattern('member', '[a-zA-Z0-9_-]+');
+        $router->pattern('manager', '[a-zA-Z0-9_-]+');
         $router->model('role', config('cortex.auth.models.role'));
         $router->model('admin', config('cortex.auth.models.admin'));
         $router->model('member', config('cortex.auth.models.member'));
@@ -149,7 +151,9 @@ class AuthServiceProvider extends ServiceProvider
         $this->app['events']->subscribe(GenericHandler::class);
 
         // Register attributes entities
-        ! app()->bound('rinvex.attributes.entities') || app('rinvex.attributes.entities')->push('user');
+        ! app()->bound('rinvex.attributes.entities') || app('rinvex.attributes.entities')->push('admin');
+        ! app()->bound('rinvex.attributes.entities') || app('rinvex.attributes.entities')->push('member');
+        ! app()->bound('rinvex.attributes.entities') || app('rinvex.attributes.entities')->push('manager');
 
         // Override middlware
         $this->overrideMiddleware($router);
