@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Cortex\Auth\Http\Requests\Adminarea;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Cortex\Foundation\Exceptions\GenericException;
 
 class AccountPasswordRequest extends FormRequest
 {
@@ -18,15 +17,27 @@ class AccountPasswordRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (! auth()->guard($this->route('guard'))->getProvider()->validateCredentials($this->user($this->route('guard')), ['password' => $this->get('old_password')])) {
-            throw new GenericException(trans('cortex/auth::messages.account.wrong_password'), route('adminarea.account.password'));
-        }
-
-        if (auth()->guard($this->route('guard'))->getProvider()->validateCredentials($this->user($this->route('guard')), ['password' => $this->get('new_password')])) {
-            throw new GenericException(trans('cortex/auth::messages.account.different_password'), route('adminarea.account.password'));
-        }
-
         return true;
+    }
+
+    /**
+     * Configure the validator instance.
+     *
+     * @param \Illuminate\Validation\Validator $validator
+     *
+     * @return void
+     */
+    public function withValidator($validator): void
+    {
+        $validator->after(function ($validator) {
+            if (! auth()->guard($this->route('guard'))->getProvider()->validateCredentials($this->user($this->route('guard')), ['password' => $this->get('old_password')])) {
+                $validator->errors()->add('old_password', trans('cortex/auth::messages.account.wrong_password'));
+            }
+
+            if (auth()->guard($this->route('guard'))->getProvider()->validateCredentials($this->user($this->route('guard')), ['password' => $this->get('new_password')])) {
+                $validator->errors()->add('new_password', trans('cortex/auth::messages.account.different_password'));
+            }
+        });
     }
 
     /**
