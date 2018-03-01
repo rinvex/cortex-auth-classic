@@ -36,7 +36,7 @@ class PasswordResetController extends AbstractController
     public function send(PasswordResetSendRequest $request)
     {
         $result = app('auth.password')
-            ->broker($this->getBroker())
+            ->broker($this->getPasswordResetBroker())
             ->sendResetLink($request->only(['email']));
 
         switch ($result) {
@@ -80,7 +80,7 @@ class PasswordResetController extends AbstractController
     public function process(PasswordResetPostProcessRequest $request)
     {
         $result = app('auth.password')
-            ->broker($this->getBroker())
+            ->broker($this->getPasswordResetBroker())
             ->reset($request->only(['email', 'expiration', 'token', 'password', 'password_confirmation']), function ($user, $password) {
                 $user->fill([
                     'password' => $password,

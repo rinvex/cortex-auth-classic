@@ -18,18 +18,18 @@ class PasswordResetProcessRequest extends PasswordResetRequest
     public function withValidator($validator): void
     {
         $credentials = $this->only('email', 'expiration', 'token');
-        $broker = app('auth.password')->broker($this->route('broker'));
+        $passwordResetBroker = app('auth.password')->broker($this->route('passwordResetBroker'));
 
-        $validator->after(function ($validator) use ($broker, $credentials) {
-            if (! ($user = $broker->getUser($credentials))) {
+        $validator->after(function ($validator) use ($passwordResetBroker, $credentials) {
+            if (! ($user = $passwordResetBroker->getUser($credentials))) {
                 $validator->errors()->add('email', trans('cortex/auth::'.PasswordResetBrokerContract::INVALID_USER));
             }
 
-            if ($user && ! $broker->validateToken($user, $credentials)) {
+            if ($user && ! $passwordResetBroker->validateToken($user, $credentials)) {
                 $validator->errors()->add('email', trans('cortex/auth::'.PasswordResetBrokerContract::INVALID_TOKEN));
             }
 
-            if (! $broker->validateTimestamp($credentials['expiration'])) {
+            if (! $passwordResetBroker->validateTimestamp($credentials['expiration'])) {
                 $validator->errors()->add('email', trans('cortex/auth::'.PasswordResetBrokerContract::EXPIRED_TOKEN));
             }
         });
@@ -44,7 +44,7 @@ class PasswordResetProcessRequest extends PasswordResetRequest
     {
         return [
             // Do not validate `token` here since at this stage we can NOT generate viewable error,
-            // and it is been processed in the controller through EmailVerificationBroker anyway
+            // and it is been processed in the controller through PasswordResetBroker anyway
             //'token' => 'required|regex:/^([0-9a-f]*)$/',
             'email' => 'required|email|min:3|max:150|exists:'.config('cortex.auth.tables.admins').',email',
         ];
