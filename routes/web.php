@@ -8,7 +8,7 @@ Route::domain(domain())->group(function () {
          ->namespace('Cortex\Auth\Http\Controllers\Adminarea')
          ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.foundation.route.prefix.adminarea') : config('cortex.foundation.route.prefix.adminarea'))->group(function () {
 
-        // Login Routes
+            // Login Routes
              Route::get('login')->name('login')->uses('AuthenticationController@form');
              Route::post('login')->name('login.process')->uses('AuthenticationController@login');
              Route::post('logout')->name('logout')->uses('AuthenticationController@logout');

@@ -90,7 +90,7 @@ class GenericHandler
     /**
      * Listen to the register success event.
      *
-     * @param \Illuminate\Contracts\Auth\Registered $event
+     * @param \Illuminate\Auth\Events\Registered $event
      *
      * @return void
      */
