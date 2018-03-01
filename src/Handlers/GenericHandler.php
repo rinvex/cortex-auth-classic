@@ -84,7 +84,7 @@ class GenericHandler
      */
     public function login(Login $event): void
     {
-        ! config('cortex.auth.persistence') === 'single' || $event->user->sessions()->delete();
+        config('cortex.auth.persistence') !== 'single' || $event->user->sessions()->delete();
     }
 
     /**
