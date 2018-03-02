@@ -11,7 +11,7 @@ use Cortex\Foundation\Http\Controllers\AuthenticatedController;
 class AccountSettingsController extends AuthenticatedController
 {
     /**
-     * Show account settings.
+     * Redirect to account settings..
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
