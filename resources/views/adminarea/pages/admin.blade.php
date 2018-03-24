@@ -45,48 +45,21 @@
                         @endif
 
                             <div class="row">
+
                                 <div class="col-md-4">
 
-                                    {{-- First Name --}}
-                                    <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
-                                        {{ Form::label('first_name', trans('cortex/auth::common.first_name'), ['class' => 'control-label']) }}
-                                        {{ Form::text('first_name', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.first_name'), 'autofocus' => 'autofocus']) }}
+                                    {{-- Full Name --}}
+                                    <div class="form-group{{ $errors->has('full_name') ? ' has-error' : '' }}">
+                                        {{ Form::label('full_name', trans('cortex/auth::common.full_name'), ['class' => 'control-label']) }}
+                                        {{ Form::text('full_name', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.full_name'), 'data-slugify' => '[name="username"]', 'autofocus' => 'autofocus']) }}
 
-                                        @if ($errors->has('first_name'))
-                                            <span class="help-block">{{ $errors->first('first_name') }}</span>
+                                        @if ($errors->has('full_name'))
+                                            <span class="help-block">{{ $errors->first('full_name') }}</span>
                                         @endif
                                     </div>
 
                                 </div>
-                                <div class="col-md-4">
 
-                                    {{-- Middle Name --}}
-                                    <div class="form-group{{ $errors->has('middle_name') ? ' has-error' : '' }}">
-                                        {{ Form::label('middle_name', trans('cortex/auth::common.middle_name'), ['class' => 'control-label']) }}
-                                        {{ Form::text('middle_name', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.middle_name')]) }}
-
-                                        @if ($errors->has('middle_name'))
-                                            <span class="help-block">{{ $errors->first('middle_name') }}</span>
-                                        @endif
-                                    </div>
-
-                                </div>
-                                <div class="col-md-4">
-
-                                    {{-- Last Name --}}
-                                    <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
-                                        {{ Form::label('last_name', trans('cortex/auth::common.last_name'), ['class' => 'control-label']) }}
-                                        {{ Form::text('last_name', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.last_name')]) }}
-
-                                        @if ($errors->has('last_name'))
-                                            <span class="help-block">{{ $errors->first('last_name') }}</span>
-                                        @endif
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="row">
                                 <div class="col-md-4">
 
                                     {{-- Username --}}
@@ -100,48 +73,6 @@
                                     </div>
 
                                 </div>
-                                <div class="col-md-4">
-
-                                    {{-- Title --}}
-                                    <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-                                        {{ Form::label('title', trans('cortex/auth::common.title'), ['class' => 'control-label']) }}
-                                        {{ Form::text('title', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.title')]) }}
-
-                                        @if ($errors->has('title'))
-                                            <span class="help-block">{{ $errors->first('title') }}</span>
-                                        @endif
-                                    </div>
-
-                                </div>
-                                <div class="col-md-2">
-
-                                    {{-- Name Prefix --}}
-                                    <div class="form-group{{ $errors->has('name_prefix') ? ' has-error' : '' }}">
-                                        {{ Form::label('name_prefix', trans('cortex/auth::common.name_prefix'), ['class' => 'control-label']) }}
-                                        {{ Form::text('name_prefix', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.name_prefix')]) }}
-
-                                        @if ($errors->has('name_prefix'))
-                                            <span class="help-block">{{ $errors->first('name_prefix') }}</span>
-                                        @endif
-                                    </div>
-
-                                </div>
-                                <div class="col-md-2">
-
-                                    {{-- Name Suffix --}}
-                                    <div class="form-group{{ $errors->has('name_suffix') ? ' has-error' : '' }}">
-                                        {{ Form::label('name_suffix', trans('cortex/auth::common.name_suffix'), ['class' => 'control-label']) }}
-                                        {{ Form::text('name_suffix', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.name_suffix')]) }}
-
-                                        @if ($errors->has('name_suffix'))
-                                            <span class="help-block">{{ $errors->first('name_suffix') }}</span>
-                                        @endif
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="row">
 
                                 <div class="col-md-4">
 
@@ -159,6 +90,24 @@
 
                                         @if ($errors->has('email'))
                                             <span class="help-block">{{ $errors->first('email') }}</span>
+                                        @endif
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-4">
+
+                                    {{-- Title --}}
+                                    <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
+                                        {{ Form::label('title', trans('cortex/auth::common.title'), ['class' => 'control-label']) }}
+                                        {{ Form::text('title', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.title')]) }}
+
+                                        @if ($errors->has('title'))
+                                            <span class="help-block">{{ $errors->first('title') }}</span>
                                         @endif
                                     </div>
 
@@ -377,7 +326,7 @@
                                         @if ($admin->exists)
                                             {{ Form::password('password', ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.password')]) }}
                                         @else
-                                            {{ Form::password('password', ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.password'), 'required' => 'required']) }}
+                                            {{ Form::password('password', ['class' => 'form-control autogenerate', 'placeholder' => trans('cortex/auth::common.password'), 'required' => 'required']) }}
                                         @endif
                                         <span class="fa fa-key form-control-feedback"></span>
 
@@ -400,7 +349,7 @@
                                         @if ($admin->exists)
                                             {{ Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.password_confirmation')]) }}
                                         @else
-                                            {{ Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.password_confirmation'), 'required' => 'required']) }}
+                                            {{ Form::password('password_confirmation', ['class' => 'form-control autogenerate', 'placeholder' => trans('cortex/auth::common.password_confirmation'), 'required' => 'required']) }}
                                         @endif
                                         <span class="fa fa-key form-control-feedback"></span>
 

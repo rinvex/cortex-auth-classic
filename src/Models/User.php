@@ -67,11 +67,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
         'phone',
         'phone_verified',
         'phone_verified_at',
-        'name_prefix',
-        'first_name',
-        'middle_name',
-        'last_name',
-        'name_suffix',
+        'full_name',
         'title',
         'country_code',
         'language_code',
@@ -96,11 +92,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
         'phone' => 'string',
         'phone_verified' => 'boolean',
         'phone_verified_at' => 'datetime',
-        'name_prefix' => 'string',
-        'first_name' => 'string',
-        'middle_name' => 'string',
-        'last_name' => 'string',
-        'name_suffix' => 'string',
+        'full_name' => 'string',
         'title' => 'string',
         'country_code' => 'string',
         'language_code' => 'string',
@@ -281,18 +273,6 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     public function socialites(): MorphMany
     {
         return $this->morphMany(config('cortex.auth.models.socialite'), 'user');
-    }
-
-    /**
-     * Get name attribute.
-     *
-     * @return string
-     */
-    public function getNameAttribute(): string
-    {
-        $name = trim(implode(' ', [$this->name_prefix, $this->first_name, $this->middle_name, $this->last_name, $this->name_suffix]));
-
-        return $name ?: $this->username;
     }
 
     /**

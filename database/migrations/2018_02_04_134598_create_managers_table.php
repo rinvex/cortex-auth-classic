@@ -27,11 +27,7 @@ class CreateManagersTable extends Migration
             $table->string('phone')->nullable();
             $table->boolean('phone_verified')->default(false);
             $table->timestamp('phone_verified_at')->nullable();
-            $table->string('name_prefix')->nullable();
-            $table->string('first_name')->nullable();
-            $table->string('middle_name')->nullable();
-            $table->string('last_name')->nullable();
-            $table->string('name_suffix')->nullable();
+            $table->string('full_name')->nullable();
             $table->string('title')->nullable();
             $table->string('country_code', 2)->nullable();
             $table->string('language_code', 2)->nullable();

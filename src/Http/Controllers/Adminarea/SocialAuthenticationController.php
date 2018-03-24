@@ -40,8 +40,7 @@ class SocialAuthenticationController extends AbstractController
             'id' => $providerUser->id,
             'email' => $providerUser->email,
             'username' => $providerUser->nickname ?? trim(mb_strstr($providerUser->email, '@', true)),
-            'first_name' => str_before($providerUser->name, ' '),
-            'last_name' => str_after($providerUser->name, ' '),
+            'full_name' => $providerUser->name,
         ];
 
         switch ($provider) {

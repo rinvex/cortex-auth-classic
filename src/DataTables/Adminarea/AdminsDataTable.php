@@ -27,9 +27,7 @@ class AdminsDataTable extends AbstractDataTable
 
         return [
             'username' => ['title' => trans('cortex/auth::common.username'), 'render' => $link.'+(full.is_active ? " <i class=\"text-success fa fa-check\"></i>" : " <i class=\"text-danger fa fa-close\"></i>")', 'responsivePriority' => 0],
-            'first_name' => ['title' => trans('cortex/auth::common.first_name')],
-            'middle_name' => ['title' => trans('cortex/auth::common.middle_name'), 'visible' => false],
-            'last_name' => ['title' => trans('cortex/auth::common.last_name')],
+            'full_name' => ['title' => trans('cortex/auth::common.full_name')],
             'email' => ['title' => trans('cortex/auth::common.email'), 'render' => 'data+(data ? (full.email_verified ? " <i class=\"text-success fa fa-check\" title=\""+full.email_verified_at+"\"></i>" : " <i class=\"text-danger fa fa-close\"></i>") : "")'],
             'phone' => ['title' => trans('cortex/auth::common.phone'), 'render' => 'data+(data ? (full.phone_verified ? " <i class=\"text-success fa fa-check\" title=\""+full.phone_verified_at+"\"></i>" : " <i class=\"text-danger fa fa-close\"></i>") : "")'],
             'country_code' => ['title' => trans('cortex/auth::common.country')],

@@ -95,7 +95,7 @@
                                         @if ($guardian->exists)
                                             {{ Form::password('password', ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.password')]) }}
                                         @else
-                                            {{ Form::password('password', ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.password'), 'required' => 'required']) }}
+                                            {{ Form::password('password', ['class' => 'form-control autogenerate', 'placeholder' => trans('cortex/auth::common.password'), 'required' => 'required']) }}
                                         @endif
                                         <span class="fa fa-key form-control-feedback"></span>
 
@@ -114,7 +114,7 @@
                                         @if ($guardian->exists)
                                             {{ Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.password_confirmation')]) }}
                                         @else
-                                            {{ Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.password_confirmation'), 'required' => 'required']) }}
+                                            {{ Form::password('password_confirmation', ['class' => 'form-control autogenerate', 'placeholder' => trans('cortex/auth::common.password_confirmation'), 'required' => 'required']) }}
                                         @endif
                                         <span class="fa fa-key form-control-feedback"></span>
 
