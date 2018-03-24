@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Controllers\Adminarea;
 
+use Cortex\Foundation\DataTables\ImportLogsDataTable;
+use Cortex\Foundation\Http\Requests\ImportFormRequest;
+use Cortex\Foundation\Importers\DefaultImporter;
 use Illuminate\Http\Request;
 use Cortex\Auth\Models\Guardian;
 use Illuminate\Foundation\Http\FormRequest;
@@ -50,6 +53,54 @@ class GuardiansController extends AuthorizedController
             'phrase' => trans('cortex/auth::common.guardians'),
             'id' => "adminarea-guardians-{$guardian->getKey()}-logs-table",
         ])->render('cortex/foundation::adminarea.pages.datatable-logs');
+    }
+
+    /**
+     * Import guardians.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function import()
+    {
+        return view('cortex/foundation::adminarea.pages.import', [
+            'id' => 'adminarea-guardians-import',
+            'tabs' => 'adminarea.guardians.tabs',
+            'url' => route('adminarea.guardians.hoard'),
+            'phrase' => trans('cortex/auth::common.guardians'),
+        ]);
+    }
+
+    /**
+     * Hoard guardians.
+     *
+     * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
+     * @param \Cortex\Foundation\Importers\DefaultImporter       $importer
+     *
+     * @return void
+     */
+    public function hoard(ImportFormRequest $request, DefaultImporter $importer)
+    {
+        // Handle the import
+        $importer->config['resource'] = $this->resource;
+        $importer->config['name'] = 'username';
+        $importer->handleImport();
+    }
+
+    /**
+     * List guardian import logs.
+     *
+     * @param \Cortex\Foundation\DataTables\ImportLogsDataTable $importLogsDatatable
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function importLogs(ImportLogsDataTable $importLogsDatatable)
+    {
+        return $importLogsDatatable->with([
+            'resource' => 'guardian',
+            'tabs' => 'adminarea.guardians.tabs',
+            'id' => 'adminarea-guardians-import-logs-table',
+            'phrase' => trans('cortex/guardians::common.guardians'),
+        ])->render('cortex/foundation::adminarea.pages.datatable-import-logs');
     }
 
     /**

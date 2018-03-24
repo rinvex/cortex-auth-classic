@@ -95,6 +95,9 @@ Route::domain(domain())->group(function () {
                  // Abilities Routes
                  Route::name('abilities.')->prefix('abilities')->group(function () {
                      Route::get('/')->name('index')->uses('AbilitiesController@index');
+                     Route::get('import')->name('import')->uses('AbilitiesController@import');
+                     Route::post('import')->name('hoard')->uses('AbilitiesController@hoard');
+                     Route::get('import/logs')->name('import.logs')->uses('AbilitiesController@importLogs');
                      Route::get('create')->name('create')->uses('AbilitiesController@create');
                      Route::post('create')->name('store')->uses('AbilitiesController@store');
                      Route::get('{ability}')->name('edit')->uses('AbilitiesController@edit');
@@ -106,6 +109,9 @@ Route::domain(domain())->group(function () {
                  // Roles Routes
                  Route::name('roles.')->prefix('roles')->group(function () {
                      Route::get('/')->name('index')->uses('RolesController@index');
+                     Route::get('import')->name('import')->uses('RolesController@import');
+                     Route::post('import')->name('hoard')->uses('RolesController@hoard');
+                     Route::get('import/logs')->name('import.logs')->uses('RolesController@importLogs');
                      Route::get('create')->name('create')->uses('RolesController@create');
                      Route::post('create')->name('store')->uses('RolesController@store');
                      Route::get('{role}')->name('edit')->uses('RolesController@edit');
@@ -117,6 +123,9 @@ Route::domain(domain())->group(function () {
                  // Admins Routes
                  Route::name('admins.')->prefix('admins')->group(function () {
                      Route::get('/')->name('index')->uses('AdminsController@index');
+                     Route::get('import')->name('import')->uses('AdminsController@import');
+                     Route::post('import')->name('hoard')->uses('AdminsController@hoard');
+                     Route::get('import/logs')->name('import.logs')->uses('AdminsController@importLogs');
                      Route::get('create')->name('create')->uses('AdminsController@create');
                      Route::post('create')->name('store')->uses('AdminsController@store');
                      Route::get('{admin}')->name('edit')->uses('AdminsController@edit');
@@ -132,6 +141,9 @@ Route::domain(domain())->group(function () {
                  // Guardians Routes
                  Route::name('guardians.')->prefix('guardians')->group(function () {
                      Route::get('/')->name('index')->uses('GuardiansController@index');
+                     Route::get('import')->name('import')->uses('GuardiansController@import');
+                     Route::post('import')->name('hoard')->uses('GuardiansController@hoard');
+                     Route::get('import/logs')->name('import.logs')->uses('GuardiansController@importLogs');
                      Route::get('create')->name('create')->uses('GuardiansController@create');
                      Route::post('create')->name('store')->uses('GuardiansController@store');
                      Route::get('{guardian}')->name('edit')->uses('GuardiansController@edit');

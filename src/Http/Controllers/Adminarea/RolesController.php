@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Cortex\Auth\Http\Controllers\Adminarea;
 
 use Cortex\Auth\Models\Role;
+use Cortex\Foundation\DataTables\ImportLogsDataTable;
+use Cortex\Foundation\Http\Requests\ImportFormRequest;
+use Cortex\Foundation\Importers\DefaultImporter;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
@@ -51,6 +54,53 @@ class RolesController extends AuthorizedController
             'phrase' => trans('cortex/auth::common.roles'),
             'id' => "adminarea-roles-{$role->getKey()}-logs-table",
         ])->render('cortex/foundation::adminarea.pages.datatable-logs');
+    }
+
+    /**
+     * Import roles.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function import()
+    {
+        return view('cortex/foundation::adminarea.pages.import', [
+            'id' => 'adminarea-roles-import',
+            'tabs' => 'adminarea.roles.tabs',
+            'url' => route('adminarea.roles.hoard'),
+            'phrase' => trans('cortex/auth::common.roles'),
+        ]);
+    }
+
+    /**
+     * Hoard roles.
+     *
+     * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
+     * @param \Cortex\Foundation\Importers\DefaultImporter       $importer
+     *
+     * @return void
+     */
+    public function hoard(ImportFormRequest $request, DefaultImporter $importer)
+    {
+        // Handle the import
+        $importer->config['resource'] = $this->resource;
+        $importer->handleImport();
+    }
+
+    /**
+     * List role import logs.
+     *
+     * @param \Cortex\Foundation\DataTables\ImportLogsDataTable $importLogsDatatable
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function importLogs(ImportLogsDataTable $importLogsDatatable)
+    {
+        return $importLogsDatatable->with([
+            'resource' => 'role',
+            'tabs' => 'adminarea.roles.tabs',
+            'id' => 'adminarea-roles-import-logs-table',
+            'phrase' => trans('cortex/roles::common.roles'),
+        ])->render('cortex/foundation::adminarea.pages.datatable-import-logs');
     }
 
     /**

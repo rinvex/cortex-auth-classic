@@ -124,6 +124,8 @@ return [
     'update_settings' => 'Update Settings',
     'update_password' => 'Update Password',
     'update_attributes' => 'Update Attributes',
+    'file' => 'File',
+    'import' => 'Import',
 
     // Abilities Phrases
     'abilities' => 'Abilities',

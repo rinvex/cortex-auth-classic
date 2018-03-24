@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Controllers\Adminarea;
 
+use Cortex\Foundation\DataTables\ImportLogsDataTable;
+use Cortex\Foundation\Http\Requests\ImportFormRequest;
+use Cortex\Foundation\Importers\DefaultImporter;
 use Illuminate\Http\Request;
 use Cortex\Auth\Models\Admin;
 use Illuminate\Foundation\Http\FormRequest;
@@ -104,6 +107,54 @@ class AdminsController extends AuthorizedController
             'back' => true,
             'with' => ['success' => trans('cortex/auth::messages.account.updated_attributes')],
         ]);
+    }
+
+    /**
+     * Import admins.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function import()
+    {
+        return view('cortex/foundation::adminarea.pages.import', [
+            'id' => 'adminarea-admins-import',
+            'tabs' => 'adminarea.admins.tabs',
+            'url' => route('adminarea.admins.hoard'),
+            'phrase' => trans('cortex/auth::common.admins'),
+        ]);
+    }
+
+    /**
+     * Hoard admins.
+     *
+     * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
+     * @param \Cortex\Foundation\Importers\DefaultImporter       $importer
+     *
+     * @return void
+     */
+    public function hoard(ImportFormRequest $request, DefaultImporter $importer)
+    {
+        // Handle the import
+        $importer->config['resource'] = $this->resource;
+        $importer->config['name'] = 'username';
+        $importer->handleImport();
+    }
+
+    /**
+     * List admin import logs.
+     *
+     * @param \Cortex\Foundation\DataTables\ImportLogsDataTable $importLogsDatatable
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function importLogs(ImportLogsDataTable $importLogsDatatable)
+    {
+        return $importLogsDatatable->with([
+            'resource' => 'admin',
+            'tabs' => 'adminarea.admins.tabs',
+            'id' => 'adminarea-admins-import-logs-table',
+            'phrase' => trans('cortex/admins::common.admins'),
+        ])->render('cortex/foundation::adminarea.pages.datatable-import-logs');
     }
 
     /**
