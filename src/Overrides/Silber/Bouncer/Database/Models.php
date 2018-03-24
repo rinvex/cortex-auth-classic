@@ -12,7 +12,8 @@ class Models extends BaseModels
     /**
      * Set the model to be used for users.
      *
-     * @param  string  $model
+     * @param string $model
+     *
      * @return void
      */
     public static function setUsersModel($model)
