@@ -48,7 +48,7 @@ class Member extends User
             'phone' => 'nullable|numeric|phone',
             'phone_verified' => 'sometimes|boolean',
             'phone_verified_at' => 'nullable|date',
-            'full_name' => 'nullable|string|max:150',
+            'full_name' => 'required|string|max:150',
             'title' => 'nullable|string|max:150',
             'country_code' => 'nullable|alpha|size:2|country',
             'language_code' => 'nullable|alpha|size:2|language',

@@ -37,7 +37,7 @@
 
                                     <div class="form-group{{ $errors->has('full_name') ? ' has-error' : '' }}">
                                         {{ Form::label('full_name', trans('cortex/auth::common.full_name')) }}
-                                        {{ Form::text('full_name', null, ['class' => 'form-control', 'placeholder' => $currentUser->full_name ?: trans('cortex/auth::common.full_name')]) }}
+                                        {{ Form::text('full_name', null, ['class' => 'form-control', 'placeholder' => $currentUser->full_name ?: trans('cortex/auth::common.full_name'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
 
                                         @if ($errors->has('full_name'))
                                             <span class="help-block">{{ $errors->first('full_name') }}</span>
@@ -63,7 +63,7 @@
 
                                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                         {{ Form::label('email', trans('cortex/auth::common.email')) }}
-                                        {{ Form::email('email', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.email'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
+                                        {{ Form::email('email', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.email'), 'required' => 'required']) }}
 
                                         @if ($currentUser->email_verified)
                                             <small class="text-success">{!! trans('cortex/auth::common.email_verified', ['date' => $currentUser->email_verified_at]) !!}</small>

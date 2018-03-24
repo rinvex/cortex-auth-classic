@@ -51,7 +51,7 @@
                                     {{-- Full Name --}}
                                     <div class="form-group{{ $errors->has('full_name') ? ' has-error' : '' }}">
                                         {{ Form::label('full_name', trans('cortex/auth::common.full_name'), ['class' => 'control-label']) }}
-                                        {{ Form::text('full_name', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.full_name'), 'data-slugify' => '[name="username"]', 'autofocus' => 'autofocus']) }}
+                                        {{ Form::text('full_name', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.full_name'), 'data-slugify' => '[name="username"]', 'required' => 'required', 'autofocus' => 'autofocus']) }}
 
                                         @if ($errors->has('full_name'))
                                             <span class="help-block">{{ $errors->first('full_name') }}</span>
