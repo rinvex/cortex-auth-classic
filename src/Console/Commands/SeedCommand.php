@@ -61,6 +61,7 @@ class SeedCommand extends Command
             'is_active' => true,
             'username' => 'Admin',
             'email_verified' => true,
+            'full_name' => 'Admin User',
             'email' => 'admin@example.com',
         ];
 
