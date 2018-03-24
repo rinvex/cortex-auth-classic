@@ -100,7 +100,6 @@ class AuthServiceProvider extends ServiceProvider
 
         // Map bouncer models
         Bouncer::useRoleModel(config('cortex.auth.models.role'));
-        Bouncer::useUserModel(config('cortex.auth.models.member'));
         Bouncer::useAbilityModel(config('cortex.auth.models.ability'));
 
         // Map bouncer tables (users, roles, abilities tables are set through their models)
