@@ -74,7 +74,7 @@
                                     {{-- Only Owned --}}
                                     <div class="form-group{{ $errors->has('only_owned') ? ' has-error' : '' }}">
                                         {{ Form::label('only_owned', trans('cortex/auth::common.only_owned'), ['class' => 'control-label']) }}
-                                        {{ Form::select('only_owned', [1 => trans('cortex/auth::common.yes'), 0 => trans('cortex/auth::common.no')], null, ['class' => 'form-control select2', 'data-minimum-results-for-search' => 'Infinity', 'data-width' => '100%']) }}
+                                        {{ Form::select('only_owned', [1 => trans('cortex/auth::common.yes'), 0 => trans('cortex/auth::common.no')], $ability->exists ? null : 0, ['class' => 'form-control select2', 'data-minimum-results-for-search' => 'Infinity', 'data-width' => '100%']) }}
 
                                         @if ($errors->has('only_owned'))
                                             <span class="help-block">{{ $errors->first('only_owned') }}</span>
@@ -107,7 +107,7 @@
                                     {{-- Entity Id --}}
                                     <div class="form-group{{ $errors->has('entity_id') ? ' has-error' : '' }}">
                                         {{ Form::label('entity_id', trans('cortex/auth::common.entity_id'), ['class' => 'control-label']) }}
-                                        {{ Form::number('entity_id', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.entity_id'), 'required' => 'required']) }}
+                                        {{ Form::number('entity_id', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.entity_id')]) }}
 
                                         @if ($errors->has('entity_id'))
                                             <span class="help-block">{{ $errors->first('entity_id') }}</span>
