@@ -106,26 +106,6 @@ class Ability extends BaseAbility
     ];
 
     /**
-     * Create a new Eloquent model instance.
-     *
-     * @param array $attributes
-     */
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-
-        $this->setTable(config('cortex.auth.tables.abilities'));
-        $this->setRules([
-            'name' => 'required|string|max:150|unique:'.config('cortex.auth.tables.abilities').',name',
-            'title' => 'nullable|string',
-            'entity_id' => 'nullable|integer',
-            'entity_type' => 'nullable|string',
-            'only_owned' => 'sometimes|boolean',
-            'scope' => 'nullable|integer',
-        ]);
-    }
-
-    /**
      * Attach the given roles to the model.
      *
      * @param mixed $roles

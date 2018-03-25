@@ -27,7 +27,6 @@ class CreateAbilitiesTable extends Migration
             $table->auditableAndTimestamps();
 
             // Indexes
-            $table->unique('name');
             $table->index(['scope']);
         });
     }

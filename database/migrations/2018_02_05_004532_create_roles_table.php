@@ -26,7 +26,7 @@ class CreateRolesTable extends Migration
 
             // Indexes
             $table->index(['scope']);
-            $table->unique('name');
+            $table->unique(['name', 'scope'], 'roles_name_unique');
         });
     }
 
