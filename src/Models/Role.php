@@ -111,9 +111,10 @@ class Role extends BaseRole
     {
         parent::__construct($attributes);
 
+        $this->setTable(config('cortex.auth.tables.roles'));
         $this->setRules([
             'title' => 'nullable|string|max:150',
-            'name' => 'required|string|max:150|unique:'.config('cortex.auth.tables.roles').',name,NULL,id,scope,'.($this->scope ?? 'null'),
+            'name' => 'required|string|max:150|unique:'.config('cortex.auth.tables.roles').',name',
             'scope' => 'nullable|integer|unique:'.config('cortex.auth.tables.roles').',scope,NULL,id,name,'.($this->name ?? 'null'),
         ]);
     }
