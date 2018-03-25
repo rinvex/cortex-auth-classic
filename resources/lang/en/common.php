@@ -78,6 +78,7 @@ return [
     'cover_photo' => 'Cover Photo',
     'profile_picture' => 'Profile Picture',
     'tenants' => 'Tenants',
+    'tags' => 'Tags',
 
     // Headings
     'verification_email_request' => 'Request Email Verification',

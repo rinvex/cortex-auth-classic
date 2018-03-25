@@ -56,6 +56,7 @@ class Member extends User
             'gender' => 'nullable|string|in:male,female',
             'is_active' => 'sometimes|boolean',
             'last_activity' => 'nullable|date',
+            'tags' => 'nullable|array',
         ]);
     }
 }

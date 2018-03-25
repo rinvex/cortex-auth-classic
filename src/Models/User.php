@@ -6,6 +6,7 @@ namespace Cortex\Auth\Models;
 
 use Rinvex\Country\Country;
 use Rinvex\Language\Language;
+use Rinvex\Tags\Traits\Taggable;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Rinvex\Auth\Traits\HasHashables;
@@ -39,6 +40,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     // flush before other events in other traits specially HasActivity,
     // otherwise old cached queries used and no changelog recorded on update.
     use CacheableEloquent;
+    use Taggable;
     use Auditable;
     use Notifiable;
     use HasActivity;
@@ -77,6 +79,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
         'last_activity',
         'abilities',
         'roles',
+        'tags',
     ];
 
     /**

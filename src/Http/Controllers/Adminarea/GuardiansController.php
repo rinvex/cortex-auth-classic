@@ -139,7 +139,9 @@ class GuardiansController extends AuthorizedController
      */
     protected function form(Request $request, Guardian $guardian)
     {
-        return view('cortex/auth::adminarea.pages.guardian', compact('guardian'));
+        $tags = app('rinvex.tags.tag')->pluck('title', 'id');
+
+        return view('cortex/auth::adminarea.pages.guardian', compact('guardian', 'tags'));
     }
 
     /**

@@ -200,7 +200,9 @@ class AdminsController extends AuthorizedController
                 'emoji' => $country['emoji'],
             ];
         })->values();
+
         $currentUser = $request->user($this->getGuard());
+        $tags = app('rinvex.tags.tag')->pluck('title', 'id');
         $languages = collect(languages())->pluck('name', 'iso_639_1');
         $genders = ['male' => trans('cortex/auth::common.male'), 'female' => trans('cortex/auth::common.female')];
 
@@ -215,7 +217,7 @@ class AdminsController extends AuthorizedController
         asort($roles);
         ksort($abilities);
 
-        return view('cortex/auth::adminarea.pages.admin', compact('admin', 'abilities', 'roles', 'countries', 'languages', 'genders'));
+        return view('cortex/auth::adminarea.pages.admin', compact('admin', 'abilities', 'roles', 'countries', 'languages', 'genders', 'tags'));
     }
 
     /**
