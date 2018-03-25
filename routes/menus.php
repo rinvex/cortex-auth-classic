@@ -32,7 +32,7 @@ if ($user = auth()->guard(request()->route('guard'))->user()) {
 
     $userSidebarMenu = function (MenuGenerator $menu) {
         $menu->route([request()->route('accessarea').'.account.settings'], trans('cortex/auth::common.settings'), null, 'fa fa-cogs');
-        $menu->route([request()->route('accessarea').'.account.attributes'], trans('cortex/auth::common.attributes'), null, 'fa fa-leaf');
+        //$menu->route([request()->route('accessarea').'.account.attributes'], trans('cortex/auth::common.attributes'), null, 'fa fa-leaf');
         $menu->route([request()->route('accessarea').'.account.sessions'], trans('cortex/auth::common.sessions'), null, 'fa fa-list-alt');
         $menu->route([request()->route('accessarea').'.account.password'], trans('cortex/auth::common.password'), null, 'fa fa-key');
         $menu->route([request()->route('accessarea').'.account.twofactor.index'], trans('cortex/auth::common.twofactor'), null, 'fa fa-lock');
@@ -68,7 +68,7 @@ Menu::register('adminarea.admins.tabs', function (MenuGenerator $menu, Admin $ad
     $menu->route(['adminarea.admins.import.logs'], trans('cortex/auth::common.logs'))->ifCan('import', $admin)->if(Route::is('adminarea.admins.import*'));
     $menu->route(['adminarea.admins.create'], trans('cortex/auth::common.details'))->ifCan('create', $admin)->if(Route::is('adminarea.admins.create'));
     $menu->route(['adminarea.admins.edit', ['admin' => $admin]], trans('cortex/auth::common.details'))->ifCan('update', $admin)->if($admin->exists);
-    $menu->route(['adminarea.admins.attributes', ['admin' => $admin]], trans('cortex/auth::common.attributes'))->ifCan('update', $admin)->if($admin->exists);
+    //$menu->route(['adminarea.admins.attributes', ['admin' => $admin]], trans('cortex/auth::common.attributes'))->ifCan('update', $admin)->if($admin->exists);
     $menu->route(['adminarea.admins.logs', ['admin' => $admin]], trans('cortex/auth::common.logs'))->ifCan('audit', $admin)->if($admin->exists);
     $menu->route(['adminarea.admins.activities', ['admin' => $admin]], trans('cortex/auth::common.activities'))->ifCan('audit', $admin)->if($admin->exists);
 });
