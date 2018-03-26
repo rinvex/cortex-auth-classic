@@ -74,7 +74,7 @@
                                     {{-- Active --}}
                                     <div class="form-group{{ $errors->has('is_active') ? ' has-error' : '' }}">
                                         {{ Form::label('is_active', trans('cortex/auth::common.active'), ['class' => 'control-label']) }}
-                                        {{ Form::select('is_active', [1 => trans('cortex/auth::common.yes'), 0 => trans('cortex/auth::common.no')], null, ['class' => 'form-control select2', 'data-minimum-results-for-search' => 'Infinity', 'data-width' => '100%']) }}
+                                        {{ Form::select('is_active', [1 => trans('cortex/auth::common.yes'), 0 => trans('cortex/auth::common.no')], null, ['class' => 'form-control select2', 'data-minimum-results-for-search' => 'Infinity', 'data-width' => '100%', 'required' => 'required']) }}
 
                                         @if ($errors->has('is_active'))
                                             <span class="help-block">{{ $errors->first('is_active') }}</span>
