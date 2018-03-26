@@ -65,7 +65,7 @@ class Ability extends BaseAbility
      * @var array
      */
     protected $rules = [
-        'title' => 'required|string',
+        'title' => 'nullable|string',
         'name' => 'required|string|max:150',
         'entity_id' => 'nullable|integer',
         'entity_type' => 'nullable|string',
