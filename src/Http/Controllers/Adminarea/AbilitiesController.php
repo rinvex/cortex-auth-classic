@@ -52,7 +52,7 @@ class AbilitiesController extends AuthorizedController
             'resource' => $ability,
             'tabs' => 'adminarea.abilities.tabs',
             'phrase' => trans('cortex/auth::common.abilities'),
-            'id' => "adminarea-abilities-{$ability->getKey()}-logs-table",
+            'id' => "adminarea-abilities-{$ability->getRouteKey()}-logs-table",
         ])->render('cortex/foundation::adminarea.pages.datatable-logs');
     }
 

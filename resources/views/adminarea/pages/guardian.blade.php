@@ -7,7 +7,7 @@
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\GuardianFormRequest::class)->selector("#adminarea-guardians-create-form, #adminarea-guardians-{$guardian->getKey()}-update-form") !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\GuardianFormRequest::class)->selector("#adminarea-guardians-create-form, #adminarea-guardians-{$guardian->getRouteKey()}-update-form") !!}
 @endpush
 
 {{-- Main Content --}}
@@ -34,7 +34,7 @@
                     <div class="tab-pane active" id="details-tab">
 
                         @if ($guardian->exists)
-                            {{ Form::model($guardian, ['url' => route('adminarea.guardians.update', ['guardian' => $guardian]), 'id' => "adminarea-guardians-{$guardian->getKey()}-update-form", 'method' => 'put', 'files' => true]) }}
+                            {{ Form::model($guardian, ['url' => route('adminarea.guardians.update', ['guardian' => $guardian]), 'id' => "adminarea-guardians-{$guardian->getRouteKey()}-update-form", 'method' => 'put', 'files' => true]) }}
                         @else
                             {{ Form::model($guardian, ['url' => route('adminarea.guardians.store'), 'id' => 'adminarea-guardians-create-form', 'files' => true]) }}
                         @endif

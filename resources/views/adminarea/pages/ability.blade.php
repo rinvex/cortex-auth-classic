@@ -7,7 +7,7 @@
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\AbilityFormProcessRequest::class)->selector("#adminarea-abilities-create-form, #adminarea-abilities-{$ability->getKey()}-update-form") !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\AbilityFormProcessRequest::class)->selector("#adminarea-abilities-create-form, #adminarea-abilities-{$ability->getRouteKey()}-update-form") !!}
 @endpush
 
 {{-- Main Content --}}
@@ -34,7 +34,7 @@
                     <div class="tab-pane active" id="details-tab">
 
                         @if ($ability->exists)
-                            {{ Form::model($ability, ['url' => route('adminarea.abilities.update', ['ability' => $ability]), 'method' => 'put', 'id' => "adminarea-abilities-{$ability->getKey()}-update-form"]) }}
+                            {{ Form::model($ability, ['url' => route('adminarea.abilities.update', ['ability' => $ability]), 'method' => 'put', 'id' => "adminarea-abilities-{$ability->getRouteKey()}-update-form"]) }}
                         @else
                             {{ Form::model($ability, ['url' => route('adminarea.abilities.store'), 'id' => 'adminarea-abilities-create-form']) }}
                         @endif

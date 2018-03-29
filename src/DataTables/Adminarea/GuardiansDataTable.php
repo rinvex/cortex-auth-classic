@@ -22,8 +22,8 @@ class GuardiansDataTable extends AbstractDataTable
     protected function getColumns(): array
     {
         $link = config('cortex.foundation.route.locale_prefix')
-            ? '"<a href=\""+routes.route(\'adminarea.guardians.edit\', {guardian: full.username, locale: \''.$this->request->segment(1).'\'})+"\">"+data+"</a>"'
-            : '"<a href=\""+routes.route(\'adminarea.guardians.edit\', {guardian: full.username})+"\">"+data+"</a>"';
+            ? '"<a href=\""+routes.route(\'adminarea.guardians.edit\', {guardian: hashids.encode(full.id), locale: \''.$this->request->segment(1).'\'})+"\">"+data+"</a>"'
+            : '"<a href=\""+routes.route(\'adminarea.guardians.edit\', {guardian: hashids.encode(full.id)})+"\">"+data+"</a>"';
 
         return [
             'username' => ['title' => trans('cortex/auth::common.username'), 'render' => $link.'+(full.is_active ? " <i class=\"text-success fa fa-check\"></i>" : " <i class=\"text-danger fa fa-close\"></i>")', 'responsivePriority' => 0],

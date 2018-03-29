@@ -109,12 +109,12 @@ class AuthServiceProvider extends ServiceProvider
         ]);
 
         // Bind route models and constrains
-        $router->pattern('role', '[0-9]+');
-        $router->pattern('ability', '[0-9]+');
+        $router->pattern('role', '[a-zA-Z0-9]+');
+        $router->pattern('ability', '[a-zA-Z0-9]+');
         $router->pattern('session', '[a-zA-Z0-9]+');
-        $router->pattern('admin', '[a-zA-Z0-9_-]+');
-        $router->pattern('member', '[a-zA-Z0-9_-]+');
-        $router->pattern('manager', '[a-zA-Z0-9_-]+');
+        $router->pattern('admin', '[a-zA-Z0-9]+');
+        $router->pattern('member', '[a-zA-Z0-9]+');
+        $router->pattern('manager', '[a-zA-Z0-9]+');
         $router->model('role', config('cortex.auth.models.role'));
         $router->model('admin', config('cortex.auth.models.admin'));
         $router->model('member', config('cortex.auth.models.member'));

@@ -7,6 +7,7 @@ namespace Cortex\Auth\Models;
 use Rinvex\Country\Country;
 use Rinvex\Language\Language;
 use Rinvex\Tags\Traits\Taggable;
+use Vinkla\Hashids\Facades\Hashids;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Rinvex\Auth\Traits\HasHashables;
@@ -178,13 +179,26 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     ];
 
     /**
-     * Get the route key for the model.
+     * Get the value of the model's route key.
      *
-     * @return string
+     * @return mixed
      */
-    public function getRouteKeyName(): string
+    public function getRouteKey()
     {
-        return 'username';
+        return Hashids::encode($this->getAttribute($this->getRouteKeyName()));
+    }
+
+    /**
+     * Retrieve the model for a bound value.
+     *
+     * @param  mixed  $value
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
+    public function resolveRouteBinding($value)
+    {
+        $value = Hashids::decode($value)[0];
+
+        return $this->where($this->getRouteKeyName(), $value)->first();
     }
 
     /**

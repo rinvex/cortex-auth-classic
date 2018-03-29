@@ -7,7 +7,7 @@
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\AdminFormRequest::class)->selector("#adminarea-admins-create-form, #adminarea-admins-{$admin->getKey()}-update-form") !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\AdminFormRequest::class)->selector("#adminarea-admins-create-form, #adminarea-admins-{$admin->getRouteKey()}-update-form") !!}
 
     <script>
         window.countries = {!! $countries !!};
@@ -39,7 +39,7 @@
                     <div class="tab-pane active" id="details-tab">
 
                         @if ($admin->exists)
-                            {{ Form::model($admin, ['url' => route('adminarea.admins.update', ['admin' => $admin]), 'id' => "adminarea-admins-{$admin->getKey()}-update-form", 'method' => 'put', 'files' => true]) }}
+                            {{ Form::model($admin, ['url' => route('adminarea.admins.update', ['admin' => $admin]), 'id' => "adminarea-admins-{$admin->getRouteKey()}-update-form", 'method' => 'put', 'files' => true]) }}
                         @else
                             {{ Form::model($admin, ['url' => route('adminarea.admins.store'), 'id' => 'adminarea-admins-create-form', 'files' => true]) }}
                         @endif

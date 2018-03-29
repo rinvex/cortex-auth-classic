@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Models;
 
+use Vinkla\Hashids\Facades\Hashids;
 use Cortex\Foundation\Traits\Auditable;
 use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
@@ -125,5 +126,28 @@ class Ability extends BaseAbility
 
             $model->roles()->sync($roles, true);
         });
+    }
+
+    /**
+     * Get the value of the model's route key.
+     *
+     * @return mixed
+     */
+    public function getRouteKey()
+    {
+        return Hashids::encode($this->getAttribute($this->getRouteKeyName()));
+    }
+
+    /**
+     * Retrieve the model for a bound value.
+     *
+     * @param  mixed  $value
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
+    public function resolveRouteBinding($value)
+    {
+        $value = Hashids::decode($value)[0];
+
+        return $this->where($this->getRouteKeyName(), $value)->first();
     }
 }

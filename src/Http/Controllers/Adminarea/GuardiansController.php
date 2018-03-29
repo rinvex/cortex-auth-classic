@@ -51,7 +51,7 @@ class GuardiansController extends AuthorizedController
             'resource' => $guardian,
             'tabs' => 'adminarea.guardians.tabs',
             'phrase' => trans('cortex/auth::common.guardians'),
-            'id' => "adminarea-guardians-{$guardian->getKey()}-logs-table",
+            'id' => "adminarea-guardians-{$guardian->getRouteKey()}-logs-table",
         ])->render('cortex/foundation::adminarea.pages.datatable-logs');
     }
 

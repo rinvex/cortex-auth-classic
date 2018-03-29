@@ -7,7 +7,7 @@
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\RoleFormProcessRequest::class)->selector("#adminarea-roles-create-form, #adminarea-roles-{$role->getKey()}-update-form") !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\RoleFormProcessRequest::class)->selector("#adminarea-roles-create-form, #adminarea-roles-{$role->getRouteKey()}-update-form") !!}
 @endpush
 
 {{-- Main Content --}}
@@ -33,7 +33,7 @@
                     <div class="tab-pane active" id="details-tab">
 
                         @if ($role->exists)
-                            {{ Form::model($role, ['url' => route('adminarea.roles.update', ['role' => $role]), 'method' => 'put', 'id' => "adminarea-roles-{$role->getKey()}-update-form"]) }}
+                            {{ Form::model($role, ['url' => route('adminarea.roles.update', ['role' => $role]), 'method' => 'put', 'id' => "adminarea-roles-{$role->getRouteKey()}-update-form"]) }}
                         @else
                             {{ Form::model($role, ['url' => route('adminarea.roles.store'), 'id' => 'adminarea-roles-create-form']) }}
                         @endif
