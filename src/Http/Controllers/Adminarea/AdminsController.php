@@ -202,7 +202,7 @@ class AdminsController extends AuthorizedController
         })->values();
 
         $currentUser = $request->user($this->getGuard());
-        $tags = app('rinvex.tags.tag')->pluck('title', 'id');
+        $tags = app('rinvex.tags.tag')->pluck('name', 'id');
         $languages = collect(languages())->pluck('name', 'iso_639_1');
         $genders = ['male' => trans('cortex/auth::common.male'), 'female' => trans('cortex/auth::common.female')];
 
