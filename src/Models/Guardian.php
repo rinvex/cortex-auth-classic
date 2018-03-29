@@ -151,7 +151,8 @@ class Guardian extends Model implements AuthenticatableContract, AuthorizableCon
     /**
      * Retrieve the model for a bound value.
      *
-     * @param  mixed  $value
+     * @param mixed $value
+     *
      * @return \Illuminate\Database\Eloquent\Model|null
      */
     public function resolveRouteBinding($value)
