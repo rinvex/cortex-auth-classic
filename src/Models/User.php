@@ -7,10 +7,10 @@ namespace Cortex\Auth\Models;
 use Rinvex\Country\Country;
 use Rinvex\Language\Language;
 use Rinvex\Tags\Traits\Taggable;
-use Vinkla\Hashids\Facades\Hashids;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Rinvex\Auth\Traits\HasHashables;
+use Rinvex\Support\Traits\HashidsTrait;
 use Rinvex\Auth\Traits\CanVerifyEmail;
 use Rinvex\Auth\Traits\CanVerifyPhone;
 use Cortex\Foundation\Traits\Auditable;
@@ -45,6 +45,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     use Auditable;
     use Notifiable;
     use HasActivity;
+    use HashidsTrait;
     use Attributable;
     use Authorizable;
     use HasHashables;
@@ -177,30 +178,6 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
         'updated_at',
         'deleted_at',
     ];
-
-    /**
-     * Get the value of the model's route key.
-     *
-     * @return mixed
-     */
-    public function getRouteKey()
-    {
-        return Hashids::encode($this->getAttribute($this->getRouteKeyName()));
-    }
-
-    /**
-     * Retrieve the model for a bound value.
-     *
-     * @param mixed $value
-     *
-     * @return \Illuminate\Database\Eloquent\Model|null
-     */
-    public function resolveRouteBinding($value)
-    {
-        $value = Hashids::decode($value)[0];
-
-        return $this->where($this->getRouteKeyName(), $value)->first();
-    }
 
     /**
      * Register media collections.
