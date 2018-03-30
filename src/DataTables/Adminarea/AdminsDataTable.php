@@ -6,6 +6,7 @@ namespace Cortex\Auth\DataTables\Adminarea;
 
 use Cortex\Auth\Models\Admin;
 use Cortex\Foundation\DataTables\AbstractDataTable;
+use Cortex\Auth\Transformers\Adminarea\AdminTransformer;
 
 class AdminsDataTable extends AbstractDataTable
 {
@@ -15,6 +16,11 @@ class AdminsDataTable extends AbstractDataTable
     protected $model = Admin::class;
 
     /**
+     * {@inheritdoc}
+     */
+    protected $transformer = AdminTransformer::class;
+
+    /**
      * Get columns.
      *
      * @return array
@@ -22,8 +28,8 @@ class AdminsDataTable extends AbstractDataTable
     protected function getColumns(): array
     {
         $link = config('cortex.foundation.route.locale_prefix')
-            ? '"<a href=\""+routes.route(\'adminarea.admins.edit\', {admin: hashids.encode(full.id), locale: \''.$this->request->segment(1).'\'})+"\">"+data+"</a>"'
-            : '"<a href=\""+routes.route(\'adminarea.admins.edit\', {admin: hashids.encode(full.id)})+"\">"+data+"</a>"';
+            ? '"<a href=\""+routes.route(\'adminarea.admins.edit\', {admin: full.id, locale: \''.$this->request->segment(1).'\'})+"\">"+data+"</a>"'
+            : '"<a href=\""+routes.route(\'adminarea.admins.edit\', {admin: full.id})+"\">"+data+"</a>"';
 
         return [
             'full_name' => ['title' => trans('cortex/auth::common.full_name'), 'render' => $link.'+(full.is_active ? " <i class=\"text-success fa fa-check\"></i>" : " <i class=\"text-danger fa fa-close\"></i>")', 'responsivePriority' => 0],

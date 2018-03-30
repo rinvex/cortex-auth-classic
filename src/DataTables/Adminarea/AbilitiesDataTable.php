@@ -6,6 +6,7 @@ namespace Cortex\Auth\DataTables\Adminarea;
 
 use Cortex\Auth\Models\Ability;
 use Cortex\Foundation\DataTables\AbstractDataTable;
+use Cortex\Auth\Transformers\Adminarea\AbilityTransformer;
 
 class AbilitiesDataTable extends AbstractDataTable
 {
@@ -13,6 +14,11 @@ class AbilitiesDataTable extends AbstractDataTable
      * {@inheritdoc}
      */
     protected $model = Ability::class;
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $transformer = AbilityTransformer::class;
 
     /**
      * Get the query object to be processed by dataTables.
@@ -36,6 +42,7 @@ class AbilitiesDataTable extends AbstractDataTable
     public function ajax()
     {
         return datatables($this->query())
+            ->setTransformer($this->transformer)
             ->orderColumn('title', 'title->"$.'.app()->getLocale().'" $1')
             ->make(true);
     }
@@ -48,8 +55,8 @@ class AbilitiesDataTable extends AbstractDataTable
     protected function getColumns(): array
     {
         $link = config('cortex.foundation.route.locale_prefix')
-            ? '"<a href=\""+routes.route(\'adminarea.abilities.edit\', {ability: hashids.encode(full.id), locale: \''.$this->request->segment(1).'\'})+"\">"+data+"</a>"'
-            : '"<a href=\""+routes.route(\'adminarea.abilities.edit\', {ability: hashids.encode(full.id)})+"\">"+data+"</a>"';
+            ? '"<a href=\""+routes.route(\'adminarea.abilities.edit\', {ability: full.id, locale: \''.$this->request->segment(1).'\'})+"\">"+data+"</a>"'
+            : '"<a href=\""+routes.route(\'adminarea.abilities.edit\', {ability: full.id})+"\">"+data+"</a>"';
 
         return [
             'title' => ['title' => trans('cortex/auth::common.title'), 'render' => $link, 'responsivePriority' => 0],
