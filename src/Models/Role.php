@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Cortex\Auth\Models;
 
 use Rinvex\Tenants\Traits\Tenantable;
-use Rinvex\Support\Traits\HashidsTrait;
 use Cortex\Foundation\Traits\Auditable;
+use Rinvex\Support\Traits\HashidsTrait;
 use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Spatie\Activitylog\Traits\LogsActivity;
