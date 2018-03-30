@@ -11,14 +11,14 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 /**
  * Cortex\Auth\Models\Socialite.
  *
- * @property int                                                $id
- * @property int                                                $user_id
- * @property string                                             $user_type
- * @property string                                             $provider
- * @property string                                             $provider_uid
- * @property \Carbon\Carbon|null                                $created_at
- * @property \Carbon\Carbon|null                                $updated_at
- * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $user
+ * @property int                                                                         $id
+ * @property int                                                                         $user_id
+ * @property string                                                                      $user_type
+ * @property string                                                                      $provider
+ * @property string                                                                      $provider_uid
+ * @property \Carbon\Carbon|null                                                         $created_at
+ * @property \Carbon\Carbon|null                                                         $updated_at
+ * @property-read \Cortex\Auth\Models\User|\Illuminate\Database\Eloquent\Model|\Eloquent $user
  *
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Socialite whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Socialite whereId($value)
