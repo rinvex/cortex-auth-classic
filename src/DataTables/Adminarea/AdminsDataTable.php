@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Auth\DataTables\Adminarea;
 
 use Cortex\Auth\Models\Admin;
+use Illuminate\Database\Eloquent\Builder;
 use Cortex\Foundation\DataTables\AbstractDataTable;
 use Cortex\Auth\Transformers\Adminarea\AdminTransformer;
 
@@ -19,6 +20,26 @@ class AdminsDataTable extends AbstractDataTable
      * {@inheritdoc}
      */
     protected $transformer = AdminTransformer::class;
+
+    /**
+     * Display ajax response.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function ajax()
+    {
+        return datatables($this->query())
+            ->setTransformer($this->transformer)
+            ->filterColumn('country_code', function (Builder $builder, $keyword) {
+                $countryCode = collect(countries())->search(function($country) use ($keyword) {
+                    return mb_strpos($country['name'], $keyword) !== false || mb_strpos($country['emoji'], $keyword) !== false;
+                });
+
+                ! $countryCode || $builder->where('country_code', $countryCode);
+            })
+            ->orderColumn('name', 'name->"$.'.app()->getLocale().'" $1')
+            ->make(true);
+    }
 
     /**
      * Get columns.
