@@ -194,7 +194,7 @@ class AbilitiesController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.abilities.index'),
-            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => 'ability', 'id' => $ability->name])],
+            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => 'ability', 'identifier' => $ability->title])],
         ]);
     }
 
@@ -211,7 +211,7 @@ class AbilitiesController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.abilities.index'),
-            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => 'ability', 'id' => $ability->name])],
+            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => 'ability', 'identifier' => $ability->title])],
         ]);
     }
 }

@@ -188,7 +188,7 @@ class GuardiansController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.guardians.index'),
-            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => 'guardian', 'id' => $guardian->username])],
+            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => 'guardian', 'identifier' => $guardian->username])],
         ]);
     }
 
@@ -205,7 +205,7 @@ class GuardiansController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.guardians.index'),
-            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => 'guardian', 'id' => $guardian->username])],
+            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => 'guardian', 'identifier' => $guardian->username])],
         ]);
     }
 }

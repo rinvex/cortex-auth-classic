@@ -32,12 +32,12 @@ Breadcrumbs::register('adminarea.roles.create', function (BreadcrumbsGenerator $
 
 Breadcrumbs::register('adminarea.roles.edit', function (BreadcrumbsGenerator $breadcrumbs, Role $role) {
     $breadcrumbs->parent('adminarea.roles.index');
-    $breadcrumbs->push($role->name, route('adminarea.roles.edit', ['role' => $role]));
+    $breadcrumbs->push($role->title, route('adminarea.roles.edit', ['role' => $role]));
 });
 
 Breadcrumbs::register('adminarea.roles.logs', function (BreadcrumbsGenerator $breadcrumbs, Role $role) {
     $breadcrumbs->parent('adminarea.roles.index');
-    $breadcrumbs->push($role->name, route('adminarea.roles.edit', ['role' => $role]));
+    $breadcrumbs->push($role->title, route('adminarea.roles.edit', ['role' => $role]));
     $breadcrumbs->push(trans('cortex/auth::common.logs'), route('adminarea.roles.logs', ['role' => $role]));
 });
 
@@ -140,11 +140,11 @@ Breadcrumbs::register('adminarea.abilities.create', function (BreadcrumbsGenerat
 
 Breadcrumbs::register('adminarea.abilities.edit', function (BreadcrumbsGenerator $breadcrumbs, Ability $ability) {
     $breadcrumbs->parent('adminarea.abilities.index');
-    $breadcrumbs->push($ability->name, route('adminarea.abilities.edit', ['ability' => $ability]));
+    $breadcrumbs->push($ability->title, route('adminarea.abilities.edit', ['ability' => $ability]));
 });
 
 Breadcrumbs::register('adminarea.abilities.logs', function (BreadcrumbsGenerator $breadcrumbs, Ability $ability) {
     $breadcrumbs->parent('adminarea.abilities.index');
-    $breadcrumbs->push($ability->name, route('adminarea.abilities.edit', ['ability' => $ability]));
+    $breadcrumbs->push($ability->title, route('adminarea.abilities.edit', ['ability' => $ability]));
     $breadcrumbs->push(trans('cortex/auth::common.logs'), route('adminarea.abilities.logs', ['ability' => $ability]));
 });
