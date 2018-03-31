@@ -5,16 +5,19 @@ declare(strict_types=1);
 namespace Cortex\Auth\Transformers\Adminarea;
 
 use Cortex\Auth\Models\Admin;
+use Rinvex\Support\Traits\Escaper;
 use League\Fractal\TransformerAbstract;
 
 class AdminTransformer extends TransformerAbstract
 {
+    use Escaper;
+
     /**
      * @return array
      */
     public function transform(Admin $admin): array
     {
-        return [
+        return $this->escapeRow([
             'id' => (string) $admin->getRouteKey(),
             'is_active' => (bool) $admin->is_active,
             'full_name' => (string) $admin->full_name,
@@ -29,6 +32,6 @@ class AdminTransformer extends TransformerAbstract
             'last_activity' => (string) $admin->last_activity,
             'created_at' => (string) $admin->created_at,
             'updated_at' => (string) $admin->updated_at,
-        ];
+        ]);
     }
 }
