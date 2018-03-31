@@ -31,7 +31,7 @@ class AdminsDataTable extends AbstractDataTable
         return datatables($this->query())
             ->setTransformer($this->transformer)
             ->filterColumn('country_code', function (Builder $builder, $keyword) {
-                $countryCode = collect(countries())->search(function($country) use ($keyword) {
+                $countryCode = collect(countries())->search(function ($country) use ($keyword) {
                     return mb_strpos($country['name'], $keyword) !== false || mb_strpos($country['emoji'], $keyword) !== false;
                 });
 
