@@ -18,16 +18,16 @@ class CreateAdminsTable extends Migration
         Schema::create(config('cortex.auth.tables.admins'), function (Blueprint $table) {
             // Columns
             $table->increments('id');
+            $table->string('full_name');
+            $table->string('email');
             $table->string('username');
             $table->string('password');
             $table->rememberToken();
-            $table->string('email');
             $table->boolean('email_verified')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('phone')->nullable();
             $table->boolean('phone_verified')->default(false);
             $table->timestamp('phone_verified_at')->nullable();
-            $table->string('full_name');
             $table->string('title')->nullable();
             $table->string('country_code', 2)->nullable();
             $table->string('language_code', 2)->nullable();
