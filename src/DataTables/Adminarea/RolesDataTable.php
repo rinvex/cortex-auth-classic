@@ -42,7 +42,7 @@ class RolesDataTable extends AbstractDataTable
     public function ajax()
     {
         return datatables($this->query())
-            ->setTransformer($this->transformer)
+            ->setTransformer(app($this->transformer))
             ->orderColumn('title', 'title->"$.'.app()->getLocale().'" $1')
             ->make(true);
     }
