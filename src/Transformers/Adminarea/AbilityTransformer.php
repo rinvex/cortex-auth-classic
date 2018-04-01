@@ -17,7 +17,7 @@ class AbilityTransformer extends TransformerAbstract
      */
     public function transform(Ability $ability): array
     {
-        return $this->escapeRow([
+        return $this->escape([
             'id' => (string) $ability->getRouteKey(),
             'title' => (string) $ability->title,
             'name' => (string) $ability->name,

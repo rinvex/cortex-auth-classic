@@ -17,7 +17,7 @@ class GuardianTransformer extends TransformerAbstract
      */
     public function transform(Guardian $guardian): array
     {
-        return $this->escapeRow([
+        return $this->escape([
             'id' => (string) $guardian->getRouteKey(),
             'is_active' => (bool) $guardian->is_active,
             'username' => (string) $guardian->username,

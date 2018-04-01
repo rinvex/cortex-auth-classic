@@ -17,7 +17,7 @@ class RoleTransformer extends TransformerAbstract
      */
     public function transform(Role $role): array
     {
-        return $this->escapeRow([
+        return $this->escape([
             'id' => (string) $role->getRouteKey(),
             'title' => (string) $role->title,
             'name' => (string) $role->name,

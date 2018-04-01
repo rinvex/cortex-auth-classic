@@ -17,10 +17,10 @@ class AdminTransformer extends TransformerAbstract
      */
     public function transform(Admin $admin): array
     {
-        return $this->escapeRow([
+        return $this->escape([
             'id' => (string) $admin->getRouteKey(),
             'is_active' => (bool) $admin->is_active,
-            'full_name' => (string) $admin->full_name,
+            'full_name' => (string) ($admin->full_name ?? $admin->username),
             'username' => (string) $admin->username,
             'email' => (string) $admin->email,
             'phone' => (string) $admin->phone,
