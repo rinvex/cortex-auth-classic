@@ -17,6 +17,9 @@ class AdminTransformer extends TransformerAbstract
      */
     public function transform(Admin $admin): array
     {
+        $country = $admin->country_code ? country($admin->country_code) : null;
+        $language = $admin->language_code ? language($admin->language_code) : null;
+
         return $this->escape([
             'id' => (string) $admin->getRouteKey(),
             'is_active' => (bool) $admin->is_active,
@@ -24,8 +27,9 @@ class AdminTransformer extends TransformerAbstract
             'username' => (string) $admin->username,
             'email' => (string) $admin->email,
             'phone' => (string) $admin->phone,
-            'country_code' => (string) $admin->country_code ? country($admin->country_code)->getName() : null,
-            'language_code' => (string) $admin->language_code ? language($admin->language_code)->getName() : null,
+            'country_code' => (string) optional($country)->getName(),
+            'country_emoji' => (string) optional($country)->getEmoji(),
+            'language_code' => (string) optional($language)->getName(),
             'title' => (string) $admin->title,
             'birthday' => (string) $admin->birthday,
             'gender' => (string) $admin->gender,
