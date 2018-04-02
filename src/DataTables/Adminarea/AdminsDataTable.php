@@ -62,9 +62,9 @@ class AdminsDataTable extends AbstractDataTable
             'title' => ['title' => trans('cortex/auth::common.title'), 'visible' => false],
             'birthday' => ['title' => trans('cortex/auth::common.birthday'), 'visible' => false],
             'gender' => ['title' => trans('cortex/auth::common.gender'), 'visible' => false],
-            'last_activity' => ['title' => trans('cortex/auth::common.last_activity'), 'render' => "moment(data).format('MMM Do, YYYY')", 'visible' => false],
-            'created_at' => ['title' => trans('cortex/auth::common.created_at'), 'render' => "moment(data).format('MMM Do, YYYY')"],
-            'updated_at' => ['title' => trans('cortex/auth::common.updated_at'), 'render' => "moment(data).format('MMM Do, YYYY')"],
+            'last_activity' => ['title' => trans('cortex/auth::common.last_activity'), 'render' => "moment(data).format('MMMM Do YYYY, hh:mm:ss A')", 'visible' => false],
+            'created_at' => ['title' => trans('cortex/auth::common.created_at'), 'render' => "moment(data).format('MMMM Do YYYY, hh:mm:ss A')"],
+            'updated_at' => ['title' => trans('cortex/auth::common.updated_at'), 'render' => "moment(data).format('MMMM Do YYYY, hh:mm:ss A')"],
         ];
     }
 }
