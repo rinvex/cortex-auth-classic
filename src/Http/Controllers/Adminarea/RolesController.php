@@ -34,7 +34,6 @@ class RolesController extends AuthorizedController
     {
         return $rolesDataTable->with([
             'id' => 'adminarea-roles-index-table',
-            'phrase' => trans('cortex/auth::common.roles'),
         ])->render('cortex/foundation::adminarea.pages.datatable');
     }
 
@@ -51,7 +50,6 @@ class RolesController extends AuthorizedController
         return $logsDataTable->with([
             'resource' => $role,
             'tabs' => 'adminarea.roles.tabs',
-            'phrase' => trans('cortex/auth::common.roles'),
             'id' => "adminarea-roles-{$role->getRouteKey()}-logs-table",
         ])->render('cortex/foundation::adminarea.pages.datatable-logs');
     }
@@ -67,7 +65,6 @@ class RolesController extends AuthorizedController
             'id' => 'adminarea-roles-import',
             'tabs' => 'adminarea.roles.tabs',
             'url' => route('adminarea.roles.hoard'),
-            'phrase' => trans('cortex/auth::common.roles'),
         ]);
     }
 
@@ -99,8 +96,7 @@ class RolesController extends AuthorizedController
             'resource' => 'role',
             'tabs' => 'adminarea.roles.tabs',
             'id' => 'adminarea-roles-import-logs-table',
-            'phrase' => trans('cortex/roles::common.roles'),
-        ])->render('cortex/foundation::adminarea.pages.datatable-import-logs');
+        ])->render('cortex/foundation::adminarea.pages.datatable-logs');
     }
 
     /**

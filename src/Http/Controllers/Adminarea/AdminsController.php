@@ -35,7 +35,6 @@ class AdminsController extends AuthorizedController
     {
         return $adminsDataTable->with([
             'id' => 'adminarea-admins-index-table',
-            'phrase' => trans('cortex/auth::common.admins'),
         ])->render('cortex/foundation::adminarea.pages.datatable');
     }
 
@@ -52,7 +51,6 @@ class AdminsController extends AuthorizedController
         return $logsDataTable->with([
             'resource' => $admin,
             'tabs' => 'adminarea.admins.tabs',
-            'phrase' => trans('cortex/auth::common.admins'),
             'id' => "adminarea-admins-{$admin->getRouteKey()}-logs-table",
         ])->render('cortex/foundation::adminarea.pages.datatable-logs');
     }
@@ -70,7 +68,6 @@ class AdminsController extends AuthorizedController
         return $activitiesDataTable->with([
             'resource' => $admin,
             'tabs' => 'adminarea.admins.tabs',
-            'phrase' => trans('cortex/auth::common.admins'),
             'id' => "adminarea-admins-{$admin->getRouteKey()}-activities-table",
         ])->render('cortex/foundation::adminarea.pages.datatable-logs');
     }
@@ -120,7 +117,6 @@ class AdminsController extends AuthorizedController
             'id' => 'adminarea-admins-import',
             'tabs' => 'adminarea.admins.tabs',
             'url' => route('adminarea.admins.hoard'),
-            'phrase' => trans('cortex/auth::common.admins'),
         ]);
     }
 
@@ -153,8 +149,7 @@ class AdminsController extends AuthorizedController
             'resource' => 'admin',
             'tabs' => 'adminarea.admins.tabs',
             'id' => 'adminarea-admins-import-logs-table',
-            'phrase' => trans('cortex/admins::common.admins'),
-        ])->render('cortex/foundation::adminarea.pages.datatable-import-logs');
+        ])->render('cortex/foundation::adminarea.pages.datatable-logs');
     }
 
     /**

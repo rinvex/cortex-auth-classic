@@ -10,7 +10,7 @@ use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator;
 
 // Adminarea breadcrumbs
 Breadcrumbs::register('adminarea.roles.index', function (BreadcrumbsGenerator $breadcrumbs) {
-    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.trans('cortex/foundation::common.adminarea'), route('adminarea.home'));
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('adminarea.home'));
     $breadcrumbs->push(trans('cortex/auth::common.roles'), route('adminarea.roles.index'));
 });
 
@@ -42,7 +42,7 @@ Breadcrumbs::register('adminarea.roles.logs', function (BreadcrumbsGenerator $br
 });
 
 Breadcrumbs::register('adminarea.admins.index', function (BreadcrumbsGenerator $breadcrumbs) {
-    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.trans('cortex/foundation::common.adminarea'), route('adminarea.home'));
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('adminarea.home'));
     $breadcrumbs->push(trans('cortex/auth::common.admins'), route('adminarea.admins.index'));
 });
 
@@ -86,7 +86,7 @@ Breadcrumbs::register('adminarea.admins.attributes', function (BreadcrumbsGenera
 });
 
 Breadcrumbs::register('adminarea.guardians.index', function (BreadcrumbsGenerator $breadcrumbs) {
-    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.trans('cortex/foundation::common.adminarea'), route('adminarea.home'));
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('adminarea.home'));
     $breadcrumbs->push(trans('cortex/auth::common.guardians'), route('adminarea.guardians.index'));
 });
 
@@ -118,7 +118,7 @@ Breadcrumbs::register('adminarea.guardians.logs', function (BreadcrumbsGenerator
 });
 
 Breadcrumbs::register('adminarea.abilities.index', function (BreadcrumbsGenerator $breadcrumbs) {
-    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.trans('cortex/foundation::common.adminarea'), route('adminarea.home'));
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('adminarea.home'));
     $breadcrumbs->push(trans('cortex/auth::common.abilities'), route('adminarea.abilities.index'));
 });
 

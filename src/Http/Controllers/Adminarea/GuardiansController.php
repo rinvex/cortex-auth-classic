@@ -33,7 +33,6 @@ class GuardiansController extends AuthorizedController
     {
         return $guardiansDataTable->with([
             'id' => 'adminarea-guardians-index-table',
-            'phrase' => trans('cortex/auth::common.guardians'),
         ])->render('cortex/foundation::adminarea.pages.datatable');
     }
 
@@ -50,7 +49,6 @@ class GuardiansController extends AuthorizedController
         return $logsDataTable->with([
             'resource' => $guardian,
             'tabs' => 'adminarea.guardians.tabs',
-            'phrase' => trans('cortex/auth::common.guardians'),
             'id' => "adminarea-guardians-{$guardian->getRouteKey()}-logs-table",
         ])->render('cortex/foundation::adminarea.pages.datatable-logs');
     }
@@ -66,7 +64,6 @@ class GuardiansController extends AuthorizedController
             'id' => 'adminarea-guardians-import',
             'tabs' => 'adminarea.guardians.tabs',
             'url' => route('adminarea.guardians.hoard'),
-            'phrase' => trans('cortex/auth::common.guardians'),
         ]);
     }
 
@@ -99,8 +96,7 @@ class GuardiansController extends AuthorizedController
             'resource' => 'guardian',
             'tabs' => 'adminarea.guardians.tabs',
             'id' => 'adminarea-guardians-import-logs-table',
-            'phrase' => trans('cortex/guardians::common.guardians'),
-        ])->render('cortex/foundation::adminarea.pages.datatable-import-logs');
+        ])->render('cortex/foundation::adminarea.pages.datatable-logs');
     }
 
     /**
