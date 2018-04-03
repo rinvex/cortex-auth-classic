@@ -37,6 +37,13 @@ class AdminsDataTable extends AbstractDataTable
 
                 ! $countryCode || $builder->where('country_code', $countryCode);
             })
+            ->filterColumn('language_code', function (Builder $builder, $keyword) {
+                $languageCode = collect(languages())->search(function ($language) use ($keyword) {
+                    return mb_strpos($language['name'], $keyword) !== false;
+                });
+
+                ! $languageCode || $builder->where('language_code', $languageCode);
+            })
             ->orderColumn('name', 'name->"$.'.app()->getLocale().'" $1')
             ->make(true);
     }
