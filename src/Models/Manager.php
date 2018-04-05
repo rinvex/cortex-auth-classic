@@ -73,7 +73,7 @@ class Manager extends User
             'email' => 'required|email|min:3|max:150|unique:'.config('cortex.auth.tables.managers').',email',
             'email_verified' => 'sometimes|boolean',
             'email_verified_at' => 'nullable|date',
-            'phone' => 'nullable|numeric|phone:country_code',
+            'phone' => 'nullable|phone:AUTO',
             'phone_verified' => 'sometimes|boolean',
             'phone_verified_at' => 'nullable|date',
             'full_name' => 'required|string|max:150',

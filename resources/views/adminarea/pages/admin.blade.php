@@ -155,12 +155,13 @@
                                         {{ Form::label('phone_verified', trans('cortex/auth::common.verified'), ['class' => 'control-label pull-right']) }}
 
                                         <div class="input-group">
-                                            {{ Form::number('phone', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.phone')]) }}
+                                            {{ Form::tel('phone', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.phone')]) }}
                                             <span class="input-group-addon">
                                                 {{ Form::checkbox('phone_verified') }}
                                             </span>
                                         </div>
 
+                                        <span class="help-block hide">{{ trans('cortex/foundation::messages.invalid_phone') }}</span>
                                         @if ($errors->has('phone'))
                                             <span class="help-block">{{ $errors->first('phone') }}</span>
                                         @endif
