@@ -207,7 +207,7 @@
                                     {{-- Birthday --}}
                                     <div class="form-group has-feedback{{ $errors->has('birthday') ? ' has-error' : '' }}">
                                         {{ Form::label('birthday', trans('cortex/auth::common.birthday'), ['class' => 'control-label']) }}
-                                        {{ Form::text('birthday', null, ['class' => 'form-control datepicker', 'data-auto-update-input' => 'false']) }}
+                                        {{ Form::text('birthday', null, ['class' => 'form-control datepicker', 'data-locale' => '{"format": "YYYY-MM-DD"}', 'data-single-date-picker' => 'true', 'data-show-dropdowns' => 'true', 'data-auto-apply' => 'true']) }}
                                         <span class="fa fa-calendar form-control-feedback"></span>
 
                                         @if ($errors->has('birthday'))
