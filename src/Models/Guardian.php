@@ -170,7 +170,7 @@ class Guardian extends Model implements AuthenticatableContract, AuthorizableCon
      *
      * @return $this
      */
-    public function activate()
+    public function makeActive()
     {
         $this->update(['is_active' => true]);
 
@@ -182,7 +182,7 @@ class Guardian extends Model implements AuthenticatableContract, AuthorizableCon
      *
      * @return $this
      */
-    public function deactivate()
+    public function makeInactive()
     {
         $this->update(['is_active' => false]);
 
