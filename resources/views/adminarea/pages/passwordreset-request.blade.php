@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/auth::common.password_reset_request') }}
+    {{ extract_title(Breadcrumbs::render()) }}
 @endsection
 
 {{-- Scripts --}}
@@ -32,7 +32,7 @@
                     @endif
                 </div>
 
-                {{ Form::button('<i class="fa fa-envelope"></i> '.trans('cortex/auth::common.password_reset_request'), ['class' => 'btn btn-lg btn-primary btn-block', 'type' => 'submit']) }}
+                {{ Form::button('<i class="fa fa-envelope"></i> '.trans('cortex/auth::common.passwordreset_request'), ['class' => 'btn btn-lg btn-primary btn-block', 'type' => 'submit']) }}
 
             {{ Form::close() }}
 

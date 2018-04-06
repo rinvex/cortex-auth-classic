@@ -22,28 +22,25 @@ Menu::register('adminarea.sidebar', function (MenuGenerator $menu, Ability $abil
 });
 
 if ($user = auth()->guard(request()->route('guard'))->user()) {
-    $userHeaderMenu = function (MenuGenerator $menu) use ($user) {
+    Menu::register('adminarea.header.user', function (MenuGenerator $menu) use ($user) {
         $menu->dropdown(function (MenuItem $dropdown) {
-            $dropdown->route([request()->route('accessarea').'.account'], trans('cortex/auth::common.settings'), null, 'fa fa-cogs');
+            $dropdown->route(['adminarea.account'], trans('cortex/auth::common.settings'), null, 'fa fa-cogs');
             $dropdown->divider();
-            $dropdown->route([request()->route('accessarea').'.logout'], trans('cortex/auth::common.logout').Form::open(['url' => route(request()->route('accessarea').'.logout'), 'id' => 'logout-form', 'style' => 'display: none;']).Form::close(), null, 'fa fa-sign-out', ['onclick' => "event.preventDefault(); document.getElementById('logout-form').submit();"]);
+            $dropdown->route(['adminarea.logout'], trans('cortex/auth::common.logout').Form::open(['url' => route('adminarea.logout'), 'id' => 'logout-form', 'style' => 'display: none;']).Form::close(), null, 'fa fa-sign-out', ['onclick' => "event.preventDefault(); document.getElementById('logout-form').submit();"]);
         }, $user->username, 10, 'fa fa-user');
-    };
+    });
 
-    $userSidebarMenu = function (MenuGenerator $menu) {
-        $menu->route([request()->route('accessarea').'.account.settings'], trans('cortex/auth::common.settings'), null, 'fa fa-cogs');
-        //$menu->route([request()->route('accessarea').'.account.attributes'], trans('cortex/auth::common.attributes'), null, 'fa fa-leaf');
-        $menu->route([request()->route('accessarea').'.account.sessions'], trans('cortex/auth::common.sessions'), null, 'fa fa-list-alt');
-        $menu->route([request()->route('accessarea').'.account.password'], trans('cortex/auth::common.password'), null, 'fa fa-key');
-        $menu->route([request()->route('accessarea').'.account.twofactor.index'], trans('cortex/auth::common.twofactor'), null, 'fa fa-lock');
-    };
-
-    Menu::register(request()->route('accessarea').'.header', $userHeaderMenu);
-    Menu::register(request()->route('accessarea').'.account.sidebar', $userSidebarMenu);
+    Menu::register('adminarea.account.sidebar', function (MenuGenerator $menu) {
+        $menu->route(['adminarea.account.settings'], trans('cortex/auth::common.settings'), null, 'fa fa-cogs');
+        //$menu->route(['adminarea.account.attributes'], trans('cortex/auth::common.attributes'), null, 'fa fa-leaf');
+        $menu->route(['adminarea.account.sessions'], trans('cortex/auth::common.sessions'), null, 'fa fa-list-alt');
+        $menu->route(['adminarea.account.password'], trans('cortex/auth::common.password'), null, 'fa fa-key');
+        $menu->route(['adminarea.account.twofactor'], trans('cortex/auth::common.twofactor'), null, 'fa fa-lock');
+    });
 } else {
-    Menu::register(request()->route('accessarea').'.header', function (MenuGenerator $menu) {
-        $menu->route([request()->route('accessarea').'.login'], trans('cortex/auth::common.login'));
-        $menu->route([request()->route('accessarea').'.register'], trans('cortex/auth::common.register'));
+    Menu::register('adminarea.header.user', function (MenuGenerator $menu) {
+        $menu->route(['adminarea.login'], trans('cortex/auth::common.login'));
+        $menu->route(['adminarea.register'], trans('cortex/auth::common.register'));
     });
 }
 

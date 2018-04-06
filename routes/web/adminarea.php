@@ -23,6 +23,7 @@ Route::domain(domain())->group(function () {
              });
 
              // Password Reset Routes
+             Route::get('passwordreset')->name('passwordreset')->uses('RedirectionController@passwordreset');
              Route::name('passwordreset.')->prefix('passwordreset')->group(function () {
                  Route::get('request')->name('request')->uses('PasswordResetController@request');
                  Route::post('send')->name('send')->uses('PasswordResetController@send');
@@ -31,6 +32,7 @@ Route::domain(domain())->group(function () {
              });
 
              // Verification Routes
+             Route::get('verification')->name('verification')->uses('RedirectionController@verification');
              Route::name('verification.')->prefix('verification')->group(function () {
                  // Phone Verification Routes
                  Route::name('phone.')->prefix('phone')->group(function () {
@@ -73,8 +75,8 @@ Route::domain(domain())->group(function () {
                      Route::delete('sessions/{session?}')->name('sessions.destroy')->uses('AccountSessionsController@destroy');
 
                      // Account TwoFactor Routes
+                     Route::get('twofactor')->name('twofactor')->uses('AccountTwoFactorController@index');
                      Route::name('twofactor.')->prefix('twofactor')->group(function () {
-                         Route::get('/')->name('index')->uses('AccountTwoFactorController@index');
 
                          // Account TwoFactor TOTP Routes
                          Route::name('totp.')->prefix('totp')->group(function () {

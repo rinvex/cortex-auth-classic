@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/auth::common.active_sessions') }}
+    {{ extract_title(Breadcrumbs::render()) }}
 @endsection
 
 {{-- Main Content --}}

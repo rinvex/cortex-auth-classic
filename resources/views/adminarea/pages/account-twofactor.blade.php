@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/auth::common.twofactor_authentication') }}
+    {{ extract_title(Breadcrumbs::render()) }}
 @endsection
 
 {{-- Main Content --}}

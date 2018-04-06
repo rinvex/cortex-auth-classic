@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/auth::common.reauthentication') }}
+    {{ extract_title(Breadcrumbs::render()) }}
 @endsection
 
 {{-- Main Content --}}

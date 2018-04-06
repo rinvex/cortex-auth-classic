@@ -8,7 +8,6 @@ use Cortex\Auth\Models\Ability;
 use Cortex\Auth\Models\Guardian;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator;
 
-// Adminarea breadcrumbs
 Breadcrumbs::register('adminarea.roles.index', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('adminarea.home'));
     $breadcrumbs->push(trans('cortex/auth::common.roles'), route('adminarea.roles.index'));
@@ -147,4 +146,65 @@ Breadcrumbs::register('adminarea.abilities.logs', function (BreadcrumbsGenerator
     $breadcrumbs->parent('adminarea.abilities.index');
     $breadcrumbs->push($ability->title, route('adminarea.abilities.edit', ['ability' => $ability]));
     $breadcrumbs->push(trans('cortex/auth::common.logs'), route('adminarea.abilities.logs', ['ability' => $ability]));
+});
+
+// Account Breadcrumbs
+Breadcrumbs::register('adminarea.login', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('adminarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::common.login'), route('adminarea.login'));
+});
+
+Breadcrumbs::register('adminarea.passwordreset.request', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('adminarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::common.passwordreset_request'), route('adminarea.passwordreset.request'));
+});
+
+Breadcrumbs::register('adminarea.passwordreset.reset', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('adminarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::common.passwordreset'), route('adminarea.passwordreset.reset'));
+});
+
+Breadcrumbs::register('adminarea.verification.email.request', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('adminarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::common.verification_email_request'), route('adminarea.verification.email.request'));
+});
+
+Breadcrumbs::register('adminarea.verification.phone.request', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('adminarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::common.verification_phone_request'), route('adminarea.verification.phone.request'));
+});
+
+Breadcrumbs::register('adminarea.verification.phone.verify', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('adminarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::common.verify_phone'), route('adminarea.verification.phone.verify'));
+});
+
+Breadcrumbs::register('adminarea.account.settings', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('adminarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::common.account_settings'), route('adminarea.account.settings'));
+});
+
+Breadcrumbs::register('adminarea.account.password', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('adminarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::common.account_password'), route('adminarea.account.password'));
+});
+
+Breadcrumbs::register('adminarea.account.attributes', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('adminarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::common.account_attributes'), route('adminarea.account.attributes'));
+});
+
+Breadcrumbs::register('adminarea.account.sessions', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('adminarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::common.account_sessions'), route('adminarea.account.sessions'));
+});
+
+Breadcrumbs::register('adminarea.account.twofactor', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('adminarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::common.account_twofactor'), route('adminarea.account.twofactor'));
+});
+
+Breadcrumbs::register('adminarea.account.twofactor.totp.enable', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('adminarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::twofactor.configure'), route('adminarea.account.twofactor.totp.enable'));
 });
