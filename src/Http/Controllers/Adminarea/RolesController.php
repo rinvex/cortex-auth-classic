@@ -93,7 +93,7 @@ class RolesController extends AuthorizedController
     public function importLogs(ImportLogsDataTable $importLogsDatatable)
     {
         return $importLogsDatatable->with([
-            'resource' => 'role',
+            'resource' => trans('cortex/auth::common.role'),
             'tabs' => 'adminarea.roles.tabs',
             'id' => 'adminarea-roles-import-logs-table',
         ])->render('cortex/foundation::adminarea.pages.datatable-logs');
@@ -188,7 +188,7 @@ class RolesController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.roles.index'),
-            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => 'role', 'identifier' => $role->title])],
+            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => trans('cortex/auth::common.role'), 'identifier' => $role->title])],
         ]);
     }
 
@@ -205,7 +205,7 @@ class RolesController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.roles.index'),
-            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => 'role', 'identifier' => $role->title])],
+            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/auth::common.role'), 'identifier' => $role->title])],
         ]);
     }
 }

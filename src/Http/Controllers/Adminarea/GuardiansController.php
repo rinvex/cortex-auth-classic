@@ -93,7 +93,7 @@ class GuardiansController extends AuthorizedController
     public function importLogs(ImportLogsDataTable $importLogsDatatable)
     {
         return $importLogsDatatable->with([
-            'resource' => 'guardian',
+            'resource' => trans('cortex/auth::common.guardian'),
             'tabs' => 'adminarea.guardians.tabs',
             'id' => 'adminarea-guardians-import-logs-table',
         ])->render('cortex/foundation::adminarea.pages.datatable-logs');
@@ -184,7 +184,7 @@ class GuardiansController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.guardians.index'),
-            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => 'guardian', 'identifier' => $guardian->username])],
+            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => trans('cortex/auth::common.guardian'), 'identifier' => $guardian->username])],
         ]);
     }
 
@@ -201,7 +201,7 @@ class GuardiansController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.guardians.index'),
-            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => 'guardian', 'identifier' => $guardian->username])],
+            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/auth::common.guardian'), 'identifier' => $guardian->username])],
         ]);
     }
 }
