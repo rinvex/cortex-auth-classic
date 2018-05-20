@@ -34,7 +34,7 @@ class AbilitiesController extends AuthorizedController
     {
         return $abilitiesDataTable->with([
             'id' => 'adminarea-abilities-index-table',
-        ])->render('cortex/foundation::adminarea.pages.datatable');
+        ])->render('cortex/foundation::adminarea.pages.datatable-index');
     }
 
     /**
@@ -51,7 +51,7 @@ class AbilitiesController extends AuthorizedController
             'resource' => $ability,
             'tabs' => 'adminarea.abilities.tabs',
             'id' => "adminarea-abilities-{$ability->getRouteKey()}-logs-table",
-        ])->render('cortex/foundation::adminarea.pages.datatable-logs');
+        ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
 
     /**
@@ -96,7 +96,7 @@ class AbilitiesController extends AuthorizedController
             'resource' => trans('cortex/auth::common.ability'),
             'tabs' => 'adminarea.abilities.tabs',
             'id' => 'adminarea-abilities-import-logs-table',
-        ])->render('cortex/foundation::adminarea.pages.datatable-logs');
+        ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
 
     /**
