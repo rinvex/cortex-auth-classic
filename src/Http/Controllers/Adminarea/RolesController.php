@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Cortex\Auth\Http\Controllers\Adminarea;
 
 use Cortex\Auth\Models\Role;
+use Cortex\Foundation\DataTables\ImportRecordsDataTable;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
@@ -57,30 +59,65 @@ class RolesController extends AuthorizedController
     /**
      * Import roles.
      *
+     * @param \Cortex\Auth\Models\Role                             $role
+     * @param \Cortex\Foundation\DataTables\ImportRecordsDataTable $importRecordsDataTable
+     *
      * @return \Illuminate\View\View
      */
-    public function import()
+    public function import(Role $role, ImportRecordsDataTable $importRecordsDataTable)
     {
-        return view('cortex/foundation::adminarea.pages.import', [
-            'id' => 'adminarea-roles-import',
+        return $importRecordsDataTable->with([
+            'resource' => $role,
             'tabs' => 'adminarea.roles.tabs',
-            'url' => route('adminarea.roles.hoard'),
-        ]);
+            'url' => route('adminarea.roles.stash'),
+            'id' => "adminarea-roles-{$role->getRouteKey()}-import-table",
+        ])->render('cortex/foundation::adminarea.pages.datatable-dropzone');
     }
 
     /**
-     * Hoard roles.
+     * Stash roles.
      *
      * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
      * @param \Cortex\Foundation\Importers\DefaultImporter       $importer
      *
      * @return void
      */
-    public function hoard(ImportFormRequest $request, DefaultImporter $importer)
+    public function stash(ImportFormRequest $request, DefaultImporter $importer)
     {
         // Handle the import
         $importer->config['resource'] = $this->resource;
         $importer->handleImport();
+    }
+
+    /**
+     * Hoard roles.
+     *
+     * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function hoard(ImportFormRequest $request)
+    {
+        foreach ((array) $request->get('selected_ids') as $recordId) {
+            $record = app('cortex.foundation.import_record')->find($recordId);
+
+            try {
+                $fillable = collect($record['data'])->intersectByKeys(array_flip(app('rinvex.auth.role')->getFillable()))->toArray();
+
+                tap(app('rinvex.auth.role')->firstOrNew($fillable), function ($instance) use ($record) {
+                    $instance->save() && $record->delete();
+                });
+            } catch (Exception $exception) {
+                $record->notes = $exception->getMessage().(method_exists($exception, 'getMessageBag') ? "\n".json_encode($exception->getMessageBag())."\n\n" : '');
+                $record->status = 'fail';
+                $record->save();
+            }
+        }
+
+        return intend([
+            'back' => true,
+            'with' => ['success' => trans('cortex/foundation::messages.import_complete')],
+        ]);
     }
 
     /**
