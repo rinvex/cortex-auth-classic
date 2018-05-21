@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Controllers\Adminarea;
 
-use Cortex\Foundation\DataTables\ImportRecordsDataTable;
 use Exception;
 use Illuminate\Http\Request;
 use Cortex\Auth\Models\Ability;
@@ -14,6 +13,7 @@ use Cortex\Foundation\Importers\DefaultImporter;
 use Cortex\Foundation\DataTables\ImportLogsDataTable;
 use Cortex\Foundation\Http\Requests\ImportFormRequest;
 use Cortex\Auth\DataTables\Adminarea\AbilitiesDataTable;
+use Cortex\Foundation\DataTables\ImportRecordsDataTable;
 use Cortex\Auth\Http\Requests\Adminarea\AbilityFormRequest;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
 use Cortex\Auth\Http\Requests\Adminarea\AbilityFormProcessRequest;
