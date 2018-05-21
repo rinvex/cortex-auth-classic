@@ -81,7 +81,7 @@ class Manager extends User
             'country_code' => 'nullable|alpha|size:2|country',
             'language_code' => 'nullable|alpha|size:2|language',
             'birthday' => 'nullable|date_format:Y-m-d',
-            'gender' => 'nullable|string|in:male,female',
+            'gender' => 'nullable|in:male,female',
             'is_active' => 'sometimes|boolean',
             'last_activity' => 'nullable|date',
             'tags' => 'nullable|array',
