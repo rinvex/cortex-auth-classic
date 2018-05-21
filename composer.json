@@ -57,7 +57,7 @@
         "Illuminate/routing": "~5.6.0",
         "Illuminate/support": "~5.6.0",
         "cortex/foundation": "dev-develop",
-        "davejamesmiller/laravel-breadcrumbs": "^5.0.0",
+        "davejamesmiller/laravel-breadcrumbs": "^5.1.0",
         "laravel/socialite": "^3.0.0",
         "laravelcollective/html": "~5.6.0",
         "league/fractal": "^0.17.0",
@@ -75,12 +75,12 @@
         "silber/bouncer": "v1.0.0-rc.1",
         "spatie/laravel-activitylog": "^2.5.0",
         "yajra/laravel-datatables-buttons": "^3.2.0",
-        "yajra/laravel-datatables-fractal": "^1.1.0",
-        "yajra/laravel-datatables-html": "^3.6.0",
-        "yajra/laravel-datatables-oracle": "^8.4.0"
+        "yajra/laravel-datatables-fractal": "^1.2.0",
+        "yajra/laravel-datatables-html": "^3.7.0",
+        "yajra/laravel-datatables-oracle": "^8.6.0"
     },
     "require-dev": {
-        "codedungeon/phpunit-result-printer": "^0.6.0",
+        "codedungeon/phpunit-result-printer": "^0.19.0",
         "phpunit/phpunit": "^7.0.0"
     },
     "autoload": {
