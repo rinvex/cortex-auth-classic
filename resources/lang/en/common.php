@@ -124,26 +124,32 @@ return [
     'import' => 'Import',
 
     // Abilities Phrases
+    'ability' => 'Ability',
     'abilities' => 'Abilities',
     'create_ability' => 'Create New Ability',
 
     // Roles Phrases
+    'role' => 'Role',
     'roles' => 'Roles',
     'create_role' => 'Create New Role',
 
     // Admins Phrases
+    'admin' => 'Admin',
     'admins' => 'Admins',
     'create_admin' => 'Create New Admin',
 
     // Members Phrases
+    'member' => 'Member',
     'members' => 'Members',
     'create_member' => 'Create New Member',
 
     // Managers Phrases
+    'manager' => 'Manager',
     'managers' => 'Managers',
     'create_manager' => 'Create New Manager',
 
     // Guardians Phrases
+    'guardian' => 'Guardian',
     'guardians' => 'Guardians',
     'create_guardian' => 'Create New Guardian',
 
