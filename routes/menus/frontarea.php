@@ -19,7 +19,7 @@ if ($user = auth()->guard(request()->route('guard'))->user()) {
         //$menu->route(['frontarea.account.attributes'], trans('cortex/auth::common.attributes'), null, 'fa fa-leaf');
         $menu->route(['frontarea.account.sessions'], trans('cortex/auth::common.sessions'), null, 'fa fa-list-alt');
         $menu->route(['frontarea.account.password'], trans('cortex/auth::common.password'), null, 'fa fa-key');
-        $menu->route(['frontarea.account.twofactor.index'], trans('cortex/auth::common.twofactor'), null, 'fa fa-lock');
+        $menu->route(['frontarea.account.twofactor'], trans('cortex/auth::common.twofactor'), null, 'fa fa-lock');
     });
 } else {
     Menu::register('frontarea.header.user', function (MenuGenerator $menu) {
