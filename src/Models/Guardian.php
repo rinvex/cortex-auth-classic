@@ -188,4 +188,14 @@ class Guardian extends Model implements AuthenticatableContract, AuthorizableCon
 
         return $this;
     }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'username';
+    }
 }

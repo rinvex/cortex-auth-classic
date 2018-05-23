@@ -144,4 +144,14 @@ class Manager extends User
     {
         return $this->tenants->contains($tenant);
     }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'username';
+    }
 }

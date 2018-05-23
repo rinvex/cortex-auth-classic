@@ -336,4 +336,14 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
 
         return $this;
     }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'username';
+    }
 }
