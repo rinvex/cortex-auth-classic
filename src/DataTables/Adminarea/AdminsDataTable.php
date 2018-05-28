@@ -68,6 +68,7 @@ class AdminsDataTable extends AbstractDataTable
             'country_code' => ['title' => trans('cortex/auth::common.country'), 'render' => 'full.country_emoji+" "+data'],
             'language_code' => ['title' => trans('cortex/auth::common.language'), 'visible' => false],
             'title' => ['title' => trans('cortex/auth::common.title'), 'visible' => false],
+            'organization' => ['title' => trans('cortex/auth::common.organization'), 'visible' => false],
             'birthday' => ['title' => trans('cortex/auth::common.birthday'), 'visible' => false],
             'gender' => ['title' => trans('cortex/auth::common.gender'), 'visible' => false],
             'last_activity' => ['title' => trans('cortex/auth::common.last_activity'), 'render' => "moment(data).format('YYYY-MM-DD, hh:mm:ss A')", 'visible' => false],

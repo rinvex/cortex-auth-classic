@@ -129,6 +129,20 @@
 
                                 <div class="col-md-4">
 
+                                    {{-- Organization --}}
+                                    <div class="form-group{{ $errors->has('organization') ? ' has-error' : '' }}">
+                                        {{ Form::label('organization', trans('cortex/auth::common.organization'), ['class' => 'control-label']) }}
+                                        {{ Form::text('organization', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.organization')]) }}
+
+                                        @if ($errors->has('organization'))
+                                            <span class="help-block">{{ $errors->first('organization') }}</span>
+                                        @endif
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-4">
+
                                     {{-- Country Code --}}
                                     <div class="form-group{{ $errors->has('country_code') ? ' has-error' : '' }}">
                                         {{ Form::label('country_code', trans('cortex/auth::common.country'), ['class' => 'control-label']) }}

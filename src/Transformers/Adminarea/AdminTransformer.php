@@ -36,6 +36,7 @@ class AdminTransformer extends TransformerAbstract
             'country_emoji' => (string) optional($country)->getEmoji(),
             'language_code' => (string) optional($language)->getName(),
             'title' => (string) $admin->title,
+            'organization' => (string) $admin->organization,
             'birthday' => (string) $admin->birthday,
             'gender' => (string) $admin->gender,
             'last_activity' => (string) $admin->last_activity,

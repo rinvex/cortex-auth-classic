@@ -110,6 +110,19 @@
 
                                 <div class="col-md-4">
 
+                                    <div class="form-group{{ $errors->has('organization') ? ' has-error' : '' }}">
+                                        {{ Form::label('organization', trans('cortex/auth::common.organization')) }}
+                                        {{ Form::text('organization', null, ['class' => 'form-control', 'placeholder' => $currentUser->organization ?: trans('cortex/auth::common.organization')]) }}
+
+                                        @if ($errors->has('organization'))
+                                            <span class="help-block">{{ $errors->first('organization') }}</span>
+                                        @endif
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-4">
+
                                     <div class="form-group{{ $errors->has('country_code') ? ' has-error' : '' }}">
                                         {{ Form::label('country_code', trans('cortex/auth::common.country')) }}
                                         {{ Form::hidden('country_code', '') }}

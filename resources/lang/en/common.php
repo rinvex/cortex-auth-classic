@@ -54,6 +54,7 @@ return [
     'country' => 'Country',
     'language' => 'Language',
     'title' => 'Title',
+    'organization' => 'Organization',
     'password' => 'Password',
     'password_confirmation' => 'Password Confirmation',
     'old_password' => 'Old Password',

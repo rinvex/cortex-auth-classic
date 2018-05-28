@@ -30,6 +30,7 @@ class CreateAdminsTable extends Migration
             $table->boolean('phone_verified')->default(false);
             $table->timestamp('phone_verified_at')->nullable();
             $table->string('title')->nullable();
+            $table->string('organization')->nullable();
             $table->string('country_code', 2)->nullable();
             $table->string('language_code', 2)->nullable();
             $table->text('two_factor')->nullable();

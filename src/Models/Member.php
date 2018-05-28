@@ -51,6 +51,7 @@ class Member extends User
             'given_name' => 'required|string|max:150',
             'family_name' => 'nullable|string|max:150',
             'title' => 'nullable|string|max:150',
+            'organization' => 'nullable|string|max:150',
             'country_code' => 'nullable|alpha|size:2|country',
             'language_code' => 'nullable|alpha|size:2|language',
             'birthday' => 'nullable|date_format:Y-m-d',
