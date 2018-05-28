@@ -40,6 +40,7 @@ class Manager extends User
         'last_activity',
         'abilities',
         'roles',
+        'tags',
         'tenants',
     ];
 
@@ -89,6 +90,7 @@ class Manager extends User
             'is_active' => 'sometimes|boolean',
             'last_activity' => 'nullable|date',
             'tags' => 'nullable|array',
+            'tenants' => 'nullable|array',
         ]);
     }
 
