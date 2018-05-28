@@ -41,10 +41,6 @@ class CreateManagersTable extends Migration
             $table->timestamp('last_activity')->nullable();
             $table->auditableAndTimestamps();
             $table->softDeletes();
-
-            // Indexes
-            $table->unique('email');
-            $table->unique('username');
         });
     }
 

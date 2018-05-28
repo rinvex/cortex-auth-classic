@@ -99,6 +99,7 @@ return [
     'twitter' => 'Twitter',
     'facebook' => 'Facebook',
     'linkedin' => 'LinkedIn',
+    'scope' => 'Scope',
 
     // Misc
     'no' => 'No',

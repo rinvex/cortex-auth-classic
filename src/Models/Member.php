@@ -39,10 +39,10 @@ class Member extends User
 
         $this->setTable(config('cortex.auth.tables.members'));
         $this->setRules([
-            'username' => 'required|alpha_dash|min:3|max:150|unique:'.config('cortex.auth.tables.members').',username',
+            'username' => 'required|alpha_dash|min:3|max:150|unique_model:'.config('cortex.auth.models.member').',username',
             'password' => 'sometimes|required|min:'.config('cortex.auth.password_min_chars'),
             'two_factor' => 'nullable|array',
-            'email' => 'required|email|min:3|max:150|unique:'.config('cortex.auth.tables.members').',email',
+            'email' => 'required|email|min:3|max:150|unique_model:'.config('cortex.auth.models.member').',email',
             'email_verified' => 'sometimes|boolean',
             'email_verified_at' => 'nullable|date',
             'phone' => 'nullable|phone:AUTO',
