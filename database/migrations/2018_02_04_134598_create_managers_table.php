@@ -36,6 +36,7 @@ class CreateManagersTable extends Migration
             $table->text('two_factor')->nullable();
             $table->date('birthday')->nullable();
             $table->string('gender')->nullable();
+            $table->schemalessAttributes('social');
             $table->boolean('is_active')->default(true);
             $table->timestamp('last_activity')->nullable();
             $table->auditableAndTimestamps();
