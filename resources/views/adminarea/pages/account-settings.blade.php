@@ -207,6 +207,52 @@
 
                                 <div class="col-md-4">
 
+                                    {{-- Twitter --}}
+                                    <div class="form-group{{ $errors->has('social.twitter') ? ' has-error' : '' }}">
+                                        {{ Form::label('social[twitter]', trans('cortex/auth::common.twitter'), ['class' => 'control-label']) }}
+                                        {{ Form::text('social[twitter]', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.twitter')]) }}
+
+                                        @if ($errors->has('social.twitter'))
+                                            <span class="help-block">{{ $errors->first('social.twitter') }}</span>
+                                        @endif
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-4">
+
+                                    {{-- Facebook --}}
+                                    <div class="form-group{{ $errors->has('social.facebook') ? ' has-error' : '' }}">
+                                        {{ Form::label('facebook', trans('cortex/auth::common.facebook'), ['class' => 'control-label']) }}
+                                        {{ Form::text('facebook', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.facebook')]) }}
+
+                                        @if ($errors->has('social.facebook'))
+                                            <span class="help-block">{{ $errors->first('social.facebook') }}</span>
+                                        @endif
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-4">
+
+                                    {{-- Linkedin --}}
+                                    <div class="form-group{{ $errors->has('social.linkedin') ? ' has-error' : '' }}">
+                                        {{ Form::label('social[linkedin]', trans('cortex/auth::common.linkedin'), ['class' => 'control-label']) }}
+                                        {{ Form::text('social[linkedin]', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.linkedin')]) }}
+
+                                        @if ($errors->has('social.linkedin'))
+                                            <span class="help-block">{{ $errors->first('social.linkedin') }}</span>
+                                        @endif
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-4">
+
                                     {{-- Profile Picture --}}
                                     <div class="form-group has-feedback{{ $errors->has('profile_picture') ? ' has-error' : '' }}">
                                         {{ Form::label('profile_picture', trans('cortex/auth::common.profile_picture'), ['class' => 'control-label']) }}

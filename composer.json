@@ -74,6 +74,7 @@
         "rinvex/tenants": "dev-develop",
         "silber/bouncer": "v1.0.0-rc.1",
         "spatie/laravel-activitylog": "^2.5.0",
+        "spatie/laravel-schemaless-attributes": "~1.1.0",
         "yajra/laravel-datatables-buttons": "^3.2.0",
         "yajra/laravel-datatables-fractal": "^1.2.0",
         "yajra/laravel-datatables-html": "^3.7.0",

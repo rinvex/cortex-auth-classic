@@ -22,6 +22,7 @@ use Rinvex\Attributes\Traits\Attributable;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Spatie\Activitylog\Traits\HasActivity;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Rinvex\Support\Traits\HasSocialAttributes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Rinvex\Auth\Traits\AuthenticatableTwoFactor;
 use Rinvex\Auth\Contracts\CanVerifyEmailContract;
@@ -55,6 +56,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     use Authenticatable;
     use ValidatingTrait;
     use CanResetPassword;
+    use HasSocialAttributes;
     use HasRolesAndAbilities;
     use AuthenticatableTwoFactor;
 
@@ -79,6 +81,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
         'language_code',
         'birthday',
         'gender',
+        'social',
         'is_active',
         'last_activity',
         'abilities',
@@ -107,6 +110,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
         'language_code' => 'string',
         'birthday' => 'string',
         'gender' => 'string',
+        'social' => 'array',
         'is_active' => 'boolean',
         'last_activity' => 'datetime',
         'deleted_at' => 'datetime',

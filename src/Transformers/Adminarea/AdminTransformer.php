@@ -39,6 +39,7 @@ class AdminTransformer extends TransformerAbstract
             'organization' => (string) $admin->organization,
             'birthday' => (string) $admin->birthday,
             'gender' => (string) $admin->gender,
+            'social' => (array) $admin->social,
             'last_activity' => (string) $admin->last_activity,
             'created_at' => (string) $admin->created_at,
             'updated_at' => (string) $admin->updated_at,

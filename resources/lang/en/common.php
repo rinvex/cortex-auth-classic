@@ -96,6 +96,9 @@ return [
     'account_password' => 'Account Password',
     'account_sessions' => 'Account Sessions',
     'reauthentication' => 'Reauthentication',
+    'twitter' => 'Twitter',
+    'facebook' => 'Facebook',
+    'linkedin' => 'LinkedIn',
 
     // Misc
     'no' => 'No',
