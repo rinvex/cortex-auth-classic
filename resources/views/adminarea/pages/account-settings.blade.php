@@ -35,12 +35,25 @@
 
                                 <div class="col-md-4">
 
-                                    <div class="form-group{{ $errors->has('full_name') ? ' has-error' : '' }}">
-                                        {{ Form::label('full_name', trans('cortex/auth::common.full_name')) }}
-                                        {{ Form::text('full_name', null, ['class' => 'form-control', 'placeholder' => $currentUser->full_name ?: trans('cortex/auth::common.full_name'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
+                                    <div class="form-group{{ $errors->has('given_name') ? ' has-error' : '' }}">
+                                        {{ Form::label('given_name', trans('cortex/auth::common.given_name')) }}
+                                        {{ Form::text('given_name', null, ['class' => 'form-control', 'placeholder' => $currentUser->given_name ?: trans('cortex/auth::common.given_name'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
 
-                                        @if ($errors->has('full_name'))
-                                            <span class="help-block">{{ $errors->first('full_name') }}</span>
+                                        @if ($errors->has('given_name'))
+                                            <span class="help-block">{{ $errors->first('given_name') }}</span>
+                                        @endif
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-4">
+
+                                    <div class="form-group{{ $errors->has('family_name') ? ' has-error' : '' }}">
+                                        {{ Form::label('family_name', trans('cortex/auth::common.family_name')) }}
+                                        {{ Form::text('family_name', null, ['class' => 'form-control', 'placeholder' => $currentUser->family_name ?: trans('cortex/auth::common.family_name')]) }}
+
+                                        @if ($errors->has('family_name'))
+                                            <span class="help-block">{{ $errors->first('family_name') }}</span>
                                         @endif
                                     </div>
 

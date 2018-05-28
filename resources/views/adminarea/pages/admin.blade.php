@@ -48,13 +48,27 @@
 
                                 <div class="col-md-4">
 
-                                    {{-- Full Name --}}
-                                    <div class="form-group{{ $errors->has('full_name') ? ' has-error' : '' }}">
-                                        {{ Form::label('full_name', trans('cortex/auth::common.full_name'), ['class' => 'control-label']) }}
-                                        {{ Form::text('full_name', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.full_name'), 'data-slugify' => '[name="username"]', 'required' => 'required', 'autofocus' => 'autofocus']) }}
+                                    {{-- Given Name --}}
+                                    <div class="form-group{{ $errors->has('given_name') ? ' has-error' : '' }}">
+                                        {{ Form::label('given_name', trans('cortex/auth::common.given_name'), ['class' => 'control-label']) }}
+                                        {{ Form::text('given_name', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.given_name'), 'data-slugify' => '[name="username"]', 'required' => 'required', 'autofocus' => 'autofocus']) }}
 
-                                        @if ($errors->has('full_name'))
-                                            <span class="help-block">{{ $errors->first('full_name') }}</span>
+                                        @if ($errors->has('given_name'))
+                                            <span class="help-block">{{ $errors->first('given_name') }}</span>
+                                        @endif
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-4">
+
+                                    {{-- Family Name --}}
+                                    <div class="form-group{{ $errors->has('family_name') ? ' has-error' : '' }}">
+                                        {{ Form::label('family_name', trans('cortex/auth::common.family_name'), ['class' => 'control-label']) }}
+                                        {{ Form::text('family_name', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.family_name')]) }}
+
+                                        @if ($errors->has('family_name'))
+                                            <span class="help-block">{{ $errors->first('family_name') }}</span>
                                         @endif
                                     </div>
 

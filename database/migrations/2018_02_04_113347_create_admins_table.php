@@ -18,7 +18,8 @@ class CreateAdminsTable extends Migration
         Schema::create(config('cortex.auth.tables.admins'), function (Blueprint $table) {
             // Columns
             $table->increments('id');
-            $table->string('full_name');
+            $table->string('given_name');
+            $table->string('family_name')->nullable();
             $table->string('email');
             $table->string('username');
             $table->string('password');

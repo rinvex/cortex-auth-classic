@@ -71,7 +71,8 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
         'phone',
         'phone_verified',
         'phone_verified_at',
-        'full_name',
+        'given_name',
+        'family_name',
         'title',
         'country_code',
         'language_code',
@@ -97,7 +98,8 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
         'phone' => 'string',
         'phone_verified' => 'boolean',
         'phone_verified_at' => 'datetime',
-        'full_name' => 'string',
+        'given_name' => 'string',
+        'family_name' => 'string',
         'title' => 'string',
         'country_code' => 'string',
         'language_code' => 'string',
@@ -311,6 +313,16 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     public function getLanguageAttribute(): Language
     {
         return language($this->language_code);
+    }
+
+    /**
+     * Get full name attribute.
+     *
+     * @return string
+     */
+    public function getFullNameAttribute(): string
+    {
+        return implode(' ', [$this->given_name, $this->family_name]);
     }
 
     /**
