@@ -27,7 +27,26 @@
                 <div class="tab-content">
 
                     <div class="tab-pane active" id="attributes-tab">
-                        @attributes($admin)
+
+                        {{--{{ Form::model($admin, ['url' => route('adminarea.admins.attributes', ['admin' => $admin]), 'id' => "adminarea-admins-{$admin->getRouteKey()}-attributes-form", 'method' => 'put', 'files' => true]) }}--}}
+
+                            {{--@attributes($admin)--}}
+
+                            {{--<div class="row">--}}
+                                {{--<div class="col-md-12">--}}
+
+                                    {{--<div class="pull-right">--}}
+                                        {{--{{ Form::button(trans('cortex/auth::common.submit'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}--}}
+                                    {{--</div>--}}
+
+                                    {{--@include('cortex/foundation::adminarea.partials.timestamps', ['model' => $admin])--}}
+
+                                {{--</div>--}}
+
+                            {{--</div>--}}
+
+                        {{--{{ Form::close() }}--}}
+
                     </div>
 
                 </div>
