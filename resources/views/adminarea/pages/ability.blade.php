@@ -14,7 +14,7 @@
 @section('content')
 
     @if($ability->exists)
-        @include('cortex/foundation::common.partials.confirm-deletion')
+        @include('cortex/foundation::common.partials.modal', ['id' => 'delete-confirmation'])
     @endif
 
     <div class="content-wrapper">
@@ -26,7 +26,17 @@
         <section class="content">
 
             <div class="nav-tabs-custom">
-                @if($ability->exists && $currentUser->can('delete', $ability)) <div class="pull-right"><a href="#" data-toggle="modal" data-target="#delete-confirmation" data-modal-action="{{ route('adminarea.abilities.destroy', ['ability' => $ability]) }}" data-modal-title="{!! trans('cortex/foundation::messages.delete_confirmation_title') !!}" data-modal-body="{!! trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/auth::common.ability'), 'identifier' => $ability->title]) !!}" title="{{ trans('cortex/foundation::common.delete') }}" class="btn btn-default" style="margin: 4px"><i class="fa fa-trash text-danger"></i></a></div> @endif
+                @if($ability->exists && $currentUser->can('delete', $ability))
+                    <div class="pull-right">
+                        <a href="#" data-toggle="modal" data-target="#delete-confirmation"
+                           data-modal-action="{{ route('adminarea.abilities.destroy', ['ability' => $ability]) }}"
+                           data-modal-title="{!! trans('cortex/foundation::messages.delete_confirmation_title') !!}"
+                           data-modal-button="<a href='#' class='btn btn-danger' data-form='delete' data-token='{{ csrf_token() }}'><i class='fa fa-trash-o'></i> {{ trans('cortex/foundation::common.delete') }}</a>"
+                           data-modal-body="{!! trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/auth::common.ability'), 'identifier' => $ability->title]) !!}"
+                           title="{{ trans('cortex/foundation::common.delete') }}" class="btn btn-default" style="margin: 4px"><i class="fa fa-trash text-danger"></i>
+                        </a>
+                    </div>
+                @endif
                 {!! Menu::render('adminarea.abilities.tabs', 'nav-tab') !!}
 
                 <div class="tab-content">
