@@ -7,7 +7,7 @@
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\AdminAttributesFormRequest::class)->selector("#adminarea-admins-create-form, #adminarea-admins-{$admin->getRouteKey()}-update-attributes-form") !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\AdminAttributesFormRequest::class)->selector("#adminarea-admins-create-form, #adminarea-admins-{$admin->getRouteKey()}-update-attributes-form")->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}

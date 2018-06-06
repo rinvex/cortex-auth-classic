@@ -7,7 +7,7 @@
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\RoleFormProcessRequest::class)->selector("#adminarea-roles-create-form, #adminarea-roles-{$role->getRouteKey()}-update-form") !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\RoleFormProcessRequest::class)->selector("#adminarea-roles-create-form, #adminarea-roles-{$role->getRouteKey()}-update-form")->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}
@@ -102,7 +102,7 @@
                                         {{-- Abilities --}}
                                         <div class="form-group{{ $errors->has('abilities') ? ' has-error' : '' }}">
                                             {{ Form::label('abilities[]', trans('cortex/auth::common.abilities'), ['class' => 'control-label']) }}
-                                            {{ Form::hidden('abilities', '') }}
+                                            {{ Form::hidden('abilities', '', ['class' => 'skip-validation']) }}
                                             {{ Form::select('abilities[]', $abilities, null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/auth::common.select_abilities'), 'multiple' => 'multiple', 'data-close-on-select' => 'false', 'data-width' => '100%']) }}
 
                                             @if ($errors->has('abilities'))

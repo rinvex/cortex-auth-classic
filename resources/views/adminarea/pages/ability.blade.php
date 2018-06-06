@@ -7,7 +7,7 @@
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\AbilityFormProcessRequest::class)->selector("#adminarea-abilities-create-form, #adminarea-abilities-{$ability->getRouteKey()}-update-form") !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\AbilityFormProcessRequest::class)->selector("#adminarea-abilities-create-form, #adminarea-abilities-{$ability->getRouteKey()}-update-form")->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}
@@ -102,7 +102,7 @@
                                     {{-- Entity Type --}}
                                     <div class="form-group{{ $errors->has('entity_type') ? ' has-error' : '' }}">
                                         {{ Form::label('entity_type', trans('cortex/auth::common.entity_type'), ['class' => 'control-label']) }}
-                                        {{ Form::hidden('entity_type', '') }}
+                                        {{ Form::hidden('entity_type', '', ['class' => 'skip-validation']) }}
                                         {{ Form::select('entity_type', $entityTypes, null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/attributes::common.select_entity_type'), 'data-tags' => 'true', 'required' => 'required', 'data-width' => '100%']) }}
 
                                         @if ($errors->has('entity_type'))
@@ -132,7 +132,7 @@
                                         {{-- Roles --}}
                                         <div class="form-group{{ $errors->has('roles') ? ' has-error' : '' }}">
                                             {{ Form::label('roles[]', trans('cortex/auth::common.roles'), ['class' => 'control-label']) }}
-                                            {{ Form::hidden('roles', '') }}
+                                            {{ Form::hidden('roles', '', ['class' => 'skip-validation']) }}
                                             {{ Form::select('roles[]', $roles, null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/auth::common.select_roles'), 'multiple' => 'multiple', 'data-close-on-select' => 'false', 'data-width' => '100%']) }}
 
                                             @if ($errors->has('roles'))

@@ -7,7 +7,7 @@
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\AccountSettingsRequest::class)->selector('#adminarea-account-settings-form') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\AccountSettingsRequest::class)->selector('#adminarea-account-settings-form')->ignore('.skip-validation') !!}
 
     <script>
         window.countries = {!! $countries !!};
@@ -125,7 +125,7 @@
 
                                     <div class="form-group{{ $errors->has('country_code') ? ' has-error' : '' }}">
                                         {{ Form::label('country_code', trans('cortex/auth::common.country')) }}
-                                        {{ Form::hidden('country_code', '') }}
+                                        {{ Form::hidden('country_code', '', ['class' => 'skip-validation']) }}
                                         {{ Form::select('country_code', [], null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/auth::common.select_country'), 'data-allow-clear' => 'true', 'data-width' => '100%']) }}
 
                                         @if ($errors->has('country_code'))
@@ -139,7 +139,7 @@
 
                                     <div class="form-group{{ $errors->has('language_code') ? ' has-error' : '' }}">
                                         {{ Form::label('language_code', trans('cortex/auth::common.language')) }}
-                                        {{ Form::hidden('language_code', '') }}
+                                        {{ Form::hidden('language_code', '', ['class' => 'skip-validation']) }}
                                         {{ Form::select('language_code', $languages, null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/auth::common.select_language'), 'data-allow-clear' => 'true', 'data-width' => '100%']) }}
 
                                         @if ($errors->has('language_code'))
@@ -177,8 +177,7 @@
 
                                     <div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
                                         {{ Form::label('gender', trans('cortex/auth::common.gender')) }}
-                                        {{ Form::hidden('gender') }}
-                                        {{ Form::hidden('gender', '') }}
+                                        {{ Form::hidden('gender', '', ['class' => 'skip-validation']) }}
                                         {{ Form::select('gender', $genders, null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/auth::common.select_gender'), 'data-allow-clear' => 'true', 'data-minimum-results-for-search' => 'Infinity', 'data-width' => '100%']) }}
 
                                         @if ($errors->has('gender'))

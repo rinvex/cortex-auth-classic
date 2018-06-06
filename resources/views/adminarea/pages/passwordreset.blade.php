@@ -8,7 +8,7 @@
 
 {{-- Scripts --}}
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\PasswordResetPostProcessRequest::class)->selector('#adminarea-passwordreset-form') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\PasswordResetPostProcessRequest::class)->selector('#adminarea-passwordreset-form')->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}
@@ -24,8 +24,8 @@
 
             {{ Form::open(['url' => route('adminarea.passwordreset.process'), 'id' => 'adminarea-passwordreset-form', 'role' => 'auth']) }}
 
-                {{ Form::hidden('expiration', old('expiration', $expiration)) }}
-                {{ Form::hidden('token', old('token', $token)) }}
+                {{ Form::hidden('expiration', old('expiration', $expiration), ['class' => 'skip-validation']) }}
+                {{ Form::hidden('token', old('token', $token), ['class' => 'skip-validation']) }}
 
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                     {{ Form::email('email', old('email', $email), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.email'), 'required' => 'required', 'readonly' => 'readonly']) }}

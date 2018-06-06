@@ -8,7 +8,7 @@
 
 {{-- Scripts --}}
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\PasswordResetProcessRequest::class)->selector('#adminarea-passwordreset-request-form') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\PasswordResetProcessRequest::class)->selector('#adminarea-passwordreset-request-form')->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}

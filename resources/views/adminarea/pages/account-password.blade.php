@@ -7,7 +7,7 @@
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\AccountPasswordRequest::class)->selector('#adminarea-account-password-form') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\AccountPasswordRequest::class)->selector('#adminarea-account-password-form')->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}

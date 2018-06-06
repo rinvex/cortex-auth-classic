@@ -8,7 +8,7 @@
 
 {{-- Scripts --}}
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\PhoneVerificationProcessRequest::class)->selector('#adminarea-verification-phone-token-form') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\PhoneVerificationProcessRequest::class)->selector('#adminarea-verification-phone-token-form')->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}
@@ -25,7 +25,7 @@
             {{ Form::open(['url' => route('adminarea.verification.phone.process'), 'id' => 'adminarea-verification-phone-token-form', 'role' => 'auth']) }}
 
                 <div class="form-group has-feedback{{ $errors->has('token') ? ' has-error' : '' }}">
-                    {{ Form::hidden('phone', old('phone', request('phone'))) }}
+                    {{ Form::hidden('phone', old('phone', request('phone')), ['class' => 'skip-validation']) }}
                     {{ Form::text('token', null, ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.authentication_code'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
 
                     @if ($errors->has('token'))

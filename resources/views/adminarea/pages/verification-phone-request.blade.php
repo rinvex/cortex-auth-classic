@@ -8,7 +8,7 @@
 
 {{-- Scripts --}}
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\PhoneVerificationSendRequest::class)->selector('#adminarea-verification-phone-request-form') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\PhoneVerificationSendRequest::class)->selector('#adminarea-verification-phone-request-form')->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}

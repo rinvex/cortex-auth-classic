@@ -8,7 +8,7 @@
 
 {{-- Scripts --}}
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\AuthenticationRequest::class)->selector('#adminarea-login-form') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\AuthenticationRequest::class)->selector('#adminarea-login-form')->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}
