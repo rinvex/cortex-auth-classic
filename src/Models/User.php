@@ -18,7 +18,6 @@ use Rinvex\Cacheable\CacheableEloquent;
 use Rinvex\Support\Traits\HashidsTrait;
 use Illuminate\Notifications\Notifiable;
 use Rinvex\Auth\Traits\CanResetPassword;
-use Rinvex\Attributes\Traits\Attributable;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Spatie\Activitylog\Traits\HasActivity;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
@@ -47,7 +46,6 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     use Notifiable;
     use HasActivity;
     use HashidsTrait;
-    use Attributable;
     use Authorizable;
     use HasHashables;
     use HasMediaTrait;
