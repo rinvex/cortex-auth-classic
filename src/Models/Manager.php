@@ -71,10 +71,10 @@ class Manager extends User
 
         $this->setTable(config('cortex.auth.tables.managers'));
         $this->setRules([
-            'username' => 'required|alpha_dash|min:3|max:150|unique_model:'.config('cortex.auth.models.manager').',username',
+            'username' => 'required|alpha_dash|min:3|max:150|unique:'.config('cortex.auth.tables.managers').',username',
             'password' => 'sometimes|required|min:'.config('cortex.auth.password_min_chars'),
             'two_factor' => 'nullable|array',
-            'email' => 'required|email|min:3|max:150|unique_model:'.config('cortex.auth.models.manager').',email',
+            'email' => 'required|email|min:3|max:150|unique:'.config('cortex.auth.tables.managers').',email',
             'email_verified' => 'sometimes|boolean',
             'email_verified_at' => 'nullable|date',
             'phone' => 'nullable',
