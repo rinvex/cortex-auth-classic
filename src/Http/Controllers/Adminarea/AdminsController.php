@@ -239,7 +239,7 @@ class AdminsController extends AuthorizedController
         $genders = ['male' => trans('cortex/auth::common.male'), 'female' => trans('cortex/auth::common.female')];
 
         $roles = $currentUser->can('superadmin')
-            ? app('cortex.auth.role')->all()->pluck('name', 'id')->toArray()
+            ? app('cortex.auth.role')->all()->pluck('title', 'id')->toArray()
             : $currentUser->roles->pluck('name', 'id')->toArray();
 
         $abilities = $currentUser->can('superadmin')
