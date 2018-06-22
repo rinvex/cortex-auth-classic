@@ -15,7 +15,10 @@
          printerClass="Codedungeon\PHPUnitPrettyResultPrinter\Printer">
     <testsuites>
         <testsuite name="Cortex Auth Unit Test Suite">
-            <directory>tests</directory>
+            <directory>tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Cortex Auth Integration Test Suite">
+            <directory>tests/Integration</directory>
         </testsuite>
     </testsuites>
     <filter>

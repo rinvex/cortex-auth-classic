@@ -68,6 +68,7 @@
         "rinvex/auth": "dev-develop",
         "rinvex/composer": "dev-develop",
         "rinvex/country": "dev-develop",
+        "rinvex/forms": "dev-develop",
         "rinvex/language": "dev-develop",
         "rinvex/menus": "dev-develop",
         "rinvex/support": "dev-develop",
@@ -90,6 +91,11 @@
         ],
         "psr-4": {
             "Cortex\\Auth\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Cortex\\Auth\\Tests\\": "tests"
         }
     },
     "config": {
