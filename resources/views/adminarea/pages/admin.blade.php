@@ -131,7 +131,7 @@
                                         {{ Form::label('phone_verified', trans('cortex/auth::common.verified'), ['class' => 'control-label pull-right']) }}
 
                                         <div class="input-group">
-                                            {{ Form::tel('phone', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.phone')]) }}
+                                            {{ Form::tel('phone_input', $admin->phone, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.phone')]) }}
                                             <span class="input-group-addon">
                                                 {{ Form::checkbox('phone_verified') }}
                                             </span>

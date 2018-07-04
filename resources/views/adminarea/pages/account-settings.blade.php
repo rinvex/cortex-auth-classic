@@ -157,7 +157,7 @@
 
                                     <div class="form-group has-feedback{{ $errors->has('phone') ? ' has-error' : '' }}">
                                         {{ Form::label('phone', trans('cortex/auth::common.phone')) }}
-                                        {{ Form::tel('phone', null, ['class' => 'form-control', 'placeholder' => $currentUser->phone ?: trans('cortex/auth::common.phone')]) }}
+                                        {{ Form::tel('phone_input', $currentUser->phone, ['class' => 'form-control', 'placeholder' => $currentUser->phone ?: trans('cortex/auth::common.phone')]) }}
 
                                         @if ($currentUser->phone_verified)
                                             <small class="text-success">{!! trans('cortex/auth::common.phone_verified', ['date' => $currentUser->phone_verified_at]) !!}</small>
