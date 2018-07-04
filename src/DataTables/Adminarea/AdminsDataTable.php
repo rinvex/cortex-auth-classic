@@ -60,9 +60,9 @@ class AdminsDataTable extends AbstractDataTable
             : '"<a href=\""+routes.route(\'adminarea.admins.edit\', {admin: full.id})+"\">"+data+"</a>"';
 
         return [
-            'given_name' => ['title' => trans('cortex/auth::common.given_name'), 'render' => $link.'+(full.is_active ? " <i class=\"text-success fa fa-check\"></i>" : " <i class=\"text-danger fa fa-close\"></i>")', 'responsivePriority' => 0],
+            'username' => ['title' => trans('cortex/auth::common.username'), 'render' => $link.'+(full.is_active ? " <i class=\"text-success fa fa-check\"></i>" : " <i class=\"text-danger fa fa-close\"></i>")', 'responsivePriority' => 0],
+            'given_name' => ['title' => trans('cortex/auth::common.given_name')],
             'family_name' => ['title' => trans('cortex/auth::common.family_name')],
-            'username' => ['title' => trans('cortex/auth::common.username')],
             'email' => ['title' => trans('cortex/auth::common.email'), 'render' => 'data+(data ? (full.email_verified ? " <i class=\"text-success fa fa-check\" title=\""+full.email_verified_at+"\"></i>" : " <i class=\"text-danger fa fa-close\"></i>") : "")'],
             'phone' => ['title' => trans('cortex/auth::common.phone'), 'render' => 'data+(data ? (full.phone_verified ? " <i class=\"text-success fa fa-check\" title=\""+full.phone_verified_at+"\"></i>" : " <i class=\"text-danger fa fa-close\"></i>") : "")'],
             'country_code' => ['title' => trans('cortex/auth::common.country'), 'render' => 'full.country_emoji+" "+data'],
