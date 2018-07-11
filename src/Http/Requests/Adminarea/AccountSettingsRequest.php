@@ -30,26 +30,25 @@ class AccountSettingsRequest extends FormRequest
     {
         $data = $this->all();
 
-        if ($user = $this->user($this->route('guard'))) {
-            $country = $data['country_code'] ?? null;
-            $email = $data['email'] ?? null;
-            $phone = $data['phone'] ?? null;
-            $twoFactor = $user->getTwoFactor();
+        $country = $data['country_code'] ?? null;
+        $email = $data['email'] ?? null;
+        $phone = $data['phone'] ?? null;
+        $user = $this->user($this->route('guard'));
+        $twoFactor = $user->getTwoFactor();
 
-            if ($email !== $user->email) {
-                $data['email_verified'] = false;
-                $data['email_verified_at'] = null;
-            }
+        if ($email !== $user->email) {
+            $data['email_verified'] = false;
+            $data['email_verified_at'] = null;
+        }
 
-            if ($phone !== $user->phone) {
-                $data['phone_verified'] = false;
-                $data['phone_verified_at'] = null;
-            }
+        if ($phone !== $user->phone) {
+            $data['phone_verified'] = false;
+            $data['phone_verified_at'] = null;
+        }
 
-            if ($twoFactor && (isset($data['phone_verified']) || $country !== $user->country_code)) {
-                array_set($twoFactor, 'phone.enabled', false);
-                $data['two_factor'] = $twoFactor;
-            }
+        if ($twoFactor && (isset($data['phone_verified']) || $country !== $user->country_code)) {
+            array_set($twoFactor, 'phone.enabled', false);
+            $data['two_factor'] = $twoFactor;
         }
 
         $this->replace($data);
