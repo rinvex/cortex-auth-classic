@@ -53,7 +53,7 @@ class Admin extends User
             'language_code' => 'nullable|alpha|size:2|language',
             'birthday' => 'nullable|date_format:Y-m-d',
             'gender' => 'nullable|in:male,female',
-            'social' => 'nullable',
+            'social' => 'nullable|array',
             'is_active' => 'sometimes|boolean',
             'last_activity' => 'nullable|date',
             'tags' => 'nullable|array',
