@@ -148,8 +148,8 @@ class Guardian extends Model implements AuthenticatableContract, AuthorizableCon
 
         static::saving(function (self $user) {
             foreach (array_intersect($user->getHashables(), array_keys($user->getAttributes())) as $hashable) {
-                if ($user->isDirty($hashable) && Hash::needsRehash($user->$hashable)) {
-                    $user->$hashable = Hash::make($user->$hashable);
+                if ($user->isDirty($hashable) && Hash::needsRehash($user->{$hashable})) {
+                    $user->{$hashable} = Hash::make($user->{$hashable});
                 }
             }
         });
