@@ -230,6 +230,8 @@ class GuardiansController extends AuthorizedController
      *
      * @param \Cortex\Auth\Models\Guardian $guardian
      *
+     * @throws \Exception
+     *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function destroy(Guardian $guardian)

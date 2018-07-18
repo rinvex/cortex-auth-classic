@@ -6,6 +6,7 @@ use Cortex\Auth\Models\Role;
 use Cortex\Auth\Models\Admin;
 use Cortex\Auth\Models\Ability;
 use Cortex\Auth\Models\Guardian;
+use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator;
 
 Breadcrumbs::register('adminarea.roles.index', function (BreadcrumbsGenerator $breadcrumbs) {

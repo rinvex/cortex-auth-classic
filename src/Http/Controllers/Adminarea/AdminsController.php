@@ -319,6 +319,8 @@ class AdminsController extends AuthorizedController
      *
      * @param \Cortex\Auth\Models\Admin $admin
      *
+     * @throws \Exception
+     *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function destroy(Admin $admin)

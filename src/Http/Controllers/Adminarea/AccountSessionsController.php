@@ -25,6 +25,8 @@ class AccountSessionsController extends AuthenticatedController
      *
      * @param \Cortex\Auth\Models\Session $session
      *
+     * @throws \Exception
+     *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function destroy(Session $session)

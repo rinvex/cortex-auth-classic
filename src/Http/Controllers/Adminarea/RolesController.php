@@ -234,6 +234,8 @@ class RolesController extends AuthorizedController
      *
      * @param \Cortex\Auth\Models\Role $role
      *
+     * @throws \Exception
+     *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function destroy(Role $role)
