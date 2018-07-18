@@ -249,8 +249,8 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
 
         static::saving(function (self $user) {
             foreach (array_intersect($user->getHashables(), array_keys($user->getAttributes())) as $hashable) {
-                if ($user->isDirty($hashable) && Hash::needsRehash($user->$hashable)) {
-                    $user->$hashable = Hash::make($user->$hashable);
+                if ($user->isDirty($hashable) && Hash::needsRehash($user->{$hashable})) {
+                    $user->{$hashable} = Hash::make($user->{$hashable});
                 }
             }
         });
