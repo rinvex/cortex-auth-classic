@@ -67,6 +67,6 @@ class MemberEmailVerificationNotification extends Notification implements Should
             ->subject(trans('cortex/auth::emails.verification.email.subject'))
             ->line(trans('cortex/auth::emails.verification.email.intro', ['expire' => now()->createFromTimestamp($this->expiration)->diffForHumans()]))
             ->action(trans('cortex/auth::emails.verification.email.action'), $link)
-            ->line(trans('cortex/auth::emails.verification.email.outro'));
+            ->line(trans('cortex/auth::emails.verification.email.outro', ['created_at' => now(), 'ip' => request()->ip(), 'agent' => request()->userAgent()]));
     }
 }

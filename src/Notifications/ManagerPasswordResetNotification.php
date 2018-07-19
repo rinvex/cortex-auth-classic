@@ -67,6 +67,6 @@ class ManagerPasswordResetNotification extends Notification implements ShouldQue
             ->subject(trans('cortex/auth::emails.passwordreset.request.subject'))
             ->line(trans('cortex/auth::emails.passwordreset.request.intro', ['expire' => now()->createFromTimestamp($this->expiration)->diffForHumans()]))
             ->action(trans('cortex/auth::emails.passwordreset.request.action'), $link)
-            ->line(trans('cortex/auth::emails.passwordreset.request.outro'));
+            ->line(trans('cortex/auth::emails.passwordreset.request.outro', ['created_at' => now(), 'ip' => request()->ip(), 'agent' => request()->userAgent()]));
     }
 }

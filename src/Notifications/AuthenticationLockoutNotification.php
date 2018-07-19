@@ -62,11 +62,7 @@ class AuthenticationLockoutNotification extends Notification implements ShouldQu
     {
         return (new MailMessage())
             ->subject(trans('cortex/auth::emails.auth.lockout.subject'))
-            ->line(trans('cortex/auth::emails.auth.lockout.intro', [
-                'created_at' => now(),
-                'ip' => $this->ip,
-                'agent' => $this->agent,
-            ]))
+            ->line(trans('cortex/auth::emails.auth.lockout.intro', ['created_at' => now(), 'ip' => $this->ip, 'agent' => $this->agent]))
             ->line(trans('cortex/auth::emails.auth.lockout.outro'));
     }
 }
