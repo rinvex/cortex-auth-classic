@@ -103,8 +103,9 @@ Route::domain(domain())->group(function () {
                      Route::get('import/logs')->name('import.logs')->uses('AbilitiesController@importLogs');
                      Route::get('create')->name('create')->uses('AbilitiesController@create');
                      Route::post('create')->name('store')->uses('AbilitiesController@store');
-                     Route::get('{ability}')->name('edit')->uses('AbilitiesController@edit');
-                     Route::put('{ability}')->name('update')->uses('AbilitiesController@update');
+                     Route::get('{ability}')->name('show')->uses('AbilitiesController@show');
+                     Route::get('{ability}/edit')->name('edit')->uses('AbilitiesController@edit');
+                     Route::put('{ability}/edit')->name('update')->uses('AbilitiesController@update');
                      Route::get('{ability}/logs')->name('logs')->uses('AbilitiesController@logs');
                      Route::delete('{ability}')->name('destroy')->uses('AbilitiesController@destroy');
                  });
@@ -118,8 +119,9 @@ Route::domain(domain())->group(function () {
                      Route::get('import/logs')->name('import.logs')->uses('RolesController@importLogs');
                      Route::get('create')->name('create')->uses('RolesController@create');
                      Route::post('create')->name('store')->uses('RolesController@store');
-                     Route::get('{role}')->name('edit')->uses('RolesController@edit');
-                     Route::put('{role}')->name('update')->uses('RolesController@update');
+                     Route::get('{role}')->name('show')->uses('RolesController@show');
+                     Route::get('{role}/edit')->name('edit')->uses('RolesController@edit');
+                     Route::put('{role}/edit')->name('update')->uses('RolesController@update');
                      Route::get('{role}/logs')->name('logs')->uses('RolesController@logs');
                      Route::delete('{role}')->name('destroy')->uses('RolesController@destroy');
                  });
@@ -133,8 +135,9 @@ Route::domain(domain())->group(function () {
                      Route::get('import/logs')->name('import.logs')->uses('AdminsController@importLogs');
                      Route::get('create')->name('create')->uses('AdminsController@create');
                      Route::post('create')->name('store')->uses('AdminsController@store');
-                     Route::get('{admin}')->name('edit')->uses('AdminsController@edit');
-                     Route::put('{admin}')->name('update')->uses('AdminsController@update');
+                     Route::get('{admin}')->name('show')->uses('AdminsController@show');
+                     Route::get('{admin}/edit')->name('edit')->uses('AdminsController@edit');
+                     Route::put('{admin}/edit')->name('update')->uses('AdminsController@update');
                      Route::get('{admin}/logs')->name('logs')->uses('AdminsController@logs');
                      Route::get('{admin}/activities')->name('activities')->uses('AdminsController@activities');
                      Route::get('{admin}/attributes')->name('attributes')->uses('AdminsController@attributes');
@@ -152,8 +155,9 @@ Route::domain(domain())->group(function () {
                      Route::get('import/logs')->name('import.logs')->uses('GuardiansController@importLogs');
                      Route::get('create')->name('create')->uses('GuardiansController@create');
                      Route::post('create')->name('store')->uses('GuardiansController@store');
-                     Route::get('{guardian}')->name('edit')->uses('GuardiansController@edit');
-                     Route::put('{guardian}')->name('update')->uses('GuardiansController@update');
+                     Route::get('{guardian}')->name('show')->uses('GuardiansController@show');
+                     Route::get('{guardian}/edit')->name('edit')->uses('GuardiansController@edit');
+                     Route::put('{guardian}/edit')->name('update')->uses('GuardiansController@update');
                      Route::get('{guardian}/logs')->name('logs')->uses('GuardiansController@logs');
                      Route::delete('{guardian}')->name('destroy')->uses('GuardiansController@destroy');
                  });
