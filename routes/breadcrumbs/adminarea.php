@@ -180,6 +180,11 @@ Breadcrumbs::register('adminarea.verification.phone.verify', function (Breadcrum
     $breadcrumbs->push(trans('cortex/auth::common.verify_phone'), route('adminarea.verification.phone.verify'));
 });
 
+Breadcrumbs::register('adminarea.account', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('adminarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::common.account'), route('adminarea.account'));
+});
+
 Breadcrumbs::register('adminarea.account.settings', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('adminarea.home'));
     $breadcrumbs->push(trans('cortex/auth::common.account_settings'), route('adminarea.account.settings'));
