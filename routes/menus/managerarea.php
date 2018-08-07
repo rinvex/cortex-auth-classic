@@ -15,6 +15,7 @@ if ($user = auth()->guard(request()->route('guard'))->user()) {
     });
 
     Menu::register('managerarea.account.sidebar', function (MenuGenerator $menu) {
+        $menu->route(['managerarea.account'], trans('cortex/auth::common.account'), null, 'fa fa-user');
         $menu->route(['managerarea.account.settings'], trans('cortex/auth::common.settings'), null, 'fa fa-cogs');
         //$menu->route(['managerarea.account.attributes'], trans('cortex/auth::common.attributes'), null, 'fa fa-leaf');
         $menu->route(['managerarea.account.sessions'], trans('cortex/auth::common.sessions'), null, 'fa fa-list-alt');

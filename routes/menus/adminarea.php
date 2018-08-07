@@ -24,7 +24,8 @@ Menu::register('adminarea.sidebar', function (MenuGenerator $menu, Ability $abil
 if ($user = auth()->guard(request()->route('guard'))->user()) {
     Menu::register('adminarea.header.user', function (MenuGenerator $menu) use ($user) {
         $menu->dropdown(function (MenuItem $dropdown) {
-            $dropdown->route(['adminarea.account'], trans('cortex/auth::common.settings'), null, 'fa fa-cogs');
+            $dropdown->route(['adminarea.account'], trans('cortex/auth::common.account'), null, 'fa fa-user');
+            $dropdown->route(['adminarea.account.settings'], trans('cortex/auth::common.settings'), null, 'fa fa-cogs');
             $dropdown->divider();
             $dropdown->route(['adminarea.logout'], trans('cortex/auth::common.logout').Form::open(['url' => route('adminarea.logout'), 'id' => 'logout-form', 'style' => 'display: none;']).Form::close(), null, 'fa fa-sign-out', ['onclick' => "event.preventDefault(); document.getElementById('logout-form').submit();"]);
         }, $user->username, 10, 'fa fa-user');
