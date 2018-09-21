@@ -11,14 +11,14 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 /**
  * Cortex\Auth\Models\Session.
  *
- * @property int                                                $id
- * @property int                                                $user_id
- * @property string                                             $user_type
- * @property string                                             $ip_address
- * @property string                                             $user_agent
- * @property string                                             $payload
- * @property \Carbon\Carbon                                     $last_activity
- * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $user
+ * @property int                                                                         $id
+ * @property int                                                                         $user_id
+ * @property string                                                                      $user_type
+ * @property string                                                                      $ip_address
+ * @property string                                                                      $user_agent
+ * @property string                                                                      $payload
+ * @property \Carbon\Carbon                                                              $last_activity
+ * @property-read \Cortex\Auth\Models\User|\Illuminate\Database\Eloquent\Model|\Eloquent $user
  *
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Session guests($minutes = 5)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Session guestsByHours($hours = 1)
@@ -217,7 +217,7 @@ class Session extends Model
      */
     public function user(): MorphTo
     {
-        return $this->morphTo();
+        return $this->morphTo('user', 'user_type', 'user_id');
     }
 
     /**

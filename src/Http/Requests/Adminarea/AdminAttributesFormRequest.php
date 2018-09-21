@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Requests\Adminarea;
 
+use Rinvex\Support\Traits\Escaper;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AdminAttributesFormRequest extends FormRequest
 {
+    use Escaper;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -16,6 +19,19 @@ class AdminAttributesFormRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
+    }
+
+    /**
+     * Configure the validator instance.
+     *
+     * @param \Illuminate\Validation\Validator $validator
+     *
+     * @return void
+     */
+    public function withValidator($validator): void
+    {
+        // Sanitize input data before submission
+        $this->replace($this->escape($this->all()));
     }
 
     /**
@@ -28,12 +44,14 @@ class AdminAttributesFormRequest extends FormRequest
         $admin = $this->route('admin') ?? app('cortex.auth.admin');
 
         // Attach attribute rules
-        $admin->getEntityAttributes()->each(function ($attribute, $attributeSlug) use (&$rules) {
+        $admin->getEntityAttributes()->each(function ($attribute, $attributeName) use (&$rules) {
             switch ($attribute->type) {
                 case 'datetime':
                     $type = 'date';
                     break;
                 case 'text':
+                case 'check':
+                case 'select':
                 case 'varchar':
                     $type = 'string';
                     break;
@@ -43,7 +61,7 @@ class AdminAttributesFormRequest extends FormRequest
             }
 
             $rule = ($attribute->is_required ? 'required|' : 'nullable|').$type;
-            $rules[$attributeSlug.($attribute->is_collection ? '.*' : '')] = $rule;
+            $rules[$attributeName.($attribute->is_collection ? '.*' : '')] = $rule;
         });
 
         return $rules ?? [];

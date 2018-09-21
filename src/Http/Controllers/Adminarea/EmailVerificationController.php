@@ -34,7 +34,7 @@ class EmailVerificationController extends AbstractController
     public function send(EmailVerificationSendRequest $request)
     {
         $result = app('rinvex.auth.emailverification')
-            ->broker($this->getBroker())
+            ->broker($this->getEmailVerificationBroker())
             ->sendVerificationLink($request->only(['email']));
 
         switch ($result) {
@@ -64,7 +64,7 @@ class EmailVerificationController extends AbstractController
     public function verify(EmailVerificationProcessRequest $request)
     {
         $result = app('rinvex.auth.emailverification')
-            ->broker($this->getBroker())
+            ->broker($this->getEmailVerificationBroker())
             ->verify($request->only(['email', 'expiration', 'token']), function ($user) {
                 $user->fill([
                     'email_verified' => true,

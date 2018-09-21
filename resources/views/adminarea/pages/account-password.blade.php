@@ -3,11 +3,11 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/auth::common.account_password') }}
+    {{ extract_title(Breadcrumbs::render()) }}
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\AccountPasswordRequest::class)->selector('#adminarea-account-password-form') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\AccountPasswordRequest::class)->selector('#adminarea-account-password-form')->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}
@@ -31,7 +31,7 @@
                                 <div class="col-md-12">
 
                                     <div class="form-group has-feedback{{ $errors->has('old_password') ? ' has-error' : '' }}">
-                                        {{ Form::label('old_password', trans('cortex/auth::common.old_password')) }}
+                                        {{ Form::label('old_password', trans('cortex/auth::common.old_password'), ['class' => 'control-label']) }}
                                         {{ Form::password('old_password', ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.old_password')]) }}
 
                                         @if ($errors->has('old_password'))
@@ -50,7 +50,7 @@
                                 <div class="col-md-12">
 
                                     <div class="form-group has-feedback{{ $errors->has('new_password') ? ' has-error' : '' }}">
-                                        {{ Form::label('new_password', trans('cortex/auth::common.new_password')) }}
+                                        {{ Form::label('new_password', trans('cortex/auth::common.new_password'), ['class' => 'control-label']) }}
                                         {{ Form::password('new_password', ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.new_password')]) }}
 
                                         @if ($errors->has('new_password'))
@@ -67,7 +67,7 @@
                                 <div class="col-md-12">
 
                                     <div class="form-group has-feedback{{ $errors->has('new_password_confirmation') ? ' has-error' : '' }}">
-                                        {{ Form::label('new_password_confirmation', trans('cortex/auth::common.new_password_confirmation')) }}
+                                        {{ Form::label('new_password_confirmation', trans('cortex/auth::common.new_password_confirmation'), ['class' => 'control-label']) }}
                                         {{ Form::password('new_password_confirmation', ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.new_password_confirmation')]) }}
 
                                         @if ($errors->has('new_password_confirmation'))

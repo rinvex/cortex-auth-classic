@@ -6,7 +6,7 @@ namespace Cortex\Auth\Http\Requests\Adminarea;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TwoFactorTotpProcessSettingsRequest extends FormRequest
+class AccountTwoFactorTotpProcessRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -4,21 +4,26 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Controllers\Adminarea;
 
+use Exception;
 use Cortex\Auth\Models\Role;
 use Illuminate\Http\Request;
-use Cortex\Auth\Models\Ability;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
+use Cortex\Foundation\Importers\DefaultImporter;
 use Cortex\Auth\DataTables\Adminarea\RolesDataTable;
+use Cortex\Foundation\DataTables\ImportLogsDataTable;
+use Cortex\Foundation\Http\Requests\ImportFormRequest;
 use Cortex\Auth\Http\Requests\Adminarea\RoleFormRequest;
+use Cortex\Foundation\DataTables\ImportRecordsDataTable;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
+use Cortex\Auth\Http\Requests\Adminarea\RoleFormProcessRequest;
 
 class RolesController extends AuthorizedController
 {
     /**
      * {@inheritdoc}
      */
-    protected $resource = 'role';
+    protected $resource = Role::class;
 
     /**
      * List all roles.
@@ -31,8 +36,7 @@ class RolesController extends AuthorizedController
     {
         return $rolesDataTable->with([
             'id' => 'adminarea-roles-index-table',
-            'phrase' => trans('cortex/auth::common.roles'),
-        ])->render('cortex/foundation::adminarea.pages.datatable');
+        ])->render('cortex/foundation::adminarea.pages.datatable-index');
     }
 
     /**
@@ -48,9 +52,88 @@ class RolesController extends AuthorizedController
         return $logsDataTable->with([
             'resource' => $role,
             'tabs' => 'adminarea.roles.tabs',
-            'phrase' => trans('cortex/auth::common.roles'),
-            'id' => "adminarea-roles-{$role->getKey()}-logs-table",
-        ])->render('cortex/foundation::adminarea.pages.datatable-logs');
+            'id' => "adminarea-roles-{$role->getRouteKey()}-logs-table",
+        ])->render('cortex/foundation::adminarea.pages.datatable-tab');
+    }
+
+    /**
+     * Import roles.
+     *
+     * @param \Cortex\Auth\Models\Role                             $role
+     * @param \Cortex\Foundation\DataTables\ImportRecordsDataTable $importRecordsDataTable
+     *
+     * @return \Illuminate\View\View
+     */
+    public function import(Role $role, ImportRecordsDataTable $importRecordsDataTable)
+    {
+        return $importRecordsDataTable->with([
+            'resource' => $role,
+            'tabs' => 'adminarea.roles.tabs',
+            'url' => route('adminarea.roles.stash'),
+            'id' => "adminarea-roles-{$role->getRouteKey()}-import-table",
+        ])->render('cortex/foundation::adminarea.pages.datatable-dropzone');
+    }
+
+    /**
+     * Stash roles.
+     *
+     * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
+     * @param \Cortex\Foundation\Importers\DefaultImporter       $importer
+     *
+     * @return void
+     */
+    public function stash(ImportFormRequest $request, DefaultImporter $importer)
+    {
+        // Handle the import
+        $importer->config['resource'] = $this->resource;
+        $importer->handleImport();
+    }
+
+    /**
+     * Hoard roles.
+     *
+     * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function hoard(ImportFormRequest $request)
+    {
+        foreach ((array) $request->get('selected_ids') as $recordId) {
+            $record = app('cortex.foundation.import_record')->find($recordId);
+
+            try {
+                $fillable = collect($record['data'])->intersectByKeys(array_flip(app('rinvex.auth.role')->getFillable()))->toArray();
+
+                tap(app('rinvex.auth.role')->firstOrNew($fillable), function ($instance) use ($record) {
+                    $instance->save() && $record->delete();
+                });
+            } catch (Exception $exception) {
+                $record->notes = $exception->getMessage().(method_exists($exception, 'getMessageBag') ? "\n".json_encode($exception->getMessageBag())."\n\n" : '');
+                $record->status = 'fail';
+                $record->save();
+            }
+        }
+
+        return intend([
+            'back' => true,
+            'with' => ['success' => trans('cortex/foundation::messages.import_complete')],
+        ]);
+    }
+
+    /**
+     * List role import logs.
+     *
+     * @param \Cortex\Foundation\DataTables\ImportLogsDataTable $importLogsDatatable
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function importLogs(ImportLogsDataTable $importLogsDatatable)
+    {
+        return $importLogsDatatable->with([
+            'resource' => trans('cortex/auth::common.role'),
+            'tabs' => 'adminarea.roles.tabs',
+            'id' => 'adminarea-roles-import-logs-table',
+        ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
 
     /**
@@ -69,12 +152,12 @@ class RolesController extends AuthorizedController
     /**
      * Edit given role.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Cortex\Auth\Models\Role $role
+     * @param \Cortex\Auth\Http\Requests\Adminarea\RoleFormRequest $request
+     * @param \Cortex\Auth\Models\Role                             $role
      *
      * @return \Illuminate\View\View
      */
-    public function edit(Request $request, Role $role)
+    public function edit(RoleFormRequest $request, Role $role)
     {
         return $this->form($request, $role);
     }
@@ -89,8 +172,11 @@ class RolesController extends AuthorizedController
      */
     protected function form(Request $request, Role $role)
     {
-        $abilities = $request->user($this->getGuard())->can('superadmin') ? Ability::all()->pluck('title', 'id')->toArray()
-            : $request->user($this->getGuard())->abilities->pluck('title', 'id')->toArray();
+        $abilities = $request->user($this->getGuard())->can('superadmin')
+            ? app('cortex.auth.ability')->all()->groupBy('entity_type')->map->pluck('title', 'id')->toArray()
+            : $request->user($this->getGuard())->getAbilities()->groupBy('entity_type')->map->pluck('title', 'id')->toArray();
+
+        ksort($abilities);
 
         return view('cortex/auth::adminarea.pages.role', compact('role', 'abilities'));
     }
@@ -98,12 +184,12 @@ class RolesController extends AuthorizedController
     /**
      * Store new role.
      *
-     * @param \Cortex\Auth\Http\Requests\Adminarea\RoleFormRequest $request
-     * @param \Cortex\Auth\Models\Role                             $role
+     * @param \Cortex\Auth\Http\Requests\Adminarea\RoleFormProcessRequest $request
+     * @param \Cortex\Auth\Models\Role                                    $role
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function store(RoleFormRequest $request, Role $role)
+    public function store(RoleFormProcessRequest $request, Role $role)
     {
         return $this->process($request, $role);
     }
@@ -111,12 +197,12 @@ class RolesController extends AuthorizedController
     /**
      * Update given role.
      *
-     * @param \Cortex\Auth\Http\Requests\Adminarea\RoleFormRequest $request
-     * @param \Cortex\Auth\Models\Role                             $role
+     * @param \Cortex\Auth\Http\Requests\Adminarea\RoleFormProcessRequest $request
+     * @param \Cortex\Auth\Models\Role                                    $role
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function update(RoleFormRequest $request, Role $role)
+    public function update(RoleFormProcessRequest $request, Role $role)
     {
         return $this->process($request, $role);
     }
@@ -139,7 +225,7 @@ class RolesController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.roles.index'),
-            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => 'role', 'id' => $role->name])],
+            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => trans('cortex/auth::common.role'), 'identifier' => $role->title])],
         ]);
     }
 
@@ -147,6 +233,8 @@ class RolesController extends AuthorizedController
      * Destroy given role.
      *
      * @param \Cortex\Auth\Models\Role $role
+     *
+     * @throws \Exception
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -156,7 +244,7 @@ class RolesController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.roles.index'),
-            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => 'role', 'id' => $role->name])],
+            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/auth::common.role'), 'identifier' => $role->title])],
         ]);
     }
 }

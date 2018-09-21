@@ -3,18 +3,18 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/foundation::common.adminarea') }} » {{ trans('cortex/auth::common.roles') }} » {{ $role->exists ? $role->name : trans('cortex/auth::common.create_role') }}
+    {{ extract_title(Breadcrumbs::render()) }}
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\RoleFormRequest::class)->selector("#adminarea-roles-create-form, #adminarea-roles-{$role->getKey()}-update-form") !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\RoleFormProcessRequest::class)->selector("#adminarea-roles-create-form, #adminarea-roles-{$role->getRouteKey()}-update-form")->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}
 @section('content')
 
     @if($role->exists)
-        @include('cortex/foundation::common.partials.confirm-deletion')
+        @include('cortex/foundation::common.partials.modal', ['id' => 'delete-confirmation'])
     @endif
 
     <div class="content-wrapper">
@@ -26,21 +26,31 @@
         <section class="content">
 
             <div class="nav-tabs-custom">
-                @if($role->exists && $currentUser->can('delete', $role)) <div class="pull-right"><a href="#" data-toggle="modal" data-target="#delete-confirmation" data-modal-action="{{ route('adminarea.roles.destroy', ['role' => $role]) }}" data-modal-title="{!! trans('cortex/foundation::messages.delete_confirmation_title') !!}" data-modal-body="{!! trans('cortex/foundation::messages.delete_confirmation_body', ['type' => 'role', 'name' => $role->name]) !!}" title="{{ trans('cortex/foundation::common.delete') }}" class="btn btn-default" style="margin: 4px"><i class="fa fa-trash text-danger"></i></a></div> @endif
+                @if($role->exists && $currentUser->can('delete', $role))
+                    <div class="pull-right">
+                        <a href="#" data-toggle="modal" data-target="#delete-confirmation"
+                           data-modal-action="{{ route('adminarea.roles.destroy', ['role' => $role]) }}"
+                           data-modal-title="{!! trans('cortex/foundation::messages.delete_confirmation_title') !!}"
+                           data-modal-button="<a href='#' class='btn btn-danger' data-form='delete' data-token='{{ csrf_token() }}'><i class='fa fa-trash-o'></i> {{ trans('cortex/foundation::common.delete') }}</a>"
+                           data-modal-body="{!! trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/auth::common.role'), 'identifier' => $role->title]) !!}"
+                           title="{{ trans('cortex/foundation::common.delete') }}" class="btn btn-default" style="margin: 4px"><i class="fa fa-trash text-danger"></i>
+                        </a>
+                    </div>
+                @endif
                 {!! Menu::render('adminarea.roles.tabs', 'nav-tab') !!}
 
                 <div class="tab-content">
                     <div class="tab-pane active" id="details-tab">
 
                         @if ($role->exists)
-                            {{ Form::model($role, ['url' => route('adminarea.roles.update', ['role' => $role]), 'method' => 'put', 'id' => "adminarea-roles-{$role->getKey()}-update-form"]) }}
+                            {{ Form::model($role, ['url' => route('adminarea.roles.update', ['role' => $role]), 'method' => 'put', 'id' => "adminarea-roles-{$role->getRouteKey()}-update-form"]) }}
                         @else
                             {{ Form::model($role, ['url' => route('adminarea.roles.store'), 'id' => 'adminarea-roles-create-form']) }}
                         @endif
 
                             <div class="row">
 
-                                <div class="col-md-6">
+                                <div class="col-md-4">
 
                                     {{-- Title --}}
                                     <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
@@ -54,7 +64,7 @@
 
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-4">
 
                                     {{-- Name --}}
                                     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -63,6 +73,20 @@
 
                                         @if ($errors->has('name'))
                                             <span class="help-block">{{ $errors->first('name') }}</span>
+                                        @endif
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-4">
+
+                                    {{-- Scope --}}
+                                    <div class="form-group{{ $errors->has('scope') ? ' has-error' : '' }}">
+                                        {{ Form::label('scope', trans('cortex/auth::common.scope'), ['class' => 'control-label']) }}
+                                        {{ Form::text('scope', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.scope')]) }}
+
+                                        @if ($errors->has('scope'))
+                                            <span class="help-block">{{ $errors->first('scope') }}</span>
                                         @endif
                                     </div>
 
@@ -78,7 +102,7 @@
                                         {{-- Abilities --}}
                                         <div class="form-group{{ $errors->has('abilities') ? ' has-error' : '' }}">
                                             {{ Form::label('abilities[]', trans('cortex/auth::common.abilities'), ['class' => 'control-label']) }}
-                                            {{ Form::hidden('abilities', '') }}
+                                            {{ Form::hidden('abilities', '', ['class' => 'skip-validation']) }}
                                             {{ Form::select('abilities[]', $abilities, null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/auth::common.select_abilities'), 'multiple' => 'multiple', 'data-close-on-select' => 'false', 'data-width' => '100%']) }}
 
                                             @if ($errors->has('abilities'))

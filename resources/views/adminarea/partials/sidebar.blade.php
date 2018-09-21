@@ -1,7 +1,7 @@
 <div class="profile-sidebar">
     <div class="profile-usertitle">
         <div class="profile-usertitle-name">
-            {{ $currentUser->name ?: $currentUser->username }}
+            {{ $currentUser->full_name }}
         </div>
         @if($currentUser->title)
             <div class="profile-usertitle-job">

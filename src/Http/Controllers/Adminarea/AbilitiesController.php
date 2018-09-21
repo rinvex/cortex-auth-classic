@@ -4,20 +4,26 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Controllers\Adminarea;
 
+use Exception;
 use Illuminate\Http\Request;
 use Cortex\Auth\Models\Ability;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
+use Cortex\Foundation\Importers\DefaultImporter;
+use Cortex\Foundation\DataTables\ImportLogsDataTable;
+use Cortex\Foundation\Http\Requests\ImportFormRequest;
 use Cortex\Auth\DataTables\Adminarea\AbilitiesDataTable;
+use Cortex\Foundation\DataTables\ImportRecordsDataTable;
 use Cortex\Auth\Http\Requests\Adminarea\AbilityFormRequest;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
+use Cortex\Auth\Http\Requests\Adminarea\AbilityFormProcessRequest;
 
 class AbilitiesController extends AuthorizedController
 {
     /**
      * {@inheritdoc}
      */
-    protected $resource = 'ability';
+    protected $resource = Ability::class;
 
     /**
      * List all abilities.
@@ -30,8 +36,7 @@ class AbilitiesController extends AuthorizedController
     {
         return $abilitiesDataTable->with([
             'id' => 'adminarea-abilities-index-table',
-            'phrase' => trans('cortex/auth::common.abilities'),
-        ])->render('cortex/foundation::adminarea.pages.datatable');
+        ])->render('cortex/foundation::adminarea.pages.datatable-index');
     }
 
     /**
@@ -47,9 +52,88 @@ class AbilitiesController extends AuthorizedController
         return $logsDataTable->with([
             'resource' => $ability,
             'tabs' => 'adminarea.abilities.tabs',
-            'phrase' => trans('cortex/auth::common.abilities'),
-            'id' => "adminarea-abilities-{$ability->getKey()}-logs-table",
-        ])->render('cortex/foundation::adminarea.pages.datatable-logs');
+            'id' => "adminarea-abilities-{$ability->getRouteKey()}-logs-table",
+        ])->render('cortex/foundation::adminarea.pages.datatable-tab');
+    }
+
+    /**
+     * Import abilities.
+     *
+     * @param \Cortex\Auth\Models\Ability                          $ability
+     * @param \Cortex\Foundation\DataTables\ImportRecordsDataTable $importRecordsDataTable
+     *
+     * @return \Illuminate\View\View
+     */
+    public function import(Ability $ability, ImportRecordsDataTable $importRecordsDataTable)
+    {
+        return $importRecordsDataTable->with([
+            'resource' => $ability,
+            'tabs' => 'adminarea.abilities.tabs',
+            'url' => route('adminarea.abilities.stash'),
+            'id' => "adminarea-abilities-{$ability->getRouteKey()}-import-table",
+        ])->render('cortex/foundation::adminarea.pages.datatable-dropzone');
+    }
+
+    /**
+     * Stash abilities.
+     *
+     * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
+     * @param \Cortex\Foundation\Importers\DefaultImporter       $importer
+     *
+     * @return void
+     */
+    public function stash(ImportFormRequest $request, DefaultImporter $importer)
+    {
+        // Handle the import
+        $importer->config['resource'] = $this->resource;
+        $importer->handleImport();
+    }
+
+    /**
+     * Hoard abilities.
+     *
+     * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function hoard(ImportFormRequest $request)
+    {
+        foreach ((array) $request->get('selected_ids') as $recordId) {
+            $record = app('cortex.foundation.import_record')->find($recordId);
+
+            try {
+                $fillable = collect($record['data'])->intersectByKeys(array_flip(app('rinvex.auth.ability')->getFillable()))->toArray();
+
+                tap(app('rinvex.auth.ability')->firstOrNew($fillable), function ($instance) use ($record) {
+                    $instance->save() && $record->delete();
+                });
+            } catch (Exception $exception) {
+                $record->notes = $exception->getMessage().(method_exists($exception, 'getMessageBag') ? "\n".json_encode($exception->getMessageBag())."\n\n" : '');
+                $record->status = 'fail';
+                $record->save();
+            }
+        }
+
+        return intend([
+            'back' => true,
+            'with' => ['success' => trans('cortex/foundation::messages.import_complete')],
+        ]);
+    }
+
+    /**
+     * List ability import logs.
+     *
+     * @param \Cortex\Foundation\DataTables\ImportLogsDataTable $importLogsDatatable
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function importLogs(ImportLogsDataTable $importLogsDatatable)
+    {
+        return $importLogsDatatable->with([
+            'resource' => trans('cortex/auth::common.ability'),
+            'tabs' => 'adminarea.abilities.tabs',
+            'id' => 'adminarea-abilities-import-logs-table',
+        ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
 
     /**
@@ -68,12 +152,12 @@ class AbilitiesController extends AuthorizedController
     /**
      * Edit given ability.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Cortex\Auth\Models\Role $ability
+     * @param \Cortex\Auth\Http\Requests\Adminarea\AbilityFormRequest $request
+     * @param \Cortex\Auth\Models\Role                                $ability
      *
      * @return \Illuminate\View\View
      */
-    public function edit(Request $request, Ability $ability)
+    public function edit(AbilityFormRequest $request, Ability $ability)
     {
         return $this->form($request, $ability);
     }
@@ -89,21 +173,25 @@ class AbilitiesController extends AuthorizedController
     protected function form(Request $request, Ability $ability)
     {
         $roles = $request->user($this->getGuard())->can('superadmin')
-            ? app('cortex.auth.role')->all()->pluck('name', 'id')->toArray()
+            ? app('cortex.auth.role')->all()->pluck('title', 'id')->toArray()
             : $request->user($this->getGuard())->roles->pluck('name', 'id')->toArray();
 
-        return view('cortex/auth::adminarea.pages.ability', compact('ability', 'roles'));
+        $entityTypes = app('cortex.auth.ability')->distinct()->get(['entity_type'])->pluck('entity_type', 'entity_type')->toArray();
+
+        asort($roles);
+
+        return view('cortex/auth::adminarea.pages.ability', compact('ability', 'roles', 'entityTypes'));
     }
 
     /**
      * Store new ability.
      *
-     * @param \Cortex\Auth\Http\Requests\Adminarea\AbilityFormRequest $request
-     * @param \Cortex\Auth\Models\Ability                             $ability
+     * @param \Cortex\Auth\Http\Requests\Adminarea\AbilityFormProcessRequest $request
+     * @param \Cortex\Auth\Models\Ability                                    $ability
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function store(AbilityFormRequest $request, Ability $ability)
+    public function store(AbilityFormProcessRequest $request, Ability $ability)
     {
         return $this->process($request, $ability);
     }
@@ -111,12 +199,12 @@ class AbilitiesController extends AuthorizedController
     /**
      * Update given ability.
      *
-     * @param \Cortex\Auth\Http\Requests\Adminarea\AbilityFormRequest $request
-     * @param \Cortex\Auth\Models\Ability                             $ability
+     * @param \Cortex\Auth\Http\Requests\Adminarea\AbilityFormProcessRequest $request
+     * @param \Cortex\Auth\Models\Ability                                    $ability
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function update(AbilityFormRequest $request, Ability $ability)
+    public function update(AbilityFormProcessRequest $request, Ability $ability)
     {
         return $this->process($request, $ability);
     }
@@ -139,7 +227,7 @@ class AbilitiesController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.abilities.index'),
-            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => 'ability', 'id' => $ability->name])],
+            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => trans('cortex/auth::common.ability'), 'identifier' => $ability->title])],
         ]);
     }
 
@@ -156,7 +244,7 @@ class AbilitiesController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.abilities.index'),
-            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => 'ability', 'id' => $ability->name])],
+            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/auth::common.ability'), 'identifier' => $ability->title])],
         ]);
     }
 }

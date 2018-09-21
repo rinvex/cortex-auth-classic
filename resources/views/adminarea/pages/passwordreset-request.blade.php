@@ -3,12 +3,12 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/auth::common.password_reset_request') }}
+    {{ extract_title(Breadcrumbs::render()) }}
 @endsection
 
 {{-- Scripts --}}
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\PasswordResetProcessRequest::class)->selector('#adminarea-passwordreset-request-form') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\PasswordResetProcessRequest::class)->selector('#adminarea-passwordreset-request-form')->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}
@@ -32,7 +32,7 @@
                     @endif
                 </div>
 
-                {{ Form::button('<i class="fa fa-envelope"></i> '.trans('cortex/auth::common.password_reset_request'), ['class' => 'btn btn-lg btn-primary btn-block', 'type' => 'submit']) }}
+                {{ Form::button('<i class="fa fa-envelope"></i> '.trans('cortex/auth::common.passwordreset_request'), ['class' => 'btn btn-lg btn-primary btn-block', 'type' => 'submit']) }}
 
             {{ Form::close() }}
 

@@ -6,6 +6,7 @@ namespace Cortex\Auth\DataTables\Adminarea;
 
 use Cortex\Auth\Models\Ability;
 use Cortex\Foundation\DataTables\AbstractDataTable;
+use Cortex\Auth\Transformers\Adminarea\AbilityTransformer;
 
 class AbilitiesDataTable extends AbstractDataTable
 {
@@ -15,6 +16,25 @@ class AbilitiesDataTable extends AbstractDataTable
     protected $model = Ability::class;
 
     /**
+     * {@inheritdoc}
+     */
+    protected $transformer = AbilityTransformer::class;
+
+    /**
+     * Get the query object to be processed by dataTables.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder|\Illuminate\Support\Collection
+     */
+    public function query()
+    {
+        $currentUser = $this->request->user($this->request->route('guard'));
+
+        $query = $currentUser->can('superadmin') ? app($this->model)->query() : app($this->model)->query()->whereIn('id', $currentUser->getAbilities()->pluck('id')->toArray());
+
+        return $this->applyScopes($query);
+    }
+
+    /**
      * Display ajax response.
      *
      * @return \Illuminate\Http\JsonResponse
@@ -22,6 +42,7 @@ class AbilitiesDataTable extends AbstractDataTable
     public function ajax()
     {
         return datatables($this->query())
+            ->setTransformer(app($this->transformer))
             ->orderColumn('title', 'title->"$.'.app()->getLocale().'" $1')
             ->make(true);
     }
@@ -40,8 +61,8 @@ class AbilitiesDataTable extends AbstractDataTable
         return [
             'title' => ['title' => trans('cortex/auth::common.title'), 'render' => $link, 'responsivePriority' => 0],
             'name' => ['title' => trans('cortex/auth::common.name')],
-            'created_at' => ['title' => trans('cortex/auth::common.created_at'), 'render' => "moment(data).format('MMM Do, YYYY')"],
-            'updated_at' => ['title' => trans('cortex/auth::common.updated_at'), 'render' => "moment(data).format('MMM Do, YYYY')"],
+            'created_at' => ['title' => trans('cortex/auth::common.created_at'), 'render' => "moment(data).format('YYYY-MM-DD, hh:mm:ss A')"],
+            'updated_at' => ['title' => trans('cortex/auth::common.updated_at'), 'render' => "moment(data).format('YYYY-MM-DD, hh:mm:ss A')"],
         ];
     }
 }

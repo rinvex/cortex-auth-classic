@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Requests\Adminarea;
 
+use Rinvex\Support\Traits\Escaper;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AccountSettingsRequest extends FormRequest
 {
+    use Escaper;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -30,7 +33,7 @@ class AccountSettingsRequest extends FormRequest
         $country = $data['country_code'] ?? null;
         $email = $data['email'] ?? null;
         $phone = $data['phone'] ?? null;
-        $user = $this->user($this->get('guard'));
+        $user = $this->user($this->route('guard'));
         $twoFactor = $user->getTwoFactor();
 
         if ($email !== $user->email) {
@@ -52,13 +55,26 @@ class AccountSettingsRequest extends FormRequest
     }
 
     /**
+     * Configure the validator instance.
+     *
+     * @param \Illuminate\Validation\Validator $validator
+     *
+     * @return void
+     */
+    public function withValidator($validator): void
+    {
+        // Sanitize input data before submission
+        $this->replace($this->escape($this->all()));
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
      */
     public function rules(): array
     {
-        $user = $this->user($this->get('guard'));
+        $user = $this->user($this->route('guard'));
         $user->updateRulesUniques();
 
         return $user->getRules();

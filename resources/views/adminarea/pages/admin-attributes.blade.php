@@ -3,11 +3,11 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/foundation::common.adminarea') }} » {{ trans('cortex/auth::common.admins') }} » {{ $admin->username }} » {{ trans('cortex/auth::common.attributes') }}
+    {{ extract_title(Breadcrumbs::render()) }}
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\AdminAttributesFormRequest::class)->selector("#adminarea-admins-create-form, #adminarea-admins-{$admin->getKey()}-update-attributes-form") !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\AdminAttributesFormRequest::class)->selector("#adminarea-admins-create-form, #adminarea-admins-{$admin->getRouteKey()}-update-attributes-form")->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}
@@ -27,7 +27,26 @@
                 <div class="tab-content">
 
                     <div class="tab-pane active" id="attributes-tab">
-                        @attributes($admin)
+
+                        {{--{{ Form::model($admin, ['url' => route('adminarea.admins.attributes', ['admin' => $admin]), 'id' => "adminarea-admins-{$admin->getRouteKey()}-attributes-form", 'method' => 'put', 'files' => true]) }}--}}
+
+                            {{--@attributes($admin)--}}
+
+                            {{--<div class="row">--}}
+                                {{--<div class="col-md-12">--}}
+
+                                    {{--<div class="pull-right">--}}
+                                        {{--{{ Form::button(trans('cortex/auth::common.submit'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}--}}
+                                    {{--</div>--}}
+
+                                    {{--@include('cortex/foundation::adminarea.partials.timestamps', ['model' => $admin])--}}
+
+                                {{--</div>--}}
+
+                            {{--</div>--}}
+
+                        {{--{{ Form::close() }}--}}
+
                     </div>
 
                 </div>

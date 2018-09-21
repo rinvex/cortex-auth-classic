@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Controllers\Adminarea;
 
-use Illuminate\Support\Str;
 use Cortex\Auth\Models\Admin;
 use Spatie\MediaLibrary\Models\Media;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
@@ -14,7 +13,7 @@ class AdminsMediaController extends AuthorizedController
     /**
      * {@inheritdoc}
      */
-    protected $resource = 'admin';
+    protected $resource = Admin::class;
 
     /**
      * {@inheritdoc}
@@ -22,7 +21,7 @@ class AdminsMediaController extends AuthorizedController
     public function authorizeResource($model, $parameter = null, array $options = [], $request = null): void
     {
         $middleware = [];
-        $parameter = $parameter ?: Str::snake(class_basename($model));
+        $parameter = $parameter ?: snake_case(class_basename($model));
 
         foreach ($this->mapResourceAbilities() as $method => $ability) {
             $modelName = in_array($method, $this->resourceMethodsWithoutModels()) ? $model : $parameter;
@@ -50,7 +49,7 @@ class AdminsMediaController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.admins.edit', ['admin' => $admin]),
-            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => 'media', 'id' => $media->getKey()])],
+            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/foundation::common.media'), 'identifier' => $media->getRouteKey()])],
         ]);
     }
 }

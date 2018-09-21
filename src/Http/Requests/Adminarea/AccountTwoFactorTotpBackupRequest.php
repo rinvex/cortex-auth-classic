@@ -7,7 +7,7 @@ namespace Cortex\Auth\Http\Requests\Adminarea;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\Exceptions\GenericException;
 
-class TwoFactorPhoneSettingsRequest extends FormRequest
+class AccountTwoFactorTotpBackupRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -18,10 +18,10 @@ class TwoFactorPhoneSettingsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $user = $this->user($this->get('guard'));
+        $twoFactor = $this->user($this->route('guard'))->getTwoFactor();
 
-        if (! $user->phone || ! $user->phone_verified) {
-            throw new GenericException(trans('cortex/auth::messages.account.'.(! $user->phone ? 'phone_field_required' : 'phone_verification_required')), route('adminarea.account.settings'));
+        if (! $twoFactor['totp']['enabled']) {
+            throw new GenericException(trans('cortex/auth::messages.verification.twofactor.totp.cant_backup'), route('adminarea.account.settings'));
         }
 
         return true;

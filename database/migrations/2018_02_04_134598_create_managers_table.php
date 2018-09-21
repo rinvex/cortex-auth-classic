@@ -18,34 +18,29 @@ class CreateManagersTable extends Migration
         Schema::create(config('cortex.auth.tables.managers'), function (Blueprint $table) {
             // Columns
             $table->increments('id');
+            $table->string('given_name');
+            $table->string('family_name')->nullable();
+            $table->string('email');
             $table->string('username');
             $table->string('password');
             $table->rememberToken();
-            $table->string('email');
             $table->boolean('email_verified')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('phone')->nullable();
             $table->boolean('phone_verified')->default(false);
             $table->timestamp('phone_verified_at')->nullable();
-            $table->string('name_prefix')->nullable();
-            $table->string('first_name')->nullable();
-            $table->string('middle_name')->nullable();
-            $table->string('last_name')->nullable();
-            $table->string('name_suffix')->nullable();
             $table->string('title')->nullable();
+            $table->string('organization')->nullable();
             $table->string('country_code', 2)->nullable();
             $table->string('language_code', 2)->nullable();
             $table->text('two_factor')->nullable();
             $table->date('birthday')->nullable();
             $table->string('gender')->nullable();
+            $table->schemalessAttributes('social');
             $table->boolean('is_active')->default(true);
             $table->timestamp('last_activity')->nullable();
             $table->auditableAndTimestamps();
             $table->softDeletes();
-
-            // Indexes
-            $table->unique('email');
-            $table->unique('username');
         });
     }
 

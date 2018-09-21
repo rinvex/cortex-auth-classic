@@ -4,12 +4,17 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Controllers\Adminarea;
 
+use Exception;
 use Illuminate\Http\Request;
 use Cortex\Auth\Models\Admin;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
+use Cortex\Foundation\Importers\DefaultImporter;
 use Cortex\Auth\DataTables\Adminarea\AdminsDataTable;
 use Cortex\Foundation\DataTables\ActivitiesDataTable;
+use Cortex\Foundation\DataTables\ImportLogsDataTable;
+use Cortex\Foundation\Http\Requests\ImportFormRequest;
+use Cortex\Foundation\DataTables\ImportRecordsDataTable;
 use Cortex\Auth\Http\Requests\Adminarea\AdminFormRequest;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
 use Cortex\Auth\Http\Requests\Adminarea\AdminAttributesFormRequest;
@@ -19,7 +24,7 @@ class AdminsController extends AuthorizedController
     /**
      * {@inheritdoc}
      */
-    protected $resource = 'admin';
+    protected $resource = Admin::class;
 
     /**
      * List all admins.
@@ -32,8 +37,7 @@ class AdminsController extends AuthorizedController
     {
         return $adminsDataTable->with([
             'id' => 'adminarea-admins-index-table',
-            'phrase' => trans('cortex/auth::common.admins'),
-        ])->render('cortex/foundation::adminarea.pages.datatable');
+        ])->render('cortex/foundation::adminarea.pages.datatable-index');
     }
 
     /**
@@ -49,9 +53,8 @@ class AdminsController extends AuthorizedController
         return $logsDataTable->with([
             'resource' => $admin,
             'tabs' => 'adminarea.admins.tabs',
-            'phrase' => trans('cortex/auth::common.admins'),
-            'id' => "adminarea-admins-{$admin->getKey()}-logs-table",
-        ])->render('cortex/foundation::adminarea.pages.datatable-logs');
+            'id' => "adminarea-admins-{$admin->getRouteKey()}-logs-table",
+        ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
 
     /**
@@ -67,9 +70,8 @@ class AdminsController extends AuthorizedController
         return $activitiesDataTable->with([
             'resource' => $admin,
             'tabs' => 'adminarea.admins.tabs',
-            'phrase' => trans('cortex/auth::common.admins'),
-            'id' => "adminarea-admins-{$admin->getKey()}-activities-table",
-        ])->render('cortex/foundation::adminarea.pages.datatable-logs');
+            'id' => "adminarea-admins-{$admin->getRouteKey()}-activities-table",
+        ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
 
     /**
@@ -104,6 +106,87 @@ class AdminsController extends AuthorizedController
             'back' => true,
             'with' => ['success' => trans('cortex/auth::messages.account.updated_attributes')],
         ]);
+    }
+
+    /**
+     * Import admins.
+     *
+     * @param \Cortex\Auth\Models\Admin                            $admin
+     * @param \Cortex\Foundation\DataTables\ImportRecordsDataTable $importRecordsDataTable
+     *
+     * @return \Illuminate\View\View
+     */
+    public function import(Admin $admin, ImportRecordsDataTable $importRecordsDataTable)
+    {
+        return $importRecordsDataTable->with([
+            'resource' => $admin,
+            'tabs' => 'adminarea.admins.tabs',
+            'url' => route('adminarea.admins.stash'),
+            'id' => "adminarea-attributes-{$admin->getRouteKey()}-import-table",
+        ])->render('cortex/foundation::adminarea.pages.datatable-dropzone');
+    }
+
+    /**
+     * Stash admins.
+     *
+     * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
+     * @param \Cortex\Foundation\Importers\DefaultImporter       $importer
+     *
+     * @return void
+     */
+    public function stash(ImportFormRequest $request, DefaultImporter $importer)
+    {
+        // Handle the import
+        $importer->config['resource'] = $this->resource;
+        $importer->config['name'] = 'username';
+        $importer->handleImport();
+    }
+
+    /**
+     * Hoard admins.
+     *
+     * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function hoard(ImportFormRequest $request)
+    {
+        foreach ((array) $request->get('selected_ids') as $recordId) {
+            $record = app('cortex.foundation.import_record')->find($recordId);
+
+            try {
+                $fillable = collect($record['data'])->intersectByKeys(array_flip(app('rinvex.auth.admin')->getFillable()))->toArray();
+
+                tap(app('rinvex.auth.admin')->firstOrNew($fillable), function ($instance) use ($record) {
+                    $instance->save() && $record->delete();
+                });
+            } catch (Exception $exception) {
+                $record->notes = $exception->getMessage().(method_exists($exception, 'getMessageBag') ? "\n".json_encode($exception->getMessageBag())."\n\n" : '');
+                $record->status = 'fail';
+                $record->save();
+            }
+        }
+
+        return intend([
+            'back' => true,
+            'with' => ['success' => trans('cortex/foundation::messages.import_complete')],
+        ]);
+    }
+
+    /**
+     * List admin import logs.
+     *
+     * @param \Cortex\Foundation\DataTables\ImportLogsDataTable $importLogsDatatable
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function importLogs(ImportLogsDataTable $importLogsDatatable)
+    {
+        return $importLogsDatatable->with([
+            'resource' => trans('cortex/auth::common.admin'),
+            'tabs' => 'adminarea.admins.tabs',
+            'id' => 'adminarea-admins-import-logs-table',
+        ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
 
     /**
@@ -149,19 +232,24 @@ class AdminsController extends AuthorizedController
                 'emoji' => $country['emoji'],
             ];
         })->values();
+
         $currentUser = $request->user($this->getGuard());
+        $tags = app('rinvex.tags.tag')->pluck('name', 'id');
         $languages = collect(languages())->pluck('name', 'iso_639_1');
         $genders = ['male' => trans('cortex/auth::common.male'), 'female' => trans('cortex/auth::common.female')];
 
         $roles = $currentUser->can('superadmin')
-            ? app('cortex.auth.role')->all()->pluck('name', 'id')->toArray()
+            ? app('cortex.auth.role')->all()->pluck('title', 'id')->toArray()
             : $currentUser->roles->pluck('name', 'id')->toArray();
 
         $abilities = $currentUser->can('superadmin')
-            ? app('cortex.auth.ability')->all()->pluck('title', 'id')->toArray()
-            : $currentUser->abilities->pluck('title', 'id')->toArray();
+            ? app('cortex.auth.ability')->all()->groupBy('entity_type')->map->pluck('title', 'id')->toArray()
+            : $currentUser->getAbilities()->groupBy('entity_type')->map->pluck('title', 'id')->toArray();
 
-        return view('cortex/auth::adminarea.pages.admin', compact('admin', 'abilities', 'roles', 'countries', 'languages', 'genders'));
+        asort($roles);
+        ksort($abilities);
+
+        return view('cortex/auth::adminarea.pages.admin', compact('admin', 'abilities', 'roles', 'countries', 'languages', 'genders', 'tags'));
     }
 
     /**
@@ -222,7 +310,7 @@ class AdminsController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.admins.index'),
-            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => 'admin', 'id' => $admin->username])],
+            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => trans('cortex/auth::common.admin'), 'identifier' => $admin->username])],
         ]);
     }
 
@@ -230,6 +318,8 @@ class AdminsController extends AuthorizedController
      * Destroy given admin.
      *
      * @param \Cortex\Auth\Models\Admin $admin
+     *
+     * @throws \Exception
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -239,7 +329,7 @@ class AdminsController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.admins.index'),
-            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => 'admin', 'id' => $admin->username])],
+            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/auth::common.admin'), 'identifier' => $admin->username])],
         ]);
     }
 }

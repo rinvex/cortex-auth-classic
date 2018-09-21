@@ -25,6 +25,8 @@ class AccountSessionsController extends AuthenticatedController
      *
      * @param \Cortex\Auth\Models\Session $session
      *
+     * @throws \Exception
+     *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function destroy(Session $session)
@@ -33,7 +35,7 @@ class AccountSessionsController extends AuthenticatedController
 
         return intend([
             'back' => true,
-            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => 'session', 'id' => $session->getKey()])],
+            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/auth::common.session'), 'identifier' => $session->getKey()])],
         ]);
     }
 

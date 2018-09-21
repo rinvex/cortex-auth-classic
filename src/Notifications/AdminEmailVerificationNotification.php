@@ -31,9 +31,9 @@ class AdminEmailVerificationNotification extends Notification implements ShouldQ
      * Create a notification instance.
      *
      * @param string $token
-     * @param string $expiration
+     * @param int    $expiration
      */
-    public function __construct($token, $expiration)
+    public function __construct(string $token, int $expiration)
     {
         $this->token = $token;
         $this->expiration = $expiration;
@@ -67,6 +67,6 @@ class AdminEmailVerificationNotification extends Notification implements ShouldQ
             ->subject(trans('cortex/auth::emails.verification.email.subject'))
             ->line(trans('cortex/auth::emails.verification.email.intro', ['expire' => now()->createFromTimestamp($this->expiration)->diffForHumans()]))
             ->action(trans('cortex/auth::emails.verification.email.action'), $link)
-            ->line(trans('cortex/auth::emails.verification.email.outro'));
+            ->line(trans('cortex/auth::emails.verification.email.outro', ['created_at' => now(), 'ip' => request()->ip(), 'agent' => request()->userAgent()]));
     }
 }

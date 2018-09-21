@@ -10,6 +10,7 @@ use Rinvex\Auth\Traits\HasHashables;
 use Cortex\Foundation\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
+use Rinvex\Support\Traits\HashidsTrait;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Foundation\Auth\Access\Authorizable;
@@ -17,7 +18,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 
-class Sentinel extends Model implements AuthenticatableContract, AuthorizableContract
+class Guardian extends Model implements AuthenticatableContract, AuthorizableContract
 {
     // @TODO: Strangely, this issue happens only here!!!
     // Duplicate trait usage to fire attached events for cache
@@ -25,6 +26,7 @@ class Sentinel extends Model implements AuthenticatableContract, AuthorizableCon
     // otherwise old cached queries used and no changelog recorded on update.
     use CacheableEloquent;
     use Auditable;
+    use HashidsTrait;
     use LogsActivity;
     use Authorizable;
     use HasHashables;
@@ -39,7 +41,6 @@ class Sentinel extends Model implements AuthenticatableContract, AuthorizableCon
         'password',
         'email',
         'is_active',
-        'last_activity',
     ];
 
     /**
@@ -50,7 +51,6 @@ class Sentinel extends Model implements AuthenticatableContract, AuthorizableCon
         'password' => 'string',
         'email' => 'string',
         'is_active' => 'boolean',
-        'last_activity' => 'datetime',
         'deleted_at' => 'datetime',
     ];
 
@@ -115,20 +115,28 @@ class Sentinel extends Model implements AuthenticatableContract, AuthorizableCon
      */
     protected static $ignoreChangedAttributes = [
         'password',
-        'last_activity',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
 
     /**
-     * Get the route key for the model.
+     * Create a new Eloquent model instance.
      *
-     * @return string
+     * @param array $attributes
      */
-    public function getRouteKeyName(): string
+    public function __construct(array $attributes = [])
     {
-        return 'username';
+        parent::__construct($attributes);
+
+        $this->setTable(config('cortex.auth.tables.guardians'));
+        $this->setRules([
+            'username' => 'required|alpha_dash|min:3|max:150|unique:'.config('cortex.auth.tables.guardians').',username',
+            'password' => 'sometimes|required|min:'.config('cortex.auth.password_min_chars'),
+            'email' => 'required|email|min:3|max:150|unique:'.config('cortex.auth.tables.guardians').',email',
+            'is_active' => 'sometimes|boolean',
+            'tags' => 'nullable|array',
+        ]);
     }
 
     /**
@@ -140,8 +148,8 @@ class Sentinel extends Model implements AuthenticatableContract, AuthorizableCon
 
         static::saving(function (self $user) {
             foreach (array_intersect($user->getHashables(), array_keys($user->getAttributes())) as $hashable) {
-                if ($user->isDirty($hashable) && Hash::needsRehash($user->$hashable)) {
-                    $user->$hashable = Hash::make($user->$hashable);
+                if ($user->isDirty($hashable) && Hash::needsRehash($user->{$hashable})) {
+                    $user->{$hashable} = Hash::make($user->{$hashable});
                 }
             }
         });
@@ -179,5 +187,15 @@ class Sentinel extends Model implements AuthenticatableContract, AuthorizableCon
         $this->update(['is_active' => false]);
 
         return $this;
+    }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'username';
     }
 }

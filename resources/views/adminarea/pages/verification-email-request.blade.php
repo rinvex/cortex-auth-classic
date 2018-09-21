@@ -3,12 +3,12 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/auth::common.verification_email_request') }}
+    {{ extract_title(Breadcrumbs::render()) }}
 @endsection
 
 {{-- Scripts --}}
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\EmailVerificationSendRequest::class)->selector('#adminarea-verification-email-request-form') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\EmailVerificationSendRequest::class)->selector('#adminarea-verification-email-request-form')->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}
@@ -25,7 +25,7 @@
             {{ Form::open(['url' => route('adminarea.verification.email.send'), 'id' => 'adminarea-verification-email-request-form', 'role' => 'auth']) }}
 
                 <div class="form-group has-feedback{{ $errors->has('email') ? ' has-error' : '' }}">
-                    {{ Form::email('email', old('email', auth()->guard(request('guard'))->guest() ? '' : $currentUser->email), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.email'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
+                    {{ Form::email('email', old('email', auth()->guard(request()->route('guard'))->guest() ? '' : $currentUser->email), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.email'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
 
                     @if ($errors->has('email'))
                         <span class="help-block">{{ $errors->first('email') }}</span>

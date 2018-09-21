@@ -13,7 +13,7 @@ use Illuminate\Routing\Router;
 use Cortex\Auth\Models\Ability;
 use Cortex\Auth\Models\Manager;
 use Cortex\Auth\Models\Session;
-use Cortex\Auth\Models\Sentinel;
+use Cortex\Auth\Models\Guardian;
 use Cortex\Auth\Models\Socialite;
 use Illuminate\Support\ServiceProvider;
 use Cortex\Auth\Handlers\GenericHandler;
@@ -76,8 +76,8 @@ class AuthServiceProvider extends ServiceProvider
         $this->app->singleton('cortex.auth.manager', $managerModel = $this->app['config']['cortex.auth.models.manager']);
         $managerModel === Manager::class || $this->app->alias('cortex.auth.manager', Manager::class);
 
-        $this->app->singleton('cortex.auth.sentinel', $sentinelModel = $this->app['config']['cortex.auth.models.sentinel']);
-        $sentinelModel === Sentinel::class || $this->app->alias('cortex.auth.sentinel', Sentinel::class);
+        $this->app->singleton('cortex.auth.guardian', $guardianModel = $this->app['config']['cortex.auth.models.guardian']);
+        $guardianModel === Guardian::class || $this->app->alias('cortex.auth.guardian', Guardian::class);
 
         $this->app->singleton('cortex.auth.role', $roleModel = $this->app['config']['cortex.auth.models.role']);
         $roleModel === Role::class || $this->app->alias('cortex.auth.role', Role::class);
@@ -100,7 +100,6 @@ class AuthServiceProvider extends ServiceProvider
 
         // Map bouncer models
         Bouncer::useRoleModel(config('cortex.auth.models.role'));
-        Bouncer::useUserModel(config('cortex.auth.models.member'));
         Bouncer::useAbilityModel(config('cortex.auth.models.ability'));
 
         // Map bouncer tables (users, roles, abilities tables are set through their models)
@@ -110,15 +109,17 @@ class AuthServiceProvider extends ServiceProvider
         ]);
 
         // Bind route models and constrains
-        $router->pattern('role', '[0-9]+');
-        $router->pattern('ability', '[0-9]+');
-        $router->pattern('user', '[a-zA-Z0-9_-]+');
-        $router->pattern('session', '[a-zA-Z0-9]+');
+        $router->pattern('role', '[a-zA-Z0-9-]+');
+        $router->pattern('ability', '[a-zA-Z0-9-]+');
+        $router->pattern('session', '[a-zA-Z0-9-]+');
+        $router->pattern('admin', '[a-zA-Z0-9-]+');
+        $router->pattern('member', '[a-zA-Z0-9-]+');
+        $router->pattern('manager', '[a-zA-Z0-9-]+');
         $router->model('role', config('cortex.auth.models.role'));
         $router->model('admin', config('cortex.auth.models.admin'));
         $router->model('member', config('cortex.auth.models.member'));
         $router->model('manager', config('cortex.auth.models.manager'));
-        $router->model('sentinel', config('cortex.auth.models.sentinel'));
+        $router->model('guardian', config('cortex.auth.models.guardian'));
         $router->model('ability', config('cortex.auth.models.ability'));
         $router->model('session', config('cortex.auth.models.session'));
 
@@ -128,18 +129,21 @@ class AuthServiceProvider extends ServiceProvider
             'admin' => config('cortex.auth.models.admin'),
             'member' => config('cortex.auth.models.member'),
             'manager' => config('cortex.auth.models.manager'),
-            'sentinel' => config('cortex.auth.models.sentinel'),
+            'guardian' => config('cortex.auth.models.guardian'),
             'ability' => config('cortex.auth.models.ability'),
         ]);
 
         // Load resources
-        require __DIR__.'/../../routes/breadcrumbs.php';
-        $this->loadRoutesFrom(__DIR__.'/../../routes/http.adminarea.php');
+        require __DIR__.'/../../routes/breadcrumbs/adminarea.php';
+        $this->loadRoutesFrom(__DIR__.'/../../routes/web/adminarea.php');
         $this->loadViewsFrom(__DIR__.'/../../resources/views', 'cortex/auth');
         $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'cortex/auth');
         ! $this->app->runningInConsole() || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
-        $this->app->afterResolving('blade.compiler', function () {
-            require __DIR__.'/../../routes/menus.php';
+        $this->app->runningInConsole() || $this->app->afterResolving('blade.compiler', function () {
+            require __DIR__.'/../../routes/menus/managerarea.php';
+            require __DIR__.'/../../routes/menus/tenantarea.php';
+            require __DIR__.'/../../routes/menus/adminarea.php';
+            require __DIR__.'/../../routes/menus/frontarea.php';
         });
 
         // Publish Resources
@@ -149,7 +153,9 @@ class AuthServiceProvider extends ServiceProvider
         $this->app['events']->subscribe(GenericHandler::class);
 
         // Register attributes entities
-        ! app()->bound('rinvex.attributes.entities') || app('rinvex.attributes.entities')->push('user');
+        ! app()->bound('rinvex.attributes.entities') || app('rinvex.attributes.entities')->push('admin');
+        ! app()->bound('rinvex.attributes.entities') || app('rinvex.attributes.entities')->push('member');
+        ! app()->bound('rinvex.attributes.entities') || app('rinvex.attributes.entities')->push('manager');
 
         // Override middlware
         $this->overrideMiddleware($router);
@@ -159,7 +165,8 @@ class AuthServiceProvider extends ServiceProvider
 
         // Share current user instance with all views
         $this->app['view']->composer('*', function ($view) {
-            $view->with('currentUser', auth()->guard(request('guard'))->user());
+            ! config('rinvex.tenants.active') || $view->with('currentTenant', config('rinvex.tenants.active'));
+            $view->with('currentUser', auth()->guard(request()->route('guard'))->user());
         });
     }
 

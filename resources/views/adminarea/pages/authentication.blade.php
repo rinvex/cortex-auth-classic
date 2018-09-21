@@ -3,12 +3,12 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/auth::common.login') }}
+    {{ extract_title(Breadcrumbs::render()) }}
 @endsection
 
 {{-- Scripts --}}
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\AuthenticationRequest::class)->selector('#adminarea-login-form') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\AuthenticationRequest::class)->selector('#adminarea-login-form')->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}
@@ -44,7 +44,7 @@
 
             {{ Form::close() }}
 
-            {{ Html::link(route('adminarea.passwordreset.request'), trans('cortex/auth::common.password_reset')) }}
+            {{ Html::link(route('adminarea.passwordreset.request'), trans('cortex/auth::common.passwordreset')) }}
 
         </div>
 

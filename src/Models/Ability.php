@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Auth\Models;
 
 use Cortex\Foundation\Traits\Auditable;
+use Rinvex\Support\Traits\HashidsTrait;
 use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -13,6 +14,7 @@ use Silber\Bouncer\Database\Ability as BaseAbility;
 class Ability extends BaseAbility
 {
     use Auditable;
+    use HashidsTrait;
     use LogsActivity;
     use HasTranslations;
     use ValidatingTrait;
@@ -65,8 +67,8 @@ class Ability extends BaseAbility
      * @var array
      */
     protected $rules = [
-        'name' => 'nullable|string|max:150',
         'title' => 'nullable|string',
+        'name' => 'required|string|max:150',
         'entity_id' => 'nullable|integer',
         'entity_type' => 'nullable|string',
         'only_owned' => 'sometimes|boolean',
@@ -115,7 +117,10 @@ class Ability extends BaseAbility
     public function setRolesAttribute($roles): void
     {
         static::saved(function (self $model) use ($roles) {
-            activity()
+            $roles = collect($roles)->filter();
+
+            $model->roles->pluck('id')->similar($roles)
+            || activity()
                 ->performedOn($model)
                 ->withProperties(['attributes' => ['roles' => $roles], 'old' => ['roles' => $model->roles->pluck('id')->toArray()]])
                 ->log('updated');

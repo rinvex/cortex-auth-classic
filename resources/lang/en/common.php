@@ -19,6 +19,7 @@ return [
     'select_country' => 'Select Country',
     'select_language' => 'Select Language',
     'select_abilities' => 'Select Abilities',
+    'select_entity_type' => 'Select Entity Types',
     'close' => 'Close',
     'logout' => 'Logout',
     'warning' => 'Warning',
@@ -28,30 +29,32 @@ return [
     'account_login' => 'Login to your account',
     'account_register' => 'Register new account',
     'account_reset_password' => 'Reset account password',
-    'password_reset' => 'Reset Password',
+    'passwordreset' => 'Reset Password',
     'account_verification_email' => 'Verify account email',
     'account_verification_phone' => 'Verify account phone',
-    'password_reset_request' => 'Request Password Reset',
+    'passwordreset_request' => 'Request Password Reset',
     'remember_me' => 'Remember Me',
     'last_activity' => 'Last Activity',
     'browse' => 'Browse',
+    'entity_id' => 'Entity Id',
+    'entity_type' => 'Entity Type',
+    'only_owned' => 'Only Owned',
+    'owner_account' => 'Owner Account',
+    'tenant_details' => 'Tenant Details',
 
     // Fields
     'name' => 'Name',
-    'slug' => 'Slug',
     'description' => 'Description',
     'action' => 'Action',
     'resource' => 'Resource',
     'policy' => 'Policy',
-    'first_name' => 'First Name',
-    'middle_name' => 'Middle Name',
-    'last_name' => 'Last Name',
+    'given_name' => 'Given Name',
+    'family_name' => 'Family Name',
     'username' => 'Username',
     'country' => 'Country',
     'language' => 'Language',
     'title' => 'Title',
-    'name_prefix' => 'Name Prefix',
-    'name_suffix' => 'Name Suffix',
+    'organization' => 'Organization',
     'password' => 'Password',
     'password_confirmation' => 'Password Confirmation',
     'old_password' => 'Old Password',
@@ -66,8 +69,7 @@ return [
     'male' => 'Male',
     'female' => 'Female',
     'undisclosed' => 'Undisclosed',
-    'active' => 'Active',
-    'inactive' => 'Inactive',
+    'is_active' => 'Is Active',
     'verified' => 'Verified',
     'verification_method' => 'Verification Method',
     'authentication_code' => 'Authentication Code',
@@ -76,6 +78,8 @@ return [
     'updated_at' => 'Updated At',
     'cover_photo' => 'Cover Photo',
     'profile_picture' => 'Profile Picture',
+    'tenants' => 'Tenants',
+    'tags' => 'Tags',
 
     // Headings
     'verification_email_request' => 'Request Email Verification',
@@ -87,11 +91,15 @@ return [
     'twofactor' => 'TwoFactor',
     'attributes' => 'Attributes',
     'account_attributes' => 'Account Attributes',
-    'twofactor_authentication' => 'TwoFactor Authentication',
+    'account_twofactor' => 'Account TwoFactor Authentication',
     'account_settings' => 'Account Settings',
     'account_password' => 'Account Password',
-    'active_sessions' => 'Active Sessions',
+    'account_sessions' => 'Account Sessions',
     'reauthentication' => 'Reauthentication',
+    'twitter' => 'Twitter',
+    'facebook' => 'Facebook',
+    'linkedin' => 'LinkedIn',
+    'scope' => 'Scope',
 
     // Misc
     'no' => 'No',
@@ -118,29 +126,37 @@ return [
     'update_settings' => 'Update Settings',
     'update_password' => 'Update Password',
     'update_attributes' => 'Update Attributes',
+    'records' => 'Records',
+    'import' => 'Import',
 
     // Abilities Phrases
+    'ability' => 'Ability',
     'abilities' => 'Abilities',
     'create_ability' => 'Create New Ability',
 
     // Roles Phrases
+    'role' => 'Role',
     'roles' => 'Roles',
     'create_role' => 'Create New Role',
 
     // Admins Phrases
+    'admin' => 'Admin',
     'admins' => 'Admins',
     'create_admin' => 'Create New Admin',
 
     // Members Phrases
+    'member' => 'Member',
     'members' => 'Members',
     'create_member' => 'Create New Member',
 
     // Managers Phrases
+    'manager' => 'Manager',
     'managers' => 'Managers',
     'create_manager' => 'Create New Manager',
 
-    // Sentinels Phrases
-    'sentinels' => 'Sentinels',
-    'create_sentinel' => 'Create New Sentinel',
+    // Guardians Phrases
+    'guardian' => 'Guardian',
+    'guardians' => 'Guardians',
+    'create_guardian' => 'Create New Guardian',
 
 ];

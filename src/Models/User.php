@@ -6,21 +6,22 @@ namespace Cortex\Auth\Models;
 
 use Rinvex\Country\Country;
 use Rinvex\Language\Language;
+use Rinvex\Tags\Traits\Taggable;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Rinvex\Auth\Traits\HasHashables;
-use Rinvex\Tenants\Traits\Tenantable;
 use Rinvex\Auth\Traits\CanVerifyEmail;
 use Rinvex\Auth\Traits\CanVerifyPhone;
 use Cortex\Foundation\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
+use Rinvex\Support\Traits\HashidsTrait;
 use Illuminate\Notifications\Notifiable;
 use Rinvex\Auth\Traits\CanResetPassword;
-use Rinvex\Attributes\Traits\Attributable;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Spatie\Activitylog\Traits\HasActivity;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Rinvex\Support\Traits\HasSocialAttributes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Rinvex\Auth\Traits\AuthenticatableTwoFactor;
 use Rinvex\Auth\Contracts\CanVerifyEmailContract;
@@ -40,11 +41,11 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     // flush before other events in other traits specially HasActivity,
     // otherwise old cached queries used and no changelog recorded on update.
     use CacheableEloquent;
+    use Taggable;
     use Auditable;
-    use Tenantable;
     use Notifiable;
     use HasActivity;
-    use Attributable;
+    use HashidsTrait;
     use Authorizable;
     use HasHashables;
     use HasMediaTrait;
@@ -53,6 +54,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     use Authenticatable;
     use ValidatingTrait;
     use CanResetPassword;
+    use HasSocialAttributes;
     use HasRolesAndAbilities;
     use AuthenticatableTwoFactor;
 
@@ -69,20 +71,20 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
         'phone',
         'phone_verified',
         'phone_verified_at',
-        'name_prefix',
-        'first_name',
-        'middle_name',
-        'last_name',
-        'name_suffix',
+        'given_name',
+        'family_name',
         'title',
+        'organization',
         'country_code',
         'language_code',
         'birthday',
         'gender',
+        'social',
         'is_active',
         'last_activity',
         'abilities',
         'roles',
+        'tags',
     ];
 
     /**
@@ -98,16 +100,15 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
         'phone' => 'string',
         'phone_verified' => 'boolean',
         'phone_verified_at' => 'datetime',
-        'name_prefix' => 'string',
-        'first_name' => 'string',
-        'middle_name' => 'string',
-        'last_name' => 'string',
-        'name_suffix' => 'string',
+        'given_name' => 'string',
+        'family_name' => 'string',
         'title' => 'string',
+        'organization' => 'string',
         'country_code' => 'string',
         'language_code' => 'string',
         'birthday' => 'string',
         'gender' => 'string',
+        'social' => 'array',
         'is_active' => 'boolean',
         'last_activity' => 'datetime',
         'deleted_at' => 'datetime',
@@ -185,16 +186,6 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     ];
 
     /**
-     * Get the route key for the model.
-     *
-     * @return string
-     */
-    public function getRouteKeyName(): string
-    {
-        return 'username';
-    }
-
-    /**
      * Register media collections.
      *
      * @return void
@@ -215,7 +206,10 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     public function setAbilitiesAttribute($abilities): void
     {
         static::saved(function (self $model) use ($abilities) {
-            activity()
+            $abilities = collect($abilities)->filter();
+
+            $model->abilities->pluck('id')->similar($abilities)
+            || activity()
                 ->performedOn($model)
                 ->withProperties(['attributes' => ['abilities' => $abilities], 'old' => ['abilities' => $model->abilities->pluck('id')->toArray()]])
                 ->log('updated');
@@ -234,7 +228,10 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     public function setRolesAttribute($roles): void
     {
         static::saved(function (self $model) use ($roles) {
-            activity()
+            $roles = collect($roles)->filter();
+
+            $model->roles->pluck('id')->similar($roles)
+            || activity()
                 ->performedOn($model)
                 ->withProperties(['attributes' => ['roles' => $roles], 'old' => ['roles' => $model->roles->pluck('id')->toArray()]])
                 ->log('updated');
@@ -252,8 +249,8 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
 
         static::saving(function (self $user) {
             foreach (array_intersect($user->getHashables(), array_keys($user->getAttributes())) as $hashable) {
-                if ($user->isDirty($hashable) && Hash::needsRehash($user->$hashable)) {
-                    $user->$hashable = Hash::make($user->$hashable);
+                if ($user->isDirty($hashable) && Hash::needsRehash($user->{$hashable})) {
+                    $user->{$hashable} = Hash::make($user->{$hashable});
                 }
             }
         });
@@ -277,18 +274,6 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     public function socialites(): MorphMany
     {
         return $this->morphMany(config('cortex.auth.models.socialite'), 'user');
-    }
-
-    /**
-     * Get name attribute.
-     *
-     * @return string
-     */
-    public function getNameAttribute(): string
-    {
-        $name = trim(implode(' ', [$this->name_prefix, $this->first_name, $this->middle_name, $this->last_name, $this->name_suffix]));
-
-        return $name ?: $this->username;
     }
 
     /**
@@ -335,6 +320,16 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     }
 
     /**
+     * Get full name attribute.
+     *
+     * @return string
+     */
+    public function getFullNameAttribute(): string
+    {
+        return implode(' ', [$this->given_name, $this->family_name]);
+    }
+
+    /**
      * Activate the user.
      *
      * @return $this
@@ -356,5 +351,15 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
         $this->update(['is_active' => false]);
 
         return $this;
+    }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'username';
     }
 }

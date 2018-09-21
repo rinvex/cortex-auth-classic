@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Notifications;
 
-use Illuminate\Http\Request;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -15,20 +14,29 @@ class AuthenticationLockoutNotification extends Notification implements ShouldQu
     use Queueable;
 
     /**
-     * The request instance.
+     * The client ip address.
      *
-     * @var \Illuminate\Http\Request
+     * @var string
      */
-    public $request;
+    public $ip;
+
+    /**
+     * The client agent.
+     *
+     * @var string
+     */
+    public $agent;
 
     /**
      * Create a notification instance.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param string $ip
+     * @param string $agent
      */
-    public function __construct(Request $request)
+    public function __construct(string $ip, string $agent)
     {
-        $this->request = $request;
+        $this->ip = $ip;
+        $this->agent = $agent;
     }
 
     /**
@@ -54,11 +62,7 @@ class AuthenticationLockoutNotification extends Notification implements ShouldQu
     {
         return (new MailMessage())
             ->subject(trans('cortex/auth::emails.auth.lockout.subject'))
-            ->line(trans('cortex/auth::emails.auth.lockout.intro', [
-                'created_at' => now(),
-                'ip' => $this->request->ip(),
-                'agent' => $this->request->server('HTTP_USER_AGENT'),
-            ]))
+            ->line(trans('cortex/auth::emails.auth.lockout.intro', ['created_at' => now(), 'ip' => $this->ip, 'agent' => $this->agent]))
             ->line(trans('cortex/auth::emails.auth.lockout.outro'));
     }
 }

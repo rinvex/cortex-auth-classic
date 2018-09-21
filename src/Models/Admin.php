@@ -42,21 +42,31 @@ class Admin extends User
             'email' => 'required|email|min:3|max:150|unique:'.config('cortex.auth.tables.admins').',email',
             'email_verified' => 'sometimes|boolean',
             'email_verified_at' => 'nullable|date',
-            'phone' => 'nullable|numeric|min:4',
+            'phone' => 'nullable|phone:AUTO',
             'phone_verified' => 'sometimes|boolean',
             'phone_verified_at' => 'nullable|date',
-            'name_prefix' => 'nullable|string|max:150',
-            'first_name' => 'nullable|string|max:150',
-            'middle_name' => 'nullable|string|max:150',
-            'last_name' => 'nullable|string|max:150',
-            'name_suffix' => 'nullable|string|max:150',
+            'given_name' => 'required|string|max:150',
+            'family_name' => 'nullable|string|max:150',
             'title' => 'nullable|string|max:150',
+            'organization' => 'nullable|string|max:150',
             'country_code' => 'nullable|alpha|size:2|country',
             'language_code' => 'nullable|alpha|size:2|language',
             'birthday' => 'nullable|date_format:Y-m-d',
-            'gender' => 'nullable|string|in:male,female',
+            'gender' => 'nullable|in:male,female',
+            'social' => 'nullable',
             'is_active' => 'sometimes|boolean',
             'last_activity' => 'nullable|date',
+            'tags' => 'nullable|array',
         ]);
+    }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'username';
     }
 }

@@ -8,7 +8,7 @@ Route::domain(domain())->group(function () {
          ->namespace('Cortex\Auth\Http\Controllers\Adminarea')
          ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.foundation.route.prefix.adminarea') : config('cortex.foundation.route.prefix.adminarea'))->group(function () {
 
-        // Login Routes
+            // Login Routes
              Route::get('login')->name('login')->uses('AuthenticationController@form');
              Route::post('login')->name('login.process')->uses('AuthenticationController@login');
              Route::post('logout')->name('logout')->uses('AuthenticationController@logout');
@@ -23,6 +23,7 @@ Route::domain(domain())->group(function () {
              });
 
              // Password Reset Routes
+             Route::get('passwordreset')->name('passwordreset')->uses('RedirectionController@passwordreset');
              Route::name('passwordreset.')->prefix('passwordreset')->group(function () {
                  Route::get('request')->name('request')->uses('PasswordResetController@request');
                  Route::post('send')->name('send')->uses('PasswordResetController@send');
@@ -31,6 +32,7 @@ Route::domain(domain())->group(function () {
              });
 
              // Verification Routes
+             Route::get('verification')->name('verification')->uses('RedirectionController@verification');
              Route::name('verification.')->prefix('verification')->group(function () {
                  // Phone Verification Routes
                  Route::name('phone.')->prefix('phone')->group(function () {
@@ -50,8 +52,8 @@ Route::domain(domain())->group(function () {
 
              Route::middleware(['can:access-adminarea'])->group(function () {
 
-            // Account Settings Route Placeholder
-                 Route::redirect('account', '/account/settings')->name('account')->uses('AccountSettingsController@index');
+                 // Account Settings Route Alias
+                 Route::get('account')->name('account')->uses('AccountSettingsController@index');
 
                  // User Account Routes
                  Route::name('account.')->prefix('account')->group(function () {
@@ -73,8 +75,8 @@ Route::domain(domain())->group(function () {
                      Route::delete('sessions/{session?}')->name('sessions.destroy')->uses('AccountSessionsController@destroy');
 
                      // Account TwoFactor Routes
+                     Route::get('twofactor')->name('twofactor')->uses('AccountTwoFactorController@index');
                      Route::name('twofactor.')->prefix('twofactor')->group(function () {
-                         Route::get('/')->name('index')->uses('AccountTwoFactorController@index');
 
                          // Account TwoFactor TOTP Routes
                          Route::name('totp.')->prefix('totp')->group(function () {
@@ -95,10 +97,15 @@ Route::domain(domain())->group(function () {
                  // Abilities Routes
                  Route::name('abilities.')->prefix('abilities')->group(function () {
                      Route::get('/')->name('index')->uses('AbilitiesController@index');
+                     Route::get('import')->name('import')->uses('AbilitiesController@import');
+                     Route::post('import')->name('stash')->uses('AbilitiesController@stash');
+                     Route::post('hoard')->name('hoard')->uses('AbilitiesController@hoard');
+                     Route::get('import/logs')->name('import.logs')->uses('AbilitiesController@importLogs');
                      Route::get('create')->name('create')->uses('AbilitiesController@create');
                      Route::post('create')->name('store')->uses('AbilitiesController@store');
-                     Route::get('{ability}')->name('edit')->uses('AbilitiesController@edit');
-                     Route::put('{ability}')->name('update')->uses('AbilitiesController@update');
+                     Route::get('{ability}')->name('show')->uses('AbilitiesController@show');
+                     Route::get('{ability}/edit')->name('edit')->uses('AbilitiesController@edit');
+                     Route::put('{ability}/edit')->name('update')->uses('AbilitiesController@update');
                      Route::get('{ability}/logs')->name('logs')->uses('AbilitiesController@logs');
                      Route::delete('{ability}')->name('destroy')->uses('AbilitiesController@destroy');
                  });
@@ -106,10 +113,15 @@ Route::domain(domain())->group(function () {
                  // Roles Routes
                  Route::name('roles.')->prefix('roles')->group(function () {
                      Route::get('/')->name('index')->uses('RolesController@index');
+                     Route::get('import')->name('import')->uses('RolesController@import');
+                     Route::post('import')->name('stash')->uses('RolesController@stash');
+                     Route::post('hoard')->name('hoard')->uses('RolesController@hoard');
+                     Route::get('import/logs')->name('import.logs')->uses('RolesController@importLogs');
                      Route::get('create')->name('create')->uses('RolesController@create');
                      Route::post('create')->name('store')->uses('RolesController@store');
-                     Route::get('{role}')->name('edit')->uses('RolesController@edit');
-                     Route::put('{role}')->name('update')->uses('RolesController@update');
+                     Route::get('{role}')->name('show')->uses('RolesController@show');
+                     Route::get('{role}/edit')->name('edit')->uses('RolesController@edit');
+                     Route::put('{role}/edit')->name('update')->uses('RolesController@update');
                      Route::get('{role}/logs')->name('logs')->uses('RolesController@logs');
                      Route::delete('{role}')->name('destroy')->uses('RolesController@destroy');
                  });
@@ -117,10 +129,15 @@ Route::domain(domain())->group(function () {
                  // Admins Routes
                  Route::name('admins.')->prefix('admins')->group(function () {
                      Route::get('/')->name('index')->uses('AdminsController@index');
+                     Route::get('import')->name('import')->uses('AdminsController@import');
+                     Route::post('import')->name('stash')->uses('AdminsController@stash');
+                     Route::post('hoard')->name('hoard')->uses('AdminsController@hoard');
+                     Route::get('import/logs')->name('import.logs')->uses('AdminsController@importLogs');
                      Route::get('create')->name('create')->uses('AdminsController@create');
                      Route::post('create')->name('store')->uses('AdminsController@store');
-                     Route::get('{admin}')->name('edit')->uses('AdminsController@edit');
-                     Route::put('{admin}')->name('update')->uses('AdminsController@update');
+                     Route::get('{admin}')->name('show')->uses('AdminsController@show');
+                     Route::get('{admin}/edit')->name('edit')->uses('AdminsController@edit');
+                     Route::put('{admin}/edit')->name('update')->uses('AdminsController@update');
                      Route::get('{admin}/logs')->name('logs')->uses('AdminsController@logs');
                      Route::get('{admin}/activities')->name('activities')->uses('AdminsController@activities');
                      Route::get('{admin}/attributes')->name('attributes')->uses('AdminsController@attributes');
@@ -129,45 +146,20 @@ Route::domain(domain())->group(function () {
                      Route::delete('{admin}/media/{media}')->name('media.destroy')->uses('AdminsMediaController@destroy');
                  });
 
-                 // Members Routes
-                 Route::name('members.')->prefix('members')->group(function () {
-                     Route::get('/')->name('index')->uses('MembersController@index');
-                     Route::get('create')->name('create')->uses('MembersController@create');
-                     Route::post('create')->name('store')->uses('MembersController@store');
-                     Route::get('{member}')->name('edit')->uses('MembersController@edit');
-                     Route::put('{member}')->name('update')->uses('MembersController@update');
-                     Route::get('{member}/logs')->name('logs')->uses('MembersController@logs');
-                     Route::get('{member}/activities')->name('activities')->uses('MembersController@activities');
-                     Route::get('{member}/attributes')->name('attributes')->uses('MembersController@attributes');
-                     Route::put('{member}/attributes')->name('attributes.update')->uses('MembersController@updateAttributes');
-                     Route::delete('{member}')->name('destroy')->uses('MembersController@destroy');
-                     Route::delete('{member}/media/{media}')->name('media.destroy')->uses('MembersMediaController@destroy');
-                 });
-
-                 // Managers Routes
-                 Route::name('managers.')->prefix('managers')->group(function () {
-                     Route::get('/')->name('index')->uses('ManagersController@index');
-                     Route::get('create')->name('create')->uses('ManagersController@create');
-                     Route::post('create')->name('store')->uses('ManagersController@store');
-                     Route::get('{manager}')->name('edit')->uses('ManagersController@edit');
-                     Route::put('{manager}')->name('update')->uses('ManagersController@update');
-                     Route::get('{manager}/logs')->name('logs')->uses('ManagersController@logs');
-                     Route::get('{manager}/activities')->name('activities')->uses('ManagersController@activities');
-                     Route::get('{manager}/attributes')->name('attributes')->uses('ManagersController@attributes');
-                     Route::put('{manager}/attributes')->name('attributes.update')->uses('ManagersController@updateAttributes');
-                     Route::delete('{manager}')->name('destroy')->uses('ManagersController@destroy');
-                     Route::delete('{manager}/media/{media}')->name('media.destroy')->uses('ManagersMediaController@destroy');
-                 });
-
-                 // Sentinels Routes
-                 Route::name('sentinels.')->prefix('sentinels')->group(function () {
-                     Route::get('/')->name('index')->uses('SentinelsController@index');
-                     Route::get('create')->name('create')->uses('SentinelsController@create');
-                     Route::post('create')->name('store')->uses('SentinelsController@store');
-                     Route::get('{sentinel}')->name('edit')->uses('SentinelsController@edit');
-                     Route::put('{sentinel}')->name('update')->uses('SentinelsController@update');
-                     Route::get('{sentinel}/logs')->name('logs')->uses('SentinelsController@logs');
-                     Route::delete('{sentinel}')->name('destroy')->uses('SentinelsController@destroy');
+                 // Guardians Routes
+                 Route::name('guardians.')->prefix('guardians')->group(function () {
+                     Route::get('/')->name('index')->uses('GuardiansController@index');
+                     Route::get('import')->name('import')->uses('GuardiansController@import');
+                     Route::post('import')->name('stash')->uses('GuardiansController@stash');
+                     Route::post('hoard')->name('hoard')->uses('GuardiansController@hoard');
+                     Route::get('import/logs')->name('import.logs')->uses('GuardiansController@importLogs');
+                     Route::get('create')->name('create')->uses('GuardiansController@create');
+                     Route::post('create')->name('store')->uses('GuardiansController@store');
+                     Route::get('{guardian}')->name('show')->uses('GuardiansController@show');
+                     Route::get('{guardian}/edit')->name('edit')->uses('GuardiansController@edit');
+                     Route::put('{guardian}/edit')->name('update')->uses('GuardiansController@update');
+                     Route::get('{guardian}/logs')->name('logs')->uses('GuardiansController@logs');
+                     Route::delete('{guardian}')->name('destroy')->uses('GuardiansController@destroy');
                  });
              });
          });

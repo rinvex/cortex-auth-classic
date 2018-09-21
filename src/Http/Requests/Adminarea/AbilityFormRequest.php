@@ -4,39 +4,43 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Requests\Adminarea;
 
-use Cortex\Auth\Models\Ability;
+use Rinvex\Support\Traits\Escaper;
 use Illuminate\Foundation\Http\FormRequest;
+use Cortex\Foundation\Exceptions\GenericException;
 
 class AbilityFormRequest extends FormRequest
 {
+    use Escaper;
+
     /**
      * Determine if the user is authorized to make this request.
+     *
+     * @throws \Cortex\Foundation\Exceptions\GenericException
      *
      * @return bool
      */
     public function authorize(): bool
     {
+        $currentUser = $this->user($this->route('guard'));
+
+        if (optional($this->route('ability'))->exists && ! $currentUser->can('superadmin') && ! $currentUser->getAbilities()->contains($this->route('ability'))) {
+            throw new GenericException(trans('cortex/auth::messages.action_unauthorized'), route('adminarea.abilities.index'));
+        }
+
         return true;
     }
 
     /**
-     * Prepare the data for validation.
+     * Configure the validator instance.
+     *
+     * @param \Illuminate\Validation\Validator $validator
      *
      * @return void
      */
-    protected function prepareForValidation(): void
+    public function withValidator($validator): void
     {
-        $data = $this->all();
-
-        // Set roles
-        if ($this->user($this->get('guard'))->can('grant', \Cortex\Auth\Models\Ability::class) && $data['roles']) {
-            $data['roles'] = $this->user($this->get('guard'))->can('superadmin') ? $this->get('roles', [])
-                : $this->user($this->get('guard'))->roles->pluck('id')->intersect($this->get('roles', []))->toArray();
-        } else {
-            unset($data['roles']);
-        }
-
-        $this->replace($data);
+        // Sanitize input data before submission
+        $this->replace($this->escape($this->all()));
     }
 
     /**
@@ -46,11 +50,6 @@ class AbilityFormRequest extends FormRequest
      */
     public function rules(): array
     {
-        $user = $this->route('ability') ?? new Ability();
-        $user->updateRulesUniques();
-        $rules = $user->getRules();
-        $rules['roles'] = 'nullable|array';
-
-        return $rules;
+        return [];
     }
 }

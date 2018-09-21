@@ -6,6 +6,7 @@ namespace Cortex\Auth\Models;
 
 use Rinvex\Tenants\Traits\Tenantable;
 use Cortex\Foundation\Traits\Auditable;
+use Rinvex\Support\Traits\HashidsTrait;
 use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -14,7 +15,8 @@ use Silber\Bouncer\Database\Role as BaseRole;
 class Role extends BaseRole
 {
     use Auditable;
-    //use Tenantable;
+    use Tenantable;
+    use HashidsTrait;
     use LogsActivity;
     use ValidatingTrait;
     use HasTranslations;
@@ -128,7 +130,10 @@ class Role extends BaseRole
     public function setAbilitiesAttribute($abilities): void
     {
         static::saved(function (self $model) use ($abilities) {
-            activity()
+            $abilities = collect($abilities)->filter();
+
+            $model->abilities->pluck('id')->similar($abilities)
+            || activity()
                 ->performedOn($model)
                 ->withProperties(['attributes' => ['abilities' => $abilities], 'old' => ['abilities' => $model->abilities->pluck('id')->toArray()]])
                 ->log('updated');

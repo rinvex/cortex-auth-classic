@@ -30,7 +30,7 @@ class Reauthenticate
             session()->put('cortex.auth.reauthentication.intended', $request->url());
             session()->put('cortex.auth.reauthentication.session_name', $sessionName);
 
-            return view('cortex/auth::'.$request->get('accessarea').'.pages.reauthentication-'.$type);
+            return view('cortex/auth::'.$request->route('accessarea').'.pages.reauthentication-'.$type);
         }
 
         ! $renew || session()->put($sessionName, time());
