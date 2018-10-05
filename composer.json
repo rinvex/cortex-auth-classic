@@ -1,7 +1,7 @@
 {
     "name": "cortex/auth",
+    "description": "Cortex Auth is a frontend layer for the powerful authentication, authorization and verification package rinvex/laravel-auth on top of Laravel. It has all required controllers, views, routes, and other required assets to run a fully functional user management system with complete dashboard out of the box.",
     "type": "cortex-module",
-    "description": "Cortex Auth is a frontend layer for the powerful authentication, authorization and verification package rinvex/auth on top of Laravel. It has all required controllers, views, routes, and other required assets to run a fully functional user management system with complete dashboard out of the box.",
     "keywords": [
         "authentication",
         "authorization",
@@ -56,7 +56,7 @@
         "Illuminate/http": "~5.7.0",
         "Illuminate/routing": "~5.7.0",
         "Illuminate/support": "~5.7.0",
-        "cortex/foundation": "dev-develop",
+        "cortex/foundation": "^1.0.0",
         "davejamesmiller/laravel-breadcrumbs": "^5.1.0",
         "laravel/socialite": "^3.0.0",
         "laravelcollective/html": "~5.7.0",
@@ -64,14 +64,14 @@
         "pragmarx/google2fa": "^2.0.0",
         "proengsoft/laravel-jsvalidation": "^2.3.0",
         "propaganistas/laravel-phone": "^4.0.0",
-        "rinvex/auth": "dev-develop",
-        "rinvex/composer": "dev-develop",
-        "rinvex/country": "dev-develop",
-        "rinvex/forms": "dev-develop",
-        "rinvex/language": "dev-develop",
-        "rinvex/menus": "dev-develop",
-        "rinvex/support": "dev-develop",
-        "rinvex/tenants": "dev-develop",
+        "rinvex/laravel-auth": "^1.0.0",
+        "rinvex/laravel-composer": "^1.0.0",
+        "rinvex/countries": "^5.0.0",
+        "rinvex/laravel-forms": "^1.0.0",
+        "rinvex/languages": "^3.0.0",
+        "rinvex/laravel-menus": "^1.0.0",
+        "rinvex/laravel-support": "^1.0.0",
+        "rinvex/laravel-tenants": "^1.0.0",
         "silber/bouncer": "v1.0.0-rc.3",
         "spatie/laravel-activitylog": "^2.8.0",
         "spatie/laravel-schemaless-attributes": "~1.1.0",
@@ -81,7 +81,7 @@
         "yajra/laravel-datatables-oracle": "^8.8.0"
     },
     "require-dev": {
-        "codedungeon/phpunit-result-printer": "^0.20.0",
+        "codedungeon/phpunit-result-printer": "^0.22.0",
         "phpunit/phpunit": "^7.0.0"
     },
     "autoload": {
@@ -97,15 +97,15 @@
             "Cortex\\Auth\\Tests\\": "tests"
         }
     },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
     "config": {
-        "preferred-install": "dist",
         "sort-packages": true,
+        "preferred-install": "dist",
         "optimize-autoloader": true
     },
     "extra": {
-        "branch-alias": {
-            "dev-master": "1.0-dev"
-        },
         "laravel": {
             "providers": [
                 "Cortex\\Auth\\Providers\\AuthServiceProvider",
