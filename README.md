@@ -1,6 +1,6 @@
 # Cortex Auth
 
-**Cortex Auth** is a frontend layer for the powerful authentication, authorization and verification package **rinvex/auth** on top of Laravel. It has all required controllers, views, routes, and other required assets to run a fully functional user management system with complete dashboard out of the box.
+**Cortex Auth** is a frontend layer for the powerful authentication, authorization and verification package **rinvex/laravel-auth** on top of Laravel. It has all required controllers, views, routes, and other required assets to run a fully functional user management system with complete dashboard out of the box.
 
 [![Packagist](https://img.shields.io/packagist/v/cortex/auth.svg?label=Packagist&style=flat-square)](https://packagist.org/packages/cortex/auth)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/rinvex/cortex-auth.svg?label=Scrutinizer&style=flat-square)](https://scrutinizer-ci.com/g/rinvex/cortex-auth/)
