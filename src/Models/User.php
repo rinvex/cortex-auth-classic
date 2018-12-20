@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Models;
 
+use Error;
+use Exception;
+use BadMethodCallException;
 use Rinvex\Country\Country;
 use Rinvex\Language\Language;
 use Rinvex\Tags\Traits\Taggable;
@@ -17,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
 use Rinvex\Support\Traits\HashidsTrait;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Traits\Macroable;
 use Rinvex\Auth\Traits\CanResetPassword;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Spatie\Activitylog\Traits\HasActivity;
@@ -43,6 +47,10 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     use CacheableEloquent;
     use Taggable;
     use Auditable;
+    use Macroable {
+        Macroable::__call as macroableCall;
+        Macroable::__callStatic as macroableCallStatic;
+    }
     use Notifiable;
     use HasActivity;
     use HashidsTrait;
@@ -361,5 +369,41 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     public function getRouteKeyName()
     {
         return 'username';
+    }
+
+    /**
+     * Handle dynamic method calls into the model.
+     *
+     * @param  string  $method
+     * @param  array  $parameters
+     * @return mixed
+     */
+    public function __call($method, $parameters)
+    {
+        if (in_array($method, ['increment', 'decrement'])) {
+            return $this->$method(...$parameters);
+        }
+
+        try {
+            return $this->forwardCallTo($this->newQuery(), $method, $parameters);
+        } catch (Error | BadMethodCallException $e) {
+            return $this->macroableCall($method, $parameters);
+        }
+    }
+
+    /**
+     * Handle dynamic static method calls into the method.
+     *
+     * @param  string  $method
+     * @param  array  $parameters
+     * @return mixed
+     */
+    public static function __callStatic($method, $parameters)
+    {
+        try {
+            return (new static)->$method(...$parameters);
+        } catch (Exception $e) {
+            return (new static)::macroableCallStatic($method, $parameters);
+        }
     }
 }
