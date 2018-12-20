@@ -10,7 +10,7 @@
     {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\AccountSettingsRequest::class)->selector('#adminarea-account-settings-form')->ignore('.skip-validation') !!}
 
     <script>
-        window.countries = {!! $countries !!};
+        window.countries = @json($countries);
         window.selectedCountry = '{{ old('country_code', $currentUser->country_code) }}';
     </script>
 @endpush
