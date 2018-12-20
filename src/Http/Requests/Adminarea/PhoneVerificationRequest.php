@@ -22,23 +22,23 @@ class PhoneVerificationRequest extends FormRequest
                 ?? $this->attemptUser($this->route('guard'))
                    ?? app('cortex.auth.admin')->whereNotNull('phone')->where('phone', $this->get('phone'))->first();
 
-        if ($user && $user->phone_verified) {
-            // Redirect users if their phone already verified, no need to process their request
+        // Redirect users if their phone already verified, no need to process their request
+        if ($user && $user->hasVerifiedPhone()) {
             throw new GenericException(trans('cortex/auth::messages.verification.phone.already_verified'), route('adminarea.account.settings'));
         }
 
+        // Phone field required before verification
         if ($user && ! $user->phone) {
-            // Phone field required before verification
             throw new GenericException(trans('cortex/auth::messages.account.phone_required'), route('adminarea.account.settings'));
         }
 
+        // Country field required for phone verification
         if ($user && ! $user->country_code) {
-            // Country field required for phone verification
             throw new GenericException(trans('cortex/auth::messages.account.country_required'), route('adminarea.account.settings'));
         }
 
-        if ($user && ! $user->email_verified) {
-            // Email verification required for phone verification
+        // Email verification required for phone verification
+        if ($user && ! $user->hasVerifiedPhone()) {
             throw new GenericException(trans('cortex/auth::messages.account.email_verification_required'), route('adminarea.verification.email.request'));
         }
 

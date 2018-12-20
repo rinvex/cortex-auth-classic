@@ -60,9 +60,9 @@ class SeedCommand extends Command
         $admin = [
             'is_active' => true,
             'username' => 'Admin',
-            'email_verified' => true,
             'given_name' => 'Admin',
             'family_name' => 'User',
+            'email_verified_at' => now(),
             'email' => 'admin@example.com',
         ];
 

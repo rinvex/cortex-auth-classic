@@ -18,8 +18,10 @@ class EmailVerificationRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        $user = $this->user($this->route('guard')) ?: $this->attemptUser($this->route('guard'));
+
         // Redirect users if their email already verified, no need to process their request
-        if (($user = $this->user($this->route('guard')) ?: $this->attemptUser($this->route('guard'))) && $user->email_verified) {
+        if ($user && $user->hasVerifiedEmail()) {
             throw new GenericException(trans('cortex/auth::messages.verification.email.already_verified'), route('adminarea.account.settings'));
         }
 

@@ -24,10 +24,8 @@ class CreateManagersTable extends Migration
             $table->string('username');
             $table->string('password');
             $table->rememberToken();
-            $table->boolean('email_verified')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('phone')->nullable();
-            $table->boolean('phone_verified')->default(false);
             $table->timestamp('phone_verified_at')->nullable();
             $table->string('title')->nullable();
             $table->string('organization')->nullable();

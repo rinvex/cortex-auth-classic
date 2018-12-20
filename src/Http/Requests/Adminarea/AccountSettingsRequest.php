@@ -37,16 +37,14 @@ class AccountSettingsRequest extends FormRequest
         $twoFactor = $user->getTwoFactor();
 
         if ($email !== $user->email) {
-            $data['email_verified'] = false;
             $data['email_verified_at'] = null;
         }
 
-        if ($phone !== $user->phone) {
-            $data['phone_verified'] = false;
+        if ($phone !== $user->phone || $country !== $user->country_code) {
             $data['phone_verified_at'] = null;
         }
 
-        if ($twoFactor && (isset($data['phone_verified']) || $country !== $user->country_code)) {
+        if ($twoFactor || is_null($data['phone_verified_at'])) {
             array_set($twoFactor, 'phone.enabled', false);
             $data['two_factor'] = $twoFactor;
         }
