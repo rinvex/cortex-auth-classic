@@ -25,7 +25,7 @@
             {{ Form::open(['url' => route('adminarea.verification.email.send'), 'id' => 'adminarea-verification-email-request-form', 'role' => 'auth']) }}
 
                 <div class="form-group has-feedback{{ $errors->has('email') ? ' has-error' : '' }}">
-                    {{ Form::email('email', old('email', auth()->guard(request()->route('guard'))->guest() ? '' : $currentUser->email), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.email'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
+                    {{ Form::email('email', old('email', auth()->guard(request()->route('guard'))->hasUser() ? '' : $currentUser->email), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.email'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
 
                     @if ($errors->has('email'))
                         <span class="help-block">{{ $errors->first('email') }}</span>
