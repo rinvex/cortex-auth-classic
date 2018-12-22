@@ -34,21 +34,8 @@ class AdminFormRequest extends FormRequest
         $country = $data['country_code'] ?? null;
         $twoFactor = $admin->getTwoFactor();
 
-        $data['email_verified'] = $this->get('email_verified', false);
-        $data['phone_verified'] = $this->get('phone_verified', false);
-
         if ($admin->exists && empty($data['password'])) {
             unset($data['password'], $data['password_confirmation']);
-        }
-
-        // Update email verification date
-        if ($data['email_verified'] && $admin->email_verified !== $data['email_verified']) {
-            $data['email_verified_at'] = now();
-        }
-
-        // Update phone verification date
-        if ($data['phone_verified'] && $admin->phone_verified !== $data['phone_verified']) {
-            $data['phone_verified_at'] = now();
         }
 
         // Set abilities

@@ -67,7 +67,6 @@ class EmailVerificationController extends AbstractController
             ->broker($this->getEmailVerificationBroker())
             ->verify($request->only(['email', 'expiration', 'token']), function ($user) {
                 $user->fill([
-                    'email_verified' => true,
                     'email_verified_at' => now(),
                 ])->forceSave();
             });

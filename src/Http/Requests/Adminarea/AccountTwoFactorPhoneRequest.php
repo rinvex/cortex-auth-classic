@@ -32,7 +32,7 @@ class AccountTwoFactorPhoneRequest extends FormRequest
         $user = $this->user($this->route('guard'));
 
         $validator->after(function ($validator) use ($user) {
-            if (! $user->phone || ! $user->phone_verified) {
+            if (! $user->phone || ! $user->hasVerifiedPhone()) {
                 $validator->errors()->add('phone', trans('cortex/auth::messages.account.'.(! $user->phone ? 'phone_field_required' : 'phone_verification_required')));
             }
         });

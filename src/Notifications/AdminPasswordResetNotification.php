@@ -14,6 +14,13 @@ class AdminPasswordResetNotification extends Notification implements ShouldQueue
     use Queueable;
 
     /**
+     * The callback that should be used to build the mail message.
+     *
+     * @var \Closure|null
+     */
+    public static $toMailCallback;
+
+    /**
      * The password reset token.
      *
      * @var string
@@ -60,6 +67,10 @@ class AdminPasswordResetNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable): MailMessage
     {
+        if (static::$toMailCallback) {
+            return call_user_func(static::$toMailCallback, $notifiable);
+        }
+
         $email = $notifiable->getEmailForPasswordReset();
         $link = route('adminarea.passwordreset.reset')."?email={$email}&expiration={$this->expiration}&token={$this->token}";
 
@@ -68,5 +79,16 @@ class AdminPasswordResetNotification extends Notification implements ShouldQueue
             ->line(trans('cortex/auth::emails.passwordreset.request.intro', ['expire' => now()->createFromTimestamp($this->expiration)->diffForHumans()]))
             ->action(trans('cortex/auth::emails.passwordreset.request.action'), $link)
             ->line(trans('cortex/auth::emails.passwordreset.request.outro', ['created_at' => now(), 'ip' => request()->ip(), 'agent' => request()->userAgent()]));
+    }
+
+    /**
+     * Set a callback that should be used when building the notification mail message.
+     *
+     * @param  \Closure  $callback
+     * @return void
+     */
+    public static function toMailUsing($callback)
+    {
+        static::$toMailCallback = $callback;
     }
 }

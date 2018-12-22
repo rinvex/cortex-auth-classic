@@ -10,7 +10,7 @@
     {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\AccountSettingsRequest::class)->selector('#adminarea-account-settings-form')->ignore('.skip-validation') !!}
 
     <script>
-        window.countries = {!! $countries !!};
+        window.countries = @json($countries);
         window.selectedCountry = '{{ old('country_code', $currentUser->country_code) }}';
     </script>
 @endpush
@@ -78,8 +78,8 @@
                                         {{ Form::label('email', trans('cortex/auth::common.email'), ['class' => 'control-label']) }}
                                         {{ Form::email('email', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.email'), 'required' => 'required']) }}
 
-                                        @if ($currentUser->email_verified)
-                                            <small class="text-success">{!! trans('cortex/auth::common.email_verified', ['date' => $currentUser->email_verified_at]) !!}</small>
+                                        @if ($currentUser->hasVerifiedEmail())
+                                            <small class="text-success">{!! trans('cortex/auth::common.email_verified_at', ['date' => $currentUser->email_verified_at]) !!}</small>
                                         @elseif($currentUser->email)
                                             <small class="text-danger">{!! trans('cortex/auth::common.email_unverified', ['href' => route('adminarea.verification.email.request')]) !!}</small>
                                         @endif
@@ -162,8 +162,8 @@
                                         {{ Form::label('phone', trans('cortex/auth::common.phone'), ['class' => 'control-label']) }}
                                         {{ Form::tel('phone_input', $currentUser->phone, ['class' => 'form-control', 'placeholder' => $currentUser->phone ?: trans('cortex/auth::common.phone')]) }}
 
-                                        @if ($currentUser->phone_verified)
-                                            <small class="text-success">{!! trans('cortex/auth::common.phone_verified', ['date' => $currentUser->phone_verified_at]) !!}</small>
+                                        @if ($currentUser->hasVerifiedPhone())
+                                            <small class="text-success">{!! trans('cortex/auth::common.phone_verified_at', ['date' => $currentUser->phone_verified_at]) !!}</small>
                                         @elseif($currentUser->phone)
                                             <small class="text-danger">{!! trans('cortex/auth::common.phone_unverified', ['href' => route('adminarea.verification.phone.request')]) !!}</small>
                                         @endif

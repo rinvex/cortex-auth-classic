@@ -14,6 +14,13 @@ class MemberEmailVerificationNotification extends Notification implements Should
     use Queueable;
 
     /**
+     * The callback that should be used to build the mail message.
+     *
+     * @var \Closure|null
+     */
+    public static $toMailCallback;
+
+    /**
      * The email verification token.
      *
      * @var string
@@ -60,6 +67,10 @@ class MemberEmailVerificationNotification extends Notification implements Should
      */
     public function toMail($notifiable): MailMessage
     {
+        if (static::$toMailCallback) {
+            return call_user_func(static::$toMailCallback, $notifiable);
+        }
+
         $email = $notifiable->getEmailForVerification();
         $link = route('frontarea.verification.email.verify')."?email={$email}&expiration={$this->expiration}&token={$this->token}";
 
@@ -68,5 +79,16 @@ class MemberEmailVerificationNotification extends Notification implements Should
             ->line(trans('cortex/auth::emails.verification.email.intro', ['expire' => now()->createFromTimestamp($this->expiration)->diffForHumans()]))
             ->action(trans('cortex/auth::emails.verification.email.action'), $link)
             ->line(trans('cortex/auth::emails.verification.email.outro', ['created_at' => now(), 'ip' => request()->ip(), 'agent' => request()->userAgent()]));
+    }
+
+    /**
+     * Set a callback that should be used when building the notification mail message.
+     *
+     * @param  \Closure  $callback
+     * @return void
+     */
+    public static function toMailUsing($callback)
+    {
+        static::$toMailCallback = $callback;
     }
 }

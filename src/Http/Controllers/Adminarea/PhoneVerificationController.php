@@ -84,7 +84,6 @@ class PhoneVerificationController extends AbstractController
         if (($user = $request->user($this->getGuard()) ?? app('cortex.auth.admin')->whereNotNull('phone')->where('phone', $request->get('phone'))->first()) && $this->isValidTwoFactorPhone($user, $request->get('token'))) {
             // Profile update
             $user->fill([
-                'phone_verified' => true,
                 'phone_verified_at' => now(),
             ])->forceSave();
 
