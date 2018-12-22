@@ -370,14 +370,15 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     /**
      * Handle dynamic method calls into the model.
      *
-     * @param  string  $method
-     * @param  array  $parameters
+     * @param string $method
+     * @param array  $parameters
+     *
      * @return mixed
      */
     public function __call($method, $parameters)
     {
         if (in_array($method, ['increment', 'decrement'])) {
-            return $this->$method(...$parameters);
+            return $this->{$method}(...$parameters);
         }
 
         try {
@@ -390,16 +391,17 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     /**
      * Handle dynamic static method calls into the method.
      *
-     * @param  string  $method
-     * @param  array  $parameters
+     * @param string $method
+     * @param array  $parameters
+     *
      * @return mixed
      */
     public static function __callStatic($method, $parameters)
     {
         try {
-            return (new static)->$method(...$parameters);
+            return (new static())->{$method}(...$parameters);
         } catch (Exception $e) {
-            return (new static)::macroableCallStatic($method, $parameters);
+            return (new static())::macroableCallStatic($method, $parameters);
         }
     }
 }
