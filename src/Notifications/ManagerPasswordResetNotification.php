@@ -84,7 +84,8 @@ class ManagerPasswordResetNotification extends Notification implements ShouldQue
     /**
      * Set a callback that should be used when building the notification mail message.
      *
-     * @param  \Closure  $callback
+     * @param \Closure $callback
+     *
      * @return void
      */
     public static function toMailUsing($callback)

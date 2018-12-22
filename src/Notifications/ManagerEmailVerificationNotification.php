@@ -84,7 +84,8 @@ class ManagerEmailVerificationNotification extends Notification implements Shoul
     /**
      * Set a callback that should be used when building the notification mail message.
      *
-     * @param  \Closure  $callback
+     * @param \Closure $callback
+     *
      * @return void
      */
     public static function toMailUsing($callback)
