@@ -23,8 +23,9 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Traits\Macroable;
 use Rinvex\Auth\Traits\CanResetPassword;
 use Rinvex\Support\Traits\ValidatingTrait;
-use Spatie\Activitylog\Traits\HasActivity;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\Traits\CausesActivity;
 use Rinvex\Support\Traits\HasSocialAttributes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Rinvex\Auth\Traits\AuthenticatableTwoFactor;
@@ -42,7 +43,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
 {
     // @TODO: Strangely, this issue happens only here!!!
     // Duplicate trait usage to fire attached events for cache
-    // flush before other events in other traits specially HasActivity,
+    // flush before other events in other traits specially CausesActivity,
     // otherwise old cached queries used and no changelog recorded on update.
     use CacheableEloquent;
     use Taggable;
@@ -52,12 +53,13 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
         Macroable::__callStatic as macroableCallStatic;
     }
     use Notifiable;
-    use HasActivity;
     use HashidsTrait;
     use Authorizable;
     use HasHashables;
+    use LogsActivity;
     use HasMediaTrait;
     use CanVerifyEmail;
+    use CausesActivity;
     use CanVerifyPhone;
     use Authenticatable;
     use ValidatingTrait;
