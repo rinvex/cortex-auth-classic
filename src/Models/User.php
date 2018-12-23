@@ -23,8 +23,9 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Traits\Macroable;
 use Rinvex\Auth\Traits\CanResetPassword;
 use Rinvex\Support\Traits\ValidatingTrait;
-use Spatie\Activitylog\Traits\HasActivity;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\Traits\CausesActivity;
 use Rinvex\Support\Traits\HasSocialAttributes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Rinvex\Auth\Traits\AuthenticatableTwoFactor;
@@ -42,7 +43,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
 {
     // @TODO: Strangely, this issue happens only here!!!
     // Duplicate trait usage to fire attached events for cache
-    // flush before other events in other traits specially HasActivity,
+    // flush before other events in other traits specially CausesActivity,
     // otherwise old cached queries used and no changelog recorded on update.
     use CacheableEloquent;
     use Taggable;
@@ -52,12 +53,13 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
         Macroable::__callStatic as macroableCallStatic;
     }
     use Notifiable;
-    use HasActivity;
     use HashidsTrait;
     use Authorizable;
     use HasHashables;
+    use LogsActivity;
     use HasMediaTrait;
     use CanVerifyEmail;
+    use CausesActivity;
     use CanVerifyPhone;
     use Authenticatable;
     use ValidatingTrait;
@@ -370,36 +372,42 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     /**
      * Handle dynamic method calls into the model.
      *
-     * @param  string  $method
-     * @param  array  $parameters
+     * @param string $method
+     * @param array  $parameters
+     *
      * @return mixed
      */
     public function __call($method, $parameters)
     {
         if (in_array($method, ['increment', 'decrement'])) {
-            return $this->$method(...$parameters);
+            return $this->{$method}(...$parameters);
         }
 
         try {
             return $this->forwardCallTo($this->newQuery(), $method, $parameters);
         } catch (Error | BadMethodCallException $e) {
-            return $this->macroableCall($method, $parameters);
+            if ($method !== 'macroableCall') {
+                return $this->macroableCall($method, $parameters);
+            }
         }
     }
 
     /**
      * Handle dynamic static method calls into the method.
      *
-     * @param  string  $method
-     * @param  array  $parameters
+     * @param string $method
+     * @param array  $parameters
+     *
      * @return mixed
      */
     public static function __callStatic($method, $parameters)
     {
         try {
-            return (new static)->$method(...$parameters);
+            return (new static())->{$method}(...$parameters);
         } catch (Exception $e) {
-            return (new static)::macroableCallStatic($method, $parameters);
+            if ($method !== 'macroableCallStatic') {
+                return (new static())::macroableCallStatic($method, $parameters);
+            }
         }
     }
 }
