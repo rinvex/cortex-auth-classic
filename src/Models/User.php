@@ -384,7 +384,9 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
         try {
             return $this->forwardCallTo($this->newQuery(), $method, $parameters);
         } catch (Error | BadMethodCallException $e) {
-            return $this->macroableCall($method, $parameters);
+            if ($method !== 'macroableCall') {
+                return $this->macroableCall($method, $parameters);
+            }
         }
     }
 
@@ -401,7 +403,9 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
         try {
             return (new static())->{$method}(...$parameters);
         } catch (Exception $e) {
-            return (new static())::macroableCallStatic($method, $parameters);
+            if ($method !== 'macroableCallStatic') {
+                return (new static())::macroableCallStatic($method, $parameters);
+            }
         }
     }
 }
