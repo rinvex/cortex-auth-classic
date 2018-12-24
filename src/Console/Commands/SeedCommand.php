@@ -62,7 +62,6 @@ class SeedCommand extends Command
             'username' => 'Admin',
             'given_name' => 'Admin',
             'family_name' => 'User',
-            'email_verified_at' => now(),
             'email' => 'admin@example.com',
         ];
 
