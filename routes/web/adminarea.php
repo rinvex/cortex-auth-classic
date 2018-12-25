@@ -61,6 +61,9 @@ Route::domain(domain())->group(function () {
                      Route::get('settings')->name('settings')->uses('AccountSettingsController@edit');
                      Route::post('settings')->name('settings.update')->uses('AccountSettingsController@update');
 
+                     // Account Media Routes
+                     Route::delete('{member}/media/{media}')->name('media.destroy')->uses('AccountMediaController@destroy');
+
                      // Account Password Routes
                      Route::get('password')->name('password')->uses('AccountPasswordController@edit');
                      Route::post('password')->name('password.update')->uses('AccountPasswordController@update');
