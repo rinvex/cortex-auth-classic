@@ -156,10 +156,10 @@ Route::domain(domain())->group(function () {
                      Route::post('import')->name('stash')->uses('GuardiansController@stash');
                      Route::post('hoard')->name('hoard')->uses('GuardiansController@hoard');
                      Route::get('import/logs')->name('import.logs')->uses('GuardiansController@importLogs');
-                     Route::get('create')->name('create')->uses('GuardiansController@create');
+                     Route::get('create')->name('create')->uses('GuardiansController@form');
                      Route::post('create')->name('store')->uses('GuardiansController@store');
                      Route::get('{guardian}')->name('show')->uses('GuardiansController@show');
-                     Route::get('{guardian}/edit')->name('edit')->uses('GuardiansController@edit');
+                     Route::get('{guardian}/edit')->name('edit')->uses('GuardiansController@form');
                      Route::put('{guardian}/edit')->name('update')->uses('GuardiansController@update');
                      Route::get('{guardian}/logs')->name('logs')->uses('GuardiansController@logs');
                      Route::delete('{guardian}')->name('destroy')->uses('GuardiansController@destroy');

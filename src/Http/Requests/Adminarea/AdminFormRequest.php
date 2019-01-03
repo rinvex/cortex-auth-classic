@@ -6,6 +6,7 @@ namespace Cortex\Auth\Http\Requests\Adminarea;
 
 use Rinvex\Support\Traits\Escaper;
 use Illuminate\Foundation\Http\FormRequest;
+use Cortex\Foundation\Exceptions\GenericException;
 
 class AdminFormRequest extends FormRequest
 {
@@ -14,10 +15,18 @@ class AdminFormRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      *
+     * @throws \Cortex\Foundation\Exceptions\GenericException
+     *
      * @return bool
      */
     public function authorize(): bool
     {
+        $currentUser = $this->user($this->route('guard'));
+
+        if (! $currentUser->can('superadmin') && $currentUser !== $this->route('admin')) {
+            throw new GenericException(trans('cortex/auth::messages.action_unauthorized'), route('adminarea.admins.index'));
+        }
+
         return true;
     }
 
@@ -69,19 +78,6 @@ class AdminFormRequest extends FormRequest
     }
 
     /**
-     * Configure the validator instance.
-     *
-     * @param \Illuminate\Validation\Validator $validator
-     *
-     * @return void
-     */
-    public function withValidator($validator): void
-    {
-        // Sanitize input data before submission
-        $this->replace($this->escape($this->all()));
-    }
-
-    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -98,6 +94,6 @@ class AdminFormRequest extends FormRequest
             ? 'confirmed|min:'.config('cortex.auth.password_min_chars')
             : 'required|confirmed|min:'.config('cortex.auth.password_min_chars');
 
-        return $rules;
+        return $this->isMethod('POST') ? $rules : [];
     }
 }

@@ -23,24 +23,11 @@ class RoleFormRequest extends FormRequest
     {
         $currentUser = $this->user($this->route('guard'));
 
-        if (optional($this->route('role'))->exists && ! $currentUser->can('superadmin') && ! $currentUser->roles->contains($this->route('role'))) {
+        if (! $currentUser->can('superadmin') && ! $currentUser->roles->contains($this->route('role'))) {
             throw new GenericException(trans('cortex/auth::messages.action_unauthorized'), route('adminarea.roles.index'));
         }
 
         return true;
-    }
-
-    /**
-     * Configure the validator instance.
-     *
-     * @param \Illuminate\Validation\Validator $validator
-     *
-     * @return void
-     */
-    public function withValidator($validator): void
-    {
-        // Sanitize input data before submission
-        $this->replace($this->escape($this->all()));
     }
 
     /**
