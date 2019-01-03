@@ -137,32 +137,6 @@ class GuardiansController extends AuthorizedController
     }
 
     /**
-     * Create new guardian.
-     *
-     * @param \Illuminate\Http\Request     $request
-     * @param \Cortex\Auth\Models\Guardian $guardian
-     *
-     * @return \Illuminate\View\View
-     */
-    public function create(Request $request, Guardian $guardian)
-    {
-        return $this->form($request, $guardian);
-    }
-
-    /**
-     * Edit given guardian.
-     *
-     * @param \Illuminate\Http\Request     $request
-     * @param \Cortex\Auth\Models\Guardian $guardian
-     *
-     * @return \Illuminate\View\View
-     */
-    public function edit(Request $request, Guardian $guardian)
-    {
-        return $this->form($request, $guardian);
-    }
-
-    /**
      * Show guardian create/edit form.
      *
      * @param \Illuminate\Http\Request     $request
