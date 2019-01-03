@@ -22,19 +22,6 @@ class AccountAttributesRequest extends FormRequest
     }
 
     /**
-     * Configure the validator instance.
-     *
-     * @param \Illuminate\Validation\Validator $validator
-     *
-     * @return void
-     */
-    public function withValidator($validator): void
-    {
-        // Sanitize input data before submission
-        $this->replace($this->escape($this->all()));
-    }
-
-    /**
      * Get the validation rules that apply to the request.
      *
      * @return array

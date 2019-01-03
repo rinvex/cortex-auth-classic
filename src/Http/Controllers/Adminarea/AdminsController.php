@@ -210,7 +210,7 @@ class AdminsController extends AuthorizedController
      *
      * @return \Illuminate\View\View
      */
-    public function edit(Request $request, Admin $admin)
+    public function edit(AdminFormRequest $request, Admin $admin)
     {
         return $this->form($request, $admin);
     }
