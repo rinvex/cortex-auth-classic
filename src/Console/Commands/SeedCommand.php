@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Cortex\Auth\Console\Commands;
 
 use Cortex\Auth\Models\Admin;
-use Cortex\Auth\Models\Member;
-use Cortex\Auth\Models\Manager;
 use Illuminate\Console\Command;
 use Cortex\Auth\Models\Guardian;
 
