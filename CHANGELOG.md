@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v1.0.6] - 2019-01-04
+- Drop member & manager seeds
+
 ## [v1.0.5] - 2019-01-03
 - Add settings link to logged-in user menu
 - Seed member & manager accounts
@@ -41,6 +44,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v1.0.6]: https://github.com/rinvex/cortex-auth/compare/v1.0.5...v1.0.6
 [v1.0.5]: https://github.com/rinvex/cortex-auth/compare/v1.0.4...v1.0.5
 [v1.0.4]: https://github.com/rinvex/cortex-auth/compare/v1.0.3...v1.0.4
 [v1.0.3]: https://github.com/rinvex/cortex-auth/compare/v1.0.2...v1.0.3
