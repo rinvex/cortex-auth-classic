@@ -101,7 +101,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     protected $casts = [
         'username' => 'string',
         'password' => 'string',
-        'two_factor' => 'json',
+        'two_factor' => 'array',
         'email' => 'string',
         'email_verified_at' => 'datetime',
         'phone' => 'string',
