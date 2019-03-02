@@ -38,9 +38,9 @@ class GenericHandler
      */
     public function subscribe(Dispatcher $dispatcher)
     {
-        $dispatcher->listen(Login::class, __CLASS__.'@login');
-        $dispatcher->listen(Lockout::class, __CLASS__.'@lockout');
-        $dispatcher->listen(Registered::class, __CLASS__.'@registered');
+        $dispatcher->listen(Login::class, self::class.'@login');
+        $dispatcher->listen(Lockout::class, self::class.'@lockout');
+        $dispatcher->listen(Registered::class, self::class.'@registered');
     }
 
     /**
