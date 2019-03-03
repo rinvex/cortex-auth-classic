@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v2.0.0] - 2019-03-03
+- Require PHP 7.2 & Laravel 5.8
+- Utilize includeWhen blade directive
+- Replace __ CLASS __ with self::class (potentially deprecated in PHP 7.4)
+- Fix json/array casting type
+- Add files option to the form to allow file upload
+- Fix wrong authorization check method for superadmins
+- Refactor abilities seeding
+- Refactor managed roles/abilities retrieval
+- Drop role Tenantability, and use bouncer native scopes features
+- Refactor isManager & isSupermanager methods
+- Drop ownership feature of tenants
+
 ## [v1.0.6] - 2019-01-04
 - Drop member & manager seeds
 
@@ -44,6 +57,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v2.0.0]: https://github.com/rinvex/cortex-auth/compare/v1.0.6...v2.0.0
 [v1.0.6]: https://github.com/rinvex/cortex-auth/compare/v1.0.5...v1.0.6
 [v1.0.5]: https://github.com/rinvex/cortex-auth/compare/v1.0.4...v1.0.5
 [v1.0.4]: https://github.com/rinvex/cortex-auth/compare/v1.0.3...v1.0.4

@@ -15,71 +15,54 @@ class CortexAuthSeeder extends Seeder
     {
         Bouncer::allow('superadmin')->everything();
 
-        Bouncer::allow('admin')->to('list', config('cortex.auth.models.ability'));
-        Bouncer::allow('admin')->to('import', config('cortex.auth.models.ability'));
-        Bouncer::allow('admin')->to('create', config('cortex.auth.models.ability'));
-        Bouncer::allow('admin')->to('update', config('cortex.auth.models.ability'));
-        Bouncer::allow('admin')->to('delete', config('cortex.auth.models.ability'));
-        Bouncer::allow('admin')->to('audit', config('cortex.auth.models.ability'));
-        Bouncer::allow('admin')->to('grant', config('cortex.auth.models.ability'));
+        $abilities = [
+            ['name' => 'list', 'title' => 'List abilities', 'entity_type' => 'ability'],
+            ['name' => 'import', 'title' => 'Import abilities', 'entity_type' => 'ability'],
+            ['name' => 'create', 'title' => 'Create abilities', 'entity_type' => 'ability'],
+            ['name' => 'update', 'title' => 'Update abilities', 'entity_type' => 'ability'],
+            ['name' => 'delete', 'title' => 'Delete abilities', 'entity_type' => 'ability'],
+            ['name' => 'audit', 'title' => 'Audit abilities', 'entity_type' => 'ability'],
+            ['name' => 'grant', 'title' => 'Grant abilities', 'entity_type' => 'ability'],
 
-        Bouncer::allow('admin')->to('list', config('cortex.auth.models.role'));
-        Bouncer::allow('admin')->to('import', config('cortex.auth.models.role'));
-        Bouncer::allow('admin')->to('create', config('cortex.auth.models.role'));
-        Bouncer::allow('admin')->to('update', config('cortex.auth.models.role'));
-        Bouncer::allow('admin')->to('delete', config('cortex.auth.models.role'));
-        Bouncer::allow('admin')->to('audit', config('cortex.auth.models.role'));
-        Bouncer::allow('admin')->to('assign', config('cortex.auth.models.role'));
+            ['name' => 'list', 'title' => 'List roles', 'entity_type' => 'role'],
+            ['name' => 'import', 'title' => 'Import roles', 'entity_type' => 'role'],
+            ['name' => 'create', 'title' => 'Create roles', 'entity_type' => 'role'],
+            ['name' => 'update', 'title' => 'Update roles', 'entity_type' => 'role'],
+            ['name' => 'delete', 'title' => 'Delete roles', 'entity_type' => 'role'],
+            ['name' => 'audit', 'title' => 'Audit roles', 'entity_type' => 'role'],
+            ['name' => 'assign', 'title' => 'Assign roles', 'entity_type' => 'role'],
 
-        Bouncer::allow('admin')->to('list', config('cortex.auth.models.admin'));
-        Bouncer::allow('admin')->to('import', config('cortex.auth.models.admin'));
-        Bouncer::allow('admin')->to('create', config('cortex.auth.models.admin'));
-        Bouncer::allow('admin')->to('update', config('cortex.auth.models.admin'));
-        Bouncer::allow('admin')->to('delete', config('cortex.auth.models.admin'));
-        Bouncer::allow('admin')->to('audit', config('cortex.auth.models.admin'));
+            ['name' => 'list', 'title' => 'List admins', 'entity_type' => 'admin'],
+            ['name' => 'import', 'title' => 'Import admins', 'entity_type' => 'admin'],
+            ['name' => 'create', 'title' => 'Create admins', 'entity_type' => 'admin'],
+            ['name' => 'update', 'title' => 'Update admins', 'entity_type' => 'admin'],
+            ['name' => 'delete', 'title' => 'Delete admins', 'entity_type' => 'admin'],
+            ['name' => 'audit', 'title' => 'Audit admins', 'entity_type' => 'admin'],
 
-        Bouncer::allow('admin')->to('list', config('cortex.auth.models.member'));
-        Bouncer::allow('admin')->to('import', config('cortex.auth.models.member'));
-        Bouncer::allow('admin')->to('create', config('cortex.auth.models.member'));
-        Bouncer::allow('admin')->to('update', config('cortex.auth.models.member'));
-        Bouncer::allow('admin')->to('delete', config('cortex.auth.models.member'));
-        Bouncer::allow('admin')->to('audit', config('cortex.auth.models.member'));
+            ['name' => 'list', 'title' => 'List members', 'entity_type' => 'member'],
+            ['name' => 'import', 'title' => 'Import members', 'entity_type' => 'member'],
+            ['name' => 'create', 'title' => 'Create members', 'entity_type' => 'member'],
+            ['name' => 'update', 'title' => 'Update members', 'entity_type' => 'member'],
+            ['name' => 'delete', 'title' => 'Delete members', 'entity_type' => 'member'],
+            ['name' => 'audit', 'title' => 'Audit members', 'entity_type' => 'member'],
 
-        Bouncer::allow('admin')->to('list', config('cortex.auth.models.manager'));
-        Bouncer::allow('admin')->to('import', config('cortex.auth.models.manager'));
-        Bouncer::allow('admin')->to('create', config('cortex.auth.models.manager'));
-        Bouncer::allow('admin')->to('update', config('cortex.auth.models.manager'));
-        Bouncer::allow('admin')->to('delete', config('cortex.auth.models.manager'));
-        Bouncer::allow('admin')->to('audit', config('cortex.auth.models.manager'));
+            ['name' => 'list', 'title' => 'List managers', 'entity_type' => 'manager'],
+            ['name' => 'import', 'title' => 'Import managers', 'entity_type' => 'manager'],
+            ['name' => 'create', 'title' => 'Create managers', 'entity_type' => 'manager'],
+            ['name' => 'update', 'title' => 'Update managers', 'entity_type' => 'manager'],
+            ['name' => 'delete', 'title' => 'Delete managers', 'entity_type' => 'manager'],
+            ['name' => 'audit', 'title' => 'Audit managers', 'entity_type' => 'manager'],
 
-        Bouncer::allow('admin')->to('list', config('cortex.auth.models.guardian'));
-        Bouncer::allow('admin')->to('import', config('cortex.auth.models.guardian'));
-        Bouncer::allow('admin')->to('create', config('cortex.auth.models.guardian'));
-        Bouncer::allow('admin')->to('update', config('cortex.auth.models.guardian'));
-        Bouncer::allow('admin')->to('delete', config('cortex.auth.models.guardian'));
-        Bouncer::allow('admin')->to('audit', config('cortex.auth.models.guardian'));
+            ['name' => 'list', 'title' => 'List guardians', 'entity_type' => 'guardian'],
+            ['name' => 'import', 'title' => 'Import guardians', 'entity_type' => 'guardian'],
+            ['name' => 'create', 'title' => 'Create guardians', 'entity_type' => 'guardian'],
+            ['name' => 'update', 'title' => 'Update guardians', 'entity_type' => 'guardian'],
+            ['name' => 'delete', 'title' => 'Delete guardians', 'entity_type' => 'guardian'],
+            ['name' => 'audit', 'title' => 'Audit guardians', 'entity_type' => 'guardian'],
+        ];
 
-        Bouncer::allow('owner')->to('list', config('cortex.auth.models.role'));
-        Bouncer::allow('owner')->to('import', config('cortex.auth.models.role'));
-        Bouncer::allow('owner')->to('create', config('cortex.auth.models.role'));
-        Bouncer::allow('owner')->to('update', config('cortex.auth.models.role'));
-        Bouncer::allow('owner')->to('delete', config('cortex.auth.models.role'));
-        Bouncer::allow('owner')->to('audit', config('cortex.auth.models.role'));
-        Bouncer::allow('owner')->to('assign', config('cortex.auth.models.role'));
-
-        Bouncer::allow('owner')->to('list', config('cortex.auth.models.member'));
-        Bouncer::allow('owner')->to('import', config('cortex.auth.models.member'));
-        Bouncer::allow('owner')->to('create', config('cortex.auth.models.member'));
-        Bouncer::allow('owner')->to('update', config('cortex.auth.models.member'));
-        Bouncer::allow('owner')->to('delete', config('cortex.auth.models.member'));
-        Bouncer::allow('owner')->to('audit', config('cortex.auth.models.member'));
-
-        Bouncer::allow('owner')->to('list', config('cortex.auth.models.manager'));
-        Bouncer::allow('owner')->to('import', config('cortex.auth.models.manager'));
-        Bouncer::allow('owner')->to('create', config('cortex.auth.models.manager'));
-        Bouncer::allow('owner')->to('update', config('cortex.auth.models.manager'));
-        Bouncer::allow('owner')->to('delete', config('cortex.auth.models.manager'));
-        Bouncer::allow('owner')->to('audit', config('cortex.auth.models.manager'));
-        Bouncer::allow('owner')->to('grant', config('cortex.auth.models.ability'));
+        collect($abilities)->each(function (array $ability) {
+            app('cortex.auth.ability')->create($ability);
+        });
     }
 }

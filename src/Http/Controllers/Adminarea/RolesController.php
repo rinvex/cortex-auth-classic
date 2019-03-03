@@ -172,8 +172,7 @@ class RolesController extends AuthorizedController
      */
     protected function form(Request $request, Role $role)
     {
-        $currentUser = $request->user($this->getGuard());
-        $abilities = get_area_abilities($currentUser);
+        $abilities = $request->user($this->getGuard())->getManagedAbilities();
 
         return view('cortex/auth::adminarea.pages.role', compact('role', 'abilities'));
     }
