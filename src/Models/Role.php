@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Models;
 
-use Rinvex\Tenants\Traits\Tenantable;
 use Cortex\Foundation\Traits\Auditable;
 use Rinvex\Support\Traits\HashidsTrait;
 use Rinvex\Support\Traits\HasTranslations;
@@ -15,7 +14,6 @@ use Silber\Bouncer\Database\Role as BaseRole;
 class Role extends BaseRole
 {
     use Auditable;
-    use Tenantable;
     use HashidsTrait;
     use LogsActivity;
     use ValidatingTrait;
