@@ -126,25 +126,25 @@ class Manager extends User
     }
 
     /**
-     * Determine if manager is owner of the given tenant.
+     * Determine if this is supermanager of the given tenant.
      *
      * @param \Illuminate\Database\Eloquent\Model $tenant
      *
      * @return bool
      */
-    public function isOwner(Model $tenant): bool
+    public function isSupermanager(Model $tenant): bool
     {
-        return $this->getKey() === $tenant->owner->getKey();
+        return $this->isManager($tenant) && $this->isA('supermanager');
     }
 
     /**
-     * Determine if manager is staff of the given tenant.
+     * Determine if this is manager of the given tenant.
      *
      * @param \Illuminate\Database\Eloquent\Model $tenant
      *
      * @return bool
      */
-    public function isStaff(Model $tenant): bool
+    public function isManager(Model $tenant): bool
     {
         return $this->tenants->contains($tenant);
     }
