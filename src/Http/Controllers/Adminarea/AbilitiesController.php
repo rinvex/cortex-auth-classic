@@ -172,9 +172,8 @@ class AbilitiesController extends AuthorizedController
      */
     protected function form(Request $request, Ability $ability)
     {
+        $roles = $request->user($this->getGuard())->getManagedRoles();
         $entityTypes = app('cortex.auth.ability')->distinct()->get(['entity_type'])->pluck('entity_type', 'entity_type')->toArray();
-        $currentUser = $request->user($this->getGuard());
-        $roles = get_area_roles($currentUser);
 
         return view('cortex/auth::adminarea.pages.ability', compact('ability', 'roles', 'entityTypes'));
     }
@@ -231,6 +230,8 @@ class AbilitiesController extends AuthorizedController
      * Destroy given ability.
      *
      * @param \Cortex\Auth\Models\Ability $ability
+     *
+     * @throws \Exception
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

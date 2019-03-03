@@ -10,6 +10,7 @@ use BadMethodCallException;
 use Rinvex\Country\Country;
 use Rinvex\Language\Language;
 use Rinvex\Tags\Traits\Taggable;
+use Illuminate\Support\Collection;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Rinvex\Auth\Traits\HasHashables;
@@ -357,6 +358,36 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
         $this->update(['is_active' => false]);
 
         return $this;
+    }
+
+    /**
+     * Get managed roles.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getManagedRoles(): Collection
+    {
+        if ($this->isA('superadmin')) {
+            $roles = app('cortex.auth.role')->all();
+        } else if ($this->isA('supermanager')) {
+            $roles = $this->roles->merge(config('rinvex.tenants.active') ? app('cortex.auth.role')->where('scope', config('rinvex.tenants.active')->getKey())->get() : collect());
+        } else {
+            $roles = $this->roles;
+        }
+
+        return $roles->pluck('title', 'id')->sort();
+    }
+
+    /**
+     * Get managed abilites.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getManagedAbilities(): Collection
+    {
+        $abilities = $this->isA('superadmin') ? app('cortex.auth.ability')->all() : $this->getAbilities();
+
+        return $abilities->groupBy('entity_type')->map->pluck('title', 'id')->sortKeys();
     }
 
     /**
