@@ -16,6 +16,7 @@ use Cortex\Auth\Models\Session;
 use Cortex\Auth\Models\Guardian;
 use Cortex\Auth\Models\Socialite;
 use Illuminate\Support\ServiceProvider;
+use Rinvex\Support\Traits\ConsoleTools;
 use Cortex\Auth\Handlers\GenericHandler;
 use Cortex\Auth\Console\Commands\SeedCommand;
 use Cortex\Auth\Http\Middleware\Reauthenticate;
@@ -29,6 +30,8 @@ use Cortex\Auth\Http\Middleware\RedirectIfAuthenticated;
 
 class AuthServiceProvider extends ServiceProvider
 {
+    use ConsoleTools;
+
     /**
      * The commands to be registered.
      *
@@ -138,7 +141,6 @@ class AuthServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__.'/../../routes/web/adminarea.php');
         $this->loadViewsFrom(__DIR__.'/../../resources/views', 'cortex/auth');
         $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'cortex/auth');
-        ! $this->app->runningInConsole() || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
         $this->app->runningInConsole() || $this->app->afterResolving('blade.compiler', function () {
             require __DIR__.'/../../routes/menus/managerarea.php';
             require __DIR__.'/../../routes/menus/tenantarea.php';
@@ -147,7 +149,10 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         // Publish Resources
-        ! $this->app->runningInConsole() || $this->publishResources();
+        ! $this->app->runningInConsole() || $this->publishesLang('cortex/auth');
+        ! $this->app->runningInConsole() || $this->publishesViews('cortex/auth');
+        ! $this->app->runningInConsole() || $this->publishesConfig('cortex/auth');
+        ! $this->app->runningInConsole() || $this->publishesMigrations('cortex/auth');
 
         // Register event handlers
         $this->app['events']->subscribe(GenericHandler::class);
@@ -168,34 +173,6 @@ class AuthServiceProvider extends ServiceProvider
             ! config('rinvex.tenants.active') || $view->with('currentTenant', config('rinvex.tenants.active'));
             $view->with('currentUser', auth()->guard(request()->route('guard'))->user());
         });
-    }
-
-    /**
-     * Publish resources.
-     *
-     * @return void
-     */
-    protected function publishResources(): void
-    {
-        $this->publishes([realpath(__DIR__.'/../../config/config.php') => config_path('cortex.auth.php')], 'cortex-auth-config');
-        $this->publishes([realpath(__DIR__.'/../../database/migrations') => database_path('migrations')], 'cortex-auth-migrations');
-        $this->publishes([realpath(__DIR__.'/../../resources/lang') => resource_path('lang/vendor/cortex/auth')], 'cortex-auth-lang');
-        $this->publishes([realpath(__DIR__.'/../../resources/views') => resource_path('views/vendor/cortex/auth')], 'cortex-auth-views');
-    }
-
-    /**
-     * Register console commands.
-     *
-     * @return void
-     */
-    protected function registerCommands(): void
-    {
-        // Register artisan commands
-        foreach ($this->commands as $key => $value) {
-            $this->app->singleton($value, $key);
-        }
-
-        $this->commands(array_values($this->commands));
     }
 
     /**

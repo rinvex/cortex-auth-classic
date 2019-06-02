@@ -29,8 +29,16 @@ class RollbackCommand extends Command
      */
     public function handle(): void
     {
-        $this->warn($this->description);
+        $this->alert($this->description);
 
-        $this->call('migrate:reset', ['--path' => 'app/cortex/auth/database/migrations', '--force' => $this->option('force')]);
+        if (file_exists($path = 'database/migrations/cortex/auth')) {
+            $this->call('migrate:reset', [
+                '--step' => true,
+                '--path' => $path,
+                '--force' => $this->option('force'),
+            ]);
+        } else {
+            $this->warn('No migrations found! Consider publish them first: <fg=green>php artisan cortex:publish:auth</>');
+        }
     }
 }
