@@ -13,7 +13,7 @@ class PublishCommand extends BasePublishCommand
      *
      * @var string
      */
-    protected $signature = 'cortex:publish:auth {--force : Overwrite any existing files.}';
+    protected $signature = 'cortex:publish:auth {--force : Overwrite any existing files.} {--R|resource=all}';
 
     /**
      * The console command description.
@@ -31,11 +31,27 @@ class PublishCommand extends BasePublishCommand
     {
         parent::handle();
 
-        $this->warn($this->description);
+        switch ($this->option('resource')) {
+            case 'lang':
+                $this->call('vendor:publish', ['--tag' => 'cortex-auth-lang', '--force' => $this->option('force')]);
+                break;
+            case 'views':
+                $this->call('vendor:publish', ['--tag' => 'cortex-auth-views', '--force' => $this->option('force')]);
+                break;
+            case 'config':
+                $this->call('vendor:publish', ['--tag' => 'cortex-auth-config', '--force' => $this->option('force')]);
+                break;
+            case 'migrations':
+                $this->call('vendor:publish', ['--tag' => 'cortex-auth-migrations', '--force' => $this->option('force')]);
+                break;
+            default:
+                $this->call('vendor:publish', ['--tag' => 'cortex-auth-lang', '--force' => $this->option('force')]);
+                $this->call('vendor:publish', ['--tag' => 'cortex-auth-views', '--force' => $this->option('force')]);
+                $this->call('vendor:publish', ['--tag' => 'cortex-auth-config', '--force' => $this->option('force')]);
+                $this->call('vendor:publish', ['--tag' => 'cortex-auth-migrations', '--force' => $this->option('force')]);
+                break;
+        }
 
-        $this->call('vendor:publish', ['--tag' => 'cortex-auth-lang', '--force' => $this->option('force')]);
-        $this->call('vendor:publish', ['--tag' => 'cortex-auth-views', '--force' => $this->option('force')]);
-        $this->call('vendor:publish', ['--tag' => 'cortex-auth-config', '--force' => $this->option('force')]);
-        $this->call('vendor:publish', ['--tag' => 'cortex-auth-migrations', '--force' => $this->option('force')]);
+        $this->line('');
     }
 }

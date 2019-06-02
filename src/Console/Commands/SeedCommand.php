@@ -31,7 +31,7 @@ class SeedCommand extends Command
      */
     public function handle(): void
     {
-        $this->warn($this->description);
+        $this->alert($this->description);
 
         $this->call('db:seed', ['--class' => 'CortexAuthSeeder']);
 
@@ -46,6 +46,8 @@ class SeedCommand extends Command
             ['username' => $admin['username'], 'password' => $adminPassword],
             ['username' => $guardian['username'], 'password' => $guardianPassword],
         ]);
+
+        $this->line('');
     }
 
     /**
