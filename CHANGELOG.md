@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v2.1.1] - 2019-06-02
+- Fix yajra/laravel-datatables-fractal and league/fractal compatibility
+
 ## [v2.1.0] - 2019-06-02
 - Fix twofactor route
 - Update composer deps
