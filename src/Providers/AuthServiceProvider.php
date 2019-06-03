@@ -149,10 +149,10 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         // Publish Resources
-        ! $this->app->runningInConsole() || $this->publishesLang('cortex/auth');
-        ! $this->app->runningInConsole() || $this->publishesViews('cortex/auth');
-        ! $this->app->runningInConsole() || $this->publishesConfig('cortex/auth');
-        ! $this->app->runningInConsole() || $this->publishesMigrations('cortex/auth');
+        ! $this->app->runningInConsole() || $this->publishesLang('cortex/auth', true);
+        ! $this->app->runningInConsole() || $this->publishesViews('cortex/auth', true);
+        ! $this->app->runningInConsole() || $this->publishesConfig('cortex/auth', true);
+        ! $this->app->runningInConsole() || $this->publishesMigrations('cortex/auth', true);
 
         // Register event handlers
         $this->app['events']->subscribe(GenericHandler::class);
