@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v2.1.2] - 2019-06-03
+- Update publish commands to support both packages and modules natively
+
 ## [v2.1.1] - 2019-06-02
 - Fix yajra/laravel-datatables-fractal and league/fractal compatibility
 
@@ -67,6 +70,9 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v2.1.2]: https://github.com/rinvex/cortex-auth/compare/v2.1.1...v2.1.2
+[v2.1.1]: https://github.com/rinvex/cortex-auth/compare/v2.1.0...v2.1.1
+[v2.1.0]: https://github.com/rinvex/cortex-auth/compare/v2.0.0...v2.1.0
 [v2.0.0]: https://github.com/rinvex/cortex-auth/compare/v1.0.6...v2.0.0
 [v1.0.6]: https://github.com/rinvex/cortex-auth/compare/v1.0.5...v1.0.6
 [v1.0.5]: https://github.com/rinvex/cortex-auth/compare/v1.0.4...v1.0.5
