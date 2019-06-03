@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v2.1.3] - 2019-06-03
+- Enforce latest composer package versions
+
 ## [v2.1.2] - 2019-06-03
 - Update publish commands to support both packages and modules natively
 
