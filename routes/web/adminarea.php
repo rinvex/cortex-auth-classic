@@ -23,9 +23,8 @@ Route::domain(domain())->group(function () {
              });
 
              // Password Reset Routes
-             Route::get('passwordreset')->name('passwordreset')->uses('RedirectionController@passwordreset');
              Route::name('passwordreset.')->prefix('passwordreset')->group(function () {
-                 Route::get('request')->name('request')->uses('PasswordResetController@request');
+                 Route::get('/{request?}')->name('request')->uses('PasswordResetController@request')->where('request', 'request');
                  Route::post('send')->name('send')->uses('PasswordResetController@send');
                  Route::get('reset')->name('reset')->uses('PasswordResetController@reset');
                  Route::post('process')->name('process')->uses('PasswordResetController@process');
