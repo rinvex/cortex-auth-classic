@@ -26,6 +26,7 @@ use Cortex\Auth\Console\Commands\PublishCommand;
 use Cortex\Auth\Console\Commands\RollbackCommand;
 use Cortex\Auth\Http\Middleware\UpdateLastActivity;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Cortex\Auth\Http\Middleware\AuthenticateSession;
 use Cortex\Auth\Http\Middleware\RedirectIfAuthenticated;
 
 class AuthServiceProvider extends ServiceProvider
@@ -209,6 +210,7 @@ class AuthServiceProvider extends ServiceProvider
     protected function overrideMiddleware(Router $router): void
     {
         // Append middleware to the 'web' middlware group
+        $router->pushMiddlewareToGroup('web', AuthenticateSession::class);
         $router->pushMiddlewareToGroup('web', UpdateLastActivity::class);
 
         // Override route middleware on the fly
