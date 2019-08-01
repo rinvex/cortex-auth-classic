@@ -58,7 +58,7 @@
         "Illuminate/support": "~5.8.0",
         "cortex/foundation": "^2.1.0",
         "davejamesmiller/laravel-breadcrumbs": "^5.2.0",
-        "laravel/socialite": "^3.0.0",
+        "laravel/socialite": "^4.0.0",
         "laravelcollective/html": "~5.8.0",
         "league/fractal": "^0.17.0",
         "pragmarx/google2fa": "^4.0.0",
