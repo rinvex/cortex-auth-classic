@@ -25,8 +25,8 @@ use Cortex\Auth\Console\Commands\MigrateCommand;
 use Cortex\Auth\Console\Commands\PublishCommand;
 use Cortex\Auth\Console\Commands\RollbackCommand;
 use Cortex\Auth\Http\Middleware\UpdateLastActivity;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Cortex\Auth\Http\Middleware\AuthenticateSession;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Cortex\Auth\Http\Middleware\RedirectIfAuthenticated;
 
 class AuthServiceProvider extends ServiceProvider

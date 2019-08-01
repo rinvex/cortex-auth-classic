@@ -35,14 +35,14 @@ class AuthenticateSession
      * @param \Illuminate\Http\Request $request
      * @param \Closure                 $next
      *
-     * @return mixed
      * @throws \Illuminate\Auth\AuthenticationException
      *
+     * @return mixed
      */
     public function handle($request, Closure $next)
     {
         $guard = $request->route('guard');
-        $passwordHashKey = 'hash_'.$guard.strrchr($this->auth->getName(), '_');
+        $passwordHashKey = 'hash_'.$guard.mb_strrchr($this->auth->getName(), '_');
 
         if (! $request->user($guard) || ! $request->session()) {
             return $next($request);
@@ -51,7 +51,7 @@ class AuthenticateSession
         if ($this->auth->viaRemember()) {
             $passwordHash = explode('|', $request->cookies->get($this->auth->getRecallerName()))[2];
 
-            if ($passwordHash != $request->user($guard)->getAuthPassword()) {
+            if ($passwordHash !== $request->user($guard)->getAuthPassword()) {
                 $this->logout($request);
             }
         }
@@ -95,9 +95,9 @@ class AuthenticateSession
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return void
-     *
      * @throws \Illuminate\Auth\AuthenticationException
+     *
+     * @return void
      */
     protected function logout($request)
     {
@@ -105,6 +105,6 @@ class AuthenticateSession
 
         $request->session()->flush();
 
-        throw new AuthenticationException;
+        throw new AuthenticationException();
     }
 }
