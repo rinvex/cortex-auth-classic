@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Controllers\Frontarea;
 
-use Cortex\Foundation\Http\Controllers\AuthenticatedController;
 use Cortex\Auth\Http\Requests\Frontarea\AccountPasswordRequest;
+use Cortex\Foundation\Http\Controllers\AuthenticatedController;
 
 class AccountPasswordController extends AuthenticatedController
 {

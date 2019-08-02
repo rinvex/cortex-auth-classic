@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-use Cortex\Auth\Models\Manager;
-use Cortex\Auth\Models\Member;
 use Cortex\Auth\Models\Role;
 use Cortex\Auth\Models\Admin;
+use Cortex\Auth\Models\Member;
 use Cortex\Auth\Models\Ability;
+use Cortex\Auth\Models\Manager;
 use Cortex\Auth\Models\Guardian;
 use Rinvex\Menus\Models\MenuItem;
 use Rinvex\Menus\Models\MenuGenerator;

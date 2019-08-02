@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v3.0.1] - 2019-08-03
+- Upgrade rinvex/laravel-auth package
+
 ## [v3.0.0] - 2019-08-03
 - Upgrade composer dependencies
 - Upgrade socialite to v4 (#77)
@@ -79,6 +82,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v3.0.1]: https://github.com/rinvex/cortex-auth/compare/v3.0.0...v3.0.1
 [v3.0.0]: https://github.com/rinvex/cortex-auth/compare/v2.1.2...v3.0.0
 [v2.1.2]: https://github.com/rinvex/cortex-auth/compare/v2.1.1...v2.1.2
 [v2.1.1]: https://github.com/rinvex/cortex-auth/compare/v2.1.0...v2.1.1

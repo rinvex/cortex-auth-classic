@@ -27,7 +27,7 @@ class MemberRegistrationController extends RegistrationController
      * Process the registration form.
      *
      * @param \Cortex\Auth\Http\Requests\Frontarea\MemberRegistrationProcessRequest $request
-     * @param \Cortex\Auth\Models\Member                                                   $member
+     * @param \Cortex\Auth\Models\Member                                            $member
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

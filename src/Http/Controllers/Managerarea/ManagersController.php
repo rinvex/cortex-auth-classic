@@ -14,8 +14,8 @@ use Cortex\Foundation\DataTables\ActivitiesDataTable;
 use Cortex\Foundation\DataTables\ImportLogsDataTable;
 use Cortex\Foundation\Http\Requests\ImportFormRequest;
 use Cortex\Foundation\DataTables\ImportRecordsDataTable;
-use Cortex\Foundation\Http\Controllers\AuthorizedController;
 use Cortex\Auth\DataTables\Managerarea\ManagersDataTable;
+use Cortex\Foundation\Http\Controllers\AuthorizedController;
 use Cortex\Auth\Http\Requests\Managerarea\ManagerFormRequest;
 use Cortex\Auth\Http\Requests\Managerarea\ManagerAttributesFormRequest;
 
@@ -91,7 +91,7 @@ class ManagersController extends AuthorizedController
      * Process the account update form.
      *
      * @param \Cortex\Auth\Http\Requests\Managerarea\ManagerAttributesFormRequest $request
-     * @param \Cortex\Auth\Models\Manager                                                $manager
+     * @param \Cortex\Auth\Models\Manager                                         $manager
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -246,7 +246,7 @@ class ManagersController extends AuthorizedController
      * Store new manager.
      *
      * @param \Cortex\Auth\Http\Requests\Managerarea\ManagerFormRequest $request
-     * @param \Cortex\Auth\Models\Manager                                      $manager
+     * @param \Cortex\Auth\Models\Manager                               $manager
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -259,7 +259,7 @@ class ManagersController extends AuthorizedController
      * Update given manager.
      *
      * @param \Cortex\Auth\Http\Requests\Managerarea\ManagerFormRequest $request
-     * @param \Cortex\Auth\Models\Manager                                      $manager
+     * @param \Cortex\Auth\Models\Manager                               $manager
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

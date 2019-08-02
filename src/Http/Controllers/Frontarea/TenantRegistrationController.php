@@ -37,8 +37,8 @@ class TenantRegistrationController extends RegistrationController
      * Process the registration form.
      *
      * @param \Cortex\Auth\Http\Requests\Frontarea\TenantRegistrationProcessRequest $request
-     * @param \Cortex\Auth\Models\Manager                                                  $manager
-     * @param \Cortex\Tenants\Models\Tenant                                                $tenant
+     * @param \Cortex\Auth\Models\Manager                                           $manager
+     * @param \Cortex\Tenants\Models\Tenant                                         $tenant
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
