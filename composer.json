@@ -56,7 +56,7 @@
         "Illuminate/http": "~5.8.0",
         "Illuminate/routing": "~5.8.0",
         "Illuminate/support": "~5.8.0",
-        "cortex/foundation": "^2.1.0",
+        "cortex/foundation": "^2.2.0",
         "davejamesmiller/laravel-breadcrumbs": "^5.2.0",
         "laravel/socialite": "^4.0.0",
         "laravelcollective/html": "~5.8.0",
