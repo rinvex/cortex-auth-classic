@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Cortex\Auth\Http\Controllers\Frontarea;
 
 use Illuminate\Http\Request;
-use Cortex\Foundation\Http\Controllers\AuthenticatedController;
 use Cortex\Auth\Http\Requests\Frontarea\AccountSettingsRequest;
+use Cortex\Foundation\Http\Controllers\AuthenticatedController;
 
 class AccountSettingsController extends AuthenticatedController
 {

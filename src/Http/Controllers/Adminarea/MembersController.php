@@ -12,11 +12,11 @@ use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Foundation\Importers\DefaultImporter;
 use Cortex\Foundation\DataTables\ActivitiesDataTable;
 use Cortex\Foundation\DataTables\ImportLogsDataTable;
+use Cortex\Auth\DataTables\Adminarea\MembersDataTable;
 use Cortex\Foundation\Http\Requests\ImportFormRequest;
 use Cortex\Foundation\DataTables\ImportRecordsDataTable;
-use Cortex\Foundation\Http\Controllers\AuthorizedController;
-use Cortex\Auth\DataTables\Adminarea\MembersDataTable;
 use Cortex\Auth\Http\Requests\Adminarea\MemberFormRequest;
+use Cortex\Foundation\Http\Controllers\AuthorizedController;
 use Cortex\Auth\Http\Requests\Adminarea\MemberAttributesFormRequest;
 
 class MembersController extends AuthorizedController
@@ -91,7 +91,7 @@ class MembersController extends AuthorizedController
      * Process the account update form.
      *
      * @param \Cortex\Auth\Http\Requests\Adminarea\MemberAttributesFormRequest $request
-     * @param \Cortex\Auth\Models\Member                                              $member
+     * @param \Cortex\Auth\Models\Member                                       $member
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -220,7 +220,7 @@ class MembersController extends AuthorizedController
      * Store new member.
      *
      * @param \Cortex\Auth\Http\Requests\Adminarea\MemberFormRequest $request
-     * @param \Cortex\Auth\Models\Member                                    $member
+     * @param \Cortex\Auth\Models\Member                             $member
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -233,7 +233,7 @@ class MembersController extends AuthorizedController
      * Update given member.
      *
      * @param \Cortex\Auth\Http\Requests\Adminarea\MemberFormRequest $request
-     * @param \Cortex\Auth\Models\Member                                    $member
+     * @param \Cortex\Auth\Models\Member                             $member
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
