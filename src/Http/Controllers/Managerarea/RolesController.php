@@ -11,11 +11,11 @@ use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Foundation\Importers\DefaultImporter;
 use Cortex\Foundation\DataTables\ImportLogsDataTable;
+use Cortex\Auth\DataTables\Managerarea\RolesDataTable;
 use Cortex\Foundation\Http\Requests\ImportFormRequest;
 use Cortex\Foundation\DataTables\ImportRecordsDataTable;
-use Cortex\Foundation\Http\Controllers\AuthorizedController;
-use Cortex\Auth\DataTables\Managerarea\RolesDataTable;
 use Cortex\Auth\Http\Requests\Managerarea\RoleFormRequest;
+use Cortex\Foundation\Http\Controllers\AuthorizedController;
 use Cortex\Auth\Http\Requests\Managerarea\RoleFormProcessRequest;
 
 class RolesController extends AuthorizedController
@@ -153,7 +153,7 @@ class RolesController extends AuthorizedController
      * Edit given role.
      *
      * @param \Cortex\Auth\Http\Requests\Managerarea\RoleFormRequest $request
-     * @param \Cortex\Auth\Models\Role                                      $role
+     * @param \Cortex\Auth\Models\Role                               $role
      *
      * @return \Illuminate\View\View
      */
@@ -181,7 +181,7 @@ class RolesController extends AuthorizedController
      * Store new role.
      *
      * @param \Cortex\Auth\Http\Requests\Managerarea\RoleFormProcessRequest $request
-     * @param \Cortex\Auth\Models\Role                                             $role
+     * @param \Cortex\Auth\Models\Role                                      $role
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -194,7 +194,7 @@ class RolesController extends AuthorizedController
      * Update given role.
      *
      * @param \Cortex\Auth\Http\Requests\Managerarea\RoleFormProcessRequest $request
-     * @param \Cortex\Auth\Models\Role                                             $role
+     * @param \Cortex\Auth\Models\Role                                      $role
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
