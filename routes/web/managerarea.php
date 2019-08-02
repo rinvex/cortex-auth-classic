@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-Route::domain(domain())->group(function () {
-    Route::name('adminarea.')
+Route::domain('{subdomain}.'.domain())->group(function () {
+    Route::name('managerarea.')
          ->middleware(['web', 'nohttpcache'])
-         ->namespace('Cortex\Auth\Http\Controllers\Adminarea')
-         ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.foundation.route.prefix.adminarea') : config('cortex.foundation.route.prefix.adminarea'))->group(function () {
+         ->namespace('Cortex\Auth\Http\Controllers\Managerarea')
+         ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.foundation.route.prefix.managerarea') : config('cortex.foundation.route.prefix.managerarea'))->group(function () {
 
-            // Login Routes
+        // Login Routes
              Route::get('login')->name('login')->uses('AuthenticationController@form');
              Route::post('login')->name('login.process')->uses('AuthenticationController@login');
              Route::post('logout')->name('logout')->uses('AuthenticationController@logout');
@@ -50,7 +50,7 @@ Route::domain(domain())->group(function () {
                  });
              });
 
-             Route::middleware(['can:access-adminarea'])->group(function () {
+             Route::middleware(['can:access-managerarea'])->group(function () {
 
                  // Account Settings Route Alias
                  Route::get('account')->name('account')->uses('AccountSettingsController@index');
@@ -97,21 +97,10 @@ Route::domain(domain())->group(function () {
                      });
                  });
 
-                 // Abilities Routes
-                 Route::name('abilities.')->prefix('abilities')->group(function () {
-                     Route::get('/')->name('index')->uses('AbilitiesController@index');
-                     Route::get('import')->name('import')->uses('AbilitiesController@import');
-                     Route::post('import')->name('stash')->uses('AbilitiesController@stash');
-                     Route::post('hoard')->name('hoard')->uses('AbilitiesController@hoard');
-                     Route::get('import/logs')->name('import.logs')->uses('AbilitiesController@importLogs');
-                     Route::get('create')->name('create')->uses('AbilitiesController@create');
-                     Route::post('create')->name('store')->uses('AbilitiesController@store');
-                     Route::get('{ability}')->name('show')->uses('AbilitiesController@show');
-                     Route::get('{ability}/edit')->name('edit')->uses('AbilitiesController@edit');
-                     Route::put('{ability}/edit')->name('update')->uses('AbilitiesController@update');
-                     Route::get('{ability}/logs')->name('logs')->uses('AbilitiesController@logs');
-                     Route::delete('{ability}')->name('destroy')->uses('AbilitiesController@destroy');
-                 });
+                 // Social Authentication Routes
+                 Route::redirect('auth', 'login');
+                 Route::get('auth/{provider}')->name('auth.social')->uses('SocialAuthenticationController@redirectToProvider');
+                 Route::get('auth/{provider}/callback')->name('auth.social.callback')->uses('SocialAuthenticationController@handleProviderCallback');
 
                  // Roles Routes
                  Route::name('roles.')->prefix('roles')->group(function () {
@@ -129,50 +118,9 @@ Route::domain(domain())->group(function () {
                      Route::delete('{role}')->name('destroy')->uses('RolesController@destroy');
                  });
 
-                 // Admins Routes
-                 Route::name('admins.')->prefix('admins')->group(function () {
-                     Route::get('/')->name('index')->uses('AdminsController@index');
-                     Route::get('import')->name('import')->uses('AdminsController@import');
-                     Route::post('import')->name('stash')->uses('AdminsController@stash');
-                     Route::post('hoard')->name('hoard')->uses('AdminsController@hoard');
-                     Route::get('import/logs')->name('import.logs')->uses('AdminsController@importLogs');
-                     Route::get('create')->name('create')->uses('AdminsController@create');
-                     Route::post('create')->name('store')->uses('AdminsController@store');
-                     Route::get('{admin}')->name('show')->uses('AdminsController@show');
-                     Route::get('{admin}/edit')->name('edit')->uses('AdminsController@edit');
-                     Route::put('{admin}/edit')->name('update')->uses('AdminsController@update');
-                     Route::get('{admin}/logs')->name('logs')->uses('AdminsController@logs');
-                     Route::get('{admin}/activities')->name('activities')->uses('AdminsController@activities');
-                     Route::get('{admin}/attributes')->name('attributes')->uses('AdminsController@attributes');
-                     Route::put('{admin}/attributes')->name('attributes.update')->uses('AdminsController@updateAttributes');
-                     Route::delete('{admin}')->name('destroy')->uses('AdminsController@destroy');
-                     Route::delete('{admin}/media/{media}')->name('media.destroy')->uses('AdminsMediaController@destroy');
-                 });
-
-                 // Managers Routes
-                 Route::name('managers.')->prefix('managers')->group(function () {
-                     Route::get('/')->name('index')->uses('ManagersController@index');
-                     Route::get('import')->name('import')->uses('ManagersController@import');
-                     Route::post('import')->name('stash')->uses('ManagersController@stash');
-                     Route::post('hoard')->name('hoard')->uses('ManagersController@hoard');
-                     Route::get('import/logs')->name('import.logs')->uses('ManagersController@importLogs');
-                     Route::get('create')->name('create')->uses('ManagersController@form');
-                     Route::post('create')->name('store')->uses('ManagersController@store');
-                     Route::get('{manager}')->name('show')->uses('ManagersController@show');
-                     Route::get('{manager}/edit')->name('edit')->uses('ManagersController@form');
-                     Route::put('{manager}/edit')->name('update')->uses('ManagersController@update');
-                     Route::get('{manager}/logs')->name('logs')->uses('ManagersController@logs');
-                     Route::get('{manager}/activities')->name('activities')->uses('ManagersController@activities');
-                     Route::get('{manager}/attributes')->name('attributes')->uses('ManagersController@attributes');
-                     Route::put('{manager}/attributes')->name('attributes.update')->uses('ManagersController@updateAttributes');
-                     Route::delete('{manager}')->name('destroy')->uses('ManagersController@destroy');
-                     Route::delete('{manager}/media/{media}')->name('media.destroy')->uses('ManagersMediaController@destroy');
-                 });
-
                  // Members Routes
                  Route::name('members.')->prefix('members')->group(function () {
                      Route::get('/')->name('index')->uses('MembersController@index');
-                     Route::post('ajax')->name('ajax')->uses('MembersController@ajax'); // @TODO: to be refactored!
                      Route::get('import')->name('import')->uses('MembersController@import');
                      Route::post('import')->name('stash')->uses('MembersController@stash');
                      Route::post('hoard')->name('hoard')->uses('MembersController@hoard');
@@ -190,20 +138,24 @@ Route::domain(domain())->group(function () {
                      Route::delete('{member}/media/{media}')->name('media.destroy')->uses('MembersMediaController@destroy');
                  });
 
-                 // Guardians Routes
-                 Route::name('guardians.')->prefix('guardians')->group(function () {
-                     Route::get('/')->name('index')->uses('GuardiansController@index');
-                     Route::get('import')->name('import')->uses('GuardiansController@import');
-                     Route::post('import')->name('stash')->uses('GuardiansController@stash');
-                     Route::post('hoard')->name('hoard')->uses('GuardiansController@hoard');
-                     Route::get('import/logs')->name('import.logs')->uses('GuardiansController@importLogs');
-                     Route::get('create')->name('create')->uses('GuardiansController@form');
-                     Route::post('create')->name('store')->uses('GuardiansController@store');
-                     Route::get('{guardian}')->name('show')->uses('GuardiansController@show');
-                     Route::get('{guardian}/edit')->name('edit')->uses('GuardiansController@form');
-                     Route::put('{guardian}/edit')->name('update')->uses('GuardiansController@update');
-                     Route::get('{guardian}/logs')->name('logs')->uses('GuardiansController@logs');
-                     Route::delete('{guardian}')->name('destroy')->uses('GuardiansController@destroy');
+                 // Managers Routes
+                 Route::name('managers.')->prefix('managers')->group(function () {
+                     Route::get('/')->name('index')->uses('ManagersController@index');
+                     Route::get('import')->name('import')->uses('ManagersController@import');
+                     Route::post('import')->name('stash')->uses('ManagersController@stash');
+                     Route::post('hoard')->name('hoard')->uses('ManagersController@hoard');
+                     Route::get('import/logs')->name('import.logs')->uses('ManagersController@importLogs');
+                     Route::get('create')->name('create')->uses('ManagersController@create');
+                     Route::post('create')->name('store')->uses('ManagersController@store');
+                     Route::get('{manager}')->name('show')->uses('ManagersController@show');
+                     Route::get('{manager}/edit')->name('edit')->uses('ManagersController@edit');
+                     Route::put('{manager}/edit')->name('update')->uses('ManagersController@update');
+                     Route::get('{manager}/logs')->name('logs')->uses('ManagersController@logs');
+                     Route::get('{manager}/activities')->name('activities')->uses('ManagersController@activities');
+                     Route::get('{manager}/attributes')->name('attributes')->uses('ManagersController@attributes');
+                     Route::put('{manager}/attributes')->name('attributes.update')->uses('ManagersController@updateAttributes');
+                     Route::delete('{manager}')->name('destroy')->uses('ManagersController@destroy');
+                     Route::delete('{manager}/media/{media}')->name('media.destroy')->uses('ManagersMediaController@destroy');
                  });
              });
          });

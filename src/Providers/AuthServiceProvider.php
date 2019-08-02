@@ -139,14 +139,20 @@ class AuthServiceProvider extends ServiceProvider
 
         // Load resources
         require __DIR__.'/../../routes/breadcrumbs/adminarea.php';
+        require __DIR__.'/../../routes/breadcrumbs/frontarea.php';
+        require __DIR__.'/../../routes/breadcrumbs/managerarea.php';
+        require __DIR__.'/../../routes/breadcrumbs/tenantarea.php';
         $this->loadRoutesFrom(__DIR__.'/../../routes/web/adminarea.php');
+        $this->loadRoutesFrom(__DIR__.'/../../routes/web/frontarea.php');
+        $this->loadRoutesFrom(__DIR__.'/../../routes/web/managerarea.php');
+        $this->loadRoutesFrom(__DIR__.'/../../routes/web/tenantarea.php');
         $this->loadViewsFrom(__DIR__.'/../../resources/views', 'cortex/auth');
         $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'cortex/auth');
         $this->app->runningInConsole() || $this->app->afterResolving('blade.compiler', function () {
-            require __DIR__.'/../../routes/menus/managerarea.php';
-            require __DIR__.'/../../routes/menus/tenantarea.php';
             require __DIR__.'/../../routes/menus/adminarea.php';
             require __DIR__.'/../../routes/menus/frontarea.php';
+            require __DIR__.'/../../routes/menus/managerarea.php';
+            require __DIR__.'/../../routes/menus/tenantarea.php';
         });
 
         // Publish Resources
