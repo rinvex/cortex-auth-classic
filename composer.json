@@ -64,7 +64,7 @@
         "pragmarx/google2fa": "^4.0.0",
         "proengsoft/laravel-jsvalidation": "^2.4.0",
         "propaganistas/laravel-phone": "^4.1.0",
-        "rinvex/laravel-auth": "^2.1.0",
+        "rinvex/laravel-auth": "^2.2.0",
         "rinvex/laravel-composer": "^2.1.0",
         "rinvex/countries": "^6.1.0",
         "rinvex/languages": "^4.1.0",
