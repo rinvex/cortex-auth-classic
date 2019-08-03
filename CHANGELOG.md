@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v3.0.3] - 2019-08-03
+- Tweak menus & breadcrumbs performance
+- Fix menu issues
+
 ## [v3.0.2] - 2019-08-03
 - Update composer dependencies
 
@@ -85,6 +89,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v3.0.3]: https://github.com/rinvex/cortex-auth/compare/v3.0.2...v3.0.3
 [v3.0.2]: https://github.com/rinvex/cortex-auth/compare/v3.0.1...v3.0.2
 [v3.0.1]: https://github.com/rinvex/cortex-auth/compare/v3.0.0...v3.0.1
 [v3.0.0]: https://github.com/rinvex/cortex-auth/compare/v2.1.2...v3.0.0
