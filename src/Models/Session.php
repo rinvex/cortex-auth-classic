@@ -179,7 +179,7 @@ class Session extends Model
      */
     public function scopeUsersBySeconds(Builder $builder, $seconds = 60): Builder
     {
-        return $builder->with(['user'])->where('last_activity', '>=', now()->subSeconds($seconds))->whereNotNull('user_id');
+        return $builder->with(['user'])->where('last_activity', '>=', time() - $seconds)->whereNotNull('user_id');
     }
 
     /**
