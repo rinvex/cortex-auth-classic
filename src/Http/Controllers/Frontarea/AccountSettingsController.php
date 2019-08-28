@@ -59,14 +59,14 @@ class AccountSettingsController extends AuthenticatedController
                  ->sanitizingFileName(function ($fileName) {
                      return md5($fileName).'.'.pathinfo($fileName, PATHINFO_EXTENSION);
                  })
-                 ->toMediaCollection('profile_picture', config('cortex.auth.media.disk'));
+                 ->toMediaCollection('profile_picture', config('cortex.foundation.media.disk'));
 
         ! $request->hasFile('cover_photo')
         || $currentUser->addMediaFromRequest('cover_photo')
                  ->sanitizingFileName(function ($fileName) {
                      return md5($fileName).'.'.pathinfo($fileName, PATHINFO_EXTENSION);
                  })
-                 ->toMediaCollection('cover_photo', config('cortex.auth.media.disk'));
+                 ->toMediaCollection('cover_photo', config('cortex.foundation.media.disk'));
 
         // Update profile
         $currentUser->fill($data)->save();
