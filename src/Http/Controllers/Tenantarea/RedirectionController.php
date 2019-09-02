@@ -16,19 +16,7 @@ class RedirectionController extends AbstractController
     public function passwordreset()
     {
         return intend([
-            'url' => route('frontarea.passwordreset.request'),
-        ]);
-    }
-
-    /**
-     * Redirect to member registration.
-     *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
-     */
-    public function registration()
-    {
-        return intend([
-            'url' => route('frontarea.register.member'),
+            'url' => route('tenantarea.passwordreset.request'),
         ]);
     }
 
@@ -40,7 +28,7 @@ class RedirectionController extends AbstractController
     public function verification()
     {
         return intend([
-            'url' => route('frontarea.home'),
+            'url' => route('tenantarea.home'),
         ]);
     }
 }

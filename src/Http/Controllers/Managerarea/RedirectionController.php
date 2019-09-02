@@ -16,7 +16,7 @@ class RedirectionController extends AbstractController
     public function passwordreset()
     {
         return intend([
-            'url' => route('frontarea.passwordreset.request'),
+            'url' => route('managerarea.passwordreset.request'),
         ]);
     }
 
@@ -28,7 +28,7 @@ class RedirectionController extends AbstractController
     public function verification()
     {
         return intend([
-            'url' => route('frontarea.home'),
+            'url' => route('managerarea.home'),
         ]);
     }
 }
