@@ -66,8 +66,8 @@ class AccountSettingsRequest extends FormRequest
         $user->updateRulesUniques();
         $rules = $user->getRules();
 
-        $rules['profile_picture'] = 'nullable|mimetypes:'.$mediaMimetypes.'|size'.$mediaSize;
-        $rules['cover_photo'] = 'nullable|mimetypes:'.$mediaMimetypes.'|size'.$mediaSize;
+        $rules['profile_picture'] = 'nullable|mimetypes:'.$mediaMimetypes.'|size:'.$mediaSize;
+        $rules['cover_photo'] = 'nullable|mimetypes:'.$mediaMimetypes.'|size:'.$mediaSize;
 
         return $rules;
     }
