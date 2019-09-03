@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v3.0.4] - 2019-09-03
+- Enforce profile_picture and cover_photo image validation rules & update media config
+- Because session last_activity store timestamp we should comapre by time function instead of now (#82)
+- Fix redirection routes for different accessareas
+- Use $_SERVER instead of $_ENV for PHPUnit
+- Remove new password validation from broker
+- Update HttpKernel to use Authenticate middleware under App namespace
+
 ## [v3.0.3] - 2019-08-03
 - Tweak menus & breadcrumbs performance
 - Fix menu issues
@@ -89,6 +97,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v3.0.4]: https://github.com/rinvex/cortex-auth/compare/v3.0.3...v3.0.4
 [v3.0.3]: https://github.com/rinvex/cortex-auth/compare/v3.0.2...v3.0.3
 [v3.0.2]: https://github.com/rinvex/cortex-auth/compare/v3.0.1...v3.0.2
 [v3.0.1]: https://github.com/rinvex/cortex-auth/compare/v3.0.0...v3.0.1
