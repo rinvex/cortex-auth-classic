@@ -359,7 +359,8 @@
                                             <span class="input-group-btn">
                                                 <span class="btn btn-default btn-file">
                                                     {{ trans('cortex/auth::common.browse') }}
-                                                    {{ Form::file('profile_picture', ['class' => 'form-control', 'id' => 'profile_picture_browse']) }}
+                                                    {{-- Skip Javascrip validation for file input fields to avoid size validation conflict with jquery.validator --}}
+                                                    {{ Form::file('profile_picture', ['class' => 'form-control skip-validation', 'id' => 'profile_picture_browse']) }}
                                                 </span>
                                             </span>
                                         </div>
@@ -394,7 +395,8 @@
                                             <span class="input-group-btn">
                                                 <span class="btn btn-default btn-file">
                                                     {{ trans('cortex/auth::common.browse') }}
-                                                    {{ Form::file('cover_photo', ['class' => 'form-control', 'id' => 'cover_photo_browse']) }}
+                                                    {{-- Skip Javascrip validation for file input fields to avoid size validation conflict with jquery.validator --}}
+                                                    {{ Form::file('cover_photo', ['class' => 'form-control skip-validation', 'id' => 'cover_photo_browse']) }}
                                                 </span>
                                             </span>
                                         </div>
