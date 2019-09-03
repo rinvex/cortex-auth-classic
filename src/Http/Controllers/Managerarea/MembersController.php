@@ -260,14 +260,14 @@ class MembersController extends AuthorizedController
                 ->sanitizingFileName(function ($fileName) {
                     return md5($fileName).'.'.pathinfo($fileName, PATHINFO_EXTENSION);
                 })
-                ->toMediaCollection('profile_picture', config('cortex.auth.media.disk'));
+                ->toMediaCollection('profile_picture', config('cortex.foundation.media.disk'));
 
         ! $request->hasFile('cover_photo')
         || $member->addMediaFromRequest('cover_photo')
                 ->sanitizingFileName(function ($fileName) {
                     return md5($fileName).'.'.pathinfo($fileName, PATHINFO_EXTENSION);
                 })
-                ->toMediaCollection('cover_photo', config('cortex.auth.media.disk'));
+                ->toMediaCollection('cover_photo', config('cortex.foundation.media.disk'));
 
         // Save member
         $member->fill($data)->save();

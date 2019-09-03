@@ -97,7 +97,6 @@ class PasswordResetController extends AbstractController
             case PasswordResetBrokerContract::INVALID_USER:
             case PasswordResetBrokerContract::INVALID_TOKEN:
             case PasswordResetBrokerContract::EXPIRED_TOKEN:
-            case PasswordResetBrokerContract::INVALID_PASSWORD:
             default:
                 return intend([
                     'back' => true,

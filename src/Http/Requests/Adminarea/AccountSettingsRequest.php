@@ -59,9 +59,16 @@ class AccountSettingsRequest extends FormRequest
      */
     public function rules(): array
     {
+        $mediaSize = config('cortex.foundation.media.size');
+        $mediaMimetypes = config('cortex.foundation.media.mimetypes');
+
         $user = $this->user($this->route('guard'));
         $user->updateRulesUniques();
+        $rules = $user->getRules();
 
-        return $user->getRules();
+        $rules['profile_picture'] = 'nullable|mimetypes:'.$mediaMimetypes.'|size'.$mediaSize;
+        $rules['cover_photo'] = 'nullable|mimetypes:'.$mediaMimetypes.'|size'.$mediaSize;
+
+        return $rules;
     }
 }
