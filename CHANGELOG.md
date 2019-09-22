@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v4.0.0] - 2019-09-23
+- Upgrade to Laravel v6 and update dependencies
+
 ## [v3.0.6] - 2019-09-03
 - Skip Javascrip validation for file input fields to avoid size validation conflict with jquery.validator
 - Fix size validation rule
@@ -104,6 +107,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v4.0.0]: https://github.com/rinvex/cortex-auth/compare/v3.0.6...v4.0.0
 [v3.0.6]: https://github.com/rinvex/cortex-auth/compare/v3.0.5...v3.0.6
 [v3.0.5]: https://github.com/rinvex/cortex-auth/compare/v3.0.4...v3.0.5
 [v3.0.4]: https://github.com/rinvex/cortex-auth/compare/v3.0.3...v3.0.4
