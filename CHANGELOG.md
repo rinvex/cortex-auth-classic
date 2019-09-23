@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v4.0.2] - 2019-09-23
+- Fix outdated package version
+
 ## [v4.0.1] - 2019-09-23
 - Fix outdated package version
 
@@ -110,6 +113,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v4.0.2]: https://github.com/rinvex/cortex-auth/compare/v4.0.1...v4.0.2
 [v4.0.1]: https://github.com/rinvex/cortex-auth/compare/v4.0.0...v4.0.1
 [v4.0.0]: https://github.com/rinvex/cortex-auth/compare/v3.0.6...v4.0.0
 [v3.0.6]: https://github.com/rinvex/cortex-auth/compare/v3.0.5...v3.0.6
