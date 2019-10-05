@@ -18,6 +18,7 @@ use Cortex\Auth\Models\Socialite;
 use Illuminate\Support\ServiceProvider;
 use Rinvex\Support\Traits\ConsoleTools;
 use Cortex\Auth\Handlers\GenericHandler;
+use Illuminate\Contracts\Events\Dispatcher;
 use Cortex\Auth\Console\Commands\SeedCommand;
 use Cortex\Auth\Http\Middleware\Reauthenticate;
 use Cortex\Auth\Console\Commands\InstallCommand;
@@ -97,7 +98,7 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(Router $router): void
+    public function boot(Router $router, Dispatcher $dispatcher): void
     {
         // Attach request macro
         $this->attachRequestMacro();
@@ -144,8 +145,8 @@ class AuthServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__.'/../../routes/web/tenantarea.php');
         $this->loadViewsFrom(__DIR__.'/../../resources/views', 'cortex/auth');
         $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'cortex/auth');
-        $this->app->runningInConsole() || $this->app->afterResolving('blade.compiler', function () {
-            $accessarea = $this->app['request']->route('accessarea');
+
+        $this->app->runningInConsole() || $dispatcher->listen('controller.constructed', function ($accessarea) {
             ! file_exists($menus = __DIR__."/../../routes/menus/{$accessarea}.php") || require $menus;
             ! file_exists($breadcrumbs = __DIR__."/../../routes/breadcrumbs/{$accessarea}.php") || require $breadcrumbs;
         });
