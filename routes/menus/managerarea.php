@@ -26,6 +26,5 @@ if ($user = auth()->guard(request()->route('guard'))->user()) {
 } else {
     Menu::register('managerarea.header.user', function (MenuGenerator $menu) {
         $menu->route(['managerarea.login'], trans('cortex/auth::common.login'));
-        $menu->route(['managerarea.register'], trans('cortex/auth::common.register'));
     });
 }
