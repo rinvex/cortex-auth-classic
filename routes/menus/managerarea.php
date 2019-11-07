@@ -8,7 +8,7 @@ use Rinvex\Menus\Models\MenuGenerator;
 if ($user = auth()->guard(request()->route('guard'))->user()) {
     Menu::register('managerarea.header.user', function (MenuGenerator $menu) use ($user) {
         $menu->dropdown(function (MenuItem $dropdown) {
-            $dropdown->route(['managerarea.account'], trans('cortex/auth::common.settings'), null, 'fa fa-cogs');
+            $dropdown->route(['managerarea.account'], trans('cortex/auth::common.account'), null, 'fa fa-cogs');
             $dropdown->route(['managerarea.account.settings'], trans('cortex/auth::common.settings'), null, 'fa fa-cogs');
             $dropdown->divider();
             $dropdown->route(['managerarea.logout'], trans('cortex/auth::common.logout').Form::open(['url' => route('managerarea.logout'), 'id' => 'logout-form', 'style' => 'display: none;']).Form::close(), null, 'fa fa-sign-out', ['onclick' => "event.preventDefault(); document.getElementById('logout-form').submit();"]);
