@@ -5,26 +5,37 @@ declare(strict_types=1);
 namespace Cortex\Auth\Http\Middleware;
 
 use Closure;
-use Illuminate\Routing\Redirector;
+use Illuminate\Contracts\Routing\UrlGenerator;
+use Illuminate\Contracts\Routing\ResponseFactory;
 
 class Reauthenticate
 {
     /**
-     * The Redirector instance.
+     * The response factory instance.
      *
-     * @var \Illuminate\Routing\Redirector
+     * @var \Illuminate\Contracts\Routing\ResponseFactory
      */
-    protected $redirector;
+    protected $responseFactory;
+
+    /**
+     * The URL generator instance.
+     *
+     * @var \Illuminate\Contracts\Routing\UrlGenerator
+     */
+    protected $urlGenerator;
 
     /**
      * Create a new middleware instance.
      *
-     * @param  \Illuminate\Routing\Redirector  $redirector
+     * @param \Illuminate\Contracts\Routing\ResponseFactory $responseFactory
+     * @param \Illuminate\Contracts\Routing\UrlGenerator    $urlGenerator
+     *
      * @return void
      */
-    public function __construct(Redirector $redirector)
+    public function __construct(ResponseFactory $responseFactory, UrlGenerator $urlGenerator)
     {
-        $this->redirector = $redirector;
+        $this->responseFactory = $responseFactory;
+        $this->urlGenerator = $urlGenerator;
     }
 
     /**
@@ -41,8 +52,8 @@ class Reauthenticate
     public function handle($request, Closure $next, string $type = 'password', int $timeout = null, bool $renew = false)
     {
         if ($this->shouldConfirmSession($request, $type, $timeout)) {
-            return $this->redirector->guest(
-                $this->redirector->getUrlGenerator()->route($request->route('accessarea').'.reauthentication.'.$type)
+            return $this->responseFactory->redirectGuest(
+                $this->urlGenerator->route($request->route('accessarea').'.reauthentication.'.$type)
             );
         }
 
