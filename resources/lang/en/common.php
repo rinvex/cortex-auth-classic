@@ -94,7 +94,10 @@ return [
     'account_settings' => 'Account Settings',
     'account_password' => 'Account Password',
     'account_sessions' => 'Account Sessions',
-    'reauthentication' => 'Reauthentication',
+    'reauthentication' => [
+        'password' => 'Password Reauthentication',
+        'twofactor' => 'TwoFactor Reauthentication',
+    ],
     'twitter' => 'Twitter',
     'facebook' => 'Facebook',
     'linkedin' => 'LinkedIn',

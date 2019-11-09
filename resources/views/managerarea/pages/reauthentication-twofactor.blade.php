@@ -15,7 +15,7 @@
         </div>
 
         <div class="login-box-body">
-            <p class="login-box-msg">{{ trans('cortex/auth::common.reauthentication') }}</p>
+            <p class="login-box-msg">{{ trans('cortex/auth::common.reauthentication.twofactor') }}</p>
 
             {{ Form::open(['url' => route('managerarea.reauthentication.twofactor.process'), 'id' => 'managerarea-reauthentication-form', 'role' => 'auth']) }}
 

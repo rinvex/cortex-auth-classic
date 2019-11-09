@@ -22,10 +22,10 @@ Route::domain(domain())->group(function () {
 
             // Reauthentication Routes
             Route::name('reauthentication.')->prefix('reauthentication')->group(function () {
-                // Reauthentication Password Routes
+                Route::get('password')->name('password')->uses('ReauthenticationController@confirmPassword');
                 Route::post('password')->name('password.process')->uses('ReauthenticationController@processPassword');
 
-                // Reauthentication Twofactor Routes
+                Route::get('twofactor')->name('twofactor')->uses('ReauthenticationController@confirmTwofactor');
                 Route::post('twofactor')->name('twofactor.process')->uses('ReauthenticationController@processTwofactor');
             });
 
