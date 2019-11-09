@@ -52,6 +52,12 @@ class Reauthenticate
     public function handle($request, Closure $next, string $type = 'password', int $timeout = null, bool $renew = false)
     {
         if ($this->shouldConfirmSession($request, $type, $timeout)) {
+            if ($request->expectsJson()) {
+                return $this->responseFactory->json([
+                    'message' => trans('cortex/auth::common.password_required'),
+                ], 423);
+            }
+
             return $this->responseFactory->redirectGuest(
                 $this->urlGenerator->route($request->route('accessarea').'.reauthentication.'.$type)
             );
