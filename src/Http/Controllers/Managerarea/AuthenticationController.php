@@ -38,9 +38,6 @@ class AuthenticationController extends AbstractController
      */
     public function form()
     {
-        // Remember previous URL for later redirect back
-        session()->put('url.intended', url()->previous());
-
         return view('cortex/auth::managerarea.pages.authentication');
     }
 
