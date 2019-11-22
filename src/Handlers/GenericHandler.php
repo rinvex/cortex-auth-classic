@@ -76,6 +76,7 @@ class GenericHandler
     }
 
     /**
+     * @TODO: Review this method!
      * Listen to the authentication login event.
      *
      * @param \Illuminate\Auth\Events\Login $event
