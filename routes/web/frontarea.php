@@ -9,8 +9,10 @@ Route::domain(domain())->group(function () {
         ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.foundation.route.prefix.frontarea') : config('cortex.foundation.route.prefix.frontarea'))->group(function () {
 
         // Login Routes
+            $maxAttempts = config('cortex.auth.throttle.login.max_attempts');
+            $decayMinutes = config('cortex.auth.throttle.login.decay_minutes');
             Route::get('login')->name('login')->uses('AuthenticationController@form');
-            Route::post('login')->name('login.process')->uses('AuthenticationController@login');
+            Route::post('login')->name('login.process')->middleware("throttle:{$maxAttempts},{$decayMinutes}")->uses('AuthenticationController@login');
             Route::post('logout')->name('logout')->uses('AuthenticationController@logout');
 
             // Registration Routes
@@ -22,18 +24,20 @@ Route::domain(domain())->group(function () {
 
             // Reauthentication Routes
             Route::name('reauthentication.')->prefix('reauthentication')->group(function () {
-                // Reauthentication Password Routes
+                Route::get('password')->name('password')->uses('ReauthenticationController@confirmPassword');
                 Route::post('password')->name('password.process')->uses('ReauthenticationController@processPassword');
 
-                // Reauthentication Twofactor Routes
+                Route::get('twofactor')->name('twofactor')->uses('ReauthenticationController@confirmTwofactor');
                 Route::post('twofactor')->name('twofactor.process')->uses('ReauthenticationController@processTwofactor');
             });
 
             // Password Reset Routes
             Route::get('passwordreset')->name('passwordreset')->uses('RedirectionController@passwordreset');
             Route::name('passwordreset.')->prefix('passwordreset')->group(function () {
+                $maxAttempts = config('cortex.auth.throttle.passwordreset.max_attempts');
+                $decayMinutes = config('cortex.auth.throttle.passwordreset.decay_minutes');
                 Route::get('request')->name('request')->uses('PasswordResetController@request');
-                Route::post('send')->name('send')->uses('PasswordResetController@send');
+                Route::post('send')->name('send')->middleware("throttle:{$maxAttempts},{$decayMinutes}")->uses('PasswordResetController@send');
                 Route::get('reset')->name('reset')->uses('PasswordResetController@reset');
                 Route::post('process')->name('process')->uses('PasswordResetController@process');
             });

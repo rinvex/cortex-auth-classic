@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Cortex\Auth\Http\Controllers\Adminarea;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Cortex\Auth\Traits\TwoFactorAuthenticatesUsers;
 use Cortex\Foundation\Http\Controllers\AuthenticatedController;
+use Cortex\Auth\Http\Requests\Adminarea\ReauthenticatePasswordFormRequest;
 
 class ReauthenticationController extends AuthenticatedController
 {
@@ -18,24 +18,24 @@ class ReauthenticationController extends AuthenticatedController
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function processPassword(Request $request)
+    public function confirmPassword(Request $request)
     {
-        $redirect_url = session('cortex.auth.reauthentication.intended');
-        $session_name = session('cortex.auth.reauthentication.session_name');
+        return view('cortex/auth::frontarea.pages.reauthentication-password');
+    }
 
-        if (Hash::check($request->input('password'), request()->user($this->getGuard())->password)) {
-            $this->setSession($session_name);
-
-            return intend([
-                'intended' => url($redirect_url),
-            ]);
-        }
+    /**
+     * Process password.
+     *
+     * @param \Cortex\Auth\Http\Requests\Adminarea\ReauthenticatePasswordFormRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function processPassword(ReauthenticatePasswordFormRequest $request)
+    {
+        $this->resetSessionConfirmationTimeout($request, 'password');
 
         return intend([
-            'intended' => url($redirect_url),
-            'withErrors' => [
-                'password' => trans('cortex/auth::messages.auth.failed'),
-            ],
+            'intended' => url(route('frontarea.home')),
         ]);
     }
 
@@ -46,33 +46,33 @@ class ReauthenticationController extends AuthenticatedController
      */
     public function processTwofactor(Request $request)
     {
-        $redirect_url = session('cortex.auth.reauthentication.intended');
-        $session_name = session('cortex.auth.reauthentication.session_name');
-
         $user = $request->user($this->getGuard());
         $token = (int) $request->input('token');
 
         if ($this->attemptTwoFactor($user, $token)) {
-            $this->setSession($session_name);
+            $this->resetSessionConfirmationTimeout($request, 'twofactor');
 
             return intend([
-                'intended' => url($redirect_url),
+                'intended' => url(route('adminarea.home')),
             ]);
         }
 
         return intend([
-            'intended' => url($redirect_url),
+            'intended' => url(route('adminarea.home')),
             'withErrors' => ['token' => trans('cortex/auth::messages.verification.twofactor.invalid_token')],
         ]);
     }
 
     /**
-     * @param $session_name
+     * Reset the session confirmation timeout.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param string                   $type
+     *
+     * @return void
      */
-    protected function setSession($session_name)
+    protected function resetSessionConfirmationTimeout(Request $request, string $type = 'password'): void
     {
-        session()->put($session_name, time());
-        session()->forget('cortex.auth.reauthentication.intended');
-        session()->forget('cortex.auth.reauthentication.session_name');
+        $request->session()->put("auth.{$type}_confirmed_at", time());
     }
 }

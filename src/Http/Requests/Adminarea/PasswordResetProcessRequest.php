@@ -9,6 +9,7 @@ use Rinvex\Auth\Contracts\PasswordResetBrokerContract;
 class PasswordResetProcessRequest extends PasswordResetRequest
 {
     /**
+     * @TODO: Review and refactor!
      * Configure the validator instance.
      *
      * @param \Illuminate\Validation\Validator $validator

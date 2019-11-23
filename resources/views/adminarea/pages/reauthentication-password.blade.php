@@ -15,7 +15,7 @@
         </div>
 
         <div class="login-box-body">
-            <p class="login-box-msg">{{ trans('cortex/auth::common.reauthentication') }}</p>
+            <p class="login-box-msg">{{ trans('cortex/auth::common.reauthentication.password') }}</p>
 
             {{ Form::open(['url' => route('adminarea.reauthentication.password.process'), 'id' => 'adminarea-reauthentication-form', 'role' => 'auth']) }}
 

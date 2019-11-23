@@ -259,6 +259,16 @@ Breadcrumbs::register('adminarea.passwordreset.reset', function (BreadcrumbsGene
     $breadcrumbs->push(trans('cortex/auth::common.passwordreset'), route('adminarea.passwordreset.reset'));
 });
 
+Breadcrumbs::register('adminarea.reauthentication.password', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->push('<i class="fa fa-home"></i> '.config('app.name'), route('frontarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::common.reauthentication.password'), route('frontarea.reauthentication.password'));
+});
+
+Breadcrumbs::register('adminarea.reauthentication.twofactor', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->push('<i class="fa fa-home"></i> '.config('app.name'), route('frontarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::common.reauthentication.twofactor'), route('frontarea.reauthentication.twofactor'));
+});
+
 Breadcrumbs::register('adminarea.verification.email.request', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('adminarea.home'));
     $breadcrumbs->push(trans('cortex/auth::common.verification_email_request'), route('adminarea.verification.email.request'));

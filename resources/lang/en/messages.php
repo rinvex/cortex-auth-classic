@@ -6,6 +6,8 @@ return [
 
     'error' => '<strong>Whoops!</strong> There were some problems with your input.',
     'action_unauthorized' => 'This action is unauthorized.',
+    'password_required' => 'Password confirmation required.',
+    'lockout' => 'Too many attempts. Please try again in :seconds seconds.',
 
     'sessions' => [
         'flush_single_heading' => 'Flush Selected Session',
@@ -36,7 +38,6 @@ return [
         'moderated' => 'Your account is currently moderated!',
         'unverified' => 'Your account in currently unverified!',
         'failed' => 'These credentials do not match our records.',
-        'lockout' => 'Too many login attempts. Please try again in :seconds seconds.',
         'login' => 'You have successfully logged in!',
         'logout' => 'You have successfully logged out!',
         'session' => [
