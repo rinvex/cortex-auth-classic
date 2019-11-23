@@ -30,20 +30,19 @@ class ManagersDataTable extends AbstractDataTable
     {
         $query = $this->query();
 
-        if (!empty($this->request->get('country_code'))){
-
+        if (! empty($this->request->get('country_code'))) {
             $query->where('country_code', $this->request->get('country_code'));
         }
 
-        if (!empty($this->request->get('language_code'))){
+        if (! empty($this->request->get('language_code'))) {
             $query->where('language_code', $this->request->get('language_code'));
         }
 
-        if (!empty($this->request->get('gender'))){
+        if (! empty($this->request->get('gender'))) {
             $query->where('gender', $this->request->get('gender'));
         }
 
-        if (!empty($this->request->get('tags'))){
+        if (! empty($this->request->get('tags'))) {
             $query->whereHas('tags', function (Builder $builder) {
                 $builder->whereIn('id', $this->request->get('tags'));
             });
