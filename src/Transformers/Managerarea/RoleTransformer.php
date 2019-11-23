@@ -19,6 +19,7 @@ class RoleTransformer extends TransformerAbstract
     {
         return $this->escape([
             'id' => (string) $role->getRouteKey(),
+            'DT_RowId' => 'row_'.$role->getRouteKey(),
             'title' => (string) $role->title,
             'name' => (string) $role->name,
             'created_at' => (string) $role->created_at,

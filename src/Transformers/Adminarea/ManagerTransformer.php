@@ -22,6 +22,7 @@ class ManagerTransformer extends TransformerAbstract
 
         return $this->escape([
             'id' => (string) $manager->getRouteKey(),
+            'DT_RowId' => 'row_'.$manager->getRouteKey(),
             'is_active' => (bool) $manager->is_active,
             'given_name' => (string) $manager->given_name,
             'family_name' => (string) $manager->family_name,
