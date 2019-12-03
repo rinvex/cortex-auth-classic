@@ -30,6 +30,7 @@ class AccountSettingsRequest extends FormRequest
     {
         $data = $this->all();
 
+        $resetTwoFactor = false;
         $country = $data['country_code'] ?? null;
         $email = $data['email'] ?? null;
         $phone = $data['phone'] ?? null;
@@ -37,14 +38,15 @@ class AccountSettingsRequest extends FormRequest
         $twoFactor = $user->getTwoFactor();
 
         if ($email !== $user->email) {
-            $data['email_verified_at'] = null;
+            $resetTwoFactor = true;
         }
 
         if ($phone !== $user->phone || $country !== $user->country_code) {
-            $data['phone_verified_at'] = null;
+            $resetTwoFactor = true;
         }
 
-        if ($twoFactor || is_null($data['phone_verified_at'])) {
+        if ($twoFactor || $resetTwoFactor) {
+            $data['phone_verified_at'] = null;
             array_set($twoFactor, 'phone.enabled', false);
             $data['two_factor'] = $twoFactor;
         }
@@ -66,8 +68,8 @@ class AccountSettingsRequest extends FormRequest
         $user->updateRulesUniques();
         $rules = $user->getRules();
 
-        $rules['profile_picture'] = 'nullable|mimetypes:'.$mediaMimetypes.'|size:'.$mediaSize;
-        $rules['cover_photo'] = 'nullable|mimetypes:'.$mediaMimetypes.'|size:'.$mediaSize;
+        $rules['profile_picture'] = 'nullable|mimetypes:'.$mediaMimetypes.'|max:'.$mediaSize;
+        $rules['cover_photo'] = 'nullable|mimetypes:'.$mediaMimetypes.'|max:'.$mediaSize;
 
         return $rules;
     }
