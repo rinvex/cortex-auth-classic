@@ -19,6 +19,7 @@ class AbilityTransformer extends TransformerAbstract
     {
         return $this->escape([
             'id' => (string) $ability->getRouteKey(),
+            'DT_RowId' => 'row_'.$ability->getRouteKey(),
             'title' => (string) $ability->title,
             'name' => (string) $ability->name,
             'created_at' => (string) $ability->created_at,

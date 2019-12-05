@@ -35,9 +35,25 @@ class AdminsController extends AuthorizedController
      */
     public function index(AdminsDataTable $adminsDataTable)
     {
+        $countries = collect(countries())->map(function ($country, $code) {
+            return [
+                'id' => $code,
+                'text' => $country['name'],
+                'emoji' => $country['emoji'],
+            ];
+        })->values();
+
+        $languages = collect(languages())->pluck('name', 'iso_639_1');
+        $genders = ['male' => trans('cortex/auth::common.male'), 'female' => trans('cortex/auth::common.female')];
+        $tags = app('rinvex.tags.tag')->whereIn('group', ['skills', 'tools', 'certifications'])->get()->groupBy('group')->map->pluck('name', 'id')->sortKeys();
+
         return $adminsDataTable->with([
             'id' => 'adminarea-admins-index-table',
-        ])->render('cortex/foundation::adminarea.pages.datatable-index');
+            'countries' => $countries,
+            'languages' => $languages,
+            'genders' => $genders,
+            'tags' => $tags,
+        ])->render('cortex/auth::adminarea.pages.admins');
     }
 
     /**

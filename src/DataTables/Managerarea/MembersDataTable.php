@@ -28,7 +28,27 @@ class MembersDataTable extends AbstractDataTable
      */
     public function ajax()
     {
-        return datatables($this->query())
+        $query = $this->query();
+
+        if (! empty($this->request->get('country_code'))) {
+            $query->where('country_code', $this->request->get('country_code'));
+        }
+
+        if (! empty($this->request->get('language_code'))) {
+            $query->where('language_code', $this->request->get('language_code'));
+        }
+
+        if (! empty($this->request->get('gender'))) {
+            $query->where('gender', $this->request->get('gender'));
+        }
+
+        if (! empty($this->request->get('tags'))) {
+            $query->whereHas('tags', function (Builder $builder) {
+                $builder->whereIn('id', $this->request->get('tags'));
+            });
+        }
+
+        return datatables($query)
             ->setTransformer(app($this->transformer))
             ->filterColumn('country_code', function (Builder $builder, $keyword) {
                 $countryCode = collect(countries())->search(function ($country) use ($keyword) {
@@ -44,8 +64,17 @@ class MembersDataTable extends AbstractDataTable
 
                 ! $languageCode || $builder->where('language_code', $languageCode);
             })
-            ->orderColumn('name', 'name->"$.'.app()->getLocale().'" $1')
             ->make(true);
+    }
+
+    /**
+     * Get Ajax form.
+     *
+     * @return string
+     */
+    protected function getAjaxForm(): string
+    {
+        return '#managerarea-members-filters-form';
     }
 
     /**

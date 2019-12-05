@@ -21,7 +21,7 @@
 
                     {{ Form::open(['url' => route('tenantarea.reauthentication.password.process'), 'id' => 'tenantarea-reauthentication-form', 'role' => 'auth']) }}
 
-                        <div class="centered"><strong>{{ trans('cortex/auth::common.reauthentication') }}</strong></div>
+                        <div class="centered"><strong>{{ trans('cortex/auth::common.reauthentication.password') }}</strong></div>
 
                         <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
                             {{ Form::password('password', ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.password'), 'required' => 'required']) }}

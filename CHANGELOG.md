@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v4.1.1] - 2019-12-04
+- Add ajax filters capabilities to datatables (admins, managers, members)
+- Add DT_RowId field to datatables
+- Fix undefined phone_verified_at attribute and file size validation rule
+
+## [v4.1.0] - 2019-11-23
+- change account display name as the two children account and settings have the same name (#87)
+- Refactor Reauthentication feature to be compatible with the new Laravel v6.2 feature
+  https://laravel-news.com/new-password-confirmation-in-laravel-6-2
+- Update Reauthenticate middleware to be compatible with Laravel v6.3
+  Use contracts for the RequirePassword middleware (#30215)
+  https://github.com/laravel/framework/commit/53b64719d6fb398bfc2aa2baf121e887d21b7aea
+- Laravel v6.4.x / Handle ajax requests in RequirePassword middleware (#30390, 331c354)
+  https://blog.laravel.com/laravel-v6-4-0-released
+  https://github.com/laravel/framework/pull/30390
+  https://github.com/laravel/framework/commit/331c354e586a5a27a9edc9b9a49d23aa872e4b32
+- Move "Remember previous URL for later redirect back" to exception handler
+- Refactor Login Throttle to use "ThrottleRequests" middleware
+
 ## [v4.0.5] - 2019-10-14
 - Update menus & breadcrumbs event listener to accessarea.ready
 - Fix wrong dependencies letter case
@@ -124,6 +143,8 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v4.1.1]: https://github.com/rinvex/cortex-auth/compare/v4.1.0...v4.1.1
+[v4.1.0]: https://github.com/rinvex/cortex-auth/compare/v4.0.5...v4.1.0
 [v4.0.5]: https://github.com/rinvex/cortex-auth/compare/v4.0.4...v4.0.5
 [v4.0.4]: https://github.com/rinvex/cortex-auth/compare/v4.0.3...v4.0.4
 [v4.0.3]: https://github.com/rinvex/cortex-auth/compare/v4.0.2...v4.0.3

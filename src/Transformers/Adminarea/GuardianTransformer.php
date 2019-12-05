@@ -19,6 +19,7 @@ class GuardianTransformer extends TransformerAbstract
     {
         return $this->escape([
             'id' => (string) $guardian->getRouteKey(),
+            'DT_RowId' => 'row_'.$guardian->getRouteKey(),
             'is_active' => (bool) $guardian->is_active,
             'username' => (string) $guardian->username,
             'email' => (string) $guardian->email,
