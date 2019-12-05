@@ -118,7 +118,7 @@ class AuthServiceProvider extends ServiceProvider
         $router->pattern('ability', '[a-zA-Z0-9-]+');
         $router->pattern('session', '[a-zA-Z0-9-]+');
         $router->pattern('admin', '[a-zA-Z0-9-]+');
-        $router->pattern('member', '[a-zA-Z0-9-]+');
+        $router->pattern('member', '[a-zA-Z0-9-_]+');
         $router->pattern('manager', '[a-zA-Z0-9-]+');
         $router->model('role', config('cortex.auth.models.role'));
         $router->model('admin', config('cortex.auth.models.admin'));
