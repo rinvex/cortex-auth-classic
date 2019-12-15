@@ -22,7 +22,6 @@ class EnforceSingleSession implements ShouldQueue
         //
     }
 
-
     /**
      * @TODO: Review this method!
      *      Check => \Cortex\Auth\Http\Middleware\AuthenticateSession

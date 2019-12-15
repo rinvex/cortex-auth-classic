@@ -10,7 +10,6 @@ use BadMethodCallException;
 use Rinvex\Country\Country;
 use Rinvex\Language\Language;
 use Rinvex\Tags\Traits\Taggable;
-use Cortex\Auth\Events\UserSaving;
 use Illuminate\Support\Collection;
 use Cortex\Auth\Events\UserCreated;
 use Cortex\Auth\Events\UserDeleted;
