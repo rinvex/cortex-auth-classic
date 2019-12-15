@@ -10,7 +10,10 @@ use BadMethodCallException;
 use Rinvex\Country\Country;
 use Rinvex\Language\Language;
 use Rinvex\Tags\Traits\Taggable;
+use Cortex\Auth\Events\UserSaving;
 use Illuminate\Support\Collection;
+use Cortex\Auth\Events\UserCreated;
+use Cortex\Auth\Events\UserDeleted;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Rinvex\Auth\Traits\HasHashables;
@@ -136,6 +139,16 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     protected $observables = [
         'validating',
         'validated',
+    ];
+
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'created' => UserCreated::class,
+        'deleted' => UserDeleted::class,
     ];
 
     /**

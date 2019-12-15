@@ -17,7 +17,6 @@ use Cortex\Auth\Models\Guardian;
 use Cortex\Auth\Models\Socialite;
 use Illuminate\Support\ServiceProvider;
 use Rinvex\Support\Traits\ConsoleTools;
-use Cortex\Auth\Handlers\GenericHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 use Cortex\Auth\Console\Commands\SeedCommand;
 use Cortex\Auth\Http\Middleware\Reauthenticate;
@@ -156,9 +155,6 @@ class AuthServiceProvider extends ServiceProvider
         ! $this->app->runningInConsole() || $this->publishesViews('cortex/auth', true);
         ! $this->app->runningInConsole() || $this->publishesConfig('cortex/auth', true);
         ! $this->app->runningInConsole() || $this->publishesMigrations('cortex/auth', true);
-
-        // Register event handlers
-        $this->app['events']->subscribe(GenericHandler::class);
 
         // Register attributes entities
         ! app()->bound('rinvex.attributes.entities') || app('rinvex.attributes.entities')->push('admin');
