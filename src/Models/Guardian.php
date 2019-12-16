@@ -7,7 +7,7 @@ namespace Cortex\Auth\Models;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Rinvex\Auth\Traits\HasHashables;
-use Cortex\Auth\Events\GuardianCreated;
+use Cortex\Auth\Events\GuardianSaved;
 use Cortex\Auth\Events\GuardianDeleted;
 use Cortex\Foundation\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
@@ -78,7 +78,7 @@ class Guardian extends Model implements AuthenticatableContract, AuthorizableCon
      * @var array
      */
     protected $dispatchesEvents = [
-        'created' => GuardianCreated::class,
+        'saved' => GuardianSaved::class,
         'deleted' => GuardianDeleted::class,
     ];
 

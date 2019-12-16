@@ -11,7 +11,7 @@ use Rinvex\Country\Country;
 use Rinvex\Language\Language;
 use Rinvex\Tags\Traits\Taggable;
 use Illuminate\Support\Collection;
-use Cortex\Auth\Events\UserCreated;
+use Cortex\Auth\Events\UserSaved;
 use Cortex\Auth\Events\UserDeleted;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Support\Facades\Hash;
@@ -146,7 +146,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
      * @var array
      */
     protected $dispatchesEvents = [
-        'created' => UserCreated::class,
+        'saved' => UserSaved::class,
         'deleted' => UserDeleted::class,
     ];
 

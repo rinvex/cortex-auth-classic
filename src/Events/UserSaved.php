@@ -7,11 +7,13 @@ namespace Cortex\Auth\Events;
 use Cortex\Auth\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class UserCreated implements ShouldBroadcast
+class UserSaved implements ShouldBroadcast
 {
     use SerializesModels;
+    Use InteractsWithSockets;
 
     public $user;
 

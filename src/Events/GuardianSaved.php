@@ -7,11 +7,13 @@ namespace Cortex\Auth\Events;
 use Cortex\Auth\Models\Guardian;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class GuardianCreated implements ShouldBroadcast
+class GuardianSaved implements ShouldBroadcast
 {
     use SerializesModels;
+    Use InteractsWithSockets;
 
     public $guardian;
 
