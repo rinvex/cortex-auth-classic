@@ -54,6 +54,6 @@ class UserDeleted implements ShouldBroadcast
      */
     protected function formatChannelName(): string
     {
-        return 'cortex.auth.users.count';
+        return 'cortex.auth.users.list';
     }
 }

@@ -44,7 +44,7 @@ class UserSaved implements ShouldBroadcast
      */
     public function broadcastAs()
     {
-        return 'cortex.auth.users.created';
+        return 'cortex.auth.users.saved';
     }
 
     /**
@@ -54,6 +54,6 @@ class UserSaved implements ShouldBroadcast
      */
     protected function formatChannelName(): string
     {
-        return 'cortex.auth.users.count';
+        return 'cortex.auth.users.list';
     }
 }

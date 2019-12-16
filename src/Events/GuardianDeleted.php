@@ -54,6 +54,6 @@ class GuardianDeleted implements ShouldBroadcast
      */
     protected function formatChannelName(): string
     {
-        return 'cortex.auth.guardians.count';
+        return 'cortex.auth.guardians.list';
     }
 }

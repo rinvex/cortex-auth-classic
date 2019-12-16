@@ -44,7 +44,7 @@ class GuardianSaved implements ShouldBroadcast
      */
     public function broadcastAs()
     {
-        return 'cortex.auth.guardians.created';
+        return 'cortex.auth.guardians.saved';
     }
 
     /**
@@ -54,6 +54,6 @@ class GuardianSaved implements ShouldBroadcast
      */
     protected function formatChannelName(): string
     {
-        return 'cortex.auth.guardians.count';
+        return 'cortex.auth.guardians.list';
     }
 }
