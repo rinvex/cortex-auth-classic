@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v4.1.2] - 2019-12-18
+- Fix route regex pattern to include underscores
+  - This way it's compatible with validation rule `alpha_dash`
+- Fix `migrate:reset` args as it doesn't accept --step
+- Refactor events and event listeners
+
 ## [v4.1.1] - 2019-12-04
 - Add ajax filters capabilities to datatables (admins, managers, members)
 - Add DT_RowId field to datatables
@@ -143,6 +149,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v4.1.2]: https://github.com/rinvex/cortex-auth/compare/v4.1.1...v4.1.2
 [v4.1.1]: https://github.com/rinvex/cortex-auth/compare/v4.1.0...v4.1.1
 [v4.1.0]: https://github.com/rinvex/cortex-auth/compare/v4.0.5...v4.1.0
 [v4.0.5]: https://github.com/rinvex/cortex-auth/compare/v4.0.4...v4.0.5
