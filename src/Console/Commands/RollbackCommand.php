@@ -33,7 +33,6 @@ class RollbackCommand extends Command
 
         if (file_exists($path = 'database/migrations/cortex/auth')) {
             $this->call('migrate:reset', [
-                '--step' => true,
                 '--path' => $path,
                 '--force' => $this->option('force'),
             ]);
