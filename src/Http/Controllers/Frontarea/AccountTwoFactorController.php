@@ -33,6 +33,9 @@ class AccountTwoFactorController extends AuthenticatedController
      * @param \Illuminate\Http\Request      $request
      * @param \PragmaRX\Google2FA\Google2FA $totpProvider
      *
+     * @throws \PragmaRX\Google2FA\Exceptions\IncompatibleWithGoogleAuthenticatorException
+     * @throws \PragmaRX\Google2FA\Exceptions\InvalidCharactersException
+     *
      * @return \Illuminate\View\View
      */
     public function enableTotp(Request $request, Google2FA $totpProvider)
@@ -80,6 +83,10 @@ class AccountTwoFactorController extends AuthenticatedController
      *
      * @param \Cortex\Auth\Http\Requests\Frontarea\AccountTwoFactorTotpProcessRequest $request
      * @param \PragmaRX\Google2FA\Google2FA                                           $totpProvider
+     *
+     * @throws \PragmaRX\Google2FA\Exceptions\IncompatibleWithGoogleAuthenticatorException
+     * @throws \PragmaRX\Google2FA\Exceptions\InvalidCharactersException
+     * @throws \PragmaRX\Google2FA\Exceptions\SecretKeyTooShortException
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -181,6 +188,8 @@ class AccountTwoFactorController extends AuthenticatedController
 
     /**
      * Generate TwoFactor OTP backup codes.
+     *
+     * @throws \Exception
      *
      * @return array
      */

@@ -13,7 +13,7 @@ class AccountSettingsController extends AuthenticatedController
     /**
      * Redirect to account settings..
      *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\View\View
      */
     public function index()
     {

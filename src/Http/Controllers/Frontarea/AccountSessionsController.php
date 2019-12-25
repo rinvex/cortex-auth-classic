@@ -23,6 +23,8 @@ class AccountSessionsController extends AuthenticatedController
     /**
      * Destroy given session.
      *
+     * @TODO: Security fix needed! Check if deleted session related to authenticated user.
+     *
      * @param \Cortex\Auth\Models\Session $session
      *
      * @throws \Exception

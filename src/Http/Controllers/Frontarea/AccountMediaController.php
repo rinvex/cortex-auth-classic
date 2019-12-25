@@ -16,6 +16,8 @@ class AccountMediaController extends AuthenticatedController
      * @param \Cortex\Auth\Models\Member        $member
      * @param \Spatie\MediaLibrary\Models\Media $media
      *
+     * @throws \Exception
+     *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function destroy(Member $member, Media $media)

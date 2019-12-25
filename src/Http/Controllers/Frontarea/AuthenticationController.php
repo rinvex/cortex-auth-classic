@@ -125,9 +125,9 @@ class AuthenticationController extends AbstractController
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @throws ValidationException
+     * @throws \Illuminate\Validation\ValidationException
      *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @return void
      */
     protected function sendFailedLoginResponse(Request $request)
     {
@@ -138,6 +138,8 @@ class AuthenticationController extends AbstractController
 
     /**
      * Process logout.
+     *
+     * @TODO: Double check logout process and standardize project-wide!
      *
      * @param \Illuminate\Http\Request $request
      *
