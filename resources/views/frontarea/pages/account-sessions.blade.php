@@ -46,12 +46,23 @@
                                                 </a>
 
                                                 <div class="col-md-1 col-sm-1 col-xs-1">
-                                                    <a href="#" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete-confirmation"
-                                                       data-modal-action="{{ route('frontarea.account.sessions.destroy', ['id' => $session->getKey()]) }}"
-                                                       data-modal-title="{!! trans('cortex/foundation::messages.delete_confirmation_title') !!}"
-                                                       data-modal-button="<a href='#' class='btn btn-danger' data-form='delete' data-token='{{ csrf_token() }}'><i class='fa fa-trash-o'></i> {{ trans('cortex/foundation::common.delete') }}</a>"
-                                                       data-modal-body="{!! trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/auth::common.session'), 'identifier' => $session->getKey()]) !!}"
-                                                       title="{{ trans('cortex/foundation::common.delete') }}"><i class="fa fa-remove"></i></a>
+
+                                                    @if ($session->getKey() === request()->session()->getId())
+                                                        <a class="btn btn-warning btn-xs" href="#" data-toggle="modal" data-target="#delete-confirmation"
+                                                           data-modal-action="{{ route('frontarea.account.sessions.flush') }}"
+                                                           data-modal-title="{!! trans('cortex/foundation::messages.delete_confirmation_title') !!}"
+                                                           data-modal-button="<a href='#' class='btn btn-danger' data-form='delete' data-token='{{ csrf_token() }}'><i class='fa fa-trash-o'></i> {{ trans('cortex/auth::messages.sessions.flush_all_heading') }}</a>"
+                                                           data-modal-body="{!! trans('cortex/auth::messages.sessions.delete_other_othres', ['resource' => trans('cortex/auth::common.sessions'), 'identifier' => 'all']) !!}"
+                                                           title="{{ trans('cortex/foundation::common.delete') }}"><i class="fa fa-minus-square"></i></a>
+                                                    @else
+                                                        <a href="#" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete-confirmation"
+                                                           data-modal-action="{{ route('frontarea.account.sessions.destroy', ['id' => $session->getKey()]) }}"
+                                                           data-modal-title="{!! trans('cortex/foundation::messages.delete_confirmation_title') !!}"
+                                                           data-modal-button="<a href='#' class='btn btn-danger' data-form='delete' data-token='{{ csrf_token() }}'><i class='fa fa-trash-o'></i> {{ trans('cortex/foundation::common.delete') }}</a>"
+                                                           data-modal-body="{!! trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/auth::common.session'), 'identifier' => $session->getKey()]) !!}"
+                                                           title="{{ trans('cortex/foundation::common.delete') }}"><i class="fa fa-remove"></i></a>
+                                                    @endif
+
                                                 </div>
 
                                             </div>
@@ -76,17 +87,6 @@
 
                         </div>
 
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12 text-center profile-buttons">
-                            <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#delete-confirmation"
-                               data-modal-action="{{ route('frontarea.account.sessions.flush') }}"
-                               data-modal-title="{!! trans('cortex/foundation::messages.delete_confirmation_title') !!}"
-                               data-modal-button="<a href='#' class='btn btn-danger' data-form='delete' data-token='{{ csrf_token() }}'><i class='fa fa-trash-o'></i> {{ trans('cortex/foundation::common.delete') }}</a>"
-                               data-modal-body="{!! trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/auth::common.sessions'), 'identifier' => 'all']) !!}"
-                               title="{{ trans('cortex/foundation::common.delete') }}"><i class="fa fa-remove"></i> {{ trans('cortex/auth::messages.sessions.flush_all_heading') }}</a>
-                        </div>
                     </div>
 
                 </div>

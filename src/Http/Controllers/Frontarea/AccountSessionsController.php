@@ -50,7 +50,7 @@ class AccountSessionsController extends AuthenticatedController
      */
     public function flush(Request $request)
     {
-        $request->user($this->getGuard())->sessions()->delete();
+        $request->user($this->getGuard())->logoutOtherDevices();
 
         return intend([
             'back' => true,
