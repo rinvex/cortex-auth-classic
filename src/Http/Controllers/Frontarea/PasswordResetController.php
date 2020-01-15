@@ -16,7 +16,7 @@ class PasswordResetController extends AbstractController
     /**
      * Show the password reset request form.
      *
-     * @param Cortex\Auth\Http\Requests\Frontarea\PasswordResetRequest
+     * @param \Cortex\Auth\Http\Requests\Frontarea\PasswordResetRequest
      *
      * @return \Illuminate\View\View
      */
