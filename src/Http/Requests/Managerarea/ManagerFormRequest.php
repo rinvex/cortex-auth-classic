@@ -94,6 +94,6 @@ class ManagerFormRequest extends FormRequest
             ? 'confirmed|min:'.config('cortex.auth.password_min_chars')
             : 'required|confirmed|min:'.config('cortex.auth.password_min_chars');
 
-        return $this->isMethod('POST') ? $rules : [];
+        return in_array($this->getRealMethod(), ['PUT', 'POST', 'PATCH']) ? $rules : [];
     }
 }
