@@ -155,6 +155,7 @@ class AuthServiceProvider extends ServiceProvider
         ! $this->app->runningInConsole() || $this->publishesViews('cortex/auth', true);
         ! $this->app->runningInConsole() || $this->publishesConfig('cortex/auth', true);
         ! $this->app->runningInConsole() || $this->publishesMigrations('cortex/auth', true);
+        ! $this->app['config']['cortex.auth.autoload_migrations'] || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
 
         // Register attributes entities
         ! app()->bound('rinvex.attributes.entities') || app('rinvex.attributes.entities')->push('admin');
