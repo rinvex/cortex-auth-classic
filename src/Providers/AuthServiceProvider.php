@@ -151,11 +151,11 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         // Publish Resources
-        ! $this->app->runningInConsole() || $this->publishesLang('cortex/auth', true);
-        ! $this->app->runningInConsole() || $this->publishesViews('cortex/auth', true);
-        ! $this->app->runningInConsole() || $this->publishesConfig('cortex/auth', true);
-        ! $this->app->runningInConsole() || $this->publishesMigrations('cortex/auth', true);
-        ! $this->app['config']['cortex.auth.autoload_migrations'] || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
+        $this->publishesLang('cortex/auth', true);
+        $this->publishesViews('cortex/auth', true);
+        $this->publishesConfig('cortex/auth', true);
+        $this->publishesMigrations('cortex/auth', true);
+        ! $this->autoloadMigrations('cortex.auth') || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
 
         // Register attributes entities
         ! app()->bound('rinvex.attributes.entities') || app('rinvex.attributes.entities')->push('admin');
