@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Requests\Managerarea;
 
+use Illuminate\Support\Str;
 use Cortex\Auth\Models\Role;
 
 class RoleFormProcessRequest extends RoleFormRequest
@@ -18,7 +19,7 @@ class RoleFormProcessRequest extends RoleFormRequest
         $data = $this->all();
 
         // Prepend tenant name to the role name
-        starts_with(config('rinvex.tenants.active')->name.'_', $data['name']) || $data['name'] = str_start($data['name'], config('rinvex.tenants.active')->name.'_');
+        Str::startsWith(config('rinvex.tenants.active')->name.'_', $data['name']) || $data['name'] = Str::start($data['name'], config('rinvex.tenants.active')->name.'_');
 
         // Set abilities
         if (! empty($data['abilities'])) {

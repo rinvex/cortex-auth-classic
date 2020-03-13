@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Notifications;
 
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -76,9 +77,9 @@ class MemberEmailVerificationNotification extends Notification implements Should
 
         return (new MailMessage())
             ->subject(trans('cortex/auth::emails.verification.email.subject'))
-            ->line(trans('cortex/auth::emails.verification.email.intro', ['expire' => now()->createFromTimestamp($this->expiration)->diffForHumans()]))
+            ->line(trans('cortex/auth::emails.verification.email.intro', ['expire' => Carbon::now()->createFromTimestamp($this->expiration)->diffForHumans()]))
             ->action(trans('cortex/auth::emails.verification.email.action'), $link)
-            ->line(trans('cortex/auth::emails.verification.email.outro', ['created_at' => now(), 'ip' => request()->ip(), 'agent' => request()->userAgent()]));
+            ->line(trans('cortex/auth::emails.verification.email.outro', ['created_at' => Carbon::now(), 'ip' => request()->ip(), 'agent' => request()->userAgent()]));
     }
 
     /**

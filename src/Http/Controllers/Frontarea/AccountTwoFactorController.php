@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Controllers\Frontarea;
 
+use Carbon\Carbon;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use PragmaRX\Google2FA\Google2FA;
 use Cortex\Foundation\Http\Controllers\AuthenticatedController;
@@ -43,7 +45,7 @@ class AccountTwoFactorController extends AuthenticatedController
         $currentUser = $request->user($this->getGuard());
         $twoFactor = $currentUser->getTwoFactor();
 
-        if (! $secret = array_get($twoFactor, 'totp.secret')) {
+        if (! $secret = Arr::get($twoFactor, 'totp.secret')) {
             $twoFactor['totp'] = [
                 'enabled' => false,
                 'secret' => $secret = $totpProvider->generateSecretKey(),
@@ -94,16 +96,16 @@ class AccountTwoFactorController extends AuthenticatedController
     {
         $currentUser = $request->user($this->getGuard());
         $twoFactor = $currentUser->getTwoFactor();
-        $secret = array_get($twoFactor, 'totp.secret');
-        $backup = array_get($twoFactor, 'totp.backup');
-        $backupAt = array_get($twoFactor, 'totp.backup_at');
+        $secret = Arr::get($twoFactor, 'totp.secret');
+        $backup = Arr::get($twoFactor, 'totp.backup');
+        $backupAt = Arr::get($twoFactor, 'totp.backup_at');
 
         if ($totpProvider->verifyKey($secret, $request->get('token'))) {
             $twoFactor['totp'] = [
                 'enabled' => true,
                 'secret' => $secret,
                 'backup' => $backup ?? $this->generateTotpBackups(),
-                'backup_at' => $backupAt ?? now()->toDateTimeString(),
+                'backup_at' => $backupAt ?? Carbon::now()->toDateTimeString(),
             ];
 
             // Update TwoFactor settings
@@ -133,7 +135,7 @@ class AccountTwoFactorController extends AuthenticatedController
         $currentUser = $request->user($this->getGuard());
         $twoFactor = $currentUser->getTwoFactor();
         $twoFactor['totp']['backup'] = $this->generateTotpBackups();
-        $twoFactor['totp']['backup_at'] = now()->toDateTimeString();
+        $twoFactor['totp']['backup_at'] = Carbon::now()->toDateTimeString();
 
         $currentUser->fill(['two_factor' => $twoFactor])->forceSave();
 

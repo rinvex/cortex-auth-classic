@@ -7,6 +7,7 @@ namespace Cortex\Auth\Models;
 use Error;
 use Exception;
 use BadMethodCallException;
+use Illuminate\Support\Arr;
 use Rinvex\Country\Country;
 use Rinvex\Language\Language;
 use Rinvex\Tags\Traits\Taggable;
@@ -302,7 +303,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
      */
     public function routeNotificationForAuthy(): ?int
     {
-        if (! ($authyId = array_get($this->getTwoFactor(), 'phone.authy_id')) && $this->getEmailForVerification() && $this->getPhoneForVerification() && $this->getCountryForVerification()) {
+        if (! ($authyId = Arr::get($this->getTwoFactor(), 'phone.authy_id')) && $this->getEmailForVerification() && $this->getPhoneForVerification() && $this->getCountryForVerification()) {
             $result = app('rinvex.authy.user')->register($this->getEmailForVerification(), preg_replace('/[^0-9]/', '', $this->getPhoneForVerification()), $this->getCountryForVerification());
             $authyId = $result->get('user')['id'];
 
@@ -310,7 +311,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
             $twoFactor = $this->getTwoFactor();
 
             // Update user account
-            array_set($twoFactor, 'phone.authy_id', $authyId);
+            Arr::set($twoFactor, 'phone.authy_id', $authyId);
 
             $this->fill(['two_factor' => $twoFactor])->forceSave();
         }

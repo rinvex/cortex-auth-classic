@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Requests\Frontarea;
 
+use Illuminate\Support\Arr;
 use Rinvex\Support\Traits\Escaper;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -47,7 +48,7 @@ class AccountSettingsRequest extends FormRequest
 
         if ($twoFactor || $resetTwoFactor) {
             $data['phone_verified_at'] = null;
-            array_set($twoFactor, 'phone.enabled', false);
+            Arr::set($twoFactor, 'phone.enabled', false);
             $data['two_factor'] = $twoFactor;
         }
 

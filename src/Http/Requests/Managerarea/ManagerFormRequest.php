@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Requests\Managerarea;
 
+use Illuminate\Support\Arr;
 use Rinvex\Support\Traits\Escaper;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\Exceptions\GenericException;
@@ -70,7 +71,7 @@ class ManagerFormRequest extends FormRequest
         }
 
         if ($twoFactor && (isset($data['phone_verified_at']) || $country !== $manager->country_code)) {
-            array_set($twoFactor, 'phone.enabled', false);
+            Arr::set($twoFactor, 'phone.enabled', false);
             $data['two_factor'] = $twoFactor;
         }
 

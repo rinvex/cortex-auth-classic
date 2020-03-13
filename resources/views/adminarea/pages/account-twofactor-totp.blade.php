@@ -106,7 +106,7 @@
 
                                     <br />
 
-                                    @if(array_get($twoFactor, 'totp.enabled'))
+                                    @if(Arr::get($twoFactor, 'totp.enabled'))
                                         <div class="row">
                                             <div class="form-group">
 
@@ -114,7 +114,7 @@
 
                                                     <div class="text-center">
                                                         <a class="btn btn-default text-center" role="button" data-toggle="collapse" href="#collapse2Example" aria-expanded="false" aria-controls="collapseSecretKey">
-                                                            {{ trans('cortex/auth::twofactor.totp_backup_button', ['count' => count(array_get($twoFactor, 'totp.backup'))]) }}
+                                                            {{ trans('cortex/auth::twofactor.totp_backup_button', ['count' => count(Arr::get($twoFactor, 'totp.backup'))]) }}
                                                         </a>
                                                     </div>
 
@@ -122,7 +122,7 @@
 
                                                         <br />
 
-                                                        @if(array_get($twoFactor, 'totp.backup'))
+                                                        @if(Arr::get($twoFactor, 'totp.backup'))
                                                             <div class="panel panel-primary">
                                                                 <header class="panel-heading">
                                                                     <a class="btn btn-default btn-flat btn-xs pull-right" href="{{ route('adminarea.account.twofactor.totp.backup') }}" onclick="event.preventDefault(); var form = document.getElementById('adminarea-twofactor-totp-form'); form.action = '{{ route('adminarea.account.twofactor.totp.backup') }}'; form.submit();">{{ trans('cortex/auth::twofactor.totp_backup_generate') }}</a>
@@ -132,10 +132,10 @@
                                                                     {{ trans('cortex/auth::twofactor.totp_backup_body') }}
                                                                     <div>
 
-                                                                        {!! trans('cortex/auth::twofactor.totp_backup_notice', ['backup_at' => Carbon\Carbon::parse(array_get($twoFactor, 'totp.backup_at'))->format('F d, Y - h:ia')]) !!}
+                                                                        {!! trans('cortex/auth::twofactor.totp_backup_notice', ['backup_at' => Carbon\Carbon::parse(Arr::get($twoFactor, 'totp.backup_at'))->format('F d, Y - h:ia')]) !!}
 
                                                                         <ul class="list-group">
-                                                                            @foreach(array_get($twoFactor, 'totp.backup') as $backup)
+                                                                            @foreach(Arr::get($twoFactor, 'totp.backup') as $backup)
                                                                                 <li class="list-group-item col-xs-6">{{ $backup }}</li>
                                                                             @endforeach
                                                                         </ul>

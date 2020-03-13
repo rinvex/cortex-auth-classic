@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Auth\Http\Middleware;
 
 use Closure;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class UpdateLastActivity
@@ -35,7 +36,7 @@ class UpdateLastActivity
         if ($user = $request->user(request()->route('guard'))) {
             // We are using database queries rather than eloquent, to bypass triggering events.
             // Triggering update events flush cache and costs us more queries, which we don't need.
-            $user->newQuery()->where($user->getKeyName(), $user->getKey())->update(['last_activity' => now()]);
+            $user->newQuery()->where($user->getKeyName(), $user->getKey())->update(['last_activity' => Carbon::now()]);
         }
     }
 }
