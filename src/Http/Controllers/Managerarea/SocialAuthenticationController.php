@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Cortex\Auth\Http\Controllers\Managerarea;
 
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Database\Eloquent\Builder;
 use Cortex\Foundation\Http\Controllers\AbstractController;
