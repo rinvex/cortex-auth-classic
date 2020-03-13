@@ -44,7 +44,7 @@ class AuthenticateSession
         $guard = $request->route('guard');
         $passwordHashKey = 'hash_'.$guard.mb_strrchr($this->auth->getName(), '_');
 
-        if (! $request->user($guard) || ! $request->session()) {
+        if (! $request->hasSession() || ! $request->user($guard)) {
             return $next($request);
         }
 
@@ -101,7 +101,7 @@ class AuthenticateSession
      */
     protected function logout($request)
     {
-        $this->auth->logout();
+        $this->auth->logoutCurrentDevice();
 
         $request->session()->flush();
 

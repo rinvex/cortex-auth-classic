@@ -13,7 +13,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 class GuardianDeleted implements ShouldBroadcast
 {
     use SerializesModels;
-    Use InteractsWithSockets;
+    use InteractsWithSockets;
 
     public $guardian;
 

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Controllers\Adminarea;
 
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 use Laravel\Socialite\Facades\Socialite;
@@ -106,8 +108,8 @@ class SocialAuthenticationController extends AbstractController
     {
         $localUser = app('cortex.auth.admin');
 
-        $attributes['password'] = str_random();
-        $attributes['email_verified_at'] = now();
+        $attributes['password'] = Str::random();
+        $attributes['email_verified_at'] = Carbon::now();
         $attributes['is_active'] = ! config('cortex.auth.registration.moderated');
 
         $localUser->fill($attributes)->save();

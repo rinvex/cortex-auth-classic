@@ -23,6 +23,8 @@ class AccountSessionsController extends AuthenticatedController
     /**
      * Destroy given session.
      *
+     * @TODO: Security fix needed! Check if deleted session related to authenticated user.
+     *
      * @param \Cortex\Auth\Models\Session $session
      *
      * @throws \Exception
@@ -48,7 +50,7 @@ class AccountSessionsController extends AuthenticatedController
      */
     public function flush(Request $request)
     {
-        $request->user($this->getGuard())->sessions()->delete();
+        $request->user($this->getGuard())->logoutOtherDevices();
 
         return intend([
             'back' => true,

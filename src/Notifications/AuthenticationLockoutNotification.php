@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Notifications;
 
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -62,7 +63,7 @@ class AuthenticationLockoutNotification extends Notification implements ShouldQu
     {
         return (new MailMessage())
             ->subject(trans('cortex/auth::emails.auth.lockout.subject'))
-            ->line(trans('cortex/auth::emails.auth.lockout.intro', ['created_at' => now(), 'ip' => $this->ip, 'agent' => $this->agent]))
+            ->line(trans('cortex/auth::emails.auth.lockout.intro', ['created_at' => Carbon::now(), 'ip' => $this->ip, 'agent' => $this->agent]))
             ->line(trans('cortex/auth::emails.auth.lockout.outro'));
     }
 }

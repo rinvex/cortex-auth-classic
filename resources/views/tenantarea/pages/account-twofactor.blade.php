@@ -26,7 +26,7 @@
                             {{ Form::open(['url' => route('tenantarea.account.twofactor.totp.update'), 'id' => 'tenantarea-twofactor-totp-form']) }}
 
                                 <h3 class="centered">
-                                    @if(array_get($twoFactor, 'totp.enabled') || array_get($twoFactor, 'phone.enabled'))
+                                    @if(Arr::get($twoFactor, 'totp.enabled') || Arr::get($twoFactor, 'phone.enabled'))
                                         {!! trans('cortex/auth::twofactor.active') !!}
                                     @else
                                         {!! trans('cortex/auth::twofactor.inactive') !!}

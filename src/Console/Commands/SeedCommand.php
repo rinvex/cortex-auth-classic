@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Console\Commands;
 
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Cortex\Auth\Models\Admin;
 use Illuminate\Console\Command;
 use Cortex\Auth\Models\Guardian;
@@ -36,8 +38,8 @@ class SeedCommand extends Command
         $this->call('db:seed', ['--class' => 'CortexAuthSeeder']);
 
         // Create models
-        $admin = $this->createAdmin($adminPassword = str_random());
-        $guardian = $this->createGuardian($guardianPassword = str_random());
+        $admin = $this->createAdmin($adminPassword = Str::random());
+        $guardian = $this->createGuardian($guardianPassword = Str::random());
 
         // Assign roles
         $admin->assign('superadmin');
@@ -68,8 +70,8 @@ class SeedCommand extends Command
         ];
 
         return tap(app('cortex.auth.admin')->firstOrNew($admin)->fill([
-            'remember_token' => str_random(10),
-            'email_verified_at' => now(),
+            'remember_token' => Str::random(10),
+            'email_verified_at' => Carbon::now(),
             'password' => $password,
         ]), function ($instance) {
             $instance->save();
@@ -92,7 +94,7 @@ class SeedCommand extends Command
         ];
 
         return tap(app('cortex.auth.guardian')->firstOrNew($guardian)->fill([
-            'remember_token' => str_random(10),
+            'remember_token' => Str::random(10),
             'password' => $password,
         ]), function ($instance) {
             $instance->save();

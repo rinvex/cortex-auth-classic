@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v4.1.3] - 2020-03-13
+- Tweak TravisCI config
+- Refactor session management and flush process
+- Tweak logout process
+-  Patch AuthenticateSession: The middleware needs to call `Auth::logoutCurrentDevice` instead of `Auth::logout` to avoid rotate the remember_token
+  + https://github.com/laravel/framework/commit/1f5ec13c0e229db8f70f7b560b57a5ce1d0777d0#diff-0539afd6b48ba531ec1873776b3d1d85
+- Add migrations autoload option to the package
+- Tweak service provider `publishesResources` & `autoloadMigrations`
+- Update StyleCI config
+- Drop using global helpers
+- Check if ability exists before seeding
+
 ## [v4.1.2] - 2019-12-18
 - Fix route regex pattern to include underscores
   - This way it's compatible with validation rule `alpha_dash`

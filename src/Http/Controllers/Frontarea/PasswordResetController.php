@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Controllers\Frontarea;
 
+use Illuminate\Support\Str;
 use Rinvex\Auth\Contracts\PasswordResetBrokerContract;
 use Cortex\Foundation\Http\Controllers\AbstractController;
 use Cortex\Auth\Http\Requests\Frontarea\PasswordResetRequest;
@@ -16,7 +17,7 @@ class PasswordResetController extends AbstractController
     /**
      * Show the password reset request form.
      *
-     * @param Cortex\Auth\Http\Requests\Frontarea\PasswordResetRequest
+     * @param \Cortex\Auth\Http\Requests\Frontarea\PasswordResetRequest
      *
      * @return \Illuminate\View\View
      */
@@ -83,7 +84,7 @@ class PasswordResetController extends AbstractController
             ->reset($request->only(['email', 'expiration', 'token', 'password', 'password_confirmation']), function ($user, $password) {
                 $user->fill([
                     'password' => $password,
-                    'remember_token' => str_random(60),
+                    'remember_token' => Str::random(60),
                 ])->forceSave();
             });
 
