@@ -32,14 +32,16 @@ class TenantRegistrationProcessRequest extends TenantRegistrationRequest
         $managerRules = array_combine(
             array_map(function ($key) {
                 return 'manager.'.$key;
-            }, array_keys($managerRules)), $managerRules
+            }, array_keys($managerRules)),
+            $managerRules
         );
 
         $tenantRules = app('rinvex.tenants.tenant')->getRules();
         $tenantRules = array_combine(
             array_map(function ($key) {
                 return 'tenant.'.$key;
-            }, array_keys($tenantRules)), $tenantRules
+            }, array_keys($tenantRules)),
+            $tenantRules
         );
 
         return array_merge($managerRules, $tenantRules);
