@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v5.0.3] - 2020-03-16
+- Update proengsoft/laravel-jsvalidation composer package
+
 ## [v5.0.2] - 2020-03-15
 - Fix incompatible package version league/fractal
 
@@ -170,6 +173,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v5.0.3]: https://github.com/rinvex/cortex-auth/compare/v5.0.2...v5.0.3
 [v5.0.2]: https://github.com/rinvex/cortex-auth/compare/v5.0.1...v5.0.2
 [v5.0.1]: https://github.com/rinvex/cortex-auth/compare/v5.0.0...v5.0.1
 [v5.0.0]: https://github.com/rinvex/cortex-auth/compare/v4.1.3...v5.0.0
