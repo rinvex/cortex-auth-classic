@@ -13,7 +13,7 @@ class Authenticate extends BaseAuthenticate
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return string
+     * @return string|null
      */
     protected function redirectTo($request)
     {
