@@ -60,7 +60,7 @@
         "davejamesmiller/laravel-breadcrumbs": "^5.3.0",
         "laravel/helpers": "^1.2.0",
         "laravel/socialite": "^4.2.0",
-        "laravelcollective/html": "^7.0.0",
+        "laravelcollective/html": "^6.1.0",
         "league/fractal": "^0.19.0",
         "pragmarx/google2fa": "^7.0.0",
         "proengsoft/laravel-jsvalidation": "^2.5.0",
