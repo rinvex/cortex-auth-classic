@@ -22,7 +22,7 @@ class CreateSessionsTable extends Migration
             $table->string('ip_address', 45)->nullable();
             $table->text('user_agent')->nullable();
             $table->text('payload');
-            $table->integer('last_activity');
+            $table->bigInteger('last_activity');
 
             // Indexes
             $table->unique('id');
