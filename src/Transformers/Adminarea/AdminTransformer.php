@@ -13,6 +13,12 @@ class AdminTransformer extends TransformerAbstract
     use Escaper;
 
     /**
+     * Transform admin model.
+     *
+     * @param \Cortex\Auth\Models\Admin $admin
+     *
+     * @throws \Exception
+     *
      * @return array
      */
     public function transform(Admin $admin): array

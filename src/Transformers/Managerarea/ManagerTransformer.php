@@ -13,6 +13,12 @@ class ManagerTransformer extends TransformerAbstract
     use Escaper;
 
     /**
+     * Transform manager model.
+     *
+     * @param \Cortex\Auth\Models\Manager $manager
+     *
+     * @throws \Exception
+     *
      * @return array
      */
     public function transform(Manager $manager): array

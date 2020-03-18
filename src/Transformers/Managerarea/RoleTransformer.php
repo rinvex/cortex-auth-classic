@@ -13,6 +13,12 @@ class RoleTransformer extends TransformerAbstract
     use Escaper;
 
     /**
+     * Transform role model.
+     *
+     * @param \Cortex\Auth\Models\Role $role
+     *
+     * @throws \Exception
+     *
      * @return array
      */
     public function transform(Role $role): array

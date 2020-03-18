@@ -13,6 +13,12 @@ class GuardianTransformer extends TransformerAbstract
     use Escaper;
 
     /**
+     * Transform guardian model.
+     *
+     * @param \Cortex\Auth\Models\Guardian $guardian
+     *
+     * @throws \Exception
+     *
      * @return array
      */
     public function transform(Guardian $guardian): array

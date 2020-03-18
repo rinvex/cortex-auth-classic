@@ -13,6 +13,12 @@ class MemberTransformer extends TransformerAbstract
     use Escaper;
 
     /**
+     * Transform member model.
+     *
+     * @param \Cortex\Auth\Models\Member $member
+     *
+     * @throws \Exception
+     *
      * @return array
      */
     public function transform(Member $member): array
