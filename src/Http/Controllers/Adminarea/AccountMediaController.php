@@ -13,7 +13,7 @@ class AccountMediaController extends AuthenticatedController
     /**
      * Destroy given admin media.
      *
-     * @param \Cortex\Auth\Models\Admin         $admin
+     * @param \Cortex\Auth\Models\Admin                          $admin
      * @param \Spatie\MediaLibrary\MediaCollections\Models\Media $media
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
