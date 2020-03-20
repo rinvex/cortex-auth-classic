@@ -39,7 +39,7 @@ class ManagersMediaController extends AuthorizedController
     /**
      * Destroy given manager media.
      *
-     * @param \Cortex\Auth\Models\Manager       $manager
+     * @param \Cortex\Auth\Models\Manager                        $manager
      * @param \Spatie\MediaLibrary\MediaCollections\Models\Media $media
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
