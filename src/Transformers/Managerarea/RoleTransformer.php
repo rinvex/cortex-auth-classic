@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Auth\Transformers\Rolearea\Managerarea;
+namespace Cortex\Auth\Transformers\Managerarea;
 
 use Cortex\Auth\Models\Role;
 use Rinvex\Support\Traits\Escaper;

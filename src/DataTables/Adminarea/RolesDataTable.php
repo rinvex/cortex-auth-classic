@@ -6,7 +6,7 @@ namespace Cortex\Auth\DataTables\Adminarea;
 
 use Cortex\Auth\Models\Role;
 use Cortex\Foundation\DataTables\AbstractDataTable;
-use Cortex\Auth\Transformers\Rolearea\Adminarea\RoleTransformer;
+use Cortex\Auth\Transformers\Adminarea\RoleTransformer;
 
 class RolesDataTable extends AbstractDataTable
 {
