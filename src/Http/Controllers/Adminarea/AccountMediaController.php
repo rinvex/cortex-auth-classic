@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Auth\Http\Controllers\Adminarea;
 
 use Cortex\Auth\Models\Admin;
-use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Cortex\Foundation\Http\Controllers\AuthenticatedController;
 
 class AccountMediaController extends AuthenticatedController
@@ -14,7 +14,7 @@ class AccountMediaController extends AuthenticatedController
      * Destroy given admin media.
      *
      * @param \Cortex\Auth\Models\Admin         $admin
-     * @param \Spatie\MediaLibrary\Models\Media $media
+     * @param \Spatie\MediaLibrary\MediaCollections\Models\Media $media
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
