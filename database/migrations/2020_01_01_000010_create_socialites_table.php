@@ -17,7 +17,7 @@ class CreateSocialitesTable extends Migration
     {
         Schema::create(config('cortex.auth.tables.socialites'), function (Blueprint $table) {
             // Columns
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->morphs('user');
             $table->string('provider');
             $table->string('provider_uid');

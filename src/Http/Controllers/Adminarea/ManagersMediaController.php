@@ -6,7 +6,7 @@ namespace Cortex\Auth\Http\Controllers\Adminarea;
 
 use Illuminate\Support\Str;
 use Cortex\Auth\Models\Manager;
-use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
 
 class ManagersMediaController extends AuthorizedController
@@ -39,8 +39,8 @@ class ManagersMediaController extends AuthorizedController
     /**
      * Destroy given manager media.
      *
-     * @param \Cortex\Auth\Models\Manager       $manager
-     * @param \Spatie\MediaLibrary\Models\Media $media
+     * @param \Cortex\Auth\Models\Manager                        $manager
+     * @param \Spatie\MediaLibrary\MediaCollections\Models\Media $media
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

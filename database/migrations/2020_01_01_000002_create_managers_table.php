@@ -17,7 +17,7 @@ class CreateManagersTable extends Migration
     {
         Schema::create(config('cortex.auth.tables.managers'), function (Blueprint $table) {
             // Columns
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('given_name');
             $table->string('family_name')->nullable();
             $table->string('email');

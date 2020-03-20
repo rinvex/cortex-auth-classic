@@ -17,10 +17,10 @@ class CreateAssignedRolesTable extends Migration
     {
         Schema::create(config('cortex.auth.tables.assigned_roles'), function (Blueprint $table) {
             // Columns
-            $table->integer('role_id')->unsigned();
-            $table->integer('entity_id')->unsigned();
+            $table->bigInteger('role_id')->unsigned();
+            $table->bigInteger('entity_id')->unsigned();
             $table->string('entity_type', 150);
-            $table->integer('scope')->nullable();
+            $table->bigInteger('scope')->nullable();
 
             // Indexes
             $table->index(['scope']);

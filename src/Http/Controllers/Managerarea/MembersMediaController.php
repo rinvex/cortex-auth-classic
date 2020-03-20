@@ -6,7 +6,7 @@ namespace Cortex\Auth\Http\Controllers\Managerarea;
 
 use Illuminate\Support\Str;
 use Cortex\Auth\Models\Member;
-use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
 
 class MembersMediaController extends AuthorizedController
@@ -39,8 +39,8 @@ class MembersMediaController extends AuthorizedController
     /**
      * Destroy given member media.
      *
-     * @param \Cortex\Auth\Models\Member        $member
-     * @param \Spatie\MediaLibrary\Models\Media $media
+     * @param \Cortex\Auth\Models\Member                         $member
+     * @param \Spatie\MediaLibrary\MediaCollections\Models\Media $media
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Auth\Transformers\Rolearea\Managerarea;
+namespace Cortex\Auth\Transformers\Managerarea;
 
 use Cortex\Auth\Models\Role;
 use Rinvex\Support\Traits\Escaper;
@@ -13,6 +13,12 @@ class RoleTransformer extends TransformerAbstract
     use Escaper;
 
     /**
+     * Transform role model.
+     *
+     * @param \Cortex\Auth\Models\Role $role
+     *
+     * @throws \Exception
+     *
      * @return array
      */
     public function transform(Role $role): array

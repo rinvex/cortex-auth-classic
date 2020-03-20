@@ -17,7 +17,7 @@ class CreateGuardiansTable extends Migration
     {
         Schema::create(config('cortex.auth.tables.guardians'), function (Blueprint $table) {
             // Columns
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('username');
             $table->string('password');
             $table->rememberToken();
