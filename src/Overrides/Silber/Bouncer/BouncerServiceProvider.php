@@ -26,11 +26,6 @@ class BouncerServiceProvider extends BaseBouncerServiceProvider
      */
     protected function setUserModel()
     {
-        // @TODO temp solution until this merged https://github.com/JosephSilber/bouncer/pull/508
-        // to fix the duplicate table prefix when calling whereColumn in
-        // `vendor/silber/bouncer/src/Database/Queries/Abilities.php`
-        Models::setPrefix('');
-
         Models::setUsersModel($this->getUserModel());
     }
 }
