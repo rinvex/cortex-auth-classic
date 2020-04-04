@@ -144,6 +144,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__.'/../../routes/web/tenantarea.php');
         $this->loadViewsFrom(__DIR__.'/../../resources/views', 'cortex/auth');
         $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'cortex/auth');
+        ! $this->autoloadMigrations('cortex/auth') || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
 
         $this->app->runningInConsole() || $dispatcher->listen('accessarea.ready', function ($accessarea) {
             ! file_exists($menus = __DIR__."/../../routes/menus/{$accessarea}.php") || require $menus;
@@ -155,7 +156,6 @@ class AuthServiceProvider extends ServiceProvider
         $this->publishesViews('cortex/auth', true);
         $this->publishesConfig('cortex/auth', true);
         $this->publishesMigrations('cortex/auth', true);
-        ! $this->autoloadMigrations('cortex.auth') || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
 
         // Register attributes entities
         ! app()->bound('rinvex.attributes.entities') || app('rinvex.attributes.entities')->push('admin');
