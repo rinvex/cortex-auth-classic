@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v5.0.5] - 2020-04-04
+- Enforce consistent artisan command tag namespacing
+- Enforce consistent package namespace
+- Drop laravel/helpers usage as it's no longer used
+- Upgrade silber/bouncer composer package
+
 ## [v5.0.4] - 2020-03-20
 - Add shortcut -f (force) for artisan publish commands
 - Fix migrations path condition
@@ -180,7 +186,8 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
-[v5.0.4]: https://github.com/rinvex/cortex-auth/compare/v4.0.3...v4.0.4
+[v5.0.5]: https://github.com/rinvex/cortex-auth/compare/v5.0.4...v5.0.5
+[v5.0.4]: https://github.com/rinvex/cortex-auth/compare/v5.0.3...v5.0.4
 [v5.0.3]: https://github.com/rinvex/cortex-auth/compare/v5.0.2...v5.0.3
 [v5.0.2]: https://github.com/rinvex/cortex-auth/compare/v5.0.1...v5.0.2
 [v5.0.1]: https://github.com/rinvex/cortex-auth/compare/v5.0.0...v5.0.1
