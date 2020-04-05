@@ -6,8 +6,10 @@ use Rinvex\Menus\Models\MenuItem;
 use Rinvex\Menus\Models\MenuGenerator;
 
 if ($user = auth()->guard(request()->route('guard'))->user()) {
-    Menu::register('managerarea.header.user', function (MenuGenerator $menu) use ($user) {
-        $menu->dropdown(function (MenuItem $dropdown) {
+    Menu::register('managerarea.header.user', function (MenuGenerator $menu) use ($user ) {
+    $tenant = config('rinvex.tenants.active');
+        $menu->dropdown(function (MenuItem $dropdown) use ($tenant) {
+            $dropdown->route(['managerarea.tenants.edit'], trans('cortex/auth::common.view_organization'), null, 'fa fa-cogs')->if($tenant->exists)->ifCan('update', $tenant);
             $dropdown->route(['managerarea.account'], trans('cortex/auth::common.account'), null, 'fa fa-cogs');
             $dropdown->route(['managerarea.account.settings'], trans('cortex/auth::common.settings'), null, 'fa fa-cogs');
             $dropdown->divider();
