@@ -40,6 +40,7 @@ return [
     'entity_type' => 'Entity Type',
     'only_owned' => 'Only Owned',
     'tenant_details' => 'Tenant Details',
+    'view_organization' => 'View Organization',
 
     // Fields
     'name' => 'Name',
