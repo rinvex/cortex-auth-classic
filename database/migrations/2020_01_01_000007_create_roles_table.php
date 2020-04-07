@@ -17,11 +17,11 @@ class CreateRolesTable extends Migration
     {
         Schema::create(config('cortex.auth.tables.roles'), function (Blueprint $table) {
             // Columns
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('name', 150);
             $table->{$this->jsonable()}('title')->nullable();
-            $table->bigInteger('level')->unsigned()->nullable();
-            $table->bigInteger('scope')->nullable();
+            $table->integer('level')->unsigned()->nullable();
+            $table->integer('scope')->nullable();
             $table->auditableAndTimestamps();
 
             // Indexes

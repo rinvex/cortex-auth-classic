@@ -17,13 +17,13 @@ class CreateAbilitiesTable extends Migration
     {
         Schema::create(config('cortex.auth.tables.abilities'), function (Blueprint $table) {
             // Columns
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('name', 150);
             $table->{$this->jsonable()}('title')->nullable();
-            $table->bigInteger('entity_id')->unsigned()->nullable();
+            $table->integer('entity_id')->unsigned()->nullable();
             $table->string('entity_type', 150)->nullable();
             $table->boolean('only_owned')->default(false);
-            $table->bigInteger('scope')->nullable();
+            $table->integer('scope')->nullable();
             $table->auditableAndTimestamps();
 
             // Indexes
