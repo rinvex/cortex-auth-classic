@@ -31,7 +31,7 @@ class InstallCommand extends Command
     {
         $this->alert($this->description);
 
-        $this->call('cortex:publish:auth', ['--force' => $this->option('force')]);
+        $this->call('cortex:publish:auth', ['--force' => $this->option('force'), '--resource' => 'config']);
         $this->call('cortex:migrate:auth', ['--force' => $this->option('force')]);
         $this->call('cortex:seed:auth');
     }
