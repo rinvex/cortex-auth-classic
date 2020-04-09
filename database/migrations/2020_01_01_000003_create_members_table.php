@@ -17,7 +17,7 @@ class CreateMembersTable extends Migration
     {
         Schema::create(config('cortex.auth.tables.members'), function (Blueprint $table) {
             // Columns
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('given_name');
             $table->string('family_name')->nullable();
             $table->string('email');

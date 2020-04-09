@@ -13,7 +13,7 @@ class InstallCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'cortex:install:auth {--f|force : Force the operation to run when in production.}';
+    protected $signature = 'cortex:install:auth {--f|force : Force the operation to run when in production.} {--r|resource=* : Specify which resources to publish.}';
 
     /**
      * The console command description.
@@ -31,7 +31,7 @@ class InstallCommand extends Command
     {
         $this->alert($this->description);
 
-        $this->call('cortex:publish:auth', ['--force' => $this->option('force')]);
+        $this->call('cortex:publish:auth', ['--force' => $this->option('force'), '--resource' => $this->option('resource')]);
         $this->call('cortex:migrate:auth', ['--force' => $this->option('force')]);
         $this->call('cortex:seed:auth');
     }

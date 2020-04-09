@@ -62,7 +62,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'cortex.auth');
 
         // Register console commands
-        ! $this->app->runningInConsole() || $this->registerCommands();
+        $this->registerCommands();
 
         // Bind eloquent models to IoC container
         $this->app->singleton('cortex.auth.session', $sessionModel = $this->app['config']['cortex.auth.models.session']);
