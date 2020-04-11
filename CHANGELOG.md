@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v5.0.7] - 2020-04-12
+- Fix ServiceProvider registerCommands method compatibility
+
 ## [v5.0.6] - 2020-04-09
 - Tweak artisan command registration
 - Add missing config publishing command
@@ -192,6 +195,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v5.0.7]: https://github.com/rinvex/cortex-auth/compare/v5.0.6...v5.0.7
 [v5.0.6]: https://github.com/rinvex/cortex-auth/compare/v5.0.5...v5.0.6
 [v5.0.5]: https://github.com/rinvex/cortex-auth/compare/v5.0.4...v5.0.5
 [v5.0.4]: https://github.com/rinvex/cortex-auth/compare/v5.0.3...v5.0.4
