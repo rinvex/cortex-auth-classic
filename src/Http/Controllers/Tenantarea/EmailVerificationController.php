@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Controllers\Tenantarea;
 
+use Carbon\Carbon;
 use Cortex\Foundation\Http\Controllers\AbstractController;
 use Rinvex\Auth\Contracts\EmailVerificationBrokerContract;
 use Cortex\Auth\Http\Requests\Tenantarea\EmailVerificationRequest;
@@ -67,7 +68,7 @@ class EmailVerificationController extends AbstractController
             ->broker($this->getEmailVerificationBroker())
             ->verify($request->only(['email', 'expiration', 'token']), function ($user) {
                 $user->fill([
-                    'email_verified_at' => now(),
+                    'email_verified_at' => Carbon::now(),
                 ])->forceSave();
             });
 

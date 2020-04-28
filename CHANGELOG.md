@@ -5,6 +5,52 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v5.0.7] - 2020-04-12
+- Fix ServiceProvider registerCommands method compatibility
+
+## [v5.0.6] - 2020-04-09
+- Tweak artisan command registration
+- Add missing config publishing command
+- Refactor publish command and allow multiple resource values
+- Reverse commit "Convert database int fields into bigInteger"
+
+## [v5.0.5] - 2020-04-04
+- Enforce consistent artisan command tag namespacing
+- Enforce consistent package namespace
+- Drop laravel/helpers usage as it's no longer used
+- Upgrade silber/bouncer composer package
+
+## [v5.0.4] - 2020-03-20
+- Add shortcut -f (force) for artisan publish commands
+- Fix migrations path condition
+- Convert database int fields into bigInteger
+- Upgrade spatie/laravel-medialibrary to v8.x
+- Fix couple issues and enforce consistency
+
+## [v5.0.3] - 2020-03-16
+- Update proengsoft/laravel-jsvalidation composer package
+
+## [v5.0.2] - 2020-03-15
+- Fix incompatible package version league/fractal
+
+## [v5.0.1] - 2020-03-15
+- Fix wrong package version laravelcollective/html
+
+## [v5.0.0] - 2020-03-15
+- Upgrade to Laravel v7.1.x & PHP v7.4.x
+
+## [v4.1.3] - 2020-03-13
+- Tweak TravisCI config
+- Refactor session management and flush process
+- Tweak logout process
+-  Patch AuthenticateSession: The middleware needs to call `Auth::logoutCurrentDevice` instead of `Auth::logout` to avoid rotate the remember_token
+  + https://github.com/laravel/framework/commit/1f5ec13c0e229db8f70f7b560b57a5ce1d0777d0#diff-0539afd6b48ba531ec1873776b3d1d85
+- Add migrations autoload option to the package
+- Tweak service provider `publishesResources` & `autoloadMigrations`
+- Update StyleCI config
+- Drop using global helpers
+- Check if ability exists before seeding
+
 ## [v4.1.2] - 2019-12-18
 - Fix route regex pattern to include underscores
   - This way it's compatible with validation rule `alpha_dash`
@@ -149,6 +195,15 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v5.0.7]: https://github.com/rinvex/cortex-auth/compare/v5.0.6...v5.0.7
+[v5.0.6]: https://github.com/rinvex/cortex-auth/compare/v5.0.5...v5.0.6
+[v5.0.5]: https://github.com/rinvex/cortex-auth/compare/v5.0.4...v5.0.5
+[v5.0.4]: https://github.com/rinvex/cortex-auth/compare/v5.0.3...v5.0.4
+[v5.0.3]: https://github.com/rinvex/cortex-auth/compare/v5.0.2...v5.0.3
+[v5.0.2]: https://github.com/rinvex/cortex-auth/compare/v5.0.1...v5.0.2
+[v5.0.1]: https://github.com/rinvex/cortex-auth/compare/v5.0.0...v5.0.1
+[v5.0.0]: https://github.com/rinvex/cortex-auth/compare/v4.1.3...v5.0.0
+[v4.1.3]: https://github.com/rinvex/cortex-auth/compare/v4.1.2...v4.1.3
 [v4.1.2]: https://github.com/rinvex/cortex-auth/compare/v4.1.1...v4.1.2
 [v4.1.1]: https://github.com/rinvex/cortex-auth/compare/v4.1.0...v4.1.1
 [v4.1.0]: https://github.com/rinvex/cortex-auth/compare/v4.0.5...v4.1.0

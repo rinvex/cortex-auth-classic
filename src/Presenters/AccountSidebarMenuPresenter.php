@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Presenters;
 
+use Illuminate\Support\Str;
 use Rinvex\Menus\Models\MenuItem;
 use Rinvex\Menus\Presenters\BasePresenter;
 
@@ -67,7 +68,7 @@ class AccountSidebarMenuPresenter extends BasePresenter
      */
     public function getMenuWithDropDownWrapper(MenuItem $item, bool $specialSidebar = false): string
     {
-        $id = str_random();
+        $id = Str::random();
 
         return $specialSidebar
             ? $this->getHeaderWrapper($item).$this->getChildMenuItems($item)

@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Controllers\Managerarea;
 
+use Illuminate\Support\Str;
 use Cortex\Auth\Models\Manager;
-use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
 
 class ManagersMediaController extends AuthorizedController
@@ -21,7 +22,7 @@ class ManagersMediaController extends AuthorizedController
     public function authorizeResource($model, $parameter = null, array $options = [], $request = null): void
     {
         $middleware = [];
-        $parameter = $parameter ?: snake_case(class_basename($model));
+        $parameter = $parameter ?: Str::snake(class_basename($model));
 
         foreach ($this->mapResourceAbilities() as $method => $ability) {
             $modelName = in_array($method, $this->resourceMethodsWithoutModels()) ? $model : $parameter;
@@ -38,8 +39,8 @@ class ManagersMediaController extends AuthorizedController
     /**
      * Destroy given manager media.
      *
-     * @param \Cortex\Auth\Models\Manager       $manager
-     * @param \Spatie\MediaLibrary\Models\Media $media
+     * @param \Cortex\Auth\Models\Manager                        $manager
+     * @param \Spatie\MediaLibrary\MediaCollections\Models\Media $media
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

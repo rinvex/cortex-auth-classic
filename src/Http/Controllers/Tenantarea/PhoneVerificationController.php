@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Controllers\Tenantarea;
 
+use Carbon\Carbon;
 use Cortex\Auth\Traits\TwoFactorAuthenticatesUsers;
 use Cortex\Foundation\Http\Controllers\AbstractController;
 use Cortex\Auth\Http\Requests\Tenantarea\PhoneVerificationRequest;
@@ -84,7 +85,7 @@ class PhoneVerificationController extends AbstractController
         if (($user = $request->user($this->getGuard()) ?? app('cortex.auth.member')->whereNotNull('phone')->where('phone', $request->get('phone'))->first()) && $this->isValidTwoFactorPhone($user, $request->get('token'))) {
             // Profile update
             $user->fill([
-                'phone_verified_at' => now(),
+                'phone_verified_at' => Carbon::now(),
             ])->forceSave();
 
             return intend([

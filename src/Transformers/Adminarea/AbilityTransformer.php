@@ -13,6 +13,12 @@ class AbilityTransformer extends TransformerAbstract
     use Escaper;
 
     /**
+     * Transform ability model.
+     *
+     * @param \Cortex\Auth\Models\Ability $ability
+     *
+     * @throws \Exception
+     *
      * @return array
      */
     public function transform(Ability $ability): array

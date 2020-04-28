@@ -36,7 +36,8 @@ class RegistrationSuccessNotification extends Notification implements ShouldQueu
     {
         return (new MailMessage())
             ->subject(trans('cortex/auth::emails.register.welcome.subject'))
-            ->line(config('cortex.auth.registration.moderated')
+            ->line(
+                config('cortex.auth.registration.moderated')
                 ? trans('cortex/auth::emails.register.welcome.intro_moderation')
                 : trans('cortex/auth::emails.register.welcome.intro_default')
             );

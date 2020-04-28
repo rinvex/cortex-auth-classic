@@ -145,8 +145,10 @@ class AuthenticationController extends AbstractController
      */
     protected function processLogout(Request $request): void
     {
-        $request->user($this->getGuard())->logoutCurrentDevice();
+        auth()->guard($this->getGuard())->logoutCurrentDevice();
 
         $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
     }
 }
