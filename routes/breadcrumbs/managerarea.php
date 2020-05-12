@@ -35,12 +35,12 @@ Breadcrumbs::register('managerarea.roles.create', function (BreadcrumbsGenerator
 
 Breadcrumbs::register('managerarea.roles.edit', function (BreadcrumbsGenerator $breadcrumbs, Role $role) {
     $breadcrumbs->parent('managerarea.roles.index');
-    $breadcrumbs->push($role->title, route('managerarea.roles.edit', ['role' => $role]));
+    $breadcrumbs->push(strip_tags($role->title), route('managerarea.roles.edit', ['role' => $role]));
 });
 
 Breadcrumbs::register('managerarea.roles.logs', function (BreadcrumbsGenerator $breadcrumbs, Role $role) {
     $breadcrumbs->parent('managerarea.roles.index');
-    $breadcrumbs->push($role->title, route('managerarea.roles.edit', ['role' => $role]));
+    $breadcrumbs->push(strip_tags($role->title), route('managerarea.roles.edit', ['role' => $role]));
     $breadcrumbs->push(trans('cortex/auth::common.logs'), route('managerarea.roles.logs', ['role' => $role]));
 });
 
@@ -67,24 +67,24 @@ Breadcrumbs::register('managerarea.members.create', function (BreadcrumbsGenerat
 
 Breadcrumbs::register('managerarea.members.edit', function (BreadcrumbsGenerator $breadcrumbs, Member $member) {
     $breadcrumbs->parent('managerarea.members.index');
-    $breadcrumbs->push($member->username, route('managerarea.members.edit', ['member' => $member]));
+    $breadcrumbs->push(strip_tags($member->username), route('managerarea.members.edit', ['member' => $member]));
 });
 
 Breadcrumbs::register('managerarea.members.logs', function (BreadcrumbsGenerator $breadcrumbs, Member $member) {
     $breadcrumbs->parent('managerarea.members.index');
-    $breadcrumbs->push($member->username, route('managerarea.members.edit', ['member' => $member]));
+    $breadcrumbs->push(strip_tags($member->username), route('managerarea.members.edit', ['member' => $member]));
     $breadcrumbs->push(trans('cortex/auth::common.logs'), route('managerarea.members.logs', ['member' => $member]));
 });
 
 Breadcrumbs::register('managerarea.members.activities', function (BreadcrumbsGenerator $breadcrumbs, Member $member) {
     $breadcrumbs->parent('managerarea.members.index');
-    $breadcrumbs->push($member->username, route('managerarea.members.edit', ['member' => $member]));
+    $breadcrumbs->push(strip_tags($member->username), route('managerarea.members.edit', ['member' => $member]));
     $breadcrumbs->push(trans('cortex/auth::common.activities'), route('managerarea.members.activities', ['member' => $member]));
 });
 
 Breadcrumbs::register('managerarea.members.attributes', function (BreadcrumbsGenerator $breadcrumbs, Member $member) {
     $breadcrumbs->parent('managerarea.members.index');
-    $breadcrumbs->push($member->username, route('managerarea.members.edit', ['member' => $member]));
+    $breadcrumbs->push(strip_tags($member->username), route('managerarea.members.edit', ['member' => $member]));
     $breadcrumbs->push(trans('cortex/auth::common.attributes'), route('managerarea.members.attributes', ['member' => $member]));
 });
 
@@ -111,24 +111,24 @@ Breadcrumbs::register('managerarea.managers.create', function (BreadcrumbsGenera
 
 Breadcrumbs::register('managerarea.managers.edit', function (BreadcrumbsGenerator $breadcrumbs, Manager $manager) {
     $breadcrumbs->parent('managerarea.managers.index');
-    $breadcrumbs->push($manager->username, route('managerarea.managers.edit', ['manager' => $manager]));
+    $breadcrumbs->push(strip_tags($manager->username), route('managerarea.managers.edit', ['manager' => $manager]));
 });
 
 Breadcrumbs::register('managerarea.managers.logs', function (BreadcrumbsGenerator $breadcrumbs, Manager $manager) {
     $breadcrumbs->parent('managerarea.managers.index');
-    $breadcrumbs->push($manager->username, route('managerarea.managers.edit', ['manager' => $manager]));
+    $breadcrumbs->push(strip_tags($manager->username), route('managerarea.managers.edit', ['manager' => $manager]));
     $breadcrumbs->push(trans('cortex/auth::common.logs'), route('managerarea.managers.logs', ['manager' => $manager]));
 });
 
 Breadcrumbs::register('managerarea.managers.activities', function (BreadcrumbsGenerator $breadcrumbs, Manager $manager) {
     $breadcrumbs->parent('managerarea.managers.index');
-    $breadcrumbs->push($manager->username, route('managerarea.managers.edit', ['manager' => $manager]));
+    $breadcrumbs->push(strip_tags($manager->username), route('managerarea.managers.edit', ['manager' => $manager]));
     $breadcrumbs->push(trans('cortex/auth::common.activities'), route('managerarea.managers.activities', ['manager' => $manager]));
 });
 
 Breadcrumbs::register('managerarea.managers.attributes', function (BreadcrumbsGenerator $breadcrumbs, Manager $manager) {
     $breadcrumbs->parent('managerarea.managers.index');
-    $breadcrumbs->push($manager->username, route('managerarea.managers.edit', ['manager' => $manager]));
+    $breadcrumbs->push(strip_tags($manager->username), route('managerarea.managers.edit', ['manager' => $manager]));
     $breadcrumbs->push(trans('cortex/auth::common.attributes'), route('managerarea.managers.attributes', ['manager' => $manager]));
 });
 
