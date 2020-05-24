@@ -8,8 +8,8 @@ use Cortex\Foundation\Traits\Auditable;
 use Rinvex\Support\Traits\HashidsTrait;
 use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Cortex\Foundation\Events\CrudPerformed;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Cortex\Foundation\Traits\FiresCustomModelEvent;
 use Silber\Bouncer\Database\Ability as BaseAbility;
 

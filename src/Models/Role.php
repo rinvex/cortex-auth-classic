@@ -8,8 +8,8 @@ use Cortex\Foundation\Traits\Auditable;
 use Rinvex\Support\Traits\HashidsTrait;
 use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Cortex\Foundation\Events\CrudPerformed;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Silber\Bouncer\Database\Role as BaseRole;
 use Cortex\Foundation\Traits\FiresCustomModelEvent;
 
@@ -21,7 +21,6 @@ class Role extends BaseRole
     use ValidatingTrait;
     use HasTranslations;
     use FiresCustomModelEvent;
-
 
     /**
      * {@inheritdoc}
