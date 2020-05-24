@@ -48,7 +48,7 @@ class AdminsController extends AuthorizedController
         $tags = app('rinvex.tags.tag')->whereIn('group', ['skills', 'tools', 'certifications'])->get()->groupBy('group')->map->pluck('name', 'id')->sortKeys();
 
         return $adminsDataTable->with([
-            'id' => 'adminarea-admins-index-table',
+            'id' => 'adminarea-admins-index',
             'countries' => $countries,
             'languages' => $languages,
             'genders' => $genders,
@@ -69,7 +69,7 @@ class AdminsController extends AuthorizedController
         return $logsDataTable->with([
             'resource' => $admin,
             'tabs' => 'adminarea.admins.tabs',
-            'id' => "adminarea-admins-{$admin->getRouteKey()}-logs-table",
+            'id' => "adminarea-admins-{$admin->getRouteKey()}-logs",
         ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
 
@@ -86,7 +86,7 @@ class AdminsController extends AuthorizedController
         return $activitiesDataTable->with([
             'resource' => $admin,
             'tabs' => 'adminarea.admins.tabs',
-            'id' => "adminarea-admins-{$admin->getRouteKey()}-activities-table",
+            'id' => "adminarea-admins-{$admin->getRouteKey()}-activities",
         ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
 
@@ -138,7 +138,7 @@ class AdminsController extends AuthorizedController
             'resource' => $admin,
             'tabs' => 'adminarea.admins.tabs',
             'url' => route('adminarea.admins.stash'),
-            'id' => "adminarea-attributes-{$admin->getRouteKey()}-import-table",
+            'id' => "adminarea-attributes-{$admin->getRouteKey()}-import",
         ])->render('cortex/foundation::adminarea.pages.datatable-dropzone');
     }
 
@@ -201,7 +201,7 @@ class AdminsController extends AuthorizedController
         return $importLogsDatatable->with([
             'resource' => trans('cortex/auth::common.admin'),
             'tabs' => 'adminarea.admins.tabs',
-            'id' => 'adminarea-admins-import-logs-table',
+            'id' => 'adminarea-admins-import-logs',
         ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
 

@@ -48,7 +48,7 @@ class ManagersController extends AuthorizedController
         $tags = app('rinvex.tags.tag')->whereIn('group', ['skills', 'tools', 'certifications'])->get()->groupBy('group')->map->pluck('name', 'id')->sortKeys();
 
         return $managersDataTable->with([
-            'id' => 'managerarea-managers-index-table',
+            'id' => 'managerarea-managers-index',
             'countries' => $countries,
             'languages' => $languages,
             'genders' => $genders,
@@ -69,7 +69,7 @@ class ManagersController extends AuthorizedController
         return $logsDataTable->with([
             'resource' => $manager,
             'tabs' => 'managerarea.managers.tabs',
-            'id' => "managerarea-managers-{$manager->getRouteKey()}-logs-table",
+            'id' => "managerarea-managers-{$manager->getRouteKey()}-logs",
         ])->render('cortex/foundation::managerarea.pages.datatable-tab');
     }
 
@@ -86,7 +86,7 @@ class ManagersController extends AuthorizedController
         return $activitiesDataTable->with([
             'resource' => $manager,
             'tabs' => 'managerarea.managers.tabs',
-            'id' => "managerarea-managers-{$manager->getRouteKey()}-activities-table",
+            'id' => "managerarea-managers-{$manager->getRouteKey()}-activities",
         ])->render('cortex/foundation::managerarea.pages.datatable-tab');
     }
 
@@ -138,7 +138,7 @@ class ManagersController extends AuthorizedController
             'resource' => $manager,
             'tabs' => 'managerarea.attributes.tabs',
             'url' => route('managerarea.attributes.stash'),
-            'id' => "managerarea-attributes-{$manager->getRouteKey()}-import-table",
+            'id' => "managerarea-attributes-{$manager->getRouteKey()}-import",
         ])->render('cortex/foundation::managerarea.pages.datatable-dropzone');
     }
 
@@ -201,7 +201,7 @@ class ManagersController extends AuthorizedController
         return $importLogsDatatable->with([
             'resource' => trans('cortex/auth::common.manager'),
             'tabs' => 'managerarea.managers.tabs',
-            'id' => 'managerarea-managers-import-logs-table',
+            'id' => 'managerarea-managers-import-logs',
         ])->render('cortex/foundation::managerarea.pages.datatable-tab');
     }
 
