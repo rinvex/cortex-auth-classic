@@ -44,8 +44,8 @@ class ManagersController extends AuthorizedController
         })->values();
 
         $languages = collect(languages())->pluck('name', 'iso_639_1');
+        $tags = app('rinvex.tags.tag')->all()->groupBy('group')->map->pluck('name', 'id')->sortKeys();
         $genders = ['male' => trans('cortex/auth::common.male'), 'female' => trans('cortex/auth::common.female')];
-        $tags = app('rinvex.tags.tag')->whereIn('group', ['skills', 'tools', 'certifications'])->get()->groupBy('group')->map->pluck('name', 'id')->sortKeys();
 
         return $managersDataTable->with([
             'id' => 'managerarea-managers-index',
