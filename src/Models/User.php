@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Models;
 
-use Cortex\Foundation\Events\CrudPerformed;
-use Cortex\Foundation\Traits\FiresCustomModelEvent;
 use Error;
 use Exception;
 use BadMethodCallException;
@@ -28,6 +26,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Traits\Macroable;
 use Rinvex\Auth\Traits\CanResetPassword;
 use Rinvex\Support\Traits\ValidatingTrait;
+use Cortex\Foundation\Events\CrudPerformed;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Activitylog\Traits\CausesActivity;
@@ -36,6 +35,7 @@ use Rinvex\Auth\Traits\AuthenticatableTwoFactor;
 use Rinvex\Auth\Contracts\CanVerifyEmailContract;
 use Rinvex\Auth\Contracts\CanVerifyPhoneContract;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
+use Cortex\Foundation\Traits\FiresCustomModelEvent;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Rinvex\Auth\Contracts\CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
