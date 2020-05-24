@@ -9,6 +9,8 @@ use Rinvex\Support\Traits\HashidsTrait;
 use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Cortex\Foundation\Events\CrudPerformed;
+use Cortex\Foundation\Traits\FiresCustomModelEvent;
 use Silber\Bouncer\Database\Ability as BaseAbility;
 
 class Ability extends BaseAbility
@@ -18,6 +20,7 @@ class Ability extends BaseAbility
     use LogsActivity;
     use HasTranslations;
     use ValidatingTrait;
+    use FiresCustomModelEvent;
 
     /**
      * {@inheritdoc}
@@ -50,6 +53,18 @@ class Ability extends BaseAbility
     protected $observables = [
         'validating',
         'validated',
+    ];
+
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'created' => CrudPerformed::class,
+        'deleted' => CrudPerformed::class,
+        'restored' => CrudPerformed::class,
+        'updated' => CrudPerformed::class,
     ];
 
     /**

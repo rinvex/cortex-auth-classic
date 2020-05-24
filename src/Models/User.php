@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Models;
 
+use Cortex\Foundation\Events\CrudPerformed;
+use Cortex\Foundation\Traits\FiresCustomModelEvent;
 use Error;
 use Exception;
 use BadMethodCallException;
@@ -11,10 +13,8 @@ use Illuminate\Support\Arr;
 use Rinvex\Country\Country;
 use Rinvex\Language\Language;
 use Rinvex\Tags\Traits\Taggable;
-use Cortex\Auth\Events\UserSaved;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Support\Collection;
-use Cortex\Auth\Events\UserDeleted;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Rinvex\Auth\Traits\HasHashables;
@@ -70,6 +70,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     use CanResetPassword;
     use HasSocialAttributes;
     use HasRolesAndAbilities;
+    use FiresCustomModelEvent;
     use AuthenticatableTwoFactor;
 
     /**
@@ -147,8 +148,10 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
      * @var array
      */
     protected $dispatchesEvents = [
-        'saved' => UserSaved::class,
-        'deleted' => UserDeleted::class,
+        'created' => CrudPerformed::class,
+        'deleted' => CrudPerformed::class,
+        'restored' => CrudPerformed::class,
+        'updated' => CrudPerformed::class,
     ];
 
     /**

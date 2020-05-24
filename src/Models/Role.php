@@ -9,7 +9,9 @@ use Rinvex\Support\Traits\HashidsTrait;
 use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Cortex\Foundation\Events\CrudPerformed;
 use Silber\Bouncer\Database\Role as BaseRole;
+use Cortex\Foundation\Traits\FiresCustomModelEvent;
 
 class Role extends BaseRole
 {
@@ -18,6 +20,8 @@ class Role extends BaseRole
     use LogsActivity;
     use ValidatingTrait;
     use HasTranslations;
+    use FiresCustomModelEvent;
+
 
     /**
      * {@inheritdoc}
@@ -44,6 +48,18 @@ class Role extends BaseRole
     protected $observables = [
         'validating',
         'validated',
+    ];
+
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'created' => CrudPerformed::class,
+        'deleted' => CrudPerformed::class,
+        'restored' => CrudPerformed::class,
+        'updated' => CrudPerformed::class,
     ];
 
     /**
