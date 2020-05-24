@@ -93,4 +93,16 @@ class AdminEmailVerificationNotification extends Notification implements ShouldQ
     {
         static::$toMailCallback = $callback;
     }
+
+    /**
+     * Determine which queues should be used for each notification channel.
+     *
+     * @return array
+     */
+    public function viaQueues()
+    {
+        return [
+            'mail' => 'listeners',
+        ];
+    }
 }

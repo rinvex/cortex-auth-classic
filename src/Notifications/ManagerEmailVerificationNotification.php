@@ -93,4 +93,16 @@ class ManagerEmailVerificationNotification extends Notification implements Shoul
     {
         static::$toMailCallback = $callback;
     }
+
+    /**
+     * Determine which queues should be used for each notification channel.
+     *
+     * @return array
+     */
+    public function viaQueues()
+    {
+        return [
+            'mail' => 'listeners',
+        ];
+    }
 }
