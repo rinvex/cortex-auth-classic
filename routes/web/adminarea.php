@@ -111,6 +111,7 @@ Route::domain(domain())->group(function () {
                      Route::put('{ability}/edit')->name('update')->uses('AbilitiesController@update');
                      Route::get('{ability}/logs')->name('logs')->uses('AbilitiesController@logs');
                      Route::delete('{ability}')->name('destroy')->uses('AbilitiesController@destroy');
+                     Route::post('bulk-delete')->name('bulk-delete')->uses('AbilitiesController@bulkDelete');
                  });
 
                  // Roles Routes
@@ -127,6 +128,7 @@ Route::domain(domain())->group(function () {
                      Route::put('{role}/edit')->name('update')->uses('RolesController@update');
                      Route::get('{role}/logs')->name('logs')->uses('RolesController@logs');
                      Route::delete('{role}')->name('destroy')->uses('RolesController@destroy');
+                     Route::post('bulk-delete')->name('bulk-delete')->uses('RolesController@bulkDelete');
                  });
 
                  // Admins Routes
@@ -147,6 +149,9 @@ Route::domain(domain())->group(function () {
                      Route::put('{admin}/attributes')->name('attributes.update')->uses('AdminsController@updateAttributes');
                      Route::delete('{admin}')->name('destroy')->uses('AdminsController@destroy');
                      Route::delete('{admin}/media/{media}')->name('media.destroy')->uses('AdminsMediaController@destroy');
+                     Route::post('bulk-delete')->name('bulk-delete')->uses('AdminsMediaController@bulkDelete');
+                     Route::post('bulk-activate')->name('bulk-activate')->uses('AdminsMediaController@bulkActivate');
+                     Route::post('bulk-deactivate')->name('bulk-deactivate')->uses('AdminsMediaController@bulkDeactivate');
                  });
 
                  // Managers Routes
@@ -167,6 +172,9 @@ Route::domain(domain())->group(function () {
                      Route::put('{manager}/attributes')->name('attributes.update')->uses('ManagersController@updateAttributes');
                      Route::delete('{manager}')->name('destroy')->uses('ManagersController@destroy');
                      Route::delete('{manager}/media/{media}')->name('media.destroy')->uses('ManagersMediaController@destroy');
+                     Route::post('bulk-delete')->name('bulk-delete')->uses('ManagersController@bulkDelete');
+                     Route::post('bulk-activate')->name('bulk-activate')->uses('ManagersController@bulkActivate');
+                     Route::post('bulk-deactivate')->name('bulk-deactivate')->uses('ManagersController@bulkDeactivate');
                  });
 
                  // Members Routes
@@ -188,6 +196,9 @@ Route::domain(domain())->group(function () {
                      Route::put('{member}/attributes')->name('attributes.update')->uses('MembersController@updateAttributes');
                      Route::delete('{member}')->name('destroy')->uses('MembersController@destroy');
                      Route::delete('{member}/media/{media}')->name('media.destroy')->uses('MembersMediaController@destroy');
+                     Route::post('bulk-delete')->name('bulk-delete')->uses('MembersMediaController@bulkDelete');
+                     Route::post('bulk-activate')->name('bulk-activate')->uses('MembersMediaController@bulkActivate');
+                     Route::post('bulk-deactivate')->name('bulk-deactivate')->uses('MembersMediaController@bulkDeactivate');
                  });
 
                  // Guardians Routes
@@ -204,6 +215,9 @@ Route::domain(domain())->group(function () {
                      Route::put('{guardian}/edit')->name('update')->uses('GuardiansController@update');
                      Route::get('{guardian}/logs')->name('logs')->uses('GuardiansController@logs');
                      Route::delete('{guardian}')->name('destroy')->uses('GuardiansController@destroy');
+                     Route::post('bulk-delete')->name('bulk-delete')->uses('GuardiansController@bulkDelete');
+                     Route::post('bulk-activate')->name('bulk-activate')->uses('GuardiansController@bulkActivate');
+                     Route::post('bulk-deactivate')->name('bulk-deactivate')->uses('GuardiansController@bulkDeactivate');
                  });
              });
          });
