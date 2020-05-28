@@ -26,7 +26,6 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Traits\Macroable;
 use Rinvex\Auth\Traits\CanResetPassword;
 use Rinvex\Support\Traits\ValidatingTrait;
-use Cortex\Foundation\Events\CrudPerformed;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Activitylog\Traits\CausesActivity;
@@ -36,6 +35,11 @@ use Rinvex\Auth\Contracts\CanVerifyEmailContract;
 use Rinvex\Auth\Contracts\CanVerifyPhoneContract;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
 use Cortex\Foundation\Traits\FiresCustomModelEvent;
+use Cortex\Foundation\Events\ModelDeleted;
+use Cortex\Foundation\Events\ModelCreated;
+use Cortex\Foundation\Events\ModelUpdated;
+use Cortex\Foundation\Events\ModelRestored;
+
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Rinvex\Auth\Contracts\CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -148,10 +152,10 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
      * @var array
      */
     protected $dispatchesEvents = [
-        'created' => CrudPerformed::class,
-        'deleted' => CrudPerformed::class,
-        'restored' => CrudPerformed::class,
-        'updated' => CrudPerformed::class,
+        'created' => ModelCreated::class,
+        'deleted' => ModelDeleted::class,
+        'restored' => ModelRestored::class,
+        'updated' => ModelUpdated::class,
     ];
 
     /**

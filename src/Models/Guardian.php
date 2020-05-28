@@ -12,9 +12,13 @@ use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
 use Rinvex\Support\Traits\HashidsTrait;
 use Rinvex\Support\Traits\ValidatingTrait;
-use Cortex\Foundation\Events\CrudPerformed;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Cortex\Foundation\Traits\FiresCustomModelEvent;
+use Cortex\Foundation\Events\ModelDeleted;
+use Cortex\Foundation\Events\ModelCreated;
+use Cortex\Foundation\Events\ModelUpdated;
+use Cortex\Foundation\Events\ModelRestored;
+
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -79,10 +83,10 @@ class Guardian extends Model implements AuthenticatableContract, AuthorizableCon
      * @var array
      */
     protected $dispatchesEvents = [
-        'created' => CrudPerformed::class,
-        'deleted' => CrudPerformed::class,
-        'restored' => CrudPerformed::class,
-        'updated' => CrudPerformed::class,
+        'created' => ModelCreated::class,
+        'deleted' => ModelDeleted::class,
+        'restored' => ModelRestored::class,
+        'updated' => ModelUpdated::class,
     ];
 
     /**
