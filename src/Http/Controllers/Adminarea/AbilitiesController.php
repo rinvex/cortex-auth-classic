@@ -102,9 +102,9 @@ class AbilitiesController extends AuthorizedController
             $record = app('cortex.foundation.import_record')->find($recordId);
 
             try {
-                $fillable = collect($record['data'])->intersectByKeys(array_flip(app('rinvex.auth.ability')->getFillable()))->toArray();
+                $fillable = collect($record['data'])->intersectByKeys(array_flip(app('cortex.auth.ability')->getFillable()))->toArray();
 
-                tap(app('rinvex.auth.ability')->firstOrNew($fillable), function ($instance) use ($record) {
+                tap(app('cortex.auth.ability')->firstOrNew($fillable), function ($instance) use ($record) {
                     $instance->save() && $record->delete();
                 });
             } catch (Exception $exception) {

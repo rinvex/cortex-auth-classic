@@ -102,9 +102,9 @@ class RolesController extends AuthorizedController
             $record = app('cortex.foundation.import_record')->find($recordId);
 
             try {
-                $fillable = collect($record['data'])->intersectByKeys(array_flip(app('rinvex.auth.role')->getFillable()))->toArray();
+                $fillable = collect($record['data'])->intersectByKeys(array_flip(app('cortex.auth.role')->getFillable()))->toArray();
 
-                tap(app('rinvex.auth.role')->firstOrNew($fillable), function ($instance) use ($record) {
+                tap(app('cortex.auth.role')->firstOrNew($fillable), function ($instance) use ($record) {
                     $instance->save() && $record->delete();
                 });
             } catch (Exception $exception) {
