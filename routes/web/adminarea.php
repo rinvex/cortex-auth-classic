@@ -99,7 +99,7 @@ Route::domain(domain())->group(function () {
 
                  // Abilities Routes
                  Route::name('abilities.')->prefix('abilities')->group(function () {
-                     Route::get('/')->name('index')->uses('AbilitiesController@index');
+                     Route::match(['get', 'post'], '/')->name('index')->uses('AbilitiesController@index');
                      Route::get('import')->name('import')->uses('AbilitiesController@import');
                      Route::post('import')->name('stash')->uses('AbilitiesController@stash');
                      Route::post('hoard')->name('hoard')->uses('AbilitiesController@hoard');
@@ -111,12 +111,11 @@ Route::domain(domain())->group(function () {
                      Route::put('{ability}/edit')->name('update')->uses('AbilitiesController@update');
                      Route::get('{ability}/logs')->name('logs')->uses('AbilitiesController@logs');
                      Route::delete('{ability}')->name('destroy')->uses('AbilitiesController@destroy');
-                     Route::post('bulk-delete')->name('bulk-delete')->uses('AbilitiesController@bulkDelete');
                  });
 
                  // Roles Routes
                  Route::name('roles.')->prefix('roles')->group(function () {
-                     Route::get('/')->name('index')->uses('RolesController@index');
+                     Route::match(['get', 'post'], '/')->name('index')->uses('RolesController@index');
                      Route::get('import')->name('import')->uses('RolesController@import');
                      Route::post('import')->name('stash')->uses('RolesController@stash');
                      Route::post('hoard')->name('hoard')->uses('RolesController@hoard');
@@ -128,12 +127,11 @@ Route::domain(domain())->group(function () {
                      Route::put('{role}/edit')->name('update')->uses('RolesController@update');
                      Route::get('{role}/logs')->name('logs')->uses('RolesController@logs');
                      Route::delete('{role}')->name('destroy')->uses('RolesController@destroy');
-                     Route::post('bulk-delete')->name('bulk-delete')->uses('RolesController@bulkDelete');
                  });
 
                  // Admins Routes
                  Route::name('admins.')->prefix('admins')->group(function () {
-                     Route::get('/')->name('index')->uses('AdminsController@index');
+                     Route::match(['get', 'post'], '/')->name('index')->uses('AdminsController@index');
                      Route::get('import')->name('import')->uses('AdminsController@import');
                      Route::post('import')->name('stash')->uses('AdminsController@stash');
                      Route::post('hoard')->name('hoard')->uses('AdminsController@hoard');
@@ -149,14 +147,11 @@ Route::domain(domain())->group(function () {
                      Route::put('{admin}/attributes')->name('attributes.update')->uses('AdminsController@updateAttributes');
                      Route::delete('{admin}')->name('destroy')->uses('AdminsController@destroy');
                      Route::delete('{admin}/media/{media}')->name('media.destroy')->uses('AdminsMediaController@destroy');
-                     Route::post('bulk-delete')->name('bulk-delete')->uses('AdminsMediaController@bulkDelete');
-                     Route::post('bulk-activate')->name('bulk-activate')->uses('AdminsMediaController@bulkActivate');
-                     Route::post('bulk-deactivate')->name('bulk-deactivate')->uses('AdminsMediaController@bulkDeactivate');
                  });
 
                  // Managers Routes
                  Route::name('managers.')->prefix('managers')->group(function () {
-                     Route::get('/')->name('index')->uses('ManagersController@index');
+                     Route::match(['get', 'post'], '/')->name('index')->uses('ManagersController@index');
                      Route::get('import')->name('import')->uses('ManagersController@import');
                      Route::post('import')->name('stash')->uses('ManagersController@stash');
                      Route::post('hoard')->name('hoard')->uses('ManagersController@hoard');
@@ -172,14 +167,11 @@ Route::domain(domain())->group(function () {
                      Route::put('{manager}/attributes')->name('attributes.update')->uses('ManagersController@updateAttributes');
                      Route::delete('{manager}')->name('destroy')->uses('ManagersController@destroy');
                      Route::delete('{manager}/media/{media}')->name('media.destroy')->uses('ManagersMediaController@destroy');
-                     Route::post('bulk-delete')->name('bulk-delete')->uses('ManagersController@bulkDelete');
-                     Route::post('bulk-activate')->name('bulk-activate')->uses('ManagersController@bulkActivate');
-                     Route::post('bulk-deactivate')->name('bulk-deactivate')->uses('ManagersController@bulkDeactivate');
                  });
 
                  // Members Routes
                  Route::name('members.')->prefix('members')->group(function () {
-                     Route::get('/')->name('index')->uses('MembersController@index');
+                     Route::match(['get', 'post'], '/')->name('index')->uses('MembersController@index');
                      Route::post('ajax')->name('ajax')->uses('MembersController@ajax'); // @TODO: to be refactored!
                      Route::get('import')->name('import')->uses('MembersController@import');
                      Route::post('import')->name('stash')->uses('MembersController@stash');
@@ -196,14 +188,11 @@ Route::domain(domain())->group(function () {
                      Route::put('{member}/attributes')->name('attributes.update')->uses('MembersController@updateAttributes');
                      Route::delete('{member}')->name('destroy')->uses('MembersController@destroy');
                      Route::delete('{member}/media/{media}')->name('media.destroy')->uses('MembersMediaController@destroy');
-                     Route::post('bulk-delete')->name('bulk-delete')->uses('MembersMediaController@bulkDelete');
-                     Route::post('bulk-activate')->name('bulk-activate')->uses('MembersMediaController@bulkActivate');
-                     Route::post('bulk-deactivate')->name('bulk-deactivate')->uses('MembersMediaController@bulkDeactivate');
                  });
 
                  // Guardians Routes
                  Route::name('guardians.')->prefix('guardians')->group(function () {
-                     Route::get('/')->name('index')->uses('GuardiansController@index');
+                     Route::match(['get', 'post'], '/')->name('index')->uses('GuardiansController@index');
                      Route::get('import')->name('import')->uses('GuardiansController@import');
                      Route::post('import')->name('stash')->uses('GuardiansController@stash');
                      Route::post('hoard')->name('hoard')->uses('GuardiansController@hoard');
@@ -215,9 +204,6 @@ Route::domain(domain())->group(function () {
                      Route::put('{guardian}/edit')->name('update')->uses('GuardiansController@update');
                      Route::get('{guardian}/logs')->name('logs')->uses('GuardiansController@logs');
                      Route::delete('{guardian}')->name('destroy')->uses('GuardiansController@destroy');
-                     Route::post('bulk-delete')->name('bulk-delete')->uses('GuardiansController@bulkDelete');
-                     Route::post('bulk-activate')->name('bulk-activate')->uses('GuardiansController@bulkActivate');
-                     Route::post('bulk-deactivate')->name('bulk-deactivate')->uses('GuardiansController@bulkDeactivate');
                  });
              });
          });
