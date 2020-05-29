@@ -27,11 +27,13 @@ class AbilitiesDataTable extends AbstractDataTable
      */
     public function query()
     {
-        $currentUser = $this->request->user($this->request->route('guard'));
+        $query = parent::query();
 
-        $query = $currentUser->isA('superadmin') ? app($this->model)->query() : app($this->model)->query()->whereIn('id', $currentUser->getAbilities()->pluck('id')->toArray());
+        if (($currentUser = $this->request->user($this->request->route('guard'))) && $currentUser->isNotA('superadmin')) {
+            $query = $query->whereIn('id', $currentUser->getAbilities()->pluck('id')->toArray());
+        }
 
-        return $this->applyScopes($query);
+        return $query;
     }
 
     /**
