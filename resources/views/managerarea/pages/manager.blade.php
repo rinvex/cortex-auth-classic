@@ -35,7 +35,7 @@
                            data-modal-action="{{ route('managerarea.managers.destroy', ['manager' => $manager]) }}"
                            data-modal-title="{{ trans('cortex/foundation::messages.delete_confirmation_title') }}"
                            data-modal-button="<a href='#' class='btn btn-danger' data-form='delete' data-token='{{ csrf_token() }}'><i class='fa fa-trash-o'></i> {{ trans('cortex/foundation::common.delete') }}</a>"
-                           data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/auth::common.manager'), 'identifier' => $manager->username]) }}"
+                           data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/auth::common.manager'), 'identifier' => $manager->getRouteKey()]) }}"
                            title="{{ trans('cortex/foundation::common.delete') }}" class="btn btn-default" style="margin: 4px"><i class="fa fa-trash text-danger"></i>
                         </a>
                     </div>
@@ -372,7 +372,7 @@
                                                data-modal-action="{{ route('managerarea.managers.media.destroy', ['manager' => $manager, 'media' => $manager->getFirstMedia('profile_picture')]) }}"
                                                data-modal-title="{{ trans('cortex/foundation::messages.delete_confirmation_title') }}"
                                                data-modal-button="<a href='#' class='btn btn-danger' data-form='delete' data-token='{{ csrf_token() }}'><i class='fa fa-trash-o'></i> {{ trans('cortex/foundation::common.delete') }}</a>"
-                                               data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/foundation::common.media'), 'identifier' => $manager->getFirstMedia('profile_picture')->file_name]) }}"
+                                               data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/foundation::common.media'), 'identifier' => $manager->getFirstMedia('profile_picture')->getRouteKey()]) }}"
                                                title="{{ trans('cortex/foundation::common.delete') }}"><i class="fa fa-trash text-danger"></i></a>
                                         @endif
 
@@ -408,7 +408,7 @@
                                                data-modal-action="{{ route('managerarea.managers.media.destroy', ['manager' => $manager, 'media' => $manager->getFirstMedia('cover_photo')]) }}"
                                                data-modal-title="{{ trans('cortex/foundation::messages.delete_confirmation_title') }}"
                                                data-modal-button="<a href='#' class='btn btn-danger' data-form='delete' data-token='{{ csrf_token() }}'><i class='fa fa-trash-o'></i> {{ trans('cortex/foundation::common.delete') }}</a>"
-                                               data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/foundation::common.media'), 'identifier' => $manager->getFirstMedia('cover_photo')->file_name]) }}"
+                                               data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/foundation::common.media'), 'identifier' => $manager->getFirstMedia('cover_photo')->getRouteKey()]) }}"
                                                title="{{ trans('cortex/foundation::common.delete') }}"><i class="fa fa-trash text-danger"></i></a>
                                         @endif
 

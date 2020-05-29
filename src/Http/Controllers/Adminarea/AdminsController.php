@@ -316,7 +316,7 @@ class AdminsController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.admins.index'),
-            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => trans('cortex/auth::common.admin'), 'identifier' => $admin->username])],
+            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => trans('cortex/auth::common.admin'), 'identifier' => $admin->getRouteKey()])],
         ]);
     }
 
@@ -335,7 +335,7 @@ class AdminsController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.admins.index'),
-            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/auth::common.admin'), 'identifier' => $admin->username])],
+            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/auth::common.admin'), 'identifier' => $admin->getRouteKey()])],
         ]);
     }
 }

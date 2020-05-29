@@ -62,7 +62,7 @@
                                                                data-modal-action="{{ route('adminarea.account.sessions.destroy', ['id' => $session->getKey()]) }}"
                                                                data-modal-title="{{ trans('cortex/foundation::messages.delete_confirmation_title') }}"
                                                                data-modal-button="<a href='#' class='btn btn-danger' data-form='delete' data-token='{{ csrf_token() }}'><i class='fa fa-trash-o'></i> {{ trans('cortex/foundation::common.delete') }}</a>"
-                                                               data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/auth::common.session'), 'identifier' => $session->getKey()]) }}"
+                                                               data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/auth::common.session'), 'identifier' => $session->getRouteKey()]) }}"
                                                                title="{{ trans('cortex/foundation::common.delete') }}"><i class="fa fa-remove"></i></a>
                                                         @endif
 

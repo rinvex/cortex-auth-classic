@@ -316,7 +316,7 @@ class ManagersController extends AuthorizedController
 
         return intend([
             'url' => route('managerarea.managers.index'),
-            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => trans('cortex/auth::common.manager'), 'identifier' => $manager->username])],
+            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => trans('cortex/auth::common.manager'), 'identifier' => $manager->getRouteKey()])],
         ]);
     }
 
@@ -335,7 +335,7 @@ class ManagersController extends AuthorizedController
 
         return intend([
             'url' => route('managerarea.managers.index'),
-            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/auth::common.manager'), 'identifier' => $manager->username])],
+            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/auth::common.manager'), 'identifier' => $manager->getRouteKey()])],
         ]);
     }
 }
