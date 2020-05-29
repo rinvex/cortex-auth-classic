@@ -6,15 +6,15 @@ namespace Cortex\Auth\Models;
 
 use Cortex\Foundation\Traits\Auditable;
 use Rinvex\Support\Traits\HashidsTrait;
+use Cortex\Foundation\Events\ModelCreated;
+use Cortex\Foundation\Events\ModelDeleted;
+use Cortex\Foundation\Events\ModelUpdated;
 use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
+use Cortex\Foundation\Events\ModelRestored;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Silber\Bouncer\Database\Role as BaseRole;
 use Cortex\Foundation\Traits\FiresCustomModelEvent;
-use Cortex\Foundation\Events\ModelDeleted;
-use Cortex\Foundation\Events\ModelCreated;
-use Cortex\Foundation\Events\ModelUpdated;
-use Cortex\Foundation\Events\ModelRestored;
 
 class Role extends BaseRole
 {
