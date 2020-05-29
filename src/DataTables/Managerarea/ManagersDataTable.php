@@ -89,6 +89,7 @@ class ManagersDataTable extends AbstractDataTable
             : '"<a href=\""+routes.route(\'managerarea.managers.edit\', {manager: full.id})+"\">"+data+"</a>"';
 
         return [
+            'id' => ['checkboxes' => '{"selectRow": true}', 'exportable' => false, 'printable' => false],
             'given_name' => ['title' => trans('cortex/auth::common.given_name'), 'render' => $link.'+(full.is_active ? " <i class=\"text-success fa fa-check\"></i>" : " <i class=\"text-danger fa fa-close\"></i>")', 'responsivePriority' => 0],
             'family_name' => ['title' => trans('cortex/auth::common.family_name')],
             'username' => ['title' => trans('cortex/auth::common.username')],
