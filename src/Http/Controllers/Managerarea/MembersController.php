@@ -290,7 +290,7 @@ class MembersController extends AuthorizedController
 
         return intend([
             'url' => route('managerarea.members.index'),
-            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => trans('cortex/auth::common.member'), 'identifier' => strip_tags($member->username)])],
+            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => trans('cortex/auth::common.member'), 'identifier' => $member->username])],
         ]);
     }
 
@@ -309,7 +309,7 @@ class MembersController extends AuthorizedController
 
         return intend([
             'url' => route('managerarea.members.index'),
-            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/auth::common.member'), 'identifier' => strip_tags($member->username)])],
+            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/auth::common.member'), 'identifier' => $member->username])],
         ]);
     }
 }

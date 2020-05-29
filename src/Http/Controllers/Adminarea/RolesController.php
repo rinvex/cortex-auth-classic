@@ -221,7 +221,7 @@ class RolesController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.roles.index'),
-            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => trans('cortex/auth::common.role'), 'identifier' => strip_tags($role->title)])],
+            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => trans('cortex/auth::common.role'), 'identifier' => $role->title])],
         ]);
     }
 
@@ -240,7 +240,7 @@ class RolesController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.roles.index'),
-            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/auth::common.role'), 'identifier' => strip_tags($role->title)])],
+            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/auth::common.role'), 'identifier' => $role->title])],
         ]);
     }
 }
