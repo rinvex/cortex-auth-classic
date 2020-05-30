@@ -7,14 +7,17 @@ namespace Cortex\Auth\Models;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Rinvex\Auth\Traits\HasHashables;
-use Cortex\Auth\Events\GuardianSaved;
-use Cortex\Auth\Events\GuardianDeleted;
 use Cortex\Foundation\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
 use Rinvex\Support\Traits\HashidsTrait;
+use Cortex\Foundation\Events\ModelCreated;
+use Cortex\Foundation\Events\ModelDeleted;
+use Cortex\Foundation\Events\ModelUpdated;
 use Rinvex\Support\Traits\ValidatingTrait;
+use Cortex\Foundation\Events\ModelRestored;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Cortex\Foundation\Traits\FiresCustomModelEvent;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -34,6 +37,7 @@ class Guardian extends Model implements AuthenticatableContract, AuthorizableCon
     use HasHashables;
     use Authenticatable;
     use ValidatingTrait;
+    use FiresCustomModelEvent;
 
     /**
      * {@inheritdoc}
@@ -78,8 +82,10 @@ class Guardian extends Model implements AuthenticatableContract, AuthorizableCon
      * @var array
      */
     protected $dispatchesEvents = [
-        'saved' => GuardianSaved::class,
-        'deleted' => GuardianDeleted::class,
+        'created' => ModelCreated::class,
+        'deleted' => ModelDeleted::class,
+        'restored' => ModelRestored::class,
+        'updated' => ModelUpdated::class,
     ];
 
     /**

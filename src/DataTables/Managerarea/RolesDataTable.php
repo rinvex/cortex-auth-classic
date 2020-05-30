@@ -27,12 +27,14 @@ class RolesDataTable extends AbstractDataTable
      */
     public function query()
     {
+        $query = parent::query();
         $currentUser = $this->request->user($this->request->route('guard'));
 
-        $query = ! $currentUser->isA('supermanager') ? app($this->model)->query()->whereIn('id', $currentUser->roles->pluck('id')->toArray())
-            : app($this->model)->query()->whereIn('id', $currentUser->roles->merge(config('rinvex.tenants.active') ? app('cortex.auth.role')->where('scope', config('rinvex.tenants.active')->getKey())->get() : collect())->pluck('id')->toArray());
+        $query = $currentUser->isNotA('supermanager') ?
+            $query->whereIn('id', $currentUser->roles->pluck('id')->toArray())
+            : $query->whereIn('id', $currentUser->roles->merge(config('rinvex.tenants.active') ? app('cortex.auth.role')->where('scope', config('rinvex.tenants.active')->getKey())->get() : collect())->pluck('id')->toArray());
 
-        return $this->applyScopes($query);
+        return $query;
     }
 
     /**
@@ -60,6 +62,7 @@ class RolesDataTable extends AbstractDataTable
             : '"<a href=\""+routes.route(\'managerarea.roles.edit\', {role: full.id})+"\">"+data+"</a>"';
 
         return [
+            'id' => ['checkboxes' => '{"selectRow": true}', 'exportable' => false, 'printable' => false],
             'title' => ['title' => trans('cortex/auth::common.title'), 'render' => $link, 'responsivePriority' => 0],
             'name' => ['title' => trans('cortex/auth::common.name')],
             'created_at' => ['title' => trans('cortex/auth::common.created_at'), 'render' => "moment(data).format('YYYY-MM-DD, hh:mm:ss A')"],

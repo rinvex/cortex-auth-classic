@@ -14,6 +14,13 @@ class SendWelcomeEmail implements ShouldQueue
     use InteractsWithQueue;
 
     /**
+     * The name of the queue the job should be sent to.
+     *
+     * @var string|null
+     */
+    public $queue = 'listeners';
+
+    /**
      * Create a new event listener instance.
      *
      * @return void

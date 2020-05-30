@@ -8,7 +8,10 @@ Route::domain(domain())->group(function () {
         ->namespace('Cortex\Auth\Http\Controllers\Frontarea')
         ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.foundation.route.prefix.frontarea') : config('cortex.foundation.route.prefix.frontarea'))->group(function () {
 
-        // Login Routes
+            // Authenticate broadcasting to channels
+            Route::match(['get', 'post'], 'broadcasting/auth')->name('broadcast')->uses('AuthenticationController@broadcast');
+
+            // Login Routes
             $maxAttempts = config('cortex.auth.throttle.login.max_attempts');
             $decayMinutes = config('cortex.auth.throttle.login.decay_minutes');
             Route::get('login')->name('login')->uses('AuthenticationController@form');

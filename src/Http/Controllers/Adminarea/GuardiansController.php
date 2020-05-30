@@ -34,7 +34,7 @@ class GuardiansController extends AuthorizedController
     public function index(GuardiansDataTable $guardiansDataTable)
     {
         return $guardiansDataTable->with([
-            'id' => 'adminarea-guardians-index-table',
+            'id' => 'adminarea-guardians-index',
         ])->render('cortex/foundation::adminarea.pages.datatable-index');
     }
 
@@ -51,7 +51,7 @@ class GuardiansController extends AuthorizedController
         return $logsDataTable->with([
             'resource' => $guardian,
             'tabs' => 'adminarea.guardians.tabs',
-            'id' => "adminarea-guardians-{$guardian->getRouteKey()}-logs-table",
+            'id' => "adminarea-guardians-{$guardian->getRouteKey()}-logs",
         ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
 
@@ -69,7 +69,7 @@ class GuardiansController extends AuthorizedController
             'resource' => $guardian,
             'tabs' => 'adminarea.guardians.tabs',
             'url' => route('adminarea.guardians.stash'),
-            'id' => "adminarea-attributes-{$guardian->getRouteKey()}-import-table",
+            'id' => "adminarea-attributes-{$guardian->getRouteKey()}-import",
         ])->render('cortex/foundation::adminarea.pages.datatable-dropzone');
     }
 
@@ -132,7 +132,7 @@ class GuardiansController extends AuthorizedController
         return $importLogsDatatable->with([
             'resource' => trans('cortex/auth::common.guardian'),
             'tabs' => 'adminarea.guardians.tabs',
-            'id' => 'adminarea-guardians-import-logs-table',
+            'id' => 'adminarea-guardians-import-logs',
         ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
 
@@ -195,7 +195,7 @@ class GuardiansController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.guardians.index'),
-            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => trans('cortex/auth::common.guardian'), 'identifier' => $guardian->username])],
+            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => trans('cortex/auth::common.guardian'), 'identifier' => $guardian->getRouteKey()])],
         ]);
     }
 
@@ -214,7 +214,7 @@ class GuardiansController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.guardians.index'),
-            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/auth::common.guardian'), 'identifier' => $guardian->username])],
+            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/auth::common.guardian'), 'identifier' => $guardian->getRouteKey()])],
         ]);
     }
 }

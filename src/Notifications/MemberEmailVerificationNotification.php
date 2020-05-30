@@ -93,4 +93,16 @@ class MemberEmailVerificationNotification extends Notification implements Should
     {
         static::$toMailCallback = $callback;
     }
+
+    /**
+     * Determine which queues should be used for each notification channel.
+     *
+     * @return array
+     */
+    public function viaQueues()
+    {
+        return [
+            'mail' => 'listeners',
+        ];
+    }
 }
