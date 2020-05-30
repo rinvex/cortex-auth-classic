@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v5.0.8] - 2020-05-30
+- Refactor datatables query() method override to use parent::query()
+- Add datatables checkbox column for bulk actions
+- Use getRouteKey() attribute for all redirect identifiers
+- Drop using strip_tags on redirect identifiers as they will use ->getRouteKey() which is already safe
+- Fix wrong container service names
+- Add support for datatable listing get and post requests
+- Refactor model CRUD dispatched events
+- Add bulk action routes
+- Remove useless "DT_RowId" column from transformers
+- Register channel broadcasting routes
+- Add broadcasting authentication route
+- Add listener queues
+- Fire custom model events from CRUD actions
+- Explicitly specify relationship attributes
+- Fix tags query
+- Rename datatables container names
+- Load module routes automatically
+- Strip tags breadcrumbs of potential user inputs
+- Apply fixes from StyleCI (#120)
+- Strip tags of language phrase parameters with potential user inputs
+- Escape language phrases
+- Add strip_tags validation rule to string fields
+- Remove default indent size config
+- Fix compatibility with recent rinvex/laravel-menus package update
+
 ## [v5.0.7] - 2020-04-12
 - Fix ServiceProvider registerCommands method compatibility
 
@@ -195,6 +221,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v5.0.8]: https://github.com/rinvex/cortex-auth/compare/v5.0.7...v5.0.8
 [v5.0.7]: https://github.com/rinvex/cortex-auth/compare/v5.0.6...v5.0.7
 [v5.0.6]: https://github.com/rinvex/cortex-auth/compare/v5.0.5...v5.0.6
 [v5.0.5]: https://github.com/rinvex/cortex-auth/compare/v5.0.4...v5.0.5
