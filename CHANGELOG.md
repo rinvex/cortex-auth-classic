@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v5.1.1] - 2020-05-30
+- Update composer dependencies
+
+## [v5.1.0] - 2020-05-30
+- With the significance of recent updates, new minor release required
+
 ## [v5.0.8] - 2020-05-30
 - Refactor datatables query() method override to use parent::query()
 - Add datatables checkbox column for bulk actions
@@ -221,6 +227,8 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v5.1.1]: https://github.com/rinvex/cortex-auth/compare/v5.1.0...v5.1.1
+[v5.1.0]: https://github.com/rinvex/cortex-auth/compare/v5.0.8...v5.1.0
 [v5.0.8]: https://github.com/rinvex/cortex-auth/compare/v5.0.7...v5.0.8
 [v5.0.7]: https://github.com/rinvex/cortex-auth/compare/v5.0.6...v5.0.7
 [v5.0.6]: https://github.com/rinvex/cortex-auth/compare/v5.0.5...v5.0.6
