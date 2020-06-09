@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Models;
 
+use Rinvex\Tenants\Traits\Tenantable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Cortex\Auth\Notifications\PhoneVerificationNotification;
@@ -12,6 +13,8 @@ use Cortex\Auth\Notifications\ManagerEmailVerificationNotification;
 
 class Manager extends User
 {
+    use Tenantable;
+
     /**
      * {@inheritdoc}
      */
