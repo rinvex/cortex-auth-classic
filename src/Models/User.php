@@ -20,7 +20,6 @@ use Rinvex\Auth\Traits\CanVerifyEmail;
 use Rinvex\Auth\Traits\CanVerifyPhone;
 use Cortex\Foundation\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
-use Rinvex\Cacheable\CacheableEloquent;
 use Rinvex\Support\Traits\HashidsTrait;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Traits\Macroable;
@@ -48,11 +47,6 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 
 abstract class User extends Model implements AuthenticatableContract, AuthenticatableTwoFactorContract, AuthorizableContract, CanResetPasswordContract, CanVerifyEmailContract, CanVerifyPhoneContract, HasMedia
 {
-    // @TODO: Strangely, this issue happens only here!!!
-    // Duplicate trait usage to fire attached events for cache
-    // flush before other events in other traits specially CausesActivity,
-    // otherwise old cached queries used and no changelog recorded on update.
-    use CacheableEloquent;
     use Taggable;
     use Auditable;
     use Macroable {
