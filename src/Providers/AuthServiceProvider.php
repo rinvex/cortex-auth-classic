@@ -57,9 +57,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // Merge config
         $this->app['config']->set('auth.model', config('cortex.auth.models.member'));
-        $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'cortex.auth');
 
         // Register console commands
         $this->registerCommands($this->commands);
@@ -136,22 +134,6 @@ class AuthServiceProvider extends ServiceProvider
             'guardian' => config('cortex.auth.models.guardian'),
             'ability' => config('cortex.auth.models.ability'),
         ]);
-
-        // Load resources
-        $this->loadViewsFrom(__DIR__.'/../../resources/views', 'cortex/auth');
-        $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'cortex/auth');
-        ! $this->autoloadMigrations('cortex/auth') || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
-
-        $this->app->runningInConsole() || $dispatcher->listen('accessarea.ready', function ($accessarea) {
-            ! file_exists($menus = __DIR__."/../../routes/menus/{$accessarea}.php") || require $menus;
-            ! file_exists($breadcrumbs = __DIR__."/../../routes/breadcrumbs/{$accessarea}.php") || require $breadcrumbs;
-        });
-
-        // Publish Resources
-        $this->publishesLang('cortex/auth', true);
-        $this->publishesViews('cortex/auth', true);
-        $this->publishesConfig('cortex/auth', true);
-        $this->publishesMigrations('cortex/auth', true);
 
         // Register attributes entities
         ! app()->bound('rinvex.attributes.entities') || app('rinvex.attributes.entities')->push('admin');

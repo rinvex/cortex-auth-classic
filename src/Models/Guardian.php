@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Hash;
 use Rinvex\Auth\Traits\HasHashables;
 use Cortex\Foundation\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
-use Rinvex\Cacheable\CacheableEloquent;
 use Rinvex\Support\Traits\HashidsTrait;
 use Cortex\Foundation\Events\ModelCreated;
 use Cortex\Foundation\Events\ModelDeleted;
@@ -25,11 +24,6 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 
 class Guardian extends Model implements AuthenticatableContract, AuthorizableContract
 {
-    // @TODO: Strangely, this issue happens only here!!!
-    // Duplicate trait usage to fire attached events for cache
-    // flush before other events in other traits specially LogsActivity,
-    // otherwise old cached queries used and no changelog recorded on update.
-    use CacheableEloquent;
     use Auditable;
     use HashidsTrait;
     use LogsActivity;

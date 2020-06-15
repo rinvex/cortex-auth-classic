@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Models;
 
-use Rinvex\Tenants\Traits\Tenantable;
 use Cortex\Auth\Notifications\PhoneVerificationNotification;
 use Cortex\Auth\Notifications\MemberPasswordResetNotification;
 use Cortex\Auth\Notifications\MemberEmailVerificationNotification;
 
 class Member extends User
 {
-    use Tenantable;
-
     /**
      * {@inheritdoc}
      */
