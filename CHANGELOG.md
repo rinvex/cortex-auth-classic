@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v5.2.0] - 2020-06-15
+- Autoload config, views, language, menus, breadcrumbs, and migrations
+  - This is now done automatically through cortex/foundation, so no need to manually wire it here anymore
+- Merge additional fillable, casts, and rules instead of overriding
+- Drop PHP 7.2 & 7.3 support from travis
+
 ## [v5.1.1] - 2020-05-30
 - Update composer dependencies
 
@@ -227,6 +233,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v5.2.0]: https://github.com/rinvex/cortex-auth/compare/v5.1.1...v5.2.0
 [v5.1.1]: https://github.com/rinvex/cortex-auth/compare/v5.1.0...v5.1.1
 [v5.1.0]: https://github.com/rinvex/cortex-auth/compare/v5.0.8...v5.1.0
 [v5.0.8]: https://github.com/rinvex/cortex-auth/compare/v5.0.7...v5.0.8
