@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Models;
 
-use Error;
-use Exception;
-use BadMethodCallException;
 use Illuminate\Support\Arr;
 use Rinvex\Country\Country;
 use Rinvex\Language\Language;
@@ -16,13 +13,13 @@ use Illuminate\Support\Collection;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Rinvex\Auth\Traits\HasHashables;
+use Rinvex\Support\Traits\Macroable;
 use Rinvex\Auth\Traits\CanVerifyEmail;
 use Rinvex\Auth\Traits\CanVerifyPhone;
 use Cortex\Foundation\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Support\Traits\HashidsTrait;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Traits\Macroable;
 use Rinvex\Auth\Traits\CanResetPassword;
 use Cortex\Foundation\Events\ModelCreated;
 use Cortex\Foundation\Events\ModelDeleted;
@@ -49,10 +46,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
 {
     use Taggable;
     use Auditable;
-    use Macroable {
-        Macroable::__call as macroableCall;
-        Macroable::__callStatic as macroableCallStatic;
-    }
+    use Macroable;
     use Notifiable;
     use HashidsTrait;
     use Authorizable;
@@ -411,47 +405,5 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     public function getRouteKeyName()
     {
         return 'username';
-    }
-
-    /**
-     * Handle dynamic method calls into the model.
-     *
-     * @param string $method
-     * @param array  $parameters
-     *
-     * @return mixed
-     */
-    public function __call($method, $parameters)
-    {
-        if (in_array($method, ['increment', 'decrement'])) {
-            return $this->{$method}(...$parameters);
-        }
-
-        try {
-            return $this->forwardCallTo($this->newQuery(), $method, $parameters);
-        } catch (Error | BadMethodCallException $e) {
-            if ($method !== 'macroableCall') {
-                return $this->macroableCall($method, $parameters);
-            }
-        }
-    }
-
-    /**
-     * Handle dynamic static method calls into the method.
-     *
-     * @param string $method
-     * @param array  $parameters
-     *
-     * @return mixed
-     */
-    public static function __callStatic($method, $parameters)
-    {
-        try {
-            return (new static())->{$method}(...$parameters);
-        } catch (Exception $e) {
-            if ($method !== 'macroableCallStatic') {
-                return (new static())::macroableCallStatic($method, $parameters);
-            }
-        }
     }
 }
