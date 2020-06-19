@@ -97,9 +97,6 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(Router $router, Dispatcher $dispatcher): void
     {
-        // Attach request macro
-        $this->attachRequestMacro();
-
         // Map bouncer models
         Bouncer::useRoleModel(config('cortex.auth.models.role'));
         Bouncer::useAbilityModel(config('cortex.auth.models.ability'));
@@ -135,22 +132,22 @@ class AuthServiceProvider extends ServiceProvider
             'ability' => config('cortex.auth.models.ability'),
         ]);
 
-        // Register attributes entities
-        ! app()->bound('rinvex.attributes.entities') || app('rinvex.attributes.entities')->push('admin');
-        ! app()->bound('rinvex.attributes.entities') || app('rinvex.attributes.entities')->push('member');
-        ! app()->bound('rinvex.attributes.entities') || app('rinvex.attributes.entities')->push('manager');
+        if (! $this->app->runningInConsole()) {
+            // Attach request macro
+            $this->attachRequestMacro();
 
-        // Override middlware
-        $this->overrideMiddleware($router);
+            // Override middlware
+            $this->overrideMiddleware($router);
 
-        // Register menus
-        $this->registerMenus();
+            // Register menus
+            $this->registerMenus();
 
-        // Share current user instance with all views
-        $this->app['view']->composer('*', function ($view) {
-            ! app('request.tenant') || $view->with('currentTenant', app('request.tenant'));
-            $view->with('currentUser', auth()->guard(app('request.guard'))->user());
-        });
+            // Share current user instance with all views
+            $this->app['view']->composer('*', function ($view) {
+                ! app('request.tenant') || $view->with('currentTenant', app('request.tenant'));
+                $view->with('currentUser', auth()->guard(app('request.guard'))->user());
+            });
+        }
     }
 
     /**
