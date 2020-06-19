@@ -19,14 +19,14 @@ class RoleFormProcessRequest extends RoleFormRequest
         $data = $this->all();
 
         // Prepend tenant name to the role name
-        Str::startsWith(config('rinvex.tenants.active')->name.'_', $data['name']) || $data['name'] = Str::start($data['name'], config('rinvex.tenants.active')->name.'_');
+        Str::startsWith(app('request.tenant')->name.'_', $data['name']) || $data['name'] = Str::start($data['name'], app('request.tenant')->name.'_');
 
         // Set abilities
         if (! empty($data['abilities'])) {
-            if ($this->user($this->route('guard'))->can('grant', \Cortex\Auth\Models\Ability::class)) {
+            if ($this->user(app('request.guard'))->can('grant', \Cortex\Auth\Models\Ability::class)) {
                 $abilities = array_map('intval', $this->get('abilities', []));
-                $data['abilities'] = $this->user($this->route('guard'))->isA('superadmin') ? $abilities
-                    : $this->user($this->route('guard'))->getAbilities()->pluck('id')->intersect($abilities)->toArray();
+                $data['abilities'] = $this->user(app('request.guard'))->isA('superadmin') ? $abilities
+                    : $this->user(app('request.guard'))->getAbilities()->pluck('id')->intersect($abilities)->toArray();
             } else {
                 unset($data['abilities']);
             }

@@ -41,7 +41,7 @@ class AuthenticateSession
      */
     public function handle($request, Closure $next)
     {
-        $guard = $request->route('guard');
+        $guard = app('request.guard');
         $passwordHashKey = 'hash_'.$guard.mb_strrchr($this->auth->getName(), '_');
 
         if (! $request->hasSession() || ! $request->user($guard)) {
@@ -79,7 +79,7 @@ class AuthenticateSession
      */
     protected function storePasswordHashInSession($request, $passwordHashKey)
     {
-        $guard = $request->route('guard');
+        $guard = app('request.guard');
 
         if (! $request->user($guard)) {
             return;

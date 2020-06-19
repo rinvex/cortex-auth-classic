@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v6.0.0] - 2020-06-16
+- Refactor active tenant to container service binding, instead of runtime config value
+- Refactor route parameters to container service binding
+- Stick to composer version constraints recommendations and ease minimum required version of modules
+
 ## [v5.2.0] - 2020-06-15
 - Autoload config, views, language, menus, breadcrumbs, and migrations
   - This is now done automatically through cortex/foundation, so no need to manually wire it here anymore
@@ -233,6 +238,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v6.0.0]: https://github.com/rinvex/cortex-auth/compare/v5.2.0...v6.0.0
 [v5.2.0]: https://github.com/rinvex/cortex-auth/compare/v5.1.1...v5.2.0
 [v5.1.1]: https://github.com/rinvex/cortex-auth/compare/v5.1.0...v5.1.1
 [v5.1.0]: https://github.com/rinvex/cortex-auth/compare/v5.0.8...v5.1.0

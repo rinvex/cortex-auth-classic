@@ -19,10 +19,10 @@ class RoleFormProcessRequest extends RoleFormRequest
 
         // Set abilities
         if (! empty($data['abilities'])) {
-            if ($this->user($this->route('guard'))->can('grant', \Cortex\Auth\Models\Ability::class)) {
+            if ($this->user(app('request.guard'))->can('grant', \Cortex\Auth\Models\Ability::class)) {
                 $abilities = array_map('intval', $this->get('abilities', []));
-                $data['abilities'] = $this->user($this->route('guard'))->isA('superadmin') ? $abilities
-                    : $this->user($this->route('guard'))->getAbilities()->pluck('id')->intersect($abilities)->toArray();
+                $data['abilities'] = $this->user(app('request.guard'))->isA('superadmin') ? $abilities
+                    : $this->user(app('request.guard'))->getAbilities()->pluck('id')->intersect($abilities)->toArray();
             } else {
                 unset($data['abilities']);
             }

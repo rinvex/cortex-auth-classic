@@ -18,7 +18,7 @@ class EmailVerificationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $user = $this->user($this->route('guard')) ?: $this->attemptUser($this->route('guard'));
+        $user = $this->user(app('request.guard')) ?: $this->attemptUser(app('request.guard'));
 
         // Redirect users if their email already verified, no need to process their request
         if ($user && $user->hasVerifiedEmail()) {
