@@ -29,7 +29,7 @@ class AccountTwoFactorPhoneRequest extends FormRequest
      */
     public function withValidator($validator): void
     {
-        $user = $this->user($this->route('guard'));
+        $user = $this->user(app('request.guard'));
 
         $validator->after(function ($validator) use ($user) {
             if (! $user->phone || ! $user->hasVerifiedPhone()) {

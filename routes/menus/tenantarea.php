@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Rinvex\Menus\Models\MenuItem;
 use Rinvex\Menus\Models\MenuGenerator;
 
-if ($user = auth()->guard(request()->route('guard'))->user()) {
+if ($user = auth()->guard(app('request.guard'))->user()) {
     Menu::register('tenantarea.header.user', function (MenuGenerator $menu) use ($user) {
         $menu->dropdown(function (MenuItem $dropdown) {
             $dropdown->route(['tenantarea.account'], trans('cortex/auth::common.settings'), null, 'fa fa-cogs');

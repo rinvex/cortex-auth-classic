@@ -21,7 +21,7 @@ class AbilityFormRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $currentUser = $this->user($this->route('guard'));
+        $currentUser = $this->user(app('request.guard'));
 
         if (! $currentUser->isA('superadmin') && ! $currentUser->getAbilities()->contains($this->route('ability'))) {
             throw new GenericException(trans('cortex/auth::messages.action_unauthorized'), route('adminarea.abilities.index'));

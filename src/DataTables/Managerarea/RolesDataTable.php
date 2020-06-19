@@ -28,7 +28,7 @@ class RolesDataTable extends AbstractDataTable
     public function query()
     {
         $query = parent::query();
-        $currentUser = $this->request->user($this->request->route('guard'));
+        $currentUser = $this->request->user(app('request.guard'));
 
         $query = $currentUser->isNotA('supermanager') ?
             $query->whereIn('id', $currentUser->roles->pluck('id')->toArray())
