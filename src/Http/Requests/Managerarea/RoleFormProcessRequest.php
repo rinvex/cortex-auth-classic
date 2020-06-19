@@ -19,7 +19,7 @@ class RoleFormProcessRequest extends RoleFormRequest
         $data = $this->all();
 
         // Prepend tenant name to the role name
-        Str::startsWith(config('rinvex.tenants.active')->name.'_', $data['name']) || $data['name'] = Str::start($data['name'], config('rinvex.tenants.active')->name.'_');
+        Str::startsWith(app('request.tenant')->name.'_', $data['name']) || $data['name'] = Str::start($data['name'], app('request.tenant')->name.'_');
 
         // Set abilities
         if (! empty($data['abilities'])) {

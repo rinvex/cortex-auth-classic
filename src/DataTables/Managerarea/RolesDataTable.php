@@ -32,7 +32,7 @@ class RolesDataTable extends AbstractDataTable
 
         $query = $currentUser->isNotA('supermanager') ?
             $query->whereIn('id', $currentUser->roles->pluck('id')->toArray())
-            : $query->whereIn('id', $currentUser->roles->merge(config('rinvex.tenants.active') ? app('cortex.auth.role')->where('scope', config('rinvex.tenants.active')->getKey())->get() : collect())->pluck('id')->toArray());
+            : $query->whereIn('id', $currentUser->roles->merge(app('request.tenant') ? app('cortex.auth.role')->where('scope', app('request.tenant')->getKey())->get() : collect())->pluck('id')->toArray());
 
         return $query;
     }
