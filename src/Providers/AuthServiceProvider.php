@@ -135,10 +135,6 @@ class AuthServiceProvider extends ServiceProvider
             'ability' => config('cortex.auth.models.ability'),
         ]);
 
-        // Register attributes entities
-        ! app()->bound('rinvex.attributes.entities') || app('rinvex.attributes.entities')->push('admin');
-        ! app()->bound('rinvex.attributes.entities') || app('rinvex.attributes.entities')->push('member');
-        ! app()->bound('rinvex.attributes.entities') || app('rinvex.attributes.entities')->push('manager');
 
         // Override middlware
         $this->overrideMiddleware($router);
