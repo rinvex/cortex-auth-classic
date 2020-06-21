@@ -144,8 +144,8 @@ class AuthServiceProvider extends ServiceProvider
 
             // Share current user instance with all views
             $this->app['view']->composer('*', function ($view) {
-                ! app('request.tenant') || $view->with('currentTenant', app('request.tenant'));
-                $view->with('currentUser', auth()->guard(app('request.guard'))->user());
+                ! $this->app->bound('request.tenant') || $view->with('currentTenant', $this->app['request.tenant']);
+                ! $this->app->bound('request.guard') || $view->with('currentUser', auth()->guard($this->app['request.guard'])->user());
             });
         }
     }
