@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v6.0.3] - 2020-06-21
+- Check if container service is bound or not before using
+
 ## [v6.0.2] - 2020-06-20
 - Move macroable logic to rinvex/laravel-support package
 
@@ -245,6 +248,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v6.0.3]: https://github.com/rinvex/cortex-auth/compare/v6.0.2...v6.0.3
 [v6.0.2]: https://github.com/rinvex/cortex-auth/compare/v6.0.1...v6.0.2
 [v6.0.1]: https://github.com/rinvex/cortex-auth/compare/v6.0.0...v6.0.1
 [v6.0.0]: https://github.com/rinvex/cortex-auth/compare/v5.2.0...v6.0.0
