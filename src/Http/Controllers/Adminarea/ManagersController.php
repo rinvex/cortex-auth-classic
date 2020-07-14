@@ -43,6 +43,7 @@ class ManagersController extends AuthorizedController
             ];
         })->values();
 
+        $roles = app('cortex.auth.role')->pluck('title', 'id');
         $languages = collect(languages())->pluck('name', 'iso_639_1');
         $tags = app('rinvex.tags.tag')->all()->groupBy('group')->map->pluck('name', 'id')->sortKeys();
         $genders = ['male' => trans('cortex/auth::common.male'), 'female' => trans('cortex/auth::common.female')];
@@ -52,6 +53,7 @@ class ManagersController extends AuthorizedController
             'countries' => $countries,
             'languages' => $languages,
             'genders' => $genders,
+            'roles' => $roles,
             'tags' => $tags,
         ])->render('cortex/auth::adminarea.pages.managers');
     }

@@ -48,6 +48,20 @@ class MembersDataTable extends AbstractDataTable
             });
         }
 
+        if (! empty($this->request->get('role_id')) ) {
+            $query->whereHas('roles', function (Builder $builder) {
+                $builder->where('id', $this->request->get('role_id'));
+            });
+        }
+
+        if (! empty($this->request->get('created_at_from'))) {
+            $query->where('created_at', '>=', $this->request->get('created_at_from'));
+        }
+
+        if (! empty($this->request->get('created_at_to'))) {
+            $query->where('created_at', '<=', $this->request->get('created_at_to'));
+        }
+
         return datatables($query)
             ->setTransformer(app($this->transformer))
             ->filterColumn('country_code', function (Builder $builder, $keyword) {

@@ -52,6 +52,49 @@
 
         </div>
 
+
+        <div class="row">
+
+            <div class="col-md-4">
+                {{-- Role --}}
+                <div class="form-group{{ $errors->has('role_id') ? ' has-error' : '' }}">
+                    {{ Form::label('role_id', trans('cortex/auth::common.role'), ['class' => 'control-label']) }}
+                    {{ Form::hidden('role_id', '', ['class' => 'skip-validation', 'id' => 'role_id_hidden']) }}
+                    {{ Form::select('role_id', $roles, null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/auth::common.select_role'), 'data-allow-clear' => 'true', 'data-minimum-results-for-search' => 'Infinity', 'data-width' => '100%']) }}
+
+                    @if ($errors->has('role_id'))
+                        <span class="help-block">{{ $errors->first('role_id') }}</span>
+                    @endif
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+                {{--  Created at from --}}
+                <div class="form-group{{ $errors->has('created_at_from') ? ' has-error' : '' }}">
+                    {{ Form::label('created_at_from', trans('cortex/foundation::common.created_at_from'), ['class' => 'control-label']) }}
+                    {{ Form::date('created_at_from', null, array('class' => 'form-control')) }}
+
+                    @if ($errors->has('created_at_from'))
+                        <span class="help-block">{{ $errors->first('created_at_from') }}</span>
+                    @endif
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                {{--  Created at to --}}
+                <div class="form-group{{ $errors->has('created_at_to') ? ' has-error' : '' }}">
+                    {{ Form::label('created_at_to', trans('cortex/foundation::common.created_at_to'), ['class' => 'control-label']) }}
+                    {{ Form::date('created_at_to', null, array('class' => 'form-control')) }}
+
+                    @if ($errors->has('created_at_to'))
+                        <span class="help-block">{{ $errors->first('created_at_to') }}</span>
+                    @endif
+                </div>
+            </div>
+
+        </div>
+
     {{ Form::close() }}
     <br />
 @endsection
