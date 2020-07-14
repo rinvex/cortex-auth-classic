@@ -48,7 +48,7 @@ class ManagersDataTable extends AbstractDataTable
             });
         }
 
-        if (! empty($this->request->get('role_id')) ) {
+        if (! empty($this->request->get('role_id'))) {
             $query->whereHas('roles', function (Builder $builder) {
                 $builder->where('id', $this->request->get('role_id'));
             });
