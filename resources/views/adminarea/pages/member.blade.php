@@ -428,6 +428,24 @@
 
                                 <div class="col-md-4">
 
+                                    {{-- Timezone --}}
+                                    <div class="form-group{{ $errors->has('timezone') ? ' has-error' : '' }}">
+                                        {{ Form::label('timezone', trans('cortex/tenants::common.timezone'), ['class' => 'control-label']) }}
+                                        {{ Form::text('timezone', null, ['class' => 'form-control', 'placeholder' => trans('cortex/tenants::common.timezone'), 'required' => 'required']) }}
+
+                                        @if ($errors->has('timezone'))
+                                            <span class="help-block">{{ $errors->first('timezone') }}</span>
+                                        @endif
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-4">
+
                                     {{-- Password --}}
                                     <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
                                         {{ Form::label('password', trans('cortex/auth::common.password'), ['class' => 'control-label']) }}
@@ -444,10 +462,6 @@
                                     </div>
 
                                 </div>
-
-                            </div>
-
-                            <div class="row">
 
                                 <div class="col-md-4">
 

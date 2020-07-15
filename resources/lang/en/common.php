@@ -52,6 +52,7 @@ return [
     'username' => 'Username',
     'country' => 'Country',
     'language' => 'Language',
+    'timezone' => 'Timezone',
     'title' => 'Title',
     'organization' => 'Organization',
     'password' => 'Password',

@@ -149,6 +149,20 @@
 
                             </div>
 
+                            <div class="col-md-4">
+
+                                {{-- Timezone --}}
+                                <div class="form-group{{ $errors->has('timezone') ? ' has-error' : '' }}">
+                                    {{ Form::label('timezone', trans('cortex/auth::common.timezone'), ['class' => 'control-label']) }}
+                                    {{ Form::text('timezone', null, ['class' => 'form-control', 'placeholder' => $currentUser->timezone ?: trans('cortex/auth::common.timezone')]) }}
+
+                                    @if ($errors->has('timezone'))
+                                        <span class="help-block">{{ $errors->first('timezone') }}</span>
+                                    @endif
+                                </div>
+
+                            </div>
+
                         </div>
 
                         <div class="row">
