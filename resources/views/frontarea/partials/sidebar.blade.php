@@ -1,11 +1,11 @@
 <div class="profile-sidebar">
     <div class="profile-usertitle">
         <div class="profile-usertitle-name">
-            {{ $currentUser->full_name }}
+            {{ app('request.user')->full_name }}
         </div>
-        @if($currentUser->title)
+        @if(app('request.user')->title)
             <div class="profile-usertitle-job">
-                {{ $currentUser->title }}
+                {{ app('request.user')->title }}
             </div>
         @endif
     </div>

@@ -141,12 +141,6 @@ class AuthServiceProvider extends ServiceProvider
 
             // Register menus
             $this->registerMenus();
-
-            // Share current user instance with all views
-            $this->app['view']->composer('*', function ($view) {
-                ! $this->app->bound('request.tenant') || $view->with('currentTenant', $this->app['request.tenant']);
-                ! $this->app->bound('request.guard') || $view->with('currentUser', auth()->guard($this->app['request.guard'])->user());
-            });
         }
     }
 

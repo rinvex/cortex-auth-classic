@@ -52,24 +52,23 @@ class AccountSettingsController extends AuthenticatedController
     public function update(AccountSettingsRequest $request)
     {
         $data = $request->validated();
-        $currentUser = $request->user($this->getGuard());
 
         ! $request->hasFile('profile_picture')
-        || $currentUser->addMediaFromRequest('profile_picture')
+        || app('request.user')->addMediaFromRequest('profile_picture')
                        ->sanitizingFileName(function ($fileName) {
                            return md5($fileName).'.'.pathinfo($fileName, PATHINFO_EXTENSION);
                        })
                        ->toMediaCollection('profile_picture', config('cortex.foundation.media.disk'));
 
         ! $request->hasFile('cover_photo')
-        || $currentUser->addMediaFromRequest('cover_photo')
+        || app('request.user')->addMediaFromRequest('cover_photo')
                        ->sanitizingFileName(function ($fileName) {
                            return md5($fileName).'.'.pathinfo($fileName, PATHINFO_EXTENSION);
                        })
                        ->toMediaCollection('cover_photo', config('cortex.foundation.media.disk'));
 
         // Update profile
-        $currentUser->fill($data)->save();
+        app('request.user')->fill($data)->save();
 
         return intend([
             'back' => true,

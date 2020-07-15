@@ -28,10 +28,8 @@ class AccountPasswordController extends AuthenticatedController
      */
     public function update(AccountPasswordRequest $request)
     {
-        $currentUser = $request->user($this->getGuard());
-
         // Update profile
-        $currentUser->fill(['password' => $request->get('new_password')])->forceSave();
+        app('request.user')->fill(['password' => $request->get('new_password')])->forceSave();
 
         return intend([
             'back' => true,

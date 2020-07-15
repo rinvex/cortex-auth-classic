@@ -22,9 +22,7 @@ class ManagerFormRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $currentUser = $this->user(app('request.guard'));
-
-        if (! $currentUser->isA('supermanager') && $currentUser !== $this->route('manager')) {
+        if (! app('request.user')->isA('supermanager') && app('request.user') !== $this->route('manager')) {
             throw new GenericException(trans('cortex/auth::messages.action_unauthorized'), route('managerarea.managers.index'));
         }
 

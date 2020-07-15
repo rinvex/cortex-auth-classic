@@ -24,7 +24,7 @@
         <section class="content">
 
             <div class="nav-tabs-custom">
-                @if($role->exists && $currentUser->can('delete', $role))
+                @if($role->exists && app('request.user')->can('delete', $role))
                     <div class="pull-right">
                         <a href="#" data-toggle="modal" data-target="#delete-confirmation"
                            data-modal-action="{{ route('managerarea.roles.destroy', ['role' => $role]) }}"
