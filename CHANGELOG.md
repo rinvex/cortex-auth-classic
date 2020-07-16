@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v6.1.0] - 2020-07-16
+- Update datatables user filters
+- Refactor timezone fields
+- Automatically update timezone if missing
+- Utilize timezones
+- Fix wrong redirection routes
+- Use app('request.tenant') instead of $currentTenant
+- Use app('request.user') instead of $currentUser
+- Add timezone field to user system
+- Apply fixes from StyleCI
+- Filter members by role and creation date
+- Update validation rules
+
 ## [v6.0.3] - 2020-06-21
 - Check if container service is bound or not before using
 
@@ -248,6 +261,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v6.1.0]: https://github.com/rinvex/cortex-auth/compare/v6.0.3...v6.1.0
 [v6.0.3]: https://github.com/rinvex/cortex-auth/compare/v6.0.2...v6.0.3
 [v6.0.2]: https://github.com/rinvex/cortex-auth/compare/v6.0.1...v6.0.2
 [v6.0.1]: https://github.com/rinvex/cortex-auth/compare/v6.0.0...v6.0.1
