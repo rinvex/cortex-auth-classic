@@ -20,6 +20,7 @@ use Rinvex\Support\Traits\ConsoleTools;
 use Illuminate\Contracts\Events\Dispatcher;
 use Cortex\Auth\Console\Commands\SeedCommand;
 use Cortex\Auth\Http\Middleware\Reauthenticate;
+use Cortex\Auth\Http\Middleware\UpdateTimezone;
 use Cortex\Auth\Console\Commands\InstallCommand;
 use Cortex\Auth\Console\Commands\MigrateCommand;
 use Cortex\Auth\Console\Commands\PublishCommand;
@@ -180,6 +181,7 @@ class AuthServiceProvider extends ServiceProvider
         // Append middleware to the 'web' middlware group
         $router->pushMiddlewareToGroup('web', AuthenticateSession::class);
         $router->pushMiddlewareToGroup('web', UpdateLastActivity::class);
+        $router->pushMiddlewareToGroup('web', UpdateTimezone::class);
 
         // Override route middleware on the fly
         $router->aliasMiddleware('reauthenticate', Reauthenticate::class);
