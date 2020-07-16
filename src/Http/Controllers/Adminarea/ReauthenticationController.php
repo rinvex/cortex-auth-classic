@@ -53,12 +53,12 @@ class ReauthenticationController extends AuthenticatedController
             $this->resetSessionConfirmationTimeout($request, 'twofactor');
 
             return intend([
-                'intended' => url(route('adminarea.home')),
+                'intended' => route('adminarea.home'),
             ]);
         }
 
         return intend([
-            'intended' => url(route('adminarea.home')),
+            'intended' => route('adminarea.home'),
             'withErrors' => ['token' => trans('cortex/auth::messages.verification.twofactor.invalid_token')],
         ]);
     }

@@ -24,7 +24,7 @@
                 <div class="col-md-9">
                     <div class="profile-content">
 
-                        {{ Form::model($currentUser, ['url' => route('managerarea.account.password.update'), 'id' => 'managerarea-account-password-form']) }}
+                        {{ Form::model(app('request.user'), ['url' => route('managerarea.account.password.update'), 'id' => 'managerarea-account-password-form']) }}
 
                             <div class="row">
 

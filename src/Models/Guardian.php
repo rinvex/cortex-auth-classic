@@ -10,6 +10,7 @@ use Rinvex\Auth\Traits\HasHashables;
 use Cortex\Foundation\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Support\Traits\HashidsTrait;
+use Rinvex\Support\Traits\HasTimezones;
 use Cortex\Foundation\Events\ModelCreated;
 use Cortex\Foundation\Events\ModelDeleted;
 use Cortex\Foundation\Events\ModelUpdated;
@@ -26,6 +27,7 @@ class Guardian extends Model implements AuthenticatableContract, AuthorizableCon
 {
     use Auditable;
     use HashidsTrait;
+    use HasTimezones;
     use LogsActivity;
     use Authorizable;
     use HasHashables;
@@ -143,9 +145,9 @@ class Guardian extends Model implements AuthenticatableContract, AuthorizableCon
 
         $this->setTable(config('cortex.auth.tables.guardians'));
         $this->setRules([
-            'username' => 'required|alpha_dash|min:3|max:150|unique:'.config('cortex.auth.tables.guardians').',username',
+            'username' => 'required|alpha_dash|min:3|max:64|unique:'.config('cortex.auth.tables.guardians').',username',
             'password' => 'sometimes|required|min:'.config('cortex.auth.password_min_chars'),
-            'email' => 'required|email|min:3|max:150|unique:'.config('cortex.auth.tables.guardians').',email',
+            'email' => 'required|email|min:3|max:128|unique:'.config('cortex.auth.tables.guardians').',email',
             'is_active' => 'sometimes|boolean',
             'tags' => 'nullable|array',
         ]);

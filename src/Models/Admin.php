@@ -36,10 +36,10 @@ class Admin extends User
 
         $this->setTable(config('cortex.auth.tables.admins'));
         $this->setRules([
-            'username' => 'required|alpha_dash|min:3|max:150|unique:'.config('cortex.auth.tables.admins').',username',
+            'username' => 'required|alpha_dash|min:3|max:64|unique:'.config('cortex.auth.tables.admins').',username',
             'password' => 'sometimes|required|min:'.config('cortex.auth.password_min_chars'),
             'two_factor' => 'nullable|array',
-            'email' => 'required|email|min:3|max:150|unique:'.config('cortex.auth.tables.admins').',email',
+            'email' => 'required|email|min:3|max:128|unique:'.config('cortex.auth.tables.admins').',email',
             'email_verified_at' => 'nullable|date',
             'phone' => 'nullable|phone:AUTO',
             'phone_verified_at' => 'nullable|date',
@@ -49,6 +49,7 @@ class Admin extends User
             'organization' => 'nullable|string|strip_tags|max:150',
             'country_code' => 'nullable|alpha|size:2|country',
             'language_code' => 'nullable|alpha|size:2|language',
+            'timezone' => 'nullable|string|max:32|timezone',
             'birthday' => 'nullable|date_format:Y-m-d',
             'gender' => 'nullable|in:male,female',
             'social' => 'nullable',

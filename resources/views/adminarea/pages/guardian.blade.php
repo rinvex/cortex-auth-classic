@@ -24,7 +24,7 @@
         <section class="content">
 
             <div class="nav-tabs-custom">
-                @if($guardian->exists && $currentUser->can('delete', $guardian))
+                @if($guardian->exists && app('request.user')->can('delete', $guardian))
                     <div class="pull-right">
                         <a href="#" data-toggle="modal" data-target="#delete-confirmation"
                            data-modal-action="{{ route('adminarea.guardians.destroy', ['guardian' => $guardian]) }}"

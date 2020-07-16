@@ -6,6 +6,7 @@ namespace Cortex\Auth\Models;
 
 use Cortex\Foundation\Traits\Auditable;
 use Rinvex\Support\Traits\HashidsTrait;
+use Rinvex\Support\Traits\HasTimezones;
 use Cortex\Foundation\Events\ModelCreated;
 use Cortex\Foundation\Events\ModelDeleted;
 use Cortex\Foundation\Events\ModelUpdated;
@@ -20,6 +21,7 @@ class Role extends BaseRole
 {
     use Auditable;
     use HashidsTrait;
+    use HasTimezones;
     use LogsActivity;
     use ValidatingTrait;
     use HasTranslations;

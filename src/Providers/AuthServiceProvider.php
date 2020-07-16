@@ -20,6 +20,7 @@ use Rinvex\Support\Traits\ConsoleTools;
 use Illuminate\Contracts\Events\Dispatcher;
 use Cortex\Auth\Console\Commands\SeedCommand;
 use Cortex\Auth\Http\Middleware\Reauthenticate;
+use Cortex\Auth\Http\Middleware\UpdateTimezone;
 use Cortex\Auth\Console\Commands\InstallCommand;
 use Cortex\Auth\Console\Commands\MigrateCommand;
 use Cortex\Auth\Console\Commands\PublishCommand;
@@ -141,12 +142,6 @@ class AuthServiceProvider extends ServiceProvider
 
             // Register menus
             $this->registerMenus();
-
-            // Share current user instance with all views
-            $this->app['view']->composer('*', function ($view) {
-                ! $this->app->bound('request.tenant') || $view->with('currentTenant', $this->app['request.tenant']);
-                ! $this->app->bound('request.guard') || $view->with('currentUser', auth()->guard($this->app['request.guard'])->user());
-            });
         }
     }
 
@@ -186,6 +181,7 @@ class AuthServiceProvider extends ServiceProvider
         // Append middleware to the 'web' middlware group
         $router->pushMiddlewareToGroup('web', AuthenticateSession::class);
         $router->pushMiddlewareToGroup('web', UpdateLastActivity::class);
+        $router->pushMiddlewareToGroup('web', UpdateTimezone::class);
 
         // Override route middleware on the fly
         $router->aliasMiddleware('reauthenticate', Reauthenticate::class);

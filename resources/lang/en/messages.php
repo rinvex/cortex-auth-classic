@@ -33,6 +33,7 @@ return [
         'updated_attributes' => 'You have successfully updated your attributes!',
         'updated_password' => 'You have successfully updated your password!',
         'updated_account' => 'You have successfully updated your account!',
+        'updated_timezone' => 'Your account timezone has been automatically updated successfully to :timezone!',
     ],
 
     'auth' => [

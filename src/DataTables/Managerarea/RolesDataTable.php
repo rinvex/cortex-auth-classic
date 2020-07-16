@@ -28,11 +28,10 @@ class RolesDataTable extends AbstractDataTable
     public function query()
     {
         $query = parent::query();
-        $currentUser = $this->request->user(app('request.guard'));
 
-        $query = $currentUser->isNotA('supermanager') ?
-            $query->whereIn('id', $currentUser->roles->pluck('id')->toArray())
-            : $query->whereIn('id', $currentUser->roles->merge(app('request.tenant') ? app('cortex.auth.role')->where('scope', app('request.tenant')->getKey())->get() : collect())->pluck('id')->toArray());
+        $query = app('request.user')->isNotA('supermanager') ?
+            $query->whereIn('id', app('request.user')->roles->pluck('id')->toArray())
+            : $query->whereIn('id', app('request.user')->roles->merge(app('request.tenant') ? app('cortex.auth.role')->where('scope', app('request.tenant')->getKey())->get() : collect())->pluck('id')->toArray());
 
         return $query;
     }
