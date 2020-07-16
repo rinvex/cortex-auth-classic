@@ -31,6 +31,7 @@ class CreateAdminsTable extends Migration
             $table->string('organization')->nullable();
             $table->string('country_code', 2)->nullable();
             $table->string('language_code', 2)->nullable();
+            $table->string('timezone')->nullable();
             $table->text('two_factor')->nullable();
             $table->date('birthday')->nullable();
             $table->string('gender')->nullable();

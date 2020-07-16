@@ -42,4 +42,16 @@ class RegistrationSuccessNotification extends Notification implements ShouldQueu
                 : trans('cortex/auth::emails.register.welcome.intro_default')
             );
     }
+
+    /**
+     * Determine which queues should be used for each notification channel.
+     *
+     * @return array
+     */
+    public function viaQueues()
+    {
+        return [
+            'mail' => 'listeners',
+        ];
+    }
 }

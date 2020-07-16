@@ -43,15 +43,17 @@ class MembersController extends AuthorizedController
             ];
         })->values();
 
+        $roles = app('cortex.auth.role')->pluck('title', 'id');
         $languages = collect(languages())->pluck('name', 'iso_639_1');
+        $tags = app('rinvex.tags.tag')->all()->groupBy('group')->map->pluck('name', 'id')->sortKeys();
         $genders = ['male' => trans('cortex/auth::common.male'), 'female' => trans('cortex/auth::common.female')];
-        $tags = app('rinvex.tags.tag')->whereIn('group', ['skills', 'tools', 'certifications'])->get()->groupBy('group')->map->pluck('name', 'id')->sortKeys();
 
         return $membersDataTable->with([
-            'id' => 'adminarea-members-index-table',
+            'id' => 'adminarea-members-index',
             'countries' => $countries,
             'languages' => $languages,
             'genders' => $genders,
+            'roles' => $roles,
             'tags' => $tags,
         ])->render('cortex/auth::adminarea.pages.members');
     }
@@ -69,7 +71,7 @@ class MembersController extends AuthorizedController
         return $logsDataTable->with([
             'resource' => $member,
             'tabs' => 'adminarea.members.tabs',
-            'id' => "adminarea-members-{$member->getRouteKey()}-logs-table",
+            'id' => "adminarea-members-{$member->getRouteKey()}-logs",
         ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
 
@@ -86,7 +88,7 @@ class MembersController extends AuthorizedController
         return $activitiesDataTable->with([
             'resource' => $member,
             'tabs' => 'adminarea.members.tabs',
-            'id' => "adminarea-members-{$member->getRouteKey()}-activities-table",
+            'id' => "adminarea-members-{$member->getRouteKey()}-activities",
         ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
 
@@ -138,7 +140,7 @@ class MembersController extends AuthorizedController
             'resource' => $member,
             'tabs' => 'adminarea.attributes.tabs',
             'url' => route('adminarea.members.stash'),
-            'id' => "adminarea-attributes-{$member->getRouteKey()}-import-table",
+            'id' => "adminarea-attributes-{$member->getRouteKey()}-import",
         ])->render('cortex/foundation::adminarea.pages.datatable-dropzone');
     }
 
@@ -171,9 +173,9 @@ class MembersController extends AuthorizedController
             $record = app('cortex.foundation.import_record')->find($recordId);
 
             try {
-                $fillable = collect($record['data'])->intersectByKeys(array_flip(app('rinvex.auth.member')->getFillable()))->toArray();
+                $fillable = collect($record['data'])->intersectByKeys(array_flip(app('cortex.auth.member')->getFillable()))->toArray();
 
-                tap(app('rinvex.auth.member')->firstOrNew($fillable), function ($instance) use ($record) {
+                tap(app('cortex.auth.member')->firstOrNew($fillable), function ($instance) use ($record) {
                     $instance->save() && $record->delete();
                 });
             } catch (Exception $exception) {
@@ -201,7 +203,7 @@ class MembersController extends AuthorizedController
         return $importLogsDatatable->with([
             'resource' => trans('cortex/auth::common.member'),
             'tabs' => 'adminarea.members.tabs',
-            'id' => 'adminarea-members-import-logs-table',
+            'id' => 'adminarea-members-import-logs',
         ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
 
@@ -290,7 +292,7 @@ class MembersController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.members.index'),
-            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => trans('cortex/auth::common.member'), 'identifier' => $member->username])],
+            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => trans('cortex/auth::common.member'), 'identifier' => $member->getRouteKey()])],
         ]);
     }
 
@@ -321,7 +323,7 @@ class MembersController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.members.index'),
-            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/auth::common.member'), 'identifier' => $member->username])],
+            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/auth::common.member'), 'identifier' => $member->getRouteKey()])],
         ]);
     }
 }

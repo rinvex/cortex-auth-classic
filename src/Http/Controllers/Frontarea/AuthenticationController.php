@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Auth\Http\Controllers\Frontarea;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Validation\ValidationException;
 use Cortex\Foundation\Http\Controllers\AbstractController;
 use Cortex\Auth\Http\Requests\Frontarea\AuthenticationRequest;
@@ -90,9 +91,7 @@ class AuthenticationController extends AbstractController
      */
     protected function sendLoginResponse(Request $request)
     {
-        $currentUser = $request->user($this->getGuard());
-
-        $twofactor = $currentUser->getTwoFactor();
+        $twofactor = app('request.user')->getTwoFactor();
         $totpStatus = $twofactor['totp']['enabled'] ?? false;
         $phoneStatus = $twofactor['phone']['enabled'] ?? false;
 
@@ -102,7 +101,7 @@ class AuthenticationController extends AbstractController
         if ($totpStatus || $phoneStatus) {
             $this->processLogout($request);
 
-            $request->session()->put('cortex.auth.twofactor', ['user_id' => $currentUser->getKey(), 'remember' => $request->filled('remember'), 'totp' => $totpStatus, 'phone' => $phoneStatus]);
+            $request->session()->put('cortex.auth.twofactor', ['user_id' => app('request.user')->getKey(), 'remember' => $request->filled('remember'), 'totp' => $totpStatus, 'phone' => $phoneStatus]);
 
             $route = $totpStatus
                 ? route('frontarea.verification.phone.verify')
@@ -150,5 +149,21 @@ class AuthenticationController extends AbstractController
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
+    }
+
+    /**
+     * Authenticate the broadcast request for channel access.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function broadcast(Request $request)
+    {
+        if ($request->hasSession()) {
+            $request->session()->reflash();
+        }
+
+        return Broadcast::auth($request);
     }
 }

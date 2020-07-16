@@ -4,30 +4,29 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Models;
 
-use Error;
-use Exception;
-use BadMethodCallException;
 use Illuminate\Support\Arr;
 use Rinvex\Country\Country;
 use Rinvex\Language\Language;
 use Rinvex\Tags\Traits\Taggable;
-use Cortex\Auth\Events\UserSaved;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Support\Collection;
-use Cortex\Auth\Events\UserDeleted;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Rinvex\Auth\Traits\HasHashables;
+use Rinvex\Support\Traits\Macroable;
 use Rinvex\Auth\Traits\CanVerifyEmail;
 use Rinvex\Auth\Traits\CanVerifyPhone;
 use Cortex\Foundation\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
-use Rinvex\Cacheable\CacheableEloquent;
 use Rinvex\Support\Traits\HashidsTrait;
+use Rinvex\Support\Traits\HasTimezones;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Traits\Macroable;
 use Rinvex\Auth\Traits\CanResetPassword;
+use Cortex\Foundation\Events\ModelCreated;
+use Cortex\Foundation\Events\ModelDeleted;
+use Cortex\Foundation\Events\ModelUpdated;
 use Rinvex\Support\Traits\ValidatingTrait;
+use Cortex\Foundation\Events\ModelRestored;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Activitylog\Traits\CausesActivity;
@@ -36,6 +35,7 @@ use Rinvex\Auth\Traits\AuthenticatableTwoFactor;
 use Rinvex\Auth\Contracts\CanVerifyEmailContract;
 use Rinvex\Auth\Contracts\CanVerifyPhoneContract;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
+use Cortex\Foundation\Traits\FiresCustomModelEvent;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Rinvex\Auth\Contracts\CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -45,18 +45,11 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 
 abstract class User extends Model implements AuthenticatableContract, AuthenticatableTwoFactorContract, AuthorizableContract, CanResetPasswordContract, CanVerifyEmailContract, CanVerifyPhoneContract, HasMedia
 {
-    // @TODO: Strangely, this issue happens only here!!!
-    // Duplicate trait usage to fire attached events for cache
-    // flush before other events in other traits specially CausesActivity,
-    // otherwise old cached queries used and no changelog recorded on update.
-    use CacheableEloquent;
     use Taggable;
     use Auditable;
-    use Macroable {
-        Macroable::__call as macroableCall;
-        Macroable::__callStatic as macroableCallStatic;
-    }
+    use Macroable;
     use Notifiable;
+    use HasTimezones;
     use HashidsTrait;
     use Authorizable;
     use HasHashables;
@@ -70,6 +63,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     use CanResetPassword;
     use HasSocialAttributes;
     use HasRolesAndAbilities;
+    use FiresCustomModelEvent;
     use AuthenticatableTwoFactor;
 
     /**
@@ -89,6 +83,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
         'organization',
         'country_code',
         'language_code',
+        'timezone',
         'birthday',
         'gender',
         'social',
@@ -116,7 +111,8 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
         'organization' => 'string',
         'country_code' => 'string',
         'language_code' => 'string',
-        'birthday' => 'string',
+        'timezone' => 'string',
+        'birthday' => 'datetime',
         'gender' => 'string',
         'social' => 'array',
         'is_active' => 'boolean',
@@ -147,8 +143,10 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
      * @var array
      */
     protected $dispatchesEvents = [
-        'saved' => UserSaved::class,
-        'deleted' => UserDeleted::class,
+        'created' => ModelCreated::class,
+        'deleted' => ModelDeleted::class,
+        'restored' => ModelRestored::class,
+        'updated' => ModelUpdated::class,
     ];
 
     /**
@@ -383,7 +381,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
         if ($this->isA('superadmin')) {
             $roles = app('cortex.auth.role')->all();
         } elseif ($this->isA('supermanager')) {
-            $roles = $this->roles->merge(config('rinvex.tenants.active') ? app('cortex.auth.role')->where('scope', config('rinvex.tenants.active')->getKey())->get() : collect());
+            $roles = $this->roles->merge(app('request.tenant') ? app('cortex.auth.role')->where('scope', app('request.tenant')->getKey())->get() : collect());
         } else {
             $roles = $this->roles;
         }
@@ -411,47 +409,5 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     public function getRouteKeyName()
     {
         return 'username';
-    }
-
-    /**
-     * Handle dynamic method calls into the model.
-     *
-     * @param string $method
-     * @param array  $parameters
-     *
-     * @return mixed
-     */
-    public function __call($method, $parameters)
-    {
-        if (in_array($method, ['increment', 'decrement'])) {
-            return $this->{$method}(...$parameters);
-        }
-
-        try {
-            return $this->forwardCallTo($this->newQuery(), $method, $parameters);
-        } catch (Error | BadMethodCallException $e) {
-            if ($method !== 'macroableCall') {
-                return $this->macroableCall($method, $parameters);
-            }
-        }
-    }
-
-    /**
-     * Handle dynamic static method calls into the method.
-     *
-     * @param string $method
-     * @param array  $parameters
-     *
-     * @return mixed
-     */
-    public static function __callStatic($method, $parameters)
-    {
-        try {
-            return (new static())->{$method}(...$parameters);
-        } catch (Exception $e) {
-            if ($method !== 'macroableCallStatic') {
-                return (new static())::macroableCallStatic($method, $parameters);
-            }
-        }
     }
 }

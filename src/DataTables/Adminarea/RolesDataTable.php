@@ -27,11 +27,13 @@ class RolesDataTable extends AbstractDataTable
      */
     public function query()
     {
-        $currentUser = $this->request->user($this->request->route('guard'));
+        $query = parent::query();
 
-        $query = $currentUser->isA('superadmin') ? app($this->model)->query() : app($this->model)->query()->whereIn('id', $currentUser->roles->pluck('id')->toArray());
+        if (app('request.user')->isNotA('superadmin')) {
+            $query = $query->whereIn('id', app('request.user')->roles->pluck('id')->toArray());
+        }
 
-        return $this->applyScopes($query);
+        return $query;
     }
 
     /**
@@ -59,6 +61,7 @@ class RolesDataTable extends AbstractDataTable
             : '"<a href=\""+routes.route(\'adminarea.roles.edit\', {role: full.id})+"\">"+data+"</a>"';
 
         return [
+            'id' => ['checkboxes' => '{"selectRow": true}', 'exportable' => false, 'printable' => false],
             'title' => ['title' => trans('cortex/auth::common.title'), 'render' => $link, 'responsivePriority' => 0],
             'name' => ['title' => trans('cortex/auth::common.name')],
             'created_at' => ['title' => trans('cortex/auth::common.created_at'), 'render' => "moment(data).format('YYYY-MM-DD, hh:mm:ss A')"],

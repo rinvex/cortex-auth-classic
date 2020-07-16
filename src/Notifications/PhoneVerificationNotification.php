@@ -67,4 +67,16 @@ class PhoneVerificationNotification extends Notification implements ShouldQueue
 
         return $message;
     }
+
+    /**
+     * Determine which queues should be used for each notification channel.
+     *
+     * @return array
+     */
+    public function viaQueues()
+    {
+        return [
+            AuthyChannel::class => 'listeners',
+        ];
+    }
 }

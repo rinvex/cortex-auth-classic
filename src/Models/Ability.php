@@ -6,18 +6,26 @@ namespace Cortex\Auth\Models;
 
 use Cortex\Foundation\Traits\Auditable;
 use Rinvex\Support\Traits\HashidsTrait;
+use Rinvex\Support\Traits\HasTimezones;
+use Cortex\Foundation\Events\ModelCreated;
+use Cortex\Foundation\Events\ModelDeleted;
+use Cortex\Foundation\Events\ModelUpdated;
 use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
+use Cortex\Foundation\Events\ModelRestored;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Cortex\Foundation\Traits\FiresCustomModelEvent;
 use Silber\Bouncer\Database\Ability as BaseAbility;
 
 class Ability extends BaseAbility
 {
     use Auditable;
     use HashidsTrait;
+    use HasTimezones;
     use LogsActivity;
     use HasTranslations;
     use ValidatingTrait;
+    use FiresCustomModelEvent;
 
     /**
      * {@inheritdoc}
@@ -53,6 +61,18 @@ class Ability extends BaseAbility
     ];
 
     /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'created' => ModelCreated::class,
+        'deleted' => ModelDeleted::class,
+        'restored' => ModelRestored::class,
+        'updated' => ModelUpdated::class,
+    ];
+
+    /**
      * The attributes that are translatable.
      *
      * @var array
@@ -67,10 +87,10 @@ class Ability extends BaseAbility
      * @var array
      */
     protected $rules = [
-        'title' => 'nullable|string',
-        'name' => 'required|string|max:150',
+        'title' => 'nullable|string|strip_tags|max:150',
+        'name' => 'required|string|strip_tags|max:150',
         'entity_id' => 'nullable|integer',
-        'entity_type' => 'nullable|string',
+        'entity_type' => 'nullable|string|strip_tags|max:150',
         'only_owned' => 'sometimes|boolean',
         'scope' => 'nullable|integer',
     ];

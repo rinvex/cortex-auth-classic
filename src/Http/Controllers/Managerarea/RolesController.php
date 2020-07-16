@@ -35,7 +35,7 @@ class RolesController extends AuthorizedController
     public function index(RolesDataTable $rolesDataTable)
     {
         return $rolesDataTable->with([
-            'id' => 'managerarea-roles-index-table',
+            'id' => 'managerarea-roles-index',
         ])->render('cortex/foundation::managerarea.pages.datatable-index');
     }
 
@@ -52,7 +52,7 @@ class RolesController extends AuthorizedController
         return $logsDataTable->with([
             'resource' => $role,
             'tabs' => 'managerarea.roles.tabs',
-            'id' => "managerarea-roles-{$role->getRouteKey()}-logs-table",
+            'id' => "managerarea-roles-{$role->getRouteKey()}-logs",
         ])->render('cortex/foundation::managerarea.pages.datatable-tab');
     }
 
@@ -70,7 +70,7 @@ class RolesController extends AuthorizedController
             'resource' => $role,
             'tabs' => 'managerarea.roles.tabs',
             'url' => route('managerarea.roles.stash'),
-            'id' => "managerarea-roles-{$role->getRouteKey()}-import-table",
+            'id' => "managerarea-roles-{$role->getRouteKey()}-import",
         ])->render('cortex/foundation::managerarea.pages.datatable-dropzone');
     }
 
@@ -102,9 +102,9 @@ class RolesController extends AuthorizedController
             $record = app('cortex.foundation.import_record')->find($recordId);
 
             try {
-                $fillable = collect($record['data'])->intersectByKeys(array_flip(app('rinvex.auth.role')->getFillable()))->toArray();
+                $fillable = collect($record['data'])->intersectByKeys(array_flip(app('cortex.auth.role')->getFillable()))->toArray();
 
-                tap(app('rinvex.auth.role')->firstOrNew($fillable), function ($instance) use ($record) {
+                tap(app('cortex.auth.role')->firstOrNew($fillable), function ($instance) use ($record) {
                     $instance->save() && $record->delete();
                 });
             } catch (Exception $exception) {
@@ -132,7 +132,7 @@ class RolesController extends AuthorizedController
         return $importLogsDatatable->with([
             'resource' => trans('cortex/auth::common.role'),
             'tabs' => 'managerarea.roles.tabs',
-            'id' => 'managerarea-roles-import-logs-table',
+            'id' => 'managerarea-roles-import-logs',
         ])->render('cortex/foundation::managerarea.pages.datatable-tab');
     }
 
@@ -221,7 +221,7 @@ class RolesController extends AuthorizedController
 
         return intend([
             'url' => route('managerarea.roles.index'),
-            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => trans('cortex/auth::common.role'), 'identifier' => $role->title])],
+            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => trans('cortex/auth::common.role'), 'identifier' => $role->getRouteKey()])],
         ]);
     }
 
@@ -240,7 +240,7 @@ class RolesController extends AuthorizedController
 
         return intend([
             'url' => route('managerarea.roles.index'),
-            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/auth::common.role'), 'identifier' => $role->title])],
+            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/auth::common.role'), 'identifier' => $role->getRouteKey()])],
         ]);
     }
 }

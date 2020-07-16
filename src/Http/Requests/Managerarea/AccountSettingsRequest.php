@@ -35,7 +35,7 @@ class AccountSettingsRequest extends FormRequest
         $country = $data['country_code'] ?? null;
         $email = $data['email'] ?? null;
         $phone = $data['phone'] ?? null;
-        $user = $this->user($this->route('guard'));
+        $user = $this->user(app('request.guard'));
         $twoFactor = $user->getTwoFactor();
 
         if ($email !== $user->email) {
@@ -65,7 +65,7 @@ class AccountSettingsRequest extends FormRequest
         $mediaSize = config('cortex.foundation.media.size');
         $mediaMimetypes = config('cortex.foundation.media.mimetypes');
 
-        $user = $this->user($this->route('guard'));
+        $user = $this->user(app('request.guard'));
         $user->updateRulesUniques();
         $rules = $user->getRules();
 

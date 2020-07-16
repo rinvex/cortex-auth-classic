@@ -32,10 +32,9 @@ class AccountAttributesController extends AuthenticatedController
     public function update(AccountAttributesRequest $request)
     {
         $data = $request->validated();
-        $currentUser = $request->user($this->getGuard());
 
         // Update profile
-        $currentUser->fill($data)->save();
+        app('request.user')->fill($data)->save();
 
         return intend([
             'back' => true,

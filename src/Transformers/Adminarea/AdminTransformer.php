@@ -28,7 +28,6 @@ class AdminTransformer extends TransformerAbstract
 
         return $this->escape([
             'id' => (string) $admin->getRouteKey(),
-            'DT_RowId' => 'row_'.$admin->getRouteKey(),
             'is_active' => (bool) $admin->is_active,
             'given_name' => (string) $admin->given_name,
             'family_name' => (string) $admin->family_name,

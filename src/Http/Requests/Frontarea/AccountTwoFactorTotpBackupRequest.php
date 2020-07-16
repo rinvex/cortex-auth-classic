@@ -18,7 +18,7 @@ class AccountTwoFactorTotpBackupRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $twoFactor = $this->user($this->route('guard'))->getTwoFactor();
+        $twoFactor = $this->user(app('request.guard'))->getTwoFactor();
 
         if (! $twoFactor['totp']['enabled']) {
             throw new GenericException(trans('cortex/auth::messages.verification.twofactor.totp.cant_backup'), route('frontarea.account.settings'));

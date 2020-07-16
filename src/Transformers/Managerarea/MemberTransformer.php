@@ -28,7 +28,6 @@ class MemberTransformer extends TransformerAbstract
 
         return $this->escape([
             'id' => (string) $member->getRouteKey(),
-            'DT_RowId' => 'row_'.$member->getRouteKey(),
             'is_active' => (bool) $member->is_active,
             'given_name' => (string) $member->given_name,
             'family_name' => (string) $member->family_name,

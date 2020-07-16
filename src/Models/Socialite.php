@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Auth\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Rinvex\Support\Traits\HasTimezones;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
@@ -31,6 +32,8 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  */
 class Socialite extends Model
 {
+    use HasTimezones;
+
     /**
      * {@inheritdoc}
      */
@@ -70,7 +73,7 @@ class Socialite extends Model
      */
     public function user(): MorphTo
     {
-        return $this->morphTo('user', 'user_type', 'user_id');
+        return $this->morphTo('user', 'user_type', 'user_id', 'id');
     }
 
     /**

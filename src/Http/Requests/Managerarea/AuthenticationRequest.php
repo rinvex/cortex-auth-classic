@@ -26,7 +26,7 @@ class AuthenticationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'loginfield' => 'required|min:3|max:150',
+            'loginfield' => 'required|min:3|max:128',
             'password' => 'required|min:'.config('cortex.auth.password_min_chars'),
         ];
     }

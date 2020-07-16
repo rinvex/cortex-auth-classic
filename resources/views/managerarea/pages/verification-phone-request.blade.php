@@ -16,7 +16,7 @@
 
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{ route('frontarea.home') }}"><b>{{ $currentTenant->name }}</b></a>
+            <a href="{{ route('frontarea.home') }}"><b>{{ app('request.tenant')->name }}</b></a>
         </div>
 
         <div class="login-box-body">
@@ -26,8 +26,8 @@
 
                 <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
                     <div class="input-group input-group-lg">
-                        @if (auth()->guard(request()->route('guard'))->user())
-                            {{ Form::tel('phone_input', old('phone', $currentUser->phone), ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.phone'), 'required' => 'required', 'autofocus' => 'autofocus', 'disabled' => 'disabled']) }}
+                        @if (auth()->guard(app('request.guard'))->user())
+                            {{ Form::tel('phone_input', old('phone', app('request.user')->phone), ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.phone'), 'required' => 'required', 'autofocus' => 'autofocus', 'disabled' => 'disabled']) }}
                         @else
                             {{ Form::tel('phone_input', old('phone'), ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.phone'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
                         @endif

@@ -99,7 +99,7 @@ Route::domain(domain())->group(function () {
 
                  // Abilities Routes
                  Route::name('abilities.')->prefix('abilities')->group(function () {
-                     Route::get('/')->name('index')->uses('AbilitiesController@index');
+                     Route::match(['get', 'post'], '/')->name('index')->uses('AbilitiesController@index');
                      Route::get('import')->name('import')->uses('AbilitiesController@import');
                      Route::post('import')->name('stash')->uses('AbilitiesController@stash');
                      Route::post('hoard')->name('hoard')->uses('AbilitiesController@hoard');
@@ -115,7 +115,7 @@ Route::domain(domain())->group(function () {
 
                  // Roles Routes
                  Route::name('roles.')->prefix('roles')->group(function () {
-                     Route::get('/')->name('index')->uses('RolesController@index');
+                     Route::match(['get', 'post'], '/')->name('index')->uses('RolesController@index');
                      Route::get('import')->name('import')->uses('RolesController@import');
                      Route::post('import')->name('stash')->uses('RolesController@stash');
                      Route::post('hoard')->name('hoard')->uses('RolesController@hoard');
@@ -131,7 +131,7 @@ Route::domain(domain())->group(function () {
 
                  // Admins Routes
                  Route::name('admins.')->prefix('admins')->group(function () {
-                     Route::get('/')->name('index')->uses('AdminsController@index');
+                     Route::match(['get', 'post'], '/')->name('index')->uses('AdminsController@index');
                      Route::get('import')->name('import')->uses('AdminsController@import');
                      Route::post('import')->name('stash')->uses('AdminsController@stash');
                      Route::post('hoard')->name('hoard')->uses('AdminsController@hoard');
@@ -151,7 +151,7 @@ Route::domain(domain())->group(function () {
 
                  // Managers Routes
                  Route::name('managers.')->prefix('managers')->group(function () {
-                     Route::get('/')->name('index')->uses('ManagersController@index');
+                     Route::match(['get', 'post'], '/')->name('index')->uses('ManagersController@index');
                      Route::get('import')->name('import')->uses('ManagersController@import');
                      Route::post('import')->name('stash')->uses('ManagersController@stash');
                      Route::post('hoard')->name('hoard')->uses('ManagersController@hoard');
@@ -171,7 +171,7 @@ Route::domain(domain())->group(function () {
 
                  // Members Routes
                  Route::name('members.')->prefix('members')->group(function () {
-                     Route::get('/')->name('index')->uses('MembersController@index');
+                     Route::match(['get', 'post'], '/')->name('index')->uses('MembersController@index');
                      Route::post('ajax')->name('ajax')->uses('MembersController@ajax'); // @TODO: to be refactored!
                      Route::get('import')->name('import')->uses('MembersController@import');
                      Route::post('import')->name('stash')->uses('MembersController@stash');
@@ -192,7 +192,7 @@ Route::domain(domain())->group(function () {
 
                  // Guardians Routes
                  Route::name('guardians.')->prefix('guardians')->group(function () {
-                     Route::get('/')->name('index')->uses('GuardiansController@index');
+                     Route::match(['get', 'post'], '/')->name('index')->uses('GuardiansController@index');
                      Route::get('import')->name('import')->uses('GuardiansController@import');
                      Route::post('import')->name('stash')->uses('GuardiansController@stash');
                      Route::post('hoard')->name('hoard')->uses('GuardiansController@hoard');

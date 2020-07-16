@@ -29,13 +29,13 @@
         <section class="content">
 
             <div class="nav-tabs-custom">
-                @if($member->exists && $currentUser->can('delete', $member))
+                @if($member->exists && app('request.user')->can('delete', $member))
                     <div class="pull-right">
                         <a href="#" data-toggle="modal" data-target="#delete-confirmation"
                            data-modal-action="{{ route('managerarea.members.destroy', ['member' => $member]) }}"
-                           data-modal-title="{!! trans('cortex/foundation::messages.delete_confirmation_title') !!}"
+                           data-modal-title="{{ trans('cortex/foundation::messages.delete_confirmation_title') }}"
                            data-modal-button="<a href='#' class='btn btn-danger' data-form='delete' data-token='{{ csrf_token() }}'><i class='fa fa-trash-o'></i> {{ trans('cortex/foundation::common.delete') }}</a>"
-                           data-modal-body="{!! trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/auth::common.member'), 'identifier' => $member->username]) !!}"
+                           data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/auth::common.member'), 'identifier' => $member->username]) }}"
                            title="{{ trans('cortex/foundation::common.delete') }}" class="btn btn-default" style="margin: 4px"><i class="fa fa-trash text-danger"></i>
                         </a>
                     </div>
@@ -421,6 +421,25 @@
 
                                 <div class="col-md-4">
 
+                                    {{-- Timezone --}}
+                                    <div class="form-group{{ $errors->has('timezone') ? ' has-error' : '' }}">
+                                        {{ Form::label('timezone', trans('cortex/tenants::common.timezone'), ['class' => 'control-label']) }}
+                                        {{ Form::hidden('timezone', '', ['class' => 'skip-validation', 'id' => 'timezone_hidden']) }}
+                                        {{ Form::select('timezone', timezones(), null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/auth::common.select_timezone'), 'data-allow-clear' => 'true', 'data-width' => '100%']) }}
+
+                                        @if ($errors->has('timezone'))
+                                            <span class="help-block">{{ $errors->first('timezone') }}</span>
+                                        @endif
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-4">
+
                                     {{-- Password --}}
                                     <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
                                         {{ Form::label('password', trans('cortex/auth::common.password'), ['class' => 'control-label']) }}
@@ -437,10 +456,6 @@
                                     </div>
 
                                 </div>
-
-                            </div>
-
-                            <div class="row">
 
                                 <div class="col-md-4">
 

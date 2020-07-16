@@ -90,9 +90,7 @@ class AuthenticationController extends AbstractController
      */
     protected function sendLoginResponse(Request $request)
     {
-        $currentUser = $request->user($this->getGuard());
-
-        $twofactor = $currentUser->getTwoFactor();
+        $twofactor = app('request.user')->getTwoFactor();
         $totpStatus = $twofactor['totp']['enabled'] ?? false;
         $phoneStatus = $twofactor['phone']['enabled'] ?? false;
 
@@ -102,7 +100,7 @@ class AuthenticationController extends AbstractController
         if ($totpStatus || $phoneStatus) {
             $this->processLogout($request);
 
-            $request->session()->put('cortex.auth.twofactor', ['user_id' => $currentUser->getKey(), 'remember' => $request->filled('remember'), 'totp' => $totpStatus, 'phone' => $phoneStatus]);
+            $request->session()->put('cortex.auth.twofactor', ['user_id' => app('request.user')->getKey(), 'remember' => $request->filled('remember'), 'totp' => $totpStatus, 'phone' => $phoneStatus]);
 
             $route = $totpStatus
                 ? route('adminarea.verification.phone.verify')

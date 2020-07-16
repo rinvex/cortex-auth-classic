@@ -20,6 +20,7 @@ use Rinvex\Support\Traits\ConsoleTools;
 use Illuminate\Contracts\Events\Dispatcher;
 use Cortex\Auth\Console\Commands\SeedCommand;
 use Cortex\Auth\Http\Middleware\Reauthenticate;
+use Cortex\Auth\Http\Middleware\UpdateTimezone;
 use Cortex\Auth\Console\Commands\InstallCommand;
 use Cortex\Auth\Console\Commands\MigrateCommand;
 use Cortex\Auth\Console\Commands\PublishCommand;
@@ -57,9 +58,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // Merge config
         $this->app['config']->set('auth.model', config('cortex.auth.models.member'));
-        $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'cortex.auth');
 
         // Register console commands
         $this->registerCommands($this->commands);
@@ -99,9 +98,6 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(Router $router, Dispatcher $dispatcher): void
     {
-        // Attach request macro
-        $this->attachRequestMacro();
-
         // Map bouncer models
         Bouncer::useRoleModel(config('cortex.auth.models.role'));
         Bouncer::useAbilityModel(config('cortex.auth.models.ability'));
@@ -137,42 +133,16 @@ class AuthServiceProvider extends ServiceProvider
             'ability' => config('cortex.auth.models.ability'),
         ]);
 
-        // Load resources
-        $this->loadRoutesFrom(__DIR__.'/../../routes/web/adminarea.php');
-        $this->loadRoutesFrom(__DIR__.'/../../routes/web/frontarea.php');
-        $this->loadRoutesFrom(__DIR__.'/../../routes/web/managerarea.php');
-        $this->loadRoutesFrom(__DIR__.'/../../routes/web/tenantarea.php');
-        $this->loadViewsFrom(__DIR__.'/../../resources/views', 'cortex/auth');
-        $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'cortex/auth');
-        ! $this->autoloadMigrations('cortex/auth') || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
+        if (! $this->app->runningInConsole()) {
+            // Attach request macro
+            $this->attachRequestMacro();
 
-        $this->app->runningInConsole() || $dispatcher->listen('accessarea.ready', function ($accessarea) {
-            ! file_exists($menus = __DIR__."/../../routes/menus/{$accessarea}.php") || require $menus;
-            ! file_exists($breadcrumbs = __DIR__."/../../routes/breadcrumbs/{$accessarea}.php") || require $breadcrumbs;
-        });
+            // Override middlware
+            $this->overrideMiddleware($router);
 
-        // Publish Resources
-        $this->publishesLang('cortex/auth', true);
-        $this->publishesViews('cortex/auth', true);
-        $this->publishesConfig('cortex/auth', true);
-        $this->publishesMigrations('cortex/auth', true);
-
-        // Register attributes entities
-        ! app()->bound('rinvex.attributes.entities') || app('rinvex.attributes.entities')->push('admin');
-        ! app()->bound('rinvex.attributes.entities') || app('rinvex.attributes.entities')->push('member');
-        ! app()->bound('rinvex.attributes.entities') || app('rinvex.attributes.entities')->push('manager');
-
-        // Override middlware
-        $this->overrideMiddleware($router);
-
-        // Register menus
-        $this->registerMenus();
-
-        // Share current user instance with all views
-        $this->app['view']->composer('*', function ($view) {
-            ! config('rinvex.tenants.active') || $view->with('currentTenant', config('rinvex.tenants.active'));
-            $view->with('currentUser', auth()->guard(request()->route('guard'))->user());
-        });
+            // Register menus
+            $this->registerMenus();
+        }
     }
 
     /**
@@ -211,6 +181,7 @@ class AuthServiceProvider extends ServiceProvider
         // Append middleware to the 'web' middlware group
         $router->pushMiddlewareToGroup('web', AuthenticateSession::class);
         $router->pushMiddlewareToGroup('web', UpdateLastActivity::class);
+        $router->pushMiddlewareToGroup('web', UpdateTimezone::class);
 
         // Override route middleware on the fly
         $router->aliasMiddleware('reauthenticate', Reauthenticate::class);

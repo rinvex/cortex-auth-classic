@@ -6,18 +6,26 @@ namespace Cortex\Auth\Models;
 
 use Cortex\Foundation\Traits\Auditable;
 use Rinvex\Support\Traits\HashidsTrait;
+use Rinvex\Support\Traits\HasTimezones;
+use Cortex\Foundation\Events\ModelCreated;
+use Cortex\Foundation\Events\ModelDeleted;
+use Cortex\Foundation\Events\ModelUpdated;
 use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
+use Cortex\Foundation\Events\ModelRestored;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Silber\Bouncer\Database\Role as BaseRole;
+use Cortex\Foundation\Traits\FiresCustomModelEvent;
 
 class Role extends BaseRole
 {
     use Auditable;
     use HashidsTrait;
+    use HasTimezones;
     use LogsActivity;
     use ValidatingTrait;
     use HasTranslations;
+    use FiresCustomModelEvent;
 
     /**
      * {@inheritdoc}
@@ -44,6 +52,18 @@ class Role extends BaseRole
     protected $observables = [
         'validating',
         'validated',
+    ];
+
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'created' => ModelCreated::class,
+        'deleted' => ModelDeleted::class,
+        'restored' => ModelRestored::class,
+        'updated' => ModelUpdated::class,
     ];
 
     /**
@@ -112,8 +132,8 @@ class Role extends BaseRole
         parent::__construct($attributes);
 
         $this->setRules([
-            'title' => 'nullable|string|max:150',
-            'name' => 'required|string|max:150|unique:'.config('cortex.auth.tables.roles').',name,NULL,id,scope,'.($this->scope ?? 'null'),
+            'title' => 'nullable|string|strip_tags|max:150',
+            'name' => 'required|string|strip_tags|max:150|unique:'.config('cortex.auth.tables.roles').',name,NULL,id,scope,'.($this->scope ?? 'null'),
             'scope' => 'nullable|integer|unique:'.config('cortex.auth.tables.roles').',scope,NULL,id,name,'.($this->name ?? 'null'),
         ]);
     }

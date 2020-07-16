@@ -13,6 +13,13 @@ class EnforceSingleSession implements ShouldQueue
     use InteractsWithQueue;
 
     /**
+     * The name of the queue the job should be sent to.
+     *
+     * @var string|null
+     */
+    public $queue = 'listeners';
+
+    /**
      * Create a new event listener instance.
      *
      * @return void
@@ -23,9 +30,12 @@ class EnforceSingleSession implements ShouldQueue
     }
 
     /**
-     * @TODO: Review this method!
+     * @TODO #1: Review this method!
      *      Check => \Cortex\Auth\Http\Middleware\AuthenticateSession
      *      Also check => logoutOtherDevices method
+     *
+     * @TODO #2: Add support for Laravel Passport login `AccessTokenCreated`
+     *
      * Listen to the authentication login event.
      *
      * @param \Illuminate\Auth\Events\Login $event

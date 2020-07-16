@@ -32,15 +32,16 @@ class AccountTwoFactorController extends AuthenticatedController
     /**
      * Enable TwoFactor TOTP authentication.
      *
-     * @param \Illuminate\Http\Request      $request
      * @param \PragmaRX\Google2FA\Google2FA $totpProvider
+     *
+     * @throws \PragmaRX\Google2FA\Exceptions\IncompatibleWithGoogleAuthenticatorException
+     * @throws \PragmaRX\Google2FA\Exceptions\InvalidCharactersException
      *
      * @return \Illuminate\View\View
      */
-    public function enableTotp(Request $request, Google2FA $totpProvider)
+    public function enableTotp(Google2FA $totpProvider)
     {
-        $currentUser = $request->user($this->getGuard());
-        $twoFactor = $currentUser->getTwoFactor();
+        $twoFactor = app('request.user')->getTwoFactor();
 
         if (! $secret = Arr::get($twoFactor, 'totp.secret')) {
             $twoFactor['totp'] = [
@@ -48,10 +49,10 @@ class AccountTwoFactorController extends AuthenticatedController
                 'secret' => $secret = $totpProvider->generateSecretKey(),
             ];
 
-            $currentUser->fill(['two_factor' => $twoFactor])->forceSave();
+            app('request.user')->fill(['two_factor' => $twoFactor])->forceSave();
         }
 
-        $qrCode = $totpProvider->getQRCodeInline(config('app.name'), $currentUser->email, $secret);
+        $qrCode = $totpProvider->getQRCodeInline(config('app.name'), app('request.user')->email, $secret);
 
         return view('cortex/auth::tenantarea.pages.account-twofactor-totp', compact('secret', 'qrCode', 'twoFactor'));
     }
@@ -59,17 +60,14 @@ class AccountTwoFactorController extends AuthenticatedController
     /**
      * Disable TwoFactor TOTP authentication.
      *
-     * @param \Illuminate\Http\Request $request
-     *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function disableTotp(Request $request)
+    public function disableTotp()
     {
-        $currentUser = $request->user($this->getGuard());
-        $twoFactor = $currentUser->getTwoFactor();
+        $twoFactor = app('request.user')->getTwoFactor();
         $twoFactor['totp'] = [];
 
-        $currentUser->fill(['two_factor' => $twoFactor])->forceSave();
+        app('request.user')->fill(['two_factor' => $twoFactor])->forceSave();
 
         return intend([
             'back' => true,
@@ -87,8 +85,7 @@ class AccountTwoFactorController extends AuthenticatedController
      */
     public function updateTotp(AccountTwoFactorTotpProcessRequest $request, Google2FA $totpProvider)
     {
-        $currentUser = $request->user($this->getGuard());
-        $twoFactor = $currentUser->getTwoFactor();
+        $twoFactor = app('request.user')->getTwoFactor();
         $secret = Arr::get($twoFactor, 'totp.secret');
         $backup = Arr::get($twoFactor, 'totp.backup');
         $backupAt = Arr::get($twoFactor, 'totp.backup_at');
@@ -102,7 +99,7 @@ class AccountTwoFactorController extends AuthenticatedController
             ];
 
             // Update TwoFactor settings
-            $currentUser->fill(['two_factor' => $twoFactor])->forceSave();
+            app('request.user')->fill(['two_factor' => $twoFactor])->forceSave();
 
             return intend([
                 'back' => true,
@@ -125,12 +122,11 @@ class AccountTwoFactorController extends AuthenticatedController
      */
     public function backupTotp(AccountTwoFactorTotpBackupRequest $request)
     {
-        $currentUser = $request->user($this->getGuard());
-        $twoFactor = $currentUser->getTwoFactor();
+        $twoFactor = app('request.user')->getTwoFactor();
         $twoFactor['totp']['backup'] = $this->generateTotpBackups();
         $twoFactor['totp']['backup_at'] = Carbon::now()->toDateTimeString();
 
-        $currentUser->fill(['two_factor' => $twoFactor])->forceSave();
+        app('request.user')->fill(['two_factor' => $twoFactor])->forceSave();
 
         return intend([
             'back' => true,
@@ -147,12 +143,11 @@ class AccountTwoFactorController extends AuthenticatedController
      */
     public function enablePhone(AccountTwoFactorPhoneRequest $request)
     {
-        $currentUser = $request->user($this->getGuard());
-        $currentUser->routeNotificationForAuthy();
-        $twoFactor = $currentUser->getTwoFactor();
+        app('request.user')->routeNotificationForAuthy();
+        $twoFactor = app('request.user')->getTwoFactor();
         $twoFactor['phone']['enabled'] = true;
 
-        $currentUser->fill(['two_factor' => $twoFactor])->forceSave();
+        app('request.user')->fill(['two_factor' => $twoFactor])->forceSave();
 
         return intend([
             'back' => true,
@@ -163,17 +158,14 @@ class AccountTwoFactorController extends AuthenticatedController
     /**
      * Disable TwoFactor Phone authentication.
      *
-     * @param \Illuminate\Http\Request $request
-     *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function disablePhone(Request $request)
+    public function disablePhone()
     {
-        $currentUser = $request->user($this->getGuard());
-        $twoFactor = $currentUser->getTwoFactor();
+        $twoFactor = app('request.user')->getTwoFactor();
         $twoFactor['phone']['enabled'] = false;
 
-        $currentUser->fill(['two_factor' => $twoFactor])->forceSave();
+        app('request.user')->fill(['two_factor' => $twoFactor])->forceSave();
 
         return intend([
             'back' => true,

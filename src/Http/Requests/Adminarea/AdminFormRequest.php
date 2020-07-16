@@ -22,9 +22,7 @@ class AdminFormRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $currentUser = $this->user($this->route('guard'));
-
-        if (! $currentUser->isA('superadmin') && $currentUser !== $this->route('admin')) {
+        if (! app('request.user')->isA('superadmin') && app('request.user') !== $this->route('admin')) {
             throw new GenericException(trans('cortex/auth::messages.action_unauthorized'), route('adminarea.admins.index'));
         }
 
@@ -50,10 +48,10 @@ class AdminFormRequest extends FormRequest
 
         // Set abilities
         if (! empty($data['abilities'])) {
-            if ($this->user($this->route('guard'))->can('grant', \Cortex\Auth\Models\Ability::class)) {
+            if ($this->user(app('request.guard'))->can('grant', \Cortex\Auth\Models\Ability::class)) {
                 $abilities = array_map('intval', $this->get('abilities', []));
-                $data['abilities'] = $this->user($this->route('guard'))->isA('superadmin') ? $abilities
-                    : $this->user($this->route('guard'))->getAbilities()->pluck('id')->intersect($abilities)->toArray();
+                $data['abilities'] = $this->user(app('request.guard'))->isA('superadmin') ? $abilities
+                    : $this->user(app('request.guard'))->getAbilities()->pluck('id')->intersect($abilities)->toArray();
             } else {
                 unset($data['abilities']);
             }
@@ -61,10 +59,10 @@ class AdminFormRequest extends FormRequest
 
         // Set roles
         if (! empty($data['roles'])) {
-            if ($data['roles'] && $this->user($this->route('guard'))->can('assign', \Cortex\Auth\Models\Role::class)) {
+            if ($data['roles'] && $this->user(app('request.guard'))->can('assign', \Cortex\Auth\Models\Role::class)) {
                 $roles = array_map('intval', $this->get('roles', []));
-                $data['roles'] = $this->user($this->route('guard'))->isA('superadmin') ? $roles
-                    : $this->user($this->route('guard'))->roles->pluck('id')->intersect($roles)->toArray();
+                $data['roles'] = $this->user(app('request.guard'))->isA('superadmin') ? $roles
+                    : $this->user(app('request.guard'))->roles->pluck('id')->intersect($roles)->toArray();
             } else {
                 unset($data['roles']);
             }

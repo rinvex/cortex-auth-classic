@@ -66,4 +66,16 @@ class AuthenticationLockoutNotification extends Notification implements ShouldQu
             ->line(trans('cortex/auth::emails.auth.lockout.intro', ['created_at' => Carbon::now(), 'ip' => $this->ip, 'agent' => $this->agent]))
             ->line(trans('cortex/auth::emails.auth.lockout.outro'));
     }
+
+    /**
+     * Determine which queues should be used for each notification channel.
+     *
+     * @return array
+     */
+    public function viaQueues()
+    {
+        return [
+            'mail' => 'listeners',
+        ];
+    }
 }

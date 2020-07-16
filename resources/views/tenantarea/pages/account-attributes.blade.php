@@ -21,11 +21,11 @@
             <div class="col-md-9">
                 <div class="profile-content">
 
-                    {{ Form::model($currentUser, ['url' => route('tenantarea.account.attributes.update'), 'id' => 'tenantarea-account-attributes-form']) }}
+                    {{ Form::model(app('request.user'), ['url' => route('tenantarea.account.attributes.update'), 'id' => 'tenantarea-account-attributes-form']) }}
 
-                        @attributes($currentUser)
+                        @attributes(app('request.user'))
 
-                        @if($currentUser->getEntityAttributes()->isNotEmpty())
+                        @if(app('request.user')->getEntityAttributes()->isNotEmpty())
                             <div class="row">
                                 <div class="col-md-12 text-center profile-buttons">
                                     {{ Form::button('<i class="fa fa-save"></i> '.trans('cortex/auth::common.update_attributes'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}

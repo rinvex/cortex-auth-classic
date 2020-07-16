@@ -5,6 +5,72 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v6.1.0] - 2020-07-16
+- Update datatables user filters
+- Refactor timezone fields
+- Automatically update timezone if missing
+- Utilize timezones
+- Fix wrong redirection routes
+- Use app('request.tenant') instead of $currentTenant
+- Use app('request.user') instead of $currentUser
+- Add timezone field to user system
+- Apply fixes from StyleCI
+- Filter members by role and creation date
+- Update validation rules
+
+## [v6.0.3] - 2020-06-21
+- Check if container service is bound or not before using
+
+## [v6.0.2] - 2020-06-20
+- Move macroable logic to rinvex/laravel-support package
+
+## [v6.0.1] - 2020-06-19
+- Fix request.guard binding issue when running in console
+- Drop rinvex/laravel-attributes reference as it's no longer required by this package
+
+## [v6.0.0] - 2020-06-19
+- Refactor active tenant to container service binding, instead of runtime config value
+- Refactor route parameters to container service binding
+- Stick to composer version constraints recommendations and ease minimum required version of modules
+
+## [v5.2.0] - 2020-06-15
+- Autoload config, views, language, menus, breadcrumbs, and migrations
+  - This is now done automatically through cortex/foundation, so no need to manually wire it here anymore
+- Merge additional fillable, casts, and rules instead of overriding
+- Drop PHP 7.2 & 7.3 support from travis
+
+## [v5.1.1] - 2020-05-30
+- Update composer dependencies
+
+## [v5.1.0] - 2020-05-30
+- With the significance of recent updates, new minor release required
+
+## [v5.0.8] - 2020-05-30
+- Refactor datatables query() method override to use parent::query()
+- Add datatables checkbox column for bulk actions
+- Use getRouteKey() attribute for all redirect identifiers
+- Drop using strip_tags on redirect identifiers as they will use ->getRouteKey() which is already safe
+- Fix wrong container service names
+- Add support for datatable listing get and post requests
+- Refactor model CRUD dispatched events
+- Add bulk action routes
+- Remove useless "DT_RowId" column from transformers
+- Register channel broadcasting routes
+- Add broadcasting authentication route
+- Add listener queues
+- Fire custom model events from CRUD actions
+- Explicitly specify relationship attributes
+- Fix tags query
+- Rename datatables container names
+- Load module routes automatically
+- Strip tags breadcrumbs of potential user inputs
+- Apply fixes from StyleCI (#120)
+- Strip tags of language phrase parameters with potential user inputs
+- Escape language phrases
+- Add strip_tags validation rule to string fields
+- Remove default indent size config
+- Fix compatibility with recent rinvex/laravel-menus package update
+
 ## [v5.0.7] - 2020-04-12
 - Fix ServiceProvider registerCommands method compatibility
 
@@ -195,6 +261,15 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v6.1.0]: https://github.com/rinvex/cortex-auth/compare/v6.0.3...v6.1.0
+[v6.0.3]: https://github.com/rinvex/cortex-auth/compare/v6.0.2...v6.0.3
+[v6.0.2]: https://github.com/rinvex/cortex-auth/compare/v6.0.1...v6.0.2
+[v6.0.1]: https://github.com/rinvex/cortex-auth/compare/v6.0.0...v6.0.1
+[v6.0.0]: https://github.com/rinvex/cortex-auth/compare/v5.2.0...v6.0.0
+[v5.2.0]: https://github.com/rinvex/cortex-auth/compare/v5.1.1...v5.2.0
+[v5.1.1]: https://github.com/rinvex/cortex-auth/compare/v5.1.0...v5.1.1
+[v5.1.0]: https://github.com/rinvex/cortex-auth/compare/v5.0.8...v5.1.0
+[v5.0.8]: https://github.com/rinvex/cortex-auth/compare/v5.0.7...v5.0.8
 [v5.0.7]: https://github.com/rinvex/cortex-auth/compare/v5.0.6...v5.0.7
 [v5.0.6]: https://github.com/rinvex/cortex-auth/compare/v5.0.5...v5.0.6
 [v5.0.5]: https://github.com/rinvex/cortex-auth/compare/v5.0.4...v5.0.5

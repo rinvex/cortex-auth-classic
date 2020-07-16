@@ -35,7 +35,7 @@ class AccountSessionsController extends AuthenticatedController
 
         return intend([
             'back' => true,
-            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/auth::common.session'), 'identifier' => $session->getKey()])],
+            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/auth::common.session'), 'identifier' => $session->getRouteKey()])],
         ]);
     }
 
