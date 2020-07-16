@@ -32,6 +32,7 @@ class Manager extends User
         'organization',
         'country_code',
         'language_code',
+        'timezone',
         'birthday',
         'gender',
         'social',
