@@ -19,6 +19,7 @@ use Rinvex\Auth\Traits\CanVerifyPhone;
 use Cortex\Foundation\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Support\Traits\HashidsTrait;
+use Rinvex\Support\Traits\HasTimezones;
 use Illuminate\Notifications\Notifiable;
 use Rinvex\Auth\Traits\CanResetPassword;
 use Cortex\Foundation\Events\ModelCreated;
@@ -48,6 +49,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     use Auditable;
     use Macroable;
     use Notifiable;
+    use HasTimezones;
     use HashidsTrait;
     use Authorizable;
     use HasHashables;

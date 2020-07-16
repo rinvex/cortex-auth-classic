@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Auth\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Rinvex\Support\Traits\HasTimezones;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
@@ -40,6 +41,8 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  */
 class Session extends Model
 {
+    use HasTimezones;
+
     /**
      * {@inheritdoc}
      */

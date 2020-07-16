@@ -10,6 +10,7 @@ use Rinvex\Auth\Traits\HasHashables;
 use Cortex\Foundation\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Support\Traits\HashidsTrait;
+use Rinvex\Support\Traits\HasTimezones;
 use Cortex\Foundation\Events\ModelCreated;
 use Cortex\Foundation\Events\ModelDeleted;
 use Cortex\Foundation\Events\ModelUpdated;
@@ -26,6 +27,7 @@ class Guardian extends Model implements AuthenticatableContract, AuthorizableCon
 {
     use Auditable;
     use HashidsTrait;
+    use HasTimezones;
     use LogsActivity;
     use Authorizable;
     use HasHashables;
