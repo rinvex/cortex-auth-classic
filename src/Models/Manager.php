@@ -82,6 +82,7 @@ class Manager extends User
             'organization' => 'nullable|string|strip_tags|max:150',
             'country_code' => 'nullable|alpha|size:2|country',
             'language_code' => 'nullable|alpha|size:2|language',
+            'timezone' => 'nullable|string|max:32|timezone',
             'birthday' => 'nullable|date_format:Y-m-d',
             'gender' => 'nullable|in:male,female',
             'social' => 'nullable',

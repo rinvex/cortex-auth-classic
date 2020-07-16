@@ -30,9 +30,12 @@ class EnforceSingleSession implements ShouldQueue
     }
 
     /**
-     * @TODO: Review this method!
+     * @TODO #1: Review this method!
      *      Check => \Cortex\Auth\Http\Middleware\AuthenticateSession
      *      Also check => logoutOtherDevices method
+     *
+     * @TODO #2: Add support for Laravel Passport login `AccessTokenCreated`
+     *
      * Listen to the authentication login event.
      *
      * @param \Illuminate\Auth\Events\Login $event

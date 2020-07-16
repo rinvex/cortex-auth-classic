@@ -53,6 +53,7 @@ return [
     'country' => 'Country',
     'language' => 'Language',
     'timezone' => 'Timezone',
+    'select_timezone' => 'Select Timezone',
     'title' => 'Title',
     'organization' => 'Organization',
     'password' => 'Password',

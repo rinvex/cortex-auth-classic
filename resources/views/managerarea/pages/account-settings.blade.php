@@ -157,7 +157,8 @@
                                     {{-- Timezone --}}
                                     <div class="form-group{{ $errors->has('timezone') ? ' has-error' : '' }}">
                                         {{ Form::label('timezone', trans('cortex/auth::common.timezone'), ['class' => 'control-label']) }}
-                                        {{ Form::text('timezone', null, ['class' => 'form-control', 'placeholder' => app('request.user')->timezone ?: trans('cortex/auth::common.timezone')]) }}
+                                        {{ Form::hidden('timezone', '', ['class' => 'skip-validation', 'id' => 'timezone_hidden']) }}
+                                        {{ Form::select('timezone', timezones(), null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/auth::common.select_timezone'), 'data-allow-clear' => 'true', 'data-width' => '100%']) }}
 
                                         @if ($errors->has('timezone'))
                                             <span class="help-block">{{ $errors->first('timezone') }}</span>
