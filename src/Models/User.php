@@ -112,7 +112,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
         'country_code' => 'string',
         'language_code' => 'string',
         'timezone' => 'string',
-        'birthday' => 'datetime',
+        'birthday' => 'string',
         'gender' => 'string',
         'social' => 'array',
         'is_active' => 'boolean',
