@@ -23,11 +23,7 @@ class UpdateTimezone
 
             if (! $user->timezone) {
                 $user->fill(['timezone' => $timezone])->save();
-
-                return intend([
-                    'intended' => route(app('request.accessarea').'.home'),
-                    'with' => ['success' => trans('cortex/auth::messages.account.updated_timezone', ['timezone' => $timezone])],
-                ]);
+                $request->session()->flash('success', trans('cortex/auth::messages.account.updated_timezone', ['timezone' => $timezone]));
             }
         }
 
