@@ -156,10 +156,10 @@ Route::domain(domain())->group(function () {
                      Route::post('import')->name('stash')->uses('ManagersController@stash');
                      Route::post('hoard')->name('hoard')->uses('ManagersController@hoard');
                      Route::get('import/logs')->name('import.logs')->uses('ManagersController@importLogs');
-                     Route::get('create')->name('create')->uses('ManagersController@form');
+                     Route::get('create')->name('create')->uses('ManagersController@create');
                      Route::post('create')->name('store')->uses('ManagersController@store');
                      Route::get('{manager}')->name('show')->uses('ManagersController@show');
-                     Route::get('{manager}/edit')->name('edit')->uses('ManagersController@form');
+                     Route::get('{manager}/edit')->name('edit')->uses('ManagersController@edit');
                      Route::put('{manager}/edit')->name('update')->uses('ManagersController@update');
                      Route::get('{manager}/logs')->name('logs')->uses('ManagersController@logs');
                      Route::get('{manager}/activities')->name('activities')->uses('ManagersController@activities');
@@ -177,10 +177,10 @@ Route::domain(domain())->group(function () {
                      Route::post('import')->name('stash')->uses('MembersController@stash');
                      Route::post('hoard')->name('hoard')->uses('MembersController@hoard');
                      Route::get('import/logs')->name('import.logs')->uses('MembersController@importLogs');
-                     Route::get('create')->name('create')->uses('MembersController@form');
+                     Route::get('create')->name('create')->uses('MembersController@create');
                      Route::post('create')->name('store')->uses('MembersController@store');
                      Route::get('{member}')->name('show')->uses('MembersController@show');
-                     Route::get('{member}/edit')->name('edit')->uses('MembersController@form');
+                     Route::get('{member}/edit')->name('edit')->uses('MembersController@edit');
                      Route::put('{member}/edit')->name('update')->uses('MembersController@update');
                      Route::get('{member}/logs')->name('logs')->uses('MembersController@logs');
                      Route::get('{member}/activities')->name('activities')->uses('MembersController@activities');
@@ -197,10 +197,10 @@ Route::domain(domain())->group(function () {
                      Route::post('import')->name('stash')->uses('GuardiansController@stash');
                      Route::post('hoard')->name('hoard')->uses('GuardiansController@hoard');
                      Route::get('import/logs')->name('import.logs')->uses('GuardiansController@importLogs');
-                     Route::get('create')->name('create')->uses('GuardiansController@form');
+                     Route::get('create')->name('create')->uses('GuardiansController@create');
                      Route::post('create')->name('store')->uses('GuardiansController@store');
                      Route::get('{guardian}')->name('show')->uses('GuardiansController@show');
-                     Route::get('{guardian}/edit')->name('edit')->uses('GuardiansController@form');
+                     Route::get('{guardian}/edit')->name('edit')->uses('GuardiansController@edit');
                      Route::put('{guardian}/edit')->name('update')->uses('GuardiansController@update');
                      Route::get('{guardian}/logs')->name('logs')->uses('GuardiansController@logs');
                      Route::delete('{guardian}')->name('destroy')->uses('GuardiansController@destroy');

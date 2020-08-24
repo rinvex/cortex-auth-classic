@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v6.1.3] - 2020-08-25
+- Enforce controller API consistency
+- fix account settings media route parameter name in managerarea (#158)
+- Activate module after installation
+
 ## [v6.1.2] - 2020-07-23
 - Flash timezone update message into session without issuing a redirect
 - Cast birthday to string instead of date to avoid wrong casting datetime format!
@@ -271,6 +276,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v6.1.3]: https://github.com/rinvex/cortex-auth/compare/v6.1.2...v6.1.3
 [v6.1.2]: https://github.com/rinvex/cortex-auth/compare/v6.1.1...v6.1.2
 [v6.1.1]: https://github.com/rinvex/cortex-auth/compare/v6.1.0...v6.1.1
 [v6.1.0]: https://github.com/rinvex/cortex-auth/compare/v6.0.3...v6.1.0
