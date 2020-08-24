@@ -208,6 +208,32 @@ class ManagersController extends AuthorizedController
     }
 
     /**
+     * Create new manager.
+     *
+     * @param \Illuminate\Http\Request    $request
+     * @param \Cortex\Auth\Models\Manager $manager
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create(Request $request, Manager $manager)
+    {
+        return $this->form($request, $manager);
+    }
+
+    /**
+     * Edit given manager.
+     *
+     * @param \Illuminate\Http\Request    $request
+     * @param \Cortex\Auth\Models\Manager $manager
+     *
+     * @return \Illuminate\View\View
+     */
+    public function edit(Request $request, Manager $manager)
+    {
+        return $this->form($request, $manager);
+    }
+
+    /**
      * Show manager create/edit form.
      *
      * @param \Illuminate\Http\Request    $request

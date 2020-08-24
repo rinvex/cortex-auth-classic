@@ -208,6 +208,32 @@ class MembersController extends AuthorizedController
     }
 
     /**
+     * Create new member.
+     *
+     * @param \Illuminate\Http\Request   $request
+     * @param \Cortex\Auth\Models\Member $member
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create(Request $request, Member $member)
+    {
+        return $this->form($request, $member);
+    }
+
+    /**
+     * Edit given member.
+     *
+     * @param \Illuminate\Http\Request   $request
+     * @param \Cortex\Auth\Models\Member $member
+     *
+     * @return \Illuminate\View\View
+     */
+    public function edit(Request $request, Member $member)
+    {
+        return $this->form($request, $member);
+    }
+
+    /**
      * Show member create/edit form.
      *
      * @param \Illuminate\Http\Request   $request
