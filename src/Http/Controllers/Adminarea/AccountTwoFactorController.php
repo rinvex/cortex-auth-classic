@@ -24,7 +24,7 @@ class AccountTwoFactorController extends AuthenticatedController
      */
     public function index(Request $request)
     {
-        $twoFactor = $request->user($this->getGuard())->getTwoFactor();
+        $twoFactor = $request->user(app('request.guard'))->getTwoFactor();
 
         return view('cortex/auth::adminarea.pages.account-twofactor', compact('twoFactor'));
     }

@@ -19,7 +19,7 @@ class RegistrationController extends AbstractController
     {
         parent::__construct();
 
-        $this->middleware($this->getGuestMiddleware())->except($this->middlewareWhitelist);
+        $this->middleware(($guard = app('request.guard')) ? 'guest:'.$guard : 'guest')->except($this->middlewareWhitelist);
     }
 
     /**
@@ -54,10 +54,10 @@ class RegistrationController extends AbstractController
 
         // Send verification if required
         ! config('cortex.auth.emails.verification')
-        || app('rinvex.auth.emailverification')->broker($this->getEmailVerificationBroker())->sendVerificationLink(['email' => $data['email']]);
+        || app('rinvex.auth.emailverification')->broker(app('request.emailVerificationBroker'))->sendVerificationLink(['email' => $data['email']]);
 
         // Auto-login registered member
-        auth()->guard($this->getGuard())->login($member);
+        auth()->guard(app('request.guard'))->login($member);
 
         // Registration completed successfully
         return intend([

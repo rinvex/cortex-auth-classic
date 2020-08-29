@@ -74,7 +74,7 @@ class SocialAuthenticationController extends AbstractController
         }
 
         // Auto-login registered member
-        auth()->guard($this->getGuard())->login($localUser, true);
+        auth()->guard(app('request.guard'))->login($localUser, true);
 
         return intend([
             'intended' => route('managerarea.home'),
