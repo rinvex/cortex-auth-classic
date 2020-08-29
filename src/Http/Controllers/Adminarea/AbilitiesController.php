@@ -172,7 +172,7 @@ class AbilitiesController extends AuthorizedController
      */
     protected function form(Request $request, Ability $ability)
     {
-        $roles = $request->user($this->getGuard())->getManagedRoles();
+        $roles = $request->user(app('request.guard'))->getManagedRoles();
         $entityTypes = app('cortex.auth.ability')->distinct()->get(['entity_type'])->pluck('entity_type', 'entity_type')->toArray();
 
         return view('cortex/auth::adminarea.pages.ability', compact('ability', 'roles', 'entityTypes'));

@@ -26,7 +26,7 @@ class AuthenticationController extends AbstractController
     {
         parent::__construct();
 
-        $this->middleware($this->getGuestMiddleware())->except($this->middlewareWhitelist);
+        $this->middleware(($guard = app('request.guard')) ? 'guest:'.$guard : 'guest')->except($this->middlewareWhitelist);
     }
 
     /**
@@ -58,7 +58,7 @@ class AuthenticationController extends AbstractController
             'password' => $request->input('password'),
         ];
 
-        if (auth()->guard($this->getGuard())->attempt($credentials, $request->filled('remember'))) {
+        if (auth()->guard(app('request.guard'))->attempt($credentials, $request->filled('remember'))) {
             return $this->sendLoginResponse($request);
         }
 
@@ -144,7 +144,7 @@ class AuthenticationController extends AbstractController
      */
     protected function processLogout(Request $request): void
     {
-        auth()->guard($this->getGuard())->logoutCurrentDevice();
+        auth()->guard(app('request.guard'))->logoutCurrentDevice();
 
         $request->session()->invalidate();
 

@@ -43,7 +43,7 @@ class MemberRegistrationController extends RegistrationController
 
         // Send verification if required
         ! config('cortex.auth.emails.verification')
-        || app('rinvex.auth.emailverification')->broker($this->getEmailVerificationBroker())->sendVerificationLink(['email' => $member->email]);
+        || app('rinvex.auth.emailverification')->broker(app('request.emailVerificationBroker'))->sendVerificationLink(['email' => $member->email]);
 
         // Auto-login registered member
         auth()->guard(config('auth.defaults.guard'))->login($member);
