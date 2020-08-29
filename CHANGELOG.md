@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v6.1.4] - 2020-08-28
+- Refactor request params setup
+
 ## [v6.1.3] - 2020-08-25
 - Enforce controller API consistency
 - fix account settings media route parameter name in managerarea (#158)
@@ -276,6 +279,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v6.1.4]: https://github.com/rinvex/cortex-auth/compare/v6.1.3...v6.1.4
 [v6.1.3]: https://github.com/rinvex/cortex-auth/compare/v6.1.2...v6.1.3
 [v6.1.2]: https://github.com/rinvex/cortex-auth/compare/v6.1.1...v6.1.2
 [v6.1.1]: https://github.com/rinvex/cortex-auth/compare/v6.1.0...v6.1.1
