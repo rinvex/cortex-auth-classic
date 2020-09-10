@@ -155,7 +155,7 @@ class AuthServiceProvider extends ServiceProvider
         Request::macro('attemptUser', function (string $guard = null) {
             $twofactor = $this->session()->get('cortex.auth.twofactor');
 
-            return auth()->guard($guard)->getProvider()->retrieveById($twofactor['user_id']);
+            return auth()->guard($guard)->getProvider()->retrieveById($twofactor['user_id'] ?? null);
         });
     }
 
