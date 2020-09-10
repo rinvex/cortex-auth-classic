@@ -15,6 +15,6 @@ class RegistrationController extends AbstractController
     {
         parent::__construct();
 
-        $this->middleware($this->getGuestMiddleware())->except($this->middlewareWhitelist);
+        ! app()->bound('request.guard') || $this->middleware(($guard = app('request.guard')) ? 'guest:'.$guard : 'guest')->except($this->middlewareWhitelist);
     }
 }

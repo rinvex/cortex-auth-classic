@@ -208,6 +208,32 @@ class ManagersController extends AuthorizedController
     }
 
     /**
+     * Create new manager.
+     *
+     * @param \Illuminate\Http\Request    $request
+     * @param \Cortex\Auth\Models\Manager $manager
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create(Request $request, Manager $manager)
+    {
+        return $this->form($request, $manager);
+    }
+
+    /**
+     * Edit given manager.
+     *
+     * @param \Illuminate\Http\Request    $request
+     * @param \Cortex\Auth\Models\Manager $manager
+     *
+     * @return \Illuminate\View\View
+     */
+    public function edit(Request $request, Manager $manager)
+    {
+        return $this->form($request, $manager);
+    }
+
+    /**
      * Show manager create/edit form.
      *
      * @param \Illuminate\Http\Request    $request
@@ -228,8 +254,8 @@ class ManagersController extends AuthorizedController
         $tags = app('rinvex.tags.tag')->pluck('name', 'id');
         $languages = collect(languages())->pluck('name', 'iso_639_1');
         $genders = ['male' => trans('cortex/auth::common.male'), 'female' => trans('cortex/auth::common.female')];
-        $abilities = $request->user($this->getGuard())->getManagedAbilities();
-        $roles = $request->user($this->getGuard())->getManagedRoles();
+        $abilities = $request->user(app('request.guard'))->getManagedAbilities();
+        $roles = $request->user(app('request.guard'))->getManagedRoles();
 
         $tenants = app('rinvex.tenants.tenant')->all()->pluck('name', 'id')->toArray();
 

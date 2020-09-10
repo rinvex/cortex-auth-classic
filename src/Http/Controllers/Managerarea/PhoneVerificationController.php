@@ -37,8 +37,8 @@ class PhoneVerificationController extends AbstractController
      */
     public function send(PhoneVerificationSendRequest $request)
     {
-        $user = $request->user($this->getGuard())
-                ?? $request->attemptUser($this->getGuard())
+        $user = $request->user(app('request.guard'))
+                ?? $request->attemptUser(app('request.guard'))
                    ?? app('cortex.auth.manager')->whereNotNull('phone')->where('phone', $request->input('phone'))->first();
 
         $user->sendPhoneVerificationNotification($request->get('method'), true);
@@ -71,8 +71,8 @@ class PhoneVerificationController extends AbstractController
     public function process(PhoneVerificationProcessRequest $request)
     {
         // Guest trying to authenticate through TwoFactor
-        if (($attemptUser = $request->attemptUser($this->getGuard())) && $this->attemptTwoFactor($attemptUser, $request->get('token'))) {
-            auth()->guard($this->getGuard())->login($attemptUser, $request->session()->get('cortex.auth.twofactor.remember'));
+        if (($attemptUser = $request->attemptUser(app('request.guard'))) && $this->attemptTwoFactor($attemptUser, $request->get('token'))) {
+            auth()->guard(app('request.guard'))->login($attemptUser, $request->session()->get('cortex.auth.twofactor.remember'));
             $request->session()->forget('cortex.auth.twofactor'); // @TODO: Do we need to forget session, or it's already gone after login?
 
             return intend([
@@ -82,7 +82,7 @@ class PhoneVerificationController extends AbstractController
         }
 
         // Logged in user OR A GUEST trying to verify phone
-        if (($user = $request->user($this->getGuard()) ?? app('cortex.auth.manager')->whereNotNull('phone')->where('phone', $request->get('phone'))->first()) && $this->isValidTwoFactorPhone($user, $request->get('token'))) {
+        if (($user = $request->user(app('request.guard')) ?? app('cortex.auth.manager')->whereNotNull('phone')->where('phone', $request->get('phone'))->first()) && $this->isValidTwoFactorPhone($user, $request->get('token'))) {
             // Profile update
             $user->fill([
                 'phone_verified_at' => Carbon::now(),

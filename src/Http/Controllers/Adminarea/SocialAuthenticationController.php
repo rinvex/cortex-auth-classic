@@ -73,7 +73,7 @@ class SocialAuthenticationController extends AbstractController
             $localUser = $this->createLocalUser($provider, $attributes);
         }
 
-        auth()->guard($this->getGuard())->login($localUser, true);
+        auth()->guard(app('request.guard'))->login($localUser, true);
 
         return intend([
             'intended' => route('adminarea.home'),

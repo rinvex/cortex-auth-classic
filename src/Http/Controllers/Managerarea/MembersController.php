@@ -206,6 +206,32 @@ class MembersController extends AuthorizedController
     }
 
     /**
+     * Create new member.
+     *
+     * @param \Illuminate\Http\Request   $request
+     * @param \Cortex\Auth\Models\Member $member
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create(Request $request, Member $member)
+    {
+        return $this->form($request, $member);
+    }
+
+    /**
+     * Edit given member.
+     *
+     * @param \Illuminate\Http\Request   $request
+     * @param \Cortex\Auth\Models\Member $member
+     *
+     * @return \Illuminate\View\View
+     */
+    public function edit(Request $request, Member $member)
+    {
+        return $this->form($request, $member);
+    }
+
+    /**
      * Show member create/edit form.
      *
      * @param \Illuminate\Http\Request   $request
@@ -226,8 +252,8 @@ class MembersController extends AuthorizedController
         $tags = app('rinvex.tags.tag')->pluck('name', 'id');
         $languages = collect(languages())->pluck('name', 'iso_639_1');
         $genders = ['male' => trans('cortex/auth::common.male'), 'female' => trans('cortex/auth::common.female')];
-        $abilities = $request->user($this->getGuard())->getManagedAbilities();
-        $roles = $request->user($this->getGuard())->getManagedRoles();
+        $abilities = $request->user(app('request.guard'))->getManagedAbilities();
+        $roles = $request->user(app('request.guard'))->getManagedRoles();
 
         return view('cortex/auth::managerarea.pages.member', compact('member', 'abilities', 'roles', 'countries', 'languages', 'genders', 'tags'));
     }
