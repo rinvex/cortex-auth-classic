@@ -69,7 +69,7 @@
             {{--  Created at from --}}
             <div class="form-group{{ $errors->has('created_at_from') ? ' has-error' : '' }}">
                 {{ Form::label('created_at_from', trans('cortex/foundation::common.created_at_from'), ['class' => 'control-label']) }}
-                {{ Form::text('created_at_from', null, ['class' => 'form-control datepicker', 'data-locale' => '{"format": "YYYY-MM-DD"}', 'data-single-date-picker' => 'true', 'data-show-dropdowns' => 'true', 'data-auto-apply' => 'true', 'data-min-date' => '1900-01-01']) }}
+                {{ Form::date('created_at_from', null, ['class' => 'form-control datepicker', 'data-locale' => '{"format": "YYYY-MM-DD"}', 'data-single-date-picker' => 'true', 'data-show-dropdowns' => 'true', 'data-auto-apply' => 'true', 'data-min-date' => '1900-01-01', 'data-start-date' => '1900-01-01']) }}
 
                 @if ($errors->has('created_at_from'))
                     <span class="help-block">{{ $errors->first('created_at_from') }}</span>
