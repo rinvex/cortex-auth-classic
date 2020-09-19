@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v6.1.6] - 2020-09-19
+- Add calendar icon to birthday fields
+- Change birthdate field from text to date
+- Move datatable filters to a blade partial
+
 ## [v6.1.5] - 2020-09-08
 - Check for app()->bound('request.guard') first before using in controller constructors
 
@@ -282,6 +287,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v6.1.6]: https://github.com/rinvex/cortex-auth/compare/v6.1.5...v6.1.6
 [v6.1.5]: https://github.com/rinvex/cortex-auth/compare/v6.1.4...v6.1.5
 [v6.1.4]: https://github.com/rinvex/cortex-auth/compare/v6.1.3...v6.1.4
 [v6.1.3]: https://github.com/rinvex/cortex-auth/compare/v6.1.2...v6.1.3
