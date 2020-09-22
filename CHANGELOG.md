@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v6.1.8] - 2020-09-22
+- Fix authentication guards for registration auto login
+
 ## [v6.1.7] - 2020-09-22
 - Skip unnecessary attemptUser step for email verification
 
@@ -290,6 +293,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v6.1.8]: https://github.com/rinvex/cortex-auth/compare/v6.1.7...v6.1.8
 [v6.1.7]: https://github.com/rinvex/cortex-auth/compare/v6.1.6...v6.1.7
 [v6.1.6]: https://github.com/rinvex/cortex-auth/compare/v6.1.5...v6.1.6
 [v6.1.5]: https://github.com/rinvex/cortex-auth/compare/v6.1.4...v6.1.5
