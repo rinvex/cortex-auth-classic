@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v6.1.9] - 2020-10-05
+- Drop useless Models class override
+
 ## [v6.1.8] - 2020-09-22
 - Fix authentication guards for registration auto login
 
@@ -293,6 +296,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v6.1.9]: https://github.com/rinvex/cortex-auth/compare/v6.1.8...v6.1.9
 [v6.1.8]: https://github.com/rinvex/cortex-auth/compare/v6.1.7...v6.1.8
 [v6.1.7]: https://github.com/rinvex/cortex-auth/compare/v6.1.6...v6.1.7
 [v6.1.6]: https://github.com/rinvex/cortex-auth/compare/v6.1.5...v6.1.6
