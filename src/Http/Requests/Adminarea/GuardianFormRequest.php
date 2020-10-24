@@ -51,8 +51,8 @@ class GuardianFormRequest extends FormRequest
         $rules = $guardian->getRules();
 
         $rules['password'] = $guardian->exists
-            ? 'confirmed|min:'.config('cortex.auth.password_min_chars')
-            : 'required|confirmed|min:'.config('cortex.auth.password_min_chars');
+            ? 'confirmed|min:'.config('cortex.auth.password_min_chars').'|max:'.config('cortex.auth.password_max_chars')
+            : 'required|confirmed|min:'.config('cortex.auth.password_min_chars').'|max:'.config('cortex.auth.password_max_chars');
 
         return $rules;
     }

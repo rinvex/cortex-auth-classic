@@ -28,7 +28,7 @@ class TenantRegistrationProcessRequest extends TenantRegistrationRequest
     public function rules(): array
     {
         $managerRules = app('cortex.auth.manager')->getRules();
-        $managerRules['password'] = 'required|confirmed|min:'.config('cortex.auth.password_min_chars');
+        $managerRules['password'] = 'required|confirmed|min:'.config('cortex.auth.password_min_chars').'|max:'.config('cortex.auth.password_max_chars');
         $managerRules = array_combine(
             array_map(function ($key) {
                 return 'manager.'.$key;
