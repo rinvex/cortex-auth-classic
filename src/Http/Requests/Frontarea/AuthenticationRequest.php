@@ -27,7 +27,7 @@ class AuthenticationRequest extends FormRequest
     {
         return [
             'loginfield' => 'required|min:3|max:128',
-            'password' => 'required|min:'.config('cortex.auth.password_min_chars'),
+            'password' => 'required|min:'.config('cortex.auth.password_min_chars').'|max:'.config('cortex.auth.password_max_chars'),
         ];
     }
 }
