@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Auth\Transformers\Managerarea;
+namespace Cortex\Auth\Transformers;
 
 use Cortex\Auth\Models\Manager;
 use Rinvex\Support\Traits\Escaper;
@@ -33,7 +33,9 @@ class ManagerTransformer extends TransformerAbstract
             'family_name' => (string) $manager->family_name,
             'username' => (string) $manager->username,
             'email' => (string) $manager->email,
+            'email_verified_at' => (string) $manager->email_verified_at,
             'phone' => (string) $manager->phone,
+            'phone_verified_at' => (string) $manager->phone_verified_at,
             'country_code' => (string) optional($country)->getName(),
             'country_emoji' => (string) optional($country)->getEmoji(),
             'language_code' => (string) optional($language)->getName(),

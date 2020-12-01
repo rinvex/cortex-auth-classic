@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Cortex\Auth\DataTables\Adminarea;
 
 use Cortex\Auth\Models\Ability;
+use Cortex\Auth\Transformers\AbilityTransformer;
 use Cortex\Foundation\DataTables\AbstractDataTable;
-use Cortex\Auth\Transformers\Adminarea\AbilityTransformer;
 
 class AbilitiesDataTable extends AbstractDataTable
 {

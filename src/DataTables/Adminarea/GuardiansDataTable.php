@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Cortex\Auth\DataTables\Adminarea;
 
 use Cortex\Auth\Models\Guardian;
+use Cortex\Auth\Transformers\GuardianTransformer;
 use Cortex\Foundation\DataTables\AbstractDataTable;
-use Cortex\Auth\Transformers\Adminarea\GuardianTransformer;
 
 class GuardiansDataTable extends AbstractDataTable
 {

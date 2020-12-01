@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Cortex\Auth\DataTables\Managerarea;
 
 use Cortex\Auth\Models\Role;
+use Cortex\Auth\Transformers\RoleTransformer;
 use Cortex\Foundation\DataTables\AbstractDataTable;
-use Cortex\Auth\Transformers\Managerarea\RoleTransformer;
 
 class RolesDataTable extends AbstractDataTable
 {

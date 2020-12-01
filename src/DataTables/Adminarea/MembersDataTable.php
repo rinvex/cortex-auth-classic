@@ -6,8 +6,8 @@ namespace Cortex\Auth\DataTables\Adminarea;
 
 use Cortex\Auth\Models\Member;
 use Illuminate\Database\Eloquent\Builder;
+use Cortex\Auth\Transformers\MemberTransformer;
 use Cortex\Foundation\DataTables\AbstractDataTable;
-use Cortex\Auth\Transformers\Adminarea\MemberTransformer;
 
 class MembersDataTable extends AbstractDataTable
 {

@@ -6,8 +6,8 @@ namespace Cortex\Auth\DataTables\Adminarea;
 
 use Cortex\Auth\Models\Manager;
 use Illuminate\Database\Eloquent\Builder;
+use Cortex\Auth\Transformers\ManagerTransformer;
 use Cortex\Foundation\DataTables\AbstractDataTable;
-use Cortex\Auth\Transformers\Adminarea\ManagerTransformer;
 
 class ManagersDataTable extends AbstractDataTable
 {
