@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Auth\DataTables\Adminarea;
 
 use Cortex\Auth\Models\Admin;
+use Cortex\Auth\Scopes\UserScope;
 use Illuminate\Database\Eloquent\Builder;
 use Cortex\Auth\Transformers\AdminTransformer;
 use Cortex\Foundation\DataTables\AbstractDataTable;
@@ -30,38 +31,6 @@ class AdminsDataTable extends AbstractDataTable
     {
         $query = $this->query();
 
-        if (! empty($this->request->get('country_code'))) {
-            $query->where('country_code', $this->request->get('country_code'));
-        }
-
-        if (! empty($this->request->get('language_code'))) {
-            $query->where('language_code', $this->request->get('language_code'));
-        }
-
-        if (! empty($this->request->get('gender'))) {
-            $query->where('gender', $this->request->get('gender'));
-        }
-
-        if (! empty($this->request->get('tags'))) {
-            $query->whereHas('tags', function (Builder $builder) {
-                $builder->whereIn('id', $this->request->get('tags'));
-            });
-        }
-
-        if (! empty($this->request->get('role_id'))) {
-            $query->whereHas('roles', function (Builder $builder) {
-                $builder->where('id', $this->request->get('role_id'));
-            });
-        }
-
-        if (! empty($this->request->get('created_at_from'))) {
-            $query->where('created_at', '>=', $this->request->get('created_at_from'));
-        }
-
-        if (! empty($this->request->get('created_at_to'))) {
-            $query->where('created_at', '<=', $this->request->get('created_at_to'));
-        }
-
         return datatables($query)
             ->setTransformer(app($this->transformer))
             ->filterColumn('country_code', function (Builder $builder, $keyword) {
@@ -79,6 +48,16 @@ class AdminsDataTable extends AbstractDataTable
                 ! $languageCode || $builder->where('language_code', $languageCode);
             })
             ->make(true);
+    }
+
+    /**
+     * Add scopes to the datatable.
+     *
+     * @return $this
+     */
+    public function scope()
+    {
+        return $this->addScope(new UserScope($this->request));
     }
 
     /**
