@@ -36,6 +36,7 @@ class RolesController extends AuthorizedController
     {
         return $rolesDataTable->with([
             'id' => 'adminarea-roles-index',
+            'pusher' => ['entity' => 'role', 'channel' => 'cortex.auth.roles.index'],
         ])->render('cortex/foundation::adminarea.pages.datatable-index');
     }
 

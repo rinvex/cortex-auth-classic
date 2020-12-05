@@ -35,6 +35,7 @@ class GuardiansController extends AuthorizedController
     {
         return $guardiansDataTable->with([
             'id' => 'adminarea-guardians-index',
+            'pusher' => ['entity' => 'guardian', 'channel' => 'cortex.auth.guardians.index'],
         ])->render('cortex/foundation::adminarea.pages.datatable-index');
     }
 

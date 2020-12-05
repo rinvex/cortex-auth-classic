@@ -55,6 +55,7 @@ class AdminsController extends AuthorizedController
             'genders' => $genders,
             'roles' => $roles,
             'tags' => $tags,
+            'pusher' => ['entity' => 'admin', 'channel' => 'cortex.auth.admins.index'],
         ])->render('cortex/auth::adminarea.pages.admins');
     }
 

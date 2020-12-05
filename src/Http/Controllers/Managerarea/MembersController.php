@@ -53,6 +53,7 @@ class MembersController extends AuthorizedController
             'languages' => $languages,
             'genders' => $genders,
             'tags' => $tags,
+            'pusher' => ['entity' => 'member', 'channel' => 'cortex.auth.members.index'],
         ])->render('cortex/auth::managerarea.pages.members');
     }
 
