@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace Cortex\Auth\Models;
 
 use Rinvex\Tenants\Traits\Tenantable;
+use Cortex\Auth\Events\ManagerCreated;
+use Cortex\Auth\Events\ManagerDeleted;
+use Cortex\Auth\Events\ManagerUpdated;
+use Cortex\Auth\Events\ManagerRestored;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Cortex\Auth\Notifications\PhoneVerificationNotification;
@@ -42,6 +46,18 @@ class Manager extends User
         'roles',
         'tags',
         'tenants',
+    ];
+
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'created' => ManagerCreated::class,
+        'updated' => ManagerUpdated::class,
+        'deleted' => ManagerDeleted::class,
+        'restored' => ManagerRestored::class,
     ];
 
     /**

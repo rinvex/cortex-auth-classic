@@ -4,12 +4,28 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Models;
 
+use Cortex\Auth\Events\MemberCreated;
+use Cortex\Auth\Events\MemberDeleted;
+use Cortex\Auth\Events\MemberUpdated;
+use Cortex\Auth\Events\MemberRestored;
 use Cortex\Auth\Notifications\PhoneVerificationNotification;
 use Cortex\Auth\Notifications\MemberPasswordResetNotification;
 use Cortex\Auth\Notifications\MemberEmailVerificationNotification;
 
 class Member extends User
 {
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'created' => MemberCreated::class,
+        'updated' => MemberUpdated::class,
+        'deleted' => MemberDeleted::class,
+        'restored' => MemberRestored::class,
+    ];
+
     /**
      * {@inheritdoc}
      */

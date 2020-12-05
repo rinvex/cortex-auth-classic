@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Models;
 
+use Cortex\Auth\Events\RoleCreated;
+use Cortex\Auth\Events\RoleDeleted;
+use Cortex\Auth\Events\RoleUpdated;
+use Cortex\Auth\Events\RoleRestored;
 use Cortex\Foundation\Traits\Auditable;
 use Rinvex\Support\Traits\HashidsTrait;
 use Rinvex\Support\Traits\HasTimezones;
-use Cortex\Foundation\Events\ModelCreated;
-use Cortex\Foundation\Events\ModelDeleted;
-use Cortex\Foundation\Events\ModelUpdated;
 use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
-use Cortex\Foundation\Events\ModelRestored;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Silber\Bouncer\Database\Role as BaseRole;
-use Cortex\Foundation\Traits\FiresCustomModelEvent;
 
 class Role extends BaseRole
 {
@@ -25,7 +24,6 @@ class Role extends BaseRole
     use LogsActivity;
     use ValidatingTrait;
     use HasTranslations;
-    use FiresCustomModelEvent;
 
     /**
      * {@inheritdoc}
@@ -60,10 +58,10 @@ class Role extends BaseRole
      * @var array
      */
     protected $dispatchesEvents = [
-        'created' => ModelCreated::class,
-        'deleted' => ModelDeleted::class,
-        'restored' => ModelRestored::class,
-        'updated' => ModelUpdated::class,
+        'created' => RoleCreated::class,
+        'updated' => RoleUpdated::class,
+        'deleted' => RoleDeleted::class,
+        'restored' => RoleRestored::class,
     ];
 
     /**
