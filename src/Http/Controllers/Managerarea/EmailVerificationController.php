@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Auth\Http\Controllers\Managerarea;
 
 use Carbon\Carbon;
+use Cortex\Auth\Models\User;
 use Cortex\Foundation\Http\Controllers\AbstractController;
 use Rinvex\Auth\Contracts\EmailVerificationBrokerContract;
 use Cortex\Auth\Http\Requests\Managerarea\EmailVerificationRequest;
@@ -66,7 +67,7 @@ class EmailVerificationController extends AbstractController
     {
         $result = app('rinvex.auth.emailverification')
             ->broker(app('request.emailVerificationBroker'))
-            ->verify($request->only(['email', 'expiration', 'token']), function ($user) {
+            ->verify($request->only(['email', 'expiration', 'token']), function (User $user) {
                 $user->fill([
                     'email_verified_at' => Carbon::now(),
                 ])->forceSave();
