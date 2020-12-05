@@ -16,6 +16,7 @@ class AuthenticationController extends AbstractController
      * {@inheritdoc}
      */
     protected $middlewareWhitelist = [
+        'broadcast',
         'logout',
     ];
 
