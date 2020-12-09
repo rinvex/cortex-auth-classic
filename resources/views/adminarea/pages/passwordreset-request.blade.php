@@ -8,7 +8,7 @@
 
 {{-- Scripts --}}
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\PasswordResetProcessRequest::class)->selector('#adminarea-passwordreset-request-form')->ignore('.skip-validation') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\PasswordResetProcessRequest::class)->selector('#adminarea-cortex-auth-passwordreset-request-form')->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}
@@ -22,7 +22,7 @@
         <div class="login-box-body">
             <p class="login-box-msg">{{ trans('cortex/auth::common.account_reset_password') }}</p>
 
-            {{ Form::open(['url' => route('adminarea.passwordreset.send'), 'id' => 'adminarea-passwordreset-request-form', 'role' => 'auth']) }}
+            {{ Form::open(['url' => route('adminarea.cortex.auth.account.passwordreset.send'), 'id' => 'adminarea-cortex-auth-passwordreset-request-form', 'role' => 'auth']) }}
 
                 <div class="form-group has-feedback{{ $errors->has('email') ? ' has-error' : '' }}">
                     {{ Form::email('email', old('email'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.email'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
@@ -36,7 +36,7 @@
 
             {{ Form::close() }}
 
-            {{ Html::link(route('adminarea.login'), trans('cortex/auth::common.account_login')) }}
+            {{ Html::link(route('adminarea.cortex.auth.account.login'), trans('cortex/auth::common.account_login')) }}
 
         </div>
 

@@ -7,7 +7,7 @@
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\AdminAttributesFormRequest::class)->selector("#adminarea-admins-create-form, #adminarea-admins-{$admin->getRouteKey()}-update-attributes-form")->ignore('.skip-validation') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\AdminAttributesFormRequest::class)->selector("#adminarea-cortex-auth-admins-create-form, #adminarea-cortex-auth-admins-{$admin->getRouteKey()}-update-attributes-form")->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}
@@ -22,13 +22,13 @@
         <section class="content">
 
             <div class="nav-tabs-custom">
-                {!! Menu::render('adminarea.admins.tabs', 'nav-tab') !!}
+                {!! Menu::render('adminarea.cortex.auth.admins.tabs', 'nav-tab') !!}
 
                 <div class="tab-content">
 
                     <div class="tab-pane active" id="attributes-tab">
 
-                        {{--{{ Form::model($admin, ['url' => route('adminarea.admins.attributes', ['admin' => $admin]), 'id' => "adminarea-admins-{$admin->getRouteKey()}-attributes-form", 'method' => 'put', 'files' => true]) }}--}}
+                        {{--{{ Form::model($admin, ['url' => route('adminarea.cortex.auth.admins.attributes', ['admin' => $admin]), 'id' => "adminarea-cortex-auth-admins-{$admin->getRouteKey()}-attributes-form", 'method' => 'put', 'files' => true]) }}--}}
 
                             {{--@attributes($admin)--}}
 

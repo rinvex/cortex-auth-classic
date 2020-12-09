@@ -19,7 +19,7 @@
 
                 <section class="auth-form">
 
-                    {{ Form::open(['url' => route('frontarea.reauthentication.twofactor.process'), 'id' => 'frontarea-reauthentication-form', 'role' => 'auth']) }}
+                    {{ Form::open(['url' => route('frontarea.cortex.auth.account.reauthentication.twofactor.process'), 'id' => 'frontarea-reauthentication-form', 'role' => 'auth']) }}
 
                         <div class="centered"><strong>{{ trans('cortex/auth::common.reauthentication.twofactor') }}</strong></div>
 

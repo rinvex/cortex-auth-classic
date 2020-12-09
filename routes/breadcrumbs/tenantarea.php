@@ -5,82 +5,82 @@ declare(strict_types=1);
 use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator;
 
-Breadcrumbs::register('tenantarea.register', function (BreadcrumbsGenerator $breadcrumbs) {
+Breadcrumbs::register('tenantarea.cortex.auth.account.register', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('tenantarea.home'));
-    $breadcrumbs->push(trans('cortex/auth::common.register'), route('tenantarea.register'));
+    $breadcrumbs->push(trans('cortex/auth::common.register'), route('tenantarea.cortex.auth.account.register'));
 });
 
-Breadcrumbs::register('tenantarea.login', function (BreadcrumbsGenerator $breadcrumbs) {
+Breadcrumbs::register('tenantarea.cortex.auth.account.login', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('tenantarea.home'));
-    $breadcrumbs->push(trans('cortex/auth::common.login'), route('tenantarea.login'));
+    $breadcrumbs->push(trans('cortex/auth::common.login'), route('tenantarea.cortex.auth.account.login'));
 });
 
-Breadcrumbs::register('tenantarea.passwordreset.request', function (BreadcrumbsGenerator $breadcrumbs) {
+Breadcrumbs::register('tenantarea.cortex.auth.account.passwordreset.request', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('tenantarea.home'));
-    $breadcrumbs->push(trans('cortex/auth::common.passwordreset_request'), route('tenantarea.passwordreset.request'));
+    $breadcrumbs->push(trans('cortex/auth::common.passwordreset_request'), route('tenantarea.cortex.auth.account.passwordreset.request'));
 });
 
-Breadcrumbs::register('tenantarea.passwordreset.reset', function (BreadcrumbsGenerator $breadcrumbs) {
+Breadcrumbs::register('tenantarea.cortex.auth.account.passwordreset.reset', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('tenantarea.home'));
-    $breadcrumbs->push(trans('cortex/auth::common.passwordreset'), route('tenantarea.passwordreset.reset'));
+    $breadcrumbs->push(trans('cortex/auth::common.passwordreset'), route('tenantarea.cortex.auth.account.passwordreset.reset'));
 });
 
-Breadcrumbs::register('tenantarea.reauthentication.password', function (BreadcrumbsGenerator $breadcrumbs) {
+Breadcrumbs::register('tenantarea.cortex.auth.account.reauthentication.password', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->push('<i class="fa fa-home"></i> '.config('app.name'), route('frontarea.home'));
-    $breadcrumbs->push(trans('cortex/auth::common.reauthentication.password'), route('frontarea.reauthentication.password'));
+    $breadcrumbs->push(trans('cortex/auth::common.reauthentication.password'), route('frontarea.cortex.auth.account.reauthentication.password'));
 });
 
-Breadcrumbs::register('tenantarea.reauthentication.twofactor', function (BreadcrumbsGenerator $breadcrumbs) {
+Breadcrumbs::register('tenantarea.cortex.auth.account.reauthentication.twofactor', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->push('<i class="fa fa-home"></i> '.config('app.name'), route('frontarea.home'));
-    $breadcrumbs->push(trans('cortex/auth::common.reauthentication.twofactor'), route('frontarea.reauthentication.twofactor'));
+    $breadcrumbs->push(trans('cortex/auth::common.reauthentication.twofactor'), route('frontarea.cortex.auth.account.reauthentication.twofactor'));
 });
 
-Breadcrumbs::register('tenantarea.verification.email.request', function (BreadcrumbsGenerator $breadcrumbs) {
+Breadcrumbs::register('tenantarea.cortex.auth.account.verification.email.request', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('tenantarea.home'));
-    $breadcrumbs->push(trans('cortex/auth::common.verification_email_request'), route('tenantarea.verification.email.request'));
+    $breadcrumbs->push(trans('cortex/auth::common.verification_email_request'), route('tenantarea.cortex.auth.account.verification.email.request'));
 });
 
-Breadcrumbs::register('tenantarea.verification.phone.request', function (BreadcrumbsGenerator $breadcrumbs) {
+Breadcrumbs::register('tenantarea.cortex.auth.account.verification.phone.request', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('tenantarea.home'));
-    $breadcrumbs->push(trans('cortex/auth::common.verification_phone_request'), route('tenantarea.verification.phone.request'));
+    $breadcrumbs->push(trans('cortex/auth::common.verification_phone_request'), route('tenantarea.cortex.auth.account.verification.phone.request'));
 });
 
-Breadcrumbs::register('tenantarea.verification.phone.verify', function (BreadcrumbsGenerator $breadcrumbs) {
+Breadcrumbs::register('tenantarea.cortex.auth.account.verification.phone.verify', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('tenantarea.home'));
-    $breadcrumbs->push(trans('cortex/auth::common.verify_phone'), route('tenantarea.verification.phone.verify'));
+    $breadcrumbs->push(trans('cortex/auth::common.verify_phone'), route('tenantarea.cortex.auth.account.verification.phone.verify'));
 });
 
-Breadcrumbs::register('tenantarea.account', function (BreadcrumbsGenerator $breadcrumbs) {
+Breadcrumbs::register('tenantarea.cortex.auth.account', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('tenantarea.home'));
-    $breadcrumbs->push(trans('cortex/auth::common.account'), route('tenantarea.account'));
+    $breadcrumbs->push(trans('cortex/auth::common.account'), route('tenantarea.cortex.auth.account'));
 });
 
-Breadcrumbs::register('tenantarea.account.settings', function (BreadcrumbsGenerator $breadcrumbs) {
+Breadcrumbs::register('tenantarea.cortex.auth.account.settings', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('tenantarea.home'));
-    $breadcrumbs->push(trans('cortex/auth::common.account_settings'), route('tenantarea.account.settings'));
+    $breadcrumbs->push(trans('cortex/auth::common.account_settings'), route('tenantarea.cortex.auth.account.settings'));
 });
 
-Breadcrumbs::register('tenantarea.account.password', function (BreadcrumbsGenerator $breadcrumbs) {
+Breadcrumbs::register('tenantarea.cortex.auth.account.password', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('tenantarea.home'));
-    $breadcrumbs->push(trans('cortex/auth::common.account_password'), route('tenantarea.account.password'));
+    $breadcrumbs->push(trans('cortex/auth::common.account_password'), route('tenantarea.cortex.auth.account.password'));
 });
 
-Breadcrumbs::register('tenantarea.account.attributes', function (BreadcrumbsGenerator $breadcrumbs) {
+Breadcrumbs::register('tenantarea.cortex.auth.account.attributes', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('tenantarea.home'));
-    $breadcrumbs->push(trans('cortex/auth::common.account_attributes'), route('tenantarea.account.attributes'));
+    $breadcrumbs->push(trans('cortex/auth::common.account_attributes'), route('tenantarea.cortex.auth.account.attributes'));
 });
 
-Breadcrumbs::register('tenantarea.account.sessions', function (BreadcrumbsGenerator $breadcrumbs) {
+Breadcrumbs::register('tenantarea.cortex.auth.account.sessions', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('tenantarea.home'));
-    $breadcrumbs->push(trans('cortex/auth::common.account_sessions'), route('tenantarea.account.sessions'));
+    $breadcrumbs->push(trans('cortex/auth::common.account_sessions'), route('tenantarea.cortex.auth.account.sessions'));
 });
 
-Breadcrumbs::register('tenantarea.account.twofactor', function (BreadcrumbsGenerator $breadcrumbs) {
+Breadcrumbs::register('tenantarea.cortex.auth.account.twofactor', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('tenantarea.home'));
-    $breadcrumbs->push(trans('cortex/auth::common.account_twofactor'), route('tenantarea.account.twofactor'));
+    $breadcrumbs->push(trans('cortex/auth::common.account_twofactor'), route('tenantarea.cortex.auth.account.twofactor'));
 });
 
-Breadcrumbs::register('tenantarea.account.twofactor.totp.enable', function (BreadcrumbsGenerator $breadcrumbs) {
+Breadcrumbs::register('tenantarea.cortex.auth.account.twofactor.totp.enable', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('tenantarea.home'));
-    $breadcrumbs->push(trans('cortex/auth::twofactor.configure'), route('tenantarea.account.twofactor.totp.enable'));
+    $breadcrumbs->push(trans('cortex/auth::twofactor.configure'), route('tenantarea.cortex.auth.account.twofactor.totp.enable'));
 });

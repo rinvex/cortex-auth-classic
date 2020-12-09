@@ -23,7 +23,7 @@ class AccountMediaController extends AuthenticatedController
         $manager->media()->where($media->getKeyName(), $media->getKey())->first()->delete();
 
         return intend([
-            'url' => route('managerarea.account.settings'),
+            'url' => route('managerarea.cortex.auth.account.settings'),
             'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/foundation::common.media'), 'identifier' => $media->getRouteKey()])],
         ]);
     }

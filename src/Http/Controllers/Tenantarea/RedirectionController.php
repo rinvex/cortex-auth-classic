@@ -16,7 +16,7 @@ class RedirectionController extends AbstractController
     public function passwordreset()
     {
         return intend([
-            'url' => route('tenantarea.passwordreset.request'),
+            'url' => route('tenantarea.cortex.auth.account.passwordreset.request'),
         ]);
     }
 

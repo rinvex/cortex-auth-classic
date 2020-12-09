@@ -7,7 +7,7 @@
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Managerarea\AccountAttributesRequest::class)->selector('#managerarea-account-attributes-form')->ignore('.skip-validation') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Managerarea\AccountAttributesRequest::class)->selector('#managerarea-cortex-auth-account-attributes-form')->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}
@@ -24,7 +24,7 @@
                 <div class="col-md-9">
                     <div class="profile-content">
 
-                        {{ Form::model(app('request.user'), ['url' => route('managerarea.account.attributes.update'), 'id' => 'managerarea-account-attributes-form']) }}
+                        {{ Form::model(app('request.user'), ['url' => route('managerarea.cortex.auth.account.attributes.update'), 'id' => 'managerarea-cortex-auth-account-attributes-form']) }}
 
                             @attributes(app('request.user'))
 

@@ -24,7 +24,7 @@
 
                 <section class="auth-form">
 
-                    {{ Form::open(['url' => route('frontarea.passwordreset.process'), 'id' => 'frontarea-passwordreset-form', 'role' => 'auth']) }}
+                    {{ Form::open(['url' => route('frontarea.cortex.auth.account.passwordreset.process'), 'id' => 'frontarea-passwordreset-form', 'role' => 'auth']) }}
 
                         {{ Form::hidden('expiration', old('expiration', $expiration), ['class' => 'skip-validation']) }}
                         {{ Form::hidden('token', old('token', $token), ['class' => 'skip-validation']) }}
@@ -58,9 +58,9 @@
                         {{ Form::button('<i class="fa fa-envelope"></i> '.trans('cortex/auth::common.passwordreset'), ['class' => 'btn btn-lg btn-primary btn-block', 'type' => 'submit']) }}
 
                         <div>
-                            {{ Html::link(route('frontarea.login'), trans('cortex/auth::common.account_login')) }}
+                            {{ Html::link(route('frontarea.cortex.auth.account.login'), trans('cortex/auth::common.account_login')) }}
                             {{ trans('cortex/foundation::common.or') }}
-                            {{ Html::link(route('frontarea.register.member'), trans('cortex/auth::common.account_register')) }}
+                            {{ Html::link(route('frontarea.cortex.auth.account.register.member'), trans('cortex/auth::common.account_register')) }}
                         </div>
 
                     {{ Form::close() }}

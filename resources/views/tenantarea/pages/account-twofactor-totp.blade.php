@@ -7,7 +7,7 @@
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Tenantarea\AccountTwoFactorTotpProcessRequest::class)->selector('#tenantarea-twofactor-totp-form')->ignore('.skip-validation') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Tenantarea\AccountTwoFactorTotpProcessRequest::class)->selector('#tenantarea-cortex-auth-twofactor-totp-form')->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}
@@ -27,7 +27,7 @@
 
                         <div role="tabpanel" class="tab-pane active" id="security">
 
-                            {{ Form::open(['url' => route('tenantarea.account.twofactor.totp.update'), 'class' => 'form-horizontal', 'id' => 'tenantarea-twofactor-totp-form']) }}
+                            {{ Form::open(['url' => route('tenantarea.cortex.auth.account.twofactor.totp.update'), 'class' => 'form-horizontal', 'id' => 'tenantarea-cortex-auth-twofactor-totp-form']) }}
 
                                 <p class="text-justify">
                                     {!! trans('cortex/auth::twofactor.totp_apps') !!}
@@ -122,7 +122,7 @@
                                                     @if(Arr::get($twoFactor, 'totp.backup'))
                                                         <div class="panel panel-primary">
                                                             <header class="panel-heading">
-                                                                <a class="btn btn-default btn-flat btn-xs pull-right" href="{{ route('tenantarea.account.twofactor.totp.backup') }}" onclick="event.preventDefault(); var form = document.getElementById('tenantarea-twofactor-totp-form'); form.action = '{{ route('tenantarea.account.twofactor.totp.backup') }}'; form.submit();">{{ trans('cortex/auth::twofactor.totp_backup_generate') }}</a>
+                                                                <a class="btn btn-default btn-flat btn-xs pull-right" href="{{ route('tenantarea.cortex.auth.account.twofactor.totp.backup') }}" onclick="event.preventDefault(); var form = document.getElementById('tenantarea-cortex-auth-twofactor-totp-form'); form.action = '{{ route('tenantarea.cortex.auth.account.twofactor.totp.backup') }}'; form.submit();">{{ trans('cortex/auth::twofactor.totp_backup_generate') }}</a>
                                                                 <h3 class="panel-title">{{ trans('cortex/auth::twofactor.totp_backup_head') }}</h3>
                                                             </header>
                                                             <div class="panel-body">

@@ -48,7 +48,7 @@ class MembersController extends AuthorizedController
         $genders = ['male' => trans('cortex/auth::common.male'), 'female' => trans('cortex/auth::common.female')];
 
         return $membersDataTable->with([
-            'id' => 'managerarea-members-index',
+            'id' => 'managerarea-cortex-auth-members-index',
             'countries' => $countries,
             'languages' => $languages,
             'genders' => $genders,
@@ -69,8 +69,8 @@ class MembersController extends AuthorizedController
     {
         return $logsDataTable->with([
             'resource' => $member,
-            'tabs' => 'managerarea.members.tabs',
-            'id' => "managerarea-members-{$member->getRouteKey()}-logs",
+            'tabs' => 'managerarea.cortex.auth.members.tabs',
+            'id' => "managerarea-cortex-auth-members-{$member->getRouteKey()}-logs",
         ])->render('cortex/foundation::managerarea.pages.datatable-tab');
     }
 
@@ -86,8 +86,8 @@ class MembersController extends AuthorizedController
     {
         return $activitiesDataTable->with([
             'resource' => $member,
-            'tabs' => 'managerarea.members.tabs',
-            'id' => "managerarea-members-{$member->getRouteKey()}-activities",
+            'tabs' => 'managerarea.cortex.auth.members.tabs',
+            'id' => "managerarea-cortex-auth-members-{$member->getRouteKey()}-activities",
         ])->render('cortex/foundation::managerarea.pages.datatable-tab');
     }
 
@@ -137,9 +137,9 @@ class MembersController extends AuthorizedController
     {
         return $importRecordsDataTable->with([
             'resource' => $member,
-            'tabs' => 'managerarea.attributes.tabs',
-            'url' => route('managerarea.members.stash'),
-            'id' => "managerarea-attributes-{$member->getRouteKey()}-import",
+            'tabs' => 'managerarea.cortex.attributes.attributes.tabs',
+            'url' => route('managerarea.cortex.auth.members.stash'),
+            'id' => "managerarea-cortex-auth-attributes-{$member->getRouteKey()}-import",
         ])->render('cortex/foundation::managerarea.pages.datatable-dropzone');
     }
 
@@ -201,8 +201,8 @@ class MembersController extends AuthorizedController
     {
         return $importLogsDatatable->with([
             'resource' => trans('cortex/auth::common.member'),
-            'tabs' => 'managerarea.members.tabs',
-            'id' => 'managerarea-members-import-logs',
+            'tabs' => 'managerarea.cortex.auth.members.tabs',
+            'id' => 'managerarea-cortex-auth-members-import-logs',
         ])->render('cortex/foundation::managerarea.pages.datatable-tab');
     }
 
@@ -316,7 +316,7 @@ class MembersController extends AuthorizedController
         $member->fill($data)->save();
 
         return intend([
-            'url' => route('managerarea.members.index'),
+            'url' => route('managerarea.cortex.auth.members.index'),
             'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => trans('cortex/auth::common.member'), 'identifier' => $member->getRouteKey()])],
         ]);
     }
@@ -335,7 +335,7 @@ class MembersController extends AuthorizedController
         $member->delete();
 
         return intend([
-            'url' => route('managerarea.members.index'),
+            'url' => route('managerarea.cortex.auth.members.index'),
             'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/auth::common.member'), 'identifier' => $member->getRouteKey()])],
         ]);
     }

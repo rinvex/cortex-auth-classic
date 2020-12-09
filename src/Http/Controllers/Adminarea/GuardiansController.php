@@ -34,7 +34,7 @@ class GuardiansController extends AuthorizedController
     public function index(GuardiansDataTable $guardiansDataTable)
     {
         return $guardiansDataTable->with([
-            'id' => 'adminarea-guardians-index',
+            'id' => 'adminarea-cortex-auth-guardians-index',
             'pusher' => ['entity' => 'guardian', 'channel' => 'cortex.auth.guardians.index'],
         ])->render('cortex/foundation::adminarea.pages.datatable-index');
     }
@@ -51,8 +51,8 @@ class GuardiansController extends AuthorizedController
     {
         return $logsDataTable->with([
             'resource' => $guardian,
-            'tabs' => 'adminarea.guardians.tabs',
-            'id' => "adminarea-guardians-{$guardian->getRouteKey()}-logs",
+            'tabs' => 'adminarea.cortex.auth.guardians.tabs',
+            'id' => "adminarea-cortex-auth-guardians-{$guardian->getRouteKey()}-logs",
         ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
 
@@ -68,9 +68,9 @@ class GuardiansController extends AuthorizedController
     {
         return $importRecordsDataTable->with([
             'resource' => $guardian,
-            'tabs' => 'adminarea.guardians.tabs',
-            'url' => route('adminarea.guardians.stash'),
-            'id' => "adminarea-attributes-{$guardian->getRouteKey()}-import",
+            'tabs' => 'adminarea.cortex.auth.guardians.tabs',
+            'url' => route('adminarea.cortex.auth.guardians.stash'),
+            'id' => "adminarea-cortex-auth-guardians-{$guardian->getRouteKey()}-import",
         ])->render('cortex/foundation::adminarea.pages.datatable-dropzone');
     }
 
@@ -132,8 +132,8 @@ class GuardiansController extends AuthorizedController
     {
         return $importLogsDatatable->with([
             'resource' => trans('cortex/auth::common.guardian'),
-            'tabs' => 'adminarea.guardians.tabs',
-            'id' => 'adminarea-guardians-import-logs',
+            'tabs' => 'adminarea.cortex.auth.guardians.tabs',
+            'id' => 'adminarea-cortex-auth-guardians-import-logs',
         ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
 
@@ -221,7 +221,7 @@ class GuardiansController extends AuthorizedController
         $guardian->fill($data)->save();
 
         return intend([
-            'url' => route('adminarea.guardians.index'),
+            'url' => route('adminarea.cortex.auth.guardians.index'),
             'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => trans('cortex/auth::common.guardian'), 'identifier' => $guardian->getRouteKey()])],
         ]);
     }
@@ -240,7 +240,7 @@ class GuardiansController extends AuthorizedController
         $guardian->delete();
 
         return intend([
-            'url' => route('adminarea.guardians.index'),
+            'url' => route('adminarea.cortex.auth.guardians.index'),
             'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/auth::common.guardian'), 'identifier' => $guardian->getRouteKey()])],
         ]);
     }

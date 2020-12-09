@@ -67,7 +67,7 @@ class MembersDataTable extends AbstractDataTable
      */
     protected function getAjaxForm(): string
     {
-        return '#managerarea-members-filters-form';
+        return '#managerarea-cortex-auth-members-filters-form';
     }
 
     /**
@@ -78,8 +78,8 @@ class MembersDataTable extends AbstractDataTable
     protected function getColumns(): array
     {
         $link = config('cortex.foundation.route.locale_prefix')
-            ? '"<a href=\""+routes.route(\'managerarea.members.edit\', {member: full.id, locale: \''.$this->request()->segment(1).'\'})+"\">"+data+"</a>"'
-            : '"<a href=\""+routes.route(\'managerarea.members.edit\', {member: full.id})+"\">"+data+"</a>"';
+            ? '"<a href=\""+routes.route(\'managerarea.cortex.auth.members.edit\', {member: full.id, locale: \''.$this->request()->segment(1).'\'})+"\">"+data+"</a>"'
+            : '"<a href=\""+routes.route(\'managerarea.cortex.auth.members.edit\', {member: full.id})+"\">"+data+"</a>"';
 
         return [
             'id' => ['checkboxes' => '{"selectRow": true}', 'exportable' => false, 'printable' => false],

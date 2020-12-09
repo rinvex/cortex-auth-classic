@@ -186,7 +186,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 ## [v4.0.4] - 2019-10-06
 - Refactor menus and breadcrumb bindings to utilize event dispatcher
-- Drop wrong useless adminarea.register route
+- Drop wrong useless adminarea.cortex.auth.account.register route
 
 ## [v4.0.3] - 2019-09-24
 - Add missing laravel/helpers composer package

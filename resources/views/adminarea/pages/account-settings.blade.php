@@ -7,7 +7,7 @@
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\AccountSettingsRequest::class)->selector('#adminarea-account-settings-form')->ignore('.skip-validation') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\AccountSettingsRequest::class)->selector('#adminarea-cortex-auth-account-settings-form')->ignore('.skip-validation') !!}
 
     <script>
         window.countries = @json($countries);
@@ -29,7 +29,7 @@
                 <div class="col-md-9">
                     <div class="profile-content">
 
-                        {{ Form::model(app('request.user'), ['url' => route('adminarea.account.settings.update'), 'id' => 'adminarea-account-settings-form', 'files' => true]) }}
+                        {{ Form::model(app('request.user'), ['url' => route('adminarea.cortex.auth.account.settings.update'), 'id' => 'adminarea-cortex-auth-account-settings-form', 'files' => true]) }}
 
                             <div class="row">
 
@@ -81,7 +81,7 @@
                                         @if (app('request.user')->hasVerifiedEmail())
                                             <small class="text-success">{!! trans('cortex/auth::common.email_verified_at', ['date' => app('request.user')->email_verified_at]) !!}</small>
                                         @elseif(app('request.user')->email)
-                                            <small class="text-danger">{!! trans('cortex/auth::common.email_unverified', ['href' => route('adminarea.verification.email.request')]) !!}</small>
+                                            <small class="text-danger">{!! trans('cortex/auth::common.email_unverified', ['href' => route('adminarea.cortex.auth.account.verification.email.request')]) !!}</small>
                                         @endif
 
                                         @if ($errors->has('email'))
@@ -180,7 +180,7 @@
                                         @if (app('request.user')->hasVerifiedPhone())
                                             <small class="text-success">{!! trans('cortex/auth::common.phone_verified_at', ['date' => app('request.user')->phone_verified_at]) !!}</small>
                                         @elseif(app('request.user')->phone)
-                                            <small class="text-danger">{!! trans('cortex/auth::common.phone_unverified', ['href' => route('adminarea.verification.phone.request')]) !!}</small>
+                                            <small class="text-danger">{!! trans('cortex/auth::common.phone_unverified', ['href' => route('adminarea.cortex.auth.account.verification.phone.request')]) !!}</small>
                                         @endif
 
                                         <span class="help-block hide">{{ trans('cortex/foundation::messages.invalid_phone') }}</span>
@@ -291,7 +291,7 @@
                                             <i class="fa fa-paperclip"></i>
                                             <a href="{{ app('request.user')->getFirstMediaUrl('profile_picture') }}" target="_blank">{{ app('request.user')->getFirstMedia('profile_picture')->file_name }}</a> ({{ app('request.user')->getFirstMedia('profile_picture')->human_readable_size }})
                                             <a href="#" data-toggle="modal" data-target="#delete-confirmation"
-                                               data-modal-action="{{ route('adminarea.account.media.destroy', ['admin' => app('request.user'), 'media' => app('request.user')->getFirstMedia('profile_picture')]) }}"
+                                               data-modal-action="{{ route('adminarea.cortex.auth.account.media.destroy', ['admin' => app('request.user'), 'media' => app('request.user')->getFirstMedia('profile_picture')]) }}"
                                                data-modal-title="{{ trans('cortex/foundation::messages.delete_confirmation_title') }}"
                                                data-modal-button="<a href='#' class='btn btn-danger' data-form='delete' data-token='{{ csrf_token() }}'><i class='fa fa-trash-o'></i> {{ trans('cortex/foundation::common.delete') }}</a>"
                                                data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/foundation::common.media'), 'identifier' => app('request.user')->getFirstMedia('profile_picture')->file_name]) }}"
@@ -327,7 +327,7 @@
                                             <i class="fa fa-paperclip"></i>
                                             <a href="{{ app('request.user')->getFirstMediaUrl('cover_photo') }}" target="_blank">{{ app('request.user')->getFirstMedia('cover_photo')->file_name }}</a> ({{ app('request.user')->getFirstMedia('cover_photo')->human_readable_size }})
                                             <a href="#" data-toggle="modal" data-target="#delete-confirmation"
-                                               data-modal-action="{{ route('adminarea.account.media.destroy', ['admin' => app('request.user'), 'media' => app('request.user')->getFirstMedia('cover_photo')]) }}"
+                                               data-modal-action="{{ route('adminarea.cortex.auth.account.media.destroy', ['admin' => app('request.user'), 'media' => app('request.user')->getFirstMedia('cover_photo')]) }}"
                                                data-modal-title="{{ trans('cortex/foundation::messages.delete_confirmation_title') }}"
                                                data-modal-button="<a href='#' class='btn btn-danger' data-form='delete' data-token='{{ csrf_token() }}'><i class='fa fa-trash-o'></i> {{ trans('cortex/foundation::common.delete') }}</a>"
                                                data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/foundation::common.media'), 'identifier' => app('request.user')->getFirstMedia('cover_photo')->file_name]) }}"

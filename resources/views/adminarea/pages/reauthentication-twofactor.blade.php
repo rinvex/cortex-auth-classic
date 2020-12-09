@@ -17,7 +17,7 @@
         <div class="login-box-body">
             <p class="login-box-msg">{{ trans('cortex/auth::common.reauthentication.twofactor') }}</p>
 
-            {{ Form::open(['url' => route('adminarea.reauthentication.twofactor.process'), 'id' => 'adminarea-reauthentication-form', 'role' => 'auth']) }}
+            {{ Form::open(['url' => route('adminarea.cortex.auth.account.reauthentication.twofactor.process'), 'id' => 'adminarea-cortex-auth-reauthentication-form', 'role' => 'auth']) }}
 
                 <div class="form-group has-feedback{{ $errors->has('token') ? ' has-error' : '' }}">
                     {{ Form::text('token', null, ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.authentication_code'), 'required' => 'required', 'autofocus' => 'autofocus']) }}

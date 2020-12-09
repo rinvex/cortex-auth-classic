@@ -103,8 +103,8 @@ class AuthenticationController extends AbstractController
             $request->session()->put('cortex.auth.twofactor', ['user_id' => app('request.user')->getKey(), 'remember' => $request->filled('remember'), 'totp' => $totpStatus, 'phone' => $phoneStatus]);
 
             $route = $totpStatus
-                ? route('managerarea.verification.phone.verify')
-                : route('managerarea.verification.phone.request');
+                ? route('managerarea.cortex.auth.account.verification.phone.verify')
+                : route('managerarea.cortex.auth.account.verification.phone.request');
 
             return intend([
                 'url' => $route,

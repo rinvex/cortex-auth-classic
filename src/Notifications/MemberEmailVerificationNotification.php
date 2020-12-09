@@ -73,7 +73,7 @@ class MemberEmailVerificationNotification extends Notification implements Should
         }
 
         $email = $notifiable->getEmailForVerification();
-        $link = route('frontarea.verification.email.verify')."?email={$email}&expiration={$this->expiration}&token={$this->token}";
+        $link = route('frontarea.cortex.auth.account.verification.email.verify')."?email={$email}&expiration={$this->expiration}&token={$this->token}";
 
         return (new MailMessage())
             ->subject(trans('cortex/auth::emails.verification.email.subject'))

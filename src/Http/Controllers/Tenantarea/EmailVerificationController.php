@@ -76,7 +76,7 @@ class EmailVerificationController extends AbstractController
         switch ($result) {
             case EmailVerificationBrokerContract::EMAIL_VERIFIED:
                 return intend([
-                    'url' => route('tenantarea.account.settings'),
+                    'url' => route('tenantarea.cortex.auth.account.settings'),
                     'with' => ['success' => trans('cortex/auth::'.$result)],
                 ]);
 
@@ -85,7 +85,7 @@ class EmailVerificationController extends AbstractController
             case EmailVerificationBrokerContract::EXPIRED_TOKEN:
             default:
                 return intend([
-                    'url' => route('tenantarea.verification.email.request'),
+                    'url' => route('tenantarea.cortex.auth.account.verification.email.request'),
                     'withInput' => $request->only(['email']),
                     'withErrors' => ['email' => trans('cortex/auth::'.$result)],
                 ]);

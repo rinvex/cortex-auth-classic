@@ -35,7 +35,7 @@ class RolesController extends AuthorizedController
     public function index(RolesDataTable $rolesDataTable)
     {
         return $rolesDataTable->with([
-            'id' => 'adminarea-roles-index',
+            'id' => 'adminarea-cortex-auth-roles-index',
             'pusher' => ['entity' => 'role', 'channel' => 'cortex.auth.roles.index'],
         ])->render('cortex/foundation::adminarea.pages.datatable-index');
     }
@@ -52,8 +52,8 @@ class RolesController extends AuthorizedController
     {
         return $logsDataTable->with([
             'resource' => $role,
-            'tabs' => 'adminarea.roles.tabs',
-            'id' => "adminarea-roles-{$role->getRouteKey()}-logs",
+            'tabs' => 'adminarea.cortex.auth.roles.tabs',
+            'id' => "adminarea-cortex-auth-roles-{$role->getRouteKey()}-logs",
         ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
 
@@ -69,9 +69,9 @@ class RolesController extends AuthorizedController
     {
         return $importRecordsDataTable->with([
             'resource' => $role,
-            'tabs' => 'adminarea.roles.tabs',
-            'url' => route('adminarea.roles.stash'),
-            'id' => "adminarea-roles-{$role->getRouteKey()}-import",
+            'tabs' => 'adminarea.cortex.auth.roles.tabs',
+            'url' => route('adminarea.cortex.auth.roles.stash'),
+            'id' => "adminarea-cortex-auth-roles-{$role->getRouteKey()}-import",
         ])->render('cortex/foundation::adminarea.pages.datatable-dropzone');
     }
 
@@ -132,8 +132,8 @@ class RolesController extends AuthorizedController
     {
         return $importLogsDatatable->with([
             'resource' => trans('cortex/auth::common.role'),
-            'tabs' => 'adminarea.roles.tabs',
-            'id' => 'adminarea-roles-import-logs',
+            'tabs' => 'adminarea.cortex.auth.roles.tabs',
+            'id' => 'adminarea-cortex-auth-roles-import-logs',
         ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
 
@@ -221,7 +221,7 @@ class RolesController extends AuthorizedController
         $role->fill($data)->save();
 
         return intend([
-            'url' => route('adminarea.roles.index'),
+            'url' => route('adminarea.cortex.auth.roles.index'),
             'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => trans('cortex/auth::common.role'), 'identifier' => $role->getRouteKey()])],
         ]);
     }
@@ -240,7 +240,7 @@ class RolesController extends AuthorizedController
         $role->delete();
 
         return intend([
-            'url' => route('adminarea.roles.index'),
+            'url' => route('adminarea.cortex.auth.roles.index'),
             'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/auth::common.role'), 'identifier' => $role->getRouteKey()])],
         ]);
     }

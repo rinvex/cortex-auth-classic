@@ -105,8 +105,8 @@ class AuthenticationController extends AbstractController
             $request->session()->put('cortex.auth.twofactor', ['user_id' => app('request.user')->getKey(), 'remember' => $request->filled('remember'), 'totp' => $totpStatus, 'phone' => $phoneStatus]);
 
             $route = $totpStatus
-                ? route('frontarea.verification.phone.verify')
-                : route('frontarea.verification.phone.request');
+                ? route('frontarea.cortex.auth.account.verification.phone.verify')
+                : route('frontarea.cortex.auth.account.verification.phone.request');
 
             return intend([
                 'url' => $route,

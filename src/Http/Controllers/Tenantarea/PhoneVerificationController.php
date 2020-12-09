@@ -44,7 +44,7 @@ class PhoneVerificationController extends AbstractController
         $user->sendPhoneVerificationNotification($request->get('method'), true);
 
         return intend([
-            'url' => route('tenantarea.verification.phone.verify', ['phone' => $user->phone]),
+            'url' => route('tenantarea.cortex.auth.account.verification.phone.verify', ['phone' => $user->phone]),
             'with' => ['success' => trans('cortex/auth::messages.verification.phone.sent')],
         ]);
     }
@@ -89,7 +89,7 @@ class PhoneVerificationController extends AbstractController
             ])->forceSave();
 
             return intend([
-                'url' => route('tenantarea.account.settings'),
+                'url' => route('tenantarea.cortex.auth.account.settings'),
                 'with' => ['success' => trans('cortex/auth::messages.verification.phone.verified')],
             ]);
         }

@@ -58,8 +58,8 @@ class RolesDataTable extends AbstractDataTable
     protected function getColumns(): array
     {
         $link = config('cortex.foundation.route.locale_prefix')
-            ? '"<a href=\""+routes.route(\'adminarea.roles.edit\', {role: full.id, locale: \''.$this->request()->segment(1).'\'})+"\">"+data+"</a>"'
-            : '"<a href=\""+routes.route(\'adminarea.roles.edit\', {role: full.id})+"\">"+data+"</a>"';
+            ? '"<a href=\""+routes.route(\'adminarea.cortex.auth.roles.edit\', {role: full.id, locale: \''.$this->request()->segment(1).'\'})+"\">"+data+"</a>"'
+            : '"<a href=\""+routes.route(\'adminarea.cortex.auth.roles.edit\', {role: full.id})+"\">"+data+"</a>"';
 
         return [
             'id' => ['checkboxes' => '{"selectRow": true}', 'exportable' => false, 'printable' => false],

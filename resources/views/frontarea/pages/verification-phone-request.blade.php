@@ -24,7 +24,7 @@
 
                 <section class="auth-form">
 
-                    {{ Form::open(['url' => route('frontarea.verification.phone.send'), 'id' => 'frontarea-verification-phone-request-form', 'role' => 'auth']) }}
+                    {{ Form::open(['url' => route('frontarea.cortex.auth.account.verification.phone.send'), 'id' => 'frontarea-verification-phone-request-form', 'role' => 'auth']) }}
 
                         <div class="centered"><strong>{{ trans('cortex/auth::common.account_verification_phone') }}</strong></div>
 
@@ -55,9 +55,9 @@
                         {{ Form::button('<i class="fa fa-phone"></i> '.trans('cortex/auth::common.verification_phone_request'), ['class' => 'btn btn-lg btn-primary btn-block', 'type' => 'submit']) }}
 
                         <div>
-                            {{ Html::link(route('frontarea.login'), trans('cortex/auth::common.account_login')) }}
+                            {{ Html::link(route('frontarea.cortex.auth.account.login'), trans('cortex/auth::common.account_login')) }}
                             {{ trans('cortex/foundation::common.or') }}
-                            {{ Html::link(route('frontarea.register.member'), trans('cortex/auth::common.account_register')) }}
+                            {{ Html::link(route('frontarea.cortex.auth.account.register.member'), trans('cortex/auth::common.account_register')) }}
                         </div>
 
                     {{ Form::close() }}

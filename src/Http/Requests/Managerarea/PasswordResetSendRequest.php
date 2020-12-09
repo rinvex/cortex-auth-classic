@@ -23,6 +23,6 @@ class PasswordResetSendRequest extends PasswordResetRequest
      */
     protected function getRedirectUrl()
     {
-        return $this->redirector->getUrlGenerator()->route('managerarea.passwordreset.request');
+        return $this->redirector->getUrlGenerator()->route('managerarea.cortex.auth.account.passwordreset.request');
     }
 }

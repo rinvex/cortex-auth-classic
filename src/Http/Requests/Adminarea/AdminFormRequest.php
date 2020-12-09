@@ -23,7 +23,7 @@ class AdminFormRequest extends FormRequest
     public function authorize(): bool
     {
         if (! app('request.user')->isA('superadmin') && app('request.user') !== $this->route('admin')) {
-            throw new GenericException(trans('cortex/auth::messages.action_unauthorized'), route('adminarea.admins.index'));
+            throw new GenericException(trans('cortex/auth::messages.action_unauthorized'), route('adminarea.cortex.auth.admins.index'));
         }
 
         return true;

@@ -28,8 +28,8 @@ class GuardiansDataTable extends AbstractDataTable
     protected function getColumns(): array
     {
         $link = config('cortex.foundation.route.locale_prefix')
-            ? '"<a href=\""+routes.route(\'adminarea.guardians.edit\', {guardian: full.id, locale: \''.$this->request()->segment(1).'\'})+"\">"+data+"</a>"'
-            : '"<a href=\""+routes.route(\'adminarea.guardians.edit\', {guardian: full.id})+"\">"+data+"</a>"';
+            ? '"<a href=\""+routes.route(\'adminarea.cortex.auth.guardians.edit\', {guardian: full.id, locale: \''.$this->request()->segment(1).'\'})+"\">"+data+"</a>"'
+            : '"<a href=\""+routes.route(\'adminarea.cortex.auth.guardians.edit\', {guardian: full.id})+"\">"+data+"</a>"';
 
         return [
             'id' => ['checkboxes' => '{"selectRow": true}', 'exportable' => false, 'printable' => false],

@@ -7,7 +7,7 @@
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\RoleFormProcessRequest::class)->selector("#adminarea-roles-create-form, #adminarea-roles-{$role->getRouteKey()}-update-form")->ignore('.skip-validation') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\RoleFormProcessRequest::class)->selector("#adminarea-cortex-auth-roles-create-form, #adminarea-cortex-auth-roles-{$role->getRouteKey()}-update-form")->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}
@@ -27,7 +27,7 @@
                 @if($role->exists && app('request.user')->can('delete', $role))
                     <div class="pull-right">
                         <a href="#" data-toggle="modal" data-target="#delete-confirmation"
-                           data-modal-action="{{ route('adminarea.roles.destroy', ['role' => $role]) }}"
+                           data-modal-action="{{ route('adminarea.cortex.auth.roles.destroy', ['role' => $role]) }}"
                            data-modal-title="{{ trans('cortex/foundation::messages.delete_confirmation_title') }}"
                            data-modal-button="<a href='#' class='btn btn-danger' data-form='delete' data-token='{{ csrf_token() }}'><i class='fa fa-trash-o'></i> {{ trans('cortex/foundation::common.delete') }}</a>"
                            data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/auth::common.role'), 'identifier' => $role->getRouteKey()]) }}"
@@ -35,15 +35,15 @@
                         </a>
                     </div>
                 @endif
-                {!! Menu::render('adminarea.roles.tabs', 'nav-tab') !!}
+                {!! Menu::render('adminarea.cortex.auth.roles.tabs', 'nav-tab') !!}
 
                 <div class="tab-content">
                     <div class="tab-pane active" id="details-tab">
 
                         @if ($role->exists)
-                            {{ Form::model($role, ['url' => route('adminarea.roles.update', ['role' => $role]), 'method' => 'put', 'id' => "adminarea-roles-{$role->getRouteKey()}-update-form"]) }}
+                            {{ Form::model($role, ['url' => route('adminarea.cortex.auth.roles.update', ['role' => $role]), 'method' => 'put', 'id' => "adminarea-cortex-auth-roles-{$role->getRouteKey()}-update-form"]) }}
                         @else
-                            {{ Form::model($role, ['url' => route('adminarea.roles.store'), 'id' => 'adminarea-roles-create-form']) }}
+                            {{ Form::model($role, ['url' => route('adminarea.cortex.auth.roles.store'), 'id' => 'adminarea-cortex-auth-roles-create-form']) }}
                         @endif
 
                             <div class="row">

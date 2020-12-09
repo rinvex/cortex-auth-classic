@@ -26,6 +26,6 @@ class EmailVerificationProcessRequest extends EmailVerificationRequest
      */
     protected function getRedirectUrl()
     {
-        return $this->redirector->getUrlGenerator()->route('frontarea.verification.email.request');
+        return $this->redirector->getUrlGenerator()->route('frontarea.cortex.auth.account.verification.email.request');
     }
 }

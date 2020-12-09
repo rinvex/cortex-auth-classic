@@ -27,7 +27,7 @@
 
                         <div role="tabpanel" class="tab-pane active" id="security">
 
-                            {{ Form::open(['url' => route('frontarea.account.twofactor.totp.update'), 'class' => 'form-horizontal', 'id' => 'frontarea-twofactor-totp-form']) }}
+                            {{ Form::open(['url' => route('frontarea.cortex.auth.account.twofactor.totp.update'), 'class' => 'form-horizontal', 'id' => 'frontarea-twofactor-totp-form']) }}
 
                                 <p class="text-justify">
                                     {!! trans('cortex/auth::twofactor.totp_apps') !!}
@@ -122,7 +122,7 @@
                                                     @if(Arr::get($twoFactor, 'totp.backup'))
                                                         <div class="panel panel-primary">
                                                             <header class="panel-heading">
-                                                                <a class="btn btn-default btn-flat btn-xs pull-right" href="{{ route('frontarea.account.twofactor.totp.backup') }}" onclick="event.preventDefault(); var form = document.getElementById('frontarea-twofactor-totp-form'); form.action = '{{ route('frontarea.account.twofactor.totp.backup') }}'; form.submit();">{{ trans('cortex/auth::twofactor.totp_backup_generate') }}</a>
+                                                                <a class="btn btn-default btn-flat btn-xs pull-right" href="{{ route('frontarea.cortex.auth.account.twofactor.totp.backup') }}" onclick="event.preventDefault(); var form = document.getElementById('frontarea-twofactor-totp-form'); form.action = '{{ route('frontarea.cortex.auth.account.twofactor.totp.backup') }}'; form.submit();">{{ trans('cortex/auth::twofactor.totp_backup_generate') }}</a>
                                                                 <h3 class="panel-title">{{ trans('cortex/auth::twofactor.totp_backup_head') }}</h3>
                                                             </header>
                                                             <div class="panel-body">

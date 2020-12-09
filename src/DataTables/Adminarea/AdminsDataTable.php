@@ -67,7 +67,7 @@ class AdminsDataTable extends AbstractDataTable
      */
     protected function getAjaxForm(): string
     {
-        return '#adminarea-admins-filters-form';
+        return '#adminarea-cortex-auth-admins-filters-form';
     }
 
     /**
@@ -78,8 +78,8 @@ class AdminsDataTable extends AbstractDataTable
     protected function getColumns(): array
     {
         $link = config('cortex.foundation.route.locale_prefix')
-            ? '"<a href=\""+routes.route(\'adminarea.admins.edit\', {admin: full.id, locale: \''.$this->request()->segment(1).'\'})+"\">"+data+"</a>"'
-            : '"<a href=\""+routes.route(\'adminarea.admins.edit\', {admin: full.id})+"\">"+data+"</a>"';
+            ? '"<a href=\""+routes.route(\'adminarea.cortex.auth.admins.edit\', {admin: full.id, locale: \''.$this->request()->segment(1).'\'})+"\">"+data+"</a>"'
+            : '"<a href=\""+routes.route(\'adminarea.cortex.auth.admins.edit\', {admin: full.id})+"\">"+data+"</a>"';
 
         return [
             'id' => ['checkboxes' => '{"selectRow": true}', 'exportable' => false, 'printable' => false],
