@@ -20,7 +20,7 @@ class ReauthenticationController extends AuthenticatedController
      */
     public function confirmPassword(Request $request)
     {
-        return view('cortex/auth::frontarea.pages.reauthentication-password');
+        return view('cortex/auth::tenantarea.pages.reauthentication-password');
     }
 
     /**
@@ -35,7 +35,7 @@ class ReauthenticationController extends AuthenticatedController
         $this->resetSessionConfirmationTimeout($request, 'password');
 
         return intend([
-            'intended' => url(route('frontarea.home')),
+            'intended' => url(route('tenantarea.home')),
         ]);
     }
 

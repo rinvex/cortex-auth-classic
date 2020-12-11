@@ -24,22 +24,22 @@ class PhoneVerificationRequest extends FormRequest
 
         // Redirect users if their phone already verified, no need to process their request
         if ($user && $user->hasVerifiedPhone()) {
-            throw new GenericException(trans('cortex/auth::messages.verification.phone.already_verified'), route('managerarea.account.settings'));
+            throw new GenericException(trans('cortex/auth::messages.verification.phone.already_verified'), route('managerarea.cortex.auth.account.settings'));
         }
 
         // Phone field required before verification
         if ($user && ! $user->phone) {
-            throw new GenericException(trans('cortex/auth::messages.account.phone_required'), route('managerarea.account.settings'));
+            throw new GenericException(trans('cortex/auth::messages.account.phone_required'), route('managerarea.cortex.auth.account.settings'));
         }
 
         // Country field required for phone verification
         if ($user && ! $user->country_code) {
-            throw new GenericException(trans('cortex/auth::messages.account.country_required'), route('managerarea.account.settings'));
+            throw new GenericException(trans('cortex/auth::messages.account.country_required'), route('managerarea.cortex.auth.account.settings'));
         }
 
         // Email verification required for phone verification
         if ($user && ! $user->hasVerifiedPhone()) {
-            throw new GenericException(trans('cortex/auth::messages.account.email_verification_required'), route('managerarea.verification.email.request'));
+            throw new GenericException(trans('cortex/auth::messages.account.email_verification_required'), route('managerarea.cortex.auth.account.verification.email.request'));
         }
 
         return true;

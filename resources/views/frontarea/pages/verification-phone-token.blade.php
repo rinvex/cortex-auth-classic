@@ -24,7 +24,7 @@
 
                 <section class="auth-form">
 
-                    {{ Form::open(['url' => route('frontarea.verification.phone.process'), 'id' => 'frontarea-verification-phone-token-form', 'role' => 'auth']) }}
+                    {{ Form::open(['url' => route('frontarea.cortex.auth.account.verification.phone.process'), 'id' => 'frontarea-verification-phone-token-form', 'role' => 'auth']) }}
 
                         <div class="centered"><strong>{{ trans('cortex/auth::common.account_verification_phone') }}</strong></div>
 
@@ -37,7 +37,7 @@
                             @endif
 
                             @if (session()->get('cortex.auth.twofactor.phone'))
-                                {!! trans('cortex/auth::twofactor.backup_phone', ['href' => route('tenantarea.verification.phone.request')]) !!}
+                                {!! trans('cortex/auth::twofactor.backup_phone', ['href' => route('tenantarea.cortex.auth.account.verification.phone.request')]) !!}
                             @elseif(session()->get('cortex.auth.twofactor.totp'))
                                 {!! trans('cortex/auth::twofactor.backup_totp') !!}
                             @endif
@@ -46,9 +46,9 @@
                         {{ Form::button('<i class="fa fa-check"></i> '.trans('cortex/auth::common.verify_phone'), ['class' => 'btn btn-lg btn-primary btn-block', 'type' => 'submit']) }}
 
                         <div>
-                            {{ Html::link(route('frontarea.login'), trans('cortex/auth::common.account_login')) }}
+                            {{ Html::link(route('frontarea.cortex.auth.account.login'), trans('cortex/auth::common.account_login')) }}
                             {{ trans('cortex/foundation::common.or') }}
-                            {{ Html::link(route('frontarea.register.member'), trans('cortex/auth::common.account_register')) }}
+                            {{ Html::link(route('frontarea.cortex.auth.account.register.member'), trans('cortex/auth::common.account_register')) }}
                         </div>
 
                     {{ Form::close() }}

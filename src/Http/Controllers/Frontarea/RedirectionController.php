@@ -16,7 +16,7 @@ class RedirectionController extends AbstractController
     public function passwordreset()
     {
         return intend([
-            'url' => route('frontarea.passwordreset.request'),
+            'url' => route('frontarea.cortex.auth.account.passwordreset.request'),
         ]);
     }
 
@@ -28,7 +28,7 @@ class RedirectionController extends AbstractController
     public function registration()
     {
         return intend([
-            'url' => route('frontarea.register.member'),
+            'url' => route('frontarea.cortex.auth.account.register.member'),
         ]);
     }
 

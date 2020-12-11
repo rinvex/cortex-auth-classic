@@ -8,7 +8,7 @@
 
 {{-- Scripts --}}
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Managerarea\PhoneVerificationProcessRequest::class)->selector('#managerarea-verification-phone-token-form')->ignore('.skip-validation') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Managerarea\PhoneVerificationProcessRequest::class)->selector('#managerarea-cortex-auth-verification-phone-token-form')->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}
@@ -22,7 +22,7 @@
         <div class="login-box-body">
             <p class="login-box-msg">{{ trans('cortex/auth::common.account_verification_phone') }}</p>
 
-            {{ Form::open(['url' => route('managerarea.verification.phone.process'), 'id' => 'managerarea-verification-phone-token-form', 'role' => 'auth']) }}
+            {{ Form::open(['url' => route('managerarea.cortex.auth.account.verification.phone.process'), 'id' => 'managerarea-cortex-auth-verification-phone-token-form', 'role' => 'auth']) }}
 
                 <div class="form-group has-feedback{{ $errors->has('token') ? ' has-error' : '' }}">
                     {{ Form::hidden('phone', old('phone', request('phone')), ['class' => 'skip-validation']) }}
@@ -33,7 +33,7 @@
                     @endif
 
                     @if (session()->get('cortex.auth.twofactor.phone'))
-                        {!! trans('cortex/auth::twofactor.backup_phone', ['href' => route('tenantarea.verification.phone.request')]) !!}
+                        {!! trans('cortex/auth::twofactor.backup_phone', ['href' => route('tenantarea.cortex.auth.account.verification.phone.request')]) !!}
                     @elseif(session()->get('cortex.auth.twofactor.totp'))
                         {!! trans('cortex/auth::twofactor.backup_totp') !!}
                     @endif
@@ -43,7 +43,7 @@
 
             {{ Form::close() }}
 
-            {{ Html::link(route('managerarea.login'), trans('cortex/auth::common.account_login')) }}
+            {{ Html::link(route('managerarea.cortex.auth.account.login'), trans('cortex/auth::common.account_login')) }}
 
         </div>
 

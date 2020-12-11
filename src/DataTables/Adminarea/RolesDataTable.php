@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Cortex\Auth\DataTables\Adminarea;
 
 use Cortex\Auth\Models\Role;
+use Cortex\Auth\Transformers\RoleTransformer;
 use Cortex\Foundation\DataTables\AbstractDataTable;
-use Cortex\Auth\Transformers\Adminarea\RoleTransformer;
 
 class RolesDataTable extends AbstractDataTable
 {
@@ -28,9 +28,10 @@ class RolesDataTable extends AbstractDataTable
     public function query()
     {
         $query = parent::query();
+        $user = $this->request()->user(app('request.guard'));
 
-        if (app('request.user')->isNotA('superadmin')) {
-            $query = $query->whereIn('id', app('request.user')->roles->pluck('id')->toArray());
+        if ($user->isNotA('superadmin')) {
+            $query = $query->whereIn('id', $user->roles->pluck('id')->toArray());
         }
 
         return $query;
@@ -57,8 +58,8 @@ class RolesDataTable extends AbstractDataTable
     protected function getColumns(): array
     {
         $link = config('cortex.foundation.route.locale_prefix')
-            ? '"<a href=\""+routes.route(\'adminarea.roles.edit\', {role: full.id, locale: \''.$this->request->segment(1).'\'})+"\">"+data+"</a>"'
-            : '"<a href=\""+routes.route(\'adminarea.roles.edit\', {role: full.id})+"\">"+data+"</a>"';
+            ? '"<a href=\""+routes.route(\'adminarea.cortex.auth.roles.edit\', {role: full.id, locale: \''.$this->request()->segment(1).'\'})+"\">"+data+"</a>"'
+            : '"<a href=\""+routes.route(\'adminarea.cortex.auth.roles.edit\', {role: full.id})+"\">"+data+"</a>"';
 
         return [
             'id' => ['checkboxes' => '{"selectRow": true}', 'exportable' => false, 'printable' => false],

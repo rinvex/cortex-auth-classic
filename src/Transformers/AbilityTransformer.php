@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Auth\Transformers\Adminarea;
+namespace Cortex\Auth\Transformers;
 
 use Cortex\Auth\Models\Ability;
 use Rinvex\Support\Traits\Escaper;

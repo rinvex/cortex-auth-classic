@@ -73,7 +73,7 @@ class AdminPasswordResetNotification extends Notification implements ShouldQueue
         }
 
         $email = $notifiable->getEmailForPasswordReset();
-        $link = route('adminarea.passwordreset.reset')."?email={$email}&expiration={$this->expiration}&token={$this->token}";
+        $link = route('adminarea.cortex.auth.account.passwordreset.reset')."?email={$email}&expiration={$this->expiration}&token={$this->token}";
 
         return (new MailMessage())
             ->subject(trans('cortex/auth::emails.passwordreset.request.subject'))

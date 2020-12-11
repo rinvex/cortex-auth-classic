@@ -8,7 +8,7 @@
 
 {{-- Scripts --}}
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Tenantarea\PasswordResetProcessRequest::class)->selector('#tenantarea-passwordreset-request-form')->ignore('.skip-validation') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Tenantarea\PasswordResetProcessRequest::class)->selector('#tenantarea-cortex-auth-passwordreset-request-form')->ignore('.skip-validation') !!}
 @endpush
 
 @section('body-attributes')class="auth-page"@endsection
@@ -24,7 +24,7 @@
 
                 <section class="auth-form">
 
-                    {{ Form::open(['url' => route('tenantarea.passwordreset.send'), 'id' => 'tenantarea-passwordreset-request-form', 'role' => 'auth']) }}
+                    {{ Form::open(['url' => route('tenantarea.cortex.auth.account.passwordreset.send'), 'id' => 'tenantarea-cortex-auth-passwordreset-request-form', 'role' => 'auth']) }}
 
                         <div class="centered"><strong>{{ trans('cortex/auth::common.account_reset_password') }}</strong></div>
 
@@ -39,9 +39,9 @@
                         {{ Form::button('<i class="fa fa-envelope"></i> '.trans('cortex/auth::common.passwordreset_request'), ['class' => 'btn btn-lg btn-primary btn-block', 'type' => 'submit']) }}
 
                         <div>
-                            {{ Html::link(route('tenantarea.login'), trans('cortex/auth::common.account_login')) }}
+                            {{ Html::link(route('tenantarea.cortex.auth.account.login'), trans('cortex/auth::common.account_login')) }}
                             {{ trans('cortex/foundation::common.or') }}
-                            {{ Html::link(route('tenantarea.register'), trans('cortex/auth::common.account_register')) }}
+                            {{ Html::link(route('tenantarea.cortex.auth.account.register'), trans('cortex/auth::common.account_register')) }}
                         </div>
 
                     {{ Form::close() }}

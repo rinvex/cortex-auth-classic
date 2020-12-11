@@ -25,7 +25,7 @@ class PhoneVerificationVerifyRequest extends PhoneVerificationRequest
 
         if (! $user) {
             // User instance required to detect active TwoFactor methods
-            throw new GenericException(trans('cortex/foundation::messages.session_required'), route('tenantarea.login'));
+            throw new GenericException(trans('cortex/foundation::messages.session_required'), route('tenantarea.cortex.auth.account.login'));
         }
 
         return true;

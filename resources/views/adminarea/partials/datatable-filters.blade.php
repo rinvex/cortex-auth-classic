@@ -1,4 +1,4 @@
-{{ Form::open(['id' => "adminarea-{$resource}-filters-form"]) }}
+{{ Form::open(['id' => "adminarea-cortex-auth-{$resource}-filters-form"]) }}
 
     <div class="row">
 

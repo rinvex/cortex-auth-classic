@@ -23,7 +23,7 @@
 
                         <div role="tabpanel" class="tab-pane active" id="security">
 
-                            {{ Form::open(['url' => route('frontarea.account.twofactor.totp.update'), 'id' => 'frontarea-twofactor-totp-form']) }}
+                            {{ Form::open(['url' => route('frontarea.cortex.auth.account.twofactor.totp.update'), 'id' => 'frontarea-twofactor-totp-form']) }}
 
                                 <h3 class="centered">
                                     @if(Arr::get($twoFactor, 'totp.enabled') || Arr::get($twoFactor, 'phone.enabled'))
@@ -38,10 +38,10 @@
                                 <div class="panel panel-primary">
                                     <header class="panel-heading">
                                         @if(! empty($twoFactor['totp']['enabled']))
-                                            <a class="btn btn-default btn-flat btn-xs pull-right" href="{{ route('frontarea.account.twofactor.totp.disable') }}" onclick="event.preventDefault(); var form = document.getElementById('frontarea-twofactor-totp-form'); form.action = '{{ route('frontarea.account.twofactor.totp.disable') }}'; form.submit();">{{ trans('cortex/auth::common.disable') }}</a>
-                                            <a class="btn btn-default btn-flat btn-xs pull-right" style="margin-right: 10px" href="{{ route('frontarea.account.twofactor.totp.enable') }}">{{ trans('cortex/auth::common.settings') }}</a>
+                                            <a class="btn btn-default btn-flat btn-xs pull-right" href="{{ route('frontarea.cortex.auth.account.twofactor.totp.disable') }}" onclick="event.preventDefault(); var form = document.getElementById('frontarea-twofactor-totp-form'); form.action = '{{ route('frontarea.cortex.auth.account.twofactor.totp.disable') }}'; form.submit();">{{ trans('cortex/auth::common.disable') }}</a>
+                                            <a class="btn btn-default btn-flat btn-xs pull-right" style="margin-right: 10px" href="{{ route('frontarea.cortex.auth.account.twofactor.totp.enable') }}">{{ trans('cortex/auth::common.settings') }}</a>
                                         @else
-                                            <a class="btn btn-default btn-flat btn-xs pull-right" href="{{ route('frontarea.account.twofactor.totp.enable') }}">{{ trans('cortex/auth::common.enable') }}</a>
+                                            <a class="btn btn-default btn-flat btn-xs pull-right" href="{{ route('frontarea.cortex.auth.account.twofactor.totp.enable') }}">{{ trans('cortex/auth::common.enable') }}</a>
                                         @endif
 
                                         <h3 class="panel-title">
@@ -55,7 +55,7 @@
 
                                 <div class="panel panel-primary">
                                     <header class="panel-heading">
-                                        <a class="btn btn-default btn-flat btn-xs pull-right" href="{{ route('frontarea.account.twofactor.phone.'.(! empty($twoFactor['phone']['enabled']) ? 'disable' : 'enable')) }}" onclick="event.preventDefault(); var form = document.getElementById('frontarea-twofactor-totp-form'); form.action = '{{ route('frontarea.account.twofactor.phone.'.(! empty($twoFactor['phone']['enabled']) ? 'disable' : 'enable')) }}'; form.submit();">{{ trans('cortex/auth::common.'.(! empty($twoFactor['phone']['enabled']) ? 'disable' : 'enable')) }}</a>
+                                        <a class="btn btn-default btn-flat btn-xs pull-right" href="{{ route('frontarea.cortex.auth.account.twofactor.phone.'.(! empty($twoFactor['phone']['enabled']) ? 'disable' : 'enable')) }}" onclick="event.preventDefault(); var form = document.getElementById('frontarea-twofactor-totp-form'); form.action = '{{ route('frontarea.cortex.auth.account.twofactor.phone.'.(! empty($twoFactor['phone']['enabled']) ? 'disable' : 'enable')) }}'; form.submit();">{{ trans('cortex/auth::common.'.(! empty($twoFactor['phone']['enabled']) ? 'disable' : 'enable')) }}</a>
 
                                         <h3 class="panel-title">
                                             {{ trans('cortex/auth::twofactor.phone_head') }}

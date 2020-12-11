@@ -19,7 +19,7 @@
 
                 <section class="auth-form">
 
-                    {{ Form::open(['url' => route('tenantarea.reauthentication.twofactor.process'), 'id' => 'tenantarea-reauthentication-form', 'role' => 'auth']) }}
+                    {{ Form::open(['url' => route('tenantarea.cortex.auth.account.reauthentication.twofactor.process'), 'id' => 'tenantarea-cortex-auth-reauthentication-form', 'role' => 'auth']) }}
 
                         <div class="centered"><strong>{{ trans('cortex/auth::common.reauthentication.twofactor') }}</strong></div>
 

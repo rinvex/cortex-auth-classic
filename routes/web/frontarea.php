@@ -11,64 +11,73 @@ Route::domain(domain())->group(function () {
             // Authenticate broadcasting to channels
             Route::match(['get', 'post'], 'broadcasting/auth')->name('broadcast')->uses('AuthenticationController@broadcast');
 
-            // Login Routes
-            $maxAttempts = config('cortex.auth.throttle.login.max_attempts');
-            $decayMinutes = config('cortex.auth.throttle.login.decay_minutes');
-            Route::get('login')->name('login')->uses('AuthenticationController@form');
-            Route::post('login')->name('login.process')->middleware("throttle:{$maxAttempts},{$decayMinutes}")->uses('AuthenticationController@login');
-            Route::post('logout')->name('logout')->uses('AuthenticationController@logout');
+            Route::name('cortex.auth.account.')->group(function () {
 
-            // Registration Routes
-            Route::get('register')->name('register')->uses('RedirectionController@registration');
-            Route::get('register/member')->name('register.member')->uses('MemberRegistrationController@form');
-            Route::post('register/member')->name('register.member.process')->uses('MemberRegistrationController@register');
-            Route::get('register/tenant')->name('register.tenant')->uses('TenantRegistrationController@form');
-            Route::post('register/tenant')->name('register.tenant.process')->uses('TenantRegistrationController@register');
+                // Login Routes
+                $maxAttempts = config('cortex.auth.throttle.login.max_attempts');
+                $decayMinutes = config('cortex.auth.throttle.login.decay_minutes');
+                Route::get('login')->name('login')->uses('AuthenticationController@form');
+                Route::post('login')->name('login.process')->middleware("throttle:{$maxAttempts},{$decayMinutes}")->uses('AuthenticationController@login');
+                Route::post('logout')->name('logout')->uses('AuthenticationController@logout');
 
-            // Reauthentication Routes
-            Route::name('reauthentication.')->prefix('reauthentication')->group(function () {
-                Route::get('password')->name('password')->uses('ReauthenticationController@confirmPassword');
-                Route::post('password')->name('password.process')->uses('ReauthenticationController@processPassword');
+                // Social Authentication Routes
+                Route::redirect('auth', 'login')->name('auth');
+                Route::get('auth/{provider}')->name('auth.social')->uses('SocialAuthenticationController@redirectToProvider');
+                Route::get('auth/{provider}/callback')->name('auth.social.callback')->uses('SocialAuthenticationController@handleProviderCallback');
 
-                Route::get('twofactor')->name('twofactor')->uses('ReauthenticationController@confirmTwofactor');
-                Route::post('twofactor')->name('twofactor.process')->uses('ReauthenticationController@processTwofactor');
-            });
+                // Registration Routes
+                Route::get('register')->name('register')->uses('RedirectionController@registration');
+                Route::get('register/member')->name('register.member')->uses('MemberRegistrationController@form');
+                Route::post('register/member')->name('register.member.process')->uses('MemberRegistrationController@register');
+                Route::get('register/tenant')->name('register.tenant')->uses('TenantRegistrationController@form');
+                Route::post('register/tenant')->name('register.tenant.process')->uses('TenantRegistrationController@register');
 
-            // Password Reset Routes
-            Route::get('passwordreset')->name('passwordreset')->uses('RedirectionController@passwordreset');
-            Route::name('passwordreset.')->prefix('passwordreset')->group(function () {
-                $maxAttempts = config('cortex.auth.throttle.passwordreset.max_attempts');
-                $decayMinutes = config('cortex.auth.throttle.passwordreset.decay_minutes');
-                Route::get('request')->name('request')->uses('PasswordResetController@request');
-                Route::post('send')->name('send')->middleware("throttle:{$maxAttempts},{$decayMinutes}")->uses('PasswordResetController@send');
-                Route::get('reset')->name('reset')->uses('PasswordResetController@reset');
-                Route::post('process')->name('process')->uses('PasswordResetController@process');
-            });
+                // Reauthentication Routes
+                Route::name('reauthentication.')->prefix('reauthentication')->group(function () {
+                    Route::get('password')->name('password')->uses('ReauthenticationController@confirmPassword');
+                    Route::post('password')->name('password.process')->uses('ReauthenticationController@processPassword');
 
-            // Verification Routes
-            Route::get('verification')->name('verification')->uses('RedirectionController@verification');
-            Route::name('verification.')->prefix('verification')->group(function () {
-                // Phone Verification Routes
-                Route::name('phone.')->prefix('phone')->group(function () {
-                    Route::get('request')->name('request')->uses('PhoneVerificationController@request');
-                    Route::post('send')->name('send')->uses('PhoneVerificationController@send');
-                    Route::get('verify')->name('verify')->uses('PhoneVerificationController@verify');
-                    Route::post('process')->name('process')->uses('PhoneVerificationController@process');
+                    Route::get('twofactor')->name('twofactor')->uses('ReauthenticationController@confirmTwofactor');
+                    Route::post('twofactor')->name('twofactor.process')->uses('ReauthenticationController@processTwofactor');
                 });
 
-                // Email Verification Routes
-                Route::name('email.')->prefix('email')->group(function () {
-                    Route::get('request')->name('request')->uses('EmailVerificationController@request');
-                    Route::post('send')->name('send')->uses('EmailVerificationController@send');
-                    Route::get('verify')->name('verify')->uses('EmailVerificationController@verify');
+                // Password Reset Routes
+                Route::get('passwordreset')->name('passwordreset')->uses('RedirectionController@passwordreset');
+                Route::name('passwordreset.')->prefix('passwordreset')->group(function () {
+                    $maxAttempts = config('cortex.auth.throttle.passwordreset.max_attempts');
+                    $decayMinutes = config('cortex.auth.throttle.passwordreset.decay_minutes');
+                    Route::get('request')->name('request')->uses('PasswordResetController@request');
+                    Route::post('send')->name('send')->middleware("throttle:{$maxAttempts},{$decayMinutes}")->uses('PasswordResetController@send');
+                    Route::get('reset')->name('reset')->uses('PasswordResetController@reset');
+                    Route::post('process')->name('process')->uses('PasswordResetController@process');
                 });
+
+                // Verification Routes
+                Route::get('verification')->name('verification')->uses('RedirectionController@verification');
+                Route::name('verification.')->prefix('verification')->group(function () {
+                    // Phone Verification Routes
+                    Route::name('phone.')->prefix('phone')->group(function () {
+                        Route::get('request')->name('request')->uses('PhoneVerificationController@request');
+                        Route::post('send')->name('send')->uses('PhoneVerificationController@send');
+                        Route::get('verify')->name('verify')->uses('PhoneVerificationController@verify');
+                        Route::post('process')->name('process')->uses('PhoneVerificationController@process');
+                    });
+
+                    // Email Verification Routes
+                    Route::name('email.')->prefix('email')->group(function () {
+                        Route::get('request')->name('request')->uses('EmailVerificationController@request');
+                        Route::post('send')->name('send')->uses('EmailVerificationController@send');
+                        Route::get('verify')->name('verify')->uses('EmailVerificationController@verify');
+                    });
+                });
+
             });
 
             // Account Settings Route Alias
-            Route::get('account')->name('account')->uses('AccountSettingsController@index');
+            Route::get('account')->name('cortex.auth.account')->uses('AccountSettingsController@index');
 
             // User Account Routes
-            Route::name('account.')->prefix('account')->group(function () {
+            Route::name('cortex.auth.account.')->prefix('account')->group(function () {
                 // Account Settings Routes
                 Route::get('settings')->name('settings')->uses('AccountSettingsController@edit');
                 Route::post('settings')->name('settings.update')->uses('AccountSettingsController@update');
@@ -109,9 +118,5 @@ Route::domain(domain())->group(function () {
                 });
             });
 
-            // Social Authentication Routes
-            Route::redirect('auth', 'login');
-            Route::get('auth/{provider}')->name('auth.social')->uses('SocialAuthenticationController@redirectToProvider');
-            Route::get('auth/{provider}/callback')->name('auth.social.callback')->uses('SocialAuthenticationController@handleProviderCallback');
         });
 });

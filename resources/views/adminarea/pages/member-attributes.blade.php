@@ -7,7 +7,7 @@
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\MemberAttributesFormRequest::class)->selector("#adminarea-members-create-form, #adminarea-members-{$member->getRouteKey()}-update-attributes-form")->ignore('.skip-validation') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\MemberAttributesFormRequest::class)->selector("#adminarea-cortex-auth-members-create-form, #adminarea-cortex-auth-members-{$member->getRouteKey()}-update-attributes-form")->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}
@@ -22,7 +22,7 @@
         <section class="content">
 
             <div class="nav-tabs-custom">
-                {!! Menu::render('adminarea.members.tabs', 'nav-tab') !!}
+                {!! Menu::render('adminarea.cortex.auth.members.tabs', 'nav-tab') !!}
 
                 <div class="tab-content">
 

@@ -73,7 +73,7 @@ class MemberPasswordResetNotification extends Notification implements ShouldQueu
         }
 
         $email = $notifiable->getEmailForPasswordReset();
-        $link = route('frontarea.passwordreset.reset')."?email={$email}&expiration={$this->expiration}&token={$this->token}";
+        $link = route('frontarea.cortex.auth.account.passwordreset.reset')."?email={$email}&expiration={$this->expiration}&token={$this->token}";
 
         return (new MailMessage())
             ->subject(trans('cortex/auth::emails.passwordreset.request.subject'))

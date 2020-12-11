@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Cortex\Auth\DataTables\Managerarea;
 
 use Cortex\Auth\Models\Role;
+use Cortex\Auth\Transformers\RoleTransformer;
 use Cortex\Foundation\DataTables\AbstractDataTable;
-use Cortex\Auth\Transformers\Managerarea\RoleTransformer;
 
 class RolesDataTable extends AbstractDataTable
 {
@@ -28,10 +28,11 @@ class RolesDataTable extends AbstractDataTable
     public function query()
     {
         $query = parent::query();
+        $user = $this->request()->user(app('request.guard'));
 
-        $query = app('request.user')->isNotA('supermanager') ?
-            $query->whereIn('id', app('request.user')->roles->pluck('id')->toArray())
-            : $query->whereIn('id', app('request.user')->roles->merge(app('request.tenant') ? app('cortex.auth.role')->where('scope', app('request.tenant')->getKey())->get() : collect())->pluck('id')->toArray());
+        $query = $user->isNotA('supermanager') ?
+            $query->whereIn('id', $user->roles->pluck('id')->toArray())
+            : $query->whereIn('id', $user->roles->merge(app('request.tenant') ? app('cortex.auth.role')->where('scope', app('request.tenant')->getKey())->get() : collect())->pluck('id')->toArray());
 
         return $query;
     }
@@ -57,8 +58,8 @@ class RolesDataTable extends AbstractDataTable
     protected function getColumns(): array
     {
         $link = config('cortex.foundation.route.locale_prefix')
-            ? '"<a href=\""+routes.route(\'managerarea.roles.edit\', {role: full.id, locale: \''.$this->request->segment(1).'\'})+"\">"+data+"</a>"'
-            : '"<a href=\""+routes.route(\'managerarea.roles.edit\', {role: full.id})+"\">"+data+"</a>"';
+            ? '"<a href=\""+routes.route(\'managerarea.cortex.auth.roles.edit\', {role: full.id, locale: \''.$this->request()->segment(1).'\'})+"\">"+data+"</a>"'
+            : '"<a href=\""+routes.route(\'managerarea.cortex.auth.roles.edit\', {role: full.id})+"\">"+data+"</a>"';
 
         return [
             'id' => ['checkboxes' => '{"selectRow": true}', 'exportable' => false, 'printable' => false],

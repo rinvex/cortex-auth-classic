@@ -7,7 +7,7 @@
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Tenantarea\AccountPasswordRequest::class)->selector('#tenantarea-account-password-form')->ignore('.skip-validation') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Tenantarea\AccountPasswordRequest::class)->selector('#tenantarea-cortex-auth-account-password-form')->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}
@@ -21,7 +21,7 @@
             <div class="col-md-9">
                 <div class="profile-content">
 
-                    {{ Form::model(app('request.user'), ['url' => route('tenantarea.account.password.update'), 'id' => 'tenantarea-account-password-form']) }}
+                    {{ Form::model(app('request.user'), ['url' => route('tenantarea.cortex.auth.account.password.update'), 'id' => 'tenantarea-cortex-auth-account-password-form']) }}
 
                         <div class="row">
 

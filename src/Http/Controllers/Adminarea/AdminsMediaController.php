@@ -49,7 +49,7 @@ class AdminsMediaController extends AuthorizedController
         $admin->media()->where($media->getKeyName(), $media->getKey())->first()->delete();
 
         return intend([
-            'url' => route('adminarea.admins.edit', ['admin' => $admin]),
+            'url' => route('adminarea.cortex.auth.admins.edit', ['admin' => $admin]),
             'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/foundation::common.media'), 'identifier' => $media->getRouteKey()])],
         ]);
     }

@@ -14,6 +14,7 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Rinvex\Auth\Traits\HasHashables;
 use Rinvex\Support\Traits\Macroable;
+use Rinvex\OAuth\Traits\HasApiTokens;
 use Rinvex\Auth\Traits\CanVerifyEmail;
 use Rinvex\Auth\Traits\CanVerifyPhone;
 use Cortex\Foundation\Traits\Auditable;
@@ -22,11 +23,7 @@ use Rinvex\Support\Traits\HashidsTrait;
 use Rinvex\Support\Traits\HasTimezones;
 use Illuminate\Notifications\Notifiable;
 use Rinvex\Auth\Traits\CanResetPassword;
-use Cortex\Foundation\Events\ModelCreated;
-use Cortex\Foundation\Events\ModelDeleted;
-use Cortex\Foundation\Events\ModelUpdated;
 use Rinvex\Support\Traits\ValidatingTrait;
-use Cortex\Foundation\Events\ModelRestored;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Activitylog\Traits\CausesActivity;
@@ -35,7 +32,6 @@ use Rinvex\Auth\Traits\AuthenticatableTwoFactor;
 use Rinvex\Auth\Contracts\CanVerifyEmailContract;
 use Rinvex\Auth\Contracts\CanVerifyPhoneContract;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
-use Cortex\Foundation\Traits\FiresCustomModelEvent;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Rinvex\Auth\Contracts\CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -49,6 +45,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     use Auditable;
     use Macroable;
     use Notifiable;
+    use HasApiTokens;
     use HasTimezones;
     use HashidsTrait;
     use Authorizable;
@@ -63,7 +60,6 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     use CanResetPassword;
     use HasSocialAttributes;
     use HasRolesAndAbilities;
-    use FiresCustomModelEvent;
     use AuthenticatableTwoFactor;
 
     /**
@@ -135,18 +131,6 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     protected $observables = [
         'validating',
         'validated',
-    ];
-
-    /**
-     * The event map for the model.
-     *
-     * @var array
-     */
-    protected $dispatchesEvents = [
-        'created' => ModelCreated::class,
-        'deleted' => ModelDeleted::class,
-        'restored' => ModelRestored::class,
-        'updated' => ModelUpdated::class,
     ];
 
     /**

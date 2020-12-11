@@ -7,7 +7,7 @@
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\AccountPasswordRequest::class)->selector('#adminarea-account-password-form')->ignore('.skip-validation') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\AccountPasswordRequest::class)->selector('#adminarea-cortex-auth-account-password-form')->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}
@@ -24,7 +24,7 @@
                 <div class="col-md-9">
                     <div class="profile-content">
 
-                        {{ Form::model(app('request.user'), ['url' => route('adminarea.account.password.update'), 'id' => 'adminarea-account-password-form']) }}
+                        {{ Form::model(app('request.user'), ['url' => route('adminarea.cortex.auth.account.password.update'), 'id' => 'adminarea-cortex-auth-account-password-form']) }}
 
                             <div class="row">
 

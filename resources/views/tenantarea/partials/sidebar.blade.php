@@ -10,6 +10,6 @@
         @endif
     </div>
     <div class="profile-usermenu">
-        {!! Menu::render('tenantarea.account.sidebar', 'account.sidebar') !!}
+        {!! Menu::render('tenantarea.cortex.auth.account.sidebar', 'account.sidebar') !!}
     </div>
 </div>

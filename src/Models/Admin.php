@@ -4,12 +4,28 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Models;
 
+use Cortex\Auth\Events\AdminCreated;
+use Cortex\Auth\Events\AdminDeleted;
+use Cortex\Auth\Events\AdminUpdated;
+use Cortex\Auth\Events\AdminRestored;
 use Cortex\Auth\Notifications\PhoneVerificationNotification;
 use Cortex\Auth\Notifications\AdminPasswordResetNotification;
 use Cortex\Auth\Notifications\AdminEmailVerificationNotification;
 
 class Admin extends User
 {
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'created' => AdminCreated::class,
+        'updated' => AdminUpdated::class,
+        'deleted' => AdminDeleted::class,
+        'restored' => AdminRestored::class,
+    ];
+
     /**
      * {@inheritdoc}
      */

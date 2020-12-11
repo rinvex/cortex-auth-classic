@@ -17,7 +17,7 @@
         <div class="login-box-body">
             <p class="login-box-msg">{{ trans('cortex/auth::common.reauthentication.password') }}</p>
 
-            {{ Form::open(['url' => route('managerarea.reauthentication.password.process'), 'id' => 'managerarea-reauthentication-form', 'role' => 'auth']) }}
+            {{ Form::open(['url' => route('managerarea.cortex.auth.account.reauthentication.password.process'), 'id' => 'managerarea-cortex-auth-reauthentication-form', 'role' => 'auth']) }}
 
                 <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
                     {{ Form::password('password', ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.password'), 'required' => 'required']) }}

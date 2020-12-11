@@ -8,55 +8,55 @@ Route::domain(domain())->group(function () {
          ->namespace('Cortex\Auth\Http\Controllers\Adminarea')
          ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.foundation.route.prefix.adminarea') : config('cortex.foundation.route.prefix.adminarea'))->group(function () {
 
-            // Login Routes
-             Route::get('login')->name('login')->uses('AuthenticationController@form');
-             Route::post('login')->name('login.process')->uses('AuthenticationController@login');
-             Route::post('logout')->name('logout')->uses('AuthenticationController@logout');
+            Route::name('cortex.auth.account.')->group(function () {
 
-             // Reauthentication Routes
-             Route::name('reauthentication.')->prefix('reauthentication')->group(function () {
-                 // Reauthentication Password Routes
-                 Route::post('password')->name('password.process')->uses('ReauthenticationController@processPassword');
+                // Login Routes
+                 Route::get('login')->name('login')->uses('AuthenticationController@form');
+                 Route::post('login')->name('login.process')->uses('AuthenticationController@login');
+                 Route::post('logout')->name('logout')->uses('AuthenticationController@logout');
 
-                 // Reauthentication Twofactor Routes
-                 Route::post('twofactor')->name('twofactor.process')->uses('ReauthenticationController@processTwofactor');
-             });
-
-             // Password Reset Routes
-             Route::get('passwordreset')->name('passwordreset')->uses('RedirectionController@passwordreset');
-             Route::name('passwordreset.')->prefix('passwordreset')->group(function () {
-                 Route::get('request')->name('request')->uses('PasswordResetController@request');
-                 Route::post('send')->name('send')->uses('PasswordResetController@send');
-                 Route::get('reset')->name('reset')->uses('PasswordResetController@reset');
-                 Route::post('process')->name('process')->uses('PasswordResetController@process');
-             });
-
-             // Verification Routes
-             Route::get('verification')->name('verification')->uses('RedirectionController@verification');
-             Route::name('verification.')->prefix('verification')->group(function () {
-                 // Phone Verification Routes
-                 Route::name('phone.')->prefix('phone')->group(function () {
-                     Route::get('request')->name('request')->uses('PhoneVerificationController@request');
-                     Route::post('send')->name('send')->uses('PhoneVerificationController@send');
-                     Route::get('verify')->name('verify')->uses('PhoneVerificationController@verify');
-                     Route::post('process')->name('process')->uses('PhoneVerificationController@process');
+                 // Reauthentication Routes: Password & Twofactor
+                 Route::name('reauthentication.')->prefix('reauthentication')->group(function () {
+                     Route::post('password')->name('password.process')->uses('ReauthenticationController@processPassword');
+                     Route::post('twofactor')->name('twofactor.process')->uses('ReauthenticationController@processTwofactor');
                  });
 
-                 // Email Verification Routes
-                 Route::name('email.')->prefix('email')->group(function () {
-                     Route::get('request')->name('request')->uses('EmailVerificationController@request');
-                     Route::post('send')->name('send')->uses('EmailVerificationController@send');
-                     Route::get('verify')->name('verify')->uses('EmailVerificationController@verify');
+                 // Password Reset Routes
+                 Route::get('passwordreset')->name('passwordreset')->uses('RedirectionController@passwordreset');
+                 Route::name('passwordreset.')->prefix('passwordreset')->group(function () {
+                     Route::get('request')->name('request')->uses('PasswordResetController@request');
+                     Route::post('send')->name('send')->uses('PasswordResetController@send');
+                     Route::get('reset')->name('reset')->uses('PasswordResetController@reset');
+                     Route::post('process')->name('process')->uses('PasswordResetController@process');
+                 });
+
+                 // Verification Routes
+                 Route::get('verification')->name('verification')->uses('RedirectionController@verification');
+                 Route::name('verification.')->prefix('verification')->group(function () {
+                     // Phone Verification Routes
+                     Route::name('phone.')->prefix('phone')->group(function () {
+                         Route::get('request')->name('request')->uses('PhoneVerificationController@request');
+                         Route::post('send')->name('send')->uses('PhoneVerificationController@send');
+                         Route::get('verify')->name('verify')->uses('PhoneVerificationController@verify');
+                         Route::post('process')->name('process')->uses('PhoneVerificationController@process');
+                     });
+
+                     // Email Verification Routes
+                     Route::name('email.')->prefix('email')->group(function () {
+                         Route::get('request')->name('request')->uses('EmailVerificationController@request');
+                         Route::post('send')->name('send')->uses('EmailVerificationController@send');
+                         Route::get('verify')->name('verify')->uses('EmailVerificationController@verify');
+                     });
                  });
              });
 
              Route::middleware(['can:access-adminarea'])->group(function () {
 
                  // Account Settings Route Alias
-                 Route::get('account')->name('account')->uses('AccountSettingsController@index');
+                 Route::get('account')->name('cortex.auth.account')->uses('AccountSettingsController@index');
 
                  // User Account Routes
-                 Route::name('account.')->prefix('account')->group(function () {
+                 Route::name('cortex.auth.account.')->prefix('account')->group(function () {
                      // Account Settings Routes
                      Route::get('settings')->name('settings')->uses('AccountSettingsController@edit');
                      Route::post('settings')->name('settings.update')->uses('AccountSettingsController@update');
@@ -98,7 +98,7 @@ Route::domain(domain())->group(function () {
                  });
 
                  // Abilities Routes
-                 Route::name('abilities.')->prefix('abilities')->group(function () {
+                 Route::name('cortex.auth.abilities.')->prefix('abilities')->group(function () {
                      Route::match(['get', 'post'], '/')->name('index')->uses('AbilitiesController@index');
                      Route::get('import')->name('import')->uses('AbilitiesController@import');
                      Route::post('import')->name('stash')->uses('AbilitiesController@stash');
@@ -114,7 +114,7 @@ Route::domain(domain())->group(function () {
                  });
 
                  // Roles Routes
-                 Route::name('roles.')->prefix('roles')->group(function () {
+                 Route::name('cortex.auth.roles.')->prefix('roles')->group(function () {
                      Route::match(['get', 'post'], '/')->name('index')->uses('RolesController@index');
                      Route::get('import')->name('import')->uses('RolesController@import');
                      Route::post('import')->name('stash')->uses('RolesController@stash');
@@ -130,7 +130,7 @@ Route::domain(domain())->group(function () {
                  });
 
                  // Admins Routes
-                 Route::name('admins.')->prefix('admins')->group(function () {
+                 Route::name('cortex.auth.admins.')->prefix('admins')->group(function () {
                      Route::match(['get', 'post'], '/')->name('index')->uses('AdminsController@index');
                      Route::get('import')->name('import')->uses('AdminsController@import');
                      Route::post('import')->name('stash')->uses('AdminsController@stash');
@@ -150,7 +150,7 @@ Route::domain(domain())->group(function () {
                  });
 
                  // Managers Routes
-                 Route::name('managers.')->prefix('managers')->group(function () {
+                 Route::name('cortex.auth.managers.')->prefix('managers')->group(function () {
                      Route::match(['get', 'post'], '/')->name('index')->uses('ManagersController@index');
                      Route::get('import')->name('import')->uses('ManagersController@import');
                      Route::post('import')->name('stash')->uses('ManagersController@stash');
@@ -170,7 +170,7 @@ Route::domain(domain())->group(function () {
                  });
 
                  // Members Routes
-                 Route::name('members.')->prefix('members')->group(function () {
+                 Route::name('cortex.auth.members.')->prefix('members')->group(function () {
                      Route::match(['get', 'post'], '/')->name('index')->uses('MembersController@index');
                      Route::post('ajax')->name('ajax')->uses('MembersController@ajax'); // @TODO: to be refactored!
                      Route::get('import')->name('import')->uses('MembersController@import');
@@ -191,7 +191,7 @@ Route::domain(domain())->group(function () {
                  });
 
                  // Guardians Routes
-                 Route::name('guardians.')->prefix('guardians')->group(function () {
+                 Route::name('cortex.auth.guardians.')->prefix('guardians')->group(function () {
                      Route::match(['get', 'post'], '/')->name('index')->uses('GuardiansController@index');
                      Route::get('import')->name('import')->uses('GuardiansController@import');
                      Route::post('import')->name('stash')->uses('GuardiansController@stash');

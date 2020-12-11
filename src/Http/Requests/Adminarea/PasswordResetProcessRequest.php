@@ -56,6 +56,6 @@ class PasswordResetProcessRequest extends PasswordResetRequest
      */
     protected function getRedirectUrl()
     {
-        return $this->redirector->getUrlGenerator()->route('adminarea.passwordreset.request');
+        return $this->redirector->getUrlGenerator()->route('adminarea.cortex.auth.account.passwordreset.request');
     }
 }

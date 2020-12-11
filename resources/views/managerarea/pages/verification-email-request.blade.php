@@ -8,7 +8,7 @@
 
 {{-- Scripts --}}
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Managerarea\EmailVerificationSendRequest::class)->selector('#managerarea-verification-email-request-form')->ignore('.skip-validation') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Managerarea\EmailVerificationSendRequest::class)->selector('#managerarea-cortex-auth-verification-email-request-form')->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}
@@ -22,7 +22,7 @@
         <div class="login-box-body">
             <p class="login-box-msg">{{ trans('cortex/auth::common.account_verification_email') }}</p>
 
-            {{ Form::open(['url' => route('managerarea.verification.email.send'), 'id' => 'managerarea-verification-email-request-form', 'role' => 'auth']) }}
+            {{ Form::open(['url' => route('managerarea.cortex.auth.account.verification.email.send'), 'id' => 'managerarea-cortex-auth-verification-email-request-form', 'role' => 'auth']) }}
 
                 <div class="form-group has-feedback{{ $errors->has('email') ? ' has-error' : '' }}">
                     {{ Form::email('email', old('email', app('request.user')->email ?? ''), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.email'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
@@ -36,7 +36,7 @@
 
             {{ Form::close() }}
 
-            {{ Html::link(route('managerarea.login'), trans('cortex/auth::common.account_login')) }}
+            {{ Html::link(route('managerarea.cortex.auth.account.login'), trans('cortex/auth::common.account_login')) }}
 
         </div>
 

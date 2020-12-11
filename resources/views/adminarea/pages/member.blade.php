@@ -7,7 +7,7 @@
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\MemberFormRequest::class)->selector("#adminarea-members-create-form, #adminarea-members-{$member->getRouteKey()}-update-form")->ignore('.skip-validation') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\MemberFormRequest::class)->selector("#adminarea-cortex-auth-members-create-form, #adminarea-cortex-auth-members-{$member->getRouteKey()}-update-form")->ignore('.skip-validation') !!}
 
     <script>
         window.countries = @json($countries);
@@ -32,7 +32,7 @@
                 @if($member->exists && app('request.user')->can('delete', $member))
                     <div class="pull-right">
                         <a href="#" data-toggle="modal" data-target="#delete-confirmation"
-                           data-modal-action="{{ route('adminarea.members.destroy', ['member' => $member]) }}"
+                           data-modal-action="{{ route('adminarea.cortex.auth.members.destroy', ['member' => $member]) }}"
                            data-modal-title="{{ trans('cortex/foundation::messages.delete_confirmation_title') }}"
                            data-modal-button="<a href='#' class='btn btn-danger' data-form='delete' data-token='{{ csrf_token() }}'><i class='fa fa-trash-o'></i> {{ trans('cortex/foundation::common.delete') }}</a>"
                            data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/auth::common.member'), 'identifier' => $member->getRouteKey()]) }}"
@@ -40,16 +40,16 @@
                         </a>
                     </div>
                 @endif
-                {!! Menu::render('adminarea.members.tabs', 'nav-tab') !!}
+                {!! Menu::render('adminarea.cortex.auth.members.tabs', 'nav-tab') !!}
 
                 <div class="tab-content">
 
                     <div class="tab-pane active" id="details-tab">
 
                         @if ($member->exists)
-                            {{ Form::model($member, ['url' => route('adminarea.members.update', ['member' => $member]), 'id' => "adminarea-members-{$member->getRouteKey()}-update-form", 'method' => 'put', 'files' => true]) }}
+                            {{ Form::model($member, ['url' => route('adminarea.cortex.auth.members.update', ['member' => $member]), 'id' => "adminarea-cortex-auth-members-{$member->getRouteKey()}-update-form", 'method' => 'put', 'files' => true]) }}
                         @else
-                            {{ Form::model($member, ['url' => route('adminarea.members.store'), 'id' => 'adminarea-members-create-form', 'files' => true]) }}
+                            {{ Form::model($member, ['url' => route('adminarea.cortex.auth.members.store'), 'id' => 'adminarea-cortex-auth-members-create-form', 'files' => true]) }}
                         @endif
 
                             <div class="row">
@@ -376,7 +376,7 @@
                                             <i class="fa fa-paperclip"></i>
                                             <a href="{{ $member->getFirstMediaUrl('profile_picture') }}" target="_blank">{{ $member->getFirstMedia('profile_picture')->file_name }}</a> ({{ $member->getFirstMedia('profile_picture')->human_readable_size }})
                                             <a href="#" data-toggle="modal" data-target="#delete-confirmation"
-                                               data-modal-action="{{ route('adminarea.members.media.destroy', ['member' => $member, 'media' => $member->getFirstMedia('profile_picture')]) }}"
+                                               data-modal-action="{{ route('adminarea.cortex.auth.members.media.destroy', ['member' => $member, 'media' => $member->getFirstMedia('profile_picture')]) }}"
                                                data-modal-title="{{ trans('cortex/foundation::messages.delete_confirmation_title') }}"
                                                data-modal-button="<a href='#' class='btn btn-danger' data-form='delete' data-token='{{ csrf_token() }}'><i class='fa fa-trash-o'></i> {{ trans('cortex/foundation::common.delete') }}</a>"
                                                data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/foundation::common.media'), 'identifier' => $member->getFirstMedia('profile_picture')->getRouteKey()]) }}"
@@ -412,7 +412,7 @@
                                             <i class="fa fa-paperclip"></i>
                                             <a href="{{ $member->getFirstMediaUrl('cover_photo') }}" target="_blank">{{ $member->getFirstMedia('cover_photo')->file_name }}</a> ({{ $member->getFirstMedia('cover_photo')->human_readable_size }})
                                             <a href="#" data-toggle="modal" data-target="#delete-confirmation"
-                                               data-modal-action="{{ route('adminarea.members.media.destroy', ['member' => $member, 'media' => $member->getFirstMedia('cover_photo')]) }}"
+                                               data-modal-action="{{ route('adminarea.cortex.auth.members.media.destroy', ['member' => $member, 'media' => $member->getFirstMedia('cover_photo')]) }}"
                                                data-modal-title="{{ trans('cortex/foundation::messages.delete_confirmation_title') }}"
                                                data-modal-button="<a href='#' class='btn btn-danger' data-form='delete' data-token='{{ csrf_token() }}'><i class='fa fa-trash-o'></i> {{ trans('cortex/foundation::common.delete') }}</a>"
                                                data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/foundation::common.media'), 'identifier' => $member->getFirstMedia('cover_photo')->getRouteKey()]) }}"

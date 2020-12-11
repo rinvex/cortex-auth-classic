@@ -49,7 +49,7 @@ class ManagersMediaController extends AuthorizedController
         $manager->media()->where($media->getKeyName(), $media->getKey())->first()->delete();
 
         return intend([
-            'url' => route('managerarea.managers.edit', ['manager' => $manager]),
+            'url' => route('managerarea.cortex.auth.managers.edit', ['manager' => $manager]),
             'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/foundation::common.media'), 'identifier' => $media->getRouteKey()])],
         ]);
     }

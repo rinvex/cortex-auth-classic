@@ -22,7 +22,7 @@ class RoleFormRequest extends FormRequest
     public function authorize(): bool
     {
         if (! app('request.user')->isA('supermanager') && ! app('request.user')->roles->contains($this->route('role'))) {
-            throw new GenericException(trans('cortex/auth::messages.action_unauthorized'), route('managerarea.roles.index'));
+            throw new GenericException(trans('cortex/auth::messages.action_unauthorized'), route('managerarea.cortex.auth.roles.index'));
         }
 
         return true;

@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Cortex\Auth\DataTables\Managerarea;
 
 use Cortex\Auth\Models\Manager;
+use Cortex\Auth\Scopes\UserScope;
 use Illuminate\Database\Eloquent\Builder;
+use Cortex\Auth\Transformers\ManagerTransformer;
 use Cortex\Foundation\DataTables\AbstractDataTable;
-use Cortex\Auth\Transformers\Managerarea\ManagerTransformer;
 
 class ManagersDataTable extends AbstractDataTable
 {
@@ -30,24 +31,6 @@ class ManagersDataTable extends AbstractDataTable
     {
         $query = $this->query();
 
-        if (! empty($this->request->get('country_code'))) {
-            $query->where('country_code', $this->request->get('country_code'));
-        }
-
-        if (! empty($this->request->get('language_code'))) {
-            $query->where('language_code', $this->request->get('language_code'));
-        }
-
-        if (! empty($this->request->get('gender'))) {
-            $query->where('gender', $this->request->get('gender'));
-        }
-
-        if (! empty($this->request->get('tags'))) {
-            $query->whereHas('tags', function (Builder $builder) {
-                $builder->whereIn('id', $this->request->get('tags'));
-            });
-        }
-
         return datatables($query)
             ->setTransformer(app($this->transformer))
             ->filterColumn('country_code', function (Builder $builder, $keyword) {
@@ -68,13 +51,23 @@ class ManagersDataTable extends AbstractDataTable
     }
 
     /**
+     * Add scopes to the datatable.
+     *
+     * @return $this
+     */
+    public function scope()
+    {
+        return $this->addScope(new UserScope($this->request));
+    }
+
+    /**
      * Get Ajax form.
      *
      * @return string
      */
     protected function getAjaxForm(): string
     {
-        return '#managerarea-managers-filters-form';
+        return '#managerarea-cortex-auth-managers-filters-form';
     }
 
     /**
@@ -85,8 +78,8 @@ class ManagersDataTable extends AbstractDataTable
     protected function getColumns(): array
     {
         $link = config('cortex.foundation.route.locale_prefix')
-            ? '"<a href=\""+routes.route(\'managerarea.managers.edit\', {manager: full.id, locale: \''.$this->request->segment(1).'\'})+"\">"+data+"</a>"'
-            : '"<a href=\""+routes.route(\'managerarea.managers.edit\', {manager: full.id})+"\">"+data+"</a>"';
+            ? '"<a href=\""+routes.route(\'managerarea.cortex.auth.managers.edit\', {manager: full.id, locale: \''.$this->request()->segment(1).'\'})+"\">"+data+"</a>"'
+            : '"<a href=\""+routes.route(\'managerarea.cortex.auth.managers.edit\', {manager: full.id})+"\">"+data+"</a>"';
 
         return [
             'id' => ['checkboxes' => '{"selectRow": true}', 'exportable' => false, 'printable' => false],

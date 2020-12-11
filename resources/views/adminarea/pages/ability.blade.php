@@ -7,7 +7,7 @@
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\AbilityFormProcessRequest::class)->selector("#adminarea-abilities-create-form, #adminarea-abilities-{$ability->getRouteKey()}-update-form")->ignore('.skip-validation') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\AbilityFormProcessRequest::class)->selector("#adminarea-cortex-auth-abilities-create-form, #adminarea-cortex-auth-abilities-{$ability->getRouteKey()}-update-form")->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}
@@ -27,7 +27,7 @@
                 @if($ability->exists && app('request.user')->can('delete', $ability))
                     <div class="pull-right">
                         <a href="#" data-toggle="modal" data-target="#delete-confirmation"
-                           data-modal-action="{{ route('adminarea.abilities.destroy', ['ability' => $ability]) }}"
+                           data-modal-action="{{ route('adminarea.cortex.auth.abilities.destroy', ['ability' => $ability]) }}"
                            data-modal-title="{{ trans('cortex/foundation::messages.delete_confirmation_title') }}"
                            data-modal-button="<a href='#' class='btn btn-danger' data-form='delete' data-token='{{ csrf_token() }}'><i class='fa fa-trash-o'></i> {{ trans('cortex/foundation::common.delete') }}</a>"
                            data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/auth::common.ability'), 'identifier' => $ability->getRouteKey()]) }}"
@@ -35,16 +35,16 @@
                         </a>
                     </div>
                 @endif
-                {!! Menu::render('adminarea.abilities.tabs', 'nav-tab') !!}
+                {!! Menu::render('adminarea.cortex.auth.abilities.tabs', 'nav-tab') !!}
 
                 <div class="tab-content">
 
                     <div class="tab-pane active" id="details-tab">
 
                         @if ($ability->exists)
-                            {{ Form::model($ability, ['url' => route('adminarea.abilities.update', ['ability' => $ability]), 'method' => 'put', 'id' => "adminarea-abilities-{$ability->getRouteKey()}-update-form"]) }}
+                            {{ Form::model($ability, ['url' => route('adminarea.cortex.auth.abilities.update', ['ability' => $ability]), 'method' => 'put', 'id' => "adminarea-cortex-auth-abilities-{$ability->getRouteKey()}-update-form"]) }}
                         @else
-                            {{ Form::model($ability, ['url' => route('adminarea.abilities.store'), 'id' => 'adminarea-abilities-create-form']) }}
+                            {{ Form::model($ability, ['url' => route('adminarea.cortex.auth.abilities.store'), 'id' => 'adminarea-cortex-auth-abilities-create-form']) }}
                         @endif
 
                             <div class="row">

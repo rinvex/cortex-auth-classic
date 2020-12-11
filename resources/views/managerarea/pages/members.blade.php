@@ -3,7 +3,7 @@
 
 {{-- Datatable Filters --}}
 @section('datatable-filters')
-    {{ Form::open(['id' => 'managerarea-members-filters-form']) }}
+    {{ Form::open(['id' => 'managerarea-cortex-auth-members-filters-form']) }}
         <div class="row">
 
             {{-- Country Code --}}

@@ -8,7 +8,7 @@
 
 {{-- Scripts --}}
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\PhoneVerificationSendRequest::class)->selector('#adminarea-verification-phone-request-form')->ignore('.skip-validation') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\PhoneVerificationSendRequest::class)->selector('#adminarea-cortex-auth-verification-phone-request-form')->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}
@@ -22,7 +22,7 @@
         <div class="login-box-body">
             <p class="login-box-msg">{{ trans('cortex/auth::common.account_verification_phone') }}</p>
 
-            {{ Form::open(['url' => route('adminarea.verification.phone.send'), 'id' => 'adminarea-verification-phone-request-form', 'role' => 'auth']) }}
+            {{ Form::open(['url' => route('adminarea.cortex.auth.account.verification.phone.send'), 'id' => 'adminarea-cortex-auth-verification-phone-request-form', 'role' => 'auth']) }}
 
                 <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
                     <div class="input-group input-group-lg">
@@ -52,7 +52,7 @@
 
             {{ Form::close() }}
 
-            {{ Html::link(route('adminarea.login'), trans('cortex/auth::common.account_login')) }}
+            {{ Html::link(route('adminarea.cortex.auth.account.login'), trans('cortex/auth::common.account_login')) }}
 
         </div>
 

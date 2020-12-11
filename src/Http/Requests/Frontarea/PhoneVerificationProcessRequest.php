@@ -25,7 +25,7 @@ class PhoneVerificationProcessRequest extends PhoneVerificationRequest
 
         if (! $user) {
             // User instance required to detect active TwoFactor methods
-            throw new GenericException(trans('cortex/foundation::messages.session_required'), route('frontarea.login'));
+            throw new GenericException(trans('cortex/foundation::messages.session_required'), route('frontarea.cortex.auth.account.login'));
         }
 
         return true;

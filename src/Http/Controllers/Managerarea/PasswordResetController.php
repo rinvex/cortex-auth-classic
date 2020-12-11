@@ -91,7 +91,7 @@ class PasswordResetController extends AbstractController
         switch ($result) {
             case PasswordResetBrokerContract::PASSWORD_RESET:
                 return intend([
-                    'url' => route('managerarea.login'),
+                    'url' => route('managerarea.cortex.auth.account.login'),
                     'with' => ['success' => trans($result)],
                 ]);
 

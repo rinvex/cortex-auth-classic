@@ -7,7 +7,7 @@
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\GuardianFormRequest::class)->selector("#adminarea-guardians-create-form, #adminarea-guardians-{$guardian->getRouteKey()}-update-form")->ignore('.skip-validation') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\Http\Requests\Adminarea\GuardianFormRequest::class)->selector("#adminarea-cortex-auth-guardians-create-form, #adminarea-cortex-auth-guardians-{$guardian->getRouteKey()}-update-form")->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}
@@ -27,7 +27,7 @@
                 @if($guardian->exists && app('request.user')->can('delete', $guardian))
                     <div class="pull-right">
                         <a href="#" data-toggle="modal" data-target="#delete-confirmation"
-                           data-modal-action="{{ route('adminarea.guardians.destroy', ['guardian' => $guardian]) }}"
+                           data-modal-action="{{ route('adminarea.cortex.auth.guardians.destroy', ['guardian' => $guardian]) }}"
                            data-modal-title="{{ trans('cortex/foundation::messages.delete_confirmation_title') }}"
                            data-modal-button="<a href='#' class='btn btn-danger' data-form='delete' data-token='{{ csrf_token() }}'><i class='fa fa-trash-o'></i> {{ trans('cortex/foundation::common.delete') }}</a>"
                            data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/auth::common.guardian'), 'identifier' => $guardian->username]) }}"
@@ -35,16 +35,16 @@
                         </a>
                     </div>
                 @endif
-                {!! Menu::render('adminarea.guardians.tabs', 'nav-tab') !!}
+                {!! Menu::render('adminarea.cortex.auth.guardians.tabs', 'nav-tab') !!}
 
                 <div class="tab-content">
 
                     <div class="tab-pane active" id="details-tab">
 
                         @if ($guardian->exists)
-                            {{ Form::model($guardian, ['url' => route('adminarea.guardians.update', ['guardian' => $guardian]), 'id' => "adminarea-guardians-{$guardian->getRouteKey()}-update-form", 'method' => 'put', 'files' => true]) }}
+                            {{ Form::model($guardian, ['url' => route('adminarea.cortex.auth.guardians.update', ['guardian' => $guardian]), 'id' => "adminarea-cortex-auth-guardians-{$guardian->getRouteKey()}-update-form", 'method' => 'put', 'files' => true]) }}
                         @else
-                            {{ Form::model($guardian, ['url' => route('adminarea.guardians.store'), 'id' => 'adminarea-guardians-create-form', 'files' => true]) }}
+                            {{ Form::model($guardian, ['url' => route('adminarea.cortex.auth.guardians.store'), 'id' => 'adminarea-cortex-auth-guardians-create-form', 'files' => true]) }}
                         @endif
 
                             <div class="row">
