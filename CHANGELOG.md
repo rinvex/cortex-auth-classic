@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v6.1.11] - 2020-12-11
+- Add support for OAuth to user model
+- Rename broadcast channels file to avoid accessarea naming
+- Rename routes, channels, menus, breadcrumbs, datatable & form IDs to follow same modular naming conventions
+- Whitelist broadcast controller action from middleware
+- Tweak datatables realtime
+- Refactor and tweak Eloquent Events
+- Type hint Authorizable user parameter
+- Move datatables query filters to separate query scope class
+- Simplify transformers to be accessarea independant
+- Enforce consistent user object call with the correct guard
+- Enforce consistent datatables request object usage
+
 ## [v6.1.10] - 2020-10-24
 - Add maximum number of password characters
 
@@ -299,6 +312,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v6.1.11]: https://github.com/rinvex/cortex-auth/compare/v6.1.10...v6.1.11
 [v6.1.10]: https://github.com/rinvex/cortex-auth/compare/v6.1.9...v6.1.10
 [v6.1.9]: https://github.com/rinvex/cortex-auth/compare/v6.1.8...v6.1.9
 [v6.1.8]: https://github.com/rinvex/cortex-auth/compare/v6.1.7...v6.1.8
