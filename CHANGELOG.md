@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v6.1.12] - 2020-12-12
+- Drop OAuth dependency
+
 ## [v6.1.11] - 2020-12-11
 - Add support for OAuth to user model
 - Rename broadcast channels file to avoid accessarea naming
@@ -312,6 +315,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v6.1.12]: https://github.com/rinvex/cortex-auth/compare/v6.1.11...v6.1.12
 [v6.1.11]: https://github.com/rinvex/cortex-auth/compare/v6.1.10...v6.1.11
 [v6.1.10]: https://github.com/rinvex/cortex-auth/compare/v6.1.9...v6.1.10
 [v6.1.9]: https://github.com/rinvex/cortex-auth/compare/v6.1.8...v6.1.9
