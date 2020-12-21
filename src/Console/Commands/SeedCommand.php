@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Cortex\Auth\Models\Admin;
 use Illuminate\Console\Command;
 use Cortex\Auth\Models\Guardian;
+use Cortex\Auth\Database\Seeders\CortexAuthSeeder;
 
 class SeedCommand extends Command
 {
@@ -35,7 +36,7 @@ class SeedCommand extends Command
     {
         $this->alert($this->description);
 
-        $this->call('db:seed', ['--class' => 'CortexAuthSeeder']);
+        $this->call('db:seed', ['--class' => CortexAuthSeeder::class]);
 
         // Create models
         $admin = $this->createAdmin($adminPassword = Str::random());

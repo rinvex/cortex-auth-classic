@@ -18,7 +18,7 @@ class Authenticate extends BaseAuthenticate
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
-            return route('frontarea.cortex.auth.account.login');
+            return route(app('request.accessarea').'.cortex.auth.account.login');
         }
     }
 }
