@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+namespace Cortex\Auth\Database\Seeders;
+
+use Bouncer;
 use Illuminate\Database\Seeder;
 
 class CortexAuthSeeder extends Seeder

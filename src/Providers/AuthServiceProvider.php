@@ -17,10 +17,12 @@ use Cortex\Auth\Models\Guardian;
 use Cortex\Auth\Models\Socialite;
 use Illuminate\Support\ServiceProvider;
 use Rinvex\Support\Traits\ConsoleTools;
+use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Contracts\Events\Dispatcher;
 use Cortex\Auth\Console\Commands\SeedCommand;
 use Cortex\Auth\Http\Middleware\Reauthenticate;
 use Cortex\Auth\Http\Middleware\UpdateTimezone;
+use Illuminate\Auth\Middleware\RequirePassword;
 use Cortex\Auth\Console\Commands\InstallCommand;
 use Cortex\Auth\Console\Commands\MigrateCommand;
 use Cortex\Auth\Console\Commands\PublishCommand;
@@ -28,6 +30,7 @@ use Cortex\Auth\Console\Commands\RollbackCommand;
 use Cortex\Auth\Http\Middleware\UpdateLastActivity;
 use Cortex\Auth\Http\Middleware\AuthenticateSession;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 use Cortex\Auth\Http\Middleware\RedirectIfAuthenticated;
 
 class AuthServiceProvider extends ServiceProvider
@@ -184,7 +187,10 @@ class AuthServiceProvider extends ServiceProvider
         $router->pushMiddlewareToGroup('web', UpdateTimezone::class);
 
         // Override route middleware on the fly
+        $router->aliasMiddleware('can', Authorize::class);
         $router->aliasMiddleware('reauthenticate', Reauthenticate::class);
         $router->aliasMiddleware('guest', RedirectIfAuthenticated::class);
+        $router->aliasMiddleware('verified', EnsureEmailIsVerified::class);
+        $router->aliasMiddleware('password.confirm', RequirePassword::class);
     }
 }
