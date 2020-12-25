@@ -70,7 +70,6 @@ Route::domain(domain())->group(function () {
                         Route::get('verify')->name('verify')->uses('EmailVerificationController@verify');
                     });
                 });
-
             });
 
             // Account Settings Route Alias
@@ -117,6 +116,5 @@ Route::domain(domain())->group(function () {
                     });
                 });
             });
-
         });
 });

@@ -7,53 +7,52 @@ Route::domain('{subdomain}.'.domain())->group(function () {
          ->middleware(['web', 'nohttpcache'])
          ->namespace('Cortex\Auth\Http\Controllers\Managerarea')
          ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.foundation.route.prefix.managerarea') : config('cortex.foundation.route.prefix.managerarea'))->group(function () {
-
-            Route::name('cortex.auth.account.')->group(function () {
+             Route::name('cortex.auth.account.')->group(function () {
 
                 // Login Routes
-                Route::get('login')->name('login')->uses('AuthenticationController@form');
-                Route::post('login')->name('login.process')->uses('AuthenticationController@login');
-                Route::post('logout')->name('logout')->uses('AuthenticationController@logout');
+                 Route::get('login')->name('login')->uses('AuthenticationController@form');
+                 Route::post('login')->name('login.process')->uses('AuthenticationController@login');
+                 Route::post('logout')->name('logout')->uses('AuthenticationController@logout');
 
-                // Social Authentication Routes
-                Route::redirect('auth', 'login')->name('auth');
-                Route::get('auth/{provider}')->name('auth.social')->uses('SocialAuthenticationController@redirectToProvider');
-                Route::get('auth/{provider}/callback')->name('auth.social.callback')->uses('SocialAuthenticationController@handleProviderCallback');
+                 // Social Authentication Routes
+                 Route::redirect('auth', 'login')->name('auth');
+                 Route::get('auth/{provider}')->name('auth.social')->uses('SocialAuthenticationController@redirectToProvider');
+                 Route::get('auth/{provider}/callback')->name('auth.social.callback')->uses('SocialAuthenticationController@handleProviderCallback');
 
-                // Reauthentication Routes: Password & Twofactor
-                Route::name('reauthentication.')->prefix('reauthentication')->group(function () {
-                    Route::post('password')->name('password.process')->uses('ReauthenticationController@processPassword');
-                    Route::post('twofactor')->name('twofactor.process')->uses('ReauthenticationController@processTwofactor');
-                });
+                 // Reauthentication Routes: Password & Twofactor
+                 Route::name('reauthentication.')->prefix('reauthentication')->group(function () {
+                     Route::post('password')->name('password.process')->uses('ReauthenticationController@processPassword');
+                     Route::post('twofactor')->name('twofactor.process')->uses('ReauthenticationController@processTwofactor');
+                 });
 
-                // Password Reset Routes
-                Route::get('passwordreset')->name('passwordreset')->uses('RedirectionController@passwordreset');
-                Route::name('passwordreset.')->prefix('passwordreset')->group(function () {
-                    Route::get('request')->name('request')->uses('PasswordResetController@request');
-                    Route::post('send')->name('send')->uses('PasswordResetController@send');
-                    Route::get('reset')->name('reset')->uses('PasswordResetController@reset');
-                    Route::post('process')->name('process')->uses('PasswordResetController@process');
-                });
+                 // Password Reset Routes
+                 Route::get('passwordreset')->name('passwordreset')->uses('RedirectionController@passwordreset');
+                 Route::name('passwordreset.')->prefix('passwordreset')->group(function () {
+                     Route::get('request')->name('request')->uses('PasswordResetController@request');
+                     Route::post('send')->name('send')->uses('PasswordResetController@send');
+                     Route::get('reset')->name('reset')->uses('PasswordResetController@reset');
+                     Route::post('process')->name('process')->uses('PasswordResetController@process');
+                 });
 
-                // Verification Routes
-                Route::get('verification')->name('verification')->uses('RedirectionController@verification');
-                Route::name('verification.')->prefix('verification')->group(function () {
-                    // Phone Verification Routes
-                    Route::name('phone.')->prefix('phone')->group(function () {
-                        Route::get('request')->name('request')->uses('PhoneVerificationController@request');
-                        Route::post('send')->name('send')->uses('PhoneVerificationController@send');
-                        Route::get('verify')->name('verify')->uses('PhoneVerificationController@verify');
-                        Route::post('process')->name('process')->uses('PhoneVerificationController@process');
-                    });
+                 // Verification Routes
+                 Route::get('verification')->name('verification')->uses('RedirectionController@verification');
+                 Route::name('verification.')->prefix('verification')->group(function () {
+                     // Phone Verification Routes
+                     Route::name('phone.')->prefix('phone')->group(function () {
+                         Route::get('request')->name('request')->uses('PhoneVerificationController@request');
+                         Route::post('send')->name('send')->uses('PhoneVerificationController@send');
+                         Route::get('verify')->name('verify')->uses('PhoneVerificationController@verify');
+                         Route::post('process')->name('process')->uses('PhoneVerificationController@process');
+                     });
 
-                    // Email Verification Routes
-                    Route::name('email.')->prefix('email')->group(function () {
-                        Route::get('request')->name('request')->uses('EmailVerificationController@request');
-                        Route::post('send')->name('send')->uses('EmailVerificationController@send');
-                        Route::get('verify')->name('verify')->uses('EmailVerificationController@verify');
-                    });
-                });
-            });
+                     // Email Verification Routes
+                     Route::name('email.')->prefix('email')->group(function () {
+                         Route::get('request')->name('request')->uses('EmailVerificationController@request');
+                         Route::post('send')->name('send')->uses('EmailVerificationController@send');
+                         Route::get('verify')->name('verify')->uses('EmailVerificationController@verify');
+                     });
+                 });
+             });
 
              Route::middleware(['can:access-managerarea'])->group(function () {
 
