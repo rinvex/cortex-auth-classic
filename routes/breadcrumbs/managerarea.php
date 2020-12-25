@@ -5,8 +5,8 @@ declare(strict_types=1);
 use Cortex\Auth\Models\Role;
 use Cortex\Auth\Models\Member;
 use Cortex\Auth\Models\Manager;
-use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator;
+use Diglactic\Breadcrumbs\Breadcrumbs;
 
 Breadcrumbs::register('managerarea.home', function (Generator $breadcrumbs) {
     $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('managerarea.home'));

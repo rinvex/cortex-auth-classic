@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Models;
 
-use Cortex\Auth\Events\GuardianCreated;
-use Cortex\Auth\Events\GuardianDeleted;
-use Cortex\Auth\Events\GuardianRestored;
-use Cortex\Auth\Events\GuardianUpdated;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Rinvex\Auth\Traits\HasHashables;
+use Cortex\Auth\Events\GuardianCreated;
+use Cortex\Auth\Events\GuardianDeleted;
+use Cortex\Auth\Events\GuardianUpdated;
 use Cortex\Foundation\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Support\Traits\HashidsTrait;
 use Rinvex\Support\Traits\HasTimezones;
+use Cortex\Auth\Events\GuardianRestored;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Foundation\Auth\Access\Authorizable;

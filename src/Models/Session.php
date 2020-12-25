@@ -12,13 +12,13 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 /**
  * Cortex\Auth\Models\Session.
  *
- * @property int                                                                         $id
- * @property int                                                                         $user_id
- * @property string                                                                      $user_type
- * @property string                                                                      $ip_address
- * @property string                                                                      $user_agent
- * @property string                                                                      $payload
- * @property \Carbon\Carbon                                                              $last_activity
+ * @property int            $id
+ * @property int            $user_id
+ * @property string         $user_type
+ * @property string         $ip_address
+ * @property string         $user_agent
+ * @property string         $payload
+ * @property \Carbon\Carbon $last_activity
  * @property-read \Cortex\Auth\Models\User|\Illuminate\Database\Eloquent\Model|\Eloquent $user
  *
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Session guests($minutes = 5)
