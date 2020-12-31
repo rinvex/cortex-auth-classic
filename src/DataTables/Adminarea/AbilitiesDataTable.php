@@ -62,7 +62,7 @@ class AbilitiesDataTable extends AbstractDataTable
             : '"<a href=\""+routes.route(\'adminarea.cortex.auth.abilities.edit\', {ability: full.id})+"\">"+data+"</a>"';
 
         return [
-            'id' => ['checkboxes' => '{"selectRow": true}', 'exportable' => false, 'printable' => false],
+            'id' => ['checkboxes' => '{"selectRow": true}', 'exportable' => false, 'printable' => false, 'width' => '1%'],
             'title' => ['title' => trans('cortex/auth::common.title'), 'render' => $link, 'responsivePriority' => 0],
             'name' => ['title' => trans('cortex/auth::common.name')],
             'created_at' => ['title' => trans('cortex/auth::common.created_at'), 'render' => "moment(data).format('YYYY-MM-DD, hh:mm:ss A')"],

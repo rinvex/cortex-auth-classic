@@ -23,10 +23,14 @@ use Cortex\Auth\Console\Commands\SeedCommand;
 use Cortex\Auth\Http\Middleware\Reauthenticate;
 use Cortex\Auth\Http\Middleware\UpdateTimezone;
 use Illuminate\Auth\Middleware\RequirePassword;
+use Cortex\Auth\Console\Commands\UnloadCommand;
 use Cortex\Auth\Console\Commands\InstallCommand;
 use Cortex\Auth\Console\Commands\MigrateCommand;
 use Cortex\Auth\Console\Commands\PublishCommand;
 use Cortex\Auth\Console\Commands\RollbackCommand;
+use Cortex\Auth\Console\Commands\ActivateCommand;
+use Cortex\Auth\Console\Commands\AutoloadCommand;
+use Cortex\Auth\Console\Commands\DeactivateCommand;
 use Cortex\Auth\Http\Middleware\UpdateLastActivity;
 use Cortex\Auth\Http\Middleware\AuthenticateSession;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -43,6 +47,11 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $commands = [
+        ActivateCommand::class => 'command.cortex.auth.activate',
+        DeactivateCommand::class => 'command.cortex.auth.deactivate',
+        AutoloadCommand::class => 'command.cortex.auth.autoload',
+        UnloadCommand::class => 'command.cortex.auth.unload',
+
         SeedCommand::class => 'command.cortex.auth.seed',
         InstallCommand::class => 'command.cortex.auth.install',
         MigrateCommand::class => 'command.cortex.auth.migrate',
