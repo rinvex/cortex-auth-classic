@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace Cortex\Auth\Providers;
 
 use Bouncer;
+use Cortex\Auth\Console\Commands\ActivateCommand;
+use Cortex\Auth\Console\Commands\AutoloadCommand;
+use Cortex\Auth\Console\Commands\DeactivateCommand;
+use Cortex\Auth\Console\Commands\UnloadCommand;
 use Cortex\Auth\Models\Role;
 use Illuminate\Http\Request;
 use Cortex\Auth\Models\Admin;
@@ -43,6 +47,11 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $commands = [
+        ActivateCommand::class => 'command.cortex.auth.activate',
+        DeactivateCommand::class => 'command.cortex.auth.deactivate',
+        AutoloadCommand::class => 'command.cortex.auth.autoload',
+        UnloadCommand::class => 'command.cortex.auth.unload',
+
         SeedCommand::class => 'command.cortex.auth.seed',
         InstallCommand::class => 'command.cortex.auth.install',
         MigrateCommand::class => 'command.cortex.auth.migrate',
