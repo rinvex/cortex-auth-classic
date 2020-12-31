@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v7.0.2] - 2020-12-29
+- Add ScopeBouncer middleware
+- Rename seeders directory
+- Enable StyleCI risky mode
+- Add module activate, deactivate, autoload, unload artisan commands
+- Fix: add missing middleware $next($request)
+
 ## [v7.0.1] - 2020-12-25
 - Add support for PHP v8
 
@@ -321,7 +328,8 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
-[v7.0.1]: https://github.com/rinvex/cortex-auth/compare/v5.0.0...v5.0.1
+[v7.0.2]: https://github.com/rinvex/cortex-auth/compare/v7.0.1...v7.0.2
+[v7.0.1]: https://github.com/rinvex/cortex-auth/compare/v7.0.0...v7.0.1
 [v7.0.0]: https://github.com/rinvex/cortex-auth/compare/v6.1.12...v7.0.0
 [v6.1.12]: https://github.com/rinvex/cortex-auth/compare/v6.1.11...v6.1.12
 [v6.1.11]: https://github.com/rinvex/cortex-auth/compare/v6.1.10...v6.1.11
