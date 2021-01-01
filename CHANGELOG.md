@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
-## [v7.0.2] - 2020-12-29
+## [v7.0.2] - 2020-12-31
 - Add ScopeBouncer middleware
 - Rename seeders directory
 - Enable StyleCI risky mode
