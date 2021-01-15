@@ -244,6 +244,10 @@ class ManagersController extends AuthorizedController
      */
     protected function form(Request $request, Manager $manager)
     {
+        if(! $manager->exists && $request->has('replicate') && $replicated = $manager->resolveRouteBinding($request->get('replicate'))){
+            $manager = $replicated->replicate();
+        }
+
         $countries = collect(countries())->map(function ($country, $code) {
             return [
                 'id' => $code,

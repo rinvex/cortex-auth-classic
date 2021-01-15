@@ -173,6 +173,10 @@ class RolesController extends AuthorizedController
      */
     protected function form(Request $request, Role $role)
     {
+        if(! $role->exists && $request->has('replicate') && $replicated = $role->resolveRouteBinding($request->get('replicate'))){
+            $role = $replicated->replicate();
+        }
+
         $abilities = $request->user(app('request.guard'))->getManagedAbilities();
 
         return view('cortex/auth::adminarea.pages.role', compact('role', 'abilities'));
