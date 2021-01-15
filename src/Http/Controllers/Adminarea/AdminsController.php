@@ -244,7 +244,7 @@ class AdminsController extends AuthorizedController
      */
     protected function form(Request $request, Admin $admin)
     {
-        if(! $admin->exists && $request->has('replicate') && $replicated = $admin->resolveRouteBinding($request->get('replicate'))){
+        if (! $admin->exists && $request->has('replicate') && $replicated = $admin->resolveRouteBinding($request->get('replicate'))) {
             $admin = $replicated->replicate();
         }
 

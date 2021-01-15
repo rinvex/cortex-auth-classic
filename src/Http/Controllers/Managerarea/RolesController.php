@@ -173,7 +173,7 @@ class RolesController extends AuthorizedController
      */
     protected function form(Request $request, Role $role)
     {
-        if(! $role->exists && $request->has('replicate') && $replicated = $role->resolveRouteBinding($request->get('replicate'))){
+        if (! $role->exists && $request->has('replicate') && $replicated = $role->resolveRouteBinding($request->get('replicate'))) {
             $role = $replicated->replicate();
         }
 

@@ -173,7 +173,7 @@ class GuardiansController extends AuthorizedController
      */
     protected function form(Request $request, Guardian $guardian)
     {
-        if(! $guardian->exists && $request->has('replicate') && $replicated = $guardian->resolveRouteBinding($request->get('replicate'))){
+        if (! $guardian->exists && $request->has('replicate') && $replicated = $guardian->resolveRouteBinding($request->get('replicate'))) {
             $guardian = $replicated->replicate();
         }
 
