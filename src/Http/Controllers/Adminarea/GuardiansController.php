@@ -173,6 +173,10 @@ class GuardiansController extends AuthorizedController
      */
     protected function form(Request $request, Guardian $guardian)
     {
+        if (! $guardian->exists && $request->has('replicate') && $replicated = $guardian->resolveRouteBinding($request->get('replicate'))) {
+            $guardian = $replicated->replicate();
+        }
+
         $tags = app('rinvex.tags.tag')->pluck('name', 'id');
 
         return view('cortex/auth::adminarea.pages.guardian', compact('guardian', 'tags'));

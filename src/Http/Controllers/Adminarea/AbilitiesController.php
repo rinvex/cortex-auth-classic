@@ -173,6 +173,10 @@ class AbilitiesController extends AuthorizedController
      */
     protected function form(Request $request, Ability $ability)
     {
+        if (! $ability->exists && $request->has('replicate') && $replicated = $ability->resolveRouteBinding($request->get('replicate'))) {
+            $ability = $replicated->replicate();
+        }
+
         $roles = $request->user(app('request.guard'))->getManagedRoles();
         $entityTypes = app('cortex.auth.ability')->distinct()->get(['entity_type'])->pluck('entity_type', 'entity_type')->toArray();
 

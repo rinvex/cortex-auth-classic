@@ -244,6 +244,10 @@ class AdminsController extends AuthorizedController
      */
     protected function form(Request $request, Admin $admin)
     {
+        if (! $admin->exists && $request->has('replicate') && $replicated = $admin->resolveRouteBinding($request->get('replicate'))) {
+            $admin = $replicated->replicate();
+        }
+
         $countries = collect(countries())->map(function ($country, $code) {
             return [
                 'id' => $code,
