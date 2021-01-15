@@ -173,7 +173,7 @@ class AbilitiesController extends AuthorizedController
      */
     protected function form(Request $request, Ability $ability)
     {
-        if(! $ability->exists && $request->has('replicate') && $replicated = $ability->resolveRouteBinding($request->get('replicate'))){
+        if (! $ability->exists && $request->has('replicate') && $replicated = $ability->resolveRouteBinding($request->get('replicate'))) {
             $ability = $replicated->replicate();
         }
 

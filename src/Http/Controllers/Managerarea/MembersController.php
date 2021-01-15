@@ -242,7 +242,7 @@ class MembersController extends AuthorizedController
      */
     protected function form(Request $request, Member $member)
     {
-        if(! $member->exists && $request->has('replicate') && $replicated = $member->resolveRouteBinding($request->get('replicate'))){
+        if (! $member->exists && $request->has('replicate') && $replicated = $member->resolveRouteBinding($request->get('replicate'))) {
             $member = $replicated->replicate();
         }
 
