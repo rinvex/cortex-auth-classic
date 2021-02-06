@@ -67,29 +67,16 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerCommands($this->commands);
 
         // Bind eloquent models to IoC container
-        $this->app->singleton('cortex.auth.session', $sessionModel = $this->app['config']['cortex.auth.models.session']);
-        $sessionModel === Session::class || $this->app->alias('cortex.auth.session', Session::class);
-
-        $this->app->singleton('cortex.auth.socialite', $socialiteModel = $this->app['config']['cortex.auth.models.socialite']);
-        $socialiteModel === Socialite::class || $this->app->alias('cortex.auth.socialite', Socialite::class);
-
-        $this->app->singleton('cortex.auth.admin', $adminModel = $this->app['config']['cortex.auth.models.admin']);
-        $adminModel === Admin::class || $this->app->alias('cortex.auth.admin', Admin::class);
-
-        $this->app->singleton('cortex.auth.member', $memberModel = $this->app['config']['cortex.auth.models.member']);
-        $memberModel === Member::class || $this->app->alias('cortex.auth.member', Member::class);
-
-        $this->app->singleton('cortex.auth.manager', $managerModel = $this->app['config']['cortex.auth.models.manager']);
-        $managerModel === Manager::class || $this->app->alias('cortex.auth.manager', Manager::class);
-
-        $this->app->singleton('cortex.auth.guardian', $guardianModel = $this->app['config']['cortex.auth.models.guardian']);
-        $guardianModel === Guardian::class || $this->app->alias('cortex.auth.guardian', Guardian::class);
-
-        $this->app->singleton('cortex.auth.role', $roleModel = $this->app['config']['cortex.auth.models.role']);
-        $roleModel === Role::class || $this->app->alias('cortex.auth.role', Role::class);
-
-        $this->app->singleton('cortex.auth.ability', $abilityModel = $this->app['config']['cortex.auth.models.ability']);
-        $abilityModel === Ability::class || $this->app->alias('cortex.auth.ability', Ability::class);
+        $this->registerModels([
+            'cortex.auth.session' => Session::class,
+            'cortex.auth.socialite' => Socialite::class,
+            'cortex.auth.admin' => Admin::class,
+            'cortex.auth.member' => Member::class,
+            'cortex.auth.manager' => Manager::class,
+            'cortex.auth.guardian' => Guardian::class,
+            'cortex.auth.role' => Role::class,
+            'cortex.auth.ability' => Ability::class,
+        ]);
     }
 
     /**
