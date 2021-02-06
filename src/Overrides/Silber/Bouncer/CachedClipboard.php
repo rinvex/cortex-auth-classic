@@ -13,6 +13,9 @@ class CachedClipboard extends BaseCachedClipboard
     /**
      * Determine whether the authority owns the given model.
      *
+     * @param mixed $authority
+     * @param mixed $model
+     *
      * @return bool
      */
     public function isOwnedBy($authority, $model)
