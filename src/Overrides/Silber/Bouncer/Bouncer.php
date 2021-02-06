@@ -13,7 +13,8 @@ class Bouncer extends BaseBouncer
     /**
      * Use a cached clipboard with the given cache instance.
      *
-     * @param  \Illuminate\Contracts\Cache\Store  $cache
+     * @param \Illuminate\Contracts\Cache\Store $cache
+     *
      * @return $this
      */
     public function cache(Store $cache = null)
@@ -36,6 +37,6 @@ class Bouncer extends BaseBouncer
      */
     public function dontCache()
     {
-        return $this->setClipboard(new Clipboard);
+        return $this->setClipboard(new Clipboard());
     }
 }

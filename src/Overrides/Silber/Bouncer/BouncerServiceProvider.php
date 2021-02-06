@@ -29,7 +29,7 @@ class BouncerServiceProvider extends BaseBouncerServiceProvider
     {
         $this->app->singleton(Bouncer::class, function () {
             return Bouncer::make()
-                          ->withClipboard(new CachedClipboard(new ArrayStore))
+                          ->withClipboard(new CachedClipboard(new ArrayStore()))
                           ->withGate($this->app->make(Gate::class))
                           ->create();
         });
