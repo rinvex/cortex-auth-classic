@@ -102,6 +102,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(Router $router, Dispatcher $dispatcher): void
     {
         // Map bouncer models
+        Bouncer::ownedVia('created_by');
         Bouncer::useRoleModel(config('cortex.auth.models.role'));
         Bouncer::useAbilityModel(config('cortex.auth.models.ability'));
 
