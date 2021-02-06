@@ -14,7 +14,7 @@ class ManagersMediaController extends AuthorizedController
     /**
      * {@inheritdoc}
      */
-    protected $resource = Manager::class;
+    protected $resource = 'cortex.auth.models.manager';
 
     /**
      * {@inheritdoc}

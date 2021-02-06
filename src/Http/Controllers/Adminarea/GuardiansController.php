@@ -22,7 +22,7 @@ class GuardiansController extends AuthorizedController
     /**
      * {@inheritdoc}
      */
-    protected $resource = Guardian::class;
+    protected $resource = 'cortex.auth.models.guardian';
 
     /**
      * List all guardians.

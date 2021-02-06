@@ -23,7 +23,7 @@ class RolesController extends AuthorizedController
     /**
      * {@inheritdoc}
      */
-    protected $resource = Role::class;
+    protected $resource = 'cortex.auth.models.role';
 
     /**
      * List all roles.
