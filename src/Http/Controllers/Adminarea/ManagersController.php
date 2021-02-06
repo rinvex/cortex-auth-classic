@@ -24,7 +24,7 @@ class ManagersController extends AuthorizedController
     /**
      * {@inheritdoc}
      */
-    protected $resource = Manager::class;
+    protected $resource = 'cortex.auth.models.manager';
 
     /**
      * List all managers.

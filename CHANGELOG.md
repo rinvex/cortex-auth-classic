@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v7.0.6] - 2021-02-06
+- Simplify service provider model registration into IoC
+- Add support for runtime configurable model to allow model override (fix abilities/permission issues)
+- Make entity_type optional as it's not required for abilities (ex: access-adminarea)
+- Override bouncer to properly support owned entities permissions
+- Skip publishing module resources unless explicitly specified, for simplicity
+
 ## [v7.0.5] - 2021-01-15
 - Add model replication feature
 - handle if twofactor session is null (#166)
@@ -340,6 +347,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v7.0.6]: https://github.com/rinvex/cortex-auth/compare/v7.0.5...v7.0.6
 [v7.0.5]: https://github.com/rinvex/cortex-auth/compare/v7.0.4...v7.0.5
 [v7.0.4]: https://github.com/rinvex/cortex-auth/compare/v7.0.3...v7.0.4
 [v7.0.3]: https://github.com/rinvex/cortex-auth/compare/v7.0.2...v7.0.3

@@ -24,7 +24,7 @@ class AdminsController extends AuthorizedController
     /**
      * {@inheritdoc}
      */
-    protected $resource = Admin::class;
+    protected $resource = 'cortex.auth.models.admin';
 
     /**
      * List all admins.

@@ -23,7 +23,7 @@ class AbilitiesController extends AuthorizedController
     /**
      * {@inheritdoc}
      */
-    protected $resource = Ability::class;
+    protected $resource = 'cortex.auth.models.ability';
 
     /**
      * List all abilities.

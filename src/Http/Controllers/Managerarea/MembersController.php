@@ -24,7 +24,7 @@ class MembersController extends AuthorizedController
     /**
      * {@inheritdoc}
      */
-    protected $resource = Member::class;
+    protected $resource = 'cortex.auth.models.member';
 
     /**
      * List all members.

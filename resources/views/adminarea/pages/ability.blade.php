@@ -91,7 +91,7 @@
                                     <div class="form-group{{ $errors->has('entity_type') ? ' has-error' : '' }}">
                                         {{ Form::label('entity_type', trans('cortex/auth::common.entity_type'), ['class' => 'control-label']) }}
                                         {{ Form::hidden('entity_type', '', ['class' => 'skip-validation']) }}
-                                        {{ Form::select('entity_type', $entityTypes, null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/attributes::common.select_entity_type'), 'data-tags' => 'true', 'required' => 'required', 'data-width' => '100%']) }}
+                                        {{ Form::select('entity_type', $entityTypes, null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/attributes::common.select_entity_type'), 'data-tags' => 'true', 'data-width' => '100%']) }}
 
                                         @if ($errors->has('entity_type'))
                                             <span class="help-block">{{ $errors->first('entity_type') }}</span>

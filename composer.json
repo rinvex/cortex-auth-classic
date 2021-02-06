@@ -109,7 +109,7 @@
                 "Cortex\\Auth\\Overrides\\Silber\\Bouncer\\BouncerServiceProvider"
             ],
             "aliases": {
-                "Bouncer": "Silber\\Bouncer\\BouncerFacade"
+                "Bouncer": "Cortex\\Auth\\Overrides\\Silber\\Bouncer\\BouncerFacade"
             }
         }
     },
