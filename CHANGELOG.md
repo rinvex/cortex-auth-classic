@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v7.0.9] - 2021-02-07
+- Reverse "Add missing facade alias" commit
+
 ## [v7.0.8] - 2021-02-07
 - Add missing facade alias
 
@@ -354,6 +357,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v7.0.9]: https://github.com/rinvex/cortex-auth/compare/v7.0.8...v7.0.9
 [v7.0.8]: https://github.com/rinvex/cortex-auth/compare/v7.0.7...v7.0.8
 [v7.0.7]: https://github.com/rinvex/cortex-auth/compare/v7.0.6...v7.0.7
 [v7.0.6]: https://github.com/rinvex/cortex-auth/compare/v7.0.5...v7.0.6
