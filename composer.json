@@ -107,9 +107,6 @@
             "providers": [
                 "Cortex\\Auth\\Providers\\AuthServiceProvider"
             ]
-        },
-        "aliases": {
-            "Bouncer": "Silber\\Bouncer\\BouncerFacade"
         }
     },
     "minimum-stability": "dev",
