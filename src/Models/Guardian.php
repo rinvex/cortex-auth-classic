@@ -174,7 +174,7 @@ class Guardian extends Model implements AuthenticatableContract, AuthorizableCon
      */
     public function sessions(): MorphMany
     {
-        return $this->morphMany(config('cortex.auth.models.session'), 'user');
+        return $this->morphMany(config('cortex.auth.models.session'), 'user', 'user_type', 'user_id');
     }
 
     /**

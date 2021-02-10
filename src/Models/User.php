@@ -263,7 +263,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
      */
     public function sessions(): MorphMany
     {
-        return $this->morphMany(config('cortex.auth.models.session'), 'user');
+        return $this->morphMany(config('cortex.auth.models.session'), 'user', 'user_type', 'user_id');
     }
 
     /**
@@ -273,7 +273,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
      */
     public function socialites(): MorphMany
     {
-        return $this->morphMany(config('cortex.auth.models.socialite'), 'user');
+        return $this->morphMany(config('cortex.auth.models.socialite'), 'user', 'user_type', 'user_id');
     }
 
     /**
