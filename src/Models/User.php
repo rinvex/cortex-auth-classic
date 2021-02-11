@@ -14,6 +14,7 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Rinvex\Auth\Traits\HasHashables;
 use Rinvex\Support\Traits\Macroable;
+use Rinvex\OAuth\Traits\HasApiTokens;
 use Rinvex\Auth\Traits\CanVerifyEmail;
 use Rinvex\Auth\Traits\CanVerifyPhone;
 use Cortex\Foundation\Traits\Auditable;
@@ -44,6 +45,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     use Auditable;
     use Macroable;
     use Notifiable;
+    use HasApiTokens;
     use HasTimezones;
     use HashidsTrait;
     use Authorizable;
@@ -263,7 +265,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
      */
     public function sessions(): MorphMany
     {
-        return $this->morphMany(config('cortex.auth.models.session'), 'user');
+        return $this->morphMany(config('cortex.auth.models.session'), 'user', 'user_type', 'user_id');
     }
 
     /**
@@ -273,7 +275,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
      */
     public function socialites(): MorphMany
     {
-        return $this->morphMany(config('cortex.auth.models.socialite'), 'user');
+        return $this->morphMany(config('cortex.auth.models.socialite'), 'user', 'user_type', 'user_id');
     }
 
     /**
