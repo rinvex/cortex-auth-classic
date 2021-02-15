@@ -99,7 +99,7 @@ class RolesController extends AuthorizedController
      */
     public function hoard(ImportFormRequest $request)
     {
-        foreach ((array) $request->get('selected_ids') as $recordId) {
+        foreach ((array) $request->input('selected_ids') as $recordId) {
             $record = app('cortex.foundation.import_record')->find($recordId);
 
             try {
@@ -173,7 +173,7 @@ class RolesController extends AuthorizedController
      */
     protected function form(Request $request, Role $role)
     {
-        if (! $role->exists && $request->has('replicate') && $replicated = $role->resolveRouteBinding($request->get('replicate'))) {
+        if (! $role->exists && $request->has('replicate') && $replicated = $role->resolveRouteBinding($request->input('replicate'))) {
             $role = $replicated->replicate();
         }
 

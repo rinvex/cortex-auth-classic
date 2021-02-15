@@ -170,7 +170,7 @@ class ManagersController extends AuthorizedController
      */
     public function hoard(ImportFormRequest $request)
     {
-        foreach ((array) $request->get('selected_ids') as $recordId) {
+        foreach ((array) $request->input('selected_ids') as $recordId) {
             $record = app('cortex.foundation.import_record')->find($recordId);
 
             try {
@@ -244,7 +244,7 @@ class ManagersController extends AuthorizedController
      */
     protected function form(Request $request, Manager $manager)
     {
-        if (! $manager->exists && $request->has('replicate') && $replicated = $manager->resolveRouteBinding($request->get('replicate'))) {
+        if (! $manager->exists && $request->has('replicate') && $replicated = $manager->resolveRouteBinding($request->input('replicate'))) {
             $manager = $replicated->replicate();
         }
 

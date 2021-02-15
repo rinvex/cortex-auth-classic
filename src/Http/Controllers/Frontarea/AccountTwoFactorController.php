@@ -96,7 +96,7 @@ class AccountTwoFactorController extends AuthenticatedController
         $backup = Arr::get($twoFactor, 'totp.backup');
         $backupAt = Arr::get($twoFactor, 'totp.backup_at');
 
-        if ($totpProvider->verifyKey($secret, $request->get('token'))) {
+        if ($totpProvider->verifyKey($secret, $request->input('token'))) {
             $twoFactor['totp'] = [
                 'enabled' => true,
                 'secret' => $secret,
