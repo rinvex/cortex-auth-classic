@@ -199,50 +199,6 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     }
 
     /**
-     * Attach the given abilities to the model.
-     *
-     * @param mixed $abilities
-     *
-     * @return void
-     */
-    public function setAbilitiesAttribute($abilities): void
-    {
-        static::saved(function (self $model) use ($abilities) {
-            $abilities = collect($abilities)->filter();
-
-            $model->abilities->pluck('id')->similar($abilities)
-            || activity()
-                ->performedOn($model)
-                ->withProperties(['attributes' => ['abilities' => $abilities], 'old' => ['abilities' => $model->abilities->pluck('id')->toArray()]])
-                ->log('updated');
-
-            $model->abilities()->sync($abilities, true);
-        });
-    }
-
-    /**
-     * Attach the given roles to the model.
-     *
-     * @param mixed $roles
-     *
-     * @return void
-     */
-    public function setRolesAttribute($roles): void
-    {
-        static::saved(function (self $model) use ($roles) {
-            $roles = collect($roles)->filter();
-
-            $model->roles->pluck('id')->similar($roles)
-            || activity()
-                ->performedOn($model)
-                ->withProperties(['attributes' => ['roles' => $roles], 'old' => ['roles' => $model->roles->pluck('id')->toArray()]])
-                ->log('updated');
-
-            $model->roles()->sync($roles, true);
-        });
-    }
-
-    /**
      * {@inheritdoc}
      */
     protected static function boot()

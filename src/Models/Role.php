@@ -135,26 +135,4 @@ class Role extends BaseRole
             'scope' => 'nullable|integer|unique:'.config('cortex.auth.tables.roles').',scope,NULL,id,name,'.($this->name ?? 'null'),
         ]);
     }
-
-    /**
-     * Attach the given abilities to the model.
-     *
-     * @param mixed $abilities
-     *
-     * @return void
-     */
-    public function setAbilitiesAttribute($abilities): void
-    {
-        static::saved(function (self $model) use ($abilities) {
-            $abilities = collect($abilities)->filter();
-
-            $model->abilities->pluck('id')->similar($abilities)
-            || activity()
-                ->performedOn($model)
-                ->withProperties(['attributes' => ['abilities' => $abilities], 'old' => ['abilities' => $model->abilities->pluck('id')->toArray()]])
-                ->log('updated');
-
-            $model->abilities()->sync($abilities, true);
-        });
-    }
 }
