@@ -7,7 +7,7 @@ namespace Cortex\Auth\Http\Controllers\Managerarea;
 use Exception;
 use Illuminate\Http\Request;
 use Cortex\Auth\Models\Manager;
-use Illuminate\Foundation\Http\FormRequest;
+use Cortex\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Foundation\Importers\DefaultImporter;
 use Cortex\Foundation\DataTables\ActivitiesDataTable;

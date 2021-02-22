@@ -6,7 +6,7 @@ namespace Cortex\Auth\Http\Requests\Adminarea;
 
 use Illuminate\Support\Arr;
 use Rinvex\Support\Traits\Escaper;
-use Illuminate\Foundation\Http\FormRequest;
+use Cortex\Foundation\Http\FormRequest;
 
 class AccountSettingsRequest extends FormRequest
 {

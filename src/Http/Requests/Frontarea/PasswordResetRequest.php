@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Requests\Frontarea;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Cortex\Foundation\Http\FormRequest;
 use Cortex\Foundation\Exceptions\GenericException;
 
 class PasswordResetRequest extends FormRequest
