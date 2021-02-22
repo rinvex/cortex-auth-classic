@@ -18,7 +18,7 @@ class CreatePermissionsTable extends Migration
         Schema::create(config('cortex.auth.tables.permissions'), function (Blueprint $table) {
             // Columns
             $table->integer('ability_id')->unsigned();
-            $table->string('entity_id', 100);
+            $table->integer('entity_id')->unsigned();
             $table->string('entity_type', 150);
             $table->boolean('forbidden')->default(false);
             $table->integer('scope')->nullable();
