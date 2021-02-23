@@ -211,7 +211,7 @@ class GuardiansController extends AuthorizedController
     /**
      * Process stored/updated guardian.
      *
-     * @param \Illuminate\Foundation\Http\FormRequest $request
+     * @param \Cortex\Foundation\Http\FormRequest $request
      * @param \Cortex\Auth\Models\Guardian            $guardian
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse

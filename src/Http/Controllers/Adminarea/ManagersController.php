@@ -298,7 +298,7 @@ class ManagersController extends AuthorizedController
     /**
      * Process stored/updated manager.
      *
-     * @param \Illuminate\Foundation\Http\FormRequest $request
+     * @param \Cortex\Foundation\Http\FormRequest $request
      * @param \Cortex\Auth\Models\Manager             $manager
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse

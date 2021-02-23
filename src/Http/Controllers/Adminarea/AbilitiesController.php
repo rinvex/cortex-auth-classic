@@ -212,7 +212,7 @@ class AbilitiesController extends AuthorizedController
     /**
      * Process stored/updated ability.
      *
-     * @param \Illuminate\Foundation\Http\FormRequest $request
+     * @param \Cortex\Foundation\Http\FormRequest $request
      * @param \Cortex\Auth\Models\Ability             $ability
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
