@@ -6,22 +6,12 @@ namespace Cortex\Auth\Http\Controllers\Tenantarea;
 
 use Cortex\Auth\Models\Member;
 use Illuminate\Auth\Events\Registered;
-use Cortex\Foundation\Http\Controllers\AbstractController;
 use Cortex\Auth\Http\Requests\Tenantarea\RegistrationRequest;
+use Cortex\Foundation\Http\Controllers\UnauthenticatedController;
 use Cortex\Auth\Http\Requests\Tenantarea\RegistrationProcessRequest;
 
-class RegistrationController extends AbstractController
+class RegistrationController extends UnauthenticatedController
 {
-    /**
-     * Create a new registration controller instance.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        ! app()->bound('request.guard') || $this->middleware(($guard = app('request.guard')) ? 'guest:'.$guard : 'guest')->except($this->middlewareWhitelist);
-    }
-
     /**
      * Show the registration form.
      *

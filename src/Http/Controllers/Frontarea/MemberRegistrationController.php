@@ -6,10 +6,11 @@ namespace Cortex\Auth\Http\Controllers\Frontarea;
 
 use Cortex\Auth\Models\Member;
 use Illuminate\Auth\Events\Registered;
+use Cortex\Foundation\Http\Controllers\UnauthenticatedController;
 use Cortex\Auth\Http\Requests\Frontarea\MemberRegistrationRequest;
 use Cortex\Auth\Http\Requests\Frontarea\MemberRegistrationProcessRequest;
 
-class MemberRegistrationController extends RegistrationController
+class MemberRegistrationController extends UnauthenticatedController
 {
     /**
      * Show the registration form.

@@ -6,10 +6,10 @@ namespace Cortex\Auth\Http\Controllers\Managerarea;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-use Cortex\Foundation\Http\Controllers\AbstractController;
 use Cortex\Auth\Http\Requests\Managerarea\AuthenticationRequest;
+use Cortex\Foundation\Http\Controllers\UnauthenticatedController;
 
-class AuthenticationController extends AbstractController
+class AuthenticationController extends UnauthenticatedController
 {
     /**
      * {@inheritdoc}
@@ -17,16 +17,6 @@ class AuthenticationController extends AbstractController
     protected $middlewareWhitelist = [
         'logout',
     ];
-
-    /**
-     * Create a new authentication controller instance.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        ! app()->bound('request.guard') || $this->middleware(($guard = app('request.guard')) ? 'guest:'.$guard : 'guest')->except($this->middlewareWhitelist);
-    }
 
     /**
      * Show the login form.
