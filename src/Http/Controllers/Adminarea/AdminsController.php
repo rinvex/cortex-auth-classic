@@ -259,8 +259,8 @@ class AdminsController extends AuthorizedController
         $tags = app('rinvex.tags.tag')->pluck('name', 'id');
         $languages = collect(languages())->pluck('name', 'iso_639_1');
         $genders = ['male' => trans('cortex/auth::common.male'), 'female' => trans('cortex/auth::common.female')];
-        $abilities = $request->user(app('request.guard'))->getManagedAbilities();
-        $roles = $request->user(app('request.guard'))->getManagedRoles();
+        $abilities = $request->user()->getManagedAbilities();
+        $roles = $request->user()->getManagedRoles();
 
         return view('cortex/auth::adminarea.pages.admin', compact('admin', 'abilities', 'roles', 'countries', 'languages', 'genders', 'tags'));
     }

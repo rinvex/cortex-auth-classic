@@ -33,7 +33,7 @@ class UpdateLastActivity
      */
     public function terminate($request, $response): void
     {
-        if ($user = $request->user(app('request.guard'))) {
+        if ($user = $request->user()) {
             // We are using database queries rather than eloquent, to bypass triggering events.
             // Triggering update events flush cache and costs us more queries, which we don't need.
             $user->newQuery()->where($user->getKeyName(), $user->getKey())->update(['last_activity' => Carbon::now()]);

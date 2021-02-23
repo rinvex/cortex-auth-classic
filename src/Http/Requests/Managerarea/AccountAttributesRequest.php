@@ -28,7 +28,7 @@ class AccountAttributesRequest extends FormRequest
      */
     public function rules(): array
     {
-        $user = $this->user(app('request.guard'));
+        $user = $this->user();
 
         // Attach attribute rules
         $user->getEntityAttributes()->each(function ($attribute, $attributeName) use (&$rules) {

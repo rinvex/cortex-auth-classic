@@ -177,7 +177,7 @@ class AbilitiesController extends AuthorizedController
             $ability = $replicated->replicate();
         }
 
-        $roles = $request->user(app('request.guard'))->getManagedRoles();
+        $roles = $request->user()->getManagedRoles();
         $entityTypes = app('cortex.auth.ability')->distinct()->get(['entity_type'])->pluck('entity_type', 'entity_type')->toArray();
 
         return view('cortex/auth::adminarea.pages.ability', compact('ability', 'roles', 'entityTypes'));

@@ -11,7 +11,7 @@
 
     <script>
         window.countries = @json($countries);
-        window.selectedCountry = '{{ old('country_code', app('request.user')->country_code) }}';
+        window.selectedCountry = '{{ old('country_code', request()->user()->country_code) }}';
     </script>
 @endpush
 
@@ -29,7 +29,7 @@
                 <div class="col-md-9">
                     <div class="profile-content">
 
-                        {{ Form::model(app('request.user'), ['url' => route('managerarea.cortex.auth.account.settings.update'), 'id' => 'managerarea-cortex-auth-account-settings-form', 'files' => true]) }}
+                        {{ Form::model(request()->user(), ['url' => route('managerarea.cortex.auth.account.settings.update'), 'id' => 'managerarea-cortex-auth-account-settings-form', 'files' => true]) }}
 
                             <div class="row">
 
@@ -37,7 +37,7 @@
 
                                     <div class="form-group{{ $errors->has('given_name') ? ' has-error' : '' }}">
                                         {{ Form::label('given_name', trans('cortex/auth::common.given_name'), ['class' => 'control-label']) }}
-                                        {{ Form::text('given_name', null, ['class' => 'form-control', 'placeholder' => app('request.user')->given_name ?: trans('cortex/auth::common.given_name'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
+                                        {{ Form::text('given_name', null, ['class' => 'form-control', 'placeholder' => request()->user()->given_name ?: trans('cortex/auth::common.given_name'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
 
                                         @if ($errors->has('given_name'))
                                             <span class="help-block">{{ $errors->first('given_name') }}</span>
@@ -50,7 +50,7 @@
 
                                     <div class="form-group{{ $errors->has('family_name') ? ' has-error' : '' }}">
                                         {{ Form::label('family_name', trans('cortex/auth::common.family_name'), ['class' => 'control-label']) }}
-                                        {{ Form::text('family_name', null, ['class' => 'form-control', 'placeholder' => app('request.user')->family_name ?: trans('cortex/auth::common.family_name')]) }}
+                                        {{ Form::text('family_name', null, ['class' => 'form-control', 'placeholder' => request()->user()->family_name ?: trans('cortex/auth::common.family_name')]) }}
 
                                         @if ($errors->has('family_name'))
                                             <span class="help-block">{{ $errors->first('family_name') }}</span>
@@ -63,7 +63,7 @@
 
                                     <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
                                         {{ Form::label('username', trans('cortex/auth::common.username'), ['class' => 'control-label']) }}
-                                        {{ Form::text('username', null, ['class' => 'form-control', 'placeholder' => app('request.user')->username, 'required' => 'required']) }}
+                                        {{ Form::text('username', null, ['class' => 'form-control', 'placeholder' => request()->user()->username, 'required' => 'required']) }}
 
                                         @if ($errors->has('username'))
                                             <span class="help-block">{{ $errors->first('username') }}</span>
@@ -78,9 +78,9 @@
                                         {{ Form::label('email', trans('cortex/auth::common.email'), ['class' => 'control-label']) }}
                                         {{ Form::email('email', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.email'), 'required' => 'required']) }}
 
-                                        @if (app('request.user')->hasVerifiedEmail())
-                                            <small class="text-success">{!! trans('cortex/auth::common.email_verified_at', ['date' => app('request.user')->email_verified_at]) !!}</small>
-                                        @elseif(app('request.user')->email)
+                                        @if (request()->user()->hasVerifiedEmail())
+                                            <small class="text-success">{!! trans('cortex/auth::common.email_verified_at', ['date' => request()->user()->email_verified_at]) !!}</small>
+                                        @elseif(request()->user()->email)
                                             <small class="text-danger">{!! trans('cortex/auth::common.email_unverified', ['href' => route('managerarea.cortex.auth.account.verification.email.request')]) !!}</small>
                                         @endif
 
@@ -100,7 +100,7 @@
                                     {{-- Title --}}
                                     <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
                                         {{ Form::label('title', trans('cortex/auth::common.title'), ['class' => 'control-label']) }}
-                                        {{ Form::text('title', null, ['class' => 'form-control', 'placeholder' => app('request.user')->title ?: trans('cortex/auth::common.title')]) }}
+                                        {{ Form::text('title', null, ['class' => 'form-control', 'placeholder' => request()->user()->title ?: trans('cortex/auth::common.title')]) }}
 
                                         @if ($errors->has('title'))
                                             <span class="help-block">{{ $errors->first('title') }}</span>
@@ -114,7 +114,7 @@
                                     {{-- Organization --}}
                                     <div class="form-group{{ $errors->has('organization') ? ' has-error' : '' }}">
                                         {{ Form::label('organization', trans('cortex/auth::common.organization'), ['class' => 'control-label']) }}
-                                        {{ Form::text('organization', null, ['class' => 'form-control', 'placeholder' => app('request.user')->organization ?: trans('cortex/auth::common.organization')]) }}
+                                        {{ Form::text('organization', null, ['class' => 'form-control', 'placeholder' => request()->user()->organization ?: trans('cortex/auth::common.organization')]) }}
 
                                         @if ($errors->has('organization'))
                                             <span class="help-block">{{ $errors->first('organization') }}</span>
@@ -175,11 +175,11 @@
 
                                     <div class="form-group has-feedback{{ $errors->has('phone') ? ' has-error' : '' }}">
                                         {{ Form::label('phone', trans('cortex/auth::common.phone')) }}
-                                        {{ Form::tel('phone_input', app('request.user')->phone, ['class' => 'form-control', 'placeholder' => app('request.user')->phone ?: trans('cortex/auth::common.phone')]) }}
+                                        {{ Form::tel('phone_input', request()->user()->phone, ['class' => 'form-control', 'placeholder' => request()->user()->phone ?: trans('cortex/auth::common.phone')]) }}
 
-                                        @if (app('request.user')->hasVerifiedPhone())
-                                            <small class="text-success">{!! trans('cortex/auth::common.phone_verified_at', ['date' => app('request.user')->phone_verified_at]) !!}</small>
-                                        @elseif(app('request.user')->phone)
+                                        @if (request()->user()->hasVerifiedPhone())
+                                            <small class="text-success">{!! trans('cortex/auth::common.phone_verified_at', ['date' => request()->user()->phone_verified_at]) !!}</small>
+                                        @elseif(request()->user()->phone)
                                             <small class="text-danger">{!! trans('cortex/auth::common.phone_unverified', ['href' => route('managerarea.cortex.auth.account.verification.phone.request')]) !!}</small>
                                         @endif
 
@@ -287,14 +287,14 @@
                                             </span>
                                         </div>
 
-                                        @if (app('request.user')->exists && app('request.user')->getMedia('profile_picture')->count())
+                                        @if (request()->user()->exists && request()->user()->getMedia('profile_picture')->count())
                                             <i class="fa fa-paperclip"></i>
-                                            <a href="{{ app('request.user')->getFirstMediaUrl('profile_picture') }}" target="_blank">{{ app('request.user')->getFirstMedia('profile_picture')->file_name }}</a> ({{ app('request.user')->getFirstMedia('profile_picture')->human_readable_size }})
+                                            <a href="{{ request()->user()->getFirstMediaUrl('profile_picture') }}" target="_blank">{{ request()->user()->getFirstMedia('profile_picture')->file_name }}</a> ({{ request()->user()->getFirstMedia('profile_picture')->human_readable_size }})
                                             <a href="#" data-toggle="modal" data-target="#delete-confirmation"
-                                               data-modal-action="{{ route('managerarea.cortex.auth.account.media.destroy', ['manager' => app('request.user'), 'media' => app('request.user')->getFirstMedia('profile_picture')]) }}"
+                                               data-modal-action="{{ route('managerarea.cortex.auth.account.media.destroy', ['manager' => request()->user(), 'media' => request()->user()->getFirstMedia('profile_picture')]) }}"
                                                data-modal-title="{{ trans('cortex/foundation::messages.delete_confirmation_title') }}"
                                                data-modal-button="<a href='#' class='btn btn-danger' data-form='delete' data-token='{{ csrf_token() }}'><i class='fa fa-trash-o'></i> {{ trans('cortex/foundation::common.delete') }}</a>"
-                                               data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/foundation::common.media'), 'identifier' => app('request.user')->getFirstMedia('profile_picture')->getRouteKey()]) }}"
+                                               data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/foundation::common.media'), 'identifier' => request()->user()->getFirstMedia('profile_picture')->getRouteKey()]) }}"
                                                title="{{ trans('cortex/foundation::common.delete') }}"><i class="fa fa-trash text-danger"></i></a>
                                         @endif
 
@@ -323,14 +323,14 @@
                                             </span>
                                         </div>
 
-                                        @if (app('request.user')->exists && app('request.user')->getMedia('cover_photo')->count())
+                                        @if (request()->user()->exists && request()->user()->getMedia('cover_photo')->count())
                                             <i class="fa fa-paperclip"></i>
-                                            <a href="{{ app('request.user')->getFirstMediaUrl('cover_photo') }}" target="_blank">{{ app('request.user')->getFirstMedia('cover_photo')->file_name }}</a> ({{ app('request.user')->getFirstMedia('cover_photo')->human_readable_size }})
+                                            <a href="{{ request()->user()->getFirstMediaUrl('cover_photo') }}" target="_blank">{{ request()->user()->getFirstMedia('cover_photo')->file_name }}</a> ({{ request()->user()->getFirstMedia('cover_photo')->human_readable_size }})
                                             <a href="#" data-toggle="modal" data-target="#delete-confirmation"
-                                               data-modal-action="{{ route('managerarea.cortex.auth.account.media.destroy', ['manager' => app('request.user'), 'media' => app('request.user')->getFirstMedia('cover_photo')]) }}"
+                                               data-modal-action="{{ route('managerarea.cortex.auth.account.media.destroy', ['manager' => request()->user(), 'media' => request()->user()->getFirstMedia('cover_photo')]) }}"
                                                data-modal-title="{{ trans('cortex/foundation::messages.delete_confirmation_title') }}"
                                                data-modal-button="<a href='#' class='btn btn-danger' data-form='delete' data-token='{{ csrf_token() }}'><i class='fa fa-trash-o'></i> {{ trans('cortex/foundation::common.delete') }}</a>"
-                                               data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/foundation::common.media'), 'identifier' => app('request.user')->getFirstMedia('cover_photo')->getRouteKey()]) }}"
+                                               data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/foundation::common.media'), 'identifier' => request()->user()->getFirstMedia('cover_photo')->getRouteKey()]) }}"
                                                title="{{ trans('cortex/foundation::common.delete') }}"><i class="fa fa-trash text-danger"></i></a>
                                         @endif
 

@@ -61,10 +61,10 @@ class TenantRegistrationController extends UnauthenticatedController
 
         // Send verification if required
         ! config('cortex.auth.emails.verification')
-        || app('rinvex.auth.emailverification')->broker(app('request.emailVerificationBroker'))->sendVerificationLink(['email' => $manager->email]);
+        || app('rinvex.auth.emailverification')->broker($request->emailVerificationBroker())->sendVerificationLink(['email' => $manager->email]);
 
         // Auto-login registered manager
-        auth()->guard('manager')->login($manager);
+        auth()->login($manager);
 
         // Registration completed successfully
         return intend([

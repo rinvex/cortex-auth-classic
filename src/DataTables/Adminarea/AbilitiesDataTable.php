@@ -28,7 +28,7 @@ class AbilitiesDataTable extends AbstractDataTable
     public function query()
     {
         $query = parent::query();
-        $user = $this->request()->user(app('request.guard'));
+        $user = $this->request()->user();
 
         if ($user->isNotA('superadmin')) {
             $query = $query->whereIn('id', $user->getAbilities()->pluck('id')->toArray());

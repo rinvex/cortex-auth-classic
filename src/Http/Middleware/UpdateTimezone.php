@@ -18,7 +18,7 @@ class UpdateTimezone
      */
     public function handle($request, Closure $next)
     {
-        if (! $request->ajax() && $user = app('request.user')) {
+        if (! $request->ajax() && $user = $request->user()) {
             $timezone = geoip($request->getClientIp())->timezone;
 
             if (! $user->timezone) {

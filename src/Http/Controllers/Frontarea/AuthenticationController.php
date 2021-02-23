@@ -49,7 +49,7 @@ class AuthenticationController extends UnauthenticatedController
             'password' => $request->input('password'),
         ];
 
-        if (auth()->guard(app('request.guard'))->attempt($credentials, $request->filled('remember'))) {
+        if (auth()->attempt($credentials, $request->filled('remember'))) {
             return $this->sendLoginResponse($request);
         }
 
@@ -82,7 +82,7 @@ class AuthenticationController extends UnauthenticatedController
      */
     protected function sendLoginResponse(Request $request)
     {
-        $twofactor = app('request.user')->getTwoFactor();
+        $twofactor = $request->user()->getTwoFactor();
         $totpStatus = $twofactor['totp']['enabled'] ?? false;
         $phoneStatus = $twofactor['phone']['enabled'] ?? false;
 
@@ -92,7 +92,7 @@ class AuthenticationController extends UnauthenticatedController
         if ($totpStatus || $phoneStatus) {
             $this->processLogout($request);
 
-            $request->session()->put('cortex.auth.twofactor', ['user_id' => app('request.user')->getKey(), 'remember' => $request->filled('remember'), 'totp' => $totpStatus, 'phone' => $phoneStatus]);
+            $request->session()->put('cortex.auth.twofactor', ['user_id' => $request->user()->getKey(), 'remember' => $request->filled('remember'), 'totp' => $totpStatus, 'phone' => $phoneStatus]);
 
             $route = $totpStatus
                 ? route('frontarea.cortex.auth.account.verification.phone.verify')
@@ -135,7 +135,7 @@ class AuthenticationController extends UnauthenticatedController
      */
     protected function processLogout(Request $request): void
     {
-        auth()->guard(app('request.guard'))->logoutCurrentDevice();
+        auth()->logoutCurrentDevice();
 
         $request->session()->invalidate();
 

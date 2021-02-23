@@ -41,17 +41,16 @@ class AuthenticateSession
      */
     public function handle($request, Closure $next)
     {
-        $guard = app('request.guard');
-        $passwordHashKey = 'hash_'.$guard.mb_strrchr($this->auth->getName(), '_');
+        $passwordHashKey = 'hash_'.$request->guard().mb_strrchr($this->auth->getName(), '_');
 
-        if (! $request->hasSession() || ! $request->user($guard)) {
+        if (! $request->hasSession() || ! $request->user()) {
             return $next($request);
         }
 
         if ($this->auth->viaRemember()) {
             $passwordHash = explode('|', $request->cookies->get($this->auth->getRecallerName()))[2];
 
-            if ($passwordHash !== $request->user($guard)->getAuthPassword()) {
+            if ($passwordHash !== $request->user()->getAuthPassword()) {
                 $this->logout($request);
             }
         }
@@ -60,7 +59,7 @@ class AuthenticateSession
             $this->storePasswordHashInSession($request, $passwordHashKey);
         }
 
-        if ($request->session()->get($passwordHashKey) !== $request->user($guard)->getAuthPassword()) {
+        if ($request->session()->get($passwordHashKey) !== $request->user()->getAuthPassword()) {
             $this->logout($request);
         }
 
@@ -79,14 +78,12 @@ class AuthenticateSession
      */
     protected function storePasswordHashInSession($request, $passwordHashKey)
     {
-        $guard = app('request.guard');
-
-        if (! $request->user($guard)) {
+        if (! $request->user()) {
             return;
         }
 
         $request->session()->put([
-            $passwordHashKey => $request->user($guard)->getAuthPassword(),
+            $passwordHashKey => $request->user()->getAuthPassword(),
         ]);
     }
 

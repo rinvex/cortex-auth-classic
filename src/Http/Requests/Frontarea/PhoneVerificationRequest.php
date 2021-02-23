@@ -18,8 +18,8 @@ class PhoneVerificationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $user = $this->user(app('request.guard'))
-                ?? $this->attemptUser(app('request.guard'))
+        $user = $this->user()
+                ?? $this->attemptUser()
                    ?? app('cortex.auth.member')->whereNotNull('phone')->where('phone', $this->get('phone'))->first();
 
         // Redirect users if their phone already verified, no need to process their request
