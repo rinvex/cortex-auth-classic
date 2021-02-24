@@ -66,7 +66,7 @@ class AuthenticationController extends UnauthenticatedController
         $this->processLogout($request);
 
         return intend([
-            'url' => route('adminarea.home'),
+            'url' => route('adminarea.cortex.auth.account.login'),
             'with' => ['warning' => trans('cortex/auth::messages.auth.logout')],
         ]);
     }
