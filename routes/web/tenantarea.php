@@ -20,8 +20,8 @@ Route::domain('{subdomain}.'.domain())->group(function () {
                 Route::get('auth/{provider}/callback')->name('auth.social.callback')->uses('SocialAuthenticationController@handleProviderCallback');
 
                 // Registration Routes
-                Route::get('register')->name('register')->uses('RegistrationController@form');
-                Route::post('register')->name('register.process')->uses('RegistrationController@register');
+                Route::get('register')->name('register')->uses('MemberRegistrationController@form');
+                Route::post('register')->name('register.process')->uses('MemberRegistrationController@register');
 
                 // Reauthentication Routes: Password & Twofactor
                 Route::name('reauthentication.')->prefix('reauthentication')->group(function () {

@@ -10,7 +10,7 @@ use Cortex\Auth\Http\Requests\Tenantarea\RegistrationRequest;
 use Cortex\Foundation\Http\Controllers\UnauthenticatedController;
 use Cortex\Auth\Http\Requests\Tenantarea\RegistrationProcessRequest;
 
-class RegistrationController extends UnauthenticatedController
+class MemberRegistrationController extends UnauthenticatedController
 {
     /**
      * Show the registration form.
