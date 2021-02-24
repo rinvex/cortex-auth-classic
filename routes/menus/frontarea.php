@@ -11,7 +11,7 @@ if ($user = request()->user()) {
             $dropdown->route(['frontarea.cortex.auth.account'], trans('cortex/auth::common.account'), null, 'fa fa-cogs');
             $dropdown->route(['frontarea.cortex.auth.account.settings'], trans('cortex/auth::common.settings'), null, 'fa fa-cogs');
             $dropdown->divider();
-            $dropdown->route(['frontarea.cortex.auth.account.login'], trans('cortex/auth::common.logout').Form::open(['url' => route('frontarea.cortex.auth.account.login'), 'id' => 'logout-form', 'style' => 'display: none;']).Form::close(), null, 'fa fa-sign-out', ['onclick' => "event.preventDefault(); document.getElementById('logout-form').submit();"]);
+            $dropdown->route(['frontarea.cortex.auth.account.logout'], trans('cortex/auth::common.logout').Form::open(['url' => route('frontarea.cortex.auth.account.logout'), 'id' => 'logout-form', 'style' => 'display: none;']).Form::close(), null, 'fa fa-sign-out', ['onclick' => "event.preventDefault(); document.getElementById('logout-form').submit();"]);
         }, $user->username, 10, 'fa fa-user');
     });
 
