@@ -24,7 +24,7 @@ class Authorize extends BaseAuthorize
      */
     public function handle($request, Closure $next, $ability, ...$models)
     {
-        if ($request->isApi()) {
+        if ($request->isApi() && $request->user()) {
             $this->gate->forUser($request->user()->token())->authorize($ability, $this->getGateArguments($request, $models));
         } else {
             $this->gate->authorize($ability, $this->getGateArguments($request, $models));
