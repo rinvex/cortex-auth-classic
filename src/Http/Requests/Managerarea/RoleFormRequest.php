@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Auth\Http\Requests\Managerarea;
 
 use Rinvex\Support\Traits\Escaper;
-use Illuminate\Foundation\Http\FormRequest;
+use Cortex\Foundation\Http\FormRequest;
 use Cortex\Foundation\Exceptions\GenericException;
 
 class RoleFormRequest extends FormRequest
@@ -21,7 +21,7 @@ class RoleFormRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (! app('request.user')->isA('supermanager') && ! app('request.user')->roles->contains($this->route('role'))) {
+        if (! $this->user()->isA('supermanager') && ! $this->user()->roles->contains($this->route('role'))) {
             throw new GenericException(trans('cortex/auth::messages.action_unauthorized'), route('managerarea.cortex.auth.roles.index'));
         }
 

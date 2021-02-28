@@ -54,21 +54,21 @@ class AccountSettingsController extends AuthenticatedController
         $data = $request->validated();
 
         ! $request->hasFile('profile_picture')
-        || app('request.user')->addMediaFromRequest('profile_picture')
+        || $request->user()->addMediaFromRequest('profile_picture')
                  ->sanitizingFileName(function ($fileName) {
                      return md5($fileName).'.'.pathinfo($fileName, PATHINFO_EXTENSION);
                  })
                  ->toMediaCollection('profile_picture', config('cortex.foundation.media.disk'));
 
         ! $request->hasFile('cover_photo')
-        || app('request.user')->addMediaFromRequest('cover_photo')
+        || $request->user()->addMediaFromRequest('cover_photo')
                  ->sanitizingFileName(function ($fileName) {
                      return md5($fileName).'.'.pathinfo($fileName, PATHINFO_EXTENSION);
                  })
                  ->toMediaCollection('cover_photo', config('cortex.foundation.media.disk'));
 
         // Update profile
-        app('request.user')->fill($data)->save();
+        $request->user()->fill($data)->save();
 
         return intend([
             'back' => true,

@@ -11,27 +11,27 @@ use Cortex\Auth\Models\Guardian;
 use Rinvex\Menus\Models\MenuItem;
 use Rinvex\Menus\Models\MenuGenerator;
 
-Menu::register('adminarea.sidebar', function (MenuGenerator $menu, Ability $ability, Role $role, Admin $admin, Manager $manager, Member $member, Guardian $guardian) {
-    $menu->findByTitleOrAdd(trans('cortex/foundation::common.access'), null, 'fa fa-user-circle-o', 'header', [], function (MenuItem $dropdown) use ($ability, $role) {
-        $dropdown->route(['adminarea.cortex.auth.abilities.index'], trans('cortex/auth::common.abilities'), null, 'fa fa-sliders')->ifCan('list', $ability)->activateOnRoute('adminarea.cortex.auth.abilities');
-        $dropdown->route(['adminarea.cortex.auth.roles.index'], trans('cortex/auth::common.roles'), null, 'fa fa-users')->ifCan('list', $role)->activateOnRoute('adminarea.cortex.auth.roles');
+Menu::register('adminarea.sidebar', function (MenuGenerator $menu) {
+    $menu->findByTitleOrAdd(trans('cortex/foundation::common.access'), null, 'fa fa-user-circle-o', 'header', [], function (MenuItem $dropdown) {
+        $dropdown->route(['adminarea.cortex.auth.abilities.index'], trans('cortex/auth::common.abilities'), null, 'fa fa-sliders')->ifCan('list', app('cortex.auth.ability'))->activateOnRoute('adminarea.cortex.auth.abilities');
+        $dropdown->route(['adminarea.cortex.auth.roles.index'], trans('cortex/auth::common.roles'), null, 'fa fa-users')->ifCan('list', app('cortex.auth.role'))->activateOnRoute('adminarea.cortex.auth.roles');
     });
 
-    $menu->findByTitleOrAdd(trans('cortex/foundation::common.user'), null, 'fa fa-users', 'header', [], function (MenuItem $dropdown) use ($admin, $manager, $member, $guardian) {
-        $dropdown->route(['adminarea.cortex.auth.admins.index'], trans('cortex/auth::common.admins'), null, 'fa fa-user')->ifCan('list', $admin)->activateOnRoute('adminarea.cortex.auth.admins');
-        $dropdown->route(['adminarea.cortex.auth.managers.index'], trans('cortex/auth::common.managers'), null, 'fa fa-user')->ifCan('list', $manager)->activateOnRoute('adminarea.cortex.auth.managers');
-        $dropdown->route(['adminarea.cortex.auth.members.index'], trans('cortex/auth::common.members'), null, 'fa fa-user')->ifCan('list', $member)->activateOnRoute('adminarea.cortex.auth.members');
-        $dropdown->route(['adminarea.cortex.auth.guardians.index'], trans('cortex/auth::common.guardians'), null, 'fa fa-user')->ifCan('list', $guardian)->activateOnRoute('adminarea.cortex.auth.guardians');
+    $menu->findByTitleOrAdd(trans('cortex/foundation::common.user'), null, 'fa fa-users', 'header', [], function (MenuItem $dropdown) {
+        $dropdown->route(['adminarea.cortex.auth.admins.index'], trans('cortex/auth::common.admins'), null, 'fa fa-user')->ifCan('list', app('cortex.auth.admin'))->activateOnRoute('adminarea.cortex.auth.admins');
+        $dropdown->route(['adminarea.cortex.auth.managers.index'], trans('cortex/auth::common.managers'), null, 'fa fa-user')->ifCan('list', app('cortex.auth.manager'))->activateOnRoute('adminarea.cortex.auth.managers');
+        $dropdown->route(['adminarea.cortex.auth.members.index'], trans('cortex/auth::common.members'), null, 'fa fa-user')->ifCan('list', app('cortex.auth.member'))->activateOnRoute('adminarea.cortex.auth.members');
+        $dropdown->route(['adminarea.cortex.auth.guardians.index'], trans('cortex/auth::common.guardians'), null, 'fa fa-user')->ifCan('list', app('cortex.auth.guardian'))->activateOnRoute('adminarea.cortex.auth.guardians');
     });
 });
 
-if ($user = auth()->guard(app('request.guard'))->user()) {
+if ($user = request()->user()) {
     Menu::register('adminarea.header.user', function (MenuGenerator $menu) use ($user) {
         $menu->dropdown(function (MenuItem $dropdown) {
             $dropdown->route(['adminarea.cortex.auth.account'], trans('cortex/auth::common.account'), null, 'fa fa-user');
             $dropdown->route(['adminarea.cortex.auth.account.settings'], trans('cortex/auth::common.settings'), null, 'fa fa-cogs');
             $dropdown->divider();
-            $dropdown->route(['adminarea.cortex.auth.account.login'], trans('cortex/auth::common.logout').Form::open(['url' => route('adminarea.cortex.auth.account.login'), 'id' => 'logout-form', 'style' => 'display: none;']).Form::close(), null, 'fa fa-sign-out', ['onclick' => "event.preventDefault(); document.getElementById('logout-form').submit();"]);
+            $dropdown->route(['adminarea.cortex.auth.account.logout'], trans('cortex/auth::common.logout').Form::open(['url' => route('adminarea.cortex.auth.account.logout'), 'id' => 'logout-form', 'style' => 'display: none;']).Form::close(), null, 'fa fa-sign-out', ['onclick' => "event.preventDefault(); document.getElementById('logout-form').submit();"]);
         }, $user->username, 10, 'fa fa-user');
     });
 

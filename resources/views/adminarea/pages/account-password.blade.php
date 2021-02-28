@@ -24,7 +24,7 @@
                 <div class="col-md-9">
                     <div class="profile-content">
 
-                        {{ Form::model(app('request.user'), ['url' => route('adminarea.cortex.auth.account.password.update'), 'id' => 'adminarea-cortex-auth-account-password-form']) }}
+                        {{ Form::model(request()->user(), ['url' => route('adminarea.cortex.auth.account.password.update'), 'id' => 'adminarea-cortex-auth-account-password-form']) }}
 
                             <div class="row">
 

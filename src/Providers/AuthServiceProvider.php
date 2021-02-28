@@ -17,7 +17,7 @@ use Cortex\Auth\Models\Guardian;
 use Cortex\Auth\Models\Socialite;
 use Illuminate\Support\ServiceProvider;
 use Rinvex\Support\Traits\ConsoleTools;
-use Illuminate\Auth\Middleware\Authorize;
+use Cortex\Auth\Http\Middleware\Authorize;
 use Illuminate\Contracts\Events\Dispatcher;
 use Cortex\Auth\Console\Commands\SeedCommand;
 use Cortex\Auth\Http\Middleware\Reauthenticate;

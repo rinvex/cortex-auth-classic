@@ -7,7 +7,7 @@ namespace Cortex\Auth\Http\Controllers\Adminarea;
 use Exception;
 use Illuminate\Http\Request;
 use Cortex\Auth\Models\Manager;
-use Illuminate\Foundation\Http\FormRequest;
+use Cortex\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Foundation\Importers\DefaultImporter;
 use Cortex\Foundation\DataTables\ActivitiesDataTable;
@@ -170,7 +170,7 @@ class ManagersController extends AuthorizedController
      */
     public function hoard(ImportFormRequest $request)
     {
-        foreach ((array) $request->get('selected_ids') as $recordId) {
+        foreach ((array) $request->input('selected_ids') as $recordId) {
             $record = app('cortex.foundation.import_record')->find($recordId);
 
             try {
@@ -244,7 +244,7 @@ class ManagersController extends AuthorizedController
      */
     protected function form(Request $request, Manager $manager)
     {
-        if (! $manager->exists && $request->has('replicate') && $replicated = $manager->resolveRouteBinding($request->get('replicate'))) {
+        if (! $manager->exists && $request->has('replicate') && $replicated = $manager->resolveRouteBinding($request->input('replicate'))) {
             $manager = $replicated->replicate();
         }
 
@@ -259,8 +259,8 @@ class ManagersController extends AuthorizedController
         $tags = app('rinvex.tags.tag')->pluck('name', 'id');
         $languages = collect(languages())->pluck('name', 'iso_639_1');
         $genders = ['male' => trans('cortex/auth::common.male'), 'female' => trans('cortex/auth::common.female')];
-        $abilities = $request->user(app('request.guard'))->getManagedAbilities();
-        $roles = $request->user(app('request.guard'))->getManagedRoles();
+        $abilities = $request->user()->getManagedAbilities();
+        $roles = $request->user()->getManagedRoles();
 
         $tenants = app('rinvex.tenants.tenant')->all()->pluck('name', 'id')->toArray();
 
@@ -298,8 +298,8 @@ class ManagersController extends AuthorizedController
     /**
      * Process stored/updated manager.
      *
-     * @param \Illuminate\Foundation\Http\FormRequest $request
-     * @param \Cortex\Auth\Models\Manager             $manager
+     * @param \Cortex\Foundation\Http\FormRequest $request
+     * @param \Cortex\Auth\Models\Manager         $manager
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

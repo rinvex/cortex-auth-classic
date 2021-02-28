@@ -6,10 +6,11 @@ namespace Cortex\Auth\Http\Controllers\Frontarea;
 
 use Cortex\Auth\Models\Member;
 use Illuminate\Auth\Events\Registered;
+use Cortex\Foundation\Http\Controllers\UnauthenticatedController;
 use Cortex\Auth\Http\Requests\Frontarea\MemberRegistrationRequest;
 use Cortex\Auth\Http\Requests\Frontarea\MemberRegistrationProcessRequest;
 
-class MemberRegistrationController extends RegistrationController
+class MemberRegistrationController extends UnauthenticatedController
 {
     /**
      * Show the registration form.
@@ -43,10 +44,10 @@ class MemberRegistrationController extends RegistrationController
 
         // Send verification if required
         ! config('cortex.auth.emails.verification')
-        || app('rinvex.auth.emailverification')->broker(app('request.emailVerificationBroker'))->sendVerificationLink(['email' => $member->email]);
+        || app('rinvex.auth.emailverification')->broker($request->emailVerificationBroker())->sendVerificationLink(['email' => $member->email]);
 
         // Auto-login registered member
-        auth()->guard('member')->login($member);
+        auth()->login($member);
 
         // Registration completed successfully
         return intend([

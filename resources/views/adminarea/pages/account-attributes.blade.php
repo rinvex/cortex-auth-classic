@@ -24,11 +24,11 @@
                 <div class="col-md-9">
                     <div class="profile-content">
 
-                        {{ Form::model(app('request.user'), ['url' => route('adminarea.cortex.auth.account.attributes.update'), 'id' => 'adminarea-cortex-auth-account-attributes-form']) }}
+                        {{ Form::model(request()->user(), ['url' => route('adminarea.cortex.auth.account.attributes.update'), 'id' => 'adminarea-cortex-auth-account-attributes-form']) }}
 
-                            @attributes(app('request.user'))
+                            @attributes(request()->user())
 
-                            @if(app('request.user')->getEntityAttributes()->isNotEmpty())
+                            @if(request()->user()->getEntityAttributes()->isNotEmpty())
                                 <div class="row">
                                     <div class="col-md-12 text-center profile-buttons">
                                         {{ Form::button('<i class="fa fa-save"></i> '.trans('cortex/auth::common.update_attributes'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}

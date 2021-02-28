@@ -54,7 +54,7 @@ class LockoutThrottledLogin implements ShouldQueue
                     break;
             }
 
-            $user = get_login_field($loginfield = $event->request->get('loginfield')) === 'email'
+            $user = get_login_field($loginfield = $event->request->input('loginfield')) === 'email'
                 ? $model::where('email', $loginfield)->first()
                 : $model::where('username', $loginfield)->first();
 

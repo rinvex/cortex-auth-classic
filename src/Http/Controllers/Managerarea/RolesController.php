@@ -7,7 +7,7 @@ namespace Cortex\Auth\Http\Controllers\Managerarea;
 use Exception;
 use Cortex\Auth\Models\Role;
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Http\FormRequest;
+use Cortex\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Foundation\Importers\DefaultImporter;
 use Cortex\Foundation\DataTables\ImportLogsDataTable;
@@ -99,7 +99,7 @@ class RolesController extends AuthorizedController
      */
     public function hoard(ImportFormRequest $request)
     {
-        foreach ((array) $request->get('selected_ids') as $recordId) {
+        foreach ((array) $request->input('selected_ids') as $recordId) {
             $record = app('cortex.foundation.import_record')->find($recordId);
 
             try {
@@ -173,11 +173,11 @@ class RolesController extends AuthorizedController
      */
     protected function form(Request $request, Role $role)
     {
-        if (! $role->exists && $request->has('replicate') && $replicated = $role->resolveRouteBinding($request->get('replicate'))) {
+        if (! $role->exists && $request->has('replicate') && $replicated = $role->resolveRouteBinding($request->input('replicate'))) {
             $role = $replicated->replicate();
         }
 
-        $abilities = $request->user(app('request.guard'))->getManagedAbilities();
+        $abilities = $request->user()->getManagedAbilities();
 
         return view('cortex/auth::managerarea.pages.role', compact('role', 'abilities'));
     }
@@ -211,8 +211,8 @@ class RolesController extends AuthorizedController
     /**
      * Process stored/updated role.
      *
-     * @param \Illuminate\Foundation\Http\FormRequest $request
-     * @param \Cortex\Auth\Models\Role                $role
+     * @param \Cortex\Foundation\Http\FormRequest $request
+     * @param \Cortex\Auth\Models\Role            $role
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

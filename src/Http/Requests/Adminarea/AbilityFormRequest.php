@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Auth\Http\Requests\Adminarea;
 
 use Rinvex\Support\Traits\Escaper;
-use Illuminate\Foundation\Http\FormRequest;
+use Cortex\Foundation\Http\FormRequest;
 use Cortex\Foundation\Exceptions\GenericException;
 
 class AbilityFormRequest extends FormRequest
@@ -21,7 +21,7 @@ class AbilityFormRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (! app('request.user')->isA('superadmin') && ! app('request.user')->getAbilities()->contains($this->route('ability'))) {
+        if (! $this->user()->isA('superadmin') && ! $this->user()->getAbilities()->contains($this->route('ability'))) {
             throw new GenericException(trans('cortex/auth::messages.action_unauthorized'), route('adminarea.cortex.auth.abilities.index'));
         }
 

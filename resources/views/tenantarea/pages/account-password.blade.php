@@ -21,7 +21,7 @@
             <div class="col-md-9">
                 <div class="profile-content">
 
-                    {{ Form::model(app('request.user'), ['url' => route('tenantarea.cortex.auth.account.password.update'), 'id' => 'tenantarea-cortex-auth-account-password-form']) }}
+                    {{ Form::model(request()->user(), ['url' => route('tenantarea.cortex.auth.account.password.update'), 'id' => 'tenantarea-cortex-auth-account-password-form']) }}
 
                         <div class="row">
 

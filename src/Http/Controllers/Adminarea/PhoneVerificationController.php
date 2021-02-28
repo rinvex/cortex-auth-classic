@@ -37,11 +37,11 @@ class PhoneVerificationController extends AbstractController
      */
     public function send(PhoneVerificationSendRequest $request)
     {
-        $user = $request->user(app('request.guard'))
-                ?? $request->attemptUser(app('request.guard'))
+        $user = $request->user()
+                ?? $request->attemptUser()
                    ?? app('cortex.auth.admin')->whereNotNull('phone')->where('phone', $request->input('phone'))->first();
 
-        $user->sendPhoneVerificationNotification($request->get('method'), true);
+        $user->sendPhoneVerificationNotification($request->input('method'), true);
 
         return intend([
             'url' => route('adminarea.cortex.auth.account.verification.phone.verify', ['phone' => $user->phone]),
@@ -71,8 +71,8 @@ class PhoneVerificationController extends AbstractController
     public function process(PhoneVerificationProcessRequest $request)
     {
         // Guest trying to authenticate through TwoFactor
-        if (($attemptUser = $request->attemptUser(app('request.guard'))) && $this->attemptTwoFactor($attemptUser, $request->get('token'))) {
-            auth()->guard(app('request.guard'))->login($attemptUser, $request->session()->get('cortex.auth.twofactor.remember'));
+        if (($attemptUser = $request->attemptUser()) && $this->attemptTwoFactor($attemptUser, $request->input('token'))) {
+            auth()->login($attemptUser, $request->session()->get('cortex.auth.twofactor.remember'));
             $request->session()->forget('cortex.auth.twofactor'); // @TODO: Do we need to forget session, or it's already gone after login?
 
             return intend([
@@ -82,7 +82,7 @@ class PhoneVerificationController extends AbstractController
         }
 
         // Logged in user OR A GUEST trying to verify phone
-        if (($user = $request->user(app('request.guard')) ?? app('cortex.auth.admin')->whereNotNull('phone')->where('phone', $request->get('phone'))->first()) && $this->isValidTwoFactorPhone($user, $request->get('token'))) {
+        if (($user = $request->user() ?? app('cortex.auth.admin')->whereNotNull('phone')->where('phone', $request->input('phone'))->first()) && $this->isValidTwoFactorPhone($user, $request->input('token'))) {
             // Profile update
             $user->fill([
                 'phone_verified_at' => Carbon::now(),

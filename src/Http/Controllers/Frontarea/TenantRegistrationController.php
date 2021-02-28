@@ -7,10 +7,11 @@ namespace Cortex\Auth\Http\Controllers\Frontarea;
 use Cortex\Auth\Models\Manager;
 use Cortex\Tenants\Models\Tenant;
 use Illuminate\Auth\Events\Registered;
+use Cortex\Foundation\Http\Controllers\UnauthenticatedController;
 use Cortex\Auth\Http\Requests\Frontarea\TenantRegistrationRequest;
 use Cortex\Auth\Http\Requests\Frontarea\TenantRegistrationProcessRequest;
 
-class TenantRegistrationController extends RegistrationController
+class TenantRegistrationController extends UnauthenticatedController
 {
     /**
      * Show the registration form.
@@ -60,10 +61,10 @@ class TenantRegistrationController extends RegistrationController
 
         // Send verification if required
         ! config('cortex.auth.emails.verification')
-        || app('rinvex.auth.emailverification')->broker(app('request.emailVerificationBroker'))->sendVerificationLink(['email' => $manager->email]);
+        || app('rinvex.auth.emailverification')->broker($request->emailVerificationBroker())->sendVerificationLink(['email' => $manager->email]);
 
         // Auto-login registered manager
-        auth()->guard('manager')->login($manager);
+        auth()->login($manager);
 
         // Registration completed successfully
         return intend([

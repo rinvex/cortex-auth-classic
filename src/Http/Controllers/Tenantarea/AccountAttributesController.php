@@ -34,7 +34,7 @@ class AccountAttributesController extends AuthenticatedController
         $data = $request->validated();
 
         // Update profile
-        app('request.user')->fill($data)->save();
+        $request->user()->fill($data)->save();
 
         return intend([
             'back' => true,

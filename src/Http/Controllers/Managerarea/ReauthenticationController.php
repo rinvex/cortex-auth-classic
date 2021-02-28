@@ -46,7 +46,7 @@ class ReauthenticationController extends AuthenticatedController
      */
     public function processTwofactor(Request $request)
     {
-        $user = $request->user(app('request.guard'));
+        $user = $request->user();
         $token = (int) $request->input('token');
 
         if ($this->attemptTwoFactor($user, $token)) {

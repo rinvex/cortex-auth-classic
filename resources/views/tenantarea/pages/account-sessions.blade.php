@@ -25,7 +25,7 @@
 
                             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
-                                @foreach(app('request.user')->sessions as $session)
+                                @foreach(request()->user()->sessions as $session)
 
                                     <section class="panel panel-default">
 

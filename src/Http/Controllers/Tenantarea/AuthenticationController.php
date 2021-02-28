@@ -6,10 +6,10 @@ namespace Cortex\Auth\Http\Controllers\Tenantarea;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-use Cortex\Foundation\Http\Controllers\AbstractController;
 use Cortex\Auth\Http\Requests\Tenantarea\AuthenticationRequest;
+use Cortex\Foundation\Http\Controllers\UnauthenticatedController;
 
-class AuthenticationController extends AbstractController
+class AuthenticationController extends UnauthenticatedController
 {
     /**
      * {@inheritdoc}
@@ -17,16 +17,6 @@ class AuthenticationController extends AbstractController
     protected $middlewareWhitelist = [
         'logout',
     ];
-
-    /**
-     * Create a new authentication controller instance.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        ! app()->bound('request.guard') || $this->middleware(($guard = app('request.guard')) ? 'guest:'.$guard : 'guest')->except($this->middlewareWhitelist);
-    }
 
     /**
      * Show the login form.
@@ -57,7 +47,7 @@ class AuthenticationController extends AbstractController
             'password' => $request->input('password'),
         ];
 
-        if (auth()->guard(app('request.guard'))->attempt($credentials, $request->filled('remember'))) {
+        if (auth()->attempt($credentials, $request->filled('remember'))) {
             return $this->sendLoginResponse($request);
         }
 
@@ -90,7 +80,7 @@ class AuthenticationController extends AbstractController
      */
     protected function sendLoginResponse(Request $request)
     {
-        $twofactor = app('request.user')->getTwoFactor();
+        $twofactor = $request->user()->getTwoFactor();
         $totpStatus = $twofactor['totp']['enabled'] ?? false;
         $phoneStatus = $twofactor['phone']['enabled'] ?? false;
 
@@ -100,7 +90,7 @@ class AuthenticationController extends AbstractController
         if ($totpStatus || $phoneStatus) {
             $this->processLogout($request);
 
-            $request->session()->put('cortex.auth.twofactor', ['user_id' => app('request.user')->getKey(), 'remember' => $request->filled('remember'), 'totp' => $totpStatus, 'phone' => $phoneStatus]);
+            $request->session()->put('cortex.auth.twofactor', ['user_id' => $request->user()->getKey(), 'remember' => $request->filled('remember'), 'totp' => $totpStatus, 'phone' => $phoneStatus]);
 
             $route = $totpStatus
                 ? route('tenantarea.cortex.auth.account.verification.phone.verify')
@@ -143,7 +133,7 @@ class AuthenticationController extends AbstractController
      */
     protected function processLogout(Request $request): void
     {
-        auth()->guard(app('request.guard'))->logoutCurrentDevice();
+        auth()->logoutCurrentDevice();
 
         $request->session()->invalidate();
 

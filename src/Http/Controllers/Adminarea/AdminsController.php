@@ -7,7 +7,7 @@ namespace Cortex\Auth\Http\Controllers\Adminarea;
 use Exception;
 use Illuminate\Http\Request;
 use Cortex\Auth\Models\Admin;
-use Illuminate\Foundation\Http\FormRequest;
+use Cortex\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Foundation\Importers\DefaultImporter;
 use Cortex\Auth\DataTables\Adminarea\AdminsDataTable;
@@ -170,7 +170,7 @@ class AdminsController extends AuthorizedController
      */
     public function hoard(ImportFormRequest $request)
     {
-        foreach ((array) $request->get('selected_ids') as $recordId) {
+        foreach ((array) $request->input('selected_ids') as $recordId) {
             $record = app('cortex.foundation.import_record')->find($recordId);
 
             try {
@@ -244,7 +244,7 @@ class AdminsController extends AuthorizedController
      */
     protected function form(Request $request, Admin $admin)
     {
-        if (! $admin->exists && $request->has('replicate') && $replicated = $admin->resolveRouteBinding($request->get('replicate'))) {
+        if (! $admin->exists && $request->has('replicate') && $replicated = $admin->resolveRouteBinding($request->input('replicate'))) {
             $admin = $replicated->replicate();
         }
 
@@ -259,8 +259,8 @@ class AdminsController extends AuthorizedController
         $tags = app('rinvex.tags.tag')->pluck('name', 'id');
         $languages = collect(languages())->pluck('name', 'iso_639_1');
         $genders = ['male' => trans('cortex/auth::common.male'), 'female' => trans('cortex/auth::common.female')];
-        $abilities = $request->user(app('request.guard'))->getManagedAbilities();
-        $roles = $request->user(app('request.guard'))->getManagedRoles();
+        $abilities = $request->user()->getManagedAbilities();
+        $roles = $request->user()->getManagedRoles();
 
         return view('cortex/auth::adminarea.pages.admin', compact('admin', 'abilities', 'roles', 'countries', 'languages', 'genders', 'tags'));
     }
@@ -294,8 +294,8 @@ class AdminsController extends AuthorizedController
     /**
      * Process stored/updated admin.
      *
-     * @param \Illuminate\Foundation\Http\FormRequest $request
-     * @param \Cortex\Auth\Models\Admin               $admin
+     * @param \Cortex\Foundation\Http\FormRequest $request
+     * @param \Cortex\Auth\Models\Admin           $admin
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

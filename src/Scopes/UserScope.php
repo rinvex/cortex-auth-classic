@@ -37,21 +37,21 @@ class UserScope implements DataTableScope
             'created_at_from' => ['field' => 'created_at', 'operator' => '>='],
             'created_at_to' => ['field' => 'created_at', 'operator' => '<='],
         ])->each(function ($filter, $key) use ($query) {
-            if (! empty($this->request->get($key))) {
-                $query->where($filter['field'], $filter['operator'], $this->request->get($key));
+            if (! empty($this->request->input($key))) {
+                $query->where($filter['field'], $filter['operator'], $this->request->input($key));
             }
         });
 
         // Filter relationships
-        if (! empty($this->request->get('tags'))) {
+        if (! empty($this->request->input('tags'))) {
             $query->whereHas('tags', function (Builder $builder) {
-                $builder->whereIn('id', $this->request->get('tags'));
+                $builder->whereIn('id', $this->request->input('tags'));
             });
         }
 
-        if (! empty($this->request->get('role_id'))) {
+        if (! empty($this->request->input('role_id'))) {
             $query->whereHas('roles', function (Builder $builder) {
-                $builder->where('id', $this->request->get('role_id'));
+                $builder->where('id', $this->request->input('role_id'));
             });
         }
 

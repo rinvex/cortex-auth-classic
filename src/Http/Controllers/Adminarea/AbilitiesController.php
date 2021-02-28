@@ -7,7 +7,7 @@ namespace Cortex\Auth\Http\Controllers\Adminarea;
 use Exception;
 use Illuminate\Http\Request;
 use Cortex\Auth\Models\Ability;
-use Illuminate\Foundation\Http\FormRequest;
+use Cortex\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Foundation\Importers\DefaultImporter;
 use Cortex\Foundation\DataTables\ImportLogsDataTable;
@@ -99,7 +99,7 @@ class AbilitiesController extends AuthorizedController
      */
     public function hoard(ImportFormRequest $request)
     {
-        foreach ((array) $request->get('selected_ids') as $recordId) {
+        foreach ((array) $request->input('selected_ids') as $recordId) {
             $record = app('cortex.foundation.import_record')->find($recordId);
 
             try {
@@ -173,11 +173,11 @@ class AbilitiesController extends AuthorizedController
      */
     protected function form(Request $request, Ability $ability)
     {
-        if (! $ability->exists && $request->has('replicate') && $replicated = $ability->resolveRouteBinding($request->get('replicate'))) {
+        if (! $ability->exists && $request->has('replicate') && $replicated = $ability->resolveRouteBinding($request->input('replicate'))) {
             $ability = $replicated->replicate();
         }
 
-        $roles = $request->user(app('request.guard'))->getManagedRoles();
+        $roles = $request->user()->getManagedRoles();
         $entityTypes = app('cortex.auth.ability')->distinct()->get(['entity_type'])->pluck('entity_type', 'entity_type')->toArray();
 
         return view('cortex/auth::adminarea.pages.ability', compact('ability', 'roles', 'entityTypes'));
@@ -212,8 +212,8 @@ class AbilitiesController extends AuthorizedController
     /**
      * Process stored/updated ability.
      *
-     * @param \Illuminate\Foundation\Http\FormRequest $request
-     * @param \Cortex\Auth\Models\Ability             $ability
+     * @param \Cortex\Foundation\Http\FormRequest $request
+     * @param \Cortex\Auth\Models\Ability         $ability
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

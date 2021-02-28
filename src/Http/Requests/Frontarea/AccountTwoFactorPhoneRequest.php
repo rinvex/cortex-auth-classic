@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Requests\Frontarea;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Cortex\Foundation\Http\FormRequest;
 
 class AccountTwoFactorPhoneRequest extends FormRequest
 {
@@ -29,7 +29,7 @@ class AccountTwoFactorPhoneRequest extends FormRequest
      */
     public function withValidator($validator): void
     {
-        $user = $this->user(app('request.guard'));
+        $user = $this->user();
 
         $validator->after(function ($validator) use ($user) {
             if (! $user->phone || ! $user->hasVerifiedPhone()) {

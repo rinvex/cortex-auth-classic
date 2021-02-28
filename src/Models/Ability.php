@@ -124,26 +124,4 @@ class Ability extends BaseAbility
         'created_at',
         'updated_at',
     ];
-
-    /**
-     * Attach the given roles to the model.
-     *
-     * @param mixed $roles
-     *
-     * @return void
-     */
-    public function setRolesAttribute($roles): void
-    {
-        static::saved(function (self $model) use ($roles) {
-            $roles = collect($roles)->filter();
-
-            $model->roles->pluck('id')->similar($roles)
-            || activity()
-                ->performedOn($model)
-                ->withProperties(['attributes' => ['roles' => $roles], 'old' => ['roles' => $model->roles->pluck('id')->toArray()]])
-                ->log('updated');
-
-            $model->roles()->sync($roles, true);
-        });
-    }
 }

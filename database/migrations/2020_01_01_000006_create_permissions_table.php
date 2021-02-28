@@ -26,7 +26,7 @@ class CreatePermissionsTable extends Migration
             // Indexes
             $table->index(['scope']);
             $table->index(['ability_id']);
-            $table->index(['entity_id', 'entity_type', 'scope'], 'permissions_entity_index');
+            $table->index(['entity_id', 'entity_type', 'scope'], 'permissions_entity_scope_index');
             $table->foreign('ability_id')->references('id')->on(config('cortex.auth.tables.abilities'))
                  ->onDelete('cascade')->onUpdate('cascade');
         });

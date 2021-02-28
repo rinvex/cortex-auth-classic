@@ -19,8 +19,8 @@ class PhoneVerificationProcessRequest extends PhoneVerificationRequest
     {
         parent::authorize();
 
-        $user = $this->user(app('request.guard'))
-                ?? $this->attemptUser(app('request.guard'))
+        $user = $this->user()
+                ?? $this->attemptUser()
                    ?? app('cortex.auth.member')->whereNotNull('phone')->where('phone', $this->get('phone'))->first();
 
         if (! $user) {

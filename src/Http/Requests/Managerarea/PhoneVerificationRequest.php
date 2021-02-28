@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Requests\Managerarea;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Cortex\Foundation\Http\FormRequest;
 use Cortex\Foundation\Exceptions\GenericException;
 
 class PhoneVerificationRequest extends FormRequest
@@ -18,8 +18,8 @@ class PhoneVerificationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $user = $this->user(app('request.guard'))
-                ?? $this->attemptUser(app('request.guard'))
+        $user = $this->user()
+                ?? $this->attemptUser()
                    ?? app('cortex.auth.manager')->whereNotNull('phone')->where('phone', $this->get('phone'))->first();
 
         // Redirect users if their phone already verified, no need to process their request

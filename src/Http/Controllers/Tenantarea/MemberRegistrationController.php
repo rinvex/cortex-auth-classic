@@ -6,22 +6,12 @@ namespace Cortex\Auth\Http\Controllers\Tenantarea;
 
 use Cortex\Auth\Models\Member;
 use Illuminate\Auth\Events\Registered;
-use Cortex\Foundation\Http\Controllers\AbstractController;
 use Cortex\Auth\Http\Requests\Tenantarea\RegistrationRequest;
+use Cortex\Foundation\Http\Controllers\UnauthenticatedController;
 use Cortex\Auth\Http\Requests\Tenantarea\RegistrationProcessRequest;
 
-class RegistrationController extends AbstractController
+class MemberRegistrationController extends UnauthenticatedController
 {
-    /**
-     * Create a new registration controller instance.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        ! app()->bound('request.guard') || $this->middleware(($guard = app('request.guard')) ? 'guest:'.$guard : 'guest')->except($this->middlewareWhitelist);
-    }
-
     /**
      * Show the registration form.
      *
@@ -54,10 +44,10 @@ class RegistrationController extends AbstractController
 
         // Send verification if required
         ! config('cortex.auth.emails.verification')
-        || app('rinvex.auth.emailverification')->broker(app('request.emailVerificationBroker'))->sendVerificationLink(['email' => $data['email']]);
+        || app('rinvex.auth.emailverification')->broker($request->emailVerificationBroker())->sendVerificationLink(['email' => $data['email']]);
 
         // Auto-login registered member
-        auth()->guard(app('request.guard'))->login($member);
+        auth()->login($member);
 
         // Registration completed successfully
         return intend([

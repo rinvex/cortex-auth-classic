@@ -6,7 +6,7 @@ namespace Cortex\Auth\Http\Requests\Frontarea;
 
 use Illuminate\Support\Arr;
 use Rinvex\Support\Traits\Escaper;
-use Illuminate\Foundation\Http\FormRequest;
+use Cortex\Foundation\Http\FormRequest;
 
 class AccountSettingsRequest extends FormRequest
 {
@@ -35,7 +35,7 @@ class AccountSettingsRequest extends FormRequest
         $country = $data['country_code'] ?? null;
         $email = $data['email'] ?? null;
         $phone = $data['phone'] ?? null;
-        $user = $this->user(app('request.guard'));
+        $user = $this->user();
         $twoFactor = $user->getTwoFactor();
 
         if ($email !== $user->email) {
@@ -65,7 +65,7 @@ class AccountSettingsRequest extends FormRequest
         $mediaSize = config('cortex.foundation.media.size');
         $mediaMimetypes = config('cortex.foundation.media.mimetypes');
 
-        $user = $this->user(app('request.guard'));
+        $user = $this->user();
         $user->updateRulesUniques();
         $rules = $user->getRules();
 

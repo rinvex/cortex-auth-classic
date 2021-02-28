@@ -59,7 +59,7 @@ class Reauthenticate
             }
 
             return $this->responseFactory->redirectGuest(
-                $this->urlGenerator->route(app('request.accessarea').'.reauthentication.'.$type)
+                $this->urlGenerator->route($request->accessarea().'.reauthentication.'.$type)
             );
         }
 

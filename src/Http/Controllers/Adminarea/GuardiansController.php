@@ -7,7 +7,7 @@ namespace Cortex\Auth\Http\Controllers\Adminarea;
 use Exception;
 use Illuminate\Http\Request;
 use Cortex\Auth\Models\Guardian;
-use Illuminate\Foundation\Http\FormRequest;
+use Cortex\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Foundation\Importers\DefaultImporter;
 use Cortex\Foundation\DataTables\ImportLogsDataTable;
@@ -99,7 +99,7 @@ class GuardiansController extends AuthorizedController
      */
     public function hoard(ImportFormRequest $request)
     {
-        foreach ((array) $request->get('selected_ids') as $recordId) {
+        foreach ((array) $request->input('selected_ids') as $recordId) {
             $record = app('cortex.foundation.import_record')->find($recordId);
 
             try {
@@ -173,7 +173,7 @@ class GuardiansController extends AuthorizedController
      */
     protected function form(Request $request, Guardian $guardian)
     {
-        if (! $guardian->exists && $request->has('replicate') && $replicated = $guardian->resolveRouteBinding($request->get('replicate'))) {
+        if (! $guardian->exists && $request->has('replicate') && $replicated = $guardian->resolveRouteBinding($request->input('replicate'))) {
             $guardian = $replicated->replicate();
         }
 
@@ -211,8 +211,8 @@ class GuardiansController extends AuthorizedController
     /**
      * Process stored/updated guardian.
      *
-     * @param \Illuminate\Foundation\Http\FormRequest $request
-     * @param \Cortex\Auth\Models\Guardian            $guardian
+     * @param \Cortex\Foundation\Http\FormRequest $request
+     * @param \Cortex\Auth\Models\Guardian        $guardian
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

@@ -6,7 +6,7 @@ namespace Cortex\Auth\Http\Requests\Adminarea;
 
 use Illuminate\Support\Arr;
 use Rinvex\Support\Traits\Escaper;
-use Illuminate\Foundation\Http\FormRequest;
+use Cortex\Foundation\Http\FormRequest;
 
 class ManagerFormRequest extends FormRequest
 {
@@ -44,10 +44,10 @@ class ManagerFormRequest extends FormRequest
 
         // Set abilities
         if (! empty($data['abilities'])) {
-            if ($this->user(app('request.guard'))->can('grant', \Cortex\Auth\Models\Ability::class)) {
+            if ($this->user()->can('grant', \Cortex\Auth\Models\Ability::class)) {
                 $abilities = array_map('intval', $this->get('abilities', []));
-                $data['abilities'] = $this->user(app('request.guard'))->isA('superadmin') ? $abilities
-                    : $this->user(app('request.guard'))->getAbilities()->pluck('id')->intersect($abilities)->toArray();
+                $data['abilities'] = $this->user()->isA('superadmin') ? $abilities
+                    : $this->user()->getAbilities()->pluck('id')->intersect($abilities)->toArray();
             } else {
                 unset($data['abilities']);
             }
@@ -55,10 +55,10 @@ class ManagerFormRequest extends FormRequest
 
         // Set roles
         if (! empty($data['roles'])) {
-            if ($data['roles'] && $this->user(app('request.guard'))->can('assign', \Cortex\Auth\Models\Role::class)) {
+            if ($data['roles'] && $this->user()->can('assign', \Cortex\Auth\Models\Role::class)) {
                 $roles = array_map('intval', $this->get('roles', []));
-                $data['roles'] = $this->user(app('request.guard'))->isA('superadmin') ? $roles
-                    : $this->user(app('request.guard'))->roles->pluck('id')->intersect($roles)->toArray();
+                $data['roles'] = $this->user()->isA('superadmin') ? $roles
+                    : $this->user()->roles->pluck('id')->intersect($roles)->toArray();
             } else {
                 unset($data['roles']);
             }
