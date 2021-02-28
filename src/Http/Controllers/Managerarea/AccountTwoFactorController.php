@@ -35,10 +35,11 @@ class AccountTwoFactorController extends AuthenticatedController
      * @param \Illuminate\Http\Request      $request
      * @param \PragmaRX\Google2FA\Google2FA $totpProvider
      *
-     * @return \Illuminate\View\View
      * @throws \PragmaRX\Google2FA\Exceptions\IncompatibleWithGoogleAuthenticatorException
      * @throws \PragmaRX\Google2FA\Exceptions\InvalidCharactersException
      * @throws \PragmaRX\Google2FA\Exceptions\SecretKeyTooShortException
+     *
+     * @return \Illuminate\View\View
      */
     public function enableTotp(Request $request, Google2FA $totpProvider)
     {

@@ -295,7 +295,7 @@ class MembersController extends AuthorizedController
      * Process stored/updated member.
      *
      * @param \Cortex\Foundation\Http\FormRequest $request
-     * @param \Cortex\Auth\Models\Member              $member
+     * @param \Cortex\Auth\Models\Member          $member
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

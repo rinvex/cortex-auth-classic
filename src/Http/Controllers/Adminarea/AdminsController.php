@@ -295,7 +295,7 @@ class AdminsController extends AuthorizedController
      * Process stored/updated admin.
      *
      * @param \Cortex\Foundation\Http\FormRequest $request
-     * @param \Cortex\Auth\Models\Admin               $admin
+     * @param \Cortex\Auth\Models\Admin           $admin
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
