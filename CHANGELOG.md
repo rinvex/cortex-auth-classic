@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v7.0.11] - 2021-02-28
+- Check if user is authenticated, before authorizing their api token
+- Drop `Authenticate` middleware override
+- Fix logout redirect route for adminarea and managerarea
+- Fix wrong logout route
+- Rename `MemberRegistrationController` controller
+- Utilize `UnauthenticatedController` for guest controllers
+- Simplify and utilize request()->user() and request()->guard() and request()->passwordResetBroker() and request()->emailVerifierBroker()
+- Use overridden `FormRequest` instead of native class
+- Utilize `UnauthenticatedController` for guest controllers
+- Use overridden `FormRequest` instead of native class
+- Simplify and utilize request()->accessarea()
+- Revert "Change entity_id field type in permissions table to support non-numeric primary IDs"
+- Override Authorize middleware
+- Utilize IoC service container instead of hardcoded models for menu permissions
+- Change entity_id field type in permissions table to support non-numeric primary IDs
+- Move abilities & roles mutators to traits instead of models
+
 ## [v7.0.10] - 2021-02-11
 - Add `HasApiTokens` to `User` model
 - Replace form timestamps with common blade view
@@ -362,6 +380,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v7.0.11]: https://github.com/rinvex/cortex-auth/compare/v7.0.10...v7.0.11
 [v7.0.10]: https://github.com/rinvex/cortex-auth/compare/v7.0.9...v7.0.10
 [v7.0.9]: https://github.com/rinvex/cortex-auth/compare/v7.0.8...v7.0.9
 [v7.0.8]: https://github.com/rinvex/cortex-auth/compare/v7.0.7...v7.0.8
