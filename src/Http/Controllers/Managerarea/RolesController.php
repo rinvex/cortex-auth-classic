@@ -177,7 +177,7 @@ class RolesController extends AuthorizedController
             $role = $replicated->replicate();
         }
 
-        $abilities = $request->user()->getManagedAbilities();
+        $abilities = $request->user()->getManagedAbilityIds();
 
         return view('cortex/auth::managerarea.pages.role', compact('role', 'abilities'));
     }
