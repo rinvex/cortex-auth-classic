@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v7.0.12] - 2021-03-02
+- Autoload artisan commands
+- Tweak user managed abilities
+
 ## [v7.0.11] - 2021-02-28
 - Check if user is authenticated, before authorizing their api token
 - Drop `Authenticate` middleware override
@@ -380,6 +384,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v7.0.12]: https://github.com/rinvex/cortex-auth/compare/v7.0.11...v7.0.12
 [v7.0.11]: https://github.com/rinvex/cortex-auth/compare/v7.0.10...v7.0.11
 [v7.0.10]: https://github.com/rinvex/cortex-auth/compare/v7.0.9...v7.0.10
 [v7.0.9]: https://github.com/rinvex/cortex-auth/compare/v7.0.8...v7.0.9
