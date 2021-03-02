@@ -336,9 +336,17 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
      */
     public function getManagedAbilities(): Collection
     {
-        $abilities = $this->isA('superadmin') ? app('cortex.auth.ability')->all() : $this->getAbilities();
+        return $this->isA('superadmin') ? app('cortex.auth.ability')->all() : $this->getAbilities();
+    }
 
-        return $abilities->groupBy('entity_type')->map->pluck('title', 'id')->sortKeys();
+    /**
+     * Get managed abilites.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getManagedAbilityIds(): Collection
+    {
+        return $this->getManagedAbilities()->groupBy('entity_type')->map->pluck('title', 'id')->sortKeys();
     }
 
     /**

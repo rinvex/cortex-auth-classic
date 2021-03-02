@@ -19,14 +19,9 @@ use Illuminate\Support\ServiceProvider;
 use Rinvex\Support\Traits\ConsoleTools;
 use Cortex\Auth\Http\Middleware\Authorize;
 use Illuminate\Contracts\Events\Dispatcher;
-use Cortex\Auth\Console\Commands\SeedCommand;
 use Cortex\Auth\Http\Middleware\Reauthenticate;
 use Cortex\Auth\Http\Middleware\UpdateTimezone;
 use Illuminate\Auth\Middleware\RequirePassword;
-use Cortex\Auth\Console\Commands\InstallCommand;
-use Cortex\Auth\Console\Commands\MigrateCommand;
-use Cortex\Auth\Console\Commands\PublishCommand;
-use Cortex\Auth\Console\Commands\RollbackCommand;
 use Cortex\Auth\Http\Middleware\UpdateLastActivity;
 use Cortex\Auth\Http\Middleware\AuthenticateSession;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -36,19 +31,6 @@ use Cortex\Auth\Http\Middleware\RedirectIfAuthenticated;
 class AuthServiceProvider extends ServiceProvider
 {
     use ConsoleTools;
-
-    /**
-     * The commands to be registered.
-     *
-     * @var array
-     */
-    protected $commands = [
-        SeedCommand::class => 'command.cortex.auth.seed',
-        InstallCommand::class => 'command.cortex.auth.install',
-        MigrateCommand::class => 'command.cortex.auth.migrate',
-        PublishCommand::class => 'command.cortex.auth.publish',
-        RollbackCommand::class => 'command.cortex.auth.rollback',
-    ];
 
     /**
      * Register any application services.
@@ -62,9 +44,6 @@ class AuthServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app['config']->set('auth.model', config('cortex.auth.models.member'));
-
-        // Register console commands
-        $this->registerCommands($this->commands);
 
         // Bind eloquent models to IoC container
         $this->registerModels([
@@ -137,7 +116,7 @@ class AuthServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register console commands.
+     * Register attemptUser request macro.
      *
      * @return void
      */
