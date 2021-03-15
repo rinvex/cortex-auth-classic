@@ -14,13 +14,11 @@ use Rinvex\Support\Traits\HasTimezones;
 use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Spatie\Activitylog\Traits\LogsActivity;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Silber\Bouncer\Database\Role as BaseRole;
 
 class Role extends BaseRole
 {
     use Auditable;
-    use SoftDeletes;
     use HashidsTrait;
     use HasTimezones;
     use LogsActivity;
