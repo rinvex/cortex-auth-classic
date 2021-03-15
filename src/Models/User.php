@@ -26,6 +26,7 @@ use Rinvex\Auth\Traits\CanResetPassword;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\CausesActivity;
 use Rinvex\Support\Traits\HasSocialAttributes;
 use Rinvex\Auth\Traits\AuthenticatableTwoFactor;
@@ -45,6 +46,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     use Auditable;
     use Macroable;
     use Notifiable;
+    use SoftDeletes;
     use HasApiTokens;
     use HasTimezones;
     use HashidsTrait;
