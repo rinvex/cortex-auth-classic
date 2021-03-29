@@ -22,7 +22,7 @@ class UpdateTimezone
             $timezone = geoip($request->getClientIp())->timezone;
 
             if (! $user->timezone) {
-                app('cortex.auth.member')->where('id', $user->getKey())->update(['timezone' => $timezone]);
+                app("cortex.auth.{$user->getMorphClass()}")->where('id', $user->getKey())->update(['timezone' => $timezone]);
                 $request->session()->flash('success', trans('cortex/auth::messages.account.updated_timezone', ['timezone' => $timezone]));
             }
         }
