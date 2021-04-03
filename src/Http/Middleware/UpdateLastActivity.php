@@ -36,6 +36,7 @@ class UpdateLastActivity
         if ($user = $request->user()) {
             // We are using database queries rather than eloquent, to bypass triggering events.
             // Triggering update events flush cache and costs us more queries, which we don't need.
+            // This is also to skip model validation, in case there's other invalid fields in the model!
             $user->newQuery()->where($user->getKeyName(), $user->getKey())->update(['last_activity' => Carbon::now()]);
         }
     }
