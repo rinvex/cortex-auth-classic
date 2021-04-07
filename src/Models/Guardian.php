@@ -17,6 +17,7 @@ use Rinvex\Support\Traits\HasTimezones;
 use Cortex\Auth\Events\GuardianRestored;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -25,6 +26,7 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 class Guardian extends Model implements AuthenticatableContract, AuthorizableContract
 {
     use Auditable;
+    use SoftDeletes;
     use HashidsTrait;
     use HasTimezones;
     use LogsActivity;
