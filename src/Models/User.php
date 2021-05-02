@@ -23,6 +23,7 @@ use Rinvex\Support\Traits\HashidsTrait;
 use Rinvex\Support\Traits\HasTimezones;
 use Illuminate\Notifications\Notifiable;
 use Rinvex\Auth\Traits\CanResetPassword;
+use Illuminate\Database\Eloquent\Builder;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -36,6 +37,7 @@ use Silber\Bouncer\Database\HasRolesAndAbilities;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Rinvex\Auth\Contracts\CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Spatie\SchemalessAttributes\Casts\SchemalessAttributes;
 use Rinvex\Auth\Contracts\AuthenticatableTwoFactorContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
@@ -112,7 +114,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
         'timezone' => 'string',
         'birthday' => 'string',
         'gender' => 'string',
-        'social' => 'array',
+        'social' => SchemalessAttributes::class,
         'is_active' => 'boolean',
         'last_activity' => 'datetime',
         'deleted_at' => 'datetime',
@@ -214,6 +216,16 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
                 }
             }
         });
+    }
+
+    /**
+     * Scope with social schemaless attributes.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeWithSocial(): Builder
+    {
+        return $this->social->modelCast();
     }
 
     /**
