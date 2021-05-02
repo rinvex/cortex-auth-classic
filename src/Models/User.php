@@ -37,8 +37,8 @@ use Silber\Bouncer\Database\HasRolesAndAbilities;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Rinvex\Auth\Contracts\CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Spatie\SchemalessAttributes\Casts\SchemalessAttributes;
 use Rinvex\Auth\Contracts\AuthenticatableTwoFactorContract;
+use Spatie\SchemalessAttributes\Casts\SchemalessAttributes;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 
