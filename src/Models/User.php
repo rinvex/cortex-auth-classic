@@ -335,7 +335,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
         if ($this->isA('superadmin')) {
             $roles = app('cortex.auth.role')->all();
         } elseif ($this->isA('supermanager')) {
-            $roles = $this->roles->merge(app()->has('request.tenant') ? app('cortex.auth.role')->where('scope', app('request.tenant')->getKey())->get() : collect());
+            $roles = $this->roles->merge(app()->has('request.tenant') && app('request.tenant') ? app('cortex.auth.role')->where('scope', app('request.tenant')->getKey())->get() : collect());
         } else {
             $roles = $this->roles;
         }
