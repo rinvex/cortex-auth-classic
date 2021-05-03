@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v7.0.14] - 2021-05-04
+- Update spatie/laravel-schemaless-attributes package
+- Fix container service check issue
+  - Use container check instead of make app()->has('request.tenant')
+- Fix app('request.tenant') check
+
 ## [v7.0.13] - 2021-04-07
 - Update timezone by query statement to avoid validation exception (#194)
 - Utilize SoftDeletes
@@ -388,6 +394,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v7.0.14]: https://github.com/rinvex/cortex-auth/compare/v7.0.13...v7.0.14
 [v7.0.13]: https://github.com/rinvex/cortex-auth/compare/v7.0.12...v7.0.13
 [v7.0.12]: https://github.com/rinvex/cortex-auth/compare/v7.0.11...v7.0.12
 [v7.0.11]: https://github.com/rinvex/cortex-auth/compare/v7.0.10...v7.0.11
