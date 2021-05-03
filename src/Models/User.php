@@ -23,6 +23,7 @@ use Rinvex\Support\Traits\HashidsTrait;
 use Rinvex\Support\Traits\HasTimezones;
 use Illuminate\Notifications\Notifiable;
 use Rinvex\Auth\Traits\CanResetPassword;
+use Illuminate\Database\Eloquent\Builder;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -37,6 +38,7 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 use Rinvex\Auth\Contracts\CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Rinvex\Auth\Contracts\AuthenticatableTwoFactorContract;
+use Spatie\SchemalessAttributes\Casts\SchemalessAttributes;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 
@@ -112,7 +114,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
         'timezone' => 'string',
         'birthday' => 'string',
         'gender' => 'string',
-        'social' => 'array',
+        'social' => SchemalessAttributes::class,
         'is_active' => 'boolean',
         'last_activity' => 'datetime',
         'deleted_at' => 'datetime',
@@ -214,6 +216,16 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
                 }
             }
         });
+    }
+
+    /**
+     * Scope with social schemaless attributes.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeWithSocial(): Builder
+    {
+        return $this->social->modelCast();
     }
 
     /**
@@ -323,7 +335,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
         if ($this->isA('superadmin')) {
             $roles = app('cortex.auth.role')->all();
         } elseif ($this->isA('supermanager')) {
-            $roles = $this->roles->merge(app('request.tenant') ? app('cortex.auth.role')->where('scope', app('request.tenant')->getKey())->get() : collect());
+            $roles = $this->roles->merge(app()->has('request.tenant') && app('request.tenant') ? app('cortex.auth.role')->where('scope', app('request.tenant')->getKey())->get() : collect());
         } else {
             $roles = $this->roles;
         }
