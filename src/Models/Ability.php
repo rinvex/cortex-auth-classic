@@ -122,7 +122,7 @@ class Ability extends BaseAbility
     /**
      * Constructor.
      *
-     * @param array  $attributes
+     * @param array $attributes
      */
     public function __construct(array $attributes = [])
     {
