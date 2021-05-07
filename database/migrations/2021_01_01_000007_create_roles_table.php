@@ -19,7 +19,7 @@ class CreateRolesTable extends Migration
             // Columns
             $table->increments('id');
             $table->string('name', 150);
-            $table->{$this->jsonable()}('title')->nullable();
+            $table->json('title')->nullable();
             $table->integer('level')->unsigned()->nullable();
             $table->integer('scope')->nullable();
             $table->auditableAndTimestamps();
@@ -38,19 +38,5 @@ class CreateRolesTable extends Migration
     public function down()
     {
         Schema::drop(config('cortex.auth.tables.roles'));
-    }
-
-    /**
-     * Get jsonable column data type.
-     *
-     * @return string
-     */
-    protected function jsonable(): string
-    {
-        $driverName = DB::connection()->getPdo()->getAttribute(PDO::ATTR_DRIVER_NAME);
-        $dbVersion = DB::connection()->getPdo()->getAttribute(PDO::ATTR_SERVER_VERSION);
-        $isOldVersion = version_compare($dbVersion, '5.7.8', 'lt');
-
-        return $driverName === 'mysql' && $isOldVersion ? 'text' : 'json';
     }
 }
