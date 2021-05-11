@@ -82,8 +82,6 @@ class Manager extends User
      */
     public function __construct(array $attributes = [])
     {
-        parent::__construct($attributes);
-
         $this->setTable(config('cortex.auth.tables.managers'));
         $this->setRules([
             'username' => 'required|alpha_dash|min:3|max:64|unique:'.config('cortex.auth.tables.managers').',username',
@@ -108,6 +106,8 @@ class Manager extends User
             'tags' => 'nullable|array',
             'tenants' => 'nullable|array',
         ]);
+
+        parent::__construct($attributes);
     }
 
     /**

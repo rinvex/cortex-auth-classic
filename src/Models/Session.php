@@ -85,9 +85,9 @@ class Session extends Model
      */
     public function __construct(array $attributes = [])
     {
-        parent::__construct($attributes);
-
         $this->setTable(config('session.table'));
+
+        parent::__construct($attributes);
     }
 
     /**
