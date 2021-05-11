@@ -141,8 +141,6 @@ class Guardian extends Model implements AuthenticatableContract, AuthorizableCon
      */
     public function __construct(array $attributes = [])
     {
-        parent::__construct($attributes);
-
         $this->setTable(config('cortex.auth.tables.guardians'));
         $this->setRules([
             'username' => 'required|alpha_dash|min:3|max:64|unique:'.config('cortex.auth.tables.guardians').',username',
@@ -151,6 +149,8 @@ class Guardian extends Model implements AuthenticatableContract, AuthorizableCon
             'is_active' => 'sometimes|boolean',
             'tags' => 'nullable|array',
         ]);
+
+        parent::__construct($attributes);
     }
 
     /**

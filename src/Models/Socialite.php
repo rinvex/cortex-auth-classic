@@ -61,9 +61,9 @@ class Socialite extends Model
      */
     public function __construct(array $attributes = [])
     {
-        parent::__construct($attributes);
-
         $this->setTable(config('cortex.auth.tables.socialites'));
+
+        parent::__construct($attributes);
     }
 
     /**

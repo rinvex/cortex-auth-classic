@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v7.0.16] - 2021-05-11
+- Fix constructor initialization order (fill attributes should come next after merging fillables & rules)
+- Set validation rules in constructor for consistency & flexibility
+
 ## [v7.0.15] - 2021-05-07
 - Upgrade to GitHub-native Dependabot (#195)
 - Rename migrations to always run after rinvex core packages
@@ -398,6 +402,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v7.0.16]: https://github.com/rinvex/cortex-auth/compare/v7.0.15...v7.0.16
 [v7.0.15]: https://github.com/rinvex/cortex-auth/compare/v7.0.14...v7.0.15
 [v7.0.14]: https://github.com/rinvex/cortex-auth/compare/v7.0.13...v7.0.14
 [v7.0.13]: https://github.com/rinvex/cortex-auth/compare/v7.0.12...v7.0.13

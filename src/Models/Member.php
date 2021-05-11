@@ -48,8 +48,6 @@ class Member extends User
      */
     public function __construct(array $attributes = [])
     {
-        parent::__construct($attributes);
-
         $this->setTable(config('cortex.auth.tables.members'));
         $this->setRules([
             'username' => 'required|alpha_dash|min:3|max:64|unique:'.config('cortex.auth.tables.members').',username',
@@ -73,6 +71,8 @@ class Member extends User
             'last_activity' => 'nullable|date',
             'tags' => 'nullable|array',
         ]);
+
+        parent::__construct($attributes);
     }
 
     /**

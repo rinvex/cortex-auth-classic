@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Models;
 
+use Silber\Bouncer\Database\Models;
 use Cortex\Auth\Events\AbilityCreated;
 use Cortex\Auth\Events\AbilityDeleted;
 use Cortex\Auth\Events\AbilityUpdated;
@@ -84,14 +85,7 @@ class Ability extends BaseAbility
      *
      * @var array
      */
-    protected $rules = [
-        'title' => 'nullable|string|strip_tags|max:150',
-        'name' => 'required|string|strip_tags|max:150',
-        'entity_id' => 'nullable|integer',
-        'entity_type' => 'nullable|string|strip_tags|max:150',
-        'only_owned' => 'sometimes|boolean',
-        'scope' => 'nullable|integer',
-    ];
+    protected $rules = [];
 
     /**
      * Whether the model should throw a
@@ -124,4 +118,24 @@ class Ability extends BaseAbility
         'created_at',
         'updated_at',
     ];
+
+    /**
+     * Constructor.
+     *
+     * @param array  $attributes
+     */
+    public function __construct(array $attributes = [])
+    {
+        $this->table = Models::table('abilities');
+        $this->setRules([
+            'title' => 'nullable|string|strip_tags|max:150',
+            'name' => 'required|string|strip_tags|max:150',
+            'entity_id' => 'nullable|integer',
+            'entity_type' => 'nullable|string|strip_tags|max:150',
+            'only_owned' => 'sometimes|boolean',
+            'scope' => 'nullable|integer',
+        ]);
+
+        parent::__construct($attributes);
+    }
 }

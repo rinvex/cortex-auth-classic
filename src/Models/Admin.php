@@ -48,8 +48,6 @@ class Admin extends User
      */
     public function __construct(array $attributes = [])
     {
-        parent::__construct($attributes);
-
         $this->setTable(config('cortex.auth.tables.admins'));
         $this->setRules([
             'username' => 'required|alpha_dash|min:3|max:64|unique:'.config('cortex.auth.tables.admins').',username',
@@ -73,6 +71,8 @@ class Admin extends User
             'last_activity' => 'nullable|date',
             'tags' => 'nullable|array',
         ]);
+
+        parent::__construct($attributes);
     }
 
     /**
