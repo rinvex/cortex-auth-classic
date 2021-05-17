@@ -16,8 +16,8 @@ Route::domain('{subdomain}.'.domain())->group(function () {
 
                  // Social Authentication Routes
                  Route::redirect('auth', 'login')->name('auth');
-                 Route::get('auth/{provider}')->name('auth.social')->uses('SocialAuthenticationController@redirectToProvider');
-                 Route::get('auth/{provider}/callback')->name('auth.social.callback')->uses('SocialAuthenticationController@handleProviderCallback');
+                 Route::get('auth/{provider}')->name('auth.social')->uses('SocialAuthenticationController@redirectToProvider')->where('provider','facebook|linkedin|twitter|github|google');
+                 Route::get('auth/{provider}/callback')->name('auth.social.callback')->uses('SocialAuthenticationController@handleProviderCallback')->where('provider','facebook|linkedin|twitter|github|google');
 
                  // Reauthentication Routes: Password & Twofactor
                  Route::name('reauthentication.')->prefix('reauthentication')->group(function () {
