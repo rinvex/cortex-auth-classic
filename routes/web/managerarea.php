@@ -113,7 +113,7 @@ Route::domain('{subdomain}.'.domain())->group(function () {
                      Route::get('{role}')->name('show')->uses('RolesController@show');
                      Route::get('{role}/edit')->name('edit')->uses('RolesController@edit');
                      Route::put('{role}/edit')->name('update')->uses('RolesController@update');
-                     Route::get('{role}/logs')->name('logs')->uses('RolesController@logs');
+                     Route::match(['get', 'post'], '{role}/logs')->name('logs')->uses('RolesController@logs');
                      Route::delete('{role}')->name('destroy')->uses('RolesController@destroy');
                  });
 
@@ -129,8 +129,8 @@ Route::domain('{subdomain}.'.domain())->group(function () {
                      Route::get('{member}')->name('show')->uses('MembersController@show');
                      Route::get('{member}/edit')->name('edit')->uses('MembersController@edit');
                      Route::put('{member}/edit')->name('update')->uses('MembersController@update');
-                     Route::get('{member}/logs')->name('logs')->uses('MembersController@logs');
-                     Route::get('{member}/activities')->name('activities')->uses('MembersController@activities');
+                     Route::match(['get', 'post'], '{member}/logs')->name('logs')->uses('MembersController@logs');
+                     Route::match(['get', 'post'], '{member}/activities')->name('activities')->uses('MembersController@activities');
                      Route::get('{member}/attributes')->name('attributes')->uses('MembersController@attributes');
                      Route::put('{member}/attributes')->name('attributes.update')->uses('MembersController@updateAttributes');
                      Route::delete('{member}')->name('destroy')->uses('MembersController@destroy');
@@ -149,8 +149,8 @@ Route::domain('{subdomain}.'.domain())->group(function () {
                      Route::get('{manager}')->name('show')->uses('ManagersController@show');
                      Route::get('{manager}/edit')->name('edit')->uses('ManagersController@edit');
                      Route::put('{manager}/edit')->name('update')->uses('ManagersController@update');
-                     Route::get('{manager}/logs')->name('logs')->uses('ManagersController@logs');
-                     Route::get('{manager}/activities')->name('activities')->uses('ManagersController@activities');
+                     Route::match(['get', 'post'], '{manager}/logs')->name('logs')->uses('ManagersController@logs');
+                     Route::match(['get', 'post'], '{manager}/activities')->name('activities')->uses('ManagersController@activities');
                      Route::get('{manager}/attributes')->name('attributes')->uses('ManagersController@attributes');
                      Route::put('{manager}/attributes')->name('attributes.update')->uses('ManagersController@updateAttributes');
                      Route::delete('{manager}')->name('destroy')->uses('ManagersController@destroy');
