@@ -83,7 +83,7 @@ class Manager extends User
     public function __construct(array $attributes = [])
     {
         $this->setTable(config('cortex.auth.tables.managers'));
-        $this->setRules([
+        $this->mergeRules([
             'username' => 'required|alpha_dash|min:3|max:64|unique:'.config('cortex.auth.tables.managers').',username',
             'password' => 'sometimes|required|min:'.config('cortex.auth.password_min_chars').'|max:'.config('cortex.auth.password_max_chars'),
             'two_factor' => 'nullable|array',
