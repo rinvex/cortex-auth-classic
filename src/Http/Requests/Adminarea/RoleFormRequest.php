@@ -6,7 +6,7 @@ namespace Cortex\Auth\Http\Requests\Adminarea;
 
 use Rinvex\Support\Traits\Escaper;
 use Cortex\Foundation\Http\FormRequest;
-use Cortex\Foundation\Exceptions\GenericException;
+use Cortex\Auth\Exceptions\AccountException;
 
 class RoleFormRequest extends FormRequest
 {
@@ -15,14 +15,14 @@ class RoleFormRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      *
-     * @throws \Cortex\Foundation\Exceptions\GenericException
+     * @throws \Cortex\Auth\Exceptions\AccountException
      *
      * @return bool
      */
     public function authorize(): bool
     {
         if (! $this->user()->isA('superadmin') && ! $this->user()->roles->contains($this->route('role'))) {
-            throw new GenericException(trans('cortex/auth::messages.action_unauthorized'), route('adminarea.cortex.auth.roles.index'));
+            throw new AccountException(trans('cortex/auth::messages.unauthorized'), route('adminarea.cortex.auth.roles.index'), null, 403);
         }
 
         return true;

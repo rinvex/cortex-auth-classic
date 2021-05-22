@@ -7,7 +7,7 @@ namespace Cortex\Auth\Http\Requests\Adminarea;
 use Illuminate\Support\Arr;
 use Rinvex\Support\Traits\Escaper;
 use Cortex\Foundation\Http\FormRequest;
-use Cortex\Foundation\Exceptions\GenericException;
+use Cortex\Auth\Exceptions\AccountException;
 
 class AdminFormRequest extends FormRequest
 {
@@ -16,14 +16,14 @@ class AdminFormRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      *
-     * @throws \Cortex\Foundation\Exceptions\GenericException
+     * @throws \Cortex\Auth\Exceptions\AccountException
      *
      * @return bool
      */
     public function authorize(): bool
     {
         if (! $this->user()->isA('superadmin') && $this->user() !== $this->route('admin')) {
-            throw new GenericException(trans('cortex/auth::messages.action_unauthorized'), route('adminarea.cortex.auth.admins.index'));
+            throw new AccountException(trans('cortex/auth::messages.unauthorized'), route('adminarea.cortex.auth.admins.index'), null, 403);
         }
 
         return true;

@@ -5,7 +5,9 @@ declare(strict_types=1);
 return [
 
     'error' => '<strong>Whoops!</strong> There were some problems with your input.',
-    'action_unauthorized' => 'This action is unauthorized.',
+    'unauthorized' => 'You are not authorized for this action!',
+    'unauthenticated' => 'You are not authenticated for this action!',
+    'authenticated' => 'You are already authenticated!',
     'password_required' => 'Password confirmation required.',
     'lockout' => 'Too many attempts. Please try again in :seconds seconds.',
 

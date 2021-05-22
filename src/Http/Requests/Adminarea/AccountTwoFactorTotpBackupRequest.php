@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Cortex\Auth\Http\Requests\Adminarea;
 
 use Cortex\Foundation\Http\FormRequest;
-use Cortex\Foundation\Exceptions\GenericException;
+use Cortex\Auth\Exceptions\AccountException;
 
 class AccountTwoFactorTotpBackupRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
-     * @throws \Cortex\Foundation\Exceptions\GenericException
+     * @throws \Cortex\Auth\Exceptions\AccountException
      *
      * @return bool
      */
@@ -21,7 +21,7 @@ class AccountTwoFactorTotpBackupRequest extends FormRequest
         $twoFactor = $this->user()->getTwoFactor();
 
         if (! $twoFactor['totp']['enabled']) {
-            throw new GenericException(trans('cortex/auth::messages.verification.twofactor.totp.cant_backup'), route('adminarea.cortex.auth.account.settings'));
+            throw new AccountException(trans('cortex/auth::messages.verification.twofactor.totp.cant_backup'), route('adminarea.cortex.auth.account.settings'));
         }
 
         return true;

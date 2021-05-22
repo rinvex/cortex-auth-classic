@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Requests\Tenantarea;
 
-use Cortex\Foundation\Exceptions\GenericException;
+use Cortex\Auth\Exceptions\AccountException;
 
 class PhoneVerificationProcessRequest extends PhoneVerificationRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
-     * @throws \Cortex\Foundation\Exceptions\GenericException
+     * @throws \Cortex\Auth\Exceptions\AccountException
      *
      * @return bool
      */
@@ -25,7 +25,7 @@ class PhoneVerificationProcessRequest extends PhoneVerificationRequest
 
         if (! $user) {
             // User instance required to detect active TwoFactor methods
-            throw new GenericException(trans('cortex/foundation::messages.session_required'), route('tenantarea.cortex.auth.account.login'));
+            throw new AccountException(trans('cortex/auth::messages.unauthenticated'), route('tenantarea.cortex.auth.account.login'), null, 401);
         }
 
         return true;

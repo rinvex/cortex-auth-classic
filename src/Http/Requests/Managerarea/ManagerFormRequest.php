@@ -7,7 +7,7 @@ namespace Cortex\Auth\Http\Requests\Managerarea;
 use Illuminate\Support\Arr;
 use Rinvex\Support\Traits\Escaper;
 use Cortex\Foundation\Http\FormRequest;
-use Cortex\Foundation\Exceptions\GenericException;
+use Cortex\Auth\Exceptions\AccountException;
 
 class ManagerFormRequest extends FormRequest
 {
@@ -16,14 +16,14 @@ class ManagerFormRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      *
-     * @throws \Cortex\Foundation\Exceptions\GenericException
+     * @throws \Cortex\Auth\Exceptions\AccountException
      *
      * @return bool
      */
     public function authorize(): bool
     {
         if (! $this->user()->isA('supermanager') && $this->user() !== $this->route('manager')) {
-            throw new GenericException(trans('cortex/auth::messages.action_unauthorized'), route('managerarea.cortex.auth.managers.index'));
+            throw new AccountException(trans('cortex/auth::messages.unauthorized'), route('managerarea.cortex.auth.managers.index'), null, 403);
         }
 
         return true;
