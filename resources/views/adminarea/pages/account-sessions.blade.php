@@ -20,7 +20,7 @@
                 <div class="col-md-9">
                     <div class="profile-content">
 
-                        @include('cortex/foundation::common.partials.modal', ['id' => 'delete-confirmation'])
+                        @include('cortex/foundation::adminarea.partials.modal', ['id' => 'delete-confirmation'])
 
                         <div class="row">
 

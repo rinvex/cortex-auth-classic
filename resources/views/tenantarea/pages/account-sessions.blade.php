@@ -17,7 +17,7 @@
             <div class="col-md-9">
                 <div class="profile-content">
 
-                    @include('cortex/foundation::common.partials.modal', ['id' => 'delete-confirmation'])
+                    @include('cortex/foundation::tenantarea.partials.modal', ['id' => 'delete-confirmation'])
 
                     <div class="row">
 
