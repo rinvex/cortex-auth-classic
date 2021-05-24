@@ -13,7 +13,7 @@
 {{-- Main Content --}}
 @section('content')
 
-    @includeWhen($ability->exists, 'cortex/foundation::common.partials.modal', ['id' => 'delete-confirmation'])
+    @includeWhen($ability->exists, 'cortex/foundation::adminarea.partials.modal', ['id' => 'delete-confirmation'])
 
     <div class="content-wrapper">
         <section class="content-header">
@@ -24,7 +24,7 @@
         <section class="content">
 
             <div class="nav-tabs-custom">
-                @includeWhen($ability->exists, 'cortex/foundation::common.partials.actions', ['name' => 'ability', 'model' => $ability, 'resource' => trans('cortex/auth::common.ability'), 'routePrefix' => 'adminarea.cortex.auth.abilities.'])
+                @includeWhen($ability->exists, 'cortex/foundation::adminarea.partials.actions', ['name' => 'ability', 'model' => $ability, 'resource' => trans('cortex/auth::common.ability'), 'routePrefix' => 'adminarea.cortex.auth.abilities.'])
                 {!! Menu::render('adminarea.cortex.auth.abilities.tabs', 'nav-tab') !!}
 
                 <div class="tab-content">
@@ -140,7 +140,7 @@
                                         {{ Form::button(trans('cortex/auth::common.submit'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}
                                     </div>
 
-                                    @include('cortex/foundation::common.partials.timestamps', ['model' => $ability])
+                                    @include('cortex/foundation::adminarea.partials.timestamps', ['model' => $ability])
 
                                 </div>
                             </div>

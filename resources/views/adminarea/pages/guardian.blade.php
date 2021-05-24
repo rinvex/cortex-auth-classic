@@ -13,7 +13,7 @@
 {{-- Main Content --}}
 @section('content')
 
-    @includeWhen($guardian->exists, 'cortex/foundation::common.partials.modal', ['id' => 'delete-confirmation'])
+    @includeWhen($guardian->exists, 'cortex/foundation::adminarea.partials.modal', ['id' => 'delete-confirmation'])
 
     <div class="content-wrapper">
         <section class="content-header">
@@ -24,7 +24,7 @@
         <section class="content">
 
             <div class="nav-tabs-custom">
-                @includeWhen($guardian->exists, 'cortex/foundation::common.partials.actions', ['name' => 'guardian', 'model' => $guardian, 'resource' => trans('cortex/auth::common.guardian'), 'routePrefix' => 'adminarea.cortex.auth.guardians.'])
+                @includeWhen($guardian->exists, 'cortex/foundation::adminarea.partials.actions', ['name' => 'guardian', 'model' => $guardian, 'resource' => trans('cortex/auth::common.guardian'), 'routePrefix' => 'adminarea.cortex.auth.guardians.'])
                 {!! Menu::render('adminarea.cortex.auth.guardians.tabs', 'nav-tab') !!}
 
                 <div class="tab-content">
@@ -147,7 +147,7 @@
                                         {{ Form::button(trans('cortex/auth::common.submit'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}
                                     </div>
 
-                                    @include('cortex/foundation::common.partials.timestamps', ['model' => $guardian])
+                                    @include('cortex/foundation::adminarea.partials.timestamps', ['model' => $guardian])
 
                                 </div>
 

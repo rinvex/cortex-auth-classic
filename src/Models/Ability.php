@@ -122,12 +122,12 @@ class Ability extends BaseAbility
     /**
      * Constructor.
      *
-     * @param array  $attributes
+     * @param array $attributes
      */
     public function __construct(array $attributes = [])
     {
         $this->table = Models::table('abilities');
-        $this->setRules([
+        $this->mergeRules([
             'title' => 'nullable|string|strip_tags|max:150',
             'name' => 'required|string|strip_tags|max:150',
             'entity_id' => 'nullable|integer',

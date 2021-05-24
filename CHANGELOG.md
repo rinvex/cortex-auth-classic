@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v7.0.17] - 2021-05-24
+- Merge rules instead of resetting, to allow adequate model override
+- Fix datatables export issues
+- Drop common blade views in favor for accessarea specific views
+- Refactor GenericException to AccountException and move to cortex/auth and return more accurate HTTP status code
+
 ## [v7.0.16] - 2021-05-11
 - Fix constructor initialization order (fill attributes should come next after merging fillables & rules)
 - Set validation rules in constructor for consistency & flexibility
@@ -402,6 +408,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v7.0.17]: https://github.com/rinvex/cortex-auth/compare/v7.0.16...v7.0.17
 [v7.0.16]: https://github.com/rinvex/cortex-auth/compare/v7.0.15...v7.0.16
 [v7.0.15]: https://github.com/rinvex/cortex-auth/compare/v7.0.14...v7.0.15
 [v7.0.14]: https://github.com/rinvex/cortex-auth/compare/v7.0.13...v7.0.14

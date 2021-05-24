@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Cortex\Auth\Http\Requests\Adminarea;
 
 use Cortex\Foundation\Http\FormRequest;
-use Cortex\Foundation\Exceptions\GenericException;
+use Cortex\Auth\Exceptions\AccountException;
 
 class EmailVerificationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
-     * @throws \Cortex\Foundation\Exceptions\GenericException
+     * @throws \Cortex\Auth\Exceptions\AccountException
      *
      * @return bool
      */
@@ -20,7 +20,7 @@ class EmailVerificationRequest extends FormRequest
     {
         // Redirect users if their email already verified, no need to process their request
         if (($user = $this->user()) && $user->hasVerifiedEmail()) {
-            throw new GenericException(trans('cortex/auth::messages.verification.email.already_verified'), route('adminarea.cortex.auth.account.settings'));
+            throw new AccountException(trans('cortex/auth::messages.verification.email.already_verified'), route('adminarea.cortex.auth.account.settings'));
         }
 
         return true;
