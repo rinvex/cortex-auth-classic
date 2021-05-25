@@ -57,7 +57,7 @@
         "illuminate/routing": "^8.0.0 || ^9.0.0",
         "illuminate/support": "^8.0.0 || ^9.0.0",
         "cortex/foundation": "^6.0.0",
-        "diglactic/laravel-breadcrumbs": "^6.0.0",
+        "diglactic/laravel-breadcrumbs": "^7.0.0",
         "laravel/socialite": "^5.1.0",
         "laravelcollective/html": "^6.2.0",
         "league/fractal": "^0.19.0",
