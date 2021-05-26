@@ -167,4 +167,15 @@ return [
         ],
     ],
 
+    // Socialite Options
+    'socialite' => [
+        //'facebook',
+        //'twitter',
+        //'linkedin',
+        //'google',
+        //'github',
+        //'bitbucket',
+        //'gitlab',
+    ],
+
 ];
