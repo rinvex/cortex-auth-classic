@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v7.0.20] - 2021-05-27
+- Fix social authentication driver check
+- Fix auth redirection routes
+
 ## [v7.0.19] - 2021-05-27
 - Add option to check if social authentication driver is supported or not, or even social is completely disabled. Also drop social auth from adminarea & managerarea
 
@@ -415,6 +419,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v7.0.20]: https://github.com/rinvex/cortex-auth/compare/v7.0.19...v7.0.20
 [v7.0.19]: https://github.com/rinvex/cortex-auth/compare/v7.0.18...v7.0.19
 [v7.0.18]: https://github.com/rinvex/cortex-auth/compare/v7.0.17...v7.0.18
 [v7.0.17]: https://github.com/rinvex/cortex-auth/compare/v7.0.16...v7.0.17
