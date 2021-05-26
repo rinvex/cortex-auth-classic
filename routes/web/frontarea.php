@@ -17,9 +17,9 @@ Route::domain(domain())->group(function () {
                 $decayMinutes = config('cortex.auth.throttle.login.decay_minutes');
 
                 // Login Routes
-                Route::redirect('auth', 'login')->name('auth');
-                Route::redirect('auth/login', 'login')->name('auth.login');
-                Route::redirect('auth/register', 'register')->name('auth.register');
+                Route::redirect('auth', '/login')->name('auth');
+                Route::redirect('auth/login', '/login')->name('auth.login');
+                Route::redirect('auth/register', '/register')->name('auth.register');
                 Route::get('login')->name('login')->uses('AuthenticationController@form');
                 Route::post('login')->name('login.process')->middleware("throttle:{$maxAttempts},{$decayMinutes}")->uses('AuthenticationController@login');
                 Route::post('logout')->name('logout')->uses('AuthenticationController@logout');
