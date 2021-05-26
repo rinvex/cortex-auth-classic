@@ -25,7 +25,7 @@ class SocialiteAuthenticationRequest extends FormRequest
 
         if ($providers->isEmpty()) {
             throw new AccountException(trans('cortex/auth::messages.socialite.disabled'));
-        } else if ($providers->contains($provider = $this->route('provider'))) {
+        } elseif (! $providers->contains($provider = $this->route('provider'))) {
             throw new AccountException(trans('cortex/auth::messages.socialite.not_supported', ['provider' => $provider]));
         }
 
