@@ -12,7 +12,6 @@ Route::domain(domain())->group(function () {
             Route::match(['get', 'post'], 'broadcasting/auth')->name('broadcast')->uses('AuthenticationController@broadcast');
 
             Route::name('cortex.auth.account.')->group(function () {
-
                 $maxAttempts = config('cortex.auth.throttle.login.max_attempts');
                 $decayMinutes = config('cortex.auth.throttle.login.decay_minutes');
 
