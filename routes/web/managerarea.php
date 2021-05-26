@@ -10,14 +10,12 @@ Route::domain('{subdomain}.'.domain())->group(function () {
              Route::name('cortex.auth.account.')->group(function () {
 
                 // Login Routes
+                 Route::redirect('auth', 'login')->name('auth');
+                 Route::redirect('auth/login', 'login')->name('auth.login');
+                 Route::redirect('auth/register', 'register')->name('auth.register');
                  Route::get('login')->name('login')->uses('AuthenticationController@form');
                  Route::post('login')->name('login.process')->uses('AuthenticationController@login');
                  Route::post('logout')->name('logout')->uses('AuthenticationController@logout');
-
-                 // Social Authentication Routes
-                 Route::redirect('auth', 'login')->name('auth');
-                 Route::get('auth/{provider}')->name('auth.social')->uses('SocialAuthenticationController@redirectToProvider');
-                 Route::get('auth/{provider}/callback')->name('auth.social.callback')->uses('SocialAuthenticationController@handleProviderCallback');
 
                  // Reauthentication Routes: Password & Twofactor
                  Route::name('reauthentication.')->prefix('reauthentication')->group(function () {

@@ -6,22 +6,23 @@ namespace Cortex\Auth\Http\Controllers\Frontarea;
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Database\Eloquent\Builder;
 use Cortex\Foundation\Http\Controllers\AbstractController;
+use Cortex\Auth\Http\Requests\Frontarea\SocialiteAuthenticationRequest;
 
 class SocialAuthenticationController extends AbstractController
 {
     /**
      * Redirect the user to the provider authentication page.
      *
-     * @param string $provider
+     * @param \Cortex\Auth\Http\Requests\Frontarea\SocialiteAuthenticationRequest $request
+     * @param string                                                              $provider
      *
-     * @return \Illuminate\Http\Response
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function redirectToProvider(string $provider)
+    public function redirectToProvider(SocialiteAuthenticationRequest $request, string $provider)
     {
         return Socialite::driver($provider)->redirect();
     }
@@ -29,12 +30,12 @@ class SocialAuthenticationController extends AbstractController
     /**
      * Obtain the user information from Provider.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param string                   $provider
+     * @param \Cortex\Auth\Http\Requests\Frontarea\SocialiteAuthenticationRequest $request
+     * @param string                                                              $provider
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function handleProviderCallback(Request $request, string $provider)
+    public function handleProviderCallback(SocialiteAuthenticationRequest $request, string $provider)
     {
         $providerUser = Socialite::driver($provider)->user();
         $fullName = explode(' ', $providerUser->name);

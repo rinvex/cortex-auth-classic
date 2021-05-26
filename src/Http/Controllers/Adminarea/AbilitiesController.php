@@ -154,7 +154,7 @@ class AbilitiesController extends AuthorizedController
      * Edit given ability.
      *
      * @param \Cortex\Auth\Http\Requests\Adminarea\AbilityFormRequest $request
-     * @param \Cortex\Auth\Models\Role                                $ability
+     * @param \Cortex\Auth\Models\Ability                             $ability
      *
      * @return \Illuminate\View\View
      */

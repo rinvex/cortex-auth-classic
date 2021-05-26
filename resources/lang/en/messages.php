@@ -11,6 +11,11 @@ return [
     'password_required' => 'Password confirmation required.',
     'lockout' => 'Too many attempts. Please try again in :seconds seconds.',
 
+    'socialite' => [
+        'disabled' => 'Sorry, social authentication is currently disabled!',
+        'not_supported' => 'Sorry, :provider authentication is currently not supported!',
+    ],
+
     'sessions' => [
         'flush_single_heading' => 'Flush Selected Session',
         'flush_single_body' => 'Selected session will be flushed, and thus re-login again will be required on effected device.',

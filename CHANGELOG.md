@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v7.0.19] - 2021-05-27
+- Add option to check if social authentication driver is supported or not, or even social is completely disabled. Also drop social auth from adminarea & managerarea
+
 ## [v7.0.18] - 2021-05-25
 - Replace deprecated `Breadcrumbs::register` with `Breadcrumbs::for`
 - Update composer dependencies diglactic/laravel-breadcrumbs to v7
@@ -412,6 +415,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v7.0.19]: https://github.com/rinvex/cortex-auth/compare/v7.0.18...v7.0.19
 [v7.0.18]: https://github.com/rinvex/cortex-auth/compare/v7.0.17...v7.0.18
 [v7.0.17]: https://github.com/rinvex/cortex-auth/compare/v7.0.16...v7.0.17
 [v7.0.16]: https://github.com/rinvex/cortex-auth/compare/v7.0.15...v7.0.16
