@@ -6,7 +6,7 @@ namespace Cortex\Auth\Http\Requests\Frontarea;
 
 use Rinvex\Support\Traits\Escaper;
 use Cortex\Foundation\Http\FormRequest;
-use Cortex\Auth\Exceptions\AccountException;
+use Cortex\Foundation\Exceptions\GenericException;
 
 class TenantRegistrationRequest extends FormRequest
 {
@@ -22,7 +22,7 @@ class TenantRegistrationRequest extends FormRequest
     public function authorize(): bool
     {
         if (! config('cortex.auth.registration.enabled')) {
-            throw new AccountException(trans('cortex/auth::messages.register.disabled'));
+            throw new GenericException(trans('cortex/auth::messages.register.disabled'));
         }
 
         return true;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Requests\Frontarea;
 
-use Cortex\Auth\Exceptions\AccountException;
+use Cortex\Foundation\Exceptions\GenericException;
 
 class PhoneVerificationVerifyRequest extends PhoneVerificationRequest
 {
@@ -25,7 +25,7 @@ class PhoneVerificationVerifyRequest extends PhoneVerificationRequest
 
         if (! $user) {
             // User instance required to detect active TwoFactor methods
-            throw new AccountException(trans('cortex/auth::messages.unauthenticated'), route('frontarea.cortex.auth.account.login'), null, 401);
+            throw new GenericException(trans('cortex/auth::messages.unauthenticated'), route('frontarea.cortex.auth.account.login'), null, 401);
         }
 
         return true;

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Auth\Http\Requests\Managerarea;
 
 use Cortex\Foundation\Http\FormRequest;
-use Cortex\Auth\Exceptions\AccountException;
+use Cortex\Foundation\Exceptions\GenericException;
 
 class PasswordResetRequest extends FormRequest
 {
@@ -19,7 +19,7 @@ class PasswordResetRequest extends FormRequest
     public function authorize(): bool
     {
         if ($this->user()) {
-            throw new AccountException(trans('cortex/auth::messages.passwordreset.already_logged'), route('managerarea.cortex.auth.account.settings').'#security-tab');
+            throw new GenericException(trans('cortex/auth::messages.passwordreset.already_logged'), route('managerarea.cortex.auth.account.settings').'#security-tab');
         }
 
         return true;

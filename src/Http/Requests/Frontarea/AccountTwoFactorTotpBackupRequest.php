@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Auth\Http\Requests\Frontarea;
 
 use Cortex\Foundation\Http\FormRequest;
-use Cortex\Auth\Exceptions\AccountException;
+use Cortex\Foundation\Exceptions\GenericException;
 
 class AccountTwoFactorTotpBackupRequest extends FormRequest
 {
@@ -21,7 +21,7 @@ class AccountTwoFactorTotpBackupRequest extends FormRequest
         $twoFactor = $this->user()->getTwoFactor();
 
         if (! $twoFactor['totp']['enabled']) {
-            throw new AccountException(trans('cortex/auth::messages.verification.twofactor.totp.cant_backup'), route('frontarea.cortex.auth.account.settings'));
+            throw new GenericException(trans('cortex/auth::messages.verification.twofactor.totp.cant_backup'), route('frontarea.cortex.auth.account.settings'));
         }
 
         return true;
