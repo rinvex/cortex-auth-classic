@@ -6,7 +6,7 @@ namespace Cortex\Auth\Http\Requests\Frontarea;
 
 use Rinvex\Support\Traits\Escaper;
 use Cortex\Foundation\Http\FormRequest;
-use Cortex\Auth\Exceptions\AccountException;
+use Cortex\Foundation\Exceptions\GenericException;
 
 class SocialiteAuthenticationRequest extends FormRequest
 {
@@ -24,9 +24,9 @@ class SocialiteAuthenticationRequest extends FormRequest
         $providers = collect(config('cortex.auth.socialite'));
 
         if ($providers->isEmpty()) {
-            throw new AccountException(trans('cortex/auth::messages.socialite.disabled'));
+            throw new GenericException(trans('cortex/auth::messages.socialite.disabled'));
         } elseif (! $providers->contains($provider = $this->route('provider'))) {
-            throw new AccountException(trans('cortex/auth::messages.socialite.not_supported', ['provider' => $provider]));
+            throw new GenericException(trans('cortex/auth::messages.socialite.not_supported', ['provider' => $provider]));
         }
 
         return true;
