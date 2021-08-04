@@ -6,7 +6,7 @@ Route::domain(domain())->group(function () {
     Route::name('frontarea.')
         ->middleware(['web', 'nohttpcache'])
         ->namespace('Cortex\Auth\Http\Controllers\Frontarea')
-        ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.foundation.route.prefix.frontarea') : config('cortex.foundation.route.prefix.frontarea'))->group(function () {
+        ->prefix(route_prefix('frontarea'))->group(function () {
 
             // Authenticate broadcasting to channels
             Route::match(['get', 'post'], 'broadcasting/auth')->name('broadcast')->uses('AuthenticationController@broadcast');
