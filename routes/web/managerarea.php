@@ -7,7 +7,7 @@ Route::domain('{subdomain}.'.domain())->group(function () {
          ->middleware(['web', 'nohttpcache'])
          ->namespace('Cortex\Auth\Http\Controllers\Managerarea')
          ->prefix(route_prefix('managerarea'))->group(function () {
-            Route::name('cortex.auth.account.')->group(function () {
+             Route::name('cortex.auth.account.')->group(function () {
 
                 // Login Routes
                  Route::redirect('auth', '/login')->name('auth');
