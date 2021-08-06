@@ -6,7 +6,7 @@ Route::domain('{subdomain}.'.domain())->group(function () {
     Route::name('managerarea.')
          ->middleware(['web', 'nohttpcache'])
          ->namespace('Cortex\Auth\Http\Controllers\Managerarea')
-         ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.foundation.route.prefix.managerarea') : config('cortex.foundation.route.prefix.managerarea'))->group(function () {
+         ->prefix(route_prefix('managerarea'))->group(function () {
              Route::name('cortex.auth.account.')->group(function () {
 
                 // Login Routes

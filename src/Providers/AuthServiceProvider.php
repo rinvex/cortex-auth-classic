@@ -107,7 +107,7 @@ class AuthServiceProvider extends ServiceProvider
             // Attach request macro
             $this->attachRequestMacro();
 
-            // Override middlware
+            // Override middleware
             $this->overrideMiddleware($router);
 
             // Register menus
@@ -148,7 +148,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected function overrideMiddleware(Router $router): void
     {
-        // Append middleware to the 'web' middlware group
+        // Append middleware to the 'web' middleware group
         $router->pushMiddlewareToGroup('web', AuthenticateSession::class);
         $router->pushMiddlewareToGroup('web', UpdateLastActivity::class);
         $router->pushMiddlewareToGroup('web', UpdateTimezone::class);

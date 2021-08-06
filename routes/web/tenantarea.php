@@ -6,7 +6,7 @@ Route::domain('{subdomain}.'.domain())->group(function () {
     Route::name('tenantarea.')
         ->middleware(['web', 'nohttpcache'])
         ->namespace('Cortex\Auth\Http\Controllers\Tenantarea')
-        ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.foundation.route.prefix.tenantarea') : config('cortex.foundation.route.prefix.tenantarea'))->group(function () {
+        ->prefix(route_prefix('tenantarea'))->group(function () {
             Route::name('cortex.auth.account.')->group(function () {
 
                 // Login Routes
