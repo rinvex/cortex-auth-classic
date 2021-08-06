@@ -5,11 +5,14 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v7.0.24] - 2021-08-07
+- Upgrade spatie/laravel-activitylog to v4
+
 ## [v7.0.23] - 2021-08-06
-- 5ef72b4 Simplify route prefixes
-- e307802 Fix docblock GenericException namespace
-- 2bf7447 Fix wrong middleware spelling
-- ccceadd Update composer dependency codedungeon/phpunit-result-printer
+- Simplify route prefixes
+- Fix docblock GenericException namespace
+- Fix wrong middleware spelling
+- Update composer dependency codedungeon/phpunit-result-printer
 
 ## [v7.0.22] - 2021-06-20
 - Fix namespace naming convention
@@ -431,6 +434,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v7.0.24]: https://github.com/rinvex/cortex-auth/compare/v7.0.23...v7.0.24
 [v7.0.23]: https://github.com/rinvex/cortex-auth/compare/v7.0.22...v7.0.23
 [v7.0.22]: https://github.com/rinvex/cortex-auth/compare/v7.0.21...v7.0.22
 [v7.0.21]: https://github.com/rinvex/cortex-auth/compare/v7.0.20...v7.0.21

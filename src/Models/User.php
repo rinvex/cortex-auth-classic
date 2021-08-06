@@ -10,6 +10,7 @@ use Rinvex\Language\Language;
 use Rinvex\Tags\Traits\Taggable;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Support\Collection;
+use Spatie\Activitylog\LogOptions;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Rinvex\Auth\Traits\HasHashables;
@@ -162,36 +163,6 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     protected $throwValidationExceptions = true;
 
     /**
-     * Indicates whether to log only dirty attributes or all.
-     *
-     * @var bool
-     */
-    protected static $logOnlyDirty = true;
-
-    /**
-     * The attributes that are logged on change.
-     *
-     * @var array
-     */
-    protected static $logFillable = true;
-
-    /**
-     * The attributes that are ignored on change.
-     *
-     * @var array
-     */
-    protected static $ignoreChangedAttributes = [
-        'password',
-        'two_factor',
-        'email_verified_at',
-        'phone_verified_at',
-        'last_activity',
-        'created_at',
-        'updated_at',
-        'deleted_at',
-    ];
-
-    /**
      * Register media collections.
      *
      * @return void
@@ -216,6 +187,26 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
                 }
             }
         });
+    }
+
+    /**
+     * Set sensible Activity Log Options.
+     *
+     * @return \Spatie\Activitylog\LogOptions
+     */
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+                         ->logFillable()
+                         ->logOnlyDirty()
+                         ->dontSubmitEmptyLogs()
+                         ->dontLogIfAttributesChangedOnly([
+                             'password',
+                             'two_factor',
+                             'email_verified_at',
+                             'phone_verified_at',
+                             'last_activity',
+                         ]);
     }
 
     /**

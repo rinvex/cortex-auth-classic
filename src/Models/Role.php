@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Models;
 
+use Spatie\Activitylog\LogOptions;
 use Cortex\Auth\Events\RoleCreated;
 use Cortex\Auth\Events\RoleDeleted;
 use Cortex\Auth\Events\RoleUpdated;
@@ -97,30 +98,6 @@ class Role extends BaseRole
     protected $throwValidationExceptions = true;
 
     /**
-     * Indicates whether to log only dirty attributes or all.
-     *
-     * @var bool
-     */
-    protected static $logOnlyDirty = true;
-
-    /**
-     * The attributes that are logged on change.
-     *
-     * @var array
-     */
-    protected static $logFillable = true;
-
-    /**
-     * The attributes that are ignored on change.
-     *
-     * @var array
-     */
-    protected static $ignoreChangedAttributes = [
-        'created_at',
-        'updated_at',
-    ];
-
-    /**
      * Create a new Eloquent model instance.
      *
      * @param array $attributes
@@ -134,5 +111,18 @@ class Role extends BaseRole
         ]);
 
         parent::__construct($attributes);
+    }
+
+    /**
+     * Set sensible Activity Log Options.
+     *
+     * @return \Spatie\Activitylog\LogOptions
+     */
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+                         ->logFillable()
+                         ->logOnlyDirty()
+                         ->dontSubmitEmptyLogs();
     }
 }

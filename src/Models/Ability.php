@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Models;
 
+use Spatie\Activitylog\LogOptions;
 use Silber\Bouncer\Database\Models;
 use Cortex\Auth\Events\AbilityCreated;
 use Cortex\Auth\Events\AbilityDeleted;
@@ -96,30 +97,6 @@ class Ability extends BaseAbility
     protected $throwValidationExceptions = true;
 
     /**
-     * Indicates whether to log only dirty attributes or all.
-     *
-     * @var bool
-     */
-    protected static $logOnlyDirty = true;
-
-    /**
-     * The attributes that are logged on change.
-     *
-     * @var array
-     */
-    protected static $logFillable = true;
-
-    /**
-     * The attributes that are ignored on change.
-     *
-     * @var array
-     */
-    protected static $ignoreChangedAttributes = [
-        'created_at',
-        'updated_at',
-    ];
-
-    /**
      * Constructor.
      *
      * @param array $attributes
@@ -137,5 +114,18 @@ class Ability extends BaseAbility
         ]);
 
         parent::__construct($attributes);
+    }
+
+    /**
+     * Set sensible Activity Log Options.
+     *
+     * @return \Spatie\Activitylog\LogOptions
+     */
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+                         ->logFillable()
+                         ->logOnlyDirty()
+                         ->dontSubmitEmptyLogs();
     }
 }
