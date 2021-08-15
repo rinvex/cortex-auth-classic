@@ -68,7 +68,7 @@ class TenantRegistrationController extends UnauthenticatedController
 
         // Registration completed successfully
         return intend([
-            'intended' => route('managerarea.home', ['subdomain' => $tenant->name]),
+            'intended' => route('frontarea.home', ['subdomain' => $tenant->name]),
             'with' => ['success' => trans('cortex/auth::messages.register.success')],
         ]);
     }

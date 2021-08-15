@@ -16,7 +16,7 @@
 
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{ route('frontarea.home') }}"><b>{{ app('request.tenant')->name }}</b></a>
+            <a href="{{ route('managerarea.home') }}"><b>{{ app('request.tenant')->name }}</b></a>
         </div>
 
         <div class="login-box-body">
@@ -33,7 +33,7 @@
                     @endif
 
                     @if (session()->get('cortex.auth.twofactor.phone'))
-                        {!! trans('cortex/auth::twofactor.backup_phone', ['href' => route('tenantarea.cortex.auth.account.verification.phone.request')]) !!}
+                        {!! trans('cortex/auth::twofactor.backup_phone', ['href' => route('managerarea.cortex.auth.account.verification.phone.request')]) !!}
                     @elseif(session()->get('cortex.auth.twofactor.totp'))
                         {!! trans('cortex/auth::twofactor.backup_totp') !!}
                     @endif

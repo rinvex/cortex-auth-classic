@@ -26,13 +26,13 @@ Breadcrumbs::for('tenantarea.cortex.auth.account.passwordreset.reset', function 
 });
 
 Breadcrumbs::for('tenantarea.cortex.auth.account.reauthentication.password', function (Generator $breadcrumbs) {
-    $breadcrumbs->push('<i class="fa fa-home"></i> '.config('app.name'), route('frontarea.home'));
-    $breadcrumbs->push(trans('cortex/auth::common.reauthentication.password'), route('frontarea.cortex.auth.account.reauthentication.password'));
+    $breadcrumbs->push('<i class="fa fa-home"></i> '.config('app.name'), route('tenantarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::common.reauthentication.password'), route('tenantarea.cortex.auth.account.reauthentication.password'));
 });
 
 Breadcrumbs::for('tenantarea.cortex.auth.account.reauthentication.twofactor', function (Generator $breadcrumbs) {
-    $breadcrumbs->push('<i class="fa fa-home"></i> '.config('app.name'), route('frontarea.home'));
-    $breadcrumbs->push(trans('cortex/auth::common.reauthentication.twofactor'), route('frontarea.cortex.auth.account.reauthentication.twofactor'));
+    $breadcrumbs->push('<i class="fa fa-home"></i> '.config('app.name'), route('tenantarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::common.reauthentication.twofactor'), route('tenantarea.cortex.auth.account.reauthentication.twofactor'));
 });
 
 Breadcrumbs::for('tenantarea.cortex.auth.account.verification.email.request', function (Generator $breadcrumbs) {
