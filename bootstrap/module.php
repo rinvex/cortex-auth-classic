@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Cortex\Auth\Http\Middleware\Authorize;
+use Cortex\Auth\Http\Middleware\ScopeBouncer;
 use Cortex\Auth\Http\Middleware\Reauthenticate;
 use Cortex\Auth\Http\Middleware\UpdateTimezone;
 use Illuminate\Auth\Middleware\RequirePassword;
@@ -32,6 +33,7 @@ return function () {
         Route::pushMiddlewareToGroup('web', AuthenticateSession::class);
         Route::pushMiddlewareToGroup('web', UpdateLastActivity::class);
         Route::pushMiddlewareToGroup('web', UpdateTimezone::class);
+        Route::pushMiddlewareToGroup('web', ScopeBouncer::class);
 
         // Override route middleware on the fly
         Route::aliasMiddleware('can', Authorize::class);
