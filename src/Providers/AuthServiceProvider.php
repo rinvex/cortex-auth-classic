@@ -9,7 +9,6 @@ use Cortex\Auth\Models\Role;
 use Illuminate\Http\Request;
 use Cortex\Auth\Models\Admin;
 use Cortex\Auth\Models\Member;
-use Illuminate\Routing\Router;
 use Cortex\Auth\Models\Ability;
 use Cortex\Auth\Models\Manager;
 use Cortex\Auth\Models\Session;
@@ -17,16 +16,7 @@ use Cortex\Auth\Models\Guardian;
 use Cortex\Auth\Models\Socialite;
 use Illuminate\Support\ServiceProvider;
 use Rinvex\Support\Traits\ConsoleTools;
-use Cortex\Auth\Http\Middleware\Authorize;
-use Illuminate\Contracts\Events\Dispatcher;
-use Cortex\Auth\Http\Middleware\Reauthenticate;
-use Cortex\Auth\Http\Middleware\UpdateTimezone;
-use Illuminate\Auth\Middleware\RequirePassword;
-use Cortex\Auth\Http\Middleware\UpdateLastActivity;
-use Cortex\Auth\Http\Middleware\AuthenticateSession;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
-use Cortex\Auth\Http\Middleware\RedirectIfAuthenticated;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -65,7 +55,7 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(Router $router, Dispatcher $dispatcher): void
+    public function boot(): void
     {
         // Map bouncer models
         Bouncer::ownedVia('created_by');
@@ -77,21 +67,6 @@ class AuthServiceProvider extends ServiceProvider
             'permissions' => config('cortex.auth.tables.permissions'),
             'assigned_roles' => config('cortex.auth.tables.assigned_roles'),
         ]);
-
-        // Bind route models and constrains
-        $router->pattern('role', '[a-zA-Z0-9-_]+');
-        $router->pattern('ability', '[a-zA-Z0-9-_]+');
-        $router->pattern('session', '[a-zA-Z0-9-_]+');
-        $router->pattern('admin', '[a-zA-Z0-9-_]+');
-        $router->pattern('member', '[a-zA-Z0-9-_]+');
-        $router->pattern('manager', '[a-zA-Z0-9-_]+');
-        $router->model('role', config('cortex.auth.models.role'));
-        $router->model('admin', config('cortex.auth.models.admin'));
-        $router->model('member', config('cortex.auth.models.member'));
-        $router->model('manager', config('cortex.auth.models.manager'));
-        $router->model('guardian', config('cortex.auth.models.guardian'));
-        $router->model('ability', config('cortex.auth.models.ability'));
-        $router->model('session', config('cortex.auth.models.session'));
 
         // Map relations
         Relation::morphMap([
@@ -106,9 +81,6 @@ class AuthServiceProvider extends ServiceProvider
         if (! $this->app->runningInConsole()) {
             // Attach request macro
             $this->attachRequestMacro();
-
-            // Override middleware
-            $this->overrideMiddleware($router);
 
             // Register menus
             $this->registerMenus();
@@ -137,27 +109,5 @@ class AuthServiceProvider extends ServiceProvider
     protected function registerMenus(): void
     {
         $this->app['rinvex.menus.presenters']->put('account.sidebar', \Cortex\Auth\Presenters\AccountSidebarMenuPresenter::class);
-    }
-
-    /**
-     * Override middleware.
-     *
-     * @param \Illuminate\Routing\Router $router
-     *
-     * @return void
-     */
-    protected function overrideMiddleware(Router $router): void
-    {
-        // Append middleware to the 'web' middleware group
-        $router->pushMiddlewareToGroup('web', AuthenticateSession::class);
-        $router->pushMiddlewareToGroup('web', UpdateLastActivity::class);
-        $router->pushMiddlewareToGroup('web', UpdateTimezone::class);
-
-        // Override route middleware on the fly
-        $router->aliasMiddleware('can', Authorize::class);
-        $router->aliasMiddleware('reauthenticate', Reauthenticate::class);
-        $router->aliasMiddleware('guest', RedirectIfAuthenticated::class);
-        $router->aliasMiddleware('verified', EnsureEmailIsVerified::class);
-        $router->aliasMiddleware('password.confirm', RequirePassword::class);
     }
 }

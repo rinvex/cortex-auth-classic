@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-Route::domain('{subdomain}.'.domain())->group(function () {
+Route::domain('{tenant_domain}')->group(function () {
     Route::name('managerarea.')
          ->middleware(['web', 'nohttpcache'])
          ->namespace('Cortex\Auth\Http\Controllers\Managerarea')

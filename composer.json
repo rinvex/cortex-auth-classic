@@ -70,7 +70,7 @@
         "rinvex/languages": "^5.0.0",
         "rinvex/laravel-menus": "^5.0.0",
         "rinvex/laravel-support": "^5.0.0",
-        "rinvex/laravel-tenants": "^6.0.0",
+        "rinvex/laravel-tenants": "^7.0.0",
         "rinvex/tmp-josephsilber-bouncer": "^1.0.0",
         "spatie/laravel-activitylog": "^4.0.0",
         "spatie/laravel-schemaless-attributes": "^2.0.0",

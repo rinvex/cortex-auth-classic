@@ -11,7 +11,7 @@
 
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{ route('frontarea.home') }}"><b>{{ app('request.tenant')->name }}</b></a>
+            <a href="{{ route('managerarea.home') }}"><b>{{ app('request.tenant')->name }}</b></a>
         </div>
 
         <div class="login-box-body">
