@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v8.0.1] - 2021-08-18
+- Update composer dependency cortex/foundation to v7
+
 ## [v8.0.0] - 2021-08-18
 - Breaking Change: Update composer dependency rinvex/laravel-tenants to v7
 - Tweak ScopeBouncer middleware and register by default for web group
@@ -441,6 +444,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v8.0.1]: https://github.com/rinvex/cortex-auth/compare/v8.0.0...v8.0.1
 [v8.0.0]: https://github.com/rinvex/cortex-auth/compare/v7.0.24...v8.0.0
 [v7.0.24]: https://github.com/rinvex/cortex-auth/compare/v7.0.23...v7.0.24
 [v7.0.23]: https://github.com/rinvex/cortex-auth/compare/v7.0.22...v7.0.23
