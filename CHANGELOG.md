@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v8.1.0] - 2021-08-21
+- Major changes breaking changes (session isolation per guard), supposed to come in v8.0.0 but got delayed
+- Tweak logout to utilize logoutCurrentGuard and session isolation
+- Fix AuthenticateSession middleware to use the new session isolation per guard method
+- Extend authentication and support logoutCurrentGuard
+- Extend authentication and override SessionGuard
+- Rename attachRequestMacro to extendRequest
+- Use fully qualified namespace of BouncerFacade
+
 ## [v8.0.1] - 2021-08-18
 - Update composer dependency cortex/foundation to v7
 
@@ -444,6 +453,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v8.1.0]: https://github.com/rinvex/cortex-auth/compare/v8.0.1...v8.1.0
 [v8.0.1]: https://github.com/rinvex/cortex-auth/compare/v8.0.0...v8.0.1
 [v8.0.0]: https://github.com/rinvex/cortex-auth/compare/v7.0.24...v8.0.0
 [v7.0.24]: https://github.com/rinvex/cortex-auth/compare/v7.0.23...v7.0.24
