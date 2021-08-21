@@ -14,6 +14,8 @@ use Cortex\Auth\Models\Session;
 use Cortex\Auth\Models\Guardian;
 use Cortex\Auth\Models\Socialite;
 use Silber\Bouncer\BouncerFacade;
+use Cortex\Auth\Guards\SessionGuard;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Rinvex\Support\Traits\ConsoleTools;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -79,9 +81,48 @@ class AuthServiceProvider extends ServiceProvider
         ]);
 
         if (! $this->app->runningInConsole()) {
+            $this->extendAuthentication();
             $this->extendRequest();
             $this->registerMenus();
         }
+    }
+
+    /**
+     * Register logoutCurrentGuard auth guard macro.
+     *
+     * @return void
+     */
+    protected function extendAuthentication(): void
+    {
+        /**
+         * Create a session based authentication guard.
+         *
+         * @param  string  $name
+         * @param  array  $config
+         * @return \Illuminate\Auth\SessionGuard
+         */
+        Auth::extend('session', function ($app, $name, array $config) {
+            $provider = auth()->createUserProvider($config['provider'] ?? null);
+
+            $guard = new SessionGuard($name, $provider, $this->app['session.store']);
+
+            // When using the remember me functionality of the authentication services we
+            // will need to be set the encryption instance of the guard, which allows
+            // secure, encrypted cookie values to get generated for those cookies.
+            if (method_exists($guard, 'setCookieJar')) {
+                $guard->setCookieJar($this->app['cookie']);
+            }
+
+            if (method_exists($guard, 'setDispatcher')) {
+                $guard->setDispatcher($this->app['events']);
+            }
+
+            if (method_exists($guard, 'setRequest')) {
+                $guard->setRequest($this->app->refresh('request', $guard, 'setRequest'));
+            }
+
+            return $guard;
+        });
     }
 
     /**
