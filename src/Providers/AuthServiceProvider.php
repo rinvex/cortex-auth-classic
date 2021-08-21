@@ -79,10 +79,7 @@ class AuthServiceProvider extends ServiceProvider
         ]);
 
         if (! $this->app->runningInConsole()) {
-            // Attach request macro
-            $this->attachRequestMacro();
-
-            // Register menus
+            $this->extendRequest();
             $this->registerMenus();
         }
     }
@@ -92,7 +89,7 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function attachRequestMacro(): void
+    protected function extendRequest(): void
     {
         Request::macro('attemptUser', function (string $guard = null) {
             $twofactor = $this->session()->get('cortex.auth.twofactor');
