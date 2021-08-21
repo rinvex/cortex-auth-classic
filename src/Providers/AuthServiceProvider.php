@@ -18,6 +18,7 @@ use Cortex\Auth\Guards\SessionGuard;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Rinvex\Support\Traits\ConsoleTools;
+use Cortex\Auth\Events\CurrentGuardLogout;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 class AuthServiceProvider extends ServiceProvider
@@ -122,6 +123,30 @@ class AuthServiceProvider extends ServiceProvider
             }
 
             return $guard;
+        });
+
+        Auth::macro('logoutCurrentGuard', function () {
+            $user = $this->user();
+
+            $this->session->forget($this->session->getPrefixedGuard());
+
+            $this->clearUserDataFromStorage();
+
+            $this->session->migrate(true);
+
+            // If we have an event dispatcher instance, we can fire off the logout event
+            // so any further processing can be done. This allows the developer to be
+            // listening for anytime a user signs out of this application manually.
+            if (isset($this->events)) {
+                $this->events->dispatch(new CurrentGuardLogout($this->name, $user));
+            }
+
+            // Once we have fired the logout event we will clear the users out of memory
+            // so they are no longer available as the user is no longer considered as
+            // being signed into this application and should not be available here.
+            $this->user = null;
+
+            $this->loggedOut = true;
         });
     }
 
