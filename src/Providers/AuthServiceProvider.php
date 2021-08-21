@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Providers;
 
-use Bouncer;
 use Cortex\Auth\Models\Role;
 use Illuminate\Http\Request;
 use Cortex\Auth\Models\Admin;
@@ -14,6 +13,7 @@ use Cortex\Auth\Models\Manager;
 use Cortex\Auth\Models\Session;
 use Cortex\Auth\Models\Guardian;
 use Cortex\Auth\Models\Socialite;
+use Silber\Bouncer\BouncerFacade;
 use Illuminate\Support\ServiceProvider;
 use Rinvex\Support\Traits\ConsoleTools;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -58,12 +58,12 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // Map bouncer models
-        Bouncer::ownedVia('created_by');
-        Bouncer::useRoleModel(config('cortex.auth.models.role'));
-        Bouncer::useAbilityModel(config('cortex.auth.models.ability'));
+        BouncerFacade::ownedVia('created_by');
+        BouncerFacade::useRoleModel(config('cortex.auth.models.role'));
+        BouncerFacade::useAbilityModel(config('cortex.auth.models.ability'));
 
         // Map bouncer tables (users, roles, abilities tables are set through their models)
-        Bouncer::tables([
+        BouncerFacade::tables([
             'permissions' => config('cortex.auth.tables.permissions'),
             'assigned_roles' => config('cortex.auth.tables.assigned_roles'),
         ]);

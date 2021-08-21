@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Database\Seeders;
 
-use Bouncer;
 use Illuminate\Database\Seeder;
+use Silber\Bouncer\BouncerFacade;
 
 class CortexAuthSeeder extends Seeder
 {
@@ -16,7 +16,7 @@ class CortexAuthSeeder extends Seeder
      */
     public function run()
     {
-        Bouncer::allow('superadmin')->everything();
+        BouncerFacade::allow('superadmin')->everything();
 
         $abilities = [
             ['name' => 'list', 'title' => 'List abilities', 'entity_type' => 'ability'],
