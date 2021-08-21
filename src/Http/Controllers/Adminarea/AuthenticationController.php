@@ -133,10 +133,6 @@ class AuthenticationController extends UnauthenticatedController
      */
     protected function processLogout(Request $request): void
     {
-        auth()->logoutCurrentDevice();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
+        auth()->logoutCurrentGuard();
     }
 }

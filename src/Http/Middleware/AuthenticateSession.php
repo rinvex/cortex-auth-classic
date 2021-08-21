@@ -98,9 +98,7 @@ class AuthenticateSession
      */
     protected function logout($request)
     {
-        $this->auth->logoutCurrentDevice();
-
-        $request->session()->flush();
+        $this->auth->logoutCurrentGuard();
 
         throw new AuthenticationException();
     }
