@@ -41,7 +41,7 @@ class AuthenticateSession
      */
     public function handle($request, Closure $next)
     {
-        $passwordHashKey = 'hash_'.$request->guard().mb_strrchr($this->auth->getName(), '_');
+        $passwordHashKey = 'hash';
 
         if (! $request->hasSession() || ! $request->user()) {
             return $next($request);
@@ -98,9 +98,7 @@ class AuthenticateSession
      */
     protected function logout($request)
     {
-        $this->auth->logoutCurrentDevice();
-
-        $request->session()->flush();
+        $this->auth->logoutCurrentGuard();
 
         throw new AuthenticationException();
     }

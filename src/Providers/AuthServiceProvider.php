@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Providers;
 
-use Bouncer;
 use Cortex\Auth\Models\Role;
 use Illuminate\Http\Request;
 use Cortex\Auth\Models\Admin;
@@ -14,8 +13,12 @@ use Cortex\Auth\Models\Manager;
 use Cortex\Auth\Models\Session;
 use Cortex\Auth\Models\Guardian;
 use Cortex\Auth\Models\Socialite;
+use Silber\Bouncer\BouncerFacade;
+use Cortex\Auth\Guards\SessionGuard;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Rinvex\Support\Traits\ConsoleTools;
+use Cortex\Auth\Events\CurrentGuardLogout;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 class AuthServiceProvider extends ServiceProvider
@@ -58,12 +61,12 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // Map bouncer models
-        Bouncer::ownedVia('created_by');
-        Bouncer::useRoleModel(config('cortex.auth.models.role'));
-        Bouncer::useAbilityModel(config('cortex.auth.models.ability'));
+        BouncerFacade::ownedVia('created_by');
+        BouncerFacade::useRoleModel(config('cortex.auth.models.role'));
+        BouncerFacade::useAbilityModel(config('cortex.auth.models.ability'));
 
         // Map bouncer tables (users, roles, abilities tables are set through their models)
-        Bouncer::tables([
+        BouncerFacade::tables([
             'permissions' => config('cortex.auth.tables.permissions'),
             'assigned_roles' => config('cortex.auth.tables.assigned_roles'),
         ]);
@@ -79,12 +82,73 @@ class AuthServiceProvider extends ServiceProvider
         ]);
 
         if (! $this->app->runningInConsole()) {
-            // Attach request macro
-            $this->attachRequestMacro();
-
-            // Register menus
+            $this->extendAuthentication();
+            $this->extendRequest();
             $this->registerMenus();
         }
+    }
+
+    /**
+     * Register logoutCurrentGuard auth guard macro.
+     *
+     * @return void
+     */
+    protected function extendAuthentication(): void
+    {
+        /**
+         * Create a session based authentication guard.
+         *
+         * @param string $name
+         * @param array  $config
+         *
+         * @return \Illuminate\Auth\SessionGuard
+         */
+        Auth::extend('session', function ($app, $name, array $config) {
+            $provider = auth()->createUserProvider($config['provider'] ?? null);
+
+            $guard = new SessionGuard($name, $provider, $this->app['session.store']);
+
+            // When using the remember me functionality of the authentication services we
+            // will need to be set the encryption instance of the guard, which allows
+            // secure, encrypted cookie values to get generated for those cookies.
+            if (method_exists($guard, 'setCookieJar')) {
+                $guard->setCookieJar($this->app['cookie']);
+            }
+
+            if (method_exists($guard, 'setDispatcher')) {
+                $guard->setDispatcher($this->app['events']);
+            }
+
+            if (method_exists($guard, 'setRequest')) {
+                $guard->setRequest($this->app->refresh('request', $guard, 'setRequest'));
+            }
+
+            return $guard;
+        });
+
+        Auth::macro('logoutCurrentGuard', function () {
+            $user = $this->user();
+
+            $this->session->forget($this->session->getPrefixedGuard());
+
+            $this->clearUserDataFromStorage();
+
+            $this->session->migrate(true);
+
+            // If we have an event dispatcher instance, we can fire off the logout event
+            // so any further processing can be done. This allows the developer to be
+            // listening for anytime a user signs out of this application manually.
+            if (isset($this->events)) {
+                $this->events->dispatch(new CurrentGuardLogout($this->name, $user));
+            }
+
+            // Once we have fired the logout event we will clear the users out of memory
+            // so they are no longer available as the user is no longer considered as
+            // being signed into this application and should not be available here.
+            $this->user = null;
+
+            $this->loggedOut = true;
+        });
     }
 
     /**
@@ -92,7 +156,7 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function attachRequestMacro(): void
+    protected function extendRequest(): void
     {
         Request::macro('attemptUser', function (string $guard = null) {
             $twofactor = $this->session()->get('cortex.auth.twofactor');
