@@ -41,7 +41,7 @@ class AuthenticateSession
      */
     public function handle($request, Closure $next)
     {
-        $passwordHashKey = 'hash_'.$request->guard().mb_strrchr($this->auth->getName(), '_');
+        $passwordHashKey = 'hash';
 
         if (! $request->hasSession() || ! $request->user()) {
             return $next($request);
