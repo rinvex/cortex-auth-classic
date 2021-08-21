@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Cortex\Auth\Events;
 
 use Illuminate\Queue\SerializesModels;
@@ -25,8 +27,9 @@ class CurrentGuardLogout
     /**
      * Create a new event instance.
      *
-     * @param  string  $guard
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @param string                                     $guard
+     * @param \Illuminate\Contracts\Auth\Authenticatable $user
+     *
      * @return void
      */
     public function __construct($guard, $user)

@@ -98,8 +98,9 @@ class AuthServiceProvider extends ServiceProvider
         /**
          * Create a session based authentication guard.
          *
-         * @param  string  $name
-         * @param  array  $config
+         * @param string $name
+         * @param array  $config
+         *
          * @return \Illuminate\Auth\SessionGuard
          */
         Auth::extend('session', function ($app, $name, array $config) {
