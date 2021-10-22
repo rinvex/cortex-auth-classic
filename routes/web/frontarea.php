@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-Route::domain('{routeDomain}')->group(function () {
+Route::domain('{frontarea}')->group(function () {
     Route::name('frontarea.')
         ->middleware(['web', 'nohttpcache'])
         ->namespace('Cortex\Auth\Http\Controllers\Frontarea')
