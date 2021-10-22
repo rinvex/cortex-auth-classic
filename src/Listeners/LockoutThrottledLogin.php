@@ -31,6 +31,8 @@ class LockoutThrottledLogin implements ShouldQueue
     }
 
     /**
+     * @TODO: Refactor login throttling! Lockout event is not firing now; thus this listener is not executed!!
+     *
      * Listen to the authentication lockout event.
      *
      * @param \Illuminate\Auth\Events\Lockout $event
@@ -40,7 +42,7 @@ class LockoutThrottledLogin implements ShouldQueue
     public function handle(Lockout $event): void
     {
         if (config('cortex.auth.emails.throttle_lockout')) {
-            switch ($event->request->route('accessarea')) {
+            switch ($event->request->accessarea()) {
                 case 'managerarea':
                     $model = app('cortex.auth.manager');
                     break;

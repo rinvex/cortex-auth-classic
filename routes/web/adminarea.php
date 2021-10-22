@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-Route::domain('{routeDomain}')->group(function () {
+Route::domain('{adminarea}')->group(function () {
     Route::name('adminarea.')
          ->middleware(['web', 'nohttpcache'])
          ->namespace('Cortex\Auth\Http\Controllers\Adminarea')
