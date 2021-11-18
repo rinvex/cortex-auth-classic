@@ -73,7 +73,7 @@ class ManagerEmailVerificationNotification extends Notification implements Shoul
         }
 
         $email = $notifiable->getEmailForVerification();
-        $link = route('managerarea.cortex.auth.account.verification.email.verify')."?email={$email}&expiration={$this->expiration}&token={$this->token}";
+        $link = route('managerarea.cortex.auth.account.verification.email.verify')."?email=$email&expiration=$this->expiration&token=$this->token";
 
         return (new MailMessage())
             ->subject(trans('cortex/auth::emails.verification.email.subject'))

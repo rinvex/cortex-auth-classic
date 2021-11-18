@@ -32,7 +32,7 @@ class PublishCommand extends BasePublishCommand
         parent::handle();
 
         collect($this->option('resource') ?: ['config', 'lang', 'views', 'migrations'])->each(function ($resource) {
-            $this->call('vendor:publish', ['--tag' => "cortex/auth::{$resource}", '--force' => $this->option('force')]);
+            $this->call('vendor:publish', ['--tag' => "cortex/auth::$resource", '--force' => $this->option('force')]);
         });
 
         $this->line('');

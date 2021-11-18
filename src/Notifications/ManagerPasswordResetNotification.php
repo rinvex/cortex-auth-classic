@@ -73,7 +73,7 @@ class ManagerPasswordResetNotification extends Notification implements ShouldQue
         }
 
         $email = $notifiable->getEmailForPasswordReset();
-        $link = route('managerarea.cortex.auth.account.passwordreset.reset')."?email={$email}&expiration={$this->expiration}&token={$this->token}";
+        $link = route('managerarea.cortex.auth.account.passwordreset.reset')."?email=$email&expiration=$this->expiration&token=$this->token";
 
         return (new MailMessage())
             ->subject(trans('cortex/auth::emails.passwordreset.request.subject'))

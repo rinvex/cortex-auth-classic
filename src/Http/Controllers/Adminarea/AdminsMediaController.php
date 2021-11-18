@@ -27,8 +27,8 @@ class AdminsMediaController extends AuthorizedController
         foreach ($this->mapResourceAbilities() as $method => $ability) {
             $modelName = in_array($method, $this->resourceMethodsWithoutModels()) ? $model : $parameter;
 
-            $middleware["can:update,{$modelName}"][] = $method;
-            $middleware["can:{$ability},media"][] = $method;
+            $middleware["can:update,$modelName"][] = $method;
+            $middleware["can:$ability,media"][] = $method;
         }
 
         foreach ($middleware as $middlewareName => $methods) {

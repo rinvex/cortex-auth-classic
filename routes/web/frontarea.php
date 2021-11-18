@@ -20,7 +20,7 @@ Route::domain('{frontarea}')->group(function () {
                 Route::redirect('auth/login', '/login')->name('auth.login');
                 Route::redirect('auth/register', '/register')->name('auth.register');
                 Route::get('login')->name('login')->uses('AuthenticationController@form');
-                Route::post('login')->name('login.process')->middleware("throttle:{$maxAttempts},{$decayMinutes}")->uses('AuthenticationController@login');
+                Route::post('login')->name('login.process')->middleware("throttle:$maxAttempts,$decayMinutes")->uses('AuthenticationController@login');
                 Route::post('logout')->name('logout')->uses('AuthenticationController@logout');
 
                 // Social Authentication Routes
@@ -49,7 +49,7 @@ Route::domain('{frontarea}')->group(function () {
                     $maxAttempts = config('cortex.auth.throttle.passwordreset.max_attempts');
                     $decayMinutes = config('cortex.auth.throttle.passwordreset.decay_minutes');
                     Route::get('request')->name('request')->uses('PasswordResetController@request');
-                    Route::post('send')->name('send')->middleware("throttle:{$maxAttempts},{$decayMinutes}")->uses('PasswordResetController@send');
+                    Route::post('send')->name('send')->middleware("throttle:$maxAttempts,$decayMinutes")->uses('PasswordResetController@send');
                     Route::get('reset')->name('reset')->uses('PasswordResetController@reset');
                     Route::post('process')->name('process')->uses('PasswordResetController@process');
                 });
