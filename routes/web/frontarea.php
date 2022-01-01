@@ -31,6 +31,9 @@ Route::domain('{frontarea}')->group(function () {
                 Route::get('register')->name('register')->uses('RedirectionController@registration');
                 Route::get('register/member')->name('register.member')->uses('MemberRegistrationController@form');
                 Route::post('register/member')->name('register.member.process')->uses('MemberRegistrationController@register');
+
+                // We can't register these two routes inside the managerarea, since the managerarea
+                // is accessible only through the tenant domain/subdomain, and we did not create the tenant yet!
                 Route::get('register/tenant')->name('register.tenant')->uses('TenantRegistrationController@form');
                 Route::post('register/tenant')->name('register.tenant.process')->uses('TenantRegistrationController@register');
 

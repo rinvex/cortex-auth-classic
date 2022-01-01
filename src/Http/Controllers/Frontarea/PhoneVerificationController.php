@@ -72,7 +72,6 @@ class PhoneVerificationController extends AbstractController
     {
         // Guest trying to authenticate through TwoFactor
         if (($attemptUser = $request->attemptUser()) && $this->attemptTwoFactor($attemptUser, $request->input('token'))) {
-            //auth()->login($attemptUser, $request->session()->get('cortex.auth.twofactor.remember'));
             auth()->login($attemptUser, $request->session()->get('cortex.auth.twofactor.remember'));
             $request->session()->forget('cortex.auth.twofactor'); // @TODO: Do we need to forget session, or it's already gone after login?
 
