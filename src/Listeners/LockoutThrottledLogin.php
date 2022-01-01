@@ -31,7 +31,9 @@ class LockoutThrottledLogin implements ShouldQueue
     }
 
     /**
-     * @TODO: Refactor login throttling! Lockout event is not firing now; thus this listener is not executed!!
+     * @TODO #1: Refactor login throttling! Lockout event is not firing now; thus this listener is not executed!!
+     * @TODO #2: Refactor the switch case to be dynamic, to handle any number of accessareas, which means we need to
+     *           add the model name to the accessarea model details!
      *
      * Listen to the authentication lockout event.
      *
