@@ -21,12 +21,14 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 
 class Guardian extends Model implements AuthenticatableContract, AuthorizableContract
 {
     use Auditable;
+    use HasFactory;
     use SoftDeletes;
     use HashidsTrait;
     use HasTimezones;

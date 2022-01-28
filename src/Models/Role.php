@@ -16,10 +16,12 @@ use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Silber\Bouncer\Database\Role as BaseRole;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Role extends BaseRole
 {
     use Auditable;
+    use HasFactory;
     use HashidsTrait;
     use HasTimezones;
     use LogsActivity;

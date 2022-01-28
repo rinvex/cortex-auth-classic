@@ -17,10 +17,12 @@ use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Silber\Bouncer\Database\Ability as BaseAbility;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Ability extends BaseAbility
 {
     use Auditable;
+    use HasFactory;
     use HashidsTrait;
     use HasTimezones;
     use LogsActivity;

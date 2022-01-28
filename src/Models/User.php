@@ -38,6 +38,7 @@ use Silber\Bouncer\Database\HasRolesAndAbilities;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Rinvex\Auth\Contracts\CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Rinvex\Auth\Contracts\AuthenticatableTwoFactorContract;
 use Spatie\SchemalessAttributes\Casts\SchemalessAttributes;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -48,6 +49,7 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     use Taggable;
     use Auditable;
     use Macroable;
+    use HasFactory;
     use Notifiable;
     use SoftDeletes;
     use HasApiTokens;
