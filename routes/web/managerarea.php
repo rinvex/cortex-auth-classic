@@ -2,157 +2,183 @@
 
 declare(strict_types=1);
 
+use Cortex\Auth\Http\Controllers\Managerarea\RolesController;
+use Cortex\Auth\Http\Controllers\Managerarea\MembersController;
+use Cortex\Auth\Http\Controllers\Managerarea\ManagersController;
+use Cortex\Auth\Http\Controllers\Managerarea\RedirectionController;
+use Cortex\Auth\Http\Controllers\Managerarea\AccountMediaController;
+use Cortex\Auth\Http\Controllers\Managerarea\MembersMediaController;
+use Cortex\Auth\Http\Controllers\Managerarea\ManagersMediaController;
+use Cortex\Auth\Http\Controllers\Managerarea\PasswordResetController;
+use Cortex\Auth\Http\Controllers\Managerarea\AuthenticationController;
+use Cortex\Auth\Http\Controllers\Managerarea\AccountPasswordController;
+use Cortex\Auth\Http\Controllers\Managerarea\AccountSessionsController;
+use Cortex\Auth\Http\Controllers\Managerarea\AccountSettingsController;
+use Cortex\Auth\Http\Controllers\Managerarea\ReauthenticationController;
+use Cortex\Auth\Http\Controllers\Managerarea\AccountTwoFactorController;
+use Cortex\Auth\Http\Controllers\Managerarea\AccountAttributesController;
+use Cortex\Auth\Http\Controllers\Managerarea\EmailVerificationController;
+use Cortex\Auth\Http\Controllers\Managerarea\PhoneVerificationController;
+
 Route::domain('{managerarea}')->group(function () {
     Route::name('managerarea.')
          ->middleware(['web', 'nohttpcache'])
-         ->namespace('Cortex\Auth\Http\Controllers\Managerarea')
          ->prefix(route_prefix('managerarea'))->group(function () {
+
+            // Authenticate broadcasting to channels
+            Route::match(['get', 'post'], 'broadcasting/auth')->name('broadcast')->uses([AuthenticationController::class, 'broadcast']);
+
              Route::name('cortex.auth.account.')->group(function () {
+                 $maxAttempts = config('cortex.auth.throttle.login.max_attempts');
+                 $decayMinutes = config('cortex.auth.throttle.login.decay_minutes');
 
                 // Login Routes
-                 Route::redirect('auth', '/login')->name('auth');
-                 Route::redirect('auth/login', '/login')->name('auth.login');
-                 Route::redirect('auth/register', '/register')->name('auth.register');
-                 Route::get('login')->name('login')->uses('AuthenticationController@form');
-                 Route::post('login')->name('login.process')->uses('AuthenticationController@login');
-                 Route::post('logout')->name('logout')->uses('AuthenticationController@logout');
+                Route::redirect('auth', '/login')->name('auth');
+                Route::redirect('auth/login', '/login')->name('auth.login');
+                Route::redirect('auth/register', '/register')->name('auth.register');
+                Route::get('login')->name('login')->uses([AuthenticationController::class, 'form']);
+                Route::post('login')->name('login.process')->middleware("throttle:$maxAttempts,$decayMinutes")->uses([AuthenticationController::class, 'login']);
+                Route::post('logout')->name('logout')->uses([AuthenticationController::class, 'logout']);
 
-                 // Reauthentication Routes: Password & Twofactor
-                 Route::name('reauthentication.')->prefix('reauthentication')->group(function () {
-                     Route::post('password')->name('password.process')->uses('ReauthenticationController@processPassword');
-                     Route::post('twofactor')->name('twofactor.process')->uses('ReauthenticationController@processTwofactor');
-                 });
+                // Reauthentication Routes
+                Route::name('reauthentication.')->prefix('reauthentication')->group(function () {
+                    Route::get('password')->name('password')->uses([ReauthenticationController::class, 'confirmPassword']);
+                    Route::post('password')->name('password.process')->uses([ReauthenticationController::class, 'processPassword']);
 
-                 // Password Reset Routes
-                 Route::get('passwordreset')->name('passwordreset')->uses('RedirectionController@passwordreset');
-                 Route::name('passwordreset.')->prefix('passwordreset')->group(function () {
-                     Route::get('request')->name('request')->uses('PasswordResetController@request');
-                     Route::post('send')->name('send')->uses('PasswordResetController@send');
-                     Route::get('reset')->name('reset')->uses('PasswordResetController@reset');
-                     Route::post('process')->name('process')->uses('PasswordResetController@process');
-                 });
+                    Route::get('twofactor')->name('twofactor')->uses([ReauthenticationController::class, 'confirmTwofactor']);
+                    Route::post('twofactor')->name('twofactor.process')->uses([ReauthenticationController::class, 'processTwofactor']);
+                });
 
-                 // Verification Routes
-                 Route::get('verification')->name('verification')->uses('RedirectionController@verification');
-                 Route::name('verification.')->prefix('verification')->group(function () {
-                     // Phone Verification Routes
-                     Route::name('phone.')->prefix('phone')->group(function () {
-                         Route::get('request')->name('request')->uses('PhoneVerificationController@request');
-                         Route::post('send')->name('send')->uses('PhoneVerificationController@send');
-                         Route::get('verify')->name('verify')->uses('PhoneVerificationController@verify');
-                         Route::post('process')->name('process')->uses('PhoneVerificationController@process');
-                     });
+                // Password Reset Routes
+                Route::get('passwordreset')->name('passwordreset')->uses([RedirectionController::class, 'passwordreset']);
+                Route::name('passwordreset.')->prefix('passwordreset')->group(function () use ($maxAttempts, $decayMinutes) {
+                    Route::get('request')->name('request')->uses([PasswordResetController::class, 'request']);
+                    Route::post('send')->name('send')->middleware("throttle:$maxAttempts,$decayMinutes")->uses([PasswordResetController::class, 'send']);
+                    Route::get('reset')->name('reset')->uses([PasswordResetController::class, 'reset']);
+                    Route::post('process')->name('process')->uses([PasswordResetController::class, 'process']);
+                });
 
-                     // Email Verification Routes
-                     Route::name('email.')->prefix('email')->group(function () {
-                         Route::get('request')->name('request')->uses('EmailVerificationController@request');
-                         Route::post('send')->name('send')->uses('EmailVerificationController@send');
-                         Route::get('verify')->name('verify')->uses('EmailVerificationController@verify');
-                     });
-                 });
-             });
+                // Verification Routes
+                Route::get('verification')->name('verification')->uses([RedirectionController::class, 'verification']);
+                Route::name('verification.')->prefix('verification')->group(function () {
+                    // Phone Verification Routes
+                    Route::name('phone.')->prefix('phone')->group(function () {
+                        Route::get('request')->name('request')->uses([PhoneVerificationController::class, 'request']);
+                        Route::post('send')->name('send')->uses([PhoneVerificationController::class, 'send']);
+                        Route::get('verify')->name('verify')->uses([PhoneVerificationController::class, 'verify']);
+                        Route::post('process')->name('process')->uses([PhoneVerificationController::class, 'process']);
+                    });
+
+                    // Email Verification Routes
+                    Route::name('email.')->prefix('email')->group(function () {
+                        Route::get('request')->name('request')->uses([EmailVerificationController::class, 'request']);
+                        Route::post('send')->name('send')->uses([EmailVerificationController::class, 'send']);
+                        Route::get('verify')->name('verify')->uses([EmailVerificationController::class, 'verify']);
+                    });
+                });
+            });
 
              Route::middleware(['can:access-managerarea'])->group(function () {
 
                  // Account Settings Route Alias
-                 Route::get('account')->name('cortex.auth.account')->uses('AccountSettingsController@index');
+                 Route::get('account')->name('cortex.auth.account')->uses([AccountSettingsController::class, 'index']);
 
                  // User Account Routes
                  Route::name('cortex.auth.account.')->prefix('account')->group(function () {
                      // Account Settings Routes
-                     Route::get('settings')->name('settings')->uses('AccountSettingsController@edit');
-                     Route::post('settings')->name('settings.update')->uses('AccountSettingsController@update');
+                     Route::get('settings')->name('settings')->uses([AccountSettingsController::class, 'edit']);
+                     Route::post('settings')->name('settings.update')->uses([AccountSettingsController::class, 'update']);
 
                      // Account Media Routes
-                     Route::delete('{manager}/media/{media}')->name('media.destroy')->uses('AccountMediaController@destroy');
+                     Route::delete('{manager}/media/{media}')->name('media.destroy')->uses([AccountMediaController::class, 'destroy']);
 
                      // Account Password Routes
-                     Route::get('password')->name('password')->uses('AccountPasswordController@edit');
-                     Route::post('password')->name('password.update')->uses('AccountPasswordController@update');
+                     Route::get('password')->name('password')->uses([AccountPasswordController::class, 'edit']);
+                     Route::post('password')->name('password.update')->uses([AccountPasswordController::class, 'update']);
 
                      // Account Attributes Routes
-                     Route::get('attributes')->name('attributes')->uses('AccountAttributesController@edit');
-                     Route::post('attributes')->name('attributes.update')->uses('AccountAttributesController@update');
+                     Route::get('attributes')->name('attributes')->uses([AccountAttributesController::class, 'edit']);
+                     Route::post('attributes')->name('attributes.update')->uses([AccountAttributesController::class, 'update']);
 
                      // Account Sessions Routes
-                     Route::get('sessions')->name('sessions')->uses('AccountSessionsController@index');
-                     Route::delete('sessions')->name('sessions.flush')->uses('AccountSessionsController@flush');
-                     Route::delete('sessions/{session?}')->name('sessions.destroy')->uses('AccountSessionsController@destroy');
+                     Route::get('sessions')->name('sessions')->uses([AccountSessionsController::class, 'index']);
+                     Route::delete('sessions')->name('sessions.flush')->uses([AccountSessionsController::class, 'flush']);
+                     Route::delete('sessions/{session?}')->name('sessions.destroy')->uses([AccountSessionsController::class, 'destroy']);
 
                      // Account TwoFactor Routes
-                     Route::get('twofactor')->name('twofactor')->uses('AccountTwoFactorController@index');
+                     Route::get('twofactor')->name('twofactor')->uses([AccountTwoFactorController::class, 'index']);
                      Route::name('twofactor.')->prefix('twofactor')->group(function () {
 
                          // Account TwoFactor TOTP Routes
                          Route::name('totp.')->prefix('totp')->group(function () {
-                             Route::get('enable')->name('enable')->uses('AccountTwoFactorController@enableTotp');
-                             Route::post('update')->name('update')->uses('AccountTwoFactorController@updateTotp');
-                             Route::post('disable')->name('disable')->uses('AccountTwoFactorController@disableTotp');
-                             Route::post('backup')->name('backup')->uses('AccountTwoFactorController@backupTotp');
+                             Route::get('enable')->name('enable')->uses([AccountTwoFactorController::class, 'enableTotp']);
+                             Route::post('update')->name('update')->uses([AccountTwoFactorController::class, 'updateTotp']);
+                             Route::post('disable')->name('disable')->uses([AccountTwoFactorController::class, 'disableTotp']);
+                             Route::post('backup')->name('backup')->uses([AccountTwoFactorController::class, 'backupTotp']);
                          });
 
                          // Account TwoFactor Phone Routes
                          Route::name('phone.')->prefix('phone')->group(function () {
-                             Route::post('enable')->name('enable')->uses('AccountTwoFactorController@enablePhone');
-                             Route::post('disable')->name('disable')->uses('AccountTwoFactorController@disablePhone');
+                             Route::post('enable')->name('enable')->uses([AccountTwoFactorController::class, 'enablePhone']);
+                             Route::post('disable')->name('disable')->uses([AccountTwoFactorController::class, 'disablePhone']);
                          });
                      });
                  });
 
                  // Roles Routes
                  Route::name('cortex.auth.roles.')->prefix('roles')->group(function () {
-                     Route::get('/')->name('index')->uses('RolesController@index');
-                     Route::get('import')->name('import')->uses('RolesController@import');
-                     Route::post('import')->name('stash')->uses('RolesController@stash');
-                     Route::post('hoard')->name('hoard')->uses('RolesController@hoard');
-                     Route::get('import/logs')->name('import.logs')->uses('RolesController@importLogs');
-                     Route::get('create')->name('create')->uses('RolesController@create');
-                     Route::post('create')->name('store')->uses('RolesController@store');
-                     Route::get('{role}')->name('show')->uses('RolesController@show');
-                     Route::get('{role}/edit')->name('edit')->uses('RolesController@edit');
-                     Route::put('{role}/edit')->name('update')->uses('RolesController@update');
-                     Route::match(['get', 'post'], '{role}/logs')->name('logs')->uses('RolesController@logs');
-                     Route::delete('{role}')->name('destroy')->uses('RolesController@destroy');
+                     Route::get('/')->name('index')->uses([RolesController::class, 'index']);
+                     Route::get('import')->name('import')->uses([RolesController::class, 'import']);
+                     Route::post('import')->name('stash')->uses([RolesController::class, 'stash']);
+                     Route::post('hoard')->name('hoard')->uses([RolesController::class, 'hoard']);
+                     Route::get('import/logs')->name('import.logs')->uses([RolesController::class, 'importLogs']);
+                     Route::get('create')->name('create')->uses([RolesController::class, 'create']);
+                     Route::post('create')->name('store')->uses([RolesController::class, 'store']);
+                     Route::get('{role}')->name('show')->uses([RolesController::class, 'show']);
+                     Route::get('{role}/edit')->name('edit')->uses([RolesController::class, 'edit']);
+                     Route::put('{role}/edit')->name('update')->uses([RolesController::class, 'update']);
+                     Route::match(['get', 'post'], '{role}/logs')->name('logs')->uses([RolesController::class, 'logs']);
+                     Route::delete('{role}')->name('destroy')->uses([RolesController::class, 'destroy']);
                  });
 
                  // Members Routes
                  Route::name('cortex.auth.members.')->prefix('members')->group(function () {
-                     Route::get('/')->name('index')->uses('MembersController@index');
-                     Route::get('import')->name('import')->uses('MembersController@import');
-                     Route::post('import')->name('stash')->uses('MembersController@stash');
-                     Route::post('hoard')->name('hoard')->uses('MembersController@hoard');
-                     Route::get('import/logs')->name('import.logs')->uses('MembersController@importLogs');
-                     Route::get('create')->name('create')->uses('MembersController@create');
-                     Route::post('create')->name('store')->uses('MembersController@store');
-                     Route::get('{member}')->name('show')->uses('MembersController@show');
-                     Route::get('{member}/edit')->name('edit')->uses('MembersController@edit');
-                     Route::put('{member}/edit')->name('update')->uses('MembersController@update');
-                     Route::match(['get', 'post'], '{member}/logs')->name('logs')->uses('MembersController@logs');
-                     Route::match(['get', 'post'], '{member}/activities')->name('activities')->uses('MembersController@activities');
-                     Route::get('{member}/attributes')->name('attributes')->uses('MembersController@attributes');
-                     Route::put('{member}/attributes')->name('attributes.update')->uses('MembersController@updateAttributes');
-                     Route::delete('{member}')->name('destroy')->uses('MembersController@destroy');
-                     Route::delete('{member}/media/{media}')->name('media.destroy')->uses('MembersMediaController@destroy');
+                     Route::get('/')->name('index')->uses([MembersController::class, 'index']);
+                     Route::get('import')->name('import')->uses([MembersController::class, 'import']);
+                     Route::post('import')->name('stash')->uses([MembersController::class, 'stash']);
+                     Route::post('hoard')->name('hoard')->uses([MembersController::class, 'hoard']);
+                     Route::get('import/logs')->name('import.logs')->uses([MembersController::class, 'importLogs']);
+                     Route::get('create')->name('create')->uses([MembersController::class, 'create']);
+                     Route::post('create')->name('store')->uses([MembersController::class, 'store']);
+                     Route::get('{member}')->name('show')->uses([MembersController::class, 'show']);
+                     Route::get('{member}/edit')->name('edit')->uses([MembersController::class, 'edit']);
+                     Route::put('{member}/edit')->name('update')->uses([MembersController::class, 'update']);
+                     Route::match(['get', 'post'], '{member}/logs')->name('logs')->uses([MembersController::class, 'logs']);
+                     Route::match(['get', 'post'], '{member}/activities')->name('activities')->uses([MembersController::class, 'activities']);
+                     Route::get('{member}/attributes')->name('attributes')->uses([MembersController::class, 'attributes']);
+                     Route::put('{member}/attributes')->name('attributes.update')->uses([MembersController::class, 'updateAttributes']);
+                     Route::delete('{member}')->name('destroy')->uses([MembersController::class, 'destroy']);
+                     Route::delete('{member}/media/{media}')->name('media.destroy')->uses([MembersMediaController::class, 'destroy']);
                  });
 
                  // Managers Routes
                  Route::name('cortex.auth.managers.')->prefix('managers')->group(function () {
-                     Route::get('/')->name('index')->uses('ManagersController@index');
-                     Route::get('import')->name('import')->uses('ManagersController@import');
-                     Route::post('import')->name('stash')->uses('ManagersController@stash');
-                     Route::post('hoard')->name('hoard')->uses('ManagersController@hoard');
-                     Route::get('import/logs')->name('import.logs')->uses('ManagersController@importLogs');
-                     Route::get('create')->name('create')->uses('ManagersController@create');
-                     Route::post('create')->name('store')->uses('ManagersController@store');
-                     Route::get('{manager}')->name('show')->uses('ManagersController@show');
-                     Route::get('{manager}/edit')->name('edit')->uses('ManagersController@edit');
-                     Route::put('{manager}/edit')->name('update')->uses('ManagersController@update');
-                     Route::match(['get', 'post'], '{manager}/logs')->name('logs')->uses('ManagersController@logs');
-                     Route::match(['get', 'post'], '{manager}/activities')->name('activities')->uses('ManagersController@activities');
-                     Route::get('{manager}/attributes')->name('attributes')->uses('ManagersController@attributes');
-                     Route::put('{manager}/attributes')->name('attributes.update')->uses('ManagersController@updateAttributes');
-                     Route::delete('{manager}')->name('destroy')->uses('ManagersController@destroy');
-                     Route::delete('{manager}/media/{media}')->name('media.destroy')->uses('ManagersMediaController@destroy');
+                     Route::get('/')->name('index')->uses([ManagersController::class, 'index']);
+                     Route::get('import')->name('import')->uses([ManagersController::class, 'import']);
+                     Route::post('import')->name('stash')->uses([ManagersController::class, 'stash']);
+                     Route::post('hoard')->name('hoard')->uses([ManagersController::class, 'hoard']);
+                     Route::get('import/logs')->name('import.logs')->uses([ManagersController::class, 'importLogs']);
+                     Route::get('create')->name('create')->uses([ManagersController::class, 'create']);
+                     Route::post('create')->name('store')->uses([ManagersController::class, 'store']);
+                     Route::get('{manager}')->name('show')->uses([ManagersController::class, 'show']);
+                     Route::get('{manager}/edit')->name('edit')->uses([ManagersController::class, 'edit']);
+                     Route::put('{manager}/edit')->name('update')->uses([ManagersController::class, 'update']);
+                     Route::match(['get', 'post'], '{manager}/logs')->name('logs')->uses([ManagersController::class, 'logs']);
+                     Route::match(['get', 'post'], '{manager}/activities')->name('activities')->uses([ManagersController::class, 'activities']);
+                     Route::get('{manager}/attributes')->name('attributes')->uses([ManagersController::class, 'attributes']);
+                     Route::put('{manager}/attributes')->name('attributes.update')->uses([ManagersController::class, 'updateAttributes']);
+                     Route::delete('{manager}')->name('destroy')->uses([ManagersController::class, 'destroy']);
+                     Route::delete('{manager}/media/{media}')->name('media.destroy')->uses([ManagersMediaController::class, 'destroy']);
                  });
              });
          });
