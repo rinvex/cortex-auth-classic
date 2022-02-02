@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Auth\Http\Controllers\Managerarea;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Validation\ValidationException;
 use Cortex\Auth\Http\Requests\Managerarea\AuthenticationRequest;
 use Cortex\Foundation\Http\Controllers\UnauthenticatedController;
@@ -15,6 +16,7 @@ class AuthenticationController extends UnauthenticatedController
      * {@inheritdoc}
      */
     protected $middlewareWhitelist = [
+        'broadcast',
         'logout',
     ];
 
@@ -134,5 +136,21 @@ class AuthenticationController extends UnauthenticatedController
     protected function processLogout(Request $request): void
     {
         auth()->logoutCurrentGuard();
+    }
+
+    /**
+     * Authenticate the broadcast request for channel access.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function broadcast(Request $request)
+    {
+        if ($request->hasSession()) {
+            $request->session()->reflash();
+        }
+
+        return Broadcast::auth($request);
     }
 }
