@@ -14,8 +14,8 @@ use Cortex\Auth\Http\Controllers\Managerarea\AuthenticationController;
 use Cortex\Auth\Http\Controllers\Managerarea\AccountPasswordController;
 use Cortex\Auth\Http\Controllers\Managerarea\AccountSessionsController;
 use Cortex\Auth\Http\Controllers\Managerarea\AccountSettingsController;
-use Cortex\Auth\Http\Controllers\Managerarea\ReauthenticationController;
 use Cortex\Auth\Http\Controllers\Managerarea\AccountTwoFactorController;
+use Cortex\Auth\Http\Controllers\Managerarea\ReauthenticationController;
 use Cortex\Auth\Http\Controllers\Managerarea\AccountAttributesController;
 use Cortex\Auth\Http\Controllers\Managerarea\EmailVerificationController;
 use Cortex\Auth\Http\Controllers\Managerarea\PhoneVerificationController;
@@ -26,57 +26,57 @@ Route::domain('{managerarea}')->group(function () {
          ->prefix(route_prefix('managerarea'))->group(function () {
 
             // Authenticate broadcasting to channels
-            Route::match(['get', 'post'], 'broadcasting/auth')->name('broadcast')->uses([AuthenticationController::class, 'broadcast']);
+             Route::match(['get', 'post'], 'broadcasting/auth')->name('broadcast')->uses([AuthenticationController::class, 'broadcast']);
 
              Route::name('cortex.auth.account.')->group(function () {
                  $maxAttempts = config('cortex.auth.throttle.login.max_attempts');
                  $decayMinutes = config('cortex.auth.throttle.login.decay_minutes');
 
-                // Login Routes
-                Route::redirect('auth', '/login')->name('auth');
-                Route::redirect('auth/login', '/login')->name('auth.login');
-                Route::redirect('auth/register', '/register')->name('auth.register');
-                Route::get('login')->name('login')->uses([AuthenticationController::class, 'form']);
-                Route::post('login')->name('login.process')->middleware("throttle:$maxAttempts,$decayMinutes")->uses([AuthenticationController::class, 'login']);
-                Route::post('logout')->name('logout')->uses([AuthenticationController::class, 'logout']);
+                 // Login Routes
+                 Route::redirect('auth', '/login')->name('auth');
+                 Route::redirect('auth/login', '/login')->name('auth.login');
+                 Route::redirect('auth/register', '/register')->name('auth.register');
+                 Route::get('login')->name('login')->uses([AuthenticationController::class, 'form']);
+                 Route::post('login')->name('login.process')->middleware("throttle:$maxAttempts,$decayMinutes")->uses([AuthenticationController::class, 'login']);
+                 Route::post('logout')->name('logout')->uses([AuthenticationController::class, 'logout']);
 
-                // Reauthentication Routes
-                Route::name('reauthentication.')->prefix('reauthentication')->group(function () {
-                    Route::get('password')->name('password')->uses([ReauthenticationController::class, 'confirmPassword']);
-                    Route::post('password')->name('password.process')->uses([ReauthenticationController::class, 'processPassword']);
+                 // Reauthentication Routes
+                 Route::name('reauthentication.')->prefix('reauthentication')->group(function () {
+                     Route::get('password')->name('password')->uses([ReauthenticationController::class, 'confirmPassword']);
+                     Route::post('password')->name('password.process')->uses([ReauthenticationController::class, 'processPassword']);
 
-                    Route::get('twofactor')->name('twofactor')->uses([ReauthenticationController::class, 'confirmTwofactor']);
-                    Route::post('twofactor')->name('twofactor.process')->uses([ReauthenticationController::class, 'processTwofactor']);
-                });
+                     Route::get('twofactor')->name('twofactor')->uses([ReauthenticationController::class, 'confirmTwofactor']);
+                     Route::post('twofactor')->name('twofactor.process')->uses([ReauthenticationController::class, 'processTwofactor']);
+                 });
 
-                // Password Reset Routes
-                Route::get('passwordreset')->name('passwordreset')->uses([RedirectionController::class, 'passwordreset']);
-                Route::name('passwordreset.')->prefix('passwordreset')->group(function () use ($maxAttempts, $decayMinutes) {
-                    Route::get('request')->name('request')->uses([PasswordResetController::class, 'request']);
-                    Route::post('send')->name('send')->middleware("throttle:$maxAttempts,$decayMinutes")->uses([PasswordResetController::class, 'send']);
-                    Route::get('reset')->name('reset')->uses([PasswordResetController::class, 'reset']);
-                    Route::post('process')->name('process')->uses([PasswordResetController::class, 'process']);
-                });
+                 // Password Reset Routes
+                 Route::get('passwordreset')->name('passwordreset')->uses([RedirectionController::class, 'passwordreset']);
+                 Route::name('passwordreset.')->prefix('passwordreset')->group(function () use ($maxAttempts, $decayMinutes) {
+                     Route::get('request')->name('request')->uses([PasswordResetController::class, 'request']);
+                     Route::post('send')->name('send')->middleware("throttle:$maxAttempts,$decayMinutes")->uses([PasswordResetController::class, 'send']);
+                     Route::get('reset')->name('reset')->uses([PasswordResetController::class, 'reset']);
+                     Route::post('process')->name('process')->uses([PasswordResetController::class, 'process']);
+                 });
 
-                // Verification Routes
-                Route::get('verification')->name('verification')->uses([RedirectionController::class, 'verification']);
-                Route::name('verification.')->prefix('verification')->group(function () {
-                    // Phone Verification Routes
-                    Route::name('phone.')->prefix('phone')->group(function () {
-                        Route::get('request')->name('request')->uses([PhoneVerificationController::class, 'request']);
-                        Route::post('send')->name('send')->uses([PhoneVerificationController::class, 'send']);
-                        Route::get('verify')->name('verify')->uses([PhoneVerificationController::class, 'verify']);
-                        Route::post('process')->name('process')->uses([PhoneVerificationController::class, 'process']);
-                    });
+                 // Verification Routes
+                 Route::get('verification')->name('verification')->uses([RedirectionController::class, 'verification']);
+                 Route::name('verification.')->prefix('verification')->group(function () {
+                     // Phone Verification Routes
+                     Route::name('phone.')->prefix('phone')->group(function () {
+                         Route::get('request')->name('request')->uses([PhoneVerificationController::class, 'request']);
+                         Route::post('send')->name('send')->uses([PhoneVerificationController::class, 'send']);
+                         Route::get('verify')->name('verify')->uses([PhoneVerificationController::class, 'verify']);
+                         Route::post('process')->name('process')->uses([PhoneVerificationController::class, 'process']);
+                     });
 
-                    // Email Verification Routes
-                    Route::name('email.')->prefix('email')->group(function () {
-                        Route::get('request')->name('request')->uses([EmailVerificationController::class, 'request']);
-                        Route::post('send')->name('send')->uses([EmailVerificationController::class, 'send']);
-                        Route::get('verify')->name('verify')->uses([EmailVerificationController::class, 'verify']);
-                    });
-                });
-            });
+                     // Email Verification Routes
+                     Route::name('email.')->prefix('email')->group(function () {
+                         Route::get('request')->name('request')->uses([EmailVerificationController::class, 'request']);
+                         Route::post('send')->name('send')->uses([EmailVerificationController::class, 'send']);
+                         Route::get('verify')->name('verify')->uses([EmailVerificationController::class, 'verify']);
+                     });
+                 });
+             });
 
              Route::middleware(['can:access-managerarea'])->group(function () {
 

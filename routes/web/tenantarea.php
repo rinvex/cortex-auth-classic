@@ -9,11 +9,11 @@ use Cortex\Auth\Http\Controllers\Tenantarea\AuthenticationController;
 use Cortex\Auth\Http\Controllers\Tenantarea\AccountPasswordController;
 use Cortex\Auth\Http\Controllers\Tenantarea\AccountSessionsController;
 use Cortex\Auth\Http\Controllers\Tenantarea\AccountSettingsController;
-use Cortex\Auth\Http\Controllers\Tenantarea\ReauthenticationController;
 use Cortex\Auth\Http\Controllers\Tenantarea\AccountTwoFactorController;
-use Cortex\Auth\Http\Controllers\Tenantarea\PhoneVerificationController;
+use Cortex\Auth\Http\Controllers\Tenantarea\ReauthenticationController;
 use Cortex\Auth\Http\Controllers\Tenantarea\AccountAttributesController;
 use Cortex\Auth\Http\Controllers\Tenantarea\EmailVerificationController;
+use Cortex\Auth\Http\Controllers\Tenantarea\PhoneVerificationController;
 use Cortex\Auth\Http\Controllers\Tenantarea\MemberRegistrationController;
 use Cortex\Auth\Http\Controllers\Tenantarea\SocialAuthenticationController;
 

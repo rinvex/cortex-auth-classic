@@ -6,23 +6,23 @@ use Cortex\Auth\Http\Controllers\Adminarea\RolesController;
 use Cortex\Auth\Http\Controllers\Adminarea\AdminsController;
 use Cortex\Auth\Http\Controllers\Adminarea\MembersController;
 use Cortex\Auth\Http\Controllers\Adminarea\ManagersController;
-use Cortex\Auth\Http\Controllers\Adminarea\GuardiansController;
 use Cortex\Auth\Http\Controllers\Adminarea\AbilitiesController;
+use Cortex\Auth\Http\Controllers\Adminarea\GuardiansController;
 use Cortex\Auth\Http\Controllers\Adminarea\AdminsMediaController;
 use Cortex\Auth\Http\Controllers\Adminarea\RedirectionController;
-use Cortex\Auth\Http\Controllers\Adminarea\MembersMediaController;
 use Cortex\Auth\Http\Controllers\Adminarea\AccountMediaController;
+use Cortex\Auth\Http\Controllers\Adminarea\MembersMediaController;
 use Cortex\Auth\Http\Controllers\Adminarea\ManagersMediaController;
 use Cortex\Auth\Http\Controllers\Adminarea\PasswordResetController;
 use Cortex\Auth\Http\Controllers\Adminarea\AuthenticationController;
 use Cortex\Auth\Http\Controllers\Adminarea\AccountPasswordController;
 use Cortex\Auth\Http\Controllers\Adminarea\AccountSessionsController;
 use Cortex\Auth\Http\Controllers\Adminarea\AccountSettingsController;
-use Cortex\Auth\Http\Controllers\Adminarea\ReauthenticationController;
 use Cortex\Auth\Http\Controllers\Adminarea\AccountTwoFactorController;
+use Cortex\Auth\Http\Controllers\Adminarea\ReauthenticationController;
+use Cortex\Auth\Http\Controllers\Adminarea\AccountAttributesController;
 use Cortex\Auth\Http\Controllers\Adminarea\EmailVerificationController;
 use Cortex\Auth\Http\Controllers\Adminarea\PhoneVerificationController;
-use Cortex\Auth\Http\Controllers\Adminarea\AccountAttributesController;
 
 Route::domain('{adminarea}')->group(function () {
     Route::name('adminarea.')
@@ -30,13 +30,13 @@ Route::domain('{adminarea}')->group(function () {
          ->prefix(route_prefix('adminarea'))->group(function () {
 
             // Authenticate broadcasting to channels
-            Route::match(['get', 'post'], 'broadcasting/auth')->name('broadcast')->uses([AuthenticationController::class, 'broadcast']);
+             Route::match(['get', 'post'], 'broadcasting/auth')->name('broadcast')->uses([AuthenticationController::class, 'broadcast']);
 
              Route::name('cortex.auth.account.')->group(function () {
                  $maxAttempts = config('cortex.auth.throttle.login.max_attempts');
                  $decayMinutes = config('cortex.auth.throttle.login.decay_minutes');
 
-                // Login Routes
+                 // Login Routes
                  Route::redirect('auth', '/login')->name('auth');
                  Route::redirect('auth/login', 'l/ogin')->name('auth.login');
                  Route::redirect('auth/register', '/register')->name('auth.register');
@@ -44,14 +44,14 @@ Route::domain('{adminarea}')->group(function () {
                  Route::post('login')->name('login.process')->uses([AuthenticationController::class, 'login']);
                  Route::post('logout')->name('logout')->uses([AuthenticationController::class, 'logout']);
 
-                // Reauthentication Routes
-                Route::name('reauthentication.')->prefix('reauthentication')->group(function () {
-                    Route::get('password')->name('password')->uses([ReauthenticationController::class, 'confirmPassword']);
-                    Route::post('password')->name('password.process')->uses([ReauthenticationController::class, 'processPassword']);
+                 // Reauthentication Routes
+                 Route::name('reauthentication.')->prefix('reauthentication')->group(function () {
+                     Route::get('password')->name('password')->uses([ReauthenticationController::class, 'confirmPassword']);
+                     Route::post('password')->name('password.process')->uses([ReauthenticationController::class, 'processPassword']);
 
-                    Route::get('twofactor')->name('twofactor')->uses([ReauthenticationController::class, 'confirmTwofactor']);
-                    Route::post('twofactor')->name('twofactor.process')->uses([ReauthenticationController::class, 'processTwofactor']);
-                });
+                     Route::get('twofactor')->name('twofactor')->uses([ReauthenticationController::class, 'confirmTwofactor']);
+                     Route::post('twofactor')->name('twofactor.process')->uses([ReauthenticationController::class, 'processTwofactor']);
+                 });
 
                  // Password Reset Routes
                  Route::get('passwordreset')->name('passwordreset')->uses([RedirectionController::class, 'passwordreset']);
