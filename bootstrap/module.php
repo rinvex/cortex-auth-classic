@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Silber\Bouncer\BouncerFacade;
 use Cortex\Auth\Http\Middleware\Authorize;
 use Cortex\Auth\Http\Middleware\ScopeBouncer;
 use Cortex\Auth\Http\Middleware\Reauthenticate;
@@ -9,6 +10,7 @@ use Cortex\Auth\Http\Middleware\UpdateTimezone;
 use Illuminate\Auth\Middleware\RequirePassword;
 use Cortex\Auth\Http\Middleware\UpdateLastActivity;
 use Cortex\Auth\Http\Middleware\AuthenticateSession;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 use Cortex\Auth\Http\Middleware\RedirectIfAuthenticated;
 
@@ -28,6 +30,27 @@ return function () {
     Route::model('ability', config('cortex.auth.models.ability'));
     Route::model('session', config('cortex.auth.models.session'));
 
+    // Map bouncer models
+    BouncerFacade::ownedVia('created_by');
+    BouncerFacade::useRoleModel(config('cortex.auth.models.role'));
+    BouncerFacade::useAbilityModel(config('cortex.auth.models.ability'));
+
+    // Map bouncer tables (users, roles, abilities tables are set through their models)
+    BouncerFacade::tables([
+        'permissions' => config('cortex.auth.tables.permissions'),
+        'assigned_roles' => config('cortex.auth.tables.assigned_roles'),
+    ]);
+
+    // Map relations
+    Relation::morphMap([
+        'role' => config('cortex.auth.models.role'),
+        'admin' => config('cortex.auth.models.admin'),
+        'member' => config('cortex.auth.models.member'),
+        'manager' => config('cortex.auth.models.manager'),
+        'guardian' => config('cortex.auth.models.guardian'),
+        'ability' => config('cortex.auth.models.ability'),
+    ]);
+
     if (! $this->app->runningInConsole()) {
         // Append middleware to the 'web' middleware group
         Route::pushMiddlewareToGroup('web', AuthenticateSession::class);
@@ -35,11 +58,12 @@ return function () {
         Route::pushMiddlewareToGroup('web', UpdateTimezone::class);
         Route::pushMiddlewareToGroup('web', ScopeBouncer::class);
 
-        // Override route middleware on the fly
+        // Add route middleware aliases on the fly
         Route::aliasMiddleware('can', Authorize::class);
         Route::aliasMiddleware('reauthenticate', Reauthenticate::class);
         Route::aliasMiddleware('guest', RedirectIfAuthenticated::class);
         Route::aliasMiddleware('verified', EnsureEmailIsVerified::class);
         Route::aliasMiddleware('password.confirm', RequirePassword::class);
     }
+
 };

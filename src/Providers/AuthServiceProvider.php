@@ -13,13 +13,11 @@ use Cortex\Auth\Models\Manager;
 use Cortex\Auth\Models\Session;
 use Cortex\Auth\Models\Guardian;
 use Cortex\Auth\Models\Socialite;
-use Silber\Bouncer\BouncerFacade;
 use Cortex\Auth\Guards\SessionGuard;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Rinvex\Support\Traits\ConsoleTools;
 use Cortex\Auth\Events\CurrentGuardLogout;
-use Illuminate\Database\Eloquent\Relations\Relation;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -60,27 +58,6 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Map bouncer models
-        BouncerFacade::ownedVia('created_by');
-        BouncerFacade::useRoleModel(config('cortex.auth.models.role'));
-        BouncerFacade::useAbilityModel(config('cortex.auth.models.ability'));
-
-        // Map bouncer tables (users, roles, abilities tables are set through their models)
-        BouncerFacade::tables([
-            'permissions' => config('cortex.auth.tables.permissions'),
-            'assigned_roles' => config('cortex.auth.tables.assigned_roles'),
-        ]);
-
-        // Map relations
-        Relation::morphMap([
-            'role' => config('cortex.auth.models.role'),
-            'admin' => config('cortex.auth.models.admin'),
-            'member' => config('cortex.auth.models.member'),
-            'manager' => config('cortex.auth.models.manager'),
-            'guardian' => config('cortex.auth.models.guardian'),
-            'ability' => config('cortex.auth.models.ability'),
-        ]);
-
         if (! $this->app->runningInConsole()) {
             $this->extendAuthentication();
             $this->extendRequest();
