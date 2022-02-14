@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v8.3.0] - 2022-02-14
+- Use PHP v8 nullsafe operator
+- Update composer dependencies to Laravel v9
+- L9: Update password validation rule to current_password
+- Move Relation::morphMap and BouncerFacade to module bootstrap
+- Add broadcast routes for each accessarea
+- Update routes to use class based definitions
+- Fix broadcasts naming convensions
+- Add support for model HasFactory
+
 ## [v8.2.3] - 2022-01-02
 - Drop using useless complex string variable syntax
 - Remove manager autologin, this requires a redirect to managerarea first, we can't login them into
@@ -469,6 +479,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v8.3.0]: https://github.com/rinvex/cortex-auth/compare/v8.2.3...v8.3.0
 [v8.2.3]: https://github.com/rinvex/cortex-auth/compare/v8.2.2...v8.2.3
 [v8.2.2]: https://github.com/rinvex/cortex-auth/compare/v8.2.1...v8.2.2
 [v8.2.1]: https://github.com/rinvex/cortex-auth/compare/v8.2.0...v8.2.1
