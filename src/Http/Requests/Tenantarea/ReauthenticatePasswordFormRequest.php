@@ -16,7 +16,7 @@ class ReauthenticatePasswordFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'password' => 'required|password',
+            'password' => 'required|current_password',
         ];
     }
 }
