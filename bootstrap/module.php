@@ -65,5 +65,4 @@ return function () {
         Route::aliasMiddleware('verified', EnsureEmailIsVerified::class);
         Route::aliasMiddleware('password.confirm', RequirePassword::class);
     }
-
 };
