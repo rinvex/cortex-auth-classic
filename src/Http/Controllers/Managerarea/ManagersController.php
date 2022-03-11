@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Controllers\Managerarea;
 
-use Cortex\Foundation\Importers\InsertImporter;
-use Exception;
 use Illuminate\Http\Request;
 use Cortex\Auth\Models\Manager;
 use Cortex\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
+use Cortex\Foundation\Importers\InsertImporter;
 use Cortex\Foundation\DataTables\ActivitiesDataTable;
 use Cortex\Foundation\Http\Requests\ImportFormRequest;
 use Cortex\Auth\DataTables\Managerarea\ManagersDataTable;
@@ -129,7 +128,7 @@ class ManagersController extends AuthorizedController
      *
      * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
      * @param \Cortex\Foundation\Importers\InsertImporter        $importer
-     * @param \Cortex\Auth\Models\Manager $manager
+     * @param \Cortex\Auth\Models\Manager                        $manager
      *
      * @return void
      */
