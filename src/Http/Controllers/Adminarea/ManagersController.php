@@ -55,6 +55,7 @@ class ManagersController extends AuthorizedController
             'genders' => $genders,
             'roles' => $roles,
             'tags' => $tags,
+            'routePrefix' => 'adminarea.cortex.auth.managers',
             'pusher' => ['entity' => 'manager', 'channel' => 'cortex.auth.managers.index'],
         ])->render('cortex/auth::adminarea.pages.managers');
     }

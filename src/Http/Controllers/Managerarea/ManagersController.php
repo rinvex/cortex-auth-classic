@@ -53,6 +53,7 @@ class ManagersController extends AuthorizedController
             'languages' => $languages,
             'genders' => $genders,
             'tags' => $tags,
+            'routePrefix' => 'managerarea.cortex.auth.managers',
             'pusher' => ['entity' => 'manager', 'channel' => 'cortex.auth.managers.index'],
         ])->render('cortex/auth::managerarea.pages.managers');
     }

@@ -36,6 +36,7 @@ class AbilitiesController extends AuthorizedController
     {
         return $abilitiesDataTable->with([
             'id' => 'adminarea-cortex-auth-abilities-index',
+            'routePrefix' => 'adminarea.cortex.auth.abilities',
             'pusher' => ['entity' => 'ability', 'channel' => 'cortex.auth.abilities.index'],
         ])->render('cortex/foundation::adminarea.pages.datatable-index');
     }
