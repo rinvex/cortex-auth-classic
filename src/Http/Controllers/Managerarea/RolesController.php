@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Controllers\Managerarea;
 
+use Cortex\Foundation\Importers\InsertImporter;
 use Exception;
 use Cortex\Auth\Models\Role;
 use Illuminate\Http\Request;
 use Cortex\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
-use Cortex\Foundation\Importers\DefaultImporter;
-use Cortex\Foundation\DataTables\ImportLogsDataTable;
 use Cortex\Auth\DataTables\Managerarea\RolesDataTable;
 use Cortex\Foundation\Http\Requests\ImportFormRequest;
-use Cortex\Foundation\DataTables\ImportRecordsDataTable;
 use Cortex\Auth\Http\Requests\Managerarea\RoleFormRequest;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
 use Cortex\Auth\Http\Requests\Managerarea\RoleFormProcessRequest;
@@ -61,81 +59,15 @@ class RolesController extends AuthorizedController
     /**
      * Import roles.
      *
-     * @param \Cortex\Auth\Models\Role                             $role
-     * @param \Cortex\Foundation\DataTables\ImportRecordsDataTable $importRecordsDataTable
-     *
-     * @return \Illuminate\View\View
-     */
-    public function import(Role $role, ImportRecordsDataTable $importRecordsDataTable)
-    {
-        return $importRecordsDataTable->with([
-            'resource' => $role,
-            'tabs' => 'managerarea.cortex.auth.roles.tabs',
-            'url' => route('managerarea.cortex.auth.roles.stash'),
-            'id' => "managerarea-cortex-auth-roles-{$role->getRouteKey()}-import",
-        ])->render('cortex/foundation::managerarea.pages.datatable-dropzone');
-    }
-
-    /**
-     * Stash roles.
-     *
      * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
-     * @param \Cortex\Foundation\Importers\DefaultImporter       $importer
+     * @param \Cortex\Foundation\Importers\InsertImporter        $importer
+     * @param \Cortex\Auth\Models\Role $role
      *
      * @return void
      */
-    public function stash(ImportFormRequest $request, DefaultImporter $importer)
+    public function import(ImportFormRequest $request, InsertImporter $importer, Role $role)
     {
-        // Handle the import
-        $importer->config['resource'] = $this->resource;
-        $importer->handleImport();
-    }
-
-    /**
-     * Hoard roles.
-     *
-     * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
-     *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
-     */
-    public function hoard(ImportFormRequest $request)
-    {
-        foreach ((array) $request->input('selected_ids') as $recordId) {
-            $record = app('cortex.foundation.import_record')->find($recordId);
-
-            try {
-                $fillable = collect($record['data'])->intersectByKeys(array_flip(app('cortex.auth.role')->getFillable()))->toArray();
-
-                tap(app('cortex.auth.role')->firstOrNew($fillable), function ($instance) use ($record) {
-                    $instance->save() && $record->delete();
-                });
-            } catch (Exception $exception) {
-                $record->notes = $exception->getMessage().(method_exists($exception, 'getMessageBag') ? "\n".json_encode($exception->getMessageBag())."\n\n" : '');
-                $record->status = 'fail';
-                $record->save();
-            }
-        }
-
-        return intend([
-            'back' => true,
-            'with' => ['success' => trans('cortex/foundation::messages.import_complete')],
-        ]);
-    }
-
-    /**
-     * List role import logs.
-     *
-     * @param \Cortex\Foundation\DataTables\ImportLogsDataTable $importLogsDatatable
-     *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
-     */
-    public function importLogs(ImportLogsDataTable $importLogsDatatable)
-    {
-        return $importLogsDatatable->with([
-            'resource' => trans('cortex/auth::common.role'),
-            'tabs' => 'managerarea.cortex.auth.roles.tabs',
-            'id' => 'managerarea-cortex-auth-roles-import-logs',
-        ])->render('cortex/foundation::managerarea.pages.datatable-tab');
+        $importer->withModel($role)->import($request->file('file'));
     }
 
     /**

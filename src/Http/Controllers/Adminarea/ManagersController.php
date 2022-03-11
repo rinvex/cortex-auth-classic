@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Controllers\Adminarea;
 
+use Cortex\Foundation\Importers\InsertImporter;
 use Exception;
 use Illuminate\Http\Request;
 use Cortex\Auth\Models\Manager;
 use Cortex\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
-use Cortex\Foundation\Importers\DefaultImporter;
 use Cortex\Foundation\DataTables\ActivitiesDataTable;
-use Cortex\Foundation\DataTables\ImportLogsDataTable;
 use Cortex\Foundation\Http\Requests\ImportFormRequest;
 use Cortex\Auth\DataTables\Adminarea\ManagersDataTable;
-use Cortex\Foundation\DataTables\ImportRecordsDataTable;
 use Cortex\Auth\Http\Requests\Adminarea\ManagerFormRequest;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
 use Cortex\Auth\Http\Requests\Adminarea\ManagerAttributesFormRequest;
@@ -131,82 +129,15 @@ class ManagersController extends AuthorizedController
     /**
      * Import managers.
      *
-     * @param \Cortex\Auth\Models\Manager                          $manager
-     * @param \Cortex\Foundation\DataTables\ImportRecordsDataTable $importRecordsDataTable
-     *
-     * @return \Illuminate\View\View
-     */
-    public function import(Manager $manager, ImportRecordsDataTable $importRecordsDataTable)
-    {
-        return $importRecordsDataTable->with([
-            'resource' => $manager,
-            'tabs' => 'adminarea.cortex.auth.managers.tabs',
-            'url' => route('adminarea.cortex.auth.managers.stash'),
-            'id' => "adminarea-cortex-auth-managers-{$manager->getRouteKey()}-import",
-        ])->render('cortex/foundation::adminarea.pages.datatable-dropzone');
-    }
-
-    /**
-     * Stash managers.
-     *
      * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
-     * @param \Cortex\Foundation\Importers\DefaultImporter       $importer
+     * @param \Cortex\Foundation\Importers\InsertImporter        $importer
+     * @param \Cortex\Auth\Models\Manager $manager
      *
      * @return void
      */
-    public function stash(ImportFormRequest $request, DefaultImporter $importer)
+    public function import(ImportFormRequest $request, InsertImporter $importer, Manager $manager)
     {
-        // Handle the import
-        $importer->config['resource'] = $this->resource;
-        $importer->config['name'] = 'username';
-        $importer->handleImport();
-    }
-
-    /**
-     * Hoard managers.
-     *
-     * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
-     *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
-     */
-    public function hoard(ImportFormRequest $request)
-    {
-        foreach ((array) $request->input('selected_ids') as $recordId) {
-            $record = app('cortex.foundation.import_record')->find($recordId);
-
-            try {
-                $fillable = collect($record['data'])->intersectByKeys(array_flip(app('cortex.auth.manager')->getFillable()))->toArray();
-
-                tap(app('cortex.auth.manager')->firstOrNew($fillable), function ($instance) use ($record) {
-                    $instance->save() && $record->delete();
-                });
-            } catch (Exception $exception) {
-                $record->notes = $exception->getMessage().(method_exists($exception, 'getMessageBag') ? "\n".json_encode($exception->getMessageBag())."\n\n" : '');
-                $record->status = 'fail';
-                $record->save();
-            }
-        }
-
-        return intend([
-            'back' => true,
-            'with' => ['success' => trans('cortex/foundation::messages.import_complete')],
-        ]);
-    }
-
-    /**
-     * List manager import logs.
-     *
-     * @param \Cortex\Foundation\DataTables\ImportLogsDataTable $importLogsDatatable
-     *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
-     */
-    public function importLogs(ImportLogsDataTable $importLogsDatatable)
-    {
-        return $importLogsDatatable->with([
-            'resource' => trans('cortex/auth::common.manager'),
-            'tabs' => 'adminarea.cortex.auth.managers.tabs',
-            'id' => 'adminarea-cortex-auth-managers-import-logs',
-        ])->render('cortex/foundation::adminarea.pages.datatable-tab');
+        $importer->withModel($manager)->import($request->file('file'));
     }
 
     /**
