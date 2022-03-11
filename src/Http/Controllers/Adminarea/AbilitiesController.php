@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Controllers\Adminarea;
 
-use Cortex\Foundation\Importers\InsertImporter;
-use Exception;
 use Illuminate\Http\Request;
 use Cortex\Auth\Models\Ability;
 use Cortex\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
+use Cortex\Foundation\Importers\InsertImporter;
 use Cortex\Foundation\Http\Requests\ImportFormRequest;
 use Cortex\Auth\DataTables\Adminarea\AbilitiesDataTable;
 use Cortex\Auth\Http\Requests\Adminarea\AbilityFormRequest;
@@ -61,7 +60,7 @@ class AbilitiesController extends AuthorizedController
      *
      * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
      * @param \Cortex\Foundation\Importers\InsertImporter        $importer
-     * @param \Cortex\Auth\Models\Ability $ability
+     * @param \Cortex\Auth\Models\Ability                        $ability
      *
      * @return void
      */

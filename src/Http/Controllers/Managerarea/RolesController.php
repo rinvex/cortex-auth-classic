@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Controllers\Managerarea;
 
-use Cortex\Foundation\Importers\InsertImporter;
-use Exception;
 use Cortex\Auth\Models\Role;
 use Illuminate\Http\Request;
 use Cortex\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
+use Cortex\Foundation\Importers\InsertImporter;
 use Cortex\Auth\DataTables\Managerarea\RolesDataTable;
 use Cortex\Foundation\Http\Requests\ImportFormRequest;
 use Cortex\Auth\Http\Requests\Managerarea\RoleFormRequest;
@@ -61,7 +60,7 @@ class RolesController extends AuthorizedController
      *
      * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
      * @param \Cortex\Foundation\Importers\InsertImporter        $importer
-     * @param \Cortex\Auth\Models\Role $role
+     * @param \Cortex\Auth\Models\Role                           $role
      *
      * @return void
      */

@@ -60,7 +60,7 @@ class RolesController extends AuthorizedController
      *
      * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
      * @param \Cortex\Foundation\Importers\InsertImporter        $importer
-     * @param \Cortex\Auth\Models\Role $role
+     * @param \Cortex\Auth\Models\Role                           $role
      *
      * @return void
      */
