@@ -29,7 +29,7 @@
         <section class="content">
 
             <div class="nav-tabs-custom">
-                @includeWhen($member->exists, 'cortex/foundation::adminarea.partials.actions', ['name' => 'member', 'model' => $member, 'resource' => trans('cortex/auth::common.member'), 'routePrefix' => 'adminarea.cortex.auth.members.'])
+                @includeWhen($member->exists, 'cortex/foundation::adminarea.partials.actions', ['name' => 'member', 'model' => $member, 'resource' => trans('cortex/auth::common.member'), 'routePrefix' => 'adminarea.cortex.auth.members'])
                 {!! Menu::render('adminarea.cortex.auth.members.tabs', 'nav-tab') !!}
 
                 <div class="tab-content">
