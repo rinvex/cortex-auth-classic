@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v8.3.1] - 2022-03-12
+- WIP Refactor & Simplify datatables import functionality
+- Update composer dependency codedungeon/phpunit-result-printer
+- Enforce form actions routePrefix consistency
+- Add datatables routePrefix support
+
 ## [v8.3.0] - 2022-02-14
 - Use PHP v8 nullsafe operator
 - Update composer dependencies to Laravel v9
@@ -479,6 +485,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v8.3.1]: https://github.com/rinvex/cortex-auth/compare/v8.3.0...v8.3.1
 [v8.3.0]: https://github.com/rinvex/cortex-auth/compare/v8.2.3...v8.3.0
 [v8.2.3]: https://github.com/rinvex/cortex-auth/compare/v8.2.2...v8.2.3
 [v8.2.2]: https://github.com/rinvex/cortex-auth/compare/v8.2.1...v8.2.2
