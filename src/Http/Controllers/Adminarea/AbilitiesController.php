@@ -4,16 +4,13 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Controllers\Adminarea;
 
-use Exception;
 use Illuminate\Http\Request;
 use Cortex\Auth\Models\Ability;
 use Cortex\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
-use Cortex\Foundation\Importers\DefaultImporter;
-use Cortex\Foundation\DataTables\ImportLogsDataTable;
+use Cortex\Foundation\Importers\InsertImporter;
 use Cortex\Foundation\Http\Requests\ImportFormRequest;
 use Cortex\Auth\DataTables\Adminarea\AbilitiesDataTable;
-use Cortex\Foundation\DataTables\ImportRecordsDataTable;
 use Cortex\Auth\Http\Requests\Adminarea\AbilityFormRequest;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
 use Cortex\Auth\Http\Requests\Adminarea\AbilityFormProcessRequest;
@@ -36,6 +33,7 @@ class AbilitiesController extends AuthorizedController
     {
         return $abilitiesDataTable->with([
             'id' => 'adminarea-cortex-auth-abilities-index',
+            'routePrefix' => 'adminarea.cortex.auth.abilities',
             'pusher' => ['entity' => 'ability', 'channel' => 'cortex.auth.abilities.index'],
         ])->render('cortex/foundation::adminarea.pages.datatable-index');
     }
@@ -60,81 +58,15 @@ class AbilitiesController extends AuthorizedController
     /**
      * Import abilities.
      *
-     * @param \Cortex\Auth\Models\Ability                          $ability
-     * @param \Cortex\Foundation\DataTables\ImportRecordsDataTable $importRecordsDataTable
-     *
-     * @return \Illuminate\View\View
-     */
-    public function import(Ability $ability, ImportRecordsDataTable $importRecordsDataTable)
-    {
-        return $importRecordsDataTable->with([
-            'resource' => $ability,
-            'tabs' => 'adminarea.cortex.auth.abilities.tabs',
-            'url' => route('adminarea.cortex.auth.abilities.stash'),
-            'id' => "adminarea-cortex-auth-abilities-{$ability->getRouteKey()}-import",
-        ])->render('cortex/foundation::adminarea.pages.datatable-dropzone');
-    }
-
-    /**
-     * Stash abilities.
-     *
      * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
-     * @param \Cortex\Foundation\Importers\DefaultImporter       $importer
+     * @param \Cortex\Foundation\Importers\InsertImporter        $importer
+     * @param \Cortex\Auth\Models\Ability                        $ability
      *
      * @return void
      */
-    public function stash(ImportFormRequest $request, DefaultImporter $importer)
+    public function import(ImportFormRequest $request, InsertImporter $importer, Ability $ability)
     {
-        // Handle the import
-        $importer->config['resource'] = $this->resource;
-        $importer->handleImport();
-    }
-
-    /**
-     * Hoard abilities.
-     *
-     * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
-     *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
-     */
-    public function hoard(ImportFormRequest $request)
-    {
-        foreach ((array) $request->input('selected_ids') as $recordId) {
-            $record = app('cortex.foundation.import_record')->find($recordId);
-
-            try {
-                $fillable = collect($record['data'])->intersectByKeys(array_flip(app('cortex.auth.ability')->getFillable()))->toArray();
-
-                tap(app('cortex.auth.ability')->firstOrNew($fillable), function ($instance) use ($record) {
-                    $instance->save() && $record->delete();
-                });
-            } catch (Exception $exception) {
-                $record->notes = $exception->getMessage().(method_exists($exception, 'getMessageBag') ? "\n".json_encode($exception->getMessageBag())."\n\n" : '');
-                $record->status = 'fail';
-                $record->save();
-            }
-        }
-
-        return intend([
-            'back' => true,
-            'with' => ['success' => trans('cortex/foundation::messages.import_complete')],
-        ]);
-    }
-
-    /**
-     * List ability import logs.
-     *
-     * @param \Cortex\Foundation\DataTables\ImportLogsDataTable $importLogsDatatable
-     *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
-     */
-    public function importLogs(ImportLogsDataTable $importLogsDatatable)
-    {
-        return $importLogsDatatable->with([
-            'resource' => trans('cortex/auth::common.ability'),
-            'tabs' => 'adminarea.cortex.auth.abilities.tabs',
-            'id' => 'adminarea-cortex-auth-abilities-import-logs',
-        ])->render('cortex/foundation::adminarea.pages.datatable-tab');
+        $importer->withModel($ability)->import($request->file('file'));
     }
 
     /**

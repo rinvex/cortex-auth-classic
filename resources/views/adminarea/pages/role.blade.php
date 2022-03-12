@@ -24,7 +24,7 @@
         <section class="content">
 
             <div class="nav-tabs-custom">
-                @includeWhen($role->exists, 'cortex/foundation::adminarea.partials.actions', ['name' => 'role', 'model' => $role, 'resource' => trans('cortex/auth::common.role'), 'routePrefix' => 'adminarea.cortex.auth.roles.'])
+                @includeWhen($role->exists, 'cortex/foundation::adminarea.partials.actions', ['name' => 'role', 'model' => $role, 'resource' => trans('cortex/auth::common.role'), 'routePrefix' => 'adminarea.cortex.auth.roles'])
                 {!! Menu::render('adminarea.cortex.auth.roles.tabs', 'nav-tab') !!}
 
                 <div class="tab-content">

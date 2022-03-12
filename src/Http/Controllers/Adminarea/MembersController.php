@@ -4,17 +4,14 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Controllers\Adminarea;
 
-use Exception;
 use Illuminate\Http\Request;
 use Cortex\Auth\Models\Member;
 use Cortex\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
-use Cortex\Foundation\Importers\DefaultImporter;
+use Cortex\Foundation\Importers\InsertImporter;
 use Cortex\Foundation\DataTables\ActivitiesDataTable;
-use Cortex\Foundation\DataTables\ImportLogsDataTable;
 use Cortex\Auth\DataTables\Adminarea\MembersDataTable;
 use Cortex\Foundation\Http\Requests\ImportFormRequest;
-use Cortex\Foundation\DataTables\ImportRecordsDataTable;
 use Cortex\Auth\Http\Requests\Adminarea\MemberFormRequest;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
 use Cortex\Auth\Http\Requests\Adminarea\MemberAttributesFormRequest;
@@ -55,6 +52,7 @@ class MembersController extends AuthorizedController
             'genders' => $genders,
             'roles' => $roles,
             'tags' => $tags,
+            'routePrefix' => 'adminarea.cortex.auth.members',
             'pusher' => ['entity' => 'member', 'channel' => 'cortex.auth.members.index'],
         ])->render('cortex/auth::adminarea.pages.members');
     }
@@ -130,82 +128,15 @@ class MembersController extends AuthorizedController
     /**
      * Import members.
      *
-     * @param \Cortex\Auth\Models\Member                           $member
-     * @param \Cortex\Foundation\DataTables\ImportRecordsDataTable $importRecordsDataTable
-     *
-     * @return \Illuminate\View\View
-     */
-    public function import(Member $member, ImportRecordsDataTable $importRecordsDataTable)
-    {
-        return $importRecordsDataTable->with([
-            'resource' => $member,
-            'tabs' => 'adminarea.cortex.attributes.attributes.tabs',
-            'url' => route('adminarea.cortex.auth.members.stash'),
-            'id' => "adminarea-cortex-auth-members-{$member->getRouteKey()}-import",
-        ])->render('cortex/foundation::adminarea.pages.datatable-dropzone');
-    }
-
-    /**
-     * Stash members.
-     *
      * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
-     * @param \Cortex\Foundation\Importers\DefaultImporter       $importer
+     * @param \Cortex\Foundation\Importers\InsertImporter        $importer
+     * @param \Cortex\Auth\Models\Member                         $member
      *
      * @return void
      */
-    public function stash(ImportFormRequest $request, DefaultImporter $importer)
+    public function import(ImportFormRequest $request, InsertImporter $importer, Member $member)
     {
-        // Handle the import
-        $importer->config['resource'] = $this->resource;
-        $importer->config['name'] = 'username';
-        $importer->handleImport();
-    }
-
-    /**
-     * Hoard members.
-     *
-     * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
-     *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
-     */
-    public function hoard(ImportFormRequest $request)
-    {
-        foreach ((array) $request->input('selected_ids') as $recordId) {
-            $record = app('cortex.foundation.import_record')->find($recordId);
-
-            try {
-                $fillable = collect($record['data'])->intersectByKeys(array_flip(app('cortex.auth.member')->getFillable()))->toArray();
-
-                tap(app('cortex.auth.member')->firstOrNew($fillable), function ($instance) use ($record) {
-                    $instance->save() && $record->delete();
-                });
-            } catch (Exception $exception) {
-                $record->notes = $exception->getMessage().(method_exists($exception, 'getMessageBag') ? "\n".json_encode($exception->getMessageBag())."\n\n" : '');
-                $record->status = 'fail';
-                $record->save();
-            }
-        }
-
-        return intend([
-            'back' => true,
-            'with' => ['success' => trans('cortex/foundation::messages.import_complete')],
-        ]);
-    }
-
-    /**
-     * List member import logs.
-     *
-     * @param \Cortex\Foundation\DataTables\ImportLogsDataTable $importLogsDatatable
-     *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
-     */
-    public function importLogs(ImportLogsDataTable $importLogsDatatable)
-    {
-        return $importLogsDatatable->with([
-            'resource' => trans('cortex/auth::common.member'),
-            'tabs' => 'adminarea.cortex.auth.members.tabs',
-            'id' => 'adminarea-cortex-auth-members-import-logs',
-        ])->render('cortex/foundation::adminarea.pages.datatable-tab');
+        $importer->withModel($member)->import($request->file('file'));
     }
 
     /**

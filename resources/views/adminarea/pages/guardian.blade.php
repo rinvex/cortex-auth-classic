@@ -24,7 +24,7 @@
         <section class="content">
 
             <div class="nav-tabs-custom">
-                @includeWhen($guardian->exists, 'cortex/foundation::adminarea.partials.actions', ['name' => 'guardian', 'model' => $guardian, 'resource' => trans('cortex/auth::common.guardian'), 'routePrefix' => 'adminarea.cortex.auth.guardians.'])
+                @includeWhen($guardian->exists, 'cortex/foundation::adminarea.partials.actions', ['name' => 'guardian', 'model' => $guardian, 'resource' => trans('cortex/auth::common.guardian'), 'routePrefix' => 'adminarea.cortex.auth.guardians'])
                 {!! Menu::render('adminarea.cortex.auth.guardians.tabs', 'nav-tab') !!}
 
                 <div class="tab-content">

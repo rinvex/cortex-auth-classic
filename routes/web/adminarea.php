@@ -132,10 +132,7 @@ Route::domain('{adminarea}')->group(function () {
                  // Abilities Routes
                  Route::name('cortex.auth.abilities.')->prefix('abilities')->group(function () {
                      Route::match(['get', 'post'], '/')->name('index')->uses([AbilitiesController::class, 'index']);
-                     Route::get('import')->name('import')->uses([AbilitiesController::class, 'import']);
-                     Route::post('import')->name('stash')->uses([AbilitiesController::class, 'stash']);
-                     Route::post('hoard')->name('hoard')->uses([AbilitiesController::class, 'hoard']);
-                     Route::get('import/logs')->name('import.logs')->uses([AbilitiesController::class, 'importLogs']);
+                     Route::post('import')->name('import')->uses([AbilitiesController::class, 'import']);
                      Route::get('create')->name('create')->uses([AbilitiesController::class, 'create']);
                      Route::post('create')->name('store')->uses([AbilitiesController::class, 'store']);
                      Route::get('{ability}')->name('show')->uses([AbilitiesController::class, 'show']);
@@ -148,10 +145,7 @@ Route::domain('{adminarea}')->group(function () {
                  // Roles Routes
                  Route::name('cortex.auth.roles.')->prefix('roles')->group(function () {
                      Route::match(['get', 'post'], '/')->name('index')->uses([RolesController::class, 'index']);
-                     Route::get('import')->name('import')->uses([RolesController::class, 'import']);
-                     Route::post('import')->name('stash')->uses([RolesController::class, 'stash']);
-                     Route::post('hoard')->name('hoard')->uses([RolesController::class, 'hoard']);
-                     Route::get('import/logs')->name('import.logs')->uses([RolesController::class, 'importLogs']);
+                     Route::post('import')->name('import')->uses([RolesController::class, 'import']);
                      Route::get('create')->name('create')->uses([RolesController::class, 'create']);
                      Route::post('create')->name('store')->uses([RolesController::class, 'store']);
                      Route::get('{role}')->name('show')->uses([RolesController::class, 'show']);
@@ -164,10 +158,7 @@ Route::domain('{adminarea}')->group(function () {
                  // Admins Routes
                  Route::name('cortex.auth.admins.')->prefix('admins')->group(function () {
                      Route::match(['get', 'post'], '/')->name('index')->uses([AdminsController::class, 'index']);
-                     Route::get('import')->name('import')->uses([AdminsController::class, 'import']);
-                     Route::post('import')->name('stash')->uses([AdminsController::class, 'stash']);
-                     Route::post('hoard')->name('hoard')->uses([AdminsController::class, 'hoard']);
-                     Route::get('import/logs')->name('import.logs')->uses([AdminsController::class, 'importLogs']);
+                     Route::post('import')->name('import')->uses([AdminsController::class, 'import']);
                      Route::get('create')->name('create')->uses([AdminsController::class, 'create']);
                      Route::post('create')->name('store')->uses([AdminsController::class, 'store']);
                      Route::get('{admin}')->name('show')->uses([AdminsController::class, 'show']);
@@ -184,10 +175,7 @@ Route::domain('{adminarea}')->group(function () {
                  // Managers Routes
                  Route::name('cortex.auth.managers.')->prefix('managers')->group(function () {
                      Route::match(['get', 'post'], '/')->name('index')->uses([ManagersController::class, 'index']);
-                     Route::get('import')->name('import')->uses([ManagersController::class, 'import']);
-                     Route::post('import')->name('stash')->uses([ManagersController::class, 'stash']);
-                     Route::post('hoard')->name('hoard')->uses([ManagersController::class, 'hoard']);
-                     Route::get('import/logs')->name('import.logs')->uses([ManagersController::class, 'importLogs']);
+                     Route::post('import')->name('import')->uses([ManagersController::class, 'import']);
                      Route::get('create')->name('create')->uses([ManagersController::class, 'create']);
                      Route::post('create')->name('store')->uses([ManagersController::class, 'store']);
                      Route::get('{manager}')->name('show')->uses([ManagersController::class, 'show']);
@@ -205,10 +193,7 @@ Route::domain('{adminarea}')->group(function () {
                  Route::name('cortex.auth.members.')->prefix('members')->group(function () {
                      Route::match(['get', 'post'], '/')->name('index')->uses([MembersController::class, 'index']);
                      Route::post('ajax')->name('ajax')->uses([MembersController::class, 'ajax']); // @TODO: to be refactored!
-                     Route::get('import')->name('import')->uses([MembersController::class, 'import']);
-                     Route::post('import')->name('stash')->uses([MembersController::class, 'stash']);
-                     Route::post('hoard')->name('hoard')->uses([MembersController::class, 'hoard']);
-                     Route::get('import/logs')->name('import.logs')->uses([MembersController::class, 'importLogs']);
+                     Route::post('import')->name('import')->uses([MembersController::class, 'import']);
                      Route::get('create')->name('create')->uses([MembersController::class, 'create']);
                      Route::post('create')->name('store')->uses([MembersController::class, 'store']);
                      Route::get('{member}')->name('show')->uses([MembersController::class, 'show']);
@@ -225,10 +210,7 @@ Route::domain('{adminarea}')->group(function () {
                  // Guardians Routes
                  Route::name('cortex.auth.guardians.')->prefix('guardians')->group(function () {
                      Route::match(['get', 'post'], '/')->name('index')->uses([GuardiansController::class, 'index']);
-                     Route::get('import')->name('import')->uses([GuardiansController::class, 'import']);
-                     Route::post('import')->name('stash')->uses([GuardiansController::class, 'stash']);
-                     Route::post('hoard')->name('hoard')->uses([GuardiansController::class, 'hoard']);
-                     Route::get('import/logs')->name('import.logs')->uses([GuardiansController::class, 'importLogs']);
+                     Route::post('import')->name('import')->uses([GuardiansController::class, 'import']);
                      Route::get('create')->name('create')->uses([GuardiansController::class, 'create']);
                      Route::post('create')->name('store')->uses([GuardiansController::class, 'store']);
                      Route::get('{guardian}')->name('show')->uses([GuardiansController::class, 'show']);
