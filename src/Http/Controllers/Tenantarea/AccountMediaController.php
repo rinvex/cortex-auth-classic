@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Auth\Http\Controllers\Tenantarea;
 
 use Cortex\Auth\Models\Member;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Cortex\Foundation\Models\Media;
 use Cortex\Foundation\Http\Controllers\AuthenticatedController;
 
 class AccountMediaController extends AuthenticatedController
@@ -14,7 +14,7 @@ class AccountMediaController extends AuthenticatedController
      * Destroy given member media.
      *
      * @param \Cortex\Auth\Models\Member                         $member
-     * @param \Spatie\MediaLibrary\MediaCollections\Models\Media $media
+     * @param \Cortex\Foundation\Models\Media $media
      *
      * @throws \Exception
      *
