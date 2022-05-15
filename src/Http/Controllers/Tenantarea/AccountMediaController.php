@@ -13,7 +13,7 @@ class AccountMediaController extends AuthenticatedController
     /**
      * Destroy given member media.
      *
-     * @param \Cortex\Auth\Models\Member                         $member
+     * @param \Cortex\Auth\Models\Member      $member
      * @param \Cortex\Foundation\Models\Media $media
      *
      * @throws \Exception
