@@ -30,7 +30,7 @@ class PasswordResetProcessRequest extends PasswordResetRequest
                 $validator->errors()->add('email', trans('cortex/auth::'.PasswordResetBrokerContract::INVALID_TOKEN));
             }
 
-            if (! $passwordResetBroker->validateTimestamp($credentials['expiration'])) {
+            if (empty($credentials['expiration']) || ! $passwordResetBroker->validateTimestamp($credentials['expiration'])) {
                 $validator->errors()->add('email', trans('cortex/auth::'.PasswordResetBrokerContract::EXPIRED_TOKEN));
             }
         });
