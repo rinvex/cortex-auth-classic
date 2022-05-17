@@ -12,12 +12,12 @@ use Rinvex\Menus\Models\MenuItem;
 use Rinvex\Menus\Models\MenuGenerator;
 
 Menu::register('adminarea.sidebar', function (MenuGenerator $menu) {
-    $menu->findByTitleOrAdd(trans('cortex/foundation::common.access'), null, 'fa fa-user-circle-o', 'header', [], function (MenuItem $dropdown) {
+    $menu->findByTitleOrAdd(trans('cortex/foundation::common.access'), null, 'fa fa-user-circle-o', 'header', [], [], function (MenuItem $dropdown) {
         $dropdown->route(['adminarea.cortex.auth.abilities.index'], trans('cortex/auth::common.abilities'), null, 'fa fa-sliders')->ifCan('list', app('cortex.auth.ability'))->activateOnRoute('adminarea.cortex.auth.abilities');
         $dropdown->route(['adminarea.cortex.auth.roles.index'], trans('cortex/auth::common.roles'), null, 'fa fa-users')->ifCan('list', app('cortex.auth.role'))->activateOnRoute('adminarea.cortex.auth.roles');
     });
 
-    $menu->findByTitleOrAdd(trans('cortex/foundation::common.user'), null, 'fa fa-users', 'header', [], function (MenuItem $dropdown) {
+    $menu->findByTitleOrAdd(trans('cortex/foundation::common.user'), null, 'fa fa-users', 'header', [], [], function (MenuItem $dropdown) {
         $dropdown->route(['adminarea.cortex.auth.admins.index'], trans('cortex/auth::common.admins'), null, 'fa fa-user')->ifCan('list', app('cortex.auth.admin'))->activateOnRoute('adminarea.cortex.auth.admins');
         $dropdown->route(['adminarea.cortex.auth.managers.index'], trans('cortex/auth::common.managers'), null, 'fa fa-user')->ifCan('list', app('cortex.auth.manager'))->activateOnRoute('adminarea.cortex.auth.managers');
         $dropdown->route(['adminarea.cortex.auth.members.index'], trans('cortex/auth::common.members'), null, 'fa fa-user')->ifCan('list', app('cortex.auth.member'))->activateOnRoute('adminarea.cortex.auth.members');
