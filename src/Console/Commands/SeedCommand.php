@@ -67,7 +67,7 @@ class SeedCommand extends Command
             'username' => 'Admin',
             'given_name' => 'Admin',
             'family_name' => 'User',
-            'email' => 'admin@example.com',
+            'email' => 'admin@rinvex.com',
         ];
 
         return tap(app('cortex.auth.admin')->firstOrNew($admin)->fill([
@@ -91,7 +91,7 @@ class SeedCommand extends Command
         $guardian = [
             'is_active' => true,
             'username' => 'Guardian',
-            'email' => 'guardian@example.com',
+            'email' => 'guardian@rinvex.com',
         ];
 
         return tap(app('cortex.auth.guardian')->firstOrNew($guardian)->fill([
