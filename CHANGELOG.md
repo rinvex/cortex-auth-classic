@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v8.3.3] - 2022-05-17
+- Add support for menu list item attributes
+- Fix correct naming for daterangepicker from datepicker
+- Fix reset password missing expiration token issue
+- Override Spatie Media model to support Hashids
+
 ## [v8.3.2] - 2022-05-01
 - use today instead of today_date (#216)
 - Require rfc & dns email validation rules
@@ -490,6 +496,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v8.3.3]: https://github.com/rinvex/cortex-auth/compare/v8.3.2...v8.3.3
 [v8.3.2]: https://github.com/rinvex/cortex-auth/compare/v8.3.1...v8.3.2
 [v8.3.1]: https://github.com/rinvex/cortex-auth/compare/v8.3.0...v8.3.1
 [v8.3.0]: https://github.com/rinvex/cortex-auth/compare/v8.2.3...v8.3.0
