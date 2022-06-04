@@ -55,8 +55,8 @@ class AccountSidebarMenuPresenter extends BasePresenter
      */
     public function getMenuWithoutDropdownWrapper(MenuItem $item): string
     {
-        return '<li class="'.($item->isActive() ? 'active' : '').'">
-                    <a href="'.$item->getUrl().'" '.$item->getAttributes().'>
+        return '<li '.$item->getItemAttributes().'>
+                    <a href="'.$item->getUrl().'" '.$item->getLinkAttributes().'>
                         '.($item->icon ? '<i class="'.$item->icon.'"></i>' : '').'
                         '.$item->title.'
                     </a>
