@@ -60,7 +60,7 @@
         "diglactic/laravel-breadcrumbs": "^7.1.0",
         "laravel/socialite": "^5.5.0",
         "laravelcollective/html": "^6.3.0",
-        "league/fractal": "^0.19.0",
+        "league/fractal": "^0.20.0",
         "pragmarx/google2fa": "^8.0.0",
         "proengsoft/laravel-jsvalidation": "^4.7.0",
         "propaganistas/laravel-phone": "^4.3.0",
@@ -74,10 +74,10 @@
         "rinvex/tmp-josephsilber-bouncer": "^1.0.0",
         "spatie/laravel-activitylog": "^4.4.0",
         "spatie/laravel-schemaless-attributes": "^2.3.0",
-        "yajra/laravel-datatables-buttons": "^4.13.0",
-        "yajra/laravel-datatables-fractal": "^1.6.0",
-        "yajra/laravel-datatables-html": "^4.41.0",
-        "yajra/laravel-datatables-oracle": "^9.19.0"
+        "yajra/laravel-datatables-buttons": "^9.0.0",
+        "yajra/laravel-datatables-fractal": "^9.0.0",
+        "yajra/laravel-datatables-html": "^9.0.0",
+        "yajra/laravel-datatables-oracle": "^10.0.0"
     },
     "require-dev": {
         "codedungeon/phpunit-result-printer": "^0.32.0",

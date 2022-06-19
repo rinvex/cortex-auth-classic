@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v8.3.4] - 2022-06-20
+- Add support for list item attributes
+- Update composer dependencies
+  - league/fractal to ^0.20.0 from ^0.19.0
+  - yajra/laravel-datatables-html to ^9.0.0 from ^4.41.0
+  - yajra/laravel-datatables-fractal to ^9.0.0 from ^1.6.0
+  - yajra/laravel-datatables-buttons to ^9.0.0 from ^4.13.0
+  - yajra/laravel-datatables-oracle to ^10.0.0 from ^9.19.0
+
 ## [v8.3.3] - 2022-05-17
 - Add support for menu list item attributes
 - Fix correct naming for daterangepicker from datepicker
@@ -496,6 +505,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v8.3.4]: https://github.com/rinvex/cortex-auth/compare/v8.3.3...v8.3.4
 [v8.3.3]: https://github.com/rinvex/cortex-auth/compare/v8.3.2...v8.3.3
 [v8.3.2]: https://github.com/rinvex/cortex-auth/compare/v8.3.1...v8.3.2
 [v8.3.1]: https://github.com/rinvex/cortex-auth/compare/v8.3.0...v8.3.1
