@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Cortex\Auth\DataTables\Adminarea;
 
 use Cortex\Auth\Models\Admin;
-use Illuminate\Http\JsonResponse;
 use Cortex\Auth\Scopes\UserScope;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Database\Eloquent\Builder;
 use Cortex\Auth\Transformers\AdminTransformer;
 use Cortex\Foundation\DataTables\AbstractDataTable;
