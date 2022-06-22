@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Auth\DataTables\Adminarea;
 
 use Cortex\Auth\Models\Admin;
+use Illuminate\Http\JsonResponse;
 use Cortex\Auth\Scopes\UserScope;
 use Illuminate\Database\Eloquent\Builder;
 use Cortex\Auth\Transformers\AdminTransformer;
@@ -27,7 +28,7 @@ class AdminsDataTable extends AbstractDataTable
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function ajax()
+    public function ajax(): JsonResponse
     {
         $query = $this->query();
 
