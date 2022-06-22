@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Auth\DataTables\Adminarea;
 
 use Cortex\Auth\Models\Role;
+use Illuminate\Http\JsonResponse;
 use Cortex\Auth\Transformers\RoleTransformer;
 use Cortex\Foundation\DataTables\AbstractDataTable;
 
@@ -42,7 +43,7 @@ class RolesDataTable extends AbstractDataTable
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function ajax()
+    public function ajax(): JsonResponse
     {
         return datatables($this->query())
             ->setTransformer(app($this->transformer))
