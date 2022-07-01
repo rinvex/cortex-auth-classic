@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v8.3.6] - 2022-07-02
+- Fix daterangepicker input field type to text instead of date to fix the picker issues
+
 ## [v8.3.5] - 2022-06-22
 - Fix datatables ajax method signature
 
@@ -508,6 +511,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v8.3.6]: https://github.com/rinvex/cortex-auth/compare/v8.3.5...v8.3.6
 [v8.3.5]: https://github.com/rinvex/cortex-auth/compare/v8.3.4...v8.3.5
 [v8.3.4]: https://github.com/rinvex/cortex-auth/compare/v8.3.3...v8.3.4
 [v8.3.3]: https://github.com/rinvex/cortex-auth/compare/v8.3.2...v8.3.3
