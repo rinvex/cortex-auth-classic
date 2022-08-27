@@ -37,7 +37,6 @@ if ($user = request()->user()) {
 
     Menu::register('adminarea.cortex.auth.account.sidebar', function (MenuGenerator $menu) {
         $menu->route(['adminarea.cortex.auth.account.settings'], trans('cortex/auth::common.settings'), null, 'fa fa-cogs');
-        //$menu->route(['adminarea.cortex.auth.account.attributes'], trans('cortex/auth::common.attributes'), null, 'fa fa-leaf');
         $menu->route(['adminarea.cortex.auth.account.sessions'], trans('cortex/auth::common.sessions'), null, 'fa fa-list-alt');
         $menu->route(['adminarea.cortex.auth.account.password'], trans('cortex/auth::common.password'), null, 'fa fa-key');
         $menu->route(['adminarea.cortex.auth.account.twofactor'], trans('cortex/auth::common.twofactor'), null, 'fa fa-lock');
@@ -69,7 +68,6 @@ Menu::register('adminarea.cortex.auth.admins.tabs', function (MenuGenerator $men
     $menu->route(['adminarea.cortex.auth.admins.import.logs'], trans('cortex/auth::common.logs'))->ifCan('audit', $admin)->if(Route::is('adminarea.cortex.auth.admins.import*'));
     $menu->route(['adminarea.cortex.auth.admins.create'], trans('cortex/auth::common.details'))->ifCan('create', $admin)->if(Route::is('adminarea.cortex.auth.admins.create'));
     $menu->route(['adminarea.cortex.auth.admins.edit', ['admin' => $admin]], trans('cortex/auth::common.details'))->ifCan('update', $admin)->if($admin->exists);
-    //$menu->route(['adminarea.cortex.auth.admins.attributes', ['admin' => $admin]], trans('cortex/auth::common.attributes'))->ifCan('update', $admin)->if($admin->exists);
     $menu->route(['adminarea.cortex.auth.admins.logs', ['admin' => $admin]], trans('cortex/auth::common.logs'))->ifCan('audit', $admin)->if($admin->exists);
     $menu->route(['adminarea.cortex.auth.admins.activities', ['admin' => $admin]], trans('cortex/auth::common.activities'))->ifCan('audit', $admin)->if($admin->exists);
 });
@@ -79,7 +77,6 @@ Menu::register('adminarea.cortex.auth.managers.tabs', function (MenuGenerator $m
     $menu->route(['adminarea.cortex.auth.managers.import.logs'], trans('cortex/auth::common.logs'))->ifCan('audit', $manager)->if(Route::is('adminarea.cortex.auth.managers.import*'));
     $menu->route(['adminarea.cortex.auth.managers.create'], trans('cortex/auth::common.details'))->ifCan('create', $manager)->if(Route::is('adminarea.cortex.auth.managers.create'));
     $menu->route(['adminarea.cortex.auth.managers.edit', ['manager' => $manager]], trans('cortex/auth::common.details'))->ifCan('update', $manager)->if($manager->exists);
-    //$menu->route(['adminarea.cortex.auth.managers.attributes', ['manager' => $manager]], trans('cortex/auth::common.attributes'))->ifCan('update', $manager)->if($manager->exists);
     $menu->route(['adminarea.cortex.auth.managers.logs', ['manager' => $manager]], trans('cortex/auth::common.logs'))->ifCan('audit', $manager)->if($manager->exists);
     $menu->route(['adminarea.cortex.auth.managers.activities', ['manager' => $manager]], trans('cortex/auth::common.activities'))->ifCan('audit', $manager)->if($manager->exists);
 });
@@ -89,7 +86,6 @@ Menu::register('adminarea.cortex.auth.members.tabs', function (MenuGenerator $me
     $menu->route(['adminarea.cortex.auth.members.import.logs'], trans('cortex/auth::common.logs'))->ifCan('audit', $member)->if(Route::is('adminarea.cortex.auth.members.import*'));
     $menu->route(['adminarea.cortex.auth.members.create'], trans('cortex/auth::common.details'))->ifCan('create', $member)->if(Route::is('adminarea.cortex.auth.members.create'));
     $menu->route(['adminarea.cortex.auth.members.edit', ['member' => $member]], trans('cortex/auth::common.details'))->ifCan('update', $member)->if($member->exists);
-    //$menu->route(['adminarea.cortex.auth.members.attributes', ['member' => $member]], trans('cortex/auth::common.attributes'))->ifCan('update', $member)->if($member->exists);
     $menu->route(['adminarea.cortex.auth.members.logs', ['member' => $member]], trans('cortex/auth::common.logs'))->ifCan('audit', $member)->if($member->exists);
     $menu->route(['adminarea.cortex.auth.members.activities', ['member' => $member]], trans('cortex/auth::common.activities'))->ifCan('audit', $member)->if($member->exists);
 });

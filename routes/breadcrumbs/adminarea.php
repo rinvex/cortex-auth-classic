@@ -76,11 +76,6 @@ Breadcrumbs::for('adminarea.cortex.auth.admins.activities', function (Generator 
     $breadcrumbs->push(trans('cortex/auth::common.activities'), route('adminarea.cortex.auth.admins.activities', ['admin' => $admin]));
 });
 
-Breadcrumbs::for('adminarea.cortex.auth.admins.attributes', function (Generator $breadcrumbs, Admin $admin) {
-    $breadcrumbs->parent('adminarea.cortex.auth.admins.edit', $admin);
-    $breadcrumbs->push(trans('cortex/auth::common.attributes'), route('adminarea.cortex.auth.admins.attributes', ['admin' => $admin]));
-});
-
 Breadcrumbs::for('adminarea.cortex.auth.managers.index', function (Generator $breadcrumbs) {
     $breadcrumbs->parent('adminarea.home');
     $breadcrumbs->push(trans('cortex/auth::common.managers'), route('adminarea.cortex.auth.managers.index'));
@@ -116,11 +111,6 @@ Breadcrumbs::for('adminarea.cortex.auth.managers.activities', function (Generato
     $breadcrumbs->push(trans('cortex/auth::common.activities'), route('adminarea.cortex.auth.managers.activities', ['manager' => $manager]));
 });
 
-Breadcrumbs::for('adminarea.cortex.auth.managers.attributes', function (Generator $breadcrumbs, Manager $manager) {
-    $breadcrumbs->parent('adminarea.cortex.auth.managers.edit', $manager);
-    $breadcrumbs->push(trans('cortex/auth::common.attributes'), route('adminarea.cortex.auth.managers.attributes', ['manager' => $manager]));
-});
-
 Breadcrumbs::for('adminarea.cortex.auth.members.index', function (Generator $breadcrumbs) {
     $breadcrumbs->parent('adminarea.home');
     $breadcrumbs->push(trans('cortex/auth::common.members'), route('adminarea.cortex.auth.members.index'));
@@ -154,11 +144,6 @@ Breadcrumbs::for('adminarea.cortex.auth.members.logs', function (Generator $brea
 Breadcrumbs::for('adminarea.cortex.auth.members.activities', function (Generator $breadcrumbs, Member $member) {
     $breadcrumbs->parent('adminarea.cortex.auth.members.edit', $member);
     $breadcrumbs->push(trans('cortex/auth::common.activities'), route('adminarea.cortex.auth.members.activities', ['member' => $member]));
-});
-
-Breadcrumbs::for('adminarea.cortex.auth.members.attributes', function (Generator $breadcrumbs, Member $member) {
-    $breadcrumbs->parent('adminarea.cortex.auth.members.edit', $member);
-    $breadcrumbs->push(trans('cortex/auth::common.attributes'), route('adminarea.cortex.auth.members.attributes', ['member' => $member]));
 });
 
 Breadcrumbs::for('adminarea.cortex.auth.guardians.index', function (Generator $breadcrumbs) {
@@ -275,11 +260,6 @@ Breadcrumbs::for('adminarea.cortex.auth.account.settings', function (Generator $
 Breadcrumbs::for('adminarea.cortex.auth.account.password', function (Generator $breadcrumbs) {
     $breadcrumbs->parent('adminarea.home');
     $breadcrumbs->push(trans('cortex/auth::common.account_password'), route('adminarea.cortex.auth.account.password'));
-});
-
-Breadcrumbs::for('adminarea.cortex.auth.account.attributes', function (Generator $breadcrumbs) {
-    $breadcrumbs->parent('adminarea.home');
-    $breadcrumbs->push(trans('cortex/auth::common.account_attributes'), route('adminarea.cortex.auth.account.attributes'));
 });
 
 Breadcrumbs::for('adminarea.cortex.auth.account.sessions', function (Generator $breadcrumbs) {

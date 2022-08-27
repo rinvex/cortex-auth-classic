@@ -11,7 +11,6 @@ use Cortex\Auth\Http\Controllers\Tenantarea\AccountSessionsController;
 use Cortex\Auth\Http\Controllers\Tenantarea\AccountSettingsController;
 use Cortex\Auth\Http\Controllers\Tenantarea\AccountTwoFactorController;
 use Cortex\Auth\Http\Controllers\Tenantarea\ReauthenticationController;
-use Cortex\Auth\Http\Controllers\Tenantarea\AccountAttributesController;
 use Cortex\Auth\Http\Controllers\Tenantarea\EmailVerificationController;
 use Cortex\Auth\Http\Controllers\Tenantarea\PhoneVerificationController;
 use Cortex\Auth\Http\Controllers\Tenantarea\MemberRegistrationController;
@@ -98,10 +97,6 @@ Route::domain('{tenantarea}')->group(function () {
                 // Account Password Routes
                 Route::get('password')->name('password')->uses([AccountPasswordController::class, 'edit']);
                 Route::post('password')->name('password.update')->uses([AccountPasswordController::class, 'update']);
-
-                // Account Attributes Routes
-                Route::get('attributes')->name('attributes')->uses([AccountAttributesController::class, 'edit']);
-                Route::post('attributes')->name('attributes.update')->uses([AccountAttributesController::class, 'update']);
 
                 // Account Sessions Routes
                 Route::get('sessions')->name('sessions')->uses([AccountSessionsController::class, 'index']);
