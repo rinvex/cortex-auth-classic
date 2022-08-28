@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Cortex\Auth\Http\Requests\Managerarea;
 
 use Illuminate\Support\Str;
-use Cortex\Auth\Models\Role;
 
 class RoleFormProcessRequest extends RoleFormRequest
 {
@@ -23,7 +22,7 @@ class RoleFormProcessRequest extends RoleFormRequest
 
         // Set abilities
         if (! empty($data['abilities'])) {
-            if ($this->user()->can('grant', \Cortex\Auth\Models\Ability::class)) {
+            if ($this->user()->can('grant', app('cortex.auth.ability'))) {
                 $abilities = array_map('intval', $this->get('abilities', []));
                 $data['abilities'] = $this->user()->isA('superadmin') ? $abilities
                     : $this->user()->getAbilities()->pluck('id')->intersect($abilities)->toArray();
@@ -42,7 +41,7 @@ class RoleFormProcessRequest extends RoleFormRequest
      */
     public function rules(): array
     {
-        $user = $this->route('role') ?? new Role();
+        $user = $this->route('role') ?? app('cortex.auth.role');
         $user->updateRulesUniques();
         $rules = $user->getRules();
         $rules['abilities'] = 'nullable|array';

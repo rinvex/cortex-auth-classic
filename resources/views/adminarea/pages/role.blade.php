@@ -84,7 +84,7 @@
 
                             <div class="row">
 
-                                @can('grant', \Cortex\Auth\Models\Ability::class)
+                                @can('grant', app('cortex.auth.ability'))
                                     <div class="col-md-12">
 
                                         {{-- Abilities --}}
