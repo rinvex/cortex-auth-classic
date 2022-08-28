@@ -14,7 +14,7 @@ class PhoneVerificationSendRequest extends PhoneVerificationRequest
     public function rules(): array
     {
         return [
-            'phone' => 'required|phone:AUTO|exists:'.config('cortex.auth.tables.managers').',phone',
+            'phone' => 'required|phone:AUTO|exists:'.config('cortex.auth.models.manager').',phone',
         ];
     }
 }
