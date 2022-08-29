@@ -48,7 +48,7 @@ class AdminFormRequest extends FormRequest
 
         // Set abilities
         if (! empty($data['abilities'])) {
-            if ($this->user()->can('grant', \Cortex\Auth\Models\Ability::class)) {
+            if ($this->user()->can('grant', app('cortex.auth.ability'))) {
                 $abilities = array_map('intval', $this->get('abilities', []));
                 $data['abilities'] = $this->user()->isA('superadmin') ? $abilities
                     : $this->user()->getAbilities()->pluck('id')->intersect($abilities)->toArray();
@@ -59,7 +59,7 @@ class AdminFormRequest extends FormRequest
 
         // Set roles
         if (! empty($data['roles'])) {
-            if ($data['roles'] && $this->user()->can('assign', \Cortex\Auth\Models\Role::class)) {
+            if ($data['roles'] && $this->user()->can('assign', app('cortex.auth.role'))) {
                 $roles = array_map('intval', $this->get('roles', []));
                 $data['roles'] = $this->user()->isA('superadmin') ? $roles
                     : $this->user()->roles->pluck('id')->intersect($roles)->toArray();

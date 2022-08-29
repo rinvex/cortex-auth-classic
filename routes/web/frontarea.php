@@ -11,7 +11,6 @@ use Cortex\Auth\Http\Controllers\Frontarea\AccountSessionsController;
 use Cortex\Auth\Http\Controllers\Frontarea\AccountSettingsController;
 use Cortex\Auth\Http\Controllers\Frontarea\AccountTwoFactorController;
 use Cortex\Auth\Http\Controllers\Frontarea\ReauthenticationController;
-use Cortex\Auth\Http\Controllers\Frontarea\AccountAttributesController;
 use Cortex\Auth\Http\Controllers\Frontarea\EmailVerificationController;
 use Cortex\Auth\Http\Controllers\Frontarea\PhoneVerificationController;
 use Cortex\Auth\Http\Controllers\Frontarea\MemberRegistrationController;
@@ -105,10 +104,6 @@ Route::domain('{frontarea}')->group(function () {
                 // Account Password Routes
                 Route::get('password')->name('password')->uses([AccountPasswordController::class, 'edit']);
                 Route::post('password')->name('password.update')->uses([AccountPasswordController::class, 'update']);
-
-                // Account Attributes Routes
-                Route::get('attributes')->name('attributes')->uses([AccountAttributesController::class, 'edit']);
-                Route::post('attributes')->name('attributes.update')->uses([AccountAttributesController::class, 'update']);
 
                 // Account Sessions Routes
                 Route::get('sessions')->name('sessions')->uses([AccountSessionsController::class, 'index']);

@@ -7,6 +7,7 @@ namespace Cortex\Auth\Models;
 use Cortex\Auth\Events\MemberCreated;
 use Cortex\Auth\Events\MemberDeleted;
 use Cortex\Auth\Events\MemberUpdated;
+use Rinvex\Tenants\Traits\Tenantable;
 use Cortex\Auth\Events\MemberRestored;
 use Cortex\Auth\Notifications\PhoneVerificationNotification;
 use Cortex\Auth\Notifications\MemberPasswordResetNotification;
@@ -14,6 +15,8 @@ use Cortex\Auth\Notifications\MemberEmailVerificationNotification;
 
 class Member extends User
 {
+    use Tenantable;
+
     /**
      * The event map for the model.
      *
@@ -50,10 +53,10 @@ class Member extends User
     {
         $this->setTable(config('cortex.auth.tables.members'));
         $this->mergeRules([
-            'username' => 'required|alpha_dash|min:3|max:64|unique:'.config('cortex.auth.tables.members').',username',
+            'username' => 'required|alpha_dash|min:3|max:64|unique:'.config('cortex.auth.models.member').',username',
             'password' => 'sometimes|required|min:'.config('cortex.auth.password_min_chars').'|max:'.config('cortex.auth.password_max_chars'),
             'two_factor' => 'nullable|array',
-            'email' => 'required|email:rfc,dns|min:3|max:128|unique:'.config('cortex.auth.tables.members').',email',
+            'email' => 'required|email:rfc,dns|min:3|max:128|unique:'.config('cortex.auth.models.member').',email',
             'email_verified_at' => 'nullable|date',
             'phone' => 'nullable|phone:AUTO',
             'phone_verified_at' => 'nullable|date',

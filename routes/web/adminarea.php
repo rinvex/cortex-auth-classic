@@ -20,7 +20,6 @@ use Cortex\Auth\Http\Controllers\Adminarea\AccountSessionsController;
 use Cortex\Auth\Http\Controllers\Adminarea\AccountSettingsController;
 use Cortex\Auth\Http\Controllers\Adminarea\AccountTwoFactorController;
 use Cortex\Auth\Http\Controllers\Adminarea\ReauthenticationController;
-use Cortex\Auth\Http\Controllers\Adminarea\AccountAttributesController;
 use Cortex\Auth\Http\Controllers\Adminarea\EmailVerificationController;
 use Cortex\Auth\Http\Controllers\Adminarea\PhoneVerificationController;
 
@@ -100,10 +99,6 @@ Route::domain('{adminarea}')->group(function () {
                      Route::get('password')->name('password')->uses([AccountPasswordController::class, 'edit']);
                      Route::post('password')->name('password.update')->uses([AccountPasswordController::class, 'update']);
 
-                     // Account Attributes Routes
-                     Route::get('attributes')->name('attributes')->uses([AccountAttributesController::class, 'edit']);
-                     Route::post('attributes')->name('attributes.update')->uses([AccountAttributesController::class, 'update']);
-
                      // Account Sessions Routes
                      Route::get('sessions')->name('sessions')->uses([AccountSessionsController::class, 'index']);
                      Route::delete('sessions')->name('sessions.flush')->uses([AccountSessionsController::class, 'flush']);
@@ -166,8 +161,6 @@ Route::domain('{adminarea}')->group(function () {
                      Route::put('{admin}/edit')->name('update')->uses([AdminsController::class, 'update']);
                      Route::match(['get', 'post'], '{admin}/logs')->name('logs')->uses([AdminsController::class, 'logs']);
                      Route::match(['get', 'post'], '{admin}/activities')->name('activities')->uses([AdminsController::class, 'activities']);
-                     Route::get('{admin}/attributes')->name('attributes')->uses([AdminsController::class, 'attributes']);
-                     Route::put('{admin}/attributes')->name('attributes.update')->uses([AdminsController::class, 'updateAttributes']);
                      Route::delete('{admin}')->name('destroy')->uses([AdminsController::class, 'destroy']);
                      Route::delete('{admin}/media/{media}')->name('media.destroy')->uses([AdminsMediaController::class, 'destroy']);
                  });
@@ -183,8 +176,6 @@ Route::domain('{adminarea}')->group(function () {
                      Route::put('{manager}/edit')->name('update')->uses([ManagersController::class, 'update']);
                      Route::match(['get', 'post'], '{manager}/logs')->name('logs')->uses([ManagersController::class, 'logs']);
                      Route::match(['get', 'post'], '{manager}/activities')->name('activities')->uses([ManagersController::class, 'activities']);
-                     Route::get('{manager}/attributes')->name('attributes')->uses([ManagersController::class, 'attributes']);
-                     Route::put('{manager}/attributes')->name('attributes.update')->uses([ManagersController::class, 'updateAttributes']);
                      Route::delete('{manager}')->name('destroy')->uses([ManagersController::class, 'destroy']);
                      Route::delete('{manager}/media/{media}')->name('media.destroy')->uses([ManagersMediaController::class, 'destroy']);
                  });
@@ -201,8 +192,6 @@ Route::domain('{adminarea}')->group(function () {
                      Route::put('{member}/edit')->name('update')->uses([MembersController::class, 'update']);
                      Route::match(['get', 'post'], '{member}/logs')->name('logs')->uses([MembersController::class, 'logs']);
                      Route::match(['get', 'post'], '{member}/activities')->name('activities')->uses([MembersController::class, 'activities']);
-                     Route::get('{member}/attributes')->name('attributes')->uses([MembersController::class, 'attributes']);
-                     Route::put('{member}/attributes')->name('attributes.update')->uses([MembersController::class, 'updateAttributes']);
                      Route::delete('{member}')->name('destroy')->uses([MembersController::class, 'destroy']);
                      Route::delete('{member}/media/{media}')->name('media.destroy')->uses([MembersMediaController::class, 'destroy']);
                  });

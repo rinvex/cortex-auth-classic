@@ -14,7 +14,7 @@ class EmailVerificationSendRequest extends EmailVerificationRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email:rfc,dns|min:3|max:128|exists:'.config('cortex.auth.tables.members').',email',
+            'email' => 'required|email:rfc,dns|min:3|max:128|exists:'.config('cortex.auth.models.member').',email',
         ];
     }
 }

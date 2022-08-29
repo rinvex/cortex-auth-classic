@@ -14,7 +14,6 @@ use Cortex\Auth\DataTables\Adminarea\MembersDataTable;
 use Cortex\Foundation\Http\Requests\ImportFormRequest;
 use Cortex\Auth\Http\Requests\Adminarea\MemberFormRequest;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
-use Cortex\Auth\Http\Requests\Adminarea\MemberAttributesFormRequest;
 
 class MembersController extends AuthorizedController
 {
@@ -89,40 +88,6 @@ class MembersController extends AuthorizedController
             'tabs' => 'adminarea.cortex.auth.members.tabs',
             'id' => "adminarea-cortex-auth-members-{$member->getRouteKey()}-activities",
         ])->render('cortex/foundation::adminarea.pages.datatable-tab');
-    }
-
-    /**
-     * Show the form for create/update of the given resource attributes.
-     *
-     * @param \Illuminate\Http\Request   $request
-     * @param \Cortex\Auth\Models\Member $member
-     *
-     * @return \Illuminate\View\View
-     */
-    public function attributes(Request $request, Member $member)
-    {
-        return view('cortex/auth::adminarea.pages.member-attributes', compact('member'));
-    }
-
-    /**
-     * Process the account update form.
-     *
-     * @param \Cortex\Auth\Http\Requests\Adminarea\MemberAttributesFormRequest $request
-     * @param \Cortex\Auth\Models\Member                                       $member
-     *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
-     */
-    public function updateAttributes(MemberAttributesFormRequest $request, Member $member)
-    {
-        $data = $request->validated();
-
-        // Update profile
-        $member->fill($data)->save();
-
-        return intend([
-            'back' => true,
-            'with' => ['success' => trans('cortex/auth::messages.account.updated_attributes')],
-        ]);
     }
 
     /**

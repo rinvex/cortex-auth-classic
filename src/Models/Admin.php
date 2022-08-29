@@ -50,10 +50,10 @@ class Admin extends User
     {
         $this->setTable(config('cortex.auth.tables.admins'));
         $this->mergeRules([
-            'username' => 'required|alpha_dash|min:3|max:64|unique:'.config('cortex.auth.tables.admins').',username',
+            'username' => 'required|alpha_dash|min:3|max:64|unique:'.config('cortex.auth.models.admin').',username',
             'password' => 'sometimes|required|min:'.config('cortex.auth.password_min_chars').'|max:'.config('cortex.auth.password_max_chars'),
             'two_factor' => 'nullable|array',
-            'email' => 'required|email:rfc,dns|min:3|max:128|unique:'.config('cortex.auth.tables.admins').',email',
+            'email' => 'required|email:rfc,dns|min:3|max:128|unique:'.config('cortex.auth.models.admin').',email',
             'email_verified_at' => 'nullable|date',
             'phone' => 'nullable|phone:AUTO',
             'phone_verified_at' => 'nullable|date',

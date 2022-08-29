@@ -14,7 +14,6 @@ use Cortex\Foundation\DataTables\ActivitiesDataTable;
 use Cortex\Foundation\Http\Requests\ImportFormRequest;
 use Cortex\Auth\Http\Requests\Adminarea\AdminFormRequest;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
-use Cortex\Auth\Http\Requests\Adminarea\AdminAttributesFormRequest;
 
 class AdminsController extends AuthorizedController
 {
@@ -89,40 +88,6 @@ class AdminsController extends AuthorizedController
             'tabs' => 'adminarea.cortex.auth.admins.tabs',
             'id' => "adminarea-cortex-auth-admins-{$admin->getRouteKey()}-activities",
         ])->render('cortex/foundation::adminarea.pages.datatable-tab');
-    }
-
-    /**
-     * Show the form for create/update of the given resource attributes.
-     *
-     * @param \Illuminate\Http\Request  $request
-     * @param \Cortex\Auth\Models\Admin $admin
-     *
-     * @return \Illuminate\View\View
-     */
-    public function attributes(Request $request, Admin $admin)
-    {
-        return view('cortex/auth::adminarea.pages.admin-attributes', compact('admin'));
-    }
-
-    /**
-     * Process the account update form.
-     *
-     * @param \Cortex\Auth\Http\Requests\Adminarea\AdminAttributesFormRequest $request
-     * @param \Cortex\Auth\Models\Admin                                       $admin
-     *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
-     */
-    public function updateAttributes(AdminAttributesFormRequest $request, Admin $admin)
-    {
-        $data = $request->validated();
-
-        // Update profile
-        $admin->fill($data)->save();
-
-        return intend([
-            'back' => true,
-            'with' => ['success' => trans('cortex/auth::messages.account.updated_attributes')],
-        ]);
     }
 
     /**

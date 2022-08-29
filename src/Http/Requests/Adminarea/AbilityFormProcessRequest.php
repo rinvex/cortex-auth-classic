@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Requests\Adminarea;
 
-use Cortex\Auth\Models\Ability;
-
 class AbilityFormProcessRequest extends AbilityFormRequest
 {
     /**
@@ -19,7 +17,7 @@ class AbilityFormProcessRequest extends AbilityFormRequest
 
         // Set roles
         if (! empty($data['roles'])) {
-            if ($data['roles'] && $this->user()->can('grant', \Cortex\Auth\Models\Ability::class)) {
+            if ($data['roles'] && $this->user()->can('grant', app('cortex.auth.ability'))) {
                 $roles = array_map('intval', $this->get('roles', []));
                 $data['roles'] = $this->user()->isA('superadmin') ? $roles
                     : $this->user()->roles->pluck('id')->intersect($roles)->toArray();
@@ -38,7 +36,7 @@ class AbilityFormProcessRequest extends AbilityFormRequest
      */
     public function rules(): array
     {
-        $user = $this->route('ability') ?? new Ability();
+        $user = $this->route('ability') ?? app('cortex.auth.ability');
         $user->updateRulesUniques();
         $rules = $user->getRules();
         $rules['roles'] = 'nullable|array';
