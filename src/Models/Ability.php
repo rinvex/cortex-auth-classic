@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Cortex\Auth\Models;
 
 use Spatie\Activitylog\LogOptions;
-use Silber\Bouncer\Database\Models;
 use Cortex\Auth\Events\AbilityCreated;
 use Cortex\Auth\Events\AbilityDeleted;
 use Cortex\Auth\Events\AbilityUpdated;
