@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Controllers\Adminarea;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Cortex\Auth\Models\Ability;
 use Cortex\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Foundation\Importers\InsertImporter;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Cortex\Foundation\Http\Requests\ImportFormRequest;
 use Cortex\Auth\DataTables\Adminarea\AbilitiesDataTable;
 use Cortex\Auth\Http\Requests\Adminarea\AbilityFormRequest;
@@ -110,7 +112,9 @@ class AbilitiesController extends AuthorizedController
         }
 
         $roles = $request->user()->getManagedRoles();
-        $entityTypes = app('cortex.auth.ability')->distinct()->get(['entity_type'])->pluck('entity_type', 'entity_type')->toArray();
+        $entityTypes = collect(Relation::morphMap())->map(function ($value, $key) {
+            return Str::headline($key);
+        })->sort()->prepend('*', '*');
 
         return view('cortex/auth::adminarea.pages.ability', compact('ability', 'roles', 'entityTypes'));
     }

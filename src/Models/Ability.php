@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Cortex\Auth\Models;
 
 use Spatie\Activitylog\LogOptions;
-use Silber\Bouncer\Database\Models;
 use Cortex\Auth\Events\AbilityCreated;
 use Cortex\Auth\Events\AbilityDeleted;
 use Cortex\Auth\Events\AbilityUpdated;
@@ -105,7 +104,6 @@ class Ability extends BaseAbility
      */
     public function __construct(array $attributes = [])
     {
-        $this->table = Models::table('abilities');
         $this->mergeRules([
             'title' => 'nullable|string|strip_tags|max:150',
             'name' => 'required|string|strip_tags|max:150',

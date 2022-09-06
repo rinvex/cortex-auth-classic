@@ -32,14 +32,6 @@ return function () {
 
     // Map bouncer models
     BouncerFacade::ownedVia('created_by');
-    BouncerFacade::useRoleModel(config('cortex.auth.models.role'));
-    BouncerFacade::useAbilityModel(config('cortex.auth.models.ability'));
-
-    // Map bouncer tables (users, roles, abilities tables are set through their models)
-    BouncerFacade::tables([
-        'permissions' => config('cortex.auth.tables.permissions'),
-        'assigned_roles' => config('cortex.auth.tables.assigned_roles'),
-    ]);
 
     // Map relations
     Relation::morphMap([
