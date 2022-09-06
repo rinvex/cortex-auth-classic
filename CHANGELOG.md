@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v8.3.9] - 2022-09-06
+- Tweak entity types list 
+- Use configurable model names instead of custom ones
+
 ## [v8.3.8] - 2022-08-30
 - Replace hardcoded models with IoC container services
 - Update exists and unique validation rules to use models instead of tables
@@ -523,6 +527,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v8.3.9]: https://github.com/rinvex/cortex-auth/compare/v8.3.8...v8.3.9
 [v8.3.8]: https://github.com/rinvex/cortex-auth/compare/v8.3.7...v8.3.8
 [v8.3.7]: https://github.com/rinvex/cortex-auth/compare/v8.3.6...v8.3.7
 [v8.3.6]: https://github.com/rinvex/cortex-auth/compare/v8.3.5...v8.3.6
