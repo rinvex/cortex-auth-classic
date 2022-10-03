@@ -6,29 +6,10 @@ namespace Cortex\Auth\Http\Middleware;
 
 use Closure;
 use Illuminate\Auth\AuthenticationException;
-use Illuminate\Contracts\Auth\Factory as AuthFactory;
+use Illuminate\Session\Middleware\AuthenticateSession as BaseAuthenticateSession;
 
-class AuthenticateSession
+class AuthenticateSession extends BaseAuthenticateSession
 {
-    /**
-     * The authentication factory implementation.
-     *
-     * @var \Illuminate\Contracts\Auth\Factory
-     */
-    protected $auth;
-
-    /**
-     * Create a new middleware instance.
-     *
-     * @param \Illuminate\Contracts\Auth\Factory $auth
-     *
-     * @return void
-     */
-    public function __construct(AuthFactory $auth)
-    {
-        $this->auth = $auth;
-    }
-
     /**
      * Handle an incoming request.
      *
@@ -41,7 +22,7 @@ class AuthenticateSession
      */
     public function handle($request, Closure $next)
     {
-        $passwordHashKey = 'hash';
+        $passwordHashKey = 'password_hash';
 
         if (! $request->hasSession() || ! $request->user()) {
             return $next($request);
@@ -56,7 +37,7 @@ class AuthenticateSession
         }
 
         if (! $request->session()->has($passwordHashKey)) {
-            $this->storePasswordHashInSession($request, $passwordHashKey);
+            $this->storePasswordHashInSessionPerGuard($request, $passwordHashKey);
         }
 
         if ($request->session()->get($passwordHashKey) !== $request->user()->getAuthPassword()) {
@@ -65,7 +46,7 @@ class AuthenticateSession
 
         return tap($next($request), function () use ($request, $passwordHashKey) {
             if (! is_null($this->auth->user())) {
-                $this->storePasswordHashInSession($request, $passwordHashKey);
+                $this->storePasswordHashInSessionPerGuard($request, $passwordHashKey);
             }
         });
     }
@@ -78,7 +59,7 @@ class AuthenticateSession
      *
      * @return void
      */
-    protected function storePasswordHashInSession($request, $passwordHashKey)
+    protected function storePasswordHashInSessionPerGuard($request, $passwordHashKey)
     {
         if (! $request->user()) {
             return;
