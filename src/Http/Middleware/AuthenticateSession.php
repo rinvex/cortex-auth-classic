@@ -48,9 +48,9 @@ class AuthenticateSession
         }
 
         if ($this->auth->viaRemember()) {
-            $passwordHash = explode('|', $request->cookies->get($this->auth->getRecallerName()))[2];
+            $passwordHash = explode('|', $request->cookies->get($this->auth->getRecallerName()))[2] ?? null;
 
-            if ($passwordHash !== $request->user()->getAuthPassword()) {
+            if (! $passwordHash || $passwordHash !== $request->user()->getAuthPassword()) {
                 $this->logout($request);
             }
         }
@@ -64,7 +64,9 @@ class AuthenticateSession
         }
 
         return tap($next($request), function () use ($request, $passwordHashKey) {
-            $this->storePasswordHashInSession($request, $passwordHashKey);
+            if (! is_null($this->auth->user())) {
+                $this->storePasswordHashInSession($request, $passwordHashKey);
+            }
         });
     }
 
@@ -100,6 +102,6 @@ class AuthenticateSession
     {
         $this->auth->logoutCurrentGuard();
 
-        throw new AuthenticationException();
+        throw new AuthenticationException('Unauthenticated.', [$this->auth->getDefaultDriver()]);
     }
 }
