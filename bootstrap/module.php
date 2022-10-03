@@ -3,16 +3,20 @@
 declare(strict_types=1);
 
 use Silber\Bouncer\BouncerFacade;
+use Cortex\Foundation\Http\Kernel;
 use Cortex\Auth\Http\Middleware\Authorize;
+use Illuminate\Auth\Middleware\Authenticate;
 use Cortex\Auth\Http\Middleware\ScopeBouncer;
 use Cortex\Auth\Http\Middleware\Reauthenticate;
 use Cortex\Auth\Http\Middleware\UpdateTimezone;
 use Illuminate\Auth\Middleware\RequirePassword;
+use Cortex\Auth\Http\Middleware\SetAuthDefaults;
 use Cortex\Auth\Http\Middleware\UpdateLastActivity;
 use Cortex\Auth\Http\Middleware\AuthenticateSession;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 use Cortex\Auth\Http\Middleware\RedirectIfAuthenticated;
+use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
 
 return function () {
     // Bind route models and constrains
@@ -57,4 +61,14 @@ return function () {
         Route::aliasMiddleware('verified', EnsureEmailIsVerified::class);
         Route::aliasMiddleware('password.confirm', RequirePassword::class);
     }
+
+    // Register application's route middleware.
+    Route::aliasMiddleware('auth', Authenticate::class);
+    Route::aliasMiddleware('auth.basic', AuthenticateWithBasicAuth::class);
+
+    // Push middleware to route group. These middleware are executed in every request in the GIVEN ORDER.
+    Route::pushMiddlewareToGroup('web', SetAuthDefaults::class);
+
+    // Update the priority-sorted list of middleware. This forces non-global middleware to always be in the GIVEN ORDER.
+    $this->app[Kernel::class]->prependToMiddlewarePriority(SetAuthDefaults::class);
 };
