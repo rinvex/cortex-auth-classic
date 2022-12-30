@@ -48,6 +48,7 @@ class RolesDataTable extends AbstractDataTable
         return datatables($this->query())
             ->setTransformer(app($this->transformer))
             ->orderColumn('title', 'title->"$.'.app()->getLocale().'" $1')
+            ->whitelist(array_keys($this->getColumns()))
             ->make(true);
     }
 
