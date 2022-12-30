@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v8.3.11] - 2022-12-30
+- Whitelist datatable columns to avoid invalid columns sent from client-side which might be a security issue in some scenarios
+
 ## [v8.3.10] - 2022-10-03
 - Move auth middleware registration to cortex/auth from cortex/foundation
 - Extend the default laravel AuthenticateSession middleware and simply code
@@ -533,6 +536,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v8.3.11]: https://github.com/rinvex/cortex-auth/compare/v8.3.10...v8.3.11
 [v8.3.10]: https://github.com/rinvex/cortex-auth/compare/v8.3.9...v8.3.10
 [v8.3.9]: https://github.com/rinvex/cortex-auth/compare/v8.3.8...v8.3.9
 [v8.3.8]: https://github.com/rinvex/cortex-auth/compare/v8.3.7...v8.3.8
