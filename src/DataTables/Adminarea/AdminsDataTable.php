@@ -48,6 +48,7 @@ class AdminsDataTable extends AbstractDataTable
 
                 ! $languageCode || $builder->where('language_code', $languageCode);
             })
+            ->whitelist(array_keys($this->getColumns()))
             ->make(true);
     }
 
