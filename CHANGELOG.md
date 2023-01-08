@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v9.0.0] - 2023-01-09
+- Drop PHP v8.0 support and update composer dependencies
+- Utilize PHP 8.1 attributes feature for artisan commands
+- Remove useless attributes routes
+
 ## [v8.3.11] - 2022-12-30
 - Whitelist datatable columns to avoid invalid columns sent from client-side which might be a security issue in some scenarios
 
@@ -536,6 +541,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v9.0.0]: https://github.com/rinvex/cortex-auth/compare/v8.3.11...v9.0.0
 [v8.3.11]: https://github.com/rinvex/cortex-auth/compare/v8.3.10...v8.3.11
 [v8.3.10]: https://github.com/rinvex/cortex-auth/compare/v8.3.9...v8.3.10
 [v8.3.9]: https://github.com/rinvex/cortex-auth/compare/v8.3.8...v8.3.9
