@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Cortex\Auth\Console\Commands;
 
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Attribute\AsCommand;
 
+#[AsCommand(name: 'cortex:rollback:auth')]
 class RollbackCommand extends Command
 {
     /**
