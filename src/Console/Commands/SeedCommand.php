@@ -10,7 +10,9 @@ use Cortex\Auth\Models\Admin;
 use Illuminate\Console\Command;
 use Cortex\Auth\Models\Guardian;
 use Cortex\Auth\Database\Seeders\CortexAuthSeeder;
+use Symfony\Component\Console\Attribute\AsCommand;
 
+#[AsCommand(name: 'cortex:seed:auth')]
 class SeedCommand extends Command
 {
     /**

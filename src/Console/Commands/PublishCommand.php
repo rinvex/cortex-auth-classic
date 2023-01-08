@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Console\Commands;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Rinvex\Auth\Console\Commands\PublishCommand as BasePublishCommand;
 
+#[AsCommand(name: 'cortex:publish:auth')]
 class PublishCommand extends BasePublishCommand
 {
     /**
