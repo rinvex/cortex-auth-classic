@@ -54,6 +54,12 @@ return [
     'language' => 'Language',
     'timezone' => 'Timezone',
     'select_timezone' => 'Select Timezone',
+    'address' => 'Address',
+    'currency' => 'Currency',
+    'currencies' => [
+        'EGP' => 'EGP',
+        'USD' => 'USD',
+    ],
     'title' => 'Title',
     'organization' => 'Organization',
     'password' => 'Password',
