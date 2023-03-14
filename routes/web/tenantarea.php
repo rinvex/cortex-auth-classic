@@ -20,7 +20,6 @@ Route::domain('{tenantarea}')->group(function () {
     Route::name('tenantarea.')
         ->middleware(['web', 'nohttpcache'])
         ->prefix(route_prefix('tenantarea'))->group(function () {
-
             // Authenticate broadcasting to channels
             Route::match(['get', 'post'], 'broadcasting/auth')->name('broadcast')->uses([AuthenticationController::class, 'broadcast']);
 
@@ -106,7 +105,6 @@ Route::domain('{tenantarea}')->group(function () {
                 // Account TwoFactor Routes
                 Route::get('twofactor')->name('twofactor')->uses([AccountTwoFactorController::class, 'index']);
                 Route::name('twofactor.')->prefix('twofactor')->group(function () {
-
                     // Account TwoFactor TOTP Routes
                     Route::name('totp.')->prefix('totp')->group(function () {
                         Route::get('enable')->name('enable')->uses([AccountTwoFactorController::class, 'enableTotp']);
