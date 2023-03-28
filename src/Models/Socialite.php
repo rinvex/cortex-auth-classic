@@ -29,6 +29,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Socialite whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Socialite whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Socialite whereUserType($value)
+ *
  * @mixin \Eloquent
  */
 class Socialite extends Model
