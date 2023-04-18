@@ -23,8 +23,7 @@ Route::domain('{managerarea}')->group(function () {
     Route::name('managerarea.')
          ->middleware(['web', 'nohttpcache'])
          ->prefix(route_prefix('managerarea'))->group(function () {
-
-            // Authenticate broadcasting to channels
+             // Authenticate broadcasting to channels
              Route::match(['get', 'post'], 'broadcasting/auth')->name('broadcast')->uses([AuthenticationController::class, 'broadcast']);
 
              Route::name('cortex.auth.account.')->group(function () {
@@ -78,7 +77,6 @@ Route::domain('{managerarea}')->group(function () {
              });
 
              Route::middleware(['can:access-managerarea'])->group(function () {
-
                  // Account Settings Route Alias
                  Route::get('account')->name('cortex.auth.account')->uses([AccountSettingsController::class, 'index']);
 
@@ -103,7 +101,6 @@ Route::domain('{managerarea}')->group(function () {
                      // Account TwoFactor Routes
                      Route::get('twofactor')->name('twofactor')->uses([AccountTwoFactorController::class, 'index']);
                      Route::name('twofactor.')->prefix('twofactor')->group(function () {
-
                          // Account TwoFactor TOTP Routes
                          Route::name('totp.')->prefix('totp')->group(function () {
                              Route::get('enable')->name('enable')->uses([AccountTwoFactorController::class, 'enableTotp']);
