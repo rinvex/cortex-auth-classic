@@ -73,7 +73,7 @@
         "rinvex/laravel-tenants": "^8.0.0",
         "rinvex/tmp-josephsilber-bouncer": "^1.0.0",
         "spatie/laravel-activitylog": "^4.7.0",
-        "spatie/laravel-schemaless-attributes": "^2.3.0",
+        "spatie/laravel-schemaless-attributes": "^2.4.0",
         "yajra/laravel-datatables-buttons": "^9.0.0",
         "yajra/laravel-datatables-fractal": "^10.0.0",
         "yajra/laravel-datatables-html": "^9.0.0",
