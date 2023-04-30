@@ -75,7 +75,7 @@
         "spatie/laravel-activitylog": "^4.4.0",
         "spatie/laravel-schemaless-attributes": "^2.3.0",
         "yajra/laravel-datatables-buttons": "^9.0.0",
-        "yajra/laravel-datatables-fractal": "^9.0.0",
+        "yajra/laravel-datatables-fractal": "^10.0.0",
         "yajra/laravel-datatables-html": "^9.0.0",
         "yajra/laravel-datatables-oracle": "^10.0.0"
     },
