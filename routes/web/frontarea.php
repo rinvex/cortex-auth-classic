@@ -21,7 +21,6 @@ Route::domain('{frontarea}')->group(function () {
     Route::name('frontarea.')
         ->middleware(['web', 'nohttpcache'])
         ->prefix(route_prefix('frontarea'))->group(function () {
-
             // Authenticate broadcasting to channels
             Route::match(['get', 'post'], 'broadcasting/auth')->name('broadcast')->uses([AuthenticationController::class, 'broadcast']);
 
@@ -113,7 +112,6 @@ Route::domain('{frontarea}')->group(function () {
                 // Account TwoFactor Routes
                 Route::get('twofactor')->name('twofactor')->uses([AccountTwoFactorController::class, 'index']);
                 Route::name('twofactor.')->prefix('twofactor')->group(function () {
-
                     // Account TwoFactor TOTP Routes
                     Route::name('totp.')->prefix('totp')->group(function () {
                         Route::get('enable')->name('enable')->uses([AccountTwoFactorController::class, 'enableTotp']);
