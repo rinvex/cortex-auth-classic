@@ -104,11 +104,11 @@
                                 <div id="collapseTwo" class="panel-collapse collapse">
                                     <div class="wizard-step-body">
 
-                                        <div class="form-group has-feedback{{ $errors->has('tenant.title') ? ' has-error' : '' }}">
-                                            {{ Form::text('tenant[title]', old('tenant.title'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.title'), 'data-slugify' => '[name="tenant\[name\]"]', 'required' => 'required']) }}
+                                        <div class="form-group has-feedback{{ $errors->has('tenant.name') ? ' has-error' : '' }}">
+                                            {{ Form::text('tenant[name]', old('tenant.name'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.name'), 'data-slugify' => '[name="tenant\[slug\]"]', 'required' => 'required']) }}
 
-                                            @if ($errors->has('tenant.title'))
-                                                <span class="help-block">{{ $errors->first('tenant.title') }}</span>
+                                            @if ($errors->has('tenant.name'))
+                                                <span class="help-block">{{ $errors->first('tenant.name') }}</span>
                                             @endif
                                         </div>
 
