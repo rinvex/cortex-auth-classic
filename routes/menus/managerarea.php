@@ -6,6 +6,12 @@ use Rinvex\Menus\Models\MenuItem;
 use Rinvex\Menus\Models\MenuGenerator;
 
 if ($user = request()->user()) {
+    Menu::register('managerarea.sidebar', function (MenuGenerator $menu) {
+        $menu->findByTitleOrAdd(trans('cortex/auth::common.managers'), 40, 'fa fa-file-text-o', 'header', [], [], function (MenuItem $dropdown) {
+            $dropdown->route(['managerarea.cortex.auth.managers.index'], trans('cortex/auth::common.managers'), 20, 'fa fa-files-o')->ifCan('list', app('cortex.auth.manager'))->activateOnRoute('managerarea.cortex.auth.managers');
+        });
+    });
+    
     Menu::register('managerarea.header.user', function (MenuGenerator $menu) use ($user) {
         $menu->dropdown(function (MenuItem $dropdown) {
             $dropdown->route(['managerarea.cortex.auth.account'], trans('cortex/auth::common.account'), null, 'fa fa-cogs');
