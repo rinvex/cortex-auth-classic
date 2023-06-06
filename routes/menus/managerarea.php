@@ -5,6 +5,13 @@ declare(strict_types=1);
 use Rinvex\Menus\Models\MenuItem;
 use Rinvex\Menus\Models\MenuGenerator;
 
+Menu::register('managerarea.sidebar', function (MenuGenerator $menu) {
+    $menu->findByTitleOrAdd(trans('cortex/foundation::common.user'), null, 'fa fa-users', 'header', [], [], function (MenuItem $dropdown) {
+        $dropdown->route(['managerarea.cortex.auth.managers.index'], trans('cortex/auth::common.managers'), null, 'fa fa-user')->ifCan('list', app('cortex.auth.manager'))->activateOnRoute('managerarea.cortex.auth.managers');
+        $dropdown->route(['managerarea.cortex.auth.members.index'], trans('cortex/auth::common.members'), null, 'fa fa-user')->ifCan('list', app('cortex.auth.member'))->activateOnRoute('managerarea.cortex.auth.members');
+    });
+});
+
 if ($user = request()->user()) {
     Menu::register('managerarea.header.user', function (MenuGenerator $menu) use ($user) {
         $menu->dropdown(function (MenuItem $dropdown) {
