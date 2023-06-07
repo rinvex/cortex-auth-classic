@@ -36,7 +36,7 @@ class ScopeBouncer
      */
     public function handle($request, Closure $next)
     {
-        if ($tenant = app('request.tenant')) {
+        if (app()->has('request.tenant') && $tenant = app('request.tenant')) {
             $this->bouncer->scope()->to($tenant->getKey());
         }
 
