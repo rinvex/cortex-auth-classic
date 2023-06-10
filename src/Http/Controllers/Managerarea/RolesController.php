@@ -35,7 +35,7 @@ class RolesController extends AuthorizedController
             'id' => 'managerarea-cortex-auth-roles-index',
             'routePrefix' => 'managerarea.cortex.auth.roles',
             'pusher' => ['entity' => 'role', 'channel' => 'cortex.auth.roles.index'],
-        ])->render('cortex/foundation::managerarea.pages.datatable-index');
+        ])->render('cortex/tenants::managerarea.pages.datatable-index');
     }
 
     /**
@@ -52,7 +52,7 @@ class RolesController extends AuthorizedController
             'resource' => $role,
             'tabs' => 'managerarea.cortex.auth.roles.tabs',
             'id' => "managerarea-cortex-auth-roles-{$role->getRouteKey()}-logs",
-        ])->render('cortex/foundation::managerarea.pages.datatable-tab');
+        ])->render('cortex/tenants::managerarea.pages.datatable-tab');
     }
 
     /**

@@ -1,5 +1,5 @@
 {{-- Master Layout --}}
-@extends('cortex/foundation::managerarea.layouts.default')
+@extends('cortex/tenants::managerarea.layouts.default')
 
 {{-- Page Title --}}
 @section('title')
@@ -13,7 +13,7 @@
 {{-- Main Content --}}
 @section('content')
 
-    @includeWhen($role->exists, 'cortex/foundation::managerarea.partials.modal', ['id' => 'delete-confirmation'])
+    @includeWhen($role->exists, 'cortex/tenants::managerarea.partials.modal', ['id' => 'delete-confirmation'])
 
     <div class="content-wrapper">
         <section class="content-header">
@@ -24,7 +24,7 @@
         <section class="content">
 
             <div class="nav-tabs-custom">
-                @includeWhen($role->exists, 'cortex/foundation::managerarea.partials.actions', ['name' => 'role', 'model' => $role, 'resource' => trans('cortex/auth::common.role'), 'routePrefix' => 'managerarea.cortex.auth.roles'])
+                @includeWhen($role->exists, 'cortex/tenants::managerarea.partials.actions', ['name' => 'role', 'model' => $role, 'resource' => trans('cortex/auth::common.role'), 'routePrefix' => 'managerarea.cortex.auth.roles'])
                 {!! Menu::render('managerarea.cortex.auth.roles.tabs', 'nav-tab') !!}
 
                 <div class="tab-content">
@@ -98,7 +98,7 @@
                                         {{ Form::button(trans('cortex/auth::common.submit'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}
                                     </div>
 
-                                    @include('cortex/foundation::managerarea.partials.timestamps', ['model' => $role])
+                                    @include('cortex/tenants::managerarea.partials.timestamps', ['model' => $role])
 
                                 </div>
                             </div>

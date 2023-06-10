@@ -68,7 +68,7 @@ class MembersController extends AuthorizedController
             'resource' => $member,
             'tabs' => 'managerarea.cortex.auth.members.tabs',
             'id' => "managerarea-cortex-auth-members-{$member->getRouteKey()}-logs",
-        ])->render('cortex/foundation::managerarea.pages.datatable-tab');
+        ])->render('cortex/tenants::managerarea.pages.datatable-tab');
     }
 
     /**
@@ -85,7 +85,7 @@ class MembersController extends AuthorizedController
             'resource' => $member,
             'tabs' => 'managerarea.cortex.auth.members.tabs',
             'id' => "managerarea-cortex-auth-members-{$member->getRouteKey()}-activities",
-        ])->render('cortex/foundation::managerarea.pages.datatable-tab');
+        ])->render('cortex/tenants::managerarea.pages.datatable-tab');
     }
 
     /**

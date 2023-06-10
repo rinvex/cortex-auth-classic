@@ -1,5 +1,5 @@
 {{-- Master Layout --}}
-@extends('cortex/foundation::tenantarea.layouts.default')
+@extends('cortex/tenants::tenantarea.layouts.default')
 
 {{-- Page Title --}}
 @section('title')

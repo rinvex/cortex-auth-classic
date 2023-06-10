@@ -1,5 +1,5 @@
 {{-- Master Layout --}}
-@extends('cortex/foundation::tenantarea.layouts.default')
+@extends('cortex/tenants::tenantarea.layouts.default')
 
 {{-- Page Title --}}
 @section('title')
@@ -17,7 +17,7 @@
             <div class="col-md-9">
                 <div class="profile-content">
 
-                    @include('cortex/foundation::tenantarea.partials.modal', ['id' => 'delete-confirmation'])
+                    @include('cortex/tenants::tenantarea.partials.modal', ['id' => 'delete-confirmation'])
 
                     <div class="row">
 

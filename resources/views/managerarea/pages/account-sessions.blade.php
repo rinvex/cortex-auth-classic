@@ -1,5 +1,5 @@
 {{-- Master Layout --}}
-@extends('cortex/foundation::managerarea.layouts.default')
+@extends('cortex/tenants::managerarea.layouts.default')
 
 {{-- Page Title --}}
 @section('title')
@@ -20,7 +20,7 @@
                 <div class="col-md-9">
                     <div class="profile-content">
 
-                        @include('cortex/foundation::managerarea.partials.modal', ['id' => 'delete-confirmation'])
+                        @include('cortex/tenants::managerarea.partials.modal', ['id' => 'delete-confirmation'])
 
                         <div class="row">
 

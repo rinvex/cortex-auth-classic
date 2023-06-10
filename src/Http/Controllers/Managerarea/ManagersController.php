@@ -68,7 +68,7 @@ class ManagersController extends AuthorizedController
             'resource' => $manager,
             'tabs' => 'managerarea.cortex.auth.managers.tabs',
             'id' => "managerarea-cortex-auth-managers-{$manager->getRouteKey()}-logs",
-        ])->render('cortex/foundation::managerarea.pages.datatable-tab');
+        ])->render('cortex/tenants::managerarea.pages.datatable-tab');
     }
 
     /**
@@ -85,7 +85,7 @@ class ManagersController extends AuthorizedController
             'resource' => $manager,
             'tabs' => 'managerarea.cortex.auth.managers.tabs',
             'id' => "managerarea-cortex-auth-managers-{$manager->getRouteKey()}-activities",
-        ])->render('cortex/foundation::managerarea.pages.datatable-tab');
+        ])->render('cortex/tenants::managerarea.pages.datatable-tab');
     }
 
     /**

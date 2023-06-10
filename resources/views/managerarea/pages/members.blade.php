@@ -1,5 +1,5 @@
 {{-- Master Layout --}}
-@extends('cortex/foundation::managerarea.pages.datatable-index')
+@extends('cortex/tenants::managerarea.pages.datatable-index')
 
 {{-- Datatable Filters --}}
 @section('datatable-filters')
