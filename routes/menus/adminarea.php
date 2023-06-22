@@ -6,7 +6,6 @@ use Cortex\Auth\Models\Role;
 use Cortex\Auth\Models\Admin;
 use Cortex\Auth\Models\Member;
 use Cortex\Auth\Models\Ability;
-use Cortex\Auth\Models\Manager;
 use Cortex\Auth\Models\Guardian;
 use Rinvex\Menus\Models\MenuItem;
 use Rinvex\Menus\Models\MenuGenerator;
@@ -64,15 +63,6 @@ Menu::register('adminarea.cortex.auth.admins.tabs', function (MenuGenerator $men
     $menu->route(['adminarea.cortex.auth.admins.edit', ['admin' => $admin]], trans('cortex/auth::common.details'))->ifCan('update', $admin)->if($admin->exists);
     $menu->route(['adminarea.cortex.auth.admins.logs', ['admin' => $admin]], trans('cortex/auth::common.logs'))->ifCan('audit', $admin)->if($admin->exists);
     $menu->route(['adminarea.cortex.auth.admins.activities', ['admin' => $admin]], trans('cortex/auth::common.activities'))->ifCan('audit', $admin)->if($admin->exists);
-});
-
-Menu::register('adminarea.cortex.auth.managers.tabs', function (MenuGenerator $menu, Manager $manager) {
-    $menu->route(['adminarea.cortex.auth.managers.import'], trans('cortex/auth::common.records'))->ifCan('import', $manager)->if(Route::is('adminarea.cortex.auth.managers.import*'));
-    $menu->route(['adminarea.cortex.auth.managers.import.logs'], trans('cortex/auth::common.logs'))->ifCan('audit', $manager)->if(Route::is('adminarea.cortex.auth.managers.import*'));
-    $menu->route(['adminarea.cortex.auth.managers.create'], trans('cortex/auth::common.details'))->ifCan('create', $manager)->if(Route::is('adminarea.cortex.auth.managers.create'));
-    $menu->route(['adminarea.cortex.auth.managers.edit', ['manager' => $manager]], trans('cortex/auth::common.details'))->ifCan('update', $manager)->if($manager->exists);
-    $menu->route(['adminarea.cortex.auth.managers.logs', ['manager' => $manager]], trans('cortex/auth::common.logs'))->ifCan('audit', $manager)->if($manager->exists);
-    $menu->route(['adminarea.cortex.auth.managers.activities', ['manager' => $manager]], trans('cortex/auth::common.activities'))->ifCan('audit', $manager)->if($manager->exists);
 });
 
 Menu::register('adminarea.cortex.auth.members.tabs', function (MenuGenerator $menu, Member $member) {

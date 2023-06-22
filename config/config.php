@@ -33,6 +33,8 @@ return [
     | you may use whatever you like. The model you want to use
     | must extend one of the default base models.
     |
+    | @TODO: move both `manager` related features to to cortex/auth-tenantable module for separation of concern.
+    |
     */
 
     'models' => [
@@ -58,6 +60,8 @@ return [
     |
     | Notes: - Sessions table is defined in the default Laravel configuration file:
     |          config/session.php (Check 'table' key)
+    |
+    | @TODO: move both `manager` related features to to cortex/auth-tenantable module for separation of concern.
     |
     */
 

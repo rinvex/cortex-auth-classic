@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Cortex\Auth\Models\Admin;
 use Cortex\Auth\Models\Member;
 use Cortex\Auth\Models\Ability;
-use Cortex\Auth\Models\Manager;
 use Cortex\Auth\Models\Session;
 use Cortex\Auth\Models\Guardian;
 use Cortex\Auth\Models\Socialite;
@@ -42,7 +41,6 @@ class AuthServiceProvider extends ServiceProvider
             'cortex.auth.socialite' => Socialite::class,
             'cortex.auth.admin' => Admin::class,
             'cortex.auth.member' => Member::class,
-            'cortex.auth.manager' => Manager::class,
             'cortex.auth.guardian' => Guardian::class,
             'cortex.auth.role' => Role::class,
             'cortex.auth.ability' => Ability::class,

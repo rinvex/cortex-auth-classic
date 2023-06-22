@@ -14,7 +14,6 @@ use Cortex\Auth\Http\Controllers\Frontarea\ReauthenticationController;
 use Cortex\Auth\Http\Controllers\Frontarea\EmailVerificationController;
 use Cortex\Auth\Http\Controllers\Frontarea\PhoneVerificationController;
 use Cortex\Auth\Http\Controllers\Frontarea\MemberRegistrationController;
-use Cortex\Auth\Http\Controllers\Frontarea\TenantRegistrationController;
 use Cortex\Auth\Http\Controllers\Frontarea\SocialAuthenticationController;
 
 Route::domain('{frontarea}')->group(function () {
@@ -44,11 +43,6 @@ Route::domain('{frontarea}')->group(function () {
                 Route::get('register')->name('register')->uses([RedirectionController::class, 'registration']);
                 Route::get('register/member')->name('register.member')->uses([MemberRegistrationController::class, 'form']);
                 Route::post('register/member')->name('register.member.process')->uses([MemberRegistrationController::class, 'register']);
-
-                // We can't register these two routes inside the managerarea, since the managerarea
-                // is accessible only through the tenant domain/subdomain, and we did not create the tenant yet!
-                Route::get('register/tenant')->name('register.tenant')->uses([TenantRegistrationController::class, 'form']);
-                Route::post('register/tenant')->name('register.tenant.process')->uses([TenantRegistrationController::class, 'register']);
 
                 // Reauthentication Routes
                 Route::name('reauthentication.')->prefix('reauthentication')->group(function () {

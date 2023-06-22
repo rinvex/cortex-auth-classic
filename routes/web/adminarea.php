@@ -5,14 +5,12 @@ declare(strict_types=1);
 use Cortex\Auth\Http\Controllers\Adminarea\RolesController;
 use Cortex\Auth\Http\Controllers\Adminarea\AdminsController;
 use Cortex\Auth\Http\Controllers\Adminarea\MembersController;
-use Cortex\Auth\Http\Controllers\Adminarea\ManagersController;
 use Cortex\Auth\Http\Controllers\Adminarea\AbilitiesController;
 use Cortex\Auth\Http\Controllers\Adminarea\GuardiansController;
 use Cortex\Auth\Http\Controllers\Adminarea\AdminsMediaController;
 use Cortex\Auth\Http\Controllers\Adminarea\RedirectionController;
 use Cortex\Auth\Http\Controllers\Adminarea\AccountMediaController;
 use Cortex\Auth\Http\Controllers\Adminarea\MembersMediaController;
-use Cortex\Auth\Http\Controllers\Adminarea\ManagersMediaController;
 use Cortex\Auth\Http\Controllers\Adminarea\PasswordResetController;
 use Cortex\Auth\Http\Controllers\Adminarea\AuthenticationController;
 use Cortex\Auth\Http\Controllers\Adminarea\AccountPasswordController;
@@ -160,21 +158,6 @@ Route::domain('{adminarea}')->group(function () {
                      Route::match(['get', 'post'], '{admin}/activities')->name('activities')->uses([AdminsController::class, 'activities']);
                      Route::delete('{admin}')->name('destroy')->uses([AdminsController::class, 'destroy']);
                      Route::delete('{admin}/media/{media}')->name('media.destroy')->uses([AdminsMediaController::class, 'destroy']);
-                 });
-
-                 // Managers Routes
-                 Route::name('cortex.auth.managers.')->prefix('managers')->group(function () {
-                     Route::match(['get', 'post'], '/')->name('index')->uses([ManagersController::class, 'index']);
-                     Route::post('import')->name('import')->uses([ManagersController::class, 'import']);
-                     Route::get('create')->name('create')->uses([ManagersController::class, 'create']);
-                     Route::post('create')->name('store')->uses([ManagersController::class, 'store']);
-                     Route::get('{manager}')->name('show')->uses([ManagersController::class, 'show']);
-                     Route::get('{manager}/edit')->name('edit')->uses([ManagersController::class, 'edit']);
-                     Route::put('{manager}/edit')->name('update')->uses([ManagersController::class, 'update']);
-                     Route::match(['get', 'post'], '{manager}/logs')->name('logs')->uses([ManagersController::class, 'logs']);
-                     Route::match(['get', 'post'], '{manager}/activities')->name('activities')->uses([ManagersController::class, 'activities']);
-                     Route::delete('{manager}')->name('destroy')->uses([ManagersController::class, 'destroy']);
-                     Route::delete('{manager}/media/{media}')->name('media.destroy')->uses([ManagersMediaController::class, 'destroy']);
                  });
 
                  // Members Routes

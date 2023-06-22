@@ -35,6 +35,9 @@ class LockoutThrottledLogin implements ShouldQueue
      * @TODO #2: Refactor the switch case to be dynamic, to handle any number of accessareas, which means we need to
      *           add the model name to the accessarea model details!
      *
+     * @TODO: move both `managerarea` & `tenantarea` to cortex/auth-tenantable module for separation of concern.
+     *        Maybe fire an event from inside an event?!
+     *
      * Listen to the authentication lockout event.
      *
      * @param \Illuminate\Auth\Events\Lockout $event

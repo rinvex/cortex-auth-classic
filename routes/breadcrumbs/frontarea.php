@@ -10,11 +10,6 @@ Breadcrumbs::for('frontarea.cortex.auth.account.register.member', function (Gene
     $breadcrumbs->push(trans('cortex/auth::common.register'), route('frontarea.cortex.auth.account.register.member'));
 });
 
-Breadcrumbs::for('frontarea.cortex.auth.account.register.tenant', function (Generator $breadcrumbs) {
-    $breadcrumbs->parent('frontarea.home');
-    $breadcrumbs->push(trans('cortex/auth::common.register'), route('frontarea.cortex.auth.account.register.tenant'));
-});
-
 Breadcrumbs::for('frontarea.cortex.auth.account.login', function (Generator $breadcrumbs) {
     $breadcrumbs->parent('frontarea.home');
     $breadcrumbs->push(trans('cortex/auth::common.login'), route('frontarea.cortex.auth.account.login'));

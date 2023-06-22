@@ -39,7 +39,6 @@ return [
     'entity_id' => 'Entity Id',
     'entity_type' => 'Entity Type',
     'only_owned' => 'Only Owned',
-    'tenant_details' => 'Tenant Details',
 
     // Fields
     'name' => 'Name',
@@ -79,7 +78,6 @@ return [
     'updated_at' => 'Updated At',
     'cover_photo' => 'Cover Photo',
     'profile_picture' => 'Profile Picture',
-    'tenants' => 'Tenants',
     'tags' => 'Tags',
 
     // Headings
@@ -152,11 +150,6 @@ return [
     'member' => 'Member',
     'members' => 'Members',
     'create_member' => 'Create New Member',
-
-    // Managers Phrases
-    'manager' => 'Manager',
-    'managers' => 'Managers',
-    'create_manager' => 'Create New Manager',
 
     // Guardians Phrases
     'guardian' => 'Guardian',

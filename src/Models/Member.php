@@ -7,7 +7,6 @@ namespace Cortex\Auth\Models;
 use Cortex\Auth\Events\MemberCreated;
 use Cortex\Auth\Events\MemberDeleted;
 use Cortex\Auth\Events\MemberUpdated;
-use Rinvex\Tenants\Traits\Tenantable;
 use Cortex\Auth\Events\MemberRestored;
 use Cortex\Auth\Notifications\PhoneVerificationNotification;
 use Cortex\Auth\Notifications\MemberPasswordResetNotification;
@@ -15,8 +14,6 @@ use Cortex\Auth\Notifications\MemberEmailVerificationNotification;
 
 class Member extends User
 {
-    use Tenantable;
-
     /**
      * The event map for the model.
      *

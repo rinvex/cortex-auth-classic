@@ -16,10 +16,6 @@ Broadcast::channel('cortex.auth.admins.index', function (Authorizable $user) {
     return $user->can('list', app('cortex.auth.admin'));
 });
 
-Broadcast::channel('cortex.auth.managers.index', function (Authorizable $user) {
-    return $user->can('list', app('cortex.auth.manager'));
-});
-
 Broadcast::channel('cortex.auth.members.index', function (Authorizable $user) {
     return $user->can('list', app('cortex.auth.member'));
 });
