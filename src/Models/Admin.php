@@ -64,7 +64,7 @@ class Admin extends User
             'country_code' => 'nullable|alpha|size:2|country',
             'language_code' => 'nullable|alpha|size:2|language',
             'timezone' => 'nullable|string|max:64|timezone',
-            'birthday' => 'nullable|date_format:Y-m-d',
+            'birthday' => 'nullable|date_format:Y-m-d|before:today',
             'gender' => 'nullable|in:male,female',
             'social' => 'nullable',
             'is_active' => 'sometimes|boolean',
