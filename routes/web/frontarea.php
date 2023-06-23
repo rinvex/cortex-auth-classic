@@ -14,14 +14,12 @@ use Cortex\Auth\Http\Controllers\Frontarea\ReauthenticationController;
 use Cortex\Auth\Http\Controllers\Frontarea\EmailVerificationController;
 use Cortex\Auth\Http\Controllers\Frontarea\PhoneVerificationController;
 use Cortex\Auth\Http\Controllers\Frontarea\MemberRegistrationController;
-use Cortex\Auth\Http\Controllers\Frontarea\TenantRegistrationController;
 use Cortex\Auth\Http\Controllers\Frontarea\SocialAuthenticationController;
 
 Route::domain('{frontarea}')->group(function () {
     Route::name('frontarea.')
         ->middleware(['web', 'nohttpcache'])
         ->prefix(route_prefix('frontarea'))->group(function () {
-
             // Authenticate broadcasting to channels
             Route::match(['get', 'post'], 'broadcasting/auth')->name('broadcast')->uses([AuthenticationController::class, 'broadcast']);
 
@@ -45,11 +43,6 @@ Route::domain('{frontarea}')->group(function () {
                 Route::get('register')->name('register')->uses([RedirectionController::class, 'registration']);
                 Route::get('register/member')->name('register.member')->uses([MemberRegistrationController::class, 'form']);
                 Route::post('register/member')->name('register.member.process')->uses([MemberRegistrationController::class, 'register']);
-
-                // We can't register these two routes inside the managerarea, since the managerarea
-                // is accessible only through the tenant domain/subdomain, and we did not create the tenant yet!
-                Route::get('register/tenant')->name('register.tenant')->uses([TenantRegistrationController::class, 'form']);
-                Route::post('register/tenant')->name('register.tenant.process')->uses([TenantRegistrationController::class, 'register']);
 
                 // Reauthentication Routes
                 Route::name('reauthentication.')->prefix('reauthentication')->group(function () {
@@ -113,7 +106,6 @@ Route::domain('{frontarea}')->group(function () {
                 // Account TwoFactor Routes
                 Route::get('twofactor')->name('twofactor')->uses([AccountTwoFactorController::class, 'index']);
                 Route::name('twofactor.')->prefix('twofactor')->group(function () {
-
                     // Account TwoFactor TOTP Routes
                     Route::name('totp.')->prefix('totp')->group(function () {
                         Route::get('enable')->name('enable')->uses([AccountTwoFactorController::class, 'enableTotp']);

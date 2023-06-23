@@ -53,14 +53,6 @@ class CortexAuthSeeder extends Seeder
             ['name' => 'delete', 'title' => 'Delete members', 'entity_type' => 'member'],
             ['name' => 'audit', 'title' => 'Audit members', 'entity_type' => 'member'],
 
-            ['name' => 'list', 'title' => 'List managers', 'entity_type' => 'manager'],
-            ['name' => 'import', 'title' => 'Import managers', 'entity_type' => 'manager'],
-            ['name' => 'export', 'title' => 'Export managers', 'entity_type' => 'manager'],
-            ['name' => 'create', 'title' => 'Create managers', 'entity_type' => 'manager'],
-            ['name' => 'update', 'title' => 'Update managers', 'entity_type' => 'manager'],
-            ['name' => 'delete', 'title' => 'Delete managers', 'entity_type' => 'manager'],
-            ['name' => 'audit', 'title' => 'Audit managers', 'entity_type' => 'manager'],
-
             ['name' => 'list', 'title' => 'List guardians', 'entity_type' => 'guardian'],
             ['name' => 'import', 'title' => 'Import guardians', 'entity_type' => 'guardian'],
             ['name' => 'export', 'title' => 'Export guardians', 'entity_type' => 'guardian'],

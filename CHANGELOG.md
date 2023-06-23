@@ -5,19 +5,31 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v9.2.0] - 2023-06-23
+- Update auth adminarea menu order
+- Update member model validation rules
+- Split tenancy features to a separate module extension
+- Fix cortex/auth::common.timezone language phrase namespace
+- Apply fixes from StyleCI (#252)
+- Move tenant features to cortex/tenants module from cortex/foundation
+- Check if IoC service container has `request.tenant` registered first before using
+- Remove useless condition on member account sidebar
+- Add managerarea sidebar menus for members & managers
+- Fix changelog format
+
 ## [v9.1.0] - 2023-05-02
-a3c1010 - Add support for Laravel v11, and drop support for Laravel v9
-6ee4d4d - Upgrade yajra/laravel-datatables-oracle to v10.4 from v10.0
-9cca8c0 - Upgrade yajra/laravel-datatables-html to v10.0 from v9.0
-5dda7a3 - Upgrade yajra/laravel-datatables-buttons to v10.0 from v9.0
-039a54d - Upgrade spatie/laravel-schemaless-attributes to v2.4 from v2.3
-982eb65 - Upgrade spatie/laravel-activitylog to v4.7 from v4.4
-28ed702 - Upgrade proengsoft/laravel-jsvalidation to v4.8 from v4.7
-42c2035 - Upgrade laravel/socialite to v5.6 from v5.5
-f4b9cd6 - Update yajra/laravel-datatables-fractal to v10.0 from v9.0
-0d48557 - Update propaganistas/laravel-phone to v5.0 from v4.4
-b1df6c7 - Update phpunit to v10.1 from v9.5
-80f7a9b - Fix tenant name
+- Add support for Laravel v11, and drop support for Laravel v9
+- Upgrade yajra/laravel-datatables-oracle to v10.4 from v10.0
+- Upgrade yajra/laravel-datatables-html to v10.0 from v9.0
+- Upgrade yajra/laravel-datatables-buttons to v10.0 from v9.0
+- Upgrade spatie/laravel-schemaless-attributes to v2.4 from v2.3
+- Upgrade spatie/laravel-activitylog to v4.7 from v4.4
+- Upgrade proengsoft/laravel-jsvalidation to v4.8 from v4.7
+- Upgrade laravel/socialite to v5.6 from v5.5
+- Update yajra/laravel-datatables-fractal to v10.0 from v9.0
+- Update propaganistas/laravel-phone to v5.0 from v4.4
+- Update phpunit to v10.1 from v9.5
+- Fix tenant name
 
 ## [v9.0.0] - 2023-01-09
 - Drop PHP v8.0 support and update composer dependencies
@@ -555,6 +567,8 @@ b1df6c7 - Update phpunit to v10.1 from v9.5
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v9.2.0]: https://github.com/rinvex/cortex-auth/compare/v9.1.0...v9.2.0
+[v9.1.0]: https://github.com/rinvex/cortex-auth/compare/v9.0.0...v9.1.0
 [v9.1.0]: https://github.com/rinvex/cortex-auth/compare/v9.0.0...v9.1.0
 [v9.0.0]: https://github.com/rinvex/cortex-auth/compare/v8.3.11...v9.0.0
 [v8.3.11]: https://github.com/rinvex/cortex-auth/compare/v8.3.10...v8.3.11

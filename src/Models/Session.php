@@ -38,6 +38,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Session whereUserAgent($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Session whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Auth\Models\Session whereUserType($value)
+ *
  * @mixin \Eloquent
  */
 class Session extends Model

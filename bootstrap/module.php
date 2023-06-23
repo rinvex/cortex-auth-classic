@@ -25,11 +25,9 @@ return function () {
     Route::pattern('session', '[a-zA-Z0-9-_]+');
     Route::pattern('admin', '[a-zA-Z0-9-_]+');
     Route::pattern('member', '[a-zA-Z0-9-_]+');
-    Route::pattern('manager', '[a-zA-Z0-9-_]+');
     Route::model('role', config('cortex.auth.models.role'));
     Route::model('admin', config('cortex.auth.models.admin'));
     Route::model('member', config('cortex.auth.models.member'));
-    Route::model('manager', config('cortex.auth.models.manager'));
     Route::model('guardian', config('cortex.auth.models.guardian'));
     Route::model('ability', config('cortex.auth.models.ability'));
     Route::model('session', config('cortex.auth.models.session'));
@@ -42,7 +40,6 @@ return function () {
         'role' => config('cortex.auth.models.role'),
         'admin' => config('cortex.auth.models.admin'),
         'member' => config('cortex.auth.models.member'),
-        'manager' => config('cortex.auth.models.manager'),
         'guardian' => config('cortex.auth.models.guardian'),
         'ability' => config('cortex.auth.models.ability'),
     ]);
