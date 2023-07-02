@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v9.2.1] - 2023-07-02
+- Remove ScopeBouncer::class call from cortex/auth
+
 ## [v9.2.0] - 2023-06-23
 - Update auth adminarea menu order
 - Update member model validation rules
@@ -567,6 +570,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v9.2.1]: https://github.com/rinvex/cortex-auth/compare/v9.2.0...v9.2.1
 [v9.2.0]: https://github.com/rinvex/cortex-auth/compare/v9.1.0...v9.2.0
 [v9.1.0]: https://github.com/rinvex/cortex-auth/compare/v9.0.0...v9.1.0
 [v9.1.0]: https://github.com/rinvex/cortex-auth/compare/v9.0.0...v9.1.0

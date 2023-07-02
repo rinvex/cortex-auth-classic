@@ -6,7 +6,6 @@ use Silber\Bouncer\BouncerFacade;
 use Cortex\Foundation\Http\Kernel;
 use Cortex\Auth\Http\Middleware\Authorize;
 use Illuminate\Auth\Middleware\Authenticate;
-use Cortex\Auth\Http\Middleware\ScopeBouncer;
 use Cortex\Auth\Http\Middleware\Reauthenticate;
 use Cortex\Auth\Http\Middleware\UpdateTimezone;
 use Illuminate\Auth\Middleware\RequirePassword;
@@ -49,7 +48,6 @@ return function () {
         Route::pushMiddlewareToGroup('web', AuthenticateSession::class);
         Route::pushMiddlewareToGroup('web', UpdateLastActivity::class);
         Route::pushMiddlewareToGroup('web', UpdateTimezone::class);
-        Route::pushMiddlewareToGroup('web', ScopeBouncer::class);
 
         // Add route middleware aliases on the fly
         Route::aliasMiddleware('can', Authorize::class);
