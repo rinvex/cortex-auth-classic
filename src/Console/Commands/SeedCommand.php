@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Console\Commands;
 
-use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Cortex\Auth\Models\Admin;
+use Illuminate\Support\Carbon;
 use Illuminate\Console\Command;
 use Cortex\Auth\Models\Guardian;
 use Cortex\Auth\Database\Seeders\CortexAuthSeeder;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Controllers\Frontarea;
 
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Cortex\Auth\Traits\TwoFactorAuthenticatesUsers;
 use Cortex\Foundation\Http\Controllers\AbstractController;
 use Cortex\Auth\Http\Requests\Frontarea\PhoneVerificationRequest;
