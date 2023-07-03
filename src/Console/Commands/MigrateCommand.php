@@ -41,6 +41,7 @@ class MigrateCommand extends Command
             $this->call('migrate', [
                 '--step' => true,
                 '--path' => $path,
+                '--realpath' => true,
                 '--force' => $this->option('force'),
             ]);
         } else {

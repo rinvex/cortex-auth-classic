@@ -40,6 +40,7 @@ class RollbackCommand extends Command
         if (file_exists($path)) {
             $this->call('migrate:reset', [
                 '--path' => $path,
+                '--realpath' => true,
                 '--force' => $this->option('force'),
             ]);
         } else {
