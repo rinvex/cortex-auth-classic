@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Controllers\Frontarea;
 
-use Illuminate\Support\Carbon;
 use Cortex\Auth\Models\User;
+use Illuminate\Support\Carbon;
 use Cortex\Foundation\Http\Controllers\AbstractController;
 use Rinvex\Auth\Contracts\EmailVerificationBrokerContract;
 use Cortex\Auth\Http\Requests\Frontarea\EmailVerificationRequest;
