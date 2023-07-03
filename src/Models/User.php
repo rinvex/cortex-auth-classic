@@ -15,7 +15,6 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Rinvex\Auth\Traits\HasHashables;
 use Rinvex\Support\Traits\Macroable;
-use Rinvex\Oauth\Traits\HasApiTokens;
 use Rinvex\Auth\Traits\CanVerifyEmail;
 use Rinvex\Auth\Traits\CanVerifyPhone;
 use Cortex\Foundation\Traits\Auditable;
@@ -52,7 +51,6 @@ abstract class User extends Model implements AuthenticatableContract, Authentica
     use HasFactory;
     use Notifiable;
     use SoftDeletes;
-    use HasApiTokens;
     use HasTimezones;
     use HashidsTrait;
     use Authorizable;

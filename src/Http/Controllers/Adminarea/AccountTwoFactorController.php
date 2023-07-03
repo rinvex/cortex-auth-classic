@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\Http\Controllers\Adminarea;
 
-use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use PragmaRX\Google2FA\Google2FA;
 use Cortex\Foundation\Http\Controllers\AuthenticatedController;
 use Cortex\Auth\Http\Requests\Adminarea\AccountTwoFactorPhoneRequest;
