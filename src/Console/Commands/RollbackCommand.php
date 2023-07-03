@@ -34,8 +34,8 @@ class RollbackCommand extends Command
         $this->alert($this->description);
 
         $path = config('cortex.auth.autoload_migrations') ?
-            'app/cortex/auth/database/migrations' :
-            'database/migrations/cortex/auth';
+            realpath(__DIR__.'/../../../database/migrations') :
+            $this->laravel->databasePath('migrations/cortex/auth');
 
         if (file_exists($path)) {
             $this->call('migrate:reset', [
