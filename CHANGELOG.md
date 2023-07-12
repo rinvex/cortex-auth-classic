@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v9.2.4] - 2023-07-12
+- Drop using attributes
+
 ## [v9.2.3] - 2023-07-03
 - Update composer dependencies
 - Drop using Rinvex\Oauth\Traits\HasApiTokens
@@ -578,6 +581,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v9.3.0]: https://github.com/rinvex/cortex-auth/compare/v9.2.3...v9.3.0
 [v9.2.3]: https://github.com/rinvex/cortex-auth/compare/v9.2.2...v9.2.3
 [v9.2.2]: https://github.com/rinvex/cortex-auth/compare/v9.2.1...v9.2.2
 [v9.2.1]: https://github.com/rinvex/cortex-auth/compare/v9.2.0...v9.2.1
