@@ -37,7 +37,6 @@ return [
         'different_password' => 'Sorry, your new password must not match your current password!',
         'country_required' => 'You must select your country first!',
         'phone_required' => 'You must update your phone first!',
-        'updated_attributes' => 'You have successfully updated your attributes!',
         'updated_password' => 'You have successfully updated your password!',
         'updated_account' => 'You have successfully updated your account!',
         'updated_timezone' => 'Your account timezone has been automatically updated successfully to :timezone!',

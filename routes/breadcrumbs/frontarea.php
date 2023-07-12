@@ -65,11 +65,6 @@ Breadcrumbs::for('frontarea.cortex.auth.account.password', function (Generator $
     $breadcrumbs->push(trans('cortex/auth::common.account_password'), route('frontarea.cortex.auth.account.password'));
 });
 
-Breadcrumbs::for('frontarea.cortex.auth.account.attributes', function (Generator $breadcrumbs) {
-    $breadcrumbs->parent('frontarea.home');
-    $breadcrumbs->push(trans('cortex/auth::common.account_attributes'), route('frontarea.cortex.auth.account.attributes'));
-});
-
 Breadcrumbs::for('frontarea.cortex.auth.account.sessions', function (Generator $breadcrumbs) {
     $breadcrumbs->parent('frontarea.home');
     $breadcrumbs->push(trans('cortex/auth::common.account_sessions'), route('frontarea.cortex.auth.account.sessions'));
