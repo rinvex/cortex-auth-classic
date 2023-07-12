@@ -88,8 +88,6 @@ return [
     'settings' => 'Settings',
     'sessions' => 'Sessions',
     'twofactor' => 'TwoFactor',
-    'attributes' => 'Attributes',
-    'account_attributes' => 'Account Attributes',
     'account_twofactor' => 'Account TwoFactor Authentication',
     'account_settings' => 'Account Settings',
     'account_password' => 'Account Password',
@@ -127,7 +125,6 @@ return [
     'basic_info' => 'Basic Info',
     'update_settings' => 'Update Settings',
     'update_password' => 'Update Password',
-    'update_attributes' => 'Update Attributes',
     'records' => 'Records',
     'import' => 'Import',
 
