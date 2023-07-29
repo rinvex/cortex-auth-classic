@@ -19,7 +19,7 @@ class PasswordResetPostProcessRequest extends PasswordResetRequest
             // Do not validate `token` or `expiration` here since at this stage we can NOT generate viewable
             // error, and it is been processed in the controller through EmailVerificationBroker anyway
             'email' => 'required|email:rfc,dns|min:3|max:128|exists:'.config('cortex.auth.models.member').',email',
-            'password' => 'required|confirmed|min:'.config('cortex.auth.password_min_chars').'|max:'.config('cortex.auth.password_max_chars'),
+            'password' => ['required', 'confirmed', config('validation.rules.password')],
         ];
     }
 }

@@ -125,10 +125,6 @@ return [
 
     'persistence' => 'multiple',
 
-    // Minimum/Maximum Password Characters
-    'password_min_chars' => 8,
-    'password_max_chars' => 64,
-
     // Auth media storage disk
     'media' => [
         'disk' => 'public',
