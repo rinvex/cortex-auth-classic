@@ -50,10 +50,10 @@ class Member extends User
     {
         $this->setTable(config('cortex.auth.tables.members'));
         $this->mergeRules([
-            'username' => 'required|alpha_dash|min:3|max:64|unique:'.config('cortex.auth.models.member').',username',
+            'username' => ['required', ...config('validation.rules.username'), 'unique:'.config('cortex.auth.models.member').',username'],
             'password' => ['sometimes', 'required', config('validation.rules.password')],
             'two_factor' => 'nullable|array',
-            'email' => 'required|email:rfc,dns|min:3|max:128|unique:'.config('cortex.auth.models.member').',email',
+            'email' => ['required', ...config('validation.rules.email'), 'unique:'.config('cortex.auth.models.member').',email'],
             'email_verified_at' => 'nullable|date',
             'phone' => 'nullable|phone:AUTO',
             'phone_verified_at' => 'nullable|date',

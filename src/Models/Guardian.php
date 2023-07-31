@@ -120,9 +120,9 @@ class Guardian extends Model implements AuthenticatableContract, AuthorizableCon
     {
         $this->setTable(config('cortex.auth.tables.guardians'));
         $this->mergeRules([
-            'username' => 'required|alpha_dash|min:3|max:64|unique:'.config('cortex.auth.models.guardian').',username',
+            'username' => ['required', ...config('validation.rules.username'), 'unique:'.config('cortex.auth.models.guardian').',username'],
             'password' => ['sometimes', 'required', config('validation.rules.password')],
-            'email' => 'required|email:rfc,dns|min:3|max:128|unique:'.config('cortex.auth.models.guardian').',email',
+            'email' => ['required', ...config('validation.rules.email'), 'unique:'.config('cortex.auth.models.guardian').',email'],
             'is_active' => 'sometimes|boolean',
             'tags' => 'nullable|array',
         ]);
