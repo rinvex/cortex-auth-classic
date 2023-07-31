@@ -80,11 +80,9 @@ class MemberFormRequest extends FormRequest
         $member->updateRulesUniques();
         $rules = $member->getRules();
 
+        $rules['password'][] = 'confirmed';
         $rules['roles'] = 'nullable|array';
         $rules['abilities'] = 'nullable|array';
-        $rules['password'] = $member->exists
-            ? 'confirmed|min:'.config('cortex.auth.password_min_chars').'|max:'.config('cortex.auth.password_max_chars')
-            : 'required|confirmed|min:'.config('cortex.auth.password_min_chars').'|max:'.config('cortex.auth.password_max_chars');
 
         return $rules;
     }

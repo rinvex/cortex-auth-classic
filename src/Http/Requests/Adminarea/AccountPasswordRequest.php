@@ -48,8 +48,8 @@ class AccountPasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'old_password' => 'required|min:'.config('cortex.auth.password_min_chars').'|max:'.config('cortex.auth.password_max_chars'),
-            'new_password' => 'required|confirmed|min:'.config('cortex.auth.password_min_chars').'|max:'.config('cortex.auth.password_max_chars'),
+            'old_password' => ['required', config('validation.rules.password')],
+            'new_password' => ['required', 'confirmed', config('validation.rules.password')],
         ];
     }
 }
