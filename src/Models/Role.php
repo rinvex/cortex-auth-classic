@@ -108,8 +108,8 @@ class Role extends BaseRole
     {
         $this->mergeRules([
             'title' => 'nullable|string|strip_tags|max:150',
-            'name' => 'required|string|strip_tags|max:150|unique:'.config('cortex.auth.models.role').',name,NULL,id,scope,'.($this->scope ?? 'null'),
-            'scope' => 'nullable|integer|unique:'.config('cortex.auth.models.role').',scope,NULL,id,name,'.($this->name ?? 'null'),
+            'name' => 'required|string|strip_tags|max:150|unique_with:'.config('cortex.auth.models.role').',scope',
+            'scope' => 'nullable|integer|unique_with:'.config('cortex.auth.models.role').',name',
         ]);
 
         parent::__construct($attributes);
