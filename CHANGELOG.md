@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v9.2.7] - 2023-08-17
+- Seed the new 'view' ability
+
 ## [v9.2.6] - 2023-08-16
 - Replace unique rule validation with unique_with
   - fix different scenario issues on model create, and model update
@@ -590,6 +593,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-03-13
 - Tag first release
 
+[v9.2.7]: https://github.com/rinvex/cortex-auth/compare/v9.2.6...v9.2.7
 [v9.2.6]: https://github.com/rinvex/cortex-auth/compare/v9.2.5...v9.2.6
 [v9.2.5]: https://github.com/rinvex/cortex-auth/compare/v9.2.4...v9.2.5
 [v9.2.4]: https://github.com/rinvex/cortex-auth/compare/v9.2.3...v9.2.4
