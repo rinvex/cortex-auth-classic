@@ -81,7 +81,7 @@
         "rinvex/laravel-tags": "^7.0.0",
         "rinvex/tmp-josephsilber-bouncer": "^1.0.0",
         "spatie/laravel-activitylog": "^4.7.0",
-        "spatie/laravel-medialibrary": "^10.0.0",
+        "spatie/laravel-medialibrary": "^11.7.3",
         "spatie/laravel-schemaless-attributes": "^2.4.0",
         "yajra/laravel-datatables-buttons": "^10.0.0",
         "yajra/laravel-datatables-fractal": "^10.0.0",
