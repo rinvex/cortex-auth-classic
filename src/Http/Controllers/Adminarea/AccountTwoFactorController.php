@@ -193,7 +193,7 @@ class AccountTwoFactorController extends AuthenticatedController
         $backup = [];
 
         for ($x = 0; $x <= 9; $x++) {
-            $backup[] = str_pad((string) random_int(0, 9999999999), 10, '0', STR_PAD_BOTH);
+            $backup[] = mb_str_pad((string) random_int(0, 9999999999), 10, '0', STR_PAD_BOTH);
         }
 
         return $backup;
