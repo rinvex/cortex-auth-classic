@@ -85,7 +85,7 @@
         "spatie/laravel-schemaless-attributes": "^2.4.0",
         "yajra/laravel-datatables-buttons": "^10.0.0",
         "yajra/laravel-datatables-fractal": "^10.0.0",
-        "yajra/laravel-datatables-html": "^10.0.0",
+        "yajra/laravel-datatables-html": "^11.4.0",
         "yajra/laravel-datatables-oracle": "^10.4.0",
         "symfony/console": "^6.2.0"
     },
