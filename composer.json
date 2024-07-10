@@ -87,7 +87,7 @@
         "yajra/laravel-datatables-fractal": "^10.0.0",
         "yajra/laravel-datatables-html": "^10.0.0",
         "yajra/laravel-datatables-oracle": "^10.4.0",
-        "symfony/console": "^6.2.0"
+        "symfony/console": "^7.1.2"
     },
     "require-dev": {
         "codedungeon/phpunit-result-printer": "^0.32.0",
